@@ -80,6 +80,7 @@ applyTo: 'src/**'
 - happy pathを左寄せ（インデントを最小限に）
 - 早期リターンでネストを減らす
 - ゼロ値を有効活用
+- typeのimportは必ず`import type { ... } from '...'`を使用
 
 #### 変数と関数
 

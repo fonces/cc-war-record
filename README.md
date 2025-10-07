@@ -7,6 +7,150 @@
 FINAL FANTASY XIVのPvPコンテンツ「クリスタルコンフリクト」の戦績を記録・管理するWebアプリケーションです。
 シーズンごとの勝敗記録を管理し、ジョブ別・全体の統計を可視化できます。
 
+## 技術スタック
+
+### コアライブラリ
+- **React** v18.x - UIライブラリ
+- **TypeScript** v5.x - 型安全性
+- **Vite** v5.x - ビルドツール
+
+### 状態管理・データフェッチング
+- **TanStack Query** v5.x - サーバー状態管理
+- **Zustand** v4.x - クライアント状態管理
+
+### ルーティング
+- **TanStack Router** v1.x - 型安全なルーティング
+
+### スタイリング
+- **styled-components** v6.x - CSS-in-JS
+
+## プロジェクト構造
+
+```
+src/
+├── app/              # アプリケーション設定
+│   ├── App.tsx
+│   └── provider.tsx
+├── components/       # 共有コンポーネント
+│   ├── ui/          # 基本UIコンポーネント
+│   ├── form/        # フォームコンポーネント
+│   └── layout/      # レイアウトコンポーネント
+├── features/        # 機能別モジュール
+│   └── auth/        # 認証機能（サンプル）
+│       ├── api/
+│       ├── components/
+│       ├── hooks/
+│       ├── stores/
+│       ├── types.ts
+│       └── index.ts
+├── hooks/           # 共有カスタムフック
+├── lib/             # 外部ライブラリ設定
+│   └── react-query.ts
+├── stores/          # グローバルストア
+├── styles/          # スタイル設定
+│   ├── theme.ts
+│   ├── GlobalStyle.tsx
+│   └── styled.d.ts
+├── types/           # 型定義
+├── utils/           # ユーティリティ関数
+└── test/            # テスト設定
+    └── server/
+```
+
+このプロジェクトは **Bulletproof React** のアーキテクチャパターンに準拠しています。
+
+## セットアップ
+
+### 依存関係のインストール
+
+```bash
+npm install
+```
+
+### 環境変数の設定
+
+`.env.example` をコピーして `.env` を作成：
+
+```bash
+cp .env.example .env
+```
+
+必要に応じて環境変数を編集してください。
+
+### 開発サーバーの起動
+
+```bash
+npm run dev
+```
+
+ブラウザで `http://localhost:5173/` を開きます。
+
+### ビルド
+
+```bash
+npm run build
+```
+
+### プレビュー
+
+```bash
+npm run preview
+```
+
+## 開発ガイド
+
+### コンポーネント作成
+
+新しいコンポーネントは `src/components/ui/` に配置します：
+
+```tsx
+// src/components/ui/YourComponent.tsx
+import styled from 'styled-components';
+
+const Container = styled.div`
+  // スタイル
+`;
+
+export const YourComponent = () => {
+  return <Container>Content</Container>;
+};
+```
+
+### Feature作成
+
+新しい機能は `src/features/` 配下にディレクトリを作成します：
+
+```
+src/features/your-feature/
+├── api/           # API呼び出し
+├── components/    # Feature固有のコンポーネント
+├── hooks/         # Feature固有のフック
+├── stores/        # Feature固有の状態管理
+├── types.ts       # 型定義
+└── index.ts       # エクスポート
+```
+
+### パスエイリアス
+
+`@/` でsrcディレクトリを参照できます：
+
+```tsx
+import { Button } from '@/components/ui';
+import { useAuth } from '@/features/auth';
+```
+
+## GitHub Copilot設定
+
+このプロジェクトにはGitHub Copilotの設定が含まれています：
+
+- `.github/instructions/codeGeneration.instructions.md` - コード生成ガイドライン
+- `.github/instructions/commitMessage.instructions.md` - コミットメッセージルール
+- `.vscode/copilot.json` - Copilot設定
+
+## ライセンス
+
+MIT
+
 ## 主な機能
 
 ### 戦績記録
