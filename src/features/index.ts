@@ -8,6 +8,3 @@ export * from './graphs'
 
 // Histories feature
 export * from './histories'
-
-// Auth feature
-export * from './auth'
