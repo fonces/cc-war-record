@@ -2,7 +2,7 @@ import { RouterProvider, createRouter } from '@tanstack/react-router'
 import { routeTree } from '@/routeTree.gen'
 
 // ルーターインスタンスを作成
-const router = createRouter({ routeTree })
+const router = createRouter({ routeTree, basepath: "/cc-war-record" })
 
 // 型安全性のためにルーター型を宣言
 declare module '@tanstack/react-router' {
