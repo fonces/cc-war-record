@@ -93,16 +93,26 @@ export const HomePage = () => {
     clearError 
   } = useCharacterStore()
 
-  const [openCharacterUuids, setOpenCharacterUuids] = useState<Set<string>>(new Set())
+  // 最新のシーズンを取得
+  const latestSeason = getSortedHistories()[0]
+  
+  // 最新シーズンのキャラクター戦績を取得
+  const characterStats = latestSeason ? getCharacterStatsForSeason(latestSeason.uuid) : []
+  
+  // デフォルトで1件目のキャラクターを開いた状態にする
+  const [openCharacterUuids, setOpenCharacterUuids] = useState<Set<string>>(() => {
+    if (characterStats.length > 0) {
+      return new Set([characterStats[0].character.uuid])
+    }
+    return new Set()
+  })
+  
   const [editingCharacterUuid, setEditingCharacterUuid] = useState<string | null>(null)
   const [editingCharacterName, setEditingCharacterName] = useState('')
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
   const [characterToDelete, setCharacterToDelete] = useState<{ uuid: string; name: string } | null>(null)
   const [jobRegistrationDialogOpen, setJobRegistrationDialogOpen] = useState(false)
   const [characterForJobRegistration, setCharacterForJobRegistration] = useState<string | null>(null)
-
-  // 最新のシーズンを取得
-  const latestSeason = getSortedHistories()[0]
 
   // シーズンを作成するボタンのクリックハンドラー
   const handleCreateSeason = () => {
@@ -296,9 +306,6 @@ export const HomePage = () => {
     )
   }
 
-  // 最新シーズンのキャラクター戦績を取得
-  const characterStats = latestSeason ? getCharacterStatsForSeason(latestSeason.uuid) : []
-
   // シーズンが存在する場合の表示
   return (
     <StyledContainer>
@@ -309,7 +316,7 @@ export const HomePage = () => {
         </Button>
       </StyledTitleContainer>
       <StyledDescription>
-        {latestSeason?.seasonName} の戦績と統計情報を入力します。
+        戦績と統計情報を入力します。
       </StyledDescription>
 
       {characterError && (

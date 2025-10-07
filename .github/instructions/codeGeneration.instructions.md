@@ -14,6 +14,7 @@ applyTo: 'src/**'
 - TanStack Router v1.x（ルーティング）
 - Zustand v4.x（クライアント状態管理）
 - styled-components v6.x（スタイリング）
+- recharts v2.x（チャート描画）
 
 ### アーキテクチャ原則（Bulletproof React）
 
