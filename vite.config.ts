@@ -6,6 +6,9 @@ import path from 'path'
 // https://vite.dev/config/
 export default defineConfig({
   base: '/cc-war-record/',
+  build: {
+    outDir: 'docs',
+  },
   plugins: [
     tanstackRouter({
       target: 'react',
