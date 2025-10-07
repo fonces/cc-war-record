@@ -51,15 +51,9 @@ export type MatchRecord = {
 export type CharacterStats = {
   /** キャラクター情報 */
   character: Character
-  /** 総試合数 */
-  totalMatches: number
-  /** 勝利数 */
-  wins: number
-  /** 敗北数 */
-  losses: number
-  /** 勝率（0-100の数値） */
-  winRate: number
-  /** 最近の戦績記録 */
+  /** 使用したジョブ一覧 */
+  usedJobs: Job[]
+  /** 戦績記録（最新順） */
   recentMatches: MatchRecord[]
 }
 
@@ -71,6 +65,8 @@ export type History = {
   uuid: string
   /** シーズン名 */
   seasonName: string
+  /** キャラクター戦績統計の配列 */
+  characterStats: CharacterStats[]
   /** 作成日時（ISO文字列） */
   createdAt: string
   /** 更新日時（ISO文字列） */
@@ -102,6 +98,18 @@ export type CreateCharacterInput = {
 }
 
 /**
+ * ジョブ登録時の入力型
+ */
+export type AddUsedJobInput = {
+  /** キャラクターUUID */
+  characterUuid: string
+  /** シーズンUUID */
+  seasonUuid: string
+  /** 使用ジョブ */
+  job: Job
+}
+
+/**
  * 戦績記録作成時の入力型
  */
 export type CreateMatchRecordInput = {
@@ -115,6 +123,46 @@ export type CreateMatchRecordInput = {
   map: CrystalConflictMap
   /** 勝敗（true: 勝利, false: 敗北） */
   isWin: boolean
-  /** メモ（任意） */
-  memo?: string
+}
+
+/**
+ * 戦績記録から総試合数を計算
+ */
+export const getTotalMatches = (matches: MatchRecord[]): number => {
+  return matches.length
+}
+
+/**
+ * 戦績記録から勝利数を計算
+ */
+export const getWins = (matches: MatchRecord[]): number => {
+  return matches.filter(m => m.isWin).length
+}
+
+/**
+ * 戦績記録から敗北数を計算
+ */
+export const getLosses = (matches: MatchRecord[]): number => {
+  return matches.filter(m => !m.isWin).length
+}
+
+/**
+ * 戦績記録から勝率を計算（0-100の整数）
+ */
+export const getWinRate = (matches: MatchRecord[]): number => {
+  const total = getTotalMatches(matches)
+  if (total === 0) return 0
+  const wins = getWins(matches)
+  return Math.round((wins / total) * 100)
+}
+
+/**
+ * 戦績記録から使用したジョブ一覧を取得（重複なし）
+ */
+export const getUsedJobs = (matches: MatchRecord[]): Job[] => {
+  const jobSet = new Set<Job>()
+  matches.forEach((match) => {
+    jobSet.add(match.job)
+  })
+  return Array.from(jobSet)
 }

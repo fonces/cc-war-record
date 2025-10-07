@@ -19,6 +19,8 @@ export const GlobalStyle = createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
     color: ${({ theme }) => theme.colors.gray[900]};
     background-color: ${({ theme }) => theme.colors.gray[50]};
+    overflow-y: scroll;
+    scrollbar-width: thin;
   }
 
   code {

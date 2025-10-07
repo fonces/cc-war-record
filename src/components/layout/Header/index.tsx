@@ -34,7 +34,7 @@ const StyledSidebar = styled.aside<{ isOpen: boolean }>`
 
   @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
     transform: translateX(0);
-    position: relative;
+    position: fixed;
     flex-shrink: 0;
   }
 `
@@ -130,7 +130,7 @@ const StyledMainContent = styled.main`
   overflow-x: hidden;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
-    margin-left: 0;
+    margin-left: 240px;
   }
 `
 

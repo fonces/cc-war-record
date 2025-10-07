@@ -1,13 +1,14 @@
 import styled from 'styled-components';
-import type { ButtonHTMLAttributes } from 'react';
+import type { ButtonHTMLAttributes, ReactNode } from 'react';
 
-type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost';
+type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'win';
 type ButtonSize = 'sm' | 'md' | 'lg';
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: ButtonVariant;
   size?: ButtonSize;
   fullWidth?: boolean;
+  icon?: ReactNode;
 };
 
 const StyledButton = styled.button<ButtonProps>`
@@ -21,7 +22,15 @@ const StyledButton = styled.button<ButtonProps>`
   outline: none;
 
   /* サイズ */
-  ${({ size = 'md', theme }) => {
+  ${({ size = 'md', theme, icon }) => {
+    // アイコンのみの場合はpaddingを削除
+    if (icon) {
+      return `
+        padding: 0;
+        font-size: 1rem;
+      `;
+    }
+    
     switch (size) {
       case 'sm':
         return `
@@ -75,8 +84,8 @@ const StyledButton = styled.button<ButtonProps>`
       case 'outline':
         return `
           background-color: transparent;
-          color: ${theme.colors.primary[600]};
-          border: 2px solid ${theme.colors.primary[600]};
+          color: ${theme.colors.gray[700]};
+          border: 2px solid ${theme.colors.gray[600]};
 
           &:hover:not(:disabled) {
             background-color: ${theme.colors.primary[50]};
@@ -100,6 +109,20 @@ const StyledButton = styled.button<ButtonProps>`
             background-color: ${theme.colors.gray[200]};
           }
         `;
+      case 'win':
+        return `
+          background-color: ${theme.colors.win[600]};
+          color: white;
+          border: none;
+
+          &:hover:not(:disabled) {
+            background-color: ${theme.colors.win[700]};
+          }
+
+          &:active:not(:disabled) {
+            background-color: ${theme.colors.win[800]};
+          }
+        `;
     }
   }}
 
@@ -116,6 +139,6 @@ const StyledButton = styled.button<ButtonProps>`
   }
 `;
 
-export const Button = ({ children, ...props }: ButtonProps) => {
-  return <StyledButton {...props}>{children}</StyledButton>;
+export const Button = ({ children, icon, ...props }: ButtonProps) => {
+  return <StyledButton {...props} icon={icon}>{icon || children}</StyledButton>;
 };

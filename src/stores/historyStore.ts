@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import type { History, CreateHistoryInput, UpdateHistoryInput } from '@/types'
+import type { History, CreateHistoryInput, UpdateHistoryInput, CharacterStats, Character, AddUsedJobInput } from '@/types'
 import { generateUUID, getCurrentISOString } from '@/utils/uuid'
 import { getFromLocalStorage, saveToLocalStorage } from '@/utils/localStorage'
 
@@ -34,6 +34,10 @@ type HistoryActions = {
   getHistoryByUuid: (uuid: string) => History | undefined
   /** 履歴一覧を日付順（新しい順）でソート */
   getSortedHistories: () => History[]
+  /** キャラクター統計を追加または取得 */
+  addCharacterStats: (historyUuid: string, character: Character) => CharacterStats | null
+  /** 使用ジョブを追加 */
+  addUsedJob: (input: AddUsedJobInput) => boolean
   /** エラーをクリア */
   clearError: () => void
 }
@@ -79,6 +83,7 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
       seasonName: input.seasonName,
       createdAt: now,
       updatedAt: now,
+      characterStats: [],
     }
 
     const updatedHistories = [...histories, newHistory]
@@ -170,6 +175,116 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
     return [...histories].sort((a, b) => 
       new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     )
+  },
+
+  // キャラクター統計を追加または取得
+  addCharacterStats: (historyUuid: string, character: Character) => {
+    const { histories } = get()
+    
+    const historyIndex = histories.findIndex(h => h.uuid === historyUuid)
+    if (historyIndex === -1) {
+      set({ error: '指定された履歴が見つかりません' })
+      return null
+    }
+
+    const history = histories[historyIndex]
+    
+    // 既存のCharacterStatsを探す（同じキャラクター）
+    const existingCharacterStats = history.characterStats.find(
+      cs => cs.character.uuid === character.uuid
+    )
+
+    if (existingCharacterStats) {
+      // 既存のCharacterStatsが見つかった場合は、それを返す
+      return existingCharacterStats
+    }
+
+    // 新しいCharacterStatsを作成
+    const newCharacterStats: CharacterStats = {
+      character,
+      usedJobs: [],
+      recentMatches: [],
+    }
+
+    // 履歴を更新
+    const updatedHistory: History = {
+      ...history,
+      characterStats: [...history.characterStats, newCharacterStats],
+      updatedAt: getCurrentISOString(),
+    }
+
+    const updatedHistories = [...histories]
+    updatedHistories[historyIndex] = updatedHistory
+
+    // localStorageに保存
+    saveToLocalStorage(STORAGE_KEY, updatedHistories)
+    
+    set({ 
+      histories: updatedHistories,
+      error: null 
+    })
+
+    return newCharacterStats
+  },
+
+  // 使用ジョブを追加
+  addUsedJob: (input: AddUsedJobInput) => {
+    const { histories } = get()
+    
+    const historyIndex = histories.findIndex(h => h.uuid === input.seasonUuid)
+    if (historyIndex === -1) {
+      set({ error: '指定された履歴が見つかりません' })
+      return false
+    }
+
+    const history = histories[historyIndex]
+    
+    // 指定されたキャラクターのCharacterStatsを探す
+    const characterStatsIndex = history.characterStats.findIndex(
+      cs => cs.character.uuid === input.characterUuid
+    )
+
+    if (characterStatsIndex === -1) {
+      set({ error: '指定されたキャラクターが見つかりません' })
+      return false
+    }
+
+    const characterStats = history.characterStats[characterStatsIndex]
+    
+    // 既に同じジョブが登録されているかチェック
+    if (characterStats.usedJobs.includes(input.job)) {
+      // 重複登録は成功扱い（冪等性）
+      return true
+    }
+
+    // 新しいジョブを追加
+    const updatedCharacterStats: CharacterStats = {
+      ...characterStats,
+      usedJobs: [...characterStats.usedJobs, input.job],
+    }
+
+    const updatedCharacterStatsArray = [...history.characterStats]
+    updatedCharacterStatsArray[characterStatsIndex] = updatedCharacterStats
+
+    // 履歴を更新
+    const updatedHistory: History = {
+      ...history,
+      characterStats: updatedCharacterStatsArray,
+      updatedAt: getCurrentISOString(),
+    }
+
+    const updatedHistories = [...histories]
+    updatedHistories[historyIndex] = updatedHistory
+
+    // localStorageに保存
+    saveToLocalStorage(STORAGE_KEY, updatedHistories)
+    
+    set({ 
+      histories: updatedHistories,
+      error: null 
+    })
+
+    return true
   },
 
   // エラーをクリア

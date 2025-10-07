@@ -3,3 +3,4 @@ export { Input } from './Input';
 export { Icon } from './Icon';
 export { JobIcon } from './JobIcon';
 export { Dialog } from './Dialog';
+export { JobRegistrationDialog } from './JobRegistrationDialog';

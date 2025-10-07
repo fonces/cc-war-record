@@ -24,6 +24,109 @@ FINAL FANTASY XIVのPvPコンテンツ「クリスタルコンフリクト」の
 ### スタイリング
 - **styled-components** v6.x - CSS-in-JS
 
+## データ管理アーキテクチャ
+
+### Zustandストア構成
+
+#### characterStore.ts - キャラクター・戦績管理
+```typescript
+type CharacterState = {
+  characters: Character[]      // キャラクター一覧
+  matchRecords: MatchRecord[]  // 戦績記録一覧
+  isLoading: boolean          // ローディング状態
+  error: string | null        // エラーメッセージ
+}
+
+// 主要なアクション
+- loadData()                                    // localStorageからデータ読み込み
+- createCharacter(input: CreateCharacterInput)  // 新規キャラクター作成
+- updateCharacter(uuid: string, name: string)   // キャラクター名更新
+- deleteCharacter(uuid: string)                 // キャラクター削除
+- createMatchRecord(input: CreateMatchRecordInput) // 戦績記録作成
+- deleteMatchRecord(uuid: string)               // 戦績記録削除
+- getCharacterStatsForSeason(seasonUuid: string) // シーズン別統計取得
+- getMatchRecordsForCharacter(characterUuid: string) // キャラクター別戦績取得
+```
+
+#### historyStore.ts - シーズン履歴管理
+```typescript
+type HistoryState = {
+  histories: History[]      // シーズン履歴一覧
+  isLoading: boolean       // ローディング状態
+  error: string | null     // エラーメッセージ
+}
+
+// 主要なアクション
+- loadHistories()                                        // 履歴一覧読み込み
+- createHistory(input: CreateHistoryInput)               // 新規シーズン作成
+- updateHistory(uuid: string, input: UpdateHistoryInput) // シーズン情報更新
+- deleteHistory(uuid: string)                            // シーズン削除
+- getHistoryByUuid(uuid: string)                         // UUID指定で履歴取得
+- getSortedHistories()                                   // 日付順ソート済み履歴取得
+- addCharacterStats(historyUuid: string, character: Character) // キャラクター統計追加
+```
+
+### データ型定義
+
+#### Character - キャラクター情報
+```typescript
+type Character = {
+  uuid: string        // 一意識別子
+  name: string        // キャラクター名
+  createdAt: string   // 作成日時（ISO文字列）
+  updatedAt: string   // 更新日時（ISO文字列）
+}
+```
+
+#### MatchRecord - 戦績記録
+```typescript
+type MatchRecord = {
+  uuid: string              // 一意識別子
+  characterUuid: string     // キャラクターUUID
+  seasonUuid: string        // シーズンUUID
+  job: Job                  // 使用ジョブ
+  map: CrystalConflictMap   // マップ
+  isWin: boolean           // 勝敗（true: 勝利, false: 敗北）
+  memo?: string            // メモ（任意）
+  recordedAt: string       // 記録日時（ISO文字列）
+  createdAt: string        // 作成日時（ISO文字列）
+  updatedAt: string        // 更新日時（ISO文字列）
+}
+```
+
+#### CharacterStats - キャラクター戦績統計
+```typescript
+type CharacterStats = {
+  character: Character      // キャラクター情報
+  totalMatches: number     // 総試合数
+  wins: number            // 勝利数
+  losses: number          // 敗北数
+  winRate: number         // 勝率（0-100の数値）
+  recentMatches: MatchRecord[] // 最近の戦績記録
+}
+```
+
+#### History - シーズン履歴
+```typescript
+type History = {
+  uuid: string                    // 一意識別子
+  seasonName: string              // シーズン名
+  characterStats: CharacterStats[] // キャラクター戦績統計の配列
+  createdAt: string              // 作成日時（ISO文字列）
+  updatedAt: string              // 更新日時（ISO文字列）
+}
+```
+
+### データ永続化
+
+- **localStorage**を使用してブラウザにデータを永続化
+- キー構成:
+  - `cc-war-record-characters`: キャラクター一覧
+  - `cc-war-record-match-records`: 戦績記録一覧  
+  - `cc-war-record-histories`: シーズン履歴一覧
+- JSON形式でシリアライズして保存
+- アプリケーション起動時に各ストアが自動的にデータを読み込み
+
 ## プロジェクト構造
 
 ```
@@ -36,18 +139,17 @@ src/
 │   ├── form/        # フォームコンポーネント
 │   └── layout/      # レイアウトコンポーネント
 ├── features/        # 機能別モジュール
-│   └── auth/        # 認証機能（サンプル）
-│       ├── api/
-│       ├── components/
-│       ├── hooks/
-│       ├── stores/
-│       ├── types.ts
-│       └── index.ts
+│   ├── home/        # ホーム画面（キャラクター管理）
+│   ├── graphs/      # グラフ・統計表示
+│   └── histories/   # 履歴詳細表示
 ├── hooks/           # 共有カスタムフック
 ├── lib/             # 外部ライブラリ設定
-│   └── react-query.ts
-├── stores/          # グローバルストア
+├── stores/          # グローバルストア（Zustand）
+│   ├── characterStore.ts  # キャラクター・戦績管理
+│   └── historyStore.ts    # シーズン履歴管理
 ├── styles/          # スタイル設定
+├── types/           # 型定義
+└── utils/           # ユーティリティ関数
 │   ├── theme.ts
 │   ├── GlobalStyle.tsx
 │   └── styled.d.ts
@@ -172,11 +274,27 @@ MIT
   - 時間帯別の戦績分析
   - ジョブ別パフォーマンス比較
 
-## データ保存
+## 主要機能
 
-- **localStorage**を使用してブラウザにデータを保存
-- サーバー不要、完全にローカルで動作
-- ⚠️ **重要**: ブラウザのlocalStorageをクリアするとデータが消失します
+### キャラクター管理
+- キャラクター作成・編集・削除
+- キャラクター別戦績統計表示
+- アコーディオン形式でのキャラクター一覧表示
+
+### シーズン管理  
+- シーズン（履歴）の作成・管理
+- シーズン別キャラクター統計の管理
+- 最新シーズンの自動選択
+
+### 戦績記録
+- ジョブ選択ダイアログでの戦績登録
+- マップ・勝敗情報の記録
+- リアルタイムでの統計更新
+
+### ジョブ・マップ対応
+- FF14の全ジョブに対応（ロール別分類）
+- クリスタルコンフリクト全マップに対応
+- XIVAPIからのジョブアイコン取得
 
 ## 使用方法
 

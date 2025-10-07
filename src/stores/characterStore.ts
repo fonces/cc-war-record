@@ -8,6 +8,7 @@ import type {
 } from '@/types'
 import { generateUUID, getCurrentISOString } from '@/utils/uuid'
 import { getFromLocalStorage, saveToLocalStorage } from '@/utils/localStorage'
+import { useHistoryStore } from './historyStore'
 
 // localStorageのキー
 const CHARACTERS_STORAGE_KEY = 'cc-war-record-characters'
@@ -183,7 +184,6 @@ export const useCharacterStore = create<CharacterState & CharacterActions>((set,
       job: input.job,
       map: input.map,
       isWin: input.isWin,
-      memo: input.memo,
       recordedAt: now,
       createdAt: now,
       updatedAt: now,
@@ -229,27 +229,25 @@ export const useCharacterStore = create<CharacterState & CharacterActions>((set,
   getCharacterStatsForSeason: (seasonUuid: string): CharacterStats[] => {
     const { characters, matchRecords } = get()
     
+    // historyStoreから履歴を取得
+    const history = useHistoryStore.getState().getHistoryByUuid(seasonUuid)
+    
     return characters.map(character => {
       const characterMatches = matchRecords.filter(
         record => record.characterUuid === character.uuid && record.seasonUuid === seasonUuid
       )
       
-      const wins = characterMatches.filter(match => match.isWin).length
-      const losses = characterMatches.filter(match => !match.isWin).length
-      const totalMatches = characterMatches.length
-      const winRate = totalMatches > 0 ? Math.round((wins / totalMatches) * 100) : 0
-      
-      // 最近の戦績（最新5件）
+      // 戦績記録を最新順にソート
       const recentMatches = [...characterMatches]
         .sort((a, b) => new Date(b.recordedAt).getTime() - new Date(a.recordedAt).getTime())
-        .slice(0, 5)
+
+      // historyStoreのcharacterStatsからusedJobsを取得
+      const usedJobs = history?.characterStats
+        .find(cs => cs.character.uuid === character.uuid)?.usedJobs || []
 
       return {
         character,
-        totalMatches,
-        wins,
-        losses,
-        winRate,
+        usedJobs,
         recentMatches,
       }
     }).sort((a, b) => new Date(b.character.createdAt).getTime() - new Date(a.character.createdAt).getTime())

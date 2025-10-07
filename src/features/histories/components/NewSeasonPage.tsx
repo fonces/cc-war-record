@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useRouter } from '@tanstack/react-router'
 import styled from 'styled-components'
 import { useHistoryStore } from '@/stores'
-import { Button, Input } from '@/components/ui'
+import { Button, Input, Dialog } from '@/components/ui'
 
 const StyledContainer = styled.div`
   max-width: 600px;
@@ -75,14 +75,15 @@ const StyledSuccessMessage = styled.div`
  */
 export const NewSeasonPage = () => {
   const router = useRouter()
-  const { createHistory, error, clearError } = useHistoryStore()
+  const { createHistory, error, clearError, getSortedHistories } = useHistoryStore()
   
   const [seasonName, setSeasonName] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [validationError, setValidationError] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
+  const [showWarningDialog, setShowWarningDialog] = useState(false)
 
-  // フォーム送信処理
+  // フォーム送信処理（バリデーションのみ）
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
@@ -99,10 +100,25 @@ export const NewSeasonPage = () => {
     }
 
     setValidationError('')
+    
+    // 既存のシーズンがある場合は警告ダイアログを表示
+    const sortedHistories = getSortedHistories()
+    if (sortedHistories.length > 0) {
+      setShowWarningDialog(true)
+      return
+    }
+
+    // シーズンがない場合は直接作成
+    await createNewSeason()
+  }
+
+  // 実際にシーズンを作成する処理
+  const createNewSeason = async () => {
     setIsSubmitting(true)
     clearError()
 
     try {
+      const trimmedSeasonName = seasonName.trim()
       // 新規履歴作成
       const newHistory = createHistory({ seasonName: trimmedSeasonName })
       
@@ -118,12 +134,23 @@ export const NewSeasonPage = () => {
       console.error('シーズン作成エラー:', error)
     } finally {
       setIsSubmitting(false)
+      setShowWarningDialog(false)
     }
+  }
+
+  // 警告ダイアログで確認した場合
+  const handleConfirmCreate = () => {
+    createNewSeason()
+  }
+
+  // 警告ダイアログをキャンセルした場合
+  const handleCancelCreate = () => {
+    setShowWarningDialog(false)
   }
 
   // キャンセル処理
   const handleCancel = () => {
-    router.navigate({ to: '/histories' })
+    history.back()
   }
 
   // 入力値変更処理
@@ -135,7 +162,26 @@ export const NewSeasonPage = () => {
     }
   }
 
+  // 最新のシーズン名を取得
+  const latestSeasonName = getSortedHistories()[0]?.seasonName || ''
+
   return (
+    <>
+      {/* 警告ダイアログ */}
+      <Dialog
+        isOpen={showWarningDialog}
+        onClose={handleCancelCreate}
+        title="シーズン作成の確認"
+        confirmText="作成する"
+        cancelText="キャンセル"
+        onConfirm={handleConfirmCreate}
+        confirmType="danger"
+        isLoading={isSubmitting}
+      >
+        新しいシーズンを作成すると「{latestSeasonName}」の戦績はアーカイブされ、戦績を入力することができなくなります。よろしいでしょうか?
+      </Dialog>
+
+      {/* メインコンテンツ */}
     <StyledContainer>
       <StyledHeader>
         <StyledTitle>新規シーズン作成</StyledTitle>
@@ -166,7 +212,7 @@ export const NewSeasonPage = () => {
             type="text"
             value={seasonName}
             onChange={handleSeasonNameChange}
-            placeholder="例: シーズン7.1、2025年春シーズン"
+            placeholder="例: シーズン1"
             disabled={isSubmitting || !!successMessage}
             fullWidth
             required
@@ -192,5 +238,6 @@ export const NewSeasonPage = () => {
         </StyledActions>
       </StyledForm>
     </StyledContainer>
+    </>
   )
 }

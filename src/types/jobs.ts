@@ -13,6 +13,45 @@ export const ROLES = {
 
 export type Role = typeof ROLES[keyof typeof ROLES]
 
+// ロール情報の型定義
+export type RoleInfo = {
+  /** ロールコード */
+  code: Role
+  /** 日本語名 */
+  name: string
+  /** カラーコード */
+  color: string
+}
+
+// ロール詳細情報の定義
+export const ROLE_INFO: Record<Role, RoleInfo> = {
+  [ROLES.TANK]: {
+    code: ROLES.TANK,
+    name: 'タンク',
+    color: '#3b82f6', // Blue
+  },
+  [ROLES.HEALER]: {
+    code: ROLES.HEALER,
+    name: 'ヒーラー',
+    color: '#10b981', // Green
+  },
+  [ROLES.MELEE_DPS]: {
+    code: ROLES.MELEE_DPS,
+    name: '近接DPS',
+    color: '#f59e0b', // Orange
+  },
+  [ROLES.PHYSICAL_RANGED_DPS]: {
+    code: ROLES.PHYSICAL_RANGED_DPS,
+    name: '物理遠隔DPS',
+    color: '#8b5cf6', // Purple
+  },
+  [ROLES.MAGICAL_RANGED_DPS]: {
+    code: ROLES.MAGICAL_RANGED_DPS,
+    name: '魔法遠隔DPS',
+    color: '#ef4444', // Red
+  },
+}
+
 // ジョブ定義
 export const JOBS = {
   // タンク
@@ -44,7 +83,6 @@ export const JOBS = {
   BLACK_MAGE: 'BLM',
   SUMMONER: 'SMN',
   RED_MAGE: 'RDM',
-  BLUE_MAGE: 'BLU',
   PICTOMANCER: 'PCT',
 } as const
 
@@ -258,15 +296,6 @@ export const JOB_INFO: Record<Job, JobInfo> = {
     role: ROLES.MAGICAL_RANGED_DPS,
     iconId: 35,
     color: '#E87B7B',
-  },
-  [JOBS.BLUE_MAGE]: {
-    code: JOBS.BLUE_MAGE,
-    name: '青魔道士',
-    nameEn: 'Blue Mage',
-    shortName: 'BLU',
-    role: ROLES.MAGICAL_RANGED_DPS,
-    iconId: 36,
-    color: '#4F81BD',
   },
   [JOBS.PICTOMANCER]: {
     code: JOBS.PICTOMANCER,

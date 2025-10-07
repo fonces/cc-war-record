@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 type IconProps = {
   /** アイコンの種類 */
-  name: 'hamburger' | 'close' | 'home' | 'history' | 'chart' | 'edit' | 'accept'
+  name: 'hamburger' | 'close' | 'home' | 'history' | 'chart' | 'edit' | 'accept' | 'add' | 'delete' | 'minus' | 'revert'
   /** サイズ */
   size?: number
   /** 色 */
@@ -85,6 +85,35 @@ const AcceptIcon = () => (
   </svg>
 )
 
+const AddIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <line x1="12" y1="5" x2="12" y2="19" />
+    <line x1="5" y1="12" x2="19" y2="12" />
+  </svg>
+)
+
+const DeleteIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <polyline points="3,6 5,6 21,6" />
+    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+    <line x1="10" y1="11" x2="10" y2="17" />
+    <line x1="14" y1="11" x2="14" y2="17" />
+  </svg>
+)
+
+const MinusIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <line x1="5" y1="12" x2="19" y2="12" />
+  </svg>
+)
+
+const RevertIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <polyline points="1,4 1,10 7,10" />
+    <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" />
+  </svg>
+)
+
 /**
  * アイコンコンポーネント
  */
@@ -105,6 +134,14 @@ export const Icon = ({ name, size = 24, color, onClick, className }: IconProps) 
         return <EditIcon />
       case 'accept':
         return <AcceptIcon />
+      case 'add':
+        return <AddIcon />
+      case 'delete':
+        return <DeleteIcon />
+      case 'minus':
+        return <MinusIcon />
+      case 'revert':
+        return <RevertIcon />
       default:
         return null
     }

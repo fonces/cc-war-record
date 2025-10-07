@@ -42,9 +42,10 @@ const StyledDialog = styled.div`
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   width: 100%;
-  max-width: 400px;
+  max-width: 500px;
   max-height: 90vh;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
   animation: dialogSlideIn 0.2s ease-out;
 
   @keyframes dialogSlideIn {
@@ -65,6 +66,7 @@ const StyledHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  flex-shrink: 0;
 `
 
 const StyledTitle = styled.h2`
@@ -97,6 +99,9 @@ const StyledContent = styled.div`
   padding: ${({ theme }) => theme.spacing[4]} ${({ theme }) => theme.spacing[6]};
   color: ${({ theme }) => theme.colors.textSecondary};
   line-height: 1.6;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
 `
 
 const StyledFooter = styled.div`
@@ -105,6 +110,7 @@ const StyledFooter = styled.div`
   gap: ${({ theme }) => theme.spacing[3]};
   justify-content: flex-end;
   border-top: 1px solid ${({ theme }) => theme.colors.gray[200]};
+  flex-shrink: 0;
 `
 
 const StyledConfirmButton = styled(Button)<{ confirmType: 'primary' | 'danger' }>`
