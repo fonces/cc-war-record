@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 type IconProps = {
   /** アイコンの種類 */
-  name: 'hamburger' | 'close' | 'home' | 'history' | 'chart'
+  name: 'hamburger' | 'close' | 'home' | 'history' | 'chart' | 'edit' | 'accept'
   /** サイズ */
   size?: number
   /** 色 */
@@ -72,6 +72,19 @@ const ChartIcon = () => (
   </svg>
 )
 
+const EditIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="m18 2 4 4-18 18H0v-4L18 2z" />
+    <path d="m14.5 5.5 4 4" />
+  </svg>
+)
+
+const AcceptIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <polyline points="20,6 9,17 4,12" />
+  </svg>
+)
+
 /**
  * アイコンコンポーネント
  */
@@ -88,6 +101,10 @@ export const Icon = ({ name, size = 24, color, onClick, className }: IconProps) 
         return <HistoryIcon />
       case 'chart':
         return <ChartIcon />
+      case 'edit':
+        return <EditIcon />
+      case 'accept':
+        return <AcceptIcon />
       default:
         return null
     }

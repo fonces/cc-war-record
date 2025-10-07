@@ -9,11 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as NewRouteImport } from './routes/new'
 import { Route as GraphsRouteImport } from './routes/graphs'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as HistoriesIndexRouteImport } from './routes/histories/index'
 import { Route as HistoriesIdRouteImport } from './routes/histories/$id'
 
+const NewRoute = NewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GraphsRoute = GraphsRouteImport.update({
   id: '/graphs',
   path: '/graphs',
@@ -38,12 +44,14 @@ const HistoriesIdRoute = HistoriesIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/graphs': typeof GraphsRoute
+  '/new': typeof NewRoute
   '/histories/$id': typeof HistoriesIdRoute
   '/histories': typeof HistoriesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/graphs': typeof GraphsRoute
+  '/new': typeof NewRoute
   '/histories/$id': typeof HistoriesIdRoute
   '/histories': typeof HistoriesIndexRoute
 }
@@ -51,26 +59,35 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/graphs': typeof GraphsRoute
+  '/new': typeof NewRoute
   '/histories/$id': typeof HistoriesIdRoute
   '/histories/': typeof HistoriesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/graphs' | '/histories/$id' | '/histories'
+  fullPaths: '/' | '/graphs' | '/new' | '/histories/$id' | '/histories'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/graphs' | '/histories/$id' | '/histories'
-  id: '__root__' | '/' | '/graphs' | '/histories/$id' | '/histories/'
+  to: '/' | '/graphs' | '/new' | '/histories/$id' | '/histories'
+  id: '__root__' | '/' | '/graphs' | '/new' | '/histories/$id' | '/histories/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   GraphsRoute: typeof GraphsRoute
+  NewRoute: typeof NewRoute
   HistoriesIdRoute: typeof HistoriesIdRoute
   HistoriesIndexRoute: typeof HistoriesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/new': {
+      id: '/new'
+      path: '/new'
+      fullPath: '/new'
+      preLoaderRoute: typeof NewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/graphs': {
       id: '/graphs'
       path: '/graphs'
@@ -105,6 +122,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   GraphsRoute: GraphsRoute,
+  NewRoute: NewRoute,
   HistoriesIdRoute: HistoriesIdRoute,
   HistoriesIndexRoute: HistoriesIndexRoute,
 }

@@ -14,8 +14,8 @@ type NavigationItem = {
 
 const navigationItems: NavigationItem[] = [
   { label: 'ホーム', path: '/', icon: 'home' },
-  { label: '履歴', path: '/histories', icon: 'history' },
   { label: 'グラフ', path: '/graphs', icon: 'chart' },
+  { label: '履歴', path: '/histories', icon: 'history' },
 ]
 
 // デスクトップ用サイドメニュー
