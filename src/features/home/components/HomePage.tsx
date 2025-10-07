@@ -328,11 +328,6 @@ export const HomePage = () => {
         </StyledErrorMessage>
       )}
 
-      <CharacterForm
-        isOpen={characterStats.length === 0}
-        onCreateCharacter={handleCreateCharacter}
-      />
-
       <StyledCharacterList>
         {characterStats.map((stats) => (
           <CharacterCard
@@ -353,6 +348,10 @@ export const HomePage = () => {
             onCancelEdit={handleCancelEditing}
           />
         ))}
+        <CharacterForm
+          isOpen={characterStats.length === 0}
+          onCreateCharacter={handleCreateCharacter}
+        />
       </StyledCharacterList>
 
       <DeleteCharacterDialog

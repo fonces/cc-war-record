@@ -1,7 +1,8 @@
-import { Link } from '@tanstack/react-router'
+import { useNavigate } from '@tanstack/react-router'
+import { useState } from 'react'
 import styled from 'styled-components'
 import type { History } from '@/types'
-import { Icon } from '@/components/ui'
+import { Button, Icon, Dialog } from '@/components/ui'
 import { formatDateTable } from '@/utils/uuid'
 
 type HistoryTableProps = {
@@ -9,6 +10,8 @@ type HistoryTableProps = {
   histories: History[]
   /** ローディング状態 */
   isLoading?: boolean
+  /** 削除ハンドラー */
+  onDelete: (historyUuid: string) => void
 }
 
 // テーブルコンテナ
@@ -42,7 +45,7 @@ const StyledHeaderCell = styled.th`
 
   &:last-child {
     text-align: center;
-    width: 80px;
+    width: 120px;
   }
 `
 
@@ -86,26 +89,60 @@ const StyledDateCell = styled(StyledTableCell)`
 `
 
 // 詳細ボタン
-const StyledDetailButton = styled(Link)`
+const StyledDetailButton = styled(Button)`
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 32px;
   height: 32px;
   border-radius: ${({ theme }) => theme.borderRadius.md};
-  background-color: ${({ theme }) => theme.colors.primary[500]};
-  color: white;
   text-decoration: none;
   transition: all 0.2s ease-in-out;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.primary[600]};
-    transform: translateY(-1px);
   }
+`
 
-  &:active {
-    transform: translateY(0);
+// 削除ボタン
+const StyledDeleteButton = styled(Button)`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: ${({ theme }) => theme.borderRadius.md};
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.error};
   }
+`
+
+// ボタングループ
+const StyledButtonGroup = styled.div`
+  display: flex;
+  gap: ${({ theme }) => theme.spacing[2]};
+  justify-content: center;
+`
+
+// モーダルコンテンツ
+const StyledDialogContent = styled.div`
+  padding: ${({ theme }) => theme.spacing[6]};
+`
+
+const StyledDialogDescription = styled.p`
+  font-size: 0.875rem;
+  color: ${({ theme }) => theme.colors.textSecondary};
+  margin-bottom: ${({ theme }) => theme.spacing[6]};
+  line-height: 1.6;
+`
+
+const StyledDialogActions = styled.div`
+  display: flex;
+  gap: ${({ theme }) => theme.spacing[3]};
+  justify-content: flex-end;
 `
 
 // 空状態表示
@@ -161,7 +198,37 @@ const StyledLoadingCell = styled(StyledTableCell)`
  * 履歴テーブルコンポーネント
  * テーブル形式でシーズン履歴一覧を表示
  */
-export const HistoryTable = ({ histories, isLoading = false }: HistoryTableProps) => {
+export const HistoryTable = ({ histories, isLoading = false, onDelete }: HistoryTableProps) => {
+  const navigate = useNavigate()
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
+  const [historyToDelete, setHistoryToDelete] = useState<{ uuid: string; seasonName: string } | null>(null)
+
+  // 履歴詳細へ遷移
+  const handleNavigateToDetail = (historyUuid: string) => {
+    navigate({ to: `/histories/${historyUuid}` })
+  }
+
+  // 削除ダイアログを開く
+  const handleOpenDeleteDialog = (historyUuid: string, seasonName: string) => {
+    setHistoryToDelete({ uuid: historyUuid, seasonName })
+    setDeleteDialogOpen(true)
+  }
+
+  // 削除をキャンセル
+  const handleCancelDelete = () => {
+    setDeleteDialogOpen(false)
+    setHistoryToDelete(null)
+  }
+
+  // 削除を確定
+  const handleConfirmDelete = () => {
+    if (historyToDelete) {
+      onDelete(historyToDelete.uuid)
+      setDeleteDialogOpen(false)
+      setHistoryToDelete(null)
+    }
+  }
+
   // ローディング中の表示
   if (isLoading) {
     return (
@@ -210,7 +277,7 @@ export const HistoryTable = ({ histories, isLoading = false }: HistoryTableProps
           <tr>
             <StyledHeaderCell>シーズン名</StyledHeaderCell>
             <StyledHeaderCell>作成日時</StyledHeaderCell>
-            <StyledHeaderCell>詳細</StyledHeaderCell>
+            <StyledHeaderCell>操作</StyledHeaderCell>
           </tr>
         </StyledTableHeader>
         <StyledTableBody>
@@ -223,17 +290,48 @@ export const HistoryTable = ({ histories, isLoading = false }: HistoryTableProps
                 {formatDateTable(history.createdAt)}
               </StyledDateCell>
               <StyledTableCell>
-                <StyledDetailButton 
-                  to={`/histories/${history.uuid}`}
-                  title={`${history.seasonName}の詳細を表示`}
-                >
-                  <Icon name="chart" size={16} />
-                </StyledDetailButton>
+                <StyledButtonGroup>
+                  <StyledDetailButton 
+                    variant="outline"
+                    icon={<Icon name="detail" size={16} />}
+                    onClick={() => handleNavigateToDetail(history.uuid)}
+                    title={`${history.seasonName}の詳細を表示`}
+                  />
+                  <StyledDeleteButton 
+                    variant="outline"
+                    icon={<Icon name="delete" size={16} />}
+                    onClick={() => handleOpenDeleteDialog(history.uuid, history.seasonName)}
+                    title={`${history.seasonName}を削除`}
+                  />
+                </StyledButtonGroup>
               </StyledTableCell>
             </StyledTableRow>
           ))}
         </StyledTableBody>
       </StyledTable>
+
+      {/* 削除確認ダイアログ */}
+      <Dialog 
+        isOpen={deleteDialogOpen} 
+        onClose={handleCancelDelete}
+        title="シーズンの削除"
+      >
+        <StyledDialogContent>
+          <StyledDialogDescription>
+            「{historyToDelete?.seasonName}」を削除してもよろしいですか？
+            <br />
+            この操作は取り消すことができません。
+          </StyledDialogDescription>
+          <StyledDialogActions>
+            <Button variant="outline" onClick={handleCancelDelete}>
+              キャンセル
+            </Button>
+            <Button variant="primary" onClick={handleConfirmDelete}>
+              削除する
+            </Button>
+          </StyledDialogActions>
+        </StyledDialogContent>
+      </Dialog>
     </StyledTableContainer>
   )
 }

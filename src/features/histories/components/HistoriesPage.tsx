@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { useHistoryStore } from '@/stores'
+import { useHistoryStore, useCharacterStore } from '@/stores'
 import { HistoryTable } from './HistoryTable'
 
 const StyledContainer = styled.div`
@@ -79,11 +79,32 @@ export const HistoriesPage = () => {
     isLoading, 
     error, 
     getSortedHistories,
+    deleteHistory,
     clearError 
   } = useHistoryStore()
 
+  const { matchRecords } = useCharacterStore()
+
   // 日付順（新しい順）にソートされた履歴を取得
   const sortedHistories = getSortedHistories()
+
+  /**
+   * 履歴削除ハンドラー
+   * 履歴と関連する全ての戦績記録を削除
+   */
+  const handleDelete = (historyUuid: string) => {
+    // 関連する全ての戦績記録を削除
+    const relatedMatchRecords = matchRecords.filter(m => m.seasonUuid === historyUuid)
+    
+    // 各戦績記録を削除
+    const { deleteMatchRecord } = useCharacterStore.getState()
+    relatedMatchRecords.forEach(record => {
+      deleteMatchRecord(record.uuid)
+    })
+
+    // 履歴を削除
+    deleteHistory(historyUuid)
+  }
 
   return (
     <StyledContainer>
@@ -124,6 +145,7 @@ export const HistoriesPage = () => {
       <HistoryTable 
         histories={sortedHistories}
         isLoading={isLoading}
+        onDelete={handleDelete}
       />
     </StyledContainer>
   )
