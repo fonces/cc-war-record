@@ -7,6 +7,10 @@
 FINAL FANTASY XIVのPvPコンテンツ「クリスタルコンフリクト」の戦績を記録・管理するWebアプリケーションです。
 シーズンごとの勝敗記録を管理し、ジョブ別・全体の統計を可視化できます。
 
+## デモ
+
+[https://fonces.github.io/cc-war-record/](https://fonces.github.io/cc-war-record/)
+
 ## 技術スタック
 
 ### コアライブラリ
@@ -198,6 +202,28 @@ npm run build
 ```bash
 npm run preview
 ```
+
+## デプロイ
+
+### GitHub Pagesへの自動デプロイ
+
+mainブランチへのプッシュで自動的にGitHub Pagesにデプロイされます。
+
+#### 初回設定
+
+1. GitHubリポジトリの Settings > Pages に移動
+2. Source を **GitHub Actions** に設定
+3. mainブランチにプッシュすると自動デプロイが開始されます
+
+デプロイURL: `https://fonces.github.io/cc-war-record/`
+
+#### 手動デプロイ（非推奨）
+
+```bash
+npm run deploy
+```
+
+※ GitHub Actionsによる自動デプロイを推奨します
 
 ## 開発ガイド
 
