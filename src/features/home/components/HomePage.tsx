@@ -2,45 +2,16 @@ import { useState } from 'react'
 import { useRouter } from '@tanstack/react-router'
 import styled from 'styled-components'
 import { useHistoryStore, useCharacterStore } from '@/stores'
-import { JobRegistrationDialog, Button } from '@/components/ui'
+import { JobRegistrationDialog, Button, PageContainer, PageTitleContainer, PageTitle, PageDescription } from '@/components/ui'
 import { EmptyState } from './EmptyState'
 import { CharacterForm } from './CharacterForm'
 import { CharacterCard } from './CharacterCard'
 import { DeleteCharacterDialog } from './DeleteCharacterDialog'
 import type { Job, CrystalConflictMap } from '@/types'
 
-const StyledContainer = styled.div`
-  padding: ${({ theme }) => theme.spacing[6]};
-  max-width: 1200px;
-  margin: 0 auto;
-`
 
-const StyledTitleContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: ${({ theme }) => theme.spacing[3]};
-  gap: ${({ theme }) => theme.spacing[4]};
-  
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: ${({ theme }) => theme.spacing[2]};
-  }
-`
 
-const StyledTitle = styled.h1`
-  font-size: 2rem;
-  font-weight: bold;
-  margin: 0;
-  color: ${({ theme }) => theme.colors.text};
-`
 
-const StyledDescription = styled.p`
-  font-size: 1rem;
-  color: ${({ theme }) => theme.colors.textSecondary};
-  margin-bottom: ${({ theme }) => theme.spacing[6]};
-`
 
 const StyledCharacterList = styled.div`
   display: flex;
@@ -286,38 +257,40 @@ export const HomePage = () => {
   // ローディング中の表示
   if (isLoading) {
     return (
-      <StyledContainer>
-        <StyledTitle>現シーズンの戦績</StyledTitle>
-        <StyledDescription>読み込み中...</StyledDescription>
-      </StyledContainer>
+      <PageContainer>
+        <PageTitle>現シーズンの戦績</PageTitle>
+        <PageDescription>読み込み中...</PageDescription>
+      </PageContainer>
     )
   }
 
   // シーズンが未登録の場合
   if (histories.length === 0) {
     return (
-      <StyledContainer>
-        <StyledTitle>現シーズンの戦績</StyledTitle>
-        <StyledDescription>
+      <PageContainer>
+        <PageTitleContainer>
+          <PageTitle>現シーズンの戦績</PageTitle>
+        </PageTitleContainer>
+        <PageDescription>
           クリスタルコンフリクト戦績管理へようこそ！
-        </StyledDescription>
+        </PageDescription>
         <EmptyState onCreateSeason={handleCreateSeason} />
-      </StyledContainer>
+      </PageContainer>
     )
   }
 
   // シーズンが存在する場合の表示
   return (
-    <StyledContainer>
-      <StyledTitleContainer>
-        <StyledTitle>{latestSeason?.seasonName} の戦績</StyledTitle>
+    <PageContainer>
+      <PageTitleContainer>
+        <PageTitle>{latestSeason?.seasonName} の戦績</PageTitle>
         <Button variant="outline" size="sm" onClick={handleCreateSeason}>
           新しいシーズンを作成
         </Button>
-      </StyledTitleContainer>
-      <StyledDescription>
+      </PageTitleContainer>
+      <PageDescription>
         戦績と統計情報を入力します。
-      </StyledDescription>
+      </PageDescription>
 
       {characterError && (
         <StyledErrorMessage>
@@ -370,6 +343,6 @@ export const HomePage = () => {
           historyUuid={latestSeason.uuid}
         />
       )}
-    </StyledContainer>
+    </PageContainer>
   )
 }

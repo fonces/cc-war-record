@@ -5,3 +5,4 @@ export { Icon } from './Icon';
 export { JobIcon } from './JobIcon';
 export { Dialog } from './Dialog';
 export { JobRegistrationDialog } from './JobRegistrationDialog';
+export { PageContainer, PageTitleContainer, PageTitle, PageDescription } from './PageLayout';

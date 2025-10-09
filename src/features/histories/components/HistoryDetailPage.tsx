@@ -1,16 +1,9 @@
 // import { useParams } from '@tanstack/react-router'
-import styled from 'styled-components'
+import { PageContainer, PageTitle } from '@/components/ui'
 
-const StyledContainer = styled.div`
-  padding: 2rem;
-`
 
-const StyledTitle = styled.h1`
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 1.5rem;
-  color: ${({ theme }) => theme.colors.text};
-`
+
+
 
 /**
  * シーズン履歴詳細画面コンポーネント
@@ -20,8 +13,8 @@ export const HistoryDetailPage = () => {
   // const { id } = useParams({ from: '/histories/$id' })
 
   return (
-    <StyledContainer>
-      <StyledTitle>Do Something...</StyledTitle>
-    </StyledContainer>
+    <PageContainer>
+      <PageTitle>Do Something...</PageTitle>
+    </PageContainer>
   )
 }

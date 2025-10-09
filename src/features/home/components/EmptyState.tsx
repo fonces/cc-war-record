@@ -68,7 +68,7 @@ export const EmptyState = ({ onCreateSeason }: EmptyStateProps) => {
         シーズン名を設定して、勝敗の記録を開始できます。
       </StyledEmptyDescription>
       <StyledCreateButton onClick={onCreateSeason}>
-        <Icon name="home" size={20} />
+        <Icon name="add" size={20} color="white" />
         シーズンを作成する
       </StyledCreateButton>
     </StyledEmptyState>

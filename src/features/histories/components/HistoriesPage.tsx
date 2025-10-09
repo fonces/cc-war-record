@@ -1,29 +1,9 @@
 import styled from 'styled-components'
 import { useHistoryStore, useCharacterStore } from '@/stores'
+import { PageContainer, PageTitle, PageDescription, PageTitleContainer } from '@/components/ui'
 import { HistoryTable } from './HistoryTable'
 
-const StyledContainer = styled.div`
-  padding: ${({ theme }) => theme.spacing[6]};
-  max-width: 1200px;
-  margin: 0 auto;
-`
 
-const StyledHeader = styled.div`
-  margin-bottom: ${({ theme }) => theme.spacing[8]};
-`
-
-const StyledTitle = styled.h1`
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: ${({ theme }) => theme.spacing[3]};
-  color: ${({ theme }) => theme.colors.text};
-`
-
-const StyledDescription = styled.p`
-  font-size: 1rem;
-  color: ${({ theme }) => theme.colors.textSecondary};
-  margin-bottom: ${({ theme }) => theme.spacing[6]};
-`
 
 const StyledActions = styled.div`
   display: flex;
@@ -107,13 +87,13 @@ export const HistoriesPage = () => {
   }
 
   return (
-    <StyledContainer>
-      <StyledHeader>
-        <StyledTitle>シーズン履歴一覧</StyledTitle>
-        <StyledDescription>
-          過去のシーズンの一覧を表示・管理します。各シーズンの詳細は詳細ボタンから確認できます。
-        </StyledDescription>
-      </StyledHeader>
+    <PageContainer>
+      <PageTitleContainer>
+        <PageTitle>シーズン履歴一覧</PageTitle>
+      </PageTitleContainer>
+      <PageDescription>
+        過去のシーズンの一覧を表示・管理します。各シーズンの詳細は詳細ボタンから確認できます。
+      </PageDescription>
 
       {/* エラー表示 */}
       {error && (
@@ -147,6 +127,6 @@ export const HistoriesPage = () => {
         isLoading={isLoading}
         onDelete={handleDelete}
       />
-    </StyledContainer>
+    </PageContainer>
   )
 }

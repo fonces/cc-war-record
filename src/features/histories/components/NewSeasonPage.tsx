@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useRouter } from '@tanstack/react-router'
 import styled from 'styled-components'
 import { useHistoryStore } from '@/stores'
-import { Button, Input, Dialog } from '@/components/ui'
+import { Button, Input, Dialog, PageTitle, PageDescription } from '@/components/ui'
 
 const StyledContainer = styled.div`
   max-width: 600px;
@@ -15,17 +15,7 @@ const StyledHeader = styled.div`
   text-align: center;
 `
 
-const StyledTitle = styled.h1`
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: ${({ theme }) => theme.spacing[3]};
-  color: ${({ theme }) => theme.colors.text};
-`
 
-const StyledDescription = styled.p`
-  font-size: 1rem;
-  color: ${({ theme }) => theme.colors.textSecondary};
-`
 
 const StyledForm = styled.form`
   background-color: white;
@@ -184,10 +174,10 @@ export const NewSeasonPage = () => {
       {/* メインコンテンツ */}
     <StyledContainer>
       <StyledHeader>
-        <StyledTitle>新規シーズン作成</StyledTitle>
-        <StyledDescription>
+        <PageTitle>新規シーズン作成</PageTitle>
+        <PageDescription>
           新しいシーズンを作成します。シーズン名を入力してください。
-        </StyledDescription>
+        </PageDescription>
       </StyledHeader>
 
       <StyledForm onSubmit={handleSubmit}>
