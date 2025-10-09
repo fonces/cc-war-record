@@ -2,12 +2,47 @@
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/cc-war-record/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="./vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>クリコン戦績記録</title>
-    <script type="module" crossorigin src="/cc-war-record/assets/index-Br5uo2xh.js"></script>
+    <title>ページが見つかりません - クリコン戦績記録</title>
+    <script>
+      // GitHub Pages SPAルーティングのためのリダイレクト処理
+      // 現在のパスを取得し、hash routerとして扱う
+      const pathname = location.pathname.slice(0, -1);
+      const search = location.search;
+      const hash = pathname + search;
+      
+      if (hash) {
+        // ベースパスを考慮してリダイレクト
+        location.replace('/cc-war-record/#' + hash);
+      } else {
+        // ルートページにリダイレクト
+        location.replace('/cc-war-record/');
+      }
+    </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        text-align: center;
+        padding: 20px;
+      ">
+        <h1 style="font-size: 2rem; margin-bottom: 1rem; color: #374151;">
+          ページが見つかりません
+        </h1>
+        <p style="color: #6B7280; margin-bottom: 1.5rem;">
+          お探しのページは存在しないか、移動された可能性があります。
+        </p>
+        <p style="color: #9CA3AF; font-size: 0.875rem;">
+          自動的にホームページにリダイレクトしています...
+        </p>
+      </div>
+    </div>
   </body>
 </html>
