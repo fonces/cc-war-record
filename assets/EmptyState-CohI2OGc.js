@@ -1,10 +1,9 @@
-import{C as e,E as t,L as n,M as r,j as i}from"./index-TE-ChR4G.js";var a=n(i()),o=r.div`
+import{C as e,E as t,L as n,M as r,j as i}from"./index-Br5uo2xh.js";var a=n(i()),o=r.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: ${({theme:e})=>e.spacing[12]}
-    ${({theme:e})=>e.spacing[6]};
+  padding: ${({theme:e})=>e.spacing[12]} ${({theme:e})=>e.spacing[6]};
   text-align: center;
   background-color: white;
   border-radius: ${({theme:e})=>e.borderRadius.lg};

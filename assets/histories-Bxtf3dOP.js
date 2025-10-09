@@ -1,4 +1,4 @@
-import{C as e,D as t,E as n,L as r,M as i,O as a,P as o,T as s,f as c,i as l,j as u,n as d,o as f,p,r as m,s as h,t as g}from"./index-TE-ChR4G.js";var _=r(o()),v=r(u()),y=i.div`
+import{C as e,D as t,E as n,L as r,M as i,O as a,P as o,T as s,f as c,i as l,j as u,n as d,o as f,p,r as m,s as h,t as g}from"./index-Br5uo2xh.js";var _=r(o()),v=r(u()),y=i.div`
   overflow-x: auto;
   border-radius: ${({theme:e})=>e.borderRadius.lg};
   border: 1px solid ${({theme:e})=>e.colors.gray[200]};
@@ -94,8 +94,7 @@ import{C as e,D as t,E as n,L as r,M as i,O as a,P as o,T as s,f as c,i as l,j a
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: ${({theme:e})=>e.spacing[12]}
-    ${({theme:e})=>e.spacing[6]};
+  padding: ${({theme:e})=>e.spacing[12]} ${({theme:e})=>e.spacing[6]};
   text-align: center;
   background-color: white;
   border-radius: ${({theme:e})=>e.borderRadius.lg};
@@ -158,7 +157,7 @@ import{C as e,D as t,E as n,L as r,M as i,O as a,P as o,T as s,f as c,i as l,j a
   color: ${({theme:e})=>e.colors.error};
   margin-bottom: ${({theme:e})=>e.spacing[6]};
   font-size: 0.875rem;
-`;const K=()=>{let{histories:e,isLoading:t,error:n,getSortedHistories:r,deleteHistory:i,clearError:a}=h(),{matchRecords:o}=f(),s=r();return(0,v.jsxs)(g,{children:[(0,v.jsx)(l,{children:(0,v.jsx)(m,{children:`シーズン履歴一覧`})}),(0,v.jsx)(d,{children:`過去のシーズンの一覧を表示・管理します。各シーズンの詳細は詳細ボタンから確認できます。`}),n&&(0,v.jsxs)(G,{children:[(0,v.jsxs)(`div`,{children:[`エラー: `,n]}),(0,v.jsx)(`button`,{onClick:a,style:{marginTop:`8px`,textDecoration:`underline`},children:`エラーを閉じる`})]}),(0,v.jsx)(V,{children:(0,v.jsxs)(H,{children:[(0,v.jsxs)(U,{children:[`総シーズン数:`,` `,(0,v.jsxs)(W,{children:[e.length,`件`]})]}),e.length>0&&(0,v.jsxs)(U,{children:[`最新作成:`,` `,(0,v.jsx)(W,{children:new Date(s[0]?.createdAt).toLocaleDateString(`ja-JP`)})]})]})}),(0,v.jsx)(B,{histories:s,isLoading:t,onDelete:e=>{let t=o.filter(t=>t.seasonUuid===e),{deleteMatchRecord:n}=f.getState();t.forEach(e=>{n(e.uuid)}),i(e)}})]})},q=()=>(0,v.jsx)(g,{children:(0,v.jsx)(m,{children:`Do Something...`})});var J=i.div`
+`;const K=()=>{let{histories:e,isLoading:t,error:n,getSortedHistories:r,deleteHistory:i,clearError:a}=h(),{matchRecords:o}=f(),s=r();return(0,v.jsxs)(g,{children:[(0,v.jsx)(l,{children:(0,v.jsx)(m,{children:`シーズン履歴一覧`})}),(0,v.jsx)(d,{children:`過去のシーズンの一覧を表示・管理します。各シーズンの詳細は詳細ボタンから確認できます。`}),n&&(0,v.jsxs)(G,{children:[(0,v.jsxs)(`div`,{children:[`エラー: `,n]}),(0,v.jsx)(`button`,{onClick:a,style:{marginTop:`8px`,textDecoration:`underline`},children:`エラーを閉じる`})]}),(0,v.jsx)(V,{children:(0,v.jsxs)(H,{children:[(0,v.jsxs)(U,{children:[`総シーズン数: `,(0,v.jsxs)(W,{children:[e.length,`件`]})]}),e.length>0&&(0,v.jsxs)(U,{children:[`最新作成: `,(0,v.jsx)(W,{children:new Date(s[0]?.createdAt).toLocaleDateString(`ja-JP`)})]})]})}),(0,v.jsx)(B,{histories:s,isLoading:t,onDelete:e=>{let t=o.filter(t=>t.seasonUuid===e),{deleteMatchRecord:n}=f.getState();t.forEach(e=>{n(e.uuid)}),i(e)}})]})},q=()=>(0,v.jsx)(g,{children:(0,v.jsx)(m,{children:`Do Something...`})});var J=i.div`
   max-width: 600px;
   margin: 0 auto;
   padding: ${({theme:e})=>e.spacing[6]};
