@@ -94,7 +94,7 @@ export const MAP_INFO: Record<CrystalConflictMap, MapInfo> = {
   
   [MAPS.VOLCANIC_HEART]: {
     code: MAPS.VOLCANIC_HEART,
-    name: 'ボルカニックハート',
+    name: 'ヴォルカニックハート',
     nameEn: 'Volcanic Heart',
     theme: MAP_THEMES.VOLCANIC,
     size: MAP_SIZES.MEDIUM,
