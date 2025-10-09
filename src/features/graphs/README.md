@@ -10,16 +10,16 @@
 ## 公開API
 
 ```typescript
-export { GraphsPage } from './components/GraphsPage'
+export { GraphsPage } from "./components/GraphsPage";
 ```
 
 ## 使用例
 
 ```typescript
-import { GraphsPage } from '@/features/graphs'
+import { GraphsPage } from "@/features/graphs";
 
 // ルートファイルで使用
-export const Route = createFileRoute('/graphs')({
+export const Route = createFileRoute("/graphs")({
   component: GraphsPage,
-})
+});
 ```

@@ -1,1 +1,1 @@
-export { GraphsPage } from './components/GraphsPage'
+export { GraphsPage } from "./components/GraphsPage";

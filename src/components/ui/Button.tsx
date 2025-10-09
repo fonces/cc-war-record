@@ -1,8 +1,8 @@
-import styled from 'styled-components';
-import type { ButtonHTMLAttributes, ReactNode } from 'react';
+import styled from "styled-components";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
 
-type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'win';
-type ButtonSize = 'sm' | 'md' | 'lg';
+type ButtonVariant = "primary" | "secondary" | "outline" | "ghost" | "win";
+type ButtonSize = "sm" | "md" | "lg";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: ButtonVariant;
@@ -22,7 +22,7 @@ const StyledButton = styled.button<ButtonProps>`
   outline: none;
 
   /* サイズ */
-  ${({ size = 'md', theme, icon }) => {
+  ${({ size = "md", theme, icon }) => {
     // アイコンのみの場合はpaddingを削除
     if (icon) {
       return `
@@ -30,14 +30,14 @@ const StyledButton = styled.button<ButtonProps>`
         font-size: 1rem;
       `;
     }
-    
+
     switch (size) {
-      case 'sm':
+      case "sm":
         return `
           padding: ${theme.spacing[2]} ${theme.spacing[3]};
           font-size: 0.875rem;
         `;
-      case 'lg':
+      case "lg":
         return `
           padding: ${theme.spacing[4]} ${theme.spacing[6]};
           font-size: 1.125rem;
@@ -51,9 +51,9 @@ const StyledButton = styled.button<ButtonProps>`
   }}
 
   /* バリアント */
-  ${({ variant = 'primary', theme }) => {
+  ${({ variant = "primary", theme }) => {
     switch (variant) {
-      case 'primary':
+      case "primary":
         return `
           background-color: ${theme.colors.primary[600]};
           color: white;
@@ -67,7 +67,7 @@ const StyledButton = styled.button<ButtonProps>`
             background-color: ${theme.colors.primary[800]};
           }
         `;
-      case 'secondary':
+      case "secondary":
         return `
           background-color: ${theme.colors.gray[600]};
           color: white;
@@ -81,7 +81,7 @@ const StyledButton = styled.button<ButtonProps>`
             background-color: ${theme.colors.gray[800]};
           }
         `;
-      case 'outline':
+      case "outline":
         return `
           background-color: transparent;
           color: ${theme.colors.gray[700]};
@@ -95,7 +95,7 @@ const StyledButton = styled.button<ButtonProps>`
             background-color: ${theme.colors.primary[100]};
           }
         `;
-      case 'ghost':
+      case "ghost":
         return `
           background-color: transparent;
           color: ${theme.colors.gray[700]};
@@ -109,7 +109,7 @@ const StyledButton = styled.button<ButtonProps>`
             background-color: ${theme.colors.gray[200]};
           }
         `;
-      case 'win':
+      case "win":
         return `
           background-color: ${theme.colors.win[600]};
           color: white;
@@ -126,7 +126,7 @@ const StyledButton = styled.button<ButtonProps>`
     }
   }}
 
-  ${({ fullWidth }) => fullWidth && 'width: 100%;'}
+  ${({ fullWidth }) => fullWidth && "width: 100%;"}
 
   &:disabled {
     opacity: 0.5;
@@ -140,5 +140,9 @@ const StyledButton = styled.button<ButtonProps>`
 `;
 
 export const Button = ({ children, icon, ...props }: ButtonProps) => {
-  return <StyledButton {...props} icon={icon}>{icon || children}</StyledButton>;
+  return (
+    <StyledButton {...props} icon={icon}>
+      {icon || children}
+    </StyledButton>
+  );
 };

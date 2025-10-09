@@ -1,25 +1,11 @@
-import styled from 'styled-components'
-import { useState } from 'react'
-import { 
-  RadarChart, 
-  PolarGrid, 
-  PolarAngleAxis, 
-  PolarRadiusAxis, 
-  Radar, 
-  Legend, 
-  ResponsiveContainer,
-  Tooltip
-} from 'recharts'
-import { Select } from '@/components/ui'
-import type { History, MatchRecord, Job, Character } from '@/types'
-import { JOB_INFO, JOBS } from '@/types/jobs'
-import { MAP_INFO, MAPS } from '@/types/maps'
-import { 
-  getRadarChartJob1, 
-  saveRadarChartJob1, 
-  getRadarChartJob2, 
-  saveRadarChartJob2 
-} from '@/utils/localStorage'
+import styled from "styled-components";
+import { useState } from "react";
+import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Legend, ResponsiveContainer, Tooltip } from "recharts";
+import { Select } from "@/components/ui";
+import type { History, MatchRecord, Job, Character } from "@/types";
+import { JOB_INFO, JOBS } from "@/types/jobs";
+import { MAP_INFO, MAPS } from "@/types/maps";
+import { getRadarChartJob1, saveRadarChartJob1, getRadarChartJob2, saveRadarChartJob2 } from "@/utils/localStorage";
 
 const StyledChartContainer = styled.div`
   background: ${({ theme }) => theme.colors.gray[50]};
@@ -27,138 +13,124 @@ const StyledChartContainer = styled.div`
   border-radius: 8px;
   padding: 1.5rem;
   margin-top: 2rem;
-`
+`;
 
 const StyledChartTitle = styled.h2`
   font-size: 1.25rem;
   font-weight: bold;
   margin-bottom: 1rem;
   color: ${({ theme }) => theme.colors.text};
-`
+`;
 
 const StyledChartHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 1rem;
-`
+`;
 
 const StyledFiltersWrapper = styled.div`
   display: flex;
   gap: 1rem;
-`
+`;
 
 interface JobWinRateRadarChartProps {
-  history: History
-  matchRecords: MatchRecord[]
-  characters: Character[]
+  history: History;
+  matchRecords: MatchRecord[];
+  characters: Character[];
 }
 
 /**
  * マップごとのジョブ勝率データを集計する関数
  */
-const aggregateJobWinRateByMap = (
-  history: History,
-  matchRecords: MatchRecord[],
-  selectedCharacterUuid: string | null,
-  selectedJobs: Job[]
-) => {
+const aggregateJobWinRateByMap = (history: History, matchRecords: MatchRecord[], selectedCharacterUuid: string | null, selectedJobs: Job[]) => {
   // 該当シーズンの試合データをフィルタ
-  const seasonMatches = matchRecords.filter(
-    match => {
-      if (match.seasonUuid !== history.uuid) return false
-      if (selectedCharacterUuid && match.characterUuid !== selectedCharacterUuid) return false
-      if (selectedJobs.length > 0 && !selectedJobs.includes(match.job)) return false
-      return true
-    }
-  )
+  const seasonMatches = matchRecords.filter((match) => {
+    if (match.seasonUuid !== history.uuid) return false;
+    if (selectedCharacterUuid && match.characterUuid !== selectedCharacterUuid) return false;
+    if (selectedJobs.length > 0 && !selectedJobs.includes(match.job)) return false;
+    return true;
+  });
 
   // マップ × ジョブごとの勝敗を集計
-  const mapJobStats = new Map<string, Map<Job, { wins: number; total: number }>>()
+  const mapJobStats = new Map<string, Map<Job, { wins: number; total: number }>>();
 
   seasonMatches.forEach((match) => {
     if (!mapJobStats.has(match.map)) {
-      mapJobStats.set(match.map, new Map())
+      mapJobStats.set(match.map, new Map());
     }
-    
-    const jobStats = mapJobStats.get(match.map)!
+
+    const jobStats = mapJobStats.get(match.map)!;
     if (!jobStats.has(match.job)) {
-      jobStats.set(match.job, { wins: 0, total: 0 })
+      jobStats.set(match.job, { wins: 0, total: 0 });
     }
-    
-    const stats = jobStats.get(match.job)!
-    stats.total++
+
+    const stats = jobStats.get(match.job)!;
+    stats.total++;
     if (match.isWin) {
-      stats.wins++
+      stats.wins++;
     }
-  })
+  });
 
   // RadarChart用のデータ形式に変換
-  return Object.values(MAPS).map(map => {
+  return Object.values(MAPS).map((map) => {
     const mapData: Record<string, string | number> = {
       map: MAP_INFO[map].name,
-      fullMark: 100
-    }
+      fullMark: 100,
+    };
 
-    selectedJobs.forEach(job => {
-      const jobStat = mapJobStats.get(map)?.get(job)
+    selectedJobs.forEach((job) => {
+      const jobStat = mapJobStats.get(map)?.get(job);
       if (jobStat && jobStat.total > 0) {
-        mapData[job] = Math.round((jobStat.wins / jobStat.total) * 100)
+        mapData[job] = Math.round((jobStat.wins / jobStat.total) * 100);
       } else {
-        mapData[job] = 0
+        mapData[job] = 0;
       }
-    })
+    });
 
-    return mapData
-  })
-}
+    return mapData;
+  });
+};
 
 /**
  * ジョブ別勝率レーダーチャートコンポーネント
  */
 export const JobWinRateRadarChart = ({ history, matchRecords, characters }: JobWinRateRadarChartProps) => {
-  const [selectedCharacterUuid, setSelectedCharacterUuid] = useState<string | null>(null)
-  const [selectedJob1, setSelectedJob1] = useState<Job>(() => getRadarChartJob1())
-  const [selectedJob2, setSelectedJob2] = useState<Job>(() => getRadarChartJob2())
+  const [selectedCharacterUuid, setSelectedCharacterUuid] = useState<string | null>(null);
+  const [selectedJob1, setSelectedJob1] = useState<Job>(() => getRadarChartJob1());
+  const [selectedJob2, setSelectedJob2] = useState<Job>(() => getRadarChartJob2());
 
   // ジョブ1の変更ハンドラー
   const handleJob1Change = (job: Job) => {
-    setSelectedJob1(job)
-    saveRadarChartJob1(job)
-  }
+    setSelectedJob1(job);
+    saveRadarChartJob1(job);
+  };
 
   // ジョブ2の変更ハンドラー
   const handleJob2Change = (job: Job) => {
-    setSelectedJob2(job)
-    saveRadarChartJob2(job)
-  }
+    setSelectedJob2(job);
+    saveRadarChartJob2(job);
+  };
 
-  const selectedJobs = [selectedJob1, selectedJob2]
-  const radarData = aggregateJobWinRateByMap(
-    history,
-    matchRecords,
-    selectedCharacterUuid,
-    selectedJobs
-  )
+  const selectedJobs = [selectedJob1, selectedJob2];
+  const radarData = aggregateJobWinRateByMap(history, matchRecords, selectedCharacterUuid, selectedJobs);
 
   return (
     <StyledChartContainer>
       <StyledChartHeader>
-        <StyledChartTitle>
-          マップ別ジョブ勝率比較
-        </StyledChartTitle>
+        <StyledChartTitle>マップ別ジョブ勝率比較</StyledChartTitle>
         <StyledFiltersWrapper>
           <Select
             label="キャラクター"
             id="character-filter-radar"
-            value={selectedCharacterUuid || ''}
+            value={selectedCharacterUuid || ""}
             onChange={(e) => setSelectedCharacterUuid(e.target.value || null)}
             options={[
-              { value: '', label: 'すべてのキャラクター' },
-              ...characters.map(character => ({
+              { value: "", label: "すべてのキャラクター" },
+              ...characters.map((character) => ({
                 value: character.uuid,
-                label: character.name
-              }))
+                label: character.name,
+              })),
             ]}
           />
           <Select
@@ -166,9 +138,9 @@ export const JobWinRateRadarChart = ({ history, matchRecords, characters }: JobW
             id="job1-filter"
             value={selectedJob1}
             onChange={(e) => handleJob1Change(e.target.value as Job)}
-            options={Object.values(JOBS).map(job => ({
+            options={Object.values(JOBS).map((job) => ({
               value: job,
-              label: `${JOB_INFO[job].name} (${job})`
+              label: `${JOB_INFO[job].name} (${job})`,
             }))}
           />
           <Select
@@ -176,9 +148,9 @@ export const JobWinRateRadarChart = ({ history, matchRecords, characters }: JobW
             id="job2-filter"
             value={selectedJob2}
             onChange={(e) => handleJob2Change(e.target.value as Job)}
-            options={Object.values(JOBS).map(job => ({
+            options={Object.values(JOBS).map((job) => ({
               value: job,
-              label: `${JOB_INFO[job].name} (${job})`
+              label: `${JOB_INFO[job].name} (${job})`,
             }))}
           />
         </StyledFiltersWrapper>
@@ -207,5 +179,5 @@ export const JobWinRateRadarChart = ({ history, matchRecords, characters }: JobW
         </RadarChart>
       </ResponsiveContainer>
     </StyledChartContainer>
-  )
-}
+  );
+};

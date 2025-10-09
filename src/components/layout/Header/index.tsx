@@ -1,22 +1,22 @@
-import { useState } from 'react'
-import { Link, useLocation } from '@tanstack/react-router'
-import styled from 'styled-components'
-import { Icon } from '@/components/ui'
+import { useState } from "react";
+import { Link, useLocation } from "@tanstack/react-router";
+import styled from "styled-components";
+import { Icon } from "@/components/ui";
 
 type NavigationItem = {
   /** ラベル */
-  label: string
+  label: string;
   /** パス */
-  path: string
+  path: string;
   /** アイコン */
-  icon: 'home' | 'history' | 'chart'
-}
+  icon: "home" | "history" | "chart";
+};
 
 const navigationItems: NavigationItem[] = [
-  { label: 'ホーム', path: '/', icon: 'home' },
-  { label: 'グラフ', path: '/graphs', icon: 'chart' },
-  { label: '履歴', path: '/histories', icon: 'history' },
-]
+  { label: "ホーム", path: "/", icon: "home" },
+  { label: "グラフ", path: "/graphs", icon: "chart" },
+  { label: "履歴", path: "/histories", icon: "history" },
+];
 
 // デスクトップ用サイドメニュー
 const StyledSidebar = styled.aside<{ isOpen: boolean }>`
@@ -29,7 +29,7 @@ const StyledSidebar = styled.aside<{ isOpen: boolean }>`
   border-right: 1px solid ${({ theme }) => theme.colors.gray[200]};
   z-index: 10;
   padding: ${({ theme }) => theme.spacing[6]} ${({ theme }) => theme.spacing[4]};
-  transform: translateX(${({ isOpen }) => (isOpen ? '0' : '-100%')});
+  transform: translateX(${({ isOpen }) => (isOpen ? "0" : "-100%")});
   transition: transform 0.15s ease-in-out;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
@@ -37,20 +37,20 @@ const StyledSidebar = styled.aside<{ isOpen: boolean }>`
     position: fixed;
     flex-shrink: 0;
   }
-`
+`;
 
 const StyledSidebarTitle = styled.h1`
   font-size: 1.25rem;
   font-weight: bold;
   color: ${({ theme }) => theme.colors.text};
   margin-bottom: ${({ theme }) => theme.spacing[8]};
-`
+`;
 
 const StyledNavList = styled.nav`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing[2]};
-`
+`;
 
 const StyledNavLink = styled(Link)<{ isActive: boolean }>`
   display: flex;
@@ -59,18 +59,16 @@ const StyledNavLink = styled(Link)<{ isActive: boolean }>`
   padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
   border-radius: ${({ theme }) => theme.borderRadius.md};
   text-decoration: none;
-  color: ${({ theme, isActive }) => 
-    isActive ? theme.colors.primary[600] : theme.colors.gray[700]};
-  background-color: ${({ theme, isActive }) => 
-    isActive ? theme.colors.primary[50] : 'transparent'};
-  font-weight: ${({ isActive }) => (isActive ? '600' : '400')};
+  color: ${({ theme, isActive }) => (isActive ? theme.colors.primary[600] : theme.colors.gray[700])};
+  background-color: ${({ theme, isActive }) => (isActive ? theme.colors.primary[50] : "transparent")};
+  font-weight: ${({ isActive }) => (isActive ? "600" : "400")};
   transition: all 0.2s ease-in-out;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.gray[100]};
     color: ${({ theme }) => theme.colors.primary[600]};
   }
-`
+`;
 
 const StyledNavIcon = styled.div<{ isActive: boolean }>`
   display: flex;
@@ -78,9 +76,8 @@ const StyledNavIcon = styled.div<{ isActive: boolean }>`
   justify-content: center;
   width: 20px;
   height: 20px;
-  color: ${({ theme, isActive }) => 
-    isActive ? theme.colors.primary[600] : theme.colors.gray[500]};
-`
+  color: ${({ theme, isActive }) => (isActive ? theme.colors.primary[600] : theme.colors.gray[500])};
+`;
 
 // モバイル用ヘッダー
 const StyledMobileHeader = styled.header`
@@ -94,19 +91,19 @@ const StyledMobileHeader = styled.header`
   @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
     display: none;
   }
-`
+`;
 
 const StyledMobileHeaderContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-`
+`;
 
 const StyledMobileTitle = styled.h1`
   font-size: 1.125rem;
   font-weight: bold;
   color: ${({ theme }) => theme.colors.text};
-`
+`;
 
 // オーバーレイ（モバイル用）
 const StyledOverlay = styled.div<{ isOpen: boolean }>`
@@ -115,13 +112,13 @@ const StyledOverlay = styled.div<{ isOpen: boolean }>`
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 5;
   opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
-  visibility: ${({ isOpen }) => (isOpen ? 'visible' : 'hidden')};
+  visibility: ${({ isOpen }) => (isOpen ? "visible" : "hidden")};
   transition: all 0.3s ease-in-out;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
     display: none;
   }
-`
+`;
 
 // メインコンテンツエリア
 const StyledMainContent = styled.main`
@@ -132,7 +129,7 @@ const StyledMainContent = styled.main`
   @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
     margin-left: 240px;
   }
-`
+`;
 
 const StyledContainer = styled.div`
   display: flex;
@@ -141,7 +138,7 @@ const StyledContainer = styled.div`
   @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
     flex-direction: column;
   }
-`
+`;
 
 const StyledCloseButton = styled.button`
   position: absolute;
@@ -155,35 +152,35 @@ const StyledCloseButton = styled.button`
   @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
     display: none;
   }
-`
+`;
 
 type HeaderProps = {
   /** メインコンテンツ */
-  children: React.ReactNode
-}
+  children: React.ReactNode;
+};
 
 /**
  * ヘッダーコンポーネント
  * PCでは左メニュー、SPではドロワーを表示する
  */
 export const Header = ({ children }: HeaderProps) => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const location = useLocation()
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen)
-  }
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
 
   const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false)
-  }
+    setIsMobileMenuOpen(false);
+  };
 
   const isActivePath = (path: string) => {
-    if (path === '/') {
-      return location.pathname === '/'
+    if (path === "/") {
+      return location.pathname === "/";
     }
-    return location.pathname.startsWith(path)
-  }
+    return location.pathname.startsWith(path);
+  };
 
   return (
     <StyledContainer>
@@ -191,11 +188,7 @@ export const Header = ({ children }: HeaderProps) => {
       <StyledMobileHeader>
         <StyledMobileHeaderContent>
           <StyledMobileTitle>クリコン戦績記録</StyledMobileTitle>
-          <Icon
-            name="hamburger"
-            size={24}
-            onClick={toggleMobileMenu}
-          />
+          <Icon name="hamburger" size={24} onClick={toggleMobileMenu} />
         </StyledMobileHeaderContent>
       </StyledMobileHeader>
 
@@ -204,17 +197,12 @@ export const Header = ({ children }: HeaderProps) => {
         <StyledCloseButton onClick={closeMobileMenu}>
           <Icon name="close" size={24} />
         </StyledCloseButton>
-        
+
         <StyledSidebarTitle>クリコン戦績記録</StyledSidebarTitle>
-        
+
         <StyledNavList>
           {navigationItems.map((item) => (
-            <StyledNavLink
-              key={item.path}
-              to={item.path}
-              isActive={isActivePath(item.path)}
-              onClick={closeMobileMenu}
-            >
+            <StyledNavLink key={item.path} to={item.path} isActive={isActivePath(item.path)} onClick={closeMobileMenu}>
               <StyledNavIcon isActive={isActivePath(item.path)}>
                 <Icon name={item.icon} size={20} />
               </StyledNavIcon>
@@ -228,9 +216,7 @@ export const Header = ({ children }: HeaderProps) => {
       <StyledOverlay isOpen={isMobileMenuOpen} onClick={closeMobileMenu} />
 
       {/* メインコンテンツ */}
-      <StyledMainContent>
-        {children}
-      </StyledMainContent>
+      <StyledMainContent>{children}</StyledMainContent>
     </StyledContainer>
-  )
-}
+  );
+};

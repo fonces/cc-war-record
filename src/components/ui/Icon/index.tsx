@@ -1,19 +1,19 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 type IconProps = {
   /** アイコンの種類 */
-  name: 'hamburger' | 'close' | 'home' | 'history' | 'chart' | 'edit' | 'accept' | 'add' | 'delete' | 'minus' | 'revert' | 'detail'
+  name: "hamburger" | "close" | "home" | "history" | "chart" | "edit" | "accept" | "add" | "delete" | "minus" | "revert" | "detail";
   /** サイズ */
-  size?: number
+  size?: number;
   /** 色 */
-  color?: string
+  color?: string;
   /** クリックハンドラー */
-  onClick?: () => void
+  onClick?: () => void;
   /** クラス名 */
-  className?: string
-}
+  className?: string;
+};
 
-const StyledIcon = styled.button<Pick<IconProps, 'size' | 'color'>>`
+const StyledIcon = styled.button<Pick<IconProps, "size" | "color">>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -24,7 +24,7 @@ const StyledIcon = styled.button<Pick<IconProps, 'size' | 'color'>>`
   width: ${({ size = 24 }) => size}px;
   height: ${({ size = 24 }) => size}px;
   color: ${({ color, theme }) => color || theme.colors.gray[700]};
-  
+
   &:hover {
     opacity: 0.7;
   }
@@ -33,7 +33,7 @@ const StyledIcon = styled.button<Pick<IconProps, 'size' | 'color'>>`
     width: 100%;
     height: 100%;
   }
-`
+`;
 
 const HamburgerIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -41,28 +41,28 @@ const HamburgerIcon = () => (
     <line x1="3" y1="12" x2="21" y2="12" />
     <line x1="3" y1="18" x2="21" y2="18" />
   </svg>
-)
+);
 
 const CloseIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <line x1="18" y1="6" x2="6" y2="18" />
     <line x1="6" y1="6" x2="18" y2="18" />
   </svg>
-)
+);
 
 const HomeIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
     <polyline points="9,22 9,12 15,12 15,22" />
   </svg>
-)
+);
 
 const HistoryIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <circle cx="12" cy="12" r="10" />
     <polyline points="12,6 12,12 16,14" />
   </svg>
-)
+);
 
 const ChartIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -70,27 +70,27 @@ const ChartIcon = () => (
     <line x1="12" y1="20" x2="12" y2="4" />
     <line x1="6" y1="20" x2="6" y2="14" />
   </svg>
-)
+);
 
 const EditIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <path d="m18 2 4 4-18 18H0v-4L18 2z" />
     <path d="m14.5 5.5 4 4" />
   </svg>
-)
+);
 
 const AcceptIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <polyline points="20,6 9,17 4,12" />
   </svg>
-)
+);
 
 const AddIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <line x1="12" y1="5" x2="12" y2="19" />
     <line x1="5" y1="12" x2="19" y2="12" />
   </svg>
-)
+);
 
 const DeleteIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -99,20 +99,20 @@ const DeleteIcon = () => (
     <line x1="10" y1="11" x2="10" y2="17" />
     <line x1="14" y1="11" x2="14" y2="17" />
   </svg>
-)
+);
 
 const MinusIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <line x1="5" y1="12" x2="19" y2="12" />
   </svg>
-)
+);
 
 const RevertIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <polyline points="1,4 1,10 7,10" />
     <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" />
   </svg>
-)
+);
 
 const DetailIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -122,7 +122,7 @@ const DetailIcon = () => (
     <line x1="16" y1="17" x2="8" y2="17" />
     <polyline points="10,9 9,9 8,9" />
   </svg>
-)
+);
 
 /**
  * アイコンコンポーネント
@@ -130,45 +130,38 @@ const DetailIcon = () => (
 export const Icon = ({ name, size = 24, color, onClick, className }: IconProps) => {
   const renderIcon = () => {
     switch (name) {
-      case 'hamburger':
-        return <HamburgerIcon />
-      case 'close':
-        return <CloseIcon />
-      case 'home':
-        return <HomeIcon />
-      case 'history':
-        return <HistoryIcon />
-      case 'chart':
-        return <ChartIcon />
-      case 'edit':
-        return <EditIcon />
-      case 'accept':
-        return <AcceptIcon />
-      case 'add':
-        return <AddIcon />
-      case 'delete':
-        return <DeleteIcon />
-      case 'minus':
-        return <MinusIcon />
-      case 'revert':
-        return <RevertIcon />
-      case 'detail':
-        return <DetailIcon />
+      case "hamburger":
+        return <HamburgerIcon />;
+      case "close":
+        return <CloseIcon />;
+      case "home":
+        return <HomeIcon />;
+      case "history":
+        return <HistoryIcon />;
+      case "chart":
+        return <ChartIcon />;
+      case "edit":
+        return <EditIcon />;
+      case "accept":
+        return <AcceptIcon />;
+      case "add":
+        return <AddIcon />;
+      case "delete":
+        return <DeleteIcon />;
+      case "minus":
+        return <MinusIcon />;
+      case "revert":
+        return <RevertIcon />;
+      case "detail":
+        return <DetailIcon />;
       default:
-        return null
+        return null;
     }
-  }
+  };
 
   return (
-    <StyledIcon
-      size={size}
-      color={color}
-      onClick={onClick}
-      className={className}
-      type="button"
-      aria-label={name}
-    >
+    <StyledIcon size={size} color={color} onClick={onClick} className={className} type="button" aria-label={name}>
       {renderIcon()}
     </StyledIcon>
-  )
-}
+  );
+};

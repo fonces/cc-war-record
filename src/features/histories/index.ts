@@ -1,4 +1,4 @@
-export { HistoriesPage } from './components/HistoriesPage'
-export { HistoryDetailPage } from './components/HistoryDetailPage'
-export { HistoryTable } from './components/HistoryTable'
-export { NewSeasonPage } from './components/NewSeasonPage'
+export { HistoriesPage } from "./components/HistoriesPage";
+export { HistoryDetailPage } from "./components/HistoryDetailPage";
+export { HistoryTable } from "./components/HistoryTable";
+export { NewSeasonPage } from "./components/NewSeasonPage";

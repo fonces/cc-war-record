@@ -1,9 +1,5 @@
 // import { useParams } from '@tanstack/react-router'
-import { PageContainer, PageTitle } from '@/components/ui'
-
-
-
-
+import { PageContainer, PageTitle } from "@/components/ui";
 
 /**
  * シーズン履歴詳細画面コンポーネント
@@ -16,5 +12,5 @@ export const HistoryDetailPage = () => {
     <PageContainer>
       <PageTitle>Do Something...</PageTitle>
     </PageContainer>
-  )
-}
+  );
+};

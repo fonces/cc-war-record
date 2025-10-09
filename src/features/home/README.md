@@ -10,16 +10,16 @@
 ## 公開API
 
 ```typescript
-export { HomePage } from './components/HomePage'
+export { HomePage } from "./components/HomePage";
 ```
 
 ## 使用例
 
 ```typescript
-import { HomePage } from '@/features/home'
+import { HomePage } from "@/features/home";
 
 // ルートファイルで使用
-export const Route = createFileRoute('/')({
+export const Route = createFileRoute("/")({
   component: HomePage,
-})
+});
 ```

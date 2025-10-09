@@ -1,6 +1,6 @@
-import { ThemeProvider } from 'styled-components';
-import { theme } from '@/styles/theme';
-import { GlobalStyle } from '@/styles/GlobalStyle';
+import { ThemeProvider } from "styled-components";
+import { theme } from "@/styles/theme";
+import { GlobalStyle } from "@/styles/GlobalStyle";
 
 type AppProviderProps = {
   children: React.ReactNode;

@@ -1,24 +1,20 @@
-import { useState } from 'react'
-import { useRouter } from '@tanstack/react-router'
-import styled from 'styled-components'
-import { useHistoryStore, useCharacterStore } from '@/stores'
-import { JobRegistrationDialog, Button, PageContainer, PageTitleContainer, PageTitle, PageDescription } from '@/components/ui'
-import { EmptyState } from './EmptyState'
-import { CharacterForm } from './CharacterForm'
-import { CharacterCard } from './CharacterCard'
-import { DeleteCharacterDialog } from './DeleteCharacterDialog'
-import type { Job, CrystalConflictMap } from '@/types'
-
-
-
-
+import { useState } from "react";
+import { useRouter } from "@tanstack/react-router";
+import styled from "styled-components";
+import { useHistoryStore, useCharacterStore } from "@/stores";
+import { JobRegistrationDialog, Button, PageContainer, PageTitleContainer, PageTitle, PageDescription } from "@/components/ui";
+import { EmptyState } from "./EmptyState";
+import { CharacterForm } from "./CharacterForm";
+import { CharacterCard } from "./CharacterCard";
+import { DeleteCharacterDialog } from "./DeleteCharacterDialog";
+import type { Job, CrystalConflictMap } from "@/types";
 
 const StyledCharacterList = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing[4]};
   margin-top: ${({ theme }) => theme.spacing[6]};
-`
+`;
 
 const StyledErrorMessage = styled.div`
   padding: ${({ theme }) => theme.spacing[3]};
@@ -30,7 +26,7 @@ const StyledErrorMessage = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`
+`;
 
 const StyledErrorCloseButton = styled.button`
   margin-left: ${({ theme }) => theme.spacing[2]};
@@ -39,21 +35,21 @@ const StyledErrorCloseButton = styled.button`
   background: none;
   border: none;
   cursor: pointer;
-  
+
   &:hover {
     text-decoration: none;
   }
-`
+`;
 
 /**
  * ホーム画面コンポーネント
  * 現シーズンの戦績を表示、シーズン未作成時は作成ボタンを表示
  */
 export const HomePage = () => {
-  const router = useRouter()
-  const { histories, isLoading, getSortedHistories, addUsedJob } = useHistoryStore()
-  const { 
-    createCharacter, 
+  const router = useRouter();
+  const { histories, isLoading, getSortedHistories, addUsedJob } = useHistoryStore();
+  const {
+    createCharacter,
     updateCharacter,
     deleteCharacter,
     createMatchRecord,
@@ -61,139 +57,142 @@ export const HomePage = () => {
     getCharacterStatsForSeason,
     matchRecords,
     error: characterError,
-    clearError 
-  } = useCharacterStore()
+    clearError,
+  } = useCharacterStore();
 
   // 最新のシーズンを取得
-  const latestSeason = getSortedHistories()[0]
-  
+  const latestSeason = getSortedHistories()[0];
+
   // 最新シーズンのキャラクター戦績を取得
-  const characterStats = latestSeason ? getCharacterStatsForSeason(latestSeason.uuid) : []
-  
+  const characterStats = latestSeason ? getCharacterStatsForSeason(latestSeason.uuid) : [];
+
   // デフォルトで1件目のキャラクターを開いた状態にする
   const [openCharacterUuids, setOpenCharacterUuids] = useState<Set<string>>(() => {
     if (characterStats.length > 0) {
-      return new Set([characterStats[0].character.uuid])
+      return new Set([characterStats[0].character.uuid]);
     }
-    return new Set()
-  })
-  
-  const [editingCharacterUuid, setEditingCharacterUuid] = useState<string | null>(null)
-  const [editingCharacterName, setEditingCharacterName] = useState('')
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
-  const [characterToDelete, setCharacterToDelete] = useState<{ uuid: string; name: string } | null>(null)
-  const [jobRegistrationDialogOpen, setJobRegistrationDialogOpen] = useState(false)
-  const [characterForJobRegistration, setCharacterForJobRegistration] = useState<string | null>(null)
+    return new Set();
+  });
+
+  const [editingCharacterUuid, setEditingCharacterUuid] = useState<string | null>(null);
+  const [editingCharacterName, setEditingCharacterName] = useState("");
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [characterToDelete, setCharacterToDelete] = useState<{
+    uuid: string;
+    name: string;
+  } | null>(null);
+  const [jobRegistrationDialogOpen, setJobRegistrationDialogOpen] = useState(false);
+  const [characterForJobRegistration, setCharacterForJobRegistration] = useState<string | null>(null);
 
   // シーズンを作成するボタンのクリックハンドラー
   const handleCreateSeason = () => {
-    router.navigate({ to: '/new' })
-  }
+    router.navigate({ to: "/new" });
+  };
 
   // キャラクター作成のハンドラー
   const handleCreateCharacter = (name: string) => {
     try {
-      createCharacter({ name })
+      createCharacter({ name });
     } catch {
       // エラーは characterError で表示される
     }
-  }
+  };
 
   // アコーディオンの開閉ハンドラー
   const toggleCharacterAccordion = (characterUuid: string) => {
-    const newOpenUuids = new Set(openCharacterUuids)
+    const newOpenUuids = new Set(openCharacterUuids);
     if (newOpenUuids.has(characterUuid)) {
-      newOpenUuids.delete(characterUuid)
+      newOpenUuids.delete(characterUuid);
     } else {
-      newOpenUuids.add(characterUuid)
+      newOpenUuids.add(characterUuid);
     }
-    setOpenCharacterUuids(newOpenUuids)
-  }
+    setOpenCharacterUuids(newOpenUuids);
+  };
 
   // キャラクター編集開始のハンドラー
   const handleStartEditing = (characterUuid: string, currentName: string) => {
-    setEditingCharacterUuid(characterUuid)
-    setEditingCharacterName(currentName)
-  }
+    setEditingCharacterUuid(characterUuid);
+    setEditingCharacterName(currentName);
+  };
 
   // キャラクター編集キャンセルのハンドラー
   const handleCancelEditing = () => {
-    setEditingCharacterUuid(null)
-    setEditingCharacterName('')
-  }
+    setEditingCharacterUuid(null);
+    setEditingCharacterName("");
+  };
 
   // キャラクター編集保存のハンドラー
   const handleSaveEditing = () => {
-    if (!editingCharacterUuid || !editingCharacterName.trim()) return
+    if (!editingCharacterUuid || !editingCharacterName.trim()) return;
 
     try {
-      const success = updateCharacter(editingCharacterUuid, editingCharacterName.trim())
+      const success = updateCharacter(editingCharacterUuid, editingCharacterName.trim());
       if (success) {
-        setEditingCharacterUuid(null)
-        setEditingCharacterName('')
+        setEditingCharacterUuid(null);
+        setEditingCharacterName("");
       }
     } catch {
       // エラーは characterError で表示される
     }
-  }
+  };
 
   // キャラクター削除ダイアログを開く
   const handleDeleteCharacter = (characterUuid: string, characterName: string) => {
-    setCharacterToDelete({ uuid: characterUuid, name: characterName })
-    setDeleteDialogOpen(true)
-  }
+    setCharacterToDelete({ uuid: characterUuid, name: characterName });
+    setDeleteDialogOpen(true);
+  };
 
   // キャラクター削除を確定
   const handleConfirmDelete = () => {
-    if (!characterToDelete) return
+    if (!characterToDelete) return;
 
     try {
-      deleteCharacter(characterToDelete.uuid)
-      setDeleteDialogOpen(false)
-      setCharacterToDelete(null)
+      deleteCharacter(characterToDelete.uuid);
+      setDeleteDialogOpen(false);
+      setCharacterToDelete(null);
     } catch {
       // エラーは characterError で表示される
     }
-  }
+  };
 
   // キャラクター削除をキャンセル
   const handleCancelDelete = () => {
-    setDeleteDialogOpen(false)
-    setCharacterToDelete(null)
-  }
+    setDeleteDialogOpen(false);
+    setCharacterToDelete(null);
+  };
 
   // ジョブ登録ダイアログを開く
   const handleOpenJobRegistration = (characterUuid: string) => {
-    setCharacterForJobRegistration(characterUuid)
-    setJobRegistrationDialogOpen(true)
-  }
+    setCharacterForJobRegistration(characterUuid);
+    setJobRegistrationDialogOpen(true);
+  };
 
   // ジョブ登録ダイアログを閉じる
   const handleCloseJobRegistration = () => {
-    setJobRegistrationDialogOpen(false)
-    setCharacterForJobRegistration(null)
-  }
+    setJobRegistrationDialogOpen(false);
+    setCharacterForJobRegistration(null);
+  };
 
   // ジョブ登録を実行
   const handleRegisterJob = (job: Job) => {
-    if (!latestSeason || !characterForJobRegistration) return
+    if (!latestSeason || !characterForJobRegistration) return;
 
     try {
       addUsedJob({
         characterUuid: characterForJobRegistration,
         seasonUuid: latestSeason.uuid,
         job,
-      })
-      setJobRegistrationDialogOpen(false)
-      setCharacterForJobRegistration(null)
+      });
+      setJobRegistrationDialogOpen(false);
+      setCharacterForJobRegistration(null);
     } catch {
       // エラーは characterError で表示される
     }
-  }
+  };
 
   // 勝利記録を追加
   const handleAddWin = (characterUuid: string, job: Job, map: CrystalConflictMap) => {
-    if (!latestSeason) return
+    if (!latestSeason) return;
 
     try {
       createMatchRecord({
@@ -202,15 +201,15 @@ export const HomePage = () => {
         job,
         map,
         isWin: true,
-      })
+      });
     } catch {
       // エラーは characterError で表示される
     }
-  }
+  };
 
   // 敗北記録を追加
   const handleAddLoss = (characterUuid: string, job: Job, map: CrystalConflictMap) => {
-    if (!latestSeason) return
+    if (!latestSeason) return;
 
     try {
       createMatchRecord({
@@ -219,40 +218,36 @@ export const HomePage = () => {
         job,
         map,
         isWin: false,
-      })
+      });
     } catch {
       // エラーは characterError で表示される
     }
-  }
+  };
 
   // 直近の記録を取り消し
   const handleRevertLast = (characterUuid: string, job: Job, map: CrystalConflictMap) => {
-    if (!latestSeason) return
+    if (!latestSeason) return;
 
     try {
       // 指定されたキャラクター、ジョブ、マップの記録を抽出
       const targetRecords = matchRecords.filter(
-        (record) =>
-          record.characterUuid === characterUuid &&
-          record.seasonUuid === latestSeason.uuid &&
-          record.job === job &&
-          record.map === map
-      )
+        (record) => record.characterUuid === characterUuid && record.seasonUuid === latestSeason.uuid && record.job === job && record.map === map,
+      );
 
       // 記録がない場合は何もしない
-      if (targetRecords.length === 0) return
+      if (targetRecords.length === 0) return;
 
       // 最新の記録を見つける（createdAtが最も新しいもの）
       const latestRecord = targetRecords.reduce((latest, current) => {
-        return new Date(current.createdAt) > new Date(latest.createdAt) ? current : latest
-      })
+        return new Date(current.createdAt) > new Date(latest.createdAt) ? current : latest;
+      });
 
       // 最新の記録を削除
-      deleteMatchRecord(latestRecord.uuid)
+      deleteMatchRecord(latestRecord.uuid);
     } catch {
       // エラーは characterError で表示される
     }
-  }
+  };
 
   // ローディング中の表示
   if (isLoading) {
@@ -261,7 +256,7 @@ export const HomePage = () => {
         <PageTitle>現シーズンの戦績</PageTitle>
         <PageDescription>読み込み中...</PageDescription>
       </PageContainer>
-    )
+    );
   }
 
   // シーズンが未登録の場合
@@ -271,12 +266,10 @@ export const HomePage = () => {
         <PageTitleContainer>
           <PageTitle>現シーズンの戦績</PageTitle>
         </PageTitleContainer>
-        <PageDescription>
-          クリスタルコンフリクト戦績管理へようこそ！
-        </PageDescription>
+        <PageDescription>クリスタルコンフリクト戦績管理へようこそ！</PageDescription>
         <EmptyState onCreateSeason={handleCreateSeason} />
       </PageContainer>
-    )
+    );
   }
 
   // シーズンが存在する場合の表示
@@ -288,16 +281,12 @@ export const HomePage = () => {
           新しいシーズンを作成
         </Button>
       </PageTitleContainer>
-      <PageDescription>
-        戦績と統計情報を入力します。
-      </PageDescription>
+      <PageDescription>戦績と統計情報を入力します。</PageDescription>
 
       {characterError && (
         <StyledErrorMessage>
           <span>{characterError}</span>
-          <StyledErrorCloseButton onClick={clearError}>
-            閉じる
-          </StyledErrorCloseButton>
+          <StyledErrorCloseButton onClick={clearError}>閉じる</StyledErrorCloseButton>
         </StyledErrorMessage>
       )}
 
@@ -321,18 +310,10 @@ export const HomePage = () => {
             onCancelEdit={handleCancelEditing}
           />
         ))}
-        <CharacterForm
-          isOpen={characterStats.length === 0}
-          onCreateCharacter={handleCreateCharacter}
-        />
+        <CharacterForm isOpen={characterStats.length === 0} onCreateCharacter={handleCreateCharacter} />
       </StyledCharacterList>
 
-      <DeleteCharacterDialog
-        isOpen={deleteDialogOpen}
-        character={characterToDelete}
-        onClose={handleCancelDelete}
-        onConfirm={handleConfirmDelete}
-      />
+      <DeleteCharacterDialog isOpen={deleteDialogOpen} character={characterToDelete} onClose={handleCancelDelete} onConfirm={handleConfirmDelete} />
 
       {latestSeason && characterForJobRegistration && (
         <JobRegistrationDialog
@@ -344,5 +325,5 @@ export const HomePage = () => {
         />
       )}
     </PageContainer>
-  )
-}
+  );
+};

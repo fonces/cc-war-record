@@ -1,27 +1,27 @@
-import type { ReactNode } from 'react'
-import styled from 'styled-components'
-import { Button, Icon } from '@/components/ui'
+import type { ReactNode } from "react";
+import styled from "styled-components";
+import { Button, Icon } from "@/components/ui";
 
 type DialogProps = {
   /** ダイアログの表示状態 */
-  isOpen: boolean
+  isOpen: boolean;
   /** ダイアログを閉じる処理 */
-  onClose: () => void
+  onClose: () => void;
   /** ダイアログのタイトル */
-  title: string
+  title: string;
   /** ダイアログの内容 */
-  children: ReactNode
+  children: ReactNode;
   /** 確認ボタンのテキスト */
-  confirmText?: string
+  confirmText?: string;
   /** キャンセルボタンのテキスト */
-  cancelText?: string
+  cancelText?: string;
   /** 確認ボタンのクリックハンドラー */
-  onConfirm?: () => void
+  onConfirm?: () => void;
   /** 確認ボタンのタイプ（危険なアクション用） */
-  confirmType?: 'primary' | 'danger'
+  confirmType?: "primary" | "danger";
   /** ローディング状態 */
-  isLoading?: boolean
-}
+  isLoading?: boolean;
+};
 
 const StyledOverlay = styled.div<{ isOpen: boolean }>`
   position: fixed;
@@ -30,17 +30,19 @@ const StyledOverlay = styled.div<{ isOpen: boolean }>`
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
+  display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
   align-items: center;
   justify-content: center;
   z-index: 1000;
   padding: ${({ theme }) => theme.spacing[4]};
-`
+`;
 
 const StyledDialog = styled.div`
   background: white;
   border-radius: ${({ theme }) => theme.borderRadius.lg};
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
   width: 100%;
   max-width: 500px;
   max-height: 90vh;
@@ -58,7 +60,7 @@ const StyledDialog = styled.div`
       transform: scale(1) translateY(0);
     }
   }
-`
+`;
 
 const StyledHeader = styled.div`
   padding: ${({ theme }) => theme.spacing[6]} ${({ theme }) => theme.spacing[6]} ${({ theme }) => theme.spacing[4]};
@@ -67,7 +69,7 @@ const StyledHeader = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   flex-shrink: 0;
-`
+`;
 
 const StyledTitle = styled.h2`
   font-size: 1.125rem;
@@ -76,7 +78,7 @@ const StyledTitle = styled.h2`
   margin: 0;
   flex: 1;
   margin-right: ${({ theme }) => theme.spacing[4]};
-`
+`;
 
 const StyledCloseButton = styled.button`
   background: none;
@@ -88,12 +90,12 @@ const StyledCloseButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   &:hover {
     background-color: ${({ theme }) => theme.colors.gray[100]};
     color: ${({ theme }) => theme.colors.text};
   }
-`
+`;
 
 const StyledContent = styled.div`
   padding: ${({ theme }) => theme.spacing[4]} ${({ theme }) => theme.spacing[6]};
@@ -102,7 +104,7 @@ const StyledContent = styled.div`
   overflow-y: auto;
   flex: 1;
   min-height: 0;
-`
+`;
 
 const StyledFooter = styled.div`
   padding: ${({ theme }) => theme.spacing[4]} ${({ theme }) => theme.spacing[6]} ${({ theme }) => theme.spacing[6]};
@@ -111,19 +113,17 @@ const StyledFooter = styled.div`
   justify-content: flex-end;
   border-top: 1px solid ${({ theme }) => theme.colors.gray[200]};
   flex-shrink: 0;
-`
+`;
 
-const StyledConfirmButton = styled(Button)<{ confirmType: 'primary' | 'danger' }>`
-  background-color: ${({ confirmType, theme }) => 
-    confirmType === 'danger' ? theme.colors.error[600] : theme.colors.primary[600]
-  };
-  
+const StyledConfirmButton = styled(Button)<{
+  confirmType: "primary" | "danger";
+}>`
+  background-color: ${({ confirmType, theme }) => (confirmType === "danger" ? theme.colors.error[600] : theme.colors.primary[600])};
+
   &:hover:not(:disabled) {
-    background-color: ${({ confirmType, theme }) => 
-      confirmType === 'danger' ? theme.colors.error[700] : theme.colors.primary[700]
-    };
+    background-color: ${({ confirmType, theme }) => (confirmType === "danger" ? theme.colors.error[700] : theme.colors.primary[700])};
   }
-`
+`;
 
 /**
  * 汎用ダイアログコンポーネント
@@ -133,34 +133,30 @@ export const Dialog = ({
   onClose,
   title,
   children,
-  confirmText = '確認',
-  cancelText = 'キャンセル',
+  confirmText = "確認",
+  cancelText = "キャンセル",
   onConfirm,
-  confirmType = 'primary',
+  confirmType = "primary",
   isLoading = false,
 }: DialogProps) => {
   // ESCキーでダイアログを閉じる
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      onClose()
+    if (e.key === "Escape") {
+      onClose();
     }
-  }
+  };
 
   // オーバーレイクリックでダイアログを閉じる
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
-      onClose()
+      onClose();
     }
-  }
+  };
 
-  if (!isOpen) return null
+  if (!isOpen) return null;
 
   return (
-    <StyledOverlay 
-      isOpen={isOpen} 
-      onClick={handleOverlayClick}
-      onKeyDown={handleKeyDown}
-    >
+    <StyledOverlay isOpen={isOpen} onClick={handleOverlayClick} onKeyDown={handleKeyDown}>
       <StyledDialog role="dialog" aria-modal="true" aria-labelledby="dialog-title">
         <StyledHeader>
           <StyledTitle id="dialog-title">{title}</StyledTitle>
@@ -168,30 +164,20 @@ export const Dialog = ({
             <Icon name="close" size={20} />
           </StyledCloseButton>
         </StyledHeader>
-        
-        <StyledContent>
-          {children}
-        </StyledContent>
-        
+
+        <StyledContent>{children}</StyledContent>
+
         {onConfirm && (
           <StyledFooter>
-            <Button 
-              variant="secondary" 
-              onClick={onClose}
-              disabled={isLoading}
-            >
+            <Button variant="secondary" onClick={onClose} disabled={isLoading}>
               {cancelText}
             </Button>
-            <StyledConfirmButton
-              confirmType={confirmType}
-              onClick={onConfirm}
-              disabled={isLoading}
-            >
-              {isLoading ? '処理中...' : confirmText}
+            <StyledConfirmButton confirmType={confirmType} onClick={onConfirm} disabled={isLoading}>
+              {isLoading ? "処理中..." : confirmText}
             </StyledConfirmButton>
           </StyledFooter>
         )}
       </StyledDialog>
     </StyledOverlay>
-  )
-}
+  );
+};
