@@ -4,6 +4,8 @@ import { useHistoryStore, useCharacterStore } from '@/stores'
 import { Button, Icon } from '@/components/ui'
 import { DailyWinLossChart } from './DailyWinLossChart'
 import { JobWinRateRadarChart } from './JobWinRateRadarChart'
+import { HourlyWinLossChart } from './HourlyWinLossChart'
+import { WeeklyWinLossChart } from './WeeklyWinLossChart'
 
 const StyledContainer = styled.div`
   padding: 2rem;
@@ -97,6 +99,16 @@ export const GraphsPage = () => {
           <DailyWinLossChart 
             history={latestHistory} 
             matchRecords={matchRecords} 
+            characters={characters}
+          />
+          <HourlyWinLossChart
+            history={latestHistory}
+            matchRecords={matchRecords}
+            characters={characters}
+          />
+          <WeeklyWinLossChart
+            history={latestHistory}
+            matchRecords={matchRecords}
             characters={characters}
           />
           <JobWinRateRadarChart

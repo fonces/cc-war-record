@@ -2,6 +2,15 @@
  * localStorage ユーティリティ
  */
 
+import type { Job } from '@/types'
+import { JOBS } from '@/types/jobs'
+
+// ジョブフィルター用のキー定数
+export const STORAGE_KEYS = {
+  RADAR_CHART_JOB1: 'cc-war-record:radar-chart-job1',
+  RADAR_CHART_JOB2: 'cc-war-record:radar-chart-job2',
+} as const
+
 /**
  * localStorageからデータを取得
  * @param key キー
@@ -72,4 +81,32 @@ export const clearLocalStorage = (): void => {
   } catch (error) {
     console.error('Error clearing localStorage:', error)
   }
+}
+
+/**
+ * レーダーチャート用のジョブ1を取得
+ */
+export const getRadarChartJob1 = (): Job => {
+  return getFromLocalStorage(STORAGE_KEYS.RADAR_CHART_JOB1, JOBS.PALADIN)
+}
+
+/**
+ * レーダーチャート用のジョブ1を保存
+ */
+export const saveRadarChartJob1 = (job: Job): void => {
+  saveToLocalStorage(STORAGE_KEYS.RADAR_CHART_JOB1, job)
+}
+
+/**
+ * レーダーチャート用のジョブ2を取得
+ */
+export const getRadarChartJob2 = (): Job => {
+  return getFromLocalStorage(STORAGE_KEYS.RADAR_CHART_JOB2, JOBS.WHITE_MAGE)
+}
+
+/**
+ * レーダーチャート用のジョブ2を保存
+ */
+export const saveRadarChartJob2 = (job: Job): void => {
+  saveToLocalStorage(STORAGE_KEYS.RADAR_CHART_JOB2, job)
 }

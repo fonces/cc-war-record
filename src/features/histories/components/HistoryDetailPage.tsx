@@ -21,7 +21,7 @@ export const HistoryDetailPage = () => {
 
   return (
     <StyledContainer>
-      <StyledTitle>飽きた</StyledTitle>
+      <StyledTitle>Do Something...</StyledTitle>
     </StyledContainer>
   )
 }

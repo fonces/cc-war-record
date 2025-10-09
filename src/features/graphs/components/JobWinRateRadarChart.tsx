@@ -14,6 +14,12 @@ import { Select } from '@/components/ui'
 import type { History, MatchRecord, Job, Character } from '@/types'
 import { JOB_INFO, JOBS } from '@/types/jobs'
 import { MAP_INFO, MAPS } from '@/types/maps'
+import { 
+  getRadarChartJob1, 
+  saveRadarChartJob1, 
+  getRadarChartJob2, 
+  saveRadarChartJob2 
+} from '@/utils/localStorage'
 
 const StyledChartContainer = styled.div`
   background: ${({ theme }) => theme.colors.gray[50]};
@@ -112,8 +118,20 @@ const aggregateJobWinRateByMap = (
  */
 export const JobWinRateRadarChart = ({ history, matchRecords, characters }: JobWinRateRadarChartProps) => {
   const [selectedCharacterUuid, setSelectedCharacterUuid] = useState<string | null>(null)
-  const [selectedJob1, setSelectedJob1] = useState<Job>(JOBS.PALADIN)
-  const [selectedJob2, setSelectedJob2] = useState<Job>(JOBS.WHITE_MAGE)
+  const [selectedJob1, setSelectedJob1] = useState<Job>(() => getRadarChartJob1())
+  const [selectedJob2, setSelectedJob2] = useState<Job>(() => getRadarChartJob2())
+
+  // ジョブ1の変更ハンドラー
+  const handleJob1Change = (job: Job) => {
+    setSelectedJob1(job)
+    saveRadarChartJob1(job)
+  }
+
+  // ジョブ2の変更ハンドラー
+  const handleJob2Change = (job: Job) => {
+    setSelectedJob2(job)
+    saveRadarChartJob2(job)
+  }
 
   const selectedJobs = [selectedJob1, selectedJob2]
   const radarData = aggregateJobWinRateByMap(
@@ -147,7 +165,7 @@ export const JobWinRateRadarChart = ({ history, matchRecords, characters }: JobW
             label="ジョブ1"
             id="job1-filter"
             value={selectedJob1}
-            onChange={(e) => setSelectedJob1(e.target.value as Job)}
+            onChange={(e) => handleJob1Change(e.target.value as Job)}
             options={Object.values(JOBS).map(job => ({
               value: job,
               label: `${JOB_INFO[job].name} (${job})`
@@ -157,7 +175,7 @@ export const JobWinRateRadarChart = ({ history, matchRecords, characters }: JobW
             label="ジョブ2"
             id="job2-filter"
             value={selectedJob2}
-            onChange={(e) => setSelectedJob2(e.target.value as Job)}
+            onChange={(e) => handleJob2Change(e.target.value as Job)}
             options={Object.values(JOBS).map(job => ({
               value: job,
               label: `${JOB_INFO[job].name} (${job})`
