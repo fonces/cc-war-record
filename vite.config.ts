@@ -10,14 +10,16 @@ const generateGitHubPagesFilesPlugin = () => {
     name: "generate-github-pages-files",
     writeBundle() {
       const distPath = path.resolve(__dirname, "dist");
-      const indexPath = path.join(distPath, "index.html");
       const notFoundPath = path.join(distPath, "404.html");
       const nojekyllPath = path.join(distPath, ".nojekyll");
 
       // 404.html生成
-      if (fs.existsSync(indexPath)) {
-        fs.copyFileSync(indexPath, notFoundPath);
-        console.log("✓ 404.html generated for GitHub Pages SPA routing");
+      const publicNotFoundPath = path.join(__dirname, "public", "404.html");
+      if (fs.existsSync(publicNotFoundPath)) {
+        fs.copyFileSync(publicNotFoundPath, notFoundPath);
+        console.log("✓ 404.html copied from public directory for GitHub Pages SPA routing");
+      } else {
+        console.warn("⚠ public/404.html not found, skipping 404.html generation");
       }
 
       // .nojekyll生成
