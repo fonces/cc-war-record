@@ -208,8 +208,9 @@ export const HistoryTable = ({ histories, isLoading = false, onDelete }: History
 
   // 履歴詳細へ遷移
   const handleNavigateToDetail = (historyUuid: string) => {
-    // idが"latest"の場合はホーム画面に遷移
-    if (historyUuid === "latest") {
+    // 最新のシーズン（リストの最初の要素）の場合はホーム画面に遷移
+    const latestHistoryUuid = histories[0]?.uuid;
+    if (historyUuid === latestHistoryUuid) {
       navigate({ to: "/" });
     } else {
       navigate({ to: `/histories/${historyUuid}` });
