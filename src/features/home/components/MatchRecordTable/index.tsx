@@ -51,7 +51,7 @@ const StyledMapSummary = styled.div`
 
 const StyledMapWinRate = styled.span<{ winRate: number }>`
   font-weight: 600;
-  color: ${({ winRate, theme }) => (winRate >= 60 ? theme.colors.success[600] : winRate >= 40 ? theme.colors.warning[600] : theme.colors.error[600])};
+  color: ${({ winRate, theme }) => (winRate >= 51 ? theme.colors.success[600] : winRate >= 40 ? theme.colors.warning[600] : theme.colors.error[600])};
 `;
 
 const StyledTableContainer = styled.div`
@@ -153,7 +153,7 @@ const StyledJobCell = styled(StyledTableCell)`
 
 const StyledWinRateText = styled.span<{ winRate: number }>`
   font-weight: 600;
-  color: ${({ winRate, theme }) => (winRate >= 60 ? theme.colors.success[600] : winRate >= 40 ? theme.colors.warning[600] : theme.colors.error[600])};
+  color: ${({ winRate, theme }) => (winRate >= 51 ? theme.colors.success[600] : winRate >= 40 ? theme.colors.warning[600] : theme.colors.error[600])};
 `;
 
 const StyledActionButtons = styled.div`
