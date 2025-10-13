@@ -38,6 +38,8 @@ type CharacterActions = {
   createMatchRecord: (input: CreateMatchRecordInput) => MatchRecord;
   /** 戦績記録を削除 */
   deleteMatchRecord: (uuid: string) => boolean;
+  /** 戦績記録をクリア */
+  clearMatchRecords: () => void;
   /** 特定のシーズンのキャラクター戦績サマリーを取得 */
   getCharacterStatsForSeason: (seasonUuid: string) => CharacterStats[];
   /** 特定のキャラクターの戦績記録を取得 */
@@ -213,6 +215,17 @@ export const useCharacterStore = create<CharacterState & CharacterActions>((set,
     });
 
     return true;
+  },
+
+  // 戦績記録をクリア
+  clearMatchRecords: () => {
+    // localStorageから削除
+    saveToLocalStorage(MATCH_RECORDS_STORAGE_KEY, []);
+
+    set({
+      matchRecords: [],
+      error: null,
+    });
   },
 
   // 特定のシーズンのキャラクター戦績サマリーを取得
