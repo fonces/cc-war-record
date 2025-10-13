@@ -122,6 +122,7 @@ const StyledOverlay = styled.div<{ isOpen: boolean }>`
 
 // メインコンテンツエリア
 const StyledMainContent = styled.main`
+  display: flex;
   flex: 1;
   min-height: 100vh;
   overflow-x: hidden;

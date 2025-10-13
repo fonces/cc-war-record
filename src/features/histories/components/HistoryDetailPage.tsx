@@ -2,7 +2,7 @@ import { useParams } from "@tanstack/react-router";
 import { useMemo, useRef } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import styled from "styled-components";
-import { PageContainer, PageTitle, PageDescription } from "@/components/ui";
+import { PageContainer, PageTitleContainer, PageTitle, PageDescription } from "@/components/ui";
 import { useHistoryStore } from "@/stores";
 import { JobIcon } from "@/components/ui/JobIcon";
 import { formatDateTable } from "@/utils/uuid";
@@ -41,13 +41,13 @@ const StyledTableHeader = styled.div`
   z-index: 1;
 `;
 
-const StyledHeaderCell = styled.div<{ $width?: string }>`
+const StyledHeaderCell = styled.div<{ width?: string }>`
   padding: ${({ theme }) => theme.spacing[4]} ${({ theme }) => theme.spacing[6]};
   font-weight: 600;
   font-size: 0.875rem;
   color: ${({ theme }) => theme.colors.gray[700]};
   white-space: nowrap;
-  flex: ${({ $width }) => ($width ? "0 0 " + $width : "1")};
+  flex: ${({ width }) => (width ? "0 0 " + width : "1")};
   text-align: left;
 
   &:last-child {
@@ -79,11 +79,11 @@ const StyledTableRow = styled.div`
   }
 `;
 
-const StyledTableCell = styled.div<{ $width?: string }>`
+const StyledTableCell = styled.div<{ width?: string }>`
   padding: ${({ theme }) => theme.spacing[4]} ${({ theme }) => theme.spacing[6]};
   font-size: 0.875rem;
   color: ${({ theme }) => theme.colors.gray[900]};
-  flex: ${({ $width }) => ($width ? "0 0 " + $width : "1")};
+  flex: ${({ width }) => (width ? "0 0 " + width : "1")};
   display: flex;
   align-items: center;
 
@@ -213,7 +213,9 @@ export const HistoryDetailPage = () => {
 
   return (
     <PageContainer>
-      <PageTitle>{history.seasonName}</PageTitle>
+      <PageTitleContainer>
+        <PageTitle>{history.seasonName}</PageTitle>
+      </PageTitleContainer>
       <PageDescription>
         {allMatches.length}試合の戦績 • 作成日: {new Date(history.createdAt).toLocaleDateString("ja-JP")}
       </PageDescription>
@@ -222,10 +224,10 @@ export const HistoryDetailPage = () => {
         <StyledTable>
           {/* ヘッダー */}
           <StyledTableHeader>
-            <StyledHeaderCell $width="200px">キャラクター名</StyledHeaderCell>
-            <StyledHeaderCell $width="120px">使用ジョブ</StyledHeaderCell>
-            <StyledHeaderCell $width="180px">作成日時</StyledHeaderCell>
-            <StyledHeaderCell $width="100px">勝敗</StyledHeaderCell>
+            <StyledHeaderCell>キャラクター名</StyledHeaderCell>
+            <StyledHeaderCell width="120px">使用ジョブ</StyledHeaderCell>
+            <StyledHeaderCell width="180px">作成日時</StyledHeaderCell>
+            <StyledHeaderCell width="100px">勝敗</StyledHeaderCell>
           </StyledTableHeader>
 
           {/* 仮想スクロールリスト */}
@@ -247,13 +249,13 @@ export const HistoryDetailPage = () => {
                         height: `${virtualRow.size}px`,
                       }}
                     >
-                      <StyledCharacterNameCell $width="200px">{match.characterName}</StyledCharacterNameCell>
-                      <StyledJobCell $width="120px">
+                      <StyledCharacterNameCell>{match.characterName}</StyledCharacterNameCell>
+                      <StyledJobCell width="120px">
                         <JobIcon job={match.job} size={24} />
                         <StyledJobShortName>{JOB_INFO[match.job].shortName}</StyledJobShortName>
                       </StyledJobCell>
-                      <StyledDateCell $width="180px">{formatDateTable(match.recordedAt)}</StyledDateCell>
-                      <StyledTableCell $width="100px">
+                      <StyledDateCell width="180px">{formatDateTable(match.recordedAt)}</StyledDateCell>
+                      <StyledTableCell width="100px">
                         <StyledWinBadge $isWin={match.isWin}>{match.isWin ? "Win" : "Lose"}</StyledWinBadge>
                       </StyledTableCell>
                     </StyledTableRow>

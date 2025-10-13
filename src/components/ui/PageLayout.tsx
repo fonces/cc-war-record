@@ -1,5 +1,13 @@
 import styled from "styled-components";
 
+const StyledPageContainer = styled.div`
+  padding: ${({ theme }) => theme.spacing[6]};
+  max-width: 1200px;
+  min-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+`;
+
 const StyledPageTitleContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -27,6 +35,10 @@ const StyledPageDescription = styled.p`
   margin-bottom: ${({ theme }) => theme.spacing[6]};
 `;
 
+type PageContainerProps = {
+  children: React.ReactNode;
+};
+
 type PageTitleContainerProps = {
   children: React.ReactNode;
 };
@@ -38,17 +50,6 @@ type PageTitleProps = {
 type PageDescriptionProps = {
   children: React.ReactNode;
 };
-
-const StyledPageContainer = styled.div`
-  padding: ${({ theme }) => theme.spacing[6]};
-  max-width: 1200px;
-  margin: 0 auto;
-`;
-
-type PageContainerProps = {
-  children: React.ReactNode;
-};
-
 /**
  * ページコンテナコンポーネント
  * ページ全体のコンテナとして使用

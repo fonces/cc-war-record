@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import type { History, CreateHistoryInput, UpdateHistoryInput, CharacterStats, Character, AddUsedJobInput, MatchRecord } from "@/types";
 import { generateUUID, getCurrentISOString } from "@/utils/uuid";
-import { getFromLocalStorage, saveToLocalStorage } from "@/utils/localStorage";
+import { getFromLocalStorage, removeFromLocalStorage, saveToLocalStorage } from "@/utils/localStorage";
 import { useCharacterStore } from "./characterStore";
 
 // localStorageのキー
@@ -96,7 +96,7 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
 
       // characterStoreから最新シーズンのデータを取得
       const characterStats = useCharacterStore.getState().getCharacterStatsForSeason(latestHistory.uuid);
-      
+
       // キャラクター統計から全てのマッチレコードを収集
       const allMatchRecords: MatchRecord[] = [];
       characterStats.forEach((stats) => {
@@ -172,6 +172,13 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
     const historyIndex = histories.findIndex((h) => h.uuid === uuid);
     if (historyIndex === -1) {
       set({ error: "指定された履歴が見つかりません" });
+      return false;
+    }
+
+    try {
+      removeFromLocalStorage(`histories-${uuid}`);
+    } catch (error) {
+      console.error(`Error deleting match records for season ${uuid}:`, error);
       return false;
     }
 
