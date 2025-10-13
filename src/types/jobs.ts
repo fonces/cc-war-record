@@ -116,7 +116,7 @@ export const JOB_INFO: Record<Job, JobInfo> = {
     shortName: "PLD",
     role: ROLES.TANK,
     iconId: 19,
-    color: "#A8D2E6",
+    color: "#5EADDC", // 視認性を向上（より濃い青）
   },
   [JOBS.WARRIOR]: {
     code: JOBS.WARRIOR,
@@ -143,7 +143,7 @@ export const JOB_INFO: Record<Job, JobInfo> = {
     shortName: "GNB",
     role: ROLES.TANK,
     iconId: 37,
-    color: "#796D30",
+    color: "#9C8542", // 視認性を向上（より濃い茶色）
   },
 
   // ヒーラー
@@ -154,7 +154,7 @@ export const JOB_INFO: Record<Job, JobInfo> = {
     shortName: "WHM",
     role: ROLES.HEALER,
     iconId: 24,
-    color: "#FFF0DC",
+    color: "#E6D8BC", // 視認性を向上（少し濃いベージュ）
   },
   [JOBS.SCHOLAR]: {
     code: JOBS.SCHOLAR,
@@ -172,7 +172,7 @@ export const JOB_INFO: Record<Job, JobInfo> = {
     shortName: "AST",
     role: ROLES.HEALER,
     iconId: 33,
-    color: "#FFE74A",
+    color: "#E6C84A", // 視認性を向上（より濃い黄色）
   },
   [JOBS.SAGE]: {
     code: JOBS.SAGE,
@@ -181,7 +181,7 @@ export const JOB_INFO: Record<Job, JobInfo> = {
     shortName: "SGE",
     role: ROLES.HEALER,
     iconId: 40,
-    color: "#ADFF2F",
+    color: "#8FD14F", // 視認性を向上（より濃い黄緑）
   },
 
   // 近接DPS
@@ -237,7 +237,7 @@ export const JOB_INFO: Record<Job, JobInfo> = {
     shortName: "VPR",
     role: ROLES.MELEE_DPS,
     iconId: 41,
-    color: "#906020",
+    color: "#B07830", // 視認性を向上（より濃いベージュ）
   },
 
   // 物理遠隔DPS
@@ -266,7 +266,7 @@ export const JOB_INFO: Record<Job, JobInfo> = {
     shortName: "DNC",
     role: ROLES.PHYSICAL_RANGED_DPS,
     iconId: 38,
-    color: "#E2B0AF",
+    color: "#D98B8A", // 視認性を向上（より濃いピンク）
   },
 
   // 魔法遠隔DPS
@@ -304,7 +304,7 @@ export const JOB_INFO: Record<Job, JobInfo> = {
     shortName: "PCT",
     role: ROLES.MAGICAL_RANGED_DPS,
     iconId: 42,
-    color: "#F0E68C",
+    color: "#D4C05C", // 視認性を向上（より濃い黄色）
   },
 };
 
