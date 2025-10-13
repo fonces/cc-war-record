@@ -2,6 +2,7 @@ import { create } from "zustand";
 import type { History, CreateHistoryInput, UpdateHistoryInput, CharacterStats, Character, AddUsedJobInput, MatchRecord } from "@/types";
 import { generateUUID, getCurrentISOString } from "@/utils/uuid";
 import { getFromLocalStorage, saveToLocalStorage } from "@/utils/localStorage";
+import { useCharacterStore } from "./characterStore";
 
 // localStorageのキー
 const STORAGE_KEY = "cc-war-record-histories";
@@ -90,16 +91,25 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
 
     // 既存のシーズンがある場合、現在のマッチレコードを移動
     if (histories.length > 0) {
-      const currentMatchRecords = getFromLocalStorage("cc-war-record-match-records", []);
-      if (currentMatchRecords.length > 0) {
-        // 最新のシーズンのUUIDを取得（日付順でソート）
-        const latestHistory = histories.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())[0];
+      // 最新のシーズンのUUIDを取得（日付順でソート）
+      const latestHistory = histories.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())[0];
 
-        // 現在のマッチレコードを前のシーズンのキーに移動
-        saveToLocalStorage(`histories-${latestHistory.uuid}`, currentMatchRecords);
+      // characterStoreから最新シーズンのデータを取得
+      const characterStats = useCharacterStore.getState().getCharacterStatsForSeason(latestHistory.uuid);
+      
+      // キャラクター統計から全てのマッチレコードを収集
+      const allMatchRecords: MatchRecord[] = [];
+      characterStats.forEach((stats) => {
+        allMatchRecords.push(...stats.recentMatches);
+      });
+
+      // マッチレコードが存在する場合のみアーカイブ
+      if (allMatchRecords.length > 0) {
+        // 前のシーズンのキーにマッチレコードを保存
+        saveToLocalStorage(`histories-${latestHistory.uuid}`, allMatchRecords);
 
         // 現在のマッチレコードをクリア
-        saveToLocalStorage("cc-war-record-match-records", []);
+        useCharacterStore.getState().clearMatchRecords();
       }
     }
 
