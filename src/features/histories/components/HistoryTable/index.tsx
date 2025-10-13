@@ -208,7 +208,12 @@ export const HistoryTable = ({ histories, isLoading = false, onDelete }: History
 
   // 履歴詳細へ遷移
   const handleNavigateToDetail = (historyUuid: string) => {
-    navigate({ to: `/histories/${historyUuid}` });
+    // idが"latest"の場合はホーム画面に遷移
+    if (historyUuid === "latest") {
+      navigate({ to: "/" });
+    } else {
+      navigate({ to: `/histories/${historyUuid}` });
+    }
   };
 
   // 削除ダイアログを開く
