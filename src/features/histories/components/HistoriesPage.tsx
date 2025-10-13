@@ -39,10 +39,10 @@ const StyledStatValue = styled.span`
 // エラー表示
 const StyledErrorMessage = styled.div`
   padding: ${({ theme }) => theme.spacing[4]} ${({ theme }) => theme.spacing[6]};
-  background-color: ${({ theme }) => theme.colors.error}20;
-  border: 1px solid ${({ theme }) => theme.colors.error}40;
+  background-color: ${({ theme }) => theme.colors.error[500]}20;
+  border: 1px solid ${({ theme }) => theme.colors.error[500]}40;
   border-radius: ${({ theme }) => theme.borderRadius.md};
-  color: ${({ theme }) => theme.colors.error};
+  color: ${({ theme }) => theme.colors.error[500]};
   margin-bottom: ${({ theme }) => theme.spacing[6]};
   font-size: 0.875rem;
 `;

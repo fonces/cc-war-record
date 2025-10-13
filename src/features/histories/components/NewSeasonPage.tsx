@@ -39,20 +39,20 @@ const StyledActions = styled.div`
 
 const StyledErrorMessage = styled.div`
   padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
-  background-color: ${({ theme }) => theme.colors.error}20;
-  border: 1px solid ${({ theme }) => theme.colors.error}40;
+  background-color: ${({ theme }) => theme.colors.error[500]}20;
+  border: 1px solid ${({ theme }) => theme.colors.error[500]}40;
   border-radius: ${({ theme }) => theme.borderRadius.md};
-  color: ${({ theme }) => theme.colors.error};
+  color: ${({ theme }) => theme.colors.error[500]};
   margin-bottom: ${({ theme }) => theme.spacing[4]};
   font-size: 0.875rem;
 `;
 
 const StyledSuccessMessage = styled.div`
   padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
-  background-color: ${({ theme }) => theme.colors.success}20;
-  border: 1px solid ${({ theme }) => theme.colors.success}40;
+  background-color: ${({ theme }) => theme.colors.success[500]}20;
+  border: 1px solid ${({ theme }) => theme.colors.success[500]}40;
   border-radius: ${({ theme }) => theme.borderRadius.md};
-  color: ${({ theme }) => theme.colors.success};
+  color: ${({ theme }) => theme.colors.success[500]};
   margin-bottom: ${({ theme }) => theme.spacing[4]};
   font-size: 0.875rem;
 `;

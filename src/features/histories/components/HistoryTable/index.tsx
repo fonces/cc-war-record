@@ -116,7 +116,7 @@ const StyledDeleteButton = styled(Button)`
   transition: all 0.2s ease-in-out;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.error};
+    background-color: ${({ theme }) => theme.colors.error[500]};
   }
 `;
 

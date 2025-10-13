@@ -24,15 +24,15 @@ const Label = styled.label`
 const StyledInput = styled.input<{ hasError?: boolean }>`
   padding: ${({ theme }) => `${theme.spacing[3]} ${theme.spacing[4]}`};
   font-size: 1rem;
-  border: 2px solid ${({ theme, hasError }) => (hasError ? theme.colors.error : theme.colors.gray[300])};
+  border: 2px solid ${({ theme, hasError }) => (hasError ? theme.colors.error[500] : theme.colors.gray[300])};
   border-radius: ${({ theme }) => theme.borderRadius.md};
   outline: none;
   transition: all 0.2s;
   background-color: white;
 
   &:focus {
-    border-color: ${({ theme, hasError }) => (hasError ? theme.colors.error : theme.colors.primary[500])};
-    box-shadow: 0 0 0 3px ${({ theme, hasError }) => (hasError ? theme.colors.error + "20" : theme.colors.primary[100])};
+    border-color: ${({ theme, hasError }) => (hasError ? theme.colors.error[500] : theme.colors.primary[500])};
+    box-shadow: 0 0 0 3px ${({ theme, hasError }) => (hasError ? theme.colors.error[500] + "20" : theme.colors.primary[100])};
   }
 
   &:disabled {
@@ -47,7 +47,7 @@ const StyledInput = styled.input<{ hasError?: boolean }>`
 
 const ErrorMessage = styled.span`
   font-size: 0.875rem;
-  color: ${({ theme }) => theme.colors.error};
+  color: ${({ theme }) => theme.colors.error[500]};
 `;
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(({ label, error, fullWidth, ...props }, ref) => {

@@ -24,7 +24,7 @@ const Label = styled.label`
 
 const StyledSelect = styled.select<{ hasError?: boolean }>`
   padding: 0.5rem 2.5rem 0.5rem 1rem;
-  border: 1px solid ${({ theme, hasError }) => (hasError ? theme.colors.error : theme.colors.gray[300])};
+  border: 1px solid ${({ theme, hasError }) => (hasError ? theme.colors.error[500] : theme.colors.gray[300])};
   border-radius: 8px;
   background: white;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M10.293 3.293L6 7.586 1.707 3.293A1 1 0 00.293 4.707l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z'/%3E%3C/svg%3E");
@@ -46,8 +46,8 @@ const StyledSelect = styled.select<{ hasError?: boolean }>`
 
   &:focus {
     outline: none;
-    border-color: ${({ theme, hasError }) => (hasError ? theme.colors.error : theme.colors.primary[500])};
-    box-shadow: 0 0 0 3px ${({ theme, hasError }) => (hasError ? theme.colors.error + "20" : theme.colors.primary[100])};
+    border-color: ${({ theme, hasError }) => (hasError ? theme.colors.error[500] : theme.colors.primary[500])};
+    box-shadow: 0 0 0 3px ${({ theme, hasError }) => (hasError ? theme.colors.error[500] + "20" : theme.colors.primary[100])};
   }
 
   &:disabled {
@@ -59,7 +59,7 @@ const StyledSelect = styled.select<{ hasError?: boolean }>`
 
 const ErrorMessage = styled.span`
   font-size: 0.875rem;
-  color: ${({ theme }) => theme.colors.error};
+  color: ${({ theme }) => theme.colors.error[500]};
 `;
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(({ label, error, fullWidth, options, ...props }, ref) => {

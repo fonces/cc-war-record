@@ -52,16 +52,16 @@ const StyledNavList = styled.nav`
   gap: ${({ theme }) => theme.spacing[2]};
 `;
 
-const StyledNavLink = styled(Link)<{ isActive: boolean }>`
+const StyledNavLink = styled(Link)<{ $isActive: boolean }>`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing[3]};
   padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
   border-radius: ${({ theme }) => theme.borderRadius.md};
   text-decoration: none;
-  color: ${({ theme, isActive }) => (isActive ? theme.colors.primary[600] : theme.colors.gray[700])};
-  background-color: ${({ theme, isActive }) => (isActive ? theme.colors.primary[50] : "transparent")};
-  font-weight: ${({ isActive }) => (isActive ? "600" : "400")};
+  color: ${({ theme, $isActive }) => ($isActive ? theme.colors.primary[600] : theme.colors.gray[700])};
+  background-color: ${({ theme, $isActive }) => ($isActive ? theme.colors.primary[50] : "transparent")};
+  font-weight: ${({ $isActive }) => ($isActive ? "600" : "400")};
   transition: all 0.2s ease-in-out;
 
   &:hover {
@@ -70,13 +70,13 @@ const StyledNavLink = styled(Link)<{ isActive: boolean }>`
   }
 `;
 
-const StyledNavIcon = styled.div<{ isActive: boolean }>`
+const StyledNavIcon = styled.div<{ $isActive: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 20px;
   height: 20px;
-  color: ${({ theme, isActive }) => (isActive ? theme.colors.primary[600] : theme.colors.gray[500])};
+  color: ${({ theme, $isActive }) => ($isActive ? theme.colors.primary[600] : theme.colors.gray[500])};
 `;
 
 // モバイル用ヘッダー
@@ -200,8 +200,8 @@ export const Header = ({ children }: HeaderProps) => {
 
         <StyledNavList>
           {navigationItems.map((item) => (
-            <StyledNavLink key={item.path} to={item.path} isActive={isActivePath(item.path)} onClick={closeMobileMenu}>
-              <StyledNavIcon isActive={isActivePath(item.path)}>
+            <StyledNavLink key={item.path} to={item.path} $isActive={isActivePath(item.path)} onClick={closeMobileMenu}>
+              <StyledNavIcon $isActive={isActivePath(item.path)}>
                 <Icon name={item.icon} size={20} />
               </StyledNavIcon>
               {item.label}
