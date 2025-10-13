@@ -140,12 +140,10 @@ const StyledContainer = styled.div`
   }
 `;
 
-const StyledCloseButton = styled.button`
+const StyledCloseButton = styled.div`
   position: absolute;
   top: ${({ theme }) => theme.spacing[4]};
   right: ${({ theme }) => theme.spacing[4]};
-  background: none;
-  border: none;
   cursor: pointer;
   padding: ${({ theme }) => theme.spacing[2]};
 
@@ -194,8 +192,8 @@ export const Header = ({ children }: HeaderProps) => {
 
       {/* サイドバー */}
       <StyledSidebar isOpen={isMobileMenuOpen}>
-        <StyledCloseButton onClick={closeMobileMenu}>
-          <Icon name="close" size={24} />
+        <StyledCloseButton>
+          <Icon name="close" size={24} onClick={closeMobileMenu} />
         </StyledCloseButton>
 
         <StyledSidebarTitle>クリコン戦績記録</StyledSidebarTitle>

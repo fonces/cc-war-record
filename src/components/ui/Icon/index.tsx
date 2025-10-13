@@ -13,7 +13,7 @@ type IconProps = {
   className?: string;
 };
 
-const StyledIcon = styled.button<Pick<IconProps, "size" | "color">>`
+const StyledIcon = styled.div<Pick<IconProps, "size" | "color">>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -160,7 +160,7 @@ export const Icon = ({ name, size = 24, color, onClick, className }: IconProps) 
   };
 
   return (
-    <StyledIcon size={size} color={color} onClick={onClick} className={className} type="button" aria-label={name}>
+    <StyledIcon size={size} color={color} onClick={onClick} className={className} aria-label={name}>
       {renderIcon()}
     </StyledIcon>
   );

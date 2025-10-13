@@ -1,5 +1,5 @@
 import { createRootRoute, Outlet } from "@tanstack/react-router";
-import { Header } from "@/components/layout";
+import { Header, NotFoundPage } from "@/components/layout";
 
 /**
  * ルートレイアウトコンポーネント
@@ -7,6 +7,7 @@ import { Header } from "@/components/layout";
  */
 export const Route = createRootRoute({
   component: RootComponent,
+  notFoundComponent: NotFoundComponent,
 });
 
 function RootComponent() {
@@ -15,4 +16,8 @@ function RootComponent() {
       <Outlet />
     </Header>
   );
+}
+
+function NotFoundComponent() {
+  return <NotFoundPage />;
 }
