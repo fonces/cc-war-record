@@ -25,6 +25,9 @@ FINAL FANTASY XIVのPvPコンテンツ「クリスタルコンフリクト」の
 ### ルーティング
 - **TanStack Router** v1.x - 型安全なルーティング
 
+### UI/UX
+- **TanStack Virtual** v4.x - 仮想スクロール（大量データの効率的な表示）
+
 ### スタイリング
 - **styled-components** v6.x - CSS-in-JS
 
@@ -51,6 +54,7 @@ type CharacterState = {
 - deleteCharacter(uuid: string)                 // キャラクター削除
 - createMatchRecord(input: CreateMatchRecordInput) // 戦績記録作成
 - deleteMatchRecord(uuid: string)               // 戦績記録削除
+- clearMatchRecords()                           // 全戦績記録クリア
 - getCharacterStatsForSeason(seasonUuid: string) // シーズン別統計取得
 - getMatchRecordsForCharacter(characterUuid: string) // キャラクター別戦績取得
 ```
@@ -65,12 +69,14 @@ type HistoryState = {
 
 // 主要なアクション
 - loadHistories()                                        // 履歴一覧読み込み
-- createHistory(input: CreateHistoryInput)               // 新規シーズン作成
+- createHistory(input: CreateHistoryInput)               // 新規シーズン作成（既存データを自動アーカイブ）
 - updateHistory(uuid: string, input: UpdateHistoryInput) // シーズン情報更新
-- deleteHistory(uuid: string)                            // シーズン削除
+- deleteHistory(uuid: string)                            // シーズン削除（アーカイブデータも削除）
 - getHistoryByUuid(uuid: string)                         // UUID指定で履歴取得
 - getSortedHistories()                                   // 日付順ソート済み履歴取得
 - addCharacterStats(historyUuid: string, character: Character) // キャラクター統計追加
+- addUsedJob(input: AddUsedJobInput)                     // 使用ジョブ追加
+- getMatchRecordsForSeason(seasonUuid: string)           // シーズンのアーカイブ戦績取得
 ```
 
 ### データ型定義
@@ -129,13 +135,14 @@ type History = {
 - **localStorage**を使用してブラウザにデータを永続化
 - キー構成:
   - `cc-war-record-characters`: キャラクター一覧
-  - `cc-war-record-match-records`: 戦績記録一覧  
+  - `cc-war-record-match-records`: 現在のシーズンの戦績記録一覧
   - `cc-war-record-histories`: シーズン履歴一覧
+  - `histories-{seasonUuid}`: 過去シーズンのアーカイブ戦績データ
   - `cc-war-record:radar-chart-job1`: レーダーチャートジョブ1選択
   - `cc-war-record:radar-chart-job2`: レーダーチャートジョブ2選択
 - JSON形式でシリアライズして保存
 - アプリケーション起動時に各ストアが自動的にデータを読み込み
-- ユーザー設定（フィルター選択等）も永続化
+- シーズン作成時に前シーズンのデータを自動的にアーカイブ
 
 ## プロジェクト構造
 
@@ -323,6 +330,8 @@ MIT
 
 ### シーズン管理  
 - シーズン（履歴）の作成・管理
+- 新シーズン作成時の自動データアーカイブ
+- 過去シーズンの戦績閲覧（仮想スクロール対応）
 - シーズン別キャラクター統計の管理
 - 最新シーズンの自動選択
 
