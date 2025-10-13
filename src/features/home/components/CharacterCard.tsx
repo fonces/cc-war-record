@@ -167,6 +167,7 @@ export const CharacterCard = ({
           <StyledEditForm>
             <StyledEditInput
               value={editingName}
+              inputSize="sm"
               onChange={(e) => onEditingNameChange(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") onSaveEdit();

@@ -6,6 +6,7 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   label?: string;
   error?: string;
   fullWidth?: boolean;
+  inputSize?: "sm" | "md" | "lg";
 };
 
 const Container = styled.div<{ fullWidth?: boolean }>`
@@ -21,9 +22,27 @@ const Label = styled.label`
   color: ${({ theme }) => theme.colors.gray[700]};
 `;
 
-const StyledInput = styled.input<{ hasError?: boolean }>`
-  padding: ${({ theme }) => `${theme.spacing[3]} ${theme.spacing[4]}`};
-  font-size: 1rem;
+const StyledInput = styled.input<{ hasError?: boolean; inputSize?: "sm" | "md" | "lg" }>`
+  padding: ${({ theme, inputSize = "md" }) => {
+    switch (inputSize) {
+      case "sm":
+        return `${theme.spacing[2]} ${theme.spacing[3]}`;
+      case "lg":
+        return `${theme.spacing[4]} ${theme.spacing[5]}`;
+      default:
+        return `${theme.spacing[3]} ${theme.spacing[4]}`;
+    }
+  }};
+  font-size: ${({ size = "md" }) => {
+    switch (size) {
+      case "sm":
+        return "0.875rem";
+      case "lg":
+        return "1.125rem";
+      default:
+        return "1rem";
+    }
+  }};
   border: 2px solid ${({ theme, hasError }) => (hasError ? theme.colors.error[500] : theme.colors.gray[300])};
   border-radius: ${({ theme }) => theme.borderRadius.md};
   outline: none;
@@ -50,11 +69,11 @@ const ErrorMessage = styled.span`
   color: ${({ theme }) => theme.colors.error[500]};
 `;
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(({ label, error, fullWidth, ...props }, ref) => {
+export const Input = forwardRef<HTMLInputElement, InputProps>(({ label, error, fullWidth, inputSize = "md", ...props }, ref) => {
   return (
     <Container fullWidth={fullWidth}>
       {label && <Label>{label}</Label>}
-      <StyledInput ref={ref} hasError={!!error} {...props} />
+      <StyledInput ref={ref} hasError={!!error} inputSize={inputSize} {...props} />
       {error && <ErrorMessage>{error}</ErrorMessage>}
     </Container>
   );

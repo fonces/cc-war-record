@@ -385,7 +385,7 @@ export const MatchRecordTable = ({ usedJobs, matchRecords, onAddWin, onAddLoss, 
                     <StyledTableHeader>勝利</StyledTableHeader>
                     <StyledTableHeader>敗北</StyledTableHeader>
                     <StyledTableHeader>勝率</StyledTableHeader>
-                    {(onAddWin || onAddLoss || onRevertLast) && <StyledTableHeader />}
+                    {(onAddWin || onAddLoss || onRevertLast) && <StyledTableHeader>操作</StyledTableHeader>}
                   </tr>
                 </StyledTableHead>
                 <StyledTableBody>

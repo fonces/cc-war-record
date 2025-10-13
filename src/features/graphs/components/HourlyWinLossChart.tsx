@@ -132,8 +132,8 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
         }}
       >
         <p style={{ margin: "0 0 8px 0", fontWeight: "bold" }}>{`${label}`}</p>
-        <p style={{ margin: "4px 0", color: "#10b981" }}>{`勝利: ${data.wins}試合 (${data.winRate}%)`}</p>
-        <p style={{ margin: "4px 0", color: "#ef4444" }}>{`敗北: ${data.losses}試合 (${data.lossRate}%)`}</p>
+        <p style={{ margin: "4px 0", color: "#10b981" }}>{`Win: ${data.wins}試合 (${data.winRate}%)`}</p>
+        <p style={{ margin: "4px 0", color: "#ef4444" }}>{`Lose: ${data.losses}試合 (${data.lossRate}%)`}</p>
         <p style={{ margin: "4px 0 0 0", fontWeight: "bold" }}>{`合計: ${data.total}試合`}</p>
       </div>
     );
@@ -212,7 +212,7 @@ export const HourlyWinLossChart = ({ history, matchRecords, characters }: Hourly
           <YAxis label={{ value: "勝率 (%)", angle: -90, position: "insideLeft" }} domain={[0, 100]} tick={{ fontSize: 12 }} />
           <Tooltip content={<CustomTooltip />} />
           <Legend />
-          <Bar dataKey="winRate" name="勝率" fill="#10b981" radius={[2, 2, 0, 0]}>
+          <Bar dataKey="winRate" name="WinRate" fill="#10b981" radius={[2, 2, 0, 0]}>
             {chartData.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={entry.total === 0 ? "#d1d5db" : "#10b981"} />
             ))}

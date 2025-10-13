@@ -162,8 +162,8 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
         }}
       >
         <p style={{ margin: "0 0 8px 0", fontWeight: "bold" }}>{`${data.weekdayName} (${label})`}</p>
-        <p style={{ margin: "4px 0", color: "#10b981" }}>{`勝利: ${data.wins}試合 (${data.winRate || 0}%)`}</p>
-        <p style={{ margin: "4px 0", color: "#ef4444" }}>{`敗北: ${data.losses}試合 (${data.lossRate || 0}%)`}</p>
+        <p style={{ margin: "4px 0", color: "#10b981" }}>{`Win: ${data.wins}試合 (${data.winRate || 0}%)`}</p>
+        <p style={{ margin: "4px 0", color: "#ef4444" }}>{`Lose: ${data.losses}試合 (${data.lossRate || 0}%)`}</p>
         <p style={{ margin: "4px 0 0 0", fontWeight: "bold" }}>{`合計: ${data.total}試合`}</p>
       </div>
     );
@@ -242,8 +242,8 @@ export const WeeklyWinLossChart = ({ history, matchRecords, characters }: Weekly
           <YAxis label={{ value: "勝率 (%)", angle: -90, position: "insideLeft" }} domain={[0, 100]} tick={{ fontSize: 12 }} />
           <Tooltip content={<CustomTooltip />} />
           <Legend />
-          <Area type="monotone" dataKey="winRate" name="勝率" stroke="#10b981" fill="#10b981" fillOpacity={0.3} connectNulls={true} />
-          <Area type="monotone" dataKey="lossRate" name="敗率" stroke="#ef4444" fill="#ef4444" fillOpacity={0.3} connectNulls={false} />
+          <Area type="monotone" dataKey="winRate" name="WinRate" stroke="#10b981" fill="#10b981" fillOpacity={0.3} connectNulls={true} />
+          <Area type="monotone" dataKey="lossRate" name="LoseRate" stroke="#ef4444" fill="#ef4444" fillOpacity={0.3} connectNulls={false} />
         </AreaChart>
       </ResponsiveContainer>
     </StyledChartContainer>
