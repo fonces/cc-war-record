@@ -124,29 +124,50 @@ const StyledEmptyState = styled.div`
  */
 export const HistoryDetailPage = () => {
   const { id } = useParams({ from: "/histories/$id" });
-  const { getHistoryByUuid } = useHistoryStore();
+  const { getHistoryByUuid, getMatchRecordsForSeason } = useHistoryStore();
   const parentRef = useRef<HTMLDivElement>(null);
 
   // 履歴データを取得
   const history = useMemo(() => getHistoryByUuid(id), [id, getHistoryByUuid]);
 
-  // 全戦績を収集（すべてのキャラクターの戦績をマージ）
+  // 過去のシーズンのマッチレコードを取得
+  const archivedMatchRecords = useMemo(() => getMatchRecordsForSeason(id), [id, getMatchRecordsForSeason]);
+
+  // 全戦績を収集（アーカイブされたマッチレコード + 履歴内の戦績）
   const allMatches = useMemo(() => {
     if (!history) return [];
 
     const matches: (MatchRecord & { characterName: string })[] = [];
+
+    // アーカイブされたマッチレコードを追加
+    archivedMatchRecords.forEach((match) => {
+      // キャラクター名を取得（characterStatsから検索）
+      const characterStats = history.characterStats.find((stats) => stats.character.uuid === match.characterUuid);
+      const characterName = characterStats?.character.name || "不明";
+
+      matches.push({
+        ...match,
+        characterName,
+      });
+    });
+
+    // 履歴内の戦績も追加（念のため）
     history.characterStats.forEach((stats) => {
       stats.recentMatches.forEach((match) => {
-        matches.push({
-          ...match,
-          characterName: stats.character.name,
-        });
+        // 重複チェック（アーカイブと履歴で重複する可能性があるため）
+        const isDuplicate = matches.some((m) => m.uuid === match.uuid);
+        if (!isDuplicate) {
+          matches.push({
+            ...match,
+            characterName: stats.character.name,
+          });
+        }
       });
     });
 
     // 記録日時で降順ソート（新しい順）
     return matches.sort((a, b) => new Date(b.recordedAt).getTime() - new Date(a.recordedAt).getTime());
-  }, [history]);
+  }, [history, archivedMatchRecords]);
 
   // 仮想化設定
   const rowVirtualizer = useVirtualizer({
