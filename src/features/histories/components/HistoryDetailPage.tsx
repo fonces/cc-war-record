@@ -6,6 +6,7 @@ import { PageContainer, PageTitle } from "@/components/ui";
 import { useHistoryStore } from "@/stores";
 import { JobIcon } from "@/components/ui/JobIcon";
 import { formatDateTable } from "@/utils/uuid";
+import { JOB_INFO } from "@/types/jobs";
 import type { MatchRecord } from "@/types";
 
 // テーブルコンテナ
@@ -94,6 +95,20 @@ const StyledDateCell = styled(StyledTableCell)`
   white-space: nowrap;
 `;
 
+// ジョブセル
+const StyledJobCell = styled(StyledTableCell)`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing[2]};
+`;
+
+const StyledJobShortName = styled.span`
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.gray[600]};
+  font-family: "Courier New", monospace;
+`;
+
 // 勝敗バッジ
 const StyledWinBadge = styled.span<{ $isWin: boolean }>`
   display: inline-flex;
@@ -105,6 +120,7 @@ const StyledWinBadge = styled.span<{ $isWin: boolean }>`
   font-size: 0.75rem;
   background-color: ${({ theme, $isWin }) => ($isWin ? theme.colors.success[100] : theme.colors.error[100])};
   color: ${({ theme, $isWin }) => ($isWin ? theme.colors.success[700] : theme.colors.error[700])};
+  width: 50px;
 `;
 
 // 空状態表示
@@ -225,12 +241,13 @@ export const HistoryDetailPage = () => {
                       }}
                     >
                       <StyledCharacterNameCell $width="200px">{match.characterName}</StyledCharacterNameCell>
-                      <StyledTableCell $width="120px">
+                      <StyledJobCell $width="120px">
                         <JobIcon job={match.job} size={24} />
-                      </StyledTableCell>
+                        <StyledJobShortName>{JOB_INFO[match.job].shortName}</StyledJobShortName>
+                      </StyledJobCell>
                       <StyledDateCell $width="180px">{formatDateTable(match.recordedAt)}</StyledDateCell>
                       <StyledTableCell $width="100px">
-                        <StyledWinBadge $isWin={match.isWin}>{match.isWin ? "勝利" : "敗北"}</StyledWinBadge>
+                        <StyledWinBadge $isWin={match.isWin}>{match.isWin ? "Win" : "Lose"}</StyledWinBadge>
                       </StyledTableCell>
                     </StyledTableRow>
                   );
