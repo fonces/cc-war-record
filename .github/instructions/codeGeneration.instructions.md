@@ -1,5 +1,5 @@
 ---
-applyTo: 'src/**'
+applyTo: "src/**"
 ---
 
 # GitHub Copilot コード生成指示
@@ -12,6 +12,7 @@ applyTo: 'src/**'
 - TypeScript v5.x
 - Vite v5.x（ビルドツール）
 - TanStack Router v1.x（ルーティング）
+- TanStack Virtual v4.x（仮想リスト）
 - Zustand v4.x（クライアント状態管理）
 - styled-components v6.x（スタイリング）
 - recharts v2.x（チャート描画）
@@ -19,12 +20,14 @@ applyTo: 'src/**'
 ### アーキテクチャ原則（Bulletproof React）
 
 #### Feature-based構造
+
 - 機能ごとに独立したモジュールとして管理
 - 各featureは`features/[feature-name]/`ディレクトリに配置
 - featureは`index.ts`で公開APIを定義し、内部実装を隠蔽
 - feature間の依存は最小限に抑え、疎結合を保つ
 
 #### ディレクトリの役割
+
 - `app/`: アプリケーションのエントリーポイント、プロバイダー、ルーティング
 - `components/`: 複数のfeatureで共有される汎用コンポーネント
 - `features/`: 機能単位のモジュール（独立性が高い）
@@ -36,6 +39,7 @@ applyTo: 'src/**'
 - `test/`: テストユーティリティ・モック設定
 
 #### インポートルール
+
 - 絶対パスインポートを使用（`@/`プレフィックス）
 - feature外部からfeature内部の詳細にアクセスしない
 - featureの公開APIは`index.ts`経由でのみアクセス
@@ -151,6 +155,7 @@ applyTo: 'src/**'
 - メディアクエリはテーマの`breakpoints`を使用
 - CSS-in-JSの利点を活かし、propsベースの動的スタイリングを活用
 - グローバルスタイルは`GlobalStyle`コンポーネントで定義
+- propsのprefixに`$`はつけない
 
 #### React TypeScript コードスタイル
 
@@ -171,24 +176,24 @@ applyTo: 'src/**'
 #### 共有UIコンポーネント (`src/components/ui/Button/index.tsx`)
 
 ```tsx
-import styled from 'styled-components'
+import styled from "styled-components";
 
 type ButtonProps = {
   /** ボタンバリエーション */
-  variant?: 'primary' | 'secondary' | 'outline'
+  variant?: "primary" | "secondary" | "outline";
   /** サイズ */
-  size?: 'sm' | 'md' | 'lg'
+  size?: "sm" | "md" | "lg";
   /** 非活性 */
-  disabled?: boolean
+  disabled?: boolean;
   /** アイコン要素 */
-  icon?: React.ReactNode
+  icon?: React.ReactNode;
   /** ボタン内容 */
-  children?: React.ReactNode
+  children?: React.ReactNode;
   /** クリックイベント */
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
-}
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+};
 
-const StyledButton = styled.button<Pick<ButtonProps, 'variant' | 'size'>>`
+const StyledButton = styled.button<Pick<ButtonProps, "variant" | "size">>`
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -198,38 +203,38 @@ const StyledButton = styled.button<Pick<ButtonProps, 'variant' | 'size'>>`
   cursor: pointer;
 
   /* サイズ */
-  ${({ size = 'md' }) => {
+  ${({ size = "md" }) => {
     switch (size) {
-      case 'sm':
-        return 'padding: 0.5rem 1rem; font-size: 0.875rem;'
-      case 'lg':
-        return 'padding: 0.75rem 1.5rem; font-size: 1.125rem;'
+      case "sm":
+        return "padding: 0.5rem 1rem; font-size: 0.875rem;";
+      case "lg":
+        return "padding: 0.75rem 1.5rem; font-size: 1.125rem;";
       default:
-        return 'padding: 0.625rem 1.25rem; font-size: 1rem;'
+        return "padding: 0.625rem 1.25rem; font-size: 1rem;";
     }
   }}
 
   /* バリエーション */
-  ${({ variant = 'primary', theme }) => {
+  ${({ variant = "primary", theme }) => {
     switch (variant) {
-      case 'secondary':
+      case "secondary":
         return `
           background-color: ${theme.colors.secondary};
           color: ${theme.colors.white};
           border: none;
-        `
-      case 'outline':
+        `;
+      case "outline":
         return `
           background-color: transparent;
           color: ${theme.colors.primary};
           border: 1px solid ${theme.colors.primary};
-        `
+        `;
       default:
         return `
           background-color: ${theme.colors.primary};
           color: ${theme.colors.white};
           border: none;
-        `
+        `;
     }
   }}
 
@@ -237,141 +242,129 @@ const StyledButton = styled.button<Pick<ButtonProps, 'variant' | 'size'>>`
     opacity: 0.5;
     cursor: not-allowed;
   }
-`
+`;
 
 /**
  * 共有ボタンコンポーネント
  */
-export const Button = ({ 
-  variant = 'primary', 
-  size = 'md',
-  disabled = false, 
-  icon, 
-  children, 
-  onClick 
-}: ButtonProps) => {
+export const Button = ({ variant = "primary", size = "md", disabled = false, icon, children, onClick }: ButtonProps) => {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (disabled) return
-    onClick?.(e)
-  }
+    if (disabled) return;
+    onClick?.(e);
+  };
 
   return (
-    <StyledButton 
-      variant={variant} 
-      size={size} 
-      disabled={disabled} 
-      onClick={handleClick}
-    >
+    <StyledButton variant={variant} size={size} disabled={disabled} onClick={handleClick}>
       {icon && <span>{icon}</span>}
       {children && <span>{children}</span>}
     </StyledButton>
-  )
-}
+  );
+};
 ```
 
 #### TanStack Queryを使用したカスタムフック (`src/features/auth/hooks/useLogin.ts`)
 
 ```tsx
-import { useMutation } from '@tanstack/react-query'
-import { authApi } from '../api/auth'
-import type { AuthCredentials } from '../types'
+import { useMutation } from "@tanstack/react-query";
+import { authApi } from "../api/auth";
+import type { AuthCredentials } from "../types";
 
 type UseLoginOptions = {
-  onSuccess?: () => void
-  onError?: (error: Error) => void
-}
+  onSuccess?: () => void;
+  onError?: (error: Error) => void;
+};
 
 export const useLogin = ({ onSuccess, onError }: UseLoginOptions = {}) => {
   return useMutation({
     mutationFn: (credentials: AuthCredentials) => authApi.login(credentials),
     onSuccess: (data) => {
       // トークンを保存
-      localStorage.setItem('token', data.token)
-      onSuccess?.()
+      localStorage.setItem("token", data.token);
+      onSuccess?.();
     },
     onError: (error: Error) => {
-      console.error('Login failed:', error)
-      onError?.(error)
+      console.error("Login failed:", error);
+      onError?.(error);
     },
-  })
-}
+  });
+};
 ```
 
 #### Zustandストア (`src/stores/authStore.ts`)
 
 ```tsx
-import { create } from 'zustand'
-import type { User } from '@/types'
+import { create } from "zustand";
+import type { User } from "@/types";
 
 type AuthState = {
-  user: User | null
-  isAuthenticated: boolean
-  setUser: (user: User | null) => void
-  logout: () => void
-}
+  user: User | null;
+  isAuthenticated: boolean;
+  setUser: (user: User | null) => void;
+  logout: () => void;
+};
 
 export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   isAuthenticated: false,
   setUser: (user) => set({ user, isAuthenticated: !!user }),
   logout: () => {
-    localStorage.removeItem('token')
-    set({ user: null, isAuthenticated: false })
+    localStorage.removeItem("token");
+    set({ user: null, isAuthenticated: false });
   },
-}))
+}));
 ```
 
 #### Featureの公開API (`src/features/auth/index.ts`)
 
 ```tsx
 // 公開するコンポーネント
-export { LoginForm } from './components/LoginForm'
-export { RegisterForm } from './components/RegisterForm'
+export { LoginForm } from "./components/LoginForm";
+export { RegisterForm } from "./components/RegisterForm";
 
 // 公開するフック
-export { useAuth } from './hooks/useAuth'
-export { useLogin } from './hooks/useLogin'
+export { useAuth } from "./hooks/useAuth";
+export { useLogin } from "./hooks/useLogin";
 
 // 公開する型
-export type { User, AuthCredentials } from './types'
+export type { User, AuthCredentials } from "./types";
 
 // 公開するAPI
-export { authApi } from './api/auth'
+export { authApi } from "./api/auth";
 ```
 
 #### Feature内のコンポーネント (`src/features/auth/components/LoginForm/index.tsx`)
 
 ```tsx
-import { useLogin } from '@/features/auth'
-import { Button } from '@/components/ui/Button'
-import { Input } from '@/components/ui/Input'
+import { useLogin } from "@/features/auth";
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
 
 type LoginFormProps = {
-  onSuccess?: () => void
-}
+  onSuccess?: () => void;
+};
 
 export const LoginForm = ({ onSuccess }: LoginFormProps) => {
-  const { mutate: login, isPending } = useLogin({ onSuccess })
+  const { mutate: login, isPending } = useLogin({ onSuccess });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const formData = new FormData(e.currentTarget)
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
     login({
-      email: formData.get('email') as string,
-      password: formData.get('password') as string,
-    })
-  }
+      email: formData.get("email") as string,
+      password: formData.get("password") as string,
+    });
+  };
 
   return (
     <form onSubmit={handleSubmit}>
       <Input name="email" type="email" label="メールアドレス" required />
       <Input name="password" type="password" label="パスワード" required />
       <Button type="submit" disabled={isPending}>
-        {isPending ? 'ログイン中...' : 'ログイン'}
+        {isPending ? "ログイン中..." : "ログイン"}
       </Button>
     </form>
-  )
-}
+  );
+};
 ```
 
 ### ❌ 悪い例
@@ -379,71 +372,69 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
 #### React.FCの使用（非推奨）
 
 ```tsx
-import styled from 'styled-components'
+import styled from "styled-components";
 
 // React.FCは使用しない
 const Button: React.FC<{
-  primary?: boolean
-  disabled?: boolean
-  icon?: any // any型は使用禁止
-  children?: any
-  onClick?: Function // Function型は使用しない
+  primary?: boolean;
+  disabled?: boolean;
+  icon?: any; // any型は使用禁止
+  children?: any;
+  onClick?: Function; // Function型は使用しない
 }> = ({ primary, disabled, icon, children, onClick }) => {
   // styled-componentsを使わずインラインスタイル（非推奨）
   const buttonStyle = {
-    backgroundColor: primary ? 'blue' : 'gray',
+    backgroundColor: primary ? "blue" : "gray",
     opacity: disabled ? 0.5 : 1,
-  }
+  };
 
   return (
     <button style={buttonStyle} disabled={disabled} onClick={onClick as any}>
       {icon}
       {children}
     </button>
-  )
-}
+  );
+};
 
-export default Button
+export default Button;
 ```
 
 #### CSS Modulesの使用（推奨されない）
 
 ```tsx
 // ❌ 悪い例: styled-componentsを使用せずCSS Modulesを使用
-import styles from './Button.module.css'
+import styles from "./Button.module.css";
 
 const Button = ({ variant, children }) => {
-  return <button className={styles.button}>{children}</button>
-}
+  return <button className={styles.button}>{children}</button>;
+};
 ```
 
 #### Feature構造の違反
 
 ```tsx
 // ❌ 悪い例: feature外部からfeature内部の詳細にアクセス
-import { LoginForm } from '@/features/auth/components/LoginForm'
-import { loginUser } from '@/features/auth/api/login' // 内部実装に直接アクセス
+import { LoginForm } from "@/features/auth/components/LoginForm";
+import { loginUser } from "@/features/auth/api/login"; // 内部実装に直接アクセス
 
 // ✅ 良い例: featureの公開APIを使用
-import { LoginForm, useLogin } from '@/features/auth'
+import { LoginForm, useLogin } from "@/features/auth";
 ```
 
 #### Zustandストアの悪い使い方
 
 ```tsx
 // ❌ 悪い例: 型定義がない、mutationが複雑すぎる
-import { create } from 'zustand'
+import { create } from "zustand";
 
 export const useStore = create((set: any) => ({
   data: null,
   setData: (newData: any) => set({ data: newData }), // any型は使用禁止
-  complexUpdate: (id: string, updates: any) => 
+  complexUpdate: (id: string, updates: any) =>
     set((state: any) => ({
-      data: state.data.map((item: any) => 
-        item.id === id ? { ...item, ...updates } : item
-      ),
+      data: state.data.map((item: any) => (item.id === id ? { ...item, ...updates } : item)),
     })),
-}))
+}));
 ```
 
 #### styled-componentsの悪い使い方
@@ -453,10 +444,10 @@ export const useStore = create((set: any) => ({
 const Container = styled.div`
   background-color: #ffffff; // ハードコードされた色
   padding: 16px; // テーマを使わない
-`
+`;
 
 const Button = styled.button`
   color: ${(props: any) => props.color}; // any型は使用禁止
-  font-size: ${(props) => props.size || '16px'}; // デフォルト値が不明確
-`
+  font-size: ${(props) => props.size || "16px"}; // デフォルト値が不明確
+`;
 ```
