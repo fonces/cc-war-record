@@ -166,7 +166,7 @@ export const NewSeasonPage = () => {
         isLoading={isSubmitting}
       >
         新しいシーズンを作成すると「{latestSeasonName}
-        」の戦績はアーカイブされ、戦績を入力することができなくなります。よろしいでしょうか?
+        」の戦績データは過去のシーズンとしてアーカイブされ、新しい戦績の入力が開始されます。よろしいでしょうか?
       </Dialog>
 
       {/* メインコンテンツ */}

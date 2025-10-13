@@ -38,6 +38,8 @@ type HistoryActions = {
   addCharacterStats: (historyUuid: string, character: Character) => CharacterStats | null;
   /** 使用ジョブを追加 */
   addUsedJob: (input: AddUsedJobInput) => boolean;
+  /** 指定したシーズンのマッチレコードを取得 */
+  getMatchRecordsForSeason: (seasonUuid: string) => unknown[];
   /** エラーをクリア */
   clearError: () => void;
 };
@@ -85,6 +87,21 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
       updatedAt: now,
       characterStats: [],
     };
+
+    // 既存のシーズンがある場合、現在のマッチレコードを移動
+    if (histories.length > 0) {
+      const currentMatchRecords = getFromLocalStorage("cc-war-record-match-records", []);
+      if (currentMatchRecords.length > 0) {
+        // 最新のシーズンのUUIDを取得（日付順でソート）
+        const latestHistory = histories.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())[0];
+        
+        // 現在のマッチレコードを前のシーズンのキーに移動
+        saveToLocalStorage(`histories-${latestHistory.uuid}`, currentMatchRecords);
+        
+        // 現在のマッチレコードをクリア
+        saveToLocalStorage("cc-war-record-match-records", []);
+      }
+    }
 
     const updatedHistories = [...histories, newHistory];
 
@@ -277,6 +294,17 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
     });
 
     return true;
+  },
+
+  // 指定したシーズンのマッチレコードを取得
+  getMatchRecordsForSeason: (seasonUuid: string) => {
+    try {
+      const matchRecords = getFromLocalStorage<unknown[]>(`histories-${seasonUuid}`, []);
+      return matchRecords;
+    } catch (error) {
+      console.error(`Error loading match records for season ${seasonUuid}:`, error);
+      return [];
+    }
   },
 
   // エラーをクリア
