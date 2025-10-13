@@ -32,18 +32,18 @@ type HistoryState = {
 
 #### アクション
 
-| アクション                                  | 説明                                   | パラメータ                                    | 戻り値                   |
-| ------------------------------------------- | -------------------------------------- | --------------------------------------------- | ------------------------ |
-| `loadHistories()`                           | LocalStorageから履歴を読み込み         | なし                                          | `void`                   |
+| アクション                                  | 説明                                       | パラメータ                                    | 戻り値                   |
+| ------------------------------------------- | ------------------------------------------ | --------------------------------------------- | ------------------------ |
+| `loadHistories()`                           | LocalStorageから履歴を読み込み             | なし                                          | `void`                   |
 | `createHistory(input)`                      | 新しいシーズン履歴を作成（自動アーカイブ） | `CreateHistoryInput`                          | `History`                |
-| `updateHistory(uuid, input)`                | 履歴を更新                             | `uuid: string`, `UpdateHistoryInput`          | `boolean`                |
-| `deleteHistory(uuid)`                       | 履歴を削除（アーカイブデータも削除）   | `uuid: string`                                | `boolean`                |
-| `getHistoryByUuid(uuid)`                    | UUIDで履歴を取得                       | `uuid: string`                                | `History \| undefined`   |
-| `getSortedHistories()`                      | 履歴を新しい順でソート                 | なし                                          | `History[]`              |
-| `addCharacterStats(historyUuid, character)` | キャラクター統計を追加                 | `historyUuid: string`, `character: Character` | `CharacterStats \| null` |
-| `addUsedJob(input)`                         | 使用ジョブを追加                       | `AddUsedJobInput`                             | `boolean`                |
-| `getMatchRecordsForSeason(seasonUuid)`      | シーズンのアーカイブ戦績を取得         | `seasonUuid: string`                          | `MatchRecord[]`          |
-| `clearError()`                              | エラーをクリア                         | なし                                          | `void`                   |
+| `updateHistory(uuid, input)`                | 履歴を更新                                 | `uuid: string`, `UpdateHistoryInput`          | `boolean`                |
+| `deleteHistory(uuid)`                       | 履歴を削除（アーカイブデータも削除）       | `uuid: string`                                | `boolean`                |
+| `getHistoryByUuid(uuid)`                    | UUIDで履歴を取得                           | `uuid: string`                                | `History \| undefined`   |
+| `getSortedHistories()`                      | 履歴を新しい順でソート                     | なし                                          | `History[]`              |
+| `addCharacterStats(historyUuid, character)` | キャラクター統計を追加                     | `historyUuid: string`, `character: Character` | `CharacterStats \| null` |
+| `addUsedJob(input)`                         | 使用ジョブを追加                           | `AddUsedJobInput`                             | `boolean`                |
+| `getMatchRecordsForSeason(seasonUuid)`      | シーズンのアーカイブ戦績を取得             | `seasonUuid: string`                          | `MatchRecord[]`          |
+| `clearError()`                              | エラーをクリア                             | なし                                          | `void`                   |
 
 #### 使用例
 
