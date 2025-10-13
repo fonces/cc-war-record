@@ -2,7 +2,7 @@ import { useParams } from "@tanstack/react-router";
 import { useMemo, useRef } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import styled from "styled-components";
-import { PageContainer, PageTitle } from "@/components/ui";
+import { PageContainer, PageTitle, PageDescription } from "@/components/ui";
 import { useHistoryStore } from "@/stores";
 import { JobIcon } from "@/components/ui/JobIcon";
 import { formatDateTable } from "@/utils/uuid";
@@ -16,7 +16,7 @@ const StyledTableContainer = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.gray[200]};
   background-color: ${({ theme }) => theme.colors.gray[50]};
   margin-top: ${({ theme }) => theme.spacing[6]};
-  height: calc(100vh - 200px);
+  height: calc(100dvh - 200px);
   display: flex;
   flex-direction: column;
 `;
@@ -214,6 +214,9 @@ export const HistoryDetailPage = () => {
   return (
     <PageContainer>
       <PageTitle>{history.seasonName}</PageTitle>
+      <PageDescription>
+        {allMatches.length}試合の戦績 • 作成日: {new Date(history.createdAt).toLocaleDateString("ja-JP")}
+      </PageDescription>
 
       <StyledTableContainer>
         <StyledTable>
