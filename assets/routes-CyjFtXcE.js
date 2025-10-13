@@ -1,4 +1,4 @@
-import{C as e,E as t,F as n,M as r,N as i,R as a,T as o,_ as s,a as c,b as l,g as u,h as d,i as f,k as p,m,n as h,o as g,p as _,r as v,s as y,t as b,v as x,y as S}from"./index-DgPsM0Ei.js";import"./stores-COx9ZclY.js";import{t as ee}from"./EmptyState-BkSCG_-G.js";var C=a(n()),w=a(r()),T=i.div`
+import{C as e,E as t,F as n,M as r,N as i,R as a,T as o,_ as s,a as c,b as l,g as u,h as d,i as f,k as p,m,n as h,o as g,p as _,r as v,s as y,t as b,v as x,y as S}from"./index-CHSr5kDl.js";import"./stores-COx9ZclY.js";import{t as ee}from"./EmptyState-Bhvovydn.js";var C=a(n()),w=a(r()),T=i.div`
   background-color: white;
   border-radius: ${({theme:e})=>e.borderRadius.lg};
   border: 1px solid ${({theme:e})=>e.colors.gray[200]};
@@ -86,7 +86,7 @@ import{C as e,E as t,F as n,M as r,N as i,R as a,T as o,_ as s,a as c,b as l,g a
   color: ${({theme:e})=>e.colors.textSecondary};
 `,R=i.span`
   font-weight: 600;
-  color: ${({winRate:e,theme:t})=>e>=60?t.colors.success[600]:e>=40?t.colors.warning[600]:t.colors.error[600]};
+  color: ${({winRate:e,theme:t})=>e>=51?t.colors.success[600]:e>=40?t.colors.warning[600]:t.colors.error[600]};
 `,z=i.div`
   overflow-x: auto;
 `,B=i.div`
@@ -168,7 +168,7 @@ import{C as e,E as t,F as n,M as r,N as i,R as a,T as o,_ as s,a as c,b as l,g a
   }
 `,J=i.span`
   font-weight: 600;
-  color: ${({winRate:e,theme:t})=>e>=60?t.colors.success[600]:e>=40?t.colors.warning[600]:t.colors.error[600]};
+  color: ${({winRate:e,theme:t})=>e>=51?t.colors.success[600]:e>=40?t.colors.warning[600]:t.colors.error[600]};
 `,Y=i.div`
   display: flex;
   gap: ${({theme:e})=>e.spacing[2]};
