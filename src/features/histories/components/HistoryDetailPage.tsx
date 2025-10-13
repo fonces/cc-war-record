@@ -16,12 +16,19 @@ const StyledTableContainer = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.gray[200]};
   background-color: ${({ theme }) => theme.colors.gray[50]};
   margin-top: ${({ theme }) => theme.spacing[6]};
+  height: calc(100vh - 200px);
+  display: flex;
+  flex-direction: column;
 `;
 
 // テーブル
 const StyledTable = styled.div`
   width: 100%;
   background-color: white;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
 `;
 
 // テーブルヘッダー
@@ -52,6 +59,9 @@ const StyledHeaderCell = styled.div<{ $width?: string }>`
 const StyledVirtualContainer = styled.div`
   position: relative;
   width: 100%;
+  flex: 1;
+  overflow: auto;
+  min-height: 0;
 `;
 
 // テーブル行
@@ -217,13 +227,7 @@ export const HistoryDetailPage = () => {
 
           {/* 仮想スクロールリスト */}
           {allMatches.length > 0 ? (
-            <StyledVirtualContainer
-              ref={parentRef}
-              style={{
-                height: "600px",
-                overflow: "auto",
-              }}
-            >
+            <StyledVirtualContainer ref={parentRef}>
               <div
                 style={{
                   height: `${rowVirtualizer.getTotalSize()}px`,
