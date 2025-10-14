@@ -1,5 +1,12 @@
 {
   "recommendations": [
-    "dbaeumer.vscode-eslint"
+    "github.copilot",
+    "github.copilot-chat",
+    "streetsidesoftware.code-spell-checker",
+    "formulahendry.auto-close-tag",
+    "formulahendry.auto-rename-tag",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "styled-components.vscode-styled-components"
   ]
 }
