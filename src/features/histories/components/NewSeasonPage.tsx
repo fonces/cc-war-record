@@ -3,6 +3,7 @@ import { useRouter } from "@tanstack/react-router";
 import styled from "styled-components";
 import { useHistoryStore } from "@/stores";
 import { Button, Input, Dialog, PageTitle, PageDescription } from "@/components/ui";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 const StyledContainer = styled.div`
   max-width: 600px;
@@ -62,6 +63,7 @@ const StyledSuccessMessage = styled.div`
  * シーズン名を入力してnewHistoryを作成
  */
 export const NewSeasonPage = () => {
+  usePageTitle("新シーズン作成");
   const router = useRouter();
   const { createHistory, error, clearError, getSortedHistories } = useHistoryStore();
 

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useHistoryStore, useCharacterStore } from "@/stores";
 import { PageContainer, PageTitle, PageDescription, PageTitleContainer } from "@/components/ui";
+import { usePageTitle } from "@/hooks/usePageTitle";
 import { HistoryTable } from "./HistoryTable";
 
 const StyledActions = styled.div`
@@ -52,6 +53,7 @@ const StyledErrorMessage = styled.div`
  * シーズンの履歴一覧をテーブル形式で表示
  */
 export const HistoriesPage = () => {
+  usePageTitle("シーズン履歴");
   const { histories, isLoading, error, getSortedHistories, deleteHistory, clearError } = useHistoryStore();
 
   const { matchRecords } = useCharacterStore();

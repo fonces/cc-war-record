@@ -3,6 +3,7 @@ import { useRouter } from "@tanstack/react-router";
 import styled from "styled-components";
 import { useHistoryStore, useCharacterStore } from "@/stores";
 import { JobRegistrationDialog, Button, PageContainer, PageTitleContainer, PageTitle, PageDescription, Icon } from "@/components/ui";
+import { usePageTitle } from "@/hooks/usePageTitle";
 import { EmptyState } from "./EmptyState";
 import { CharacterForm } from "./CharacterForm";
 import { CharacterCard } from "./CharacterCard";
@@ -46,6 +47,7 @@ const StyledErrorCloseButton = styled.button`
  * 現シーズンの戦績を表示、シーズン未作成時は作成ボタンを表示
  */
 export const HomePage = () => {
+  usePageTitle("ホーム");
   const router = useRouter();
   const { histories, isLoading, getSortedHistories, addUsedJob } = useHistoryStore();
   const {

@@ -1,6 +1,7 @@
 import { useNavigate } from "@tanstack/react-router";
 import { useHistoryStore, useCharacterStore } from "@/stores";
 import { PageContainer, PageTitle, PageDescription, PageTitleContainer } from "@/components/ui";
+import { usePageTitle } from "@/hooks/usePageTitle";
 import { EmptyState } from "@/features/home/components/EmptyState";
 import { DailyWinLossChart } from "./DailyWinLossChart";
 import { JobWinRateRadarChart } from "./JobWinRateRadarChart";
@@ -13,6 +14,7 @@ import { JobUsageRatePieChart } from "./JobUsageRatePieChart";
  * 現シーズンの戦績をチャート表示
  */
 export const GraphsPage = () => {
+  usePageTitle("戦績グラフ");
   const navigate = useNavigate();
   const { histories } = useHistoryStore();
   const { characters, matchRecords } = useCharacterStore();

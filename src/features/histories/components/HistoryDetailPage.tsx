@@ -3,6 +3,7 @@ import { useMemo, useRef } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import styled from "styled-components";
 import { PageContainer, PageTitleContainer, PageTitle, PageDescription, Button, Icon } from "@/components/ui";
+import { usePageTitle } from "@/hooks/usePageTitle";
 import { useHistoryStore } from "@/stores";
 import { JobIcon } from "@/components/ui/JobIcon";
 import { formatDateTable } from "@/utils/uuid";
@@ -163,6 +164,9 @@ export const HistoryDetailPage = () => {
 
   // 履歴データを取得
   const history = useMemo(() => getHistoryByUuid(id), [id, getHistoryByUuid]);
+
+  // ページタイトルを設定（履歴データが取得できたらシーズン名を表示）
+  usePageTitle(history ? `${history.seasonName} 詳細` : "シーズン詳細");
 
   // 過去のシーズンのマッチレコードを取得
   const archivedMatchRecords = useMemo(() => getMatchRecordsForSeason(id), [id, getMatchRecordsForSeason]);
