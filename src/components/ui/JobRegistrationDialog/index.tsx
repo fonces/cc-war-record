@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Dialog, JobIcon } from "@/components/ui";
+import { Dialog, JobIcon, RoleIcon } from "@/components/ui";
 import { JOBS, JOB_INFO, ROLE_INFO, ROLES } from "@/types/jobs";
 import type { Job } from "@/types";
 import { useHistoryStore } from "@/stores/historyStore";
@@ -48,13 +48,6 @@ const StyledRoleTitle = styled.h4`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing[2]};
-`;
-
-const StyledRoleIcon = styled.div<{ roleColor: string }>`
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background-color: ${({ roleColor }) => roleColor};
 `;
 
 const StyledJobGrid = styled.div`
@@ -144,7 +137,7 @@ export const JobRegistrationDialog = ({ isOpen, onClose, onRegister, characterUu
         {jobsByRole.map(({ role, roleInfo, jobs }) => (
           <StyledRoleSection key={role}>
             <StyledRoleTitle>
-              <StyledRoleIcon roleColor={roleInfo.color} />
+              <RoleIcon role={role} size={24} />
               {roleInfo.name}
             </StyledRoleTitle>
             <StyledJobGrid>

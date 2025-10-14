@@ -3,6 +3,7 @@ export { Input } from "./Input";
 export { Select } from "./Select";
 export { Icon } from "./Icon";
 export { JobIcon } from "./JobIcon";
+export { RoleIcon } from "./RoleIcon";
 export { Dialog } from "./Dialog";
 export { JobRegistrationDialog } from "./JobRegistrationDialog";
 export { MultiSelect } from "./MultiSelect";

@@ -19,6 +19,8 @@ export type RoleInfo = {
   code: Role;
   /** 日本語名 */
   name: string;
+  /** 英語名 */
+  nameEn: string;
   /** カラーコード */
   color: string;
 };
@@ -28,26 +30,31 @@ export const ROLE_INFO: Record<Role, RoleInfo> = {
   [ROLES.TANK]: {
     code: ROLES.TANK,
     name: "タンク",
+    nameEn: "Tank",
     color: "#3b82f6", // Blue
   },
   [ROLES.HEALER]: {
     code: ROLES.HEALER,
     name: "ヒーラー",
+    nameEn: "Healer",
     color: "#10b981", // Green
   },
   [ROLES.MELEE_DPS]: {
     code: ROLES.MELEE_DPS,
     name: "近接DPS",
+    nameEn: "MeleeDPS",
     color: "#f59e0b", // Orange
   },
   [ROLES.PHYSICAL_RANGED_DPS]: {
     code: ROLES.PHYSICAL_RANGED_DPS,
     name: "物理遠隔DPS",
+    nameEn: "PhysicalRangedDPS",
     color: "#8b5cf6", // Purple
   },
   [ROLES.MAGICAL_RANGED_DPS]: {
     code: ROLES.MAGICAL_RANGED_DPS,
     name: "魔法遠隔DPS",
+    nameEn: "MagicalRangedDPS",
     color: "#ef4444", // Red
   },
 };
@@ -116,7 +123,7 @@ export const JOB_INFO: Record<Job, JobInfo> = {
     shortName: "PLD",
     role: ROLES.TANK,
     iconId: 19,
-    color: "#5EADDC", // 視認性を向上（より濃い青）
+    color: "#5EADDC", // 視認性を向上(より濃い青)
   },
   [JOBS.WARRIOR]: {
     code: JOBS.WARRIOR,
@@ -130,7 +137,7 @@ export const JOB_INFO: Record<Job, JobInfo> = {
   [JOBS.DARK_KNIGHT]: {
     code: JOBS.DARK_KNIGHT,
     name: "暗黒騎士",
-    nameEn: "Dark Knight",
+    nameEn: "DarkKnight",
     shortName: "DRK",
     role: ROLES.TANK,
     iconId: 32,
@@ -143,18 +150,18 @@ export const JOB_INFO: Record<Job, JobInfo> = {
     shortName: "GNB",
     role: ROLES.TANK,
     iconId: 37,
-    color: "#9C8542", // 視認性を向上（より濃い茶色）
+    color: "#9C8542", // 視認性を向上(より濃い茶色)
   },
 
   // ヒーラー
   [JOBS.WHITE_MAGE]: {
     code: JOBS.WHITE_MAGE,
     name: "白魔道士",
-    nameEn: "White Mage",
+    nameEn: "WhiteMage",
     shortName: "WHM",
     role: ROLES.HEALER,
     iconId: 24,
-    color: "#E6D8BC", // 視認性を向上（少し濃いベージュ）
+    color: "#E6D8BC", // 視認性を向上(少し濃いベージュ)
   },
   [JOBS.SCHOLAR]: {
     code: JOBS.SCHOLAR,
@@ -172,7 +179,7 @@ export const JOB_INFO: Record<Job, JobInfo> = {
     shortName: "AST",
     role: ROLES.HEALER,
     iconId: 33,
-    color: "#E6C84A", // 視認性を向上（より濃い黄色）
+    color: "#E6C84A", // 視認性を向上(より濃い黄色)
   },
   [JOBS.SAGE]: {
     code: JOBS.SAGE,
@@ -181,7 +188,7 @@ export const JOB_INFO: Record<Job, JobInfo> = {
     shortName: "SGE",
     role: ROLES.HEALER,
     iconId: 40,
-    color: "#8FD14F", // 視認性を向上（より濃い黄緑）
+    color: "#8FD14F", // 視認性を向上(より濃い黄緑)
   },
 
   // 近接DPS
@@ -237,7 +244,7 @@ export const JOB_INFO: Record<Job, JobInfo> = {
     shortName: "VPR",
     role: ROLES.MELEE_DPS,
     iconId: 41,
-    color: "#B07830", // 視認性を向上（より濃いベージュ）
+    color: "#B07830", // 視認性を向上(より濃いベージュ)
   },
 
   // 物理遠隔DPS
@@ -266,14 +273,14 @@ export const JOB_INFO: Record<Job, JobInfo> = {
     shortName: "DNC",
     role: ROLES.PHYSICAL_RANGED_DPS,
     iconId: 38,
-    color: "#D98B8A", // 視認性を向上（より濃いピンク）
+    color: "#D98B8A", // 視認性を向上(より濃いピンク)
   },
 
   // 魔法遠隔DPS
   [JOBS.BLACK_MAGE]: {
     code: JOBS.BLACK_MAGE,
     name: "黒魔道士",
-    nameEn: "Black Mage",
+    nameEn: "BlackMage",
     shortName: "BLM",
     role: ROLES.MAGICAL_RANGED_DPS,
     iconId: 25,
@@ -291,7 +298,7 @@ export const JOB_INFO: Record<Job, JobInfo> = {
   [JOBS.RED_MAGE]: {
     code: JOBS.RED_MAGE,
     name: "赤魔道士",
-    nameEn: "Red Mage",
+    nameEn: "RedMage",
     shortName: "RDM",
     role: ROLES.MAGICAL_RANGED_DPS,
     iconId: 35,
@@ -304,7 +311,7 @@ export const JOB_INFO: Record<Job, JobInfo> = {
     shortName: "PCT",
     role: ROLES.MAGICAL_RANGED_DPS,
     iconId: 42,
-    color: "#D4C05C", // 視認性を向上（より濃い黄色）
+    color: "#D4C05C", // 視認性を向上(より濃い黄色)
   },
 };
 
@@ -329,7 +336,48 @@ export const getJobIconUrl = (job: Job): string => {
   if (!jobInfo) {
     return "";
   }
-  return `https://xivapi.com/i/062000/062${jobInfo.iconId.toString().padStart(3, "0")}.png`;
+
+  // ロールに応じたディレクトリを決定
+  let roleDir = "";
+  switch (jobInfo.role) {
+    case ROLES.TANK:
+      roleDir = "01_TANK";
+      break;
+    case ROLES.HEALER:
+      roleDir = "02_HEALER";
+      break;
+    case ROLES.MELEE_DPS:
+    case ROLES.PHYSICAL_RANGED_DPS:
+    case ROLES.MAGICAL_RANGED_DPS:
+      roleDir = "03_DPS";
+      break;
+  }
+
+  return `${import.meta.env.VITE_BASEPATH || ""}/img/${roleDir}/Job/${jobInfo.nameEn}.png`;
+};
+
+// ロールのアイコンURLを取得
+export const getRoleIconUrl = (role: Role): string => {
+  let iconName = "";
+  switch (role) {
+    case ROLES.TANK:
+      iconName = "TankRole";
+      break;
+    case ROLES.HEALER:
+      iconName = "HealerRole";
+      break;
+    case ROLES.MELEE_DPS:
+      iconName = "MeleeDPS";
+      break;
+    case ROLES.PHYSICAL_RANGED_DPS:
+      iconName = "PhysicalRangedDPS";
+      break;
+    case ROLES.MAGICAL_RANGED_DPS:
+      iconName = "MagicalRangedDPS";
+      break;
+  }
+
+  return `${import.meta.env.VITE_BASEPATH || ""}/img/00_ROLE/${iconName}.png`;
 };
 
 // ロール名の日本語変換

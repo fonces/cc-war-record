@@ -182,7 +182,7 @@ export const JobSummaryTable = ({ usedJobs, jobSummaries, onAddWin, onAddLoss, o
                 <StyledTableRow key={job}>
                   <StyledJobCell>
                     <div>
-                      <JobIcon job={summary.job} size={20} />
+                      <JobIcon job={summary.job} size={32} />
                       {summary.job}
                     </div>
                   </StyledJobCell>
