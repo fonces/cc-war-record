@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import styled from "styled-components";
 import { Button, Icon } from "@/components/ui";
+import { useScrollLock } from "@/hooks";
 
 type DialogProps = {
   /** ダイアログの表示状態 */
@@ -139,6 +140,9 @@ export const Dialog = ({
   confirmType = "primary",
   isLoading = false,
 }: DialogProps) => {
+  // ダイアログが開いているときに背景のスクロールを防ぐ
+  useScrollLock(isOpen);
+
   // ESCキーでダイアログを閉じる
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Escape") {
