@@ -6,6 +6,7 @@ import { DailyWinLossChart } from "./DailyWinLossChart";
 import { JobWinRateRadarChart } from "./JobWinRateRadarChart";
 import { HourlyWinLossChart } from "./HourlyWinLossChart";
 import { WeeklyWinLossChart } from "./WeeklyWinLossChart";
+import { JobUsageRatePieChart } from "./JobUsageRatePieChart";
 
 /**
  * グラフ画面コンポーネント
@@ -34,6 +35,7 @@ export const GraphsPage = () => {
           <DailyWinLossChart history={latestHistory} matchRecords={matchRecords} characters={characters} />
           <HourlyWinLossChart history={latestHistory} matchRecords={matchRecords} characters={characters} />
           <WeeklyWinLossChart history={latestHistory} matchRecords={matchRecords} characters={characters} />
+          <JobUsageRatePieChart history={latestHistory} matchRecords={matchRecords} characters={characters} />
           <JobWinRateRadarChart history={latestHistory} matchRecords={matchRecords} characters={characters} />
         </>
       ) : (
