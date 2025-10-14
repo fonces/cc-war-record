@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import { ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { Select } from "@/components/ui";
 import type { History, MatchRecord, Job, CrystalConflictMap, Character } from "@/types";
 import { JOB_INFO, JOBS } from "@/types/jobs";
@@ -98,12 +98,16 @@ const aggregateDailyWinLoss = (
   return dateRange.map((date) => {
     const [, month, day] = date.split("-");
     const formattedDate = `${parseInt(month)}/${parseInt(day)}`;
+    const stats = dailyStats.get(date)!;
+    const total = stats.wins + stats.losses;
+    const winRate = total > 0 ? Math.round((stats.wins / total) * 100) : null;
 
     return {
       date: formattedDate,
       fullDate: date, // ツールチップ用に完全な日付も保持
-      Win: dailyStats.get(date)?.wins || 0,
-      Lose: dailyStats.get(date)?.losses || 0,
+      Win: stats.wins,
+      Lose: stats.losses,
+      WinRate: winRate,
     };
   });
 };
@@ -168,15 +172,17 @@ export const DailyWinLossChart = ({ history, matchRecords, characters }: DailyWi
         </StyledFiltersWrapper>
       </StyledChartHeader>
       <ResponsiveContainer width="100%" height={400}>
-        <BarChart data={dailyData}>
+        <ComposedChart data={dailyData}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" tick={{ fontSize: 12 }} angle={-45} textAnchor="end" height={80} />
-          <YAxis label={{ value: "対戦回数", angle: -90, position: "insideLeft" }} allowDecimals={false} />
+          <YAxis yAxisId="left" label={{ value: "対戦回数", angle: -90, position: "insideLeft" }} allowDecimals={false} />
+          <YAxis yAxisId="right" orientation="right" label={{ value: "勝率 (%)", angle: 90, position: "insideRight" }} domain={[0, 100]} />
           <Tooltip />
           <Legend />
-          <Bar dataKey="Win" fill="#4ade80" stackId="a" />
-          <Bar dataKey="Lose" fill="#f87171" stackId="a" />
-        </BarChart>
+          <Bar yAxisId="left" dataKey="Win" fill="#4ade80" stackId="a" />
+          <Bar yAxisId="left" dataKey="Lose" fill="#f87171" stackId="a" />
+          <Line yAxisId="right" type="monotone" dataKey="WinRate" stroke="#3b82f6" strokeWidth={2} dot={{ r: 3 }} connectNulls={true} />
+        </ComposedChart>
       </ResponsiveContainer>
     </StyledChartContainer>
   );
