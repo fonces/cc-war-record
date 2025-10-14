@@ -3,6 +3,7 @@ import { Button, Icon, Input } from "@/components/ui";
 import type { CharacterStats, Job, CrystalConflictMap } from "@/types";
 import { getTotalMatches, getWins, getLosses, getWinRate } from "@/types/history";
 import { MatchRecordTable } from "./MatchRecordTable";
+import { getWinRateColor } from "@/utils/colors";
 
 const StyledCharacterCard = styled.div`
   background-color: white;
@@ -43,7 +44,7 @@ const StyledCharacterStatsContainer = styled.div`
 
 const StyledWinRate = styled.span<{ winRate: number }>`
   font-weight: 600;
-  color: ${({ winRate, theme }) => (winRate >= 60 ? theme.colors.success[600] : winRate >= 40 ? theme.colors.warning[600] : theme.colors.error[600])};
+  color: ${({ winRate, theme }) => getWinRateColor(winRate, theme)};
 `;
 
 const StyledCharacterContent = styled.div<{ isOpen: boolean }>`
@@ -203,9 +204,9 @@ export const CharacterCard = ({
             <StyledCharacterStatsContainer onClick={(e) => e.stopPropagation()}>
               <span>{totalMatches}試合</span>
               <span>
-                {wins}勝{losses}敗
+                {wins}勝 / {losses}敗
               </span>
-              <StyledWinRate winRate={winRate}>勝率{winRate}%</StyledWinRate>
+              {0 < totalMatches ? <StyledWinRate winRate={winRate}>勝率{winRate}%</StyledWinRate> : <span>勝率--%</span>}
               <StyledCharacterActions>
                 <StyledActionButton
                   variant="outline"

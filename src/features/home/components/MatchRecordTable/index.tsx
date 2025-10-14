@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { Button, JobIcon, Icon } from "@/components/ui";
+import { Icon } from "@/components/ui";
 import type { MatchRecord, Job, CrystalConflictMap } from "@/types";
 import { MAPS, MAP_INFO } from "@/types/maps";
+import { getWinRateColor } from "@/utils/colors";
+import { JobSummaryTable } from "./JobSummaryTable";
 
 const StyledMapTablesContainer = styled.div`
   display: flex;
@@ -51,134 +53,13 @@ const StyledMapSummary = styled.div`
 
 const StyledMapWinRate = styled.span<{ winRate: number }>`
   font-weight: 600;
-  color: ${({ winRate, theme }) => (winRate >= 51 ? theme.colors.success[600] : winRate >= 40 ? theme.colors.warning[600] : theme.colors.error[600])};
-`;
-
-const StyledTableContainer = styled.div`
-  overflow-x: auto;
+  color: ${({ winRate, theme }) => getWinRateColor(winRate, theme)};
 `;
 
 const StyledMapContent = styled.div<{ isOpen: boolean }>`
   max-height: ${({ isOpen }) => (isOpen ? "10000px" : "0")};
   overflow: hidden;
   transition: max-height 0.3s ease-in-out;
-`;
-
-const StyledTable = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.875rem;
-`;
-
-const StyledTableHead = styled.thead`
-  background-color: ${({ theme }) => theme.colors.gray[50]};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray[200]};
-`;
-
-const StyledTableHeader = styled.th`
-  padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
-  text-align: center;
-  font-weight: 600;
-  color: ${({ theme }) => theme.colors.text};
-  white-space: nowrap;
-  box-sizing: border-box;
-
-  &:first-child {
-    padding-left: ${({ theme }) => theme.spacing[6]};
-    text-align: left;
-    width: 200px;
-  }
-
-  &:nth-child(2) {
-    width: 80px;
-  }
-
-  &:nth-child(3) {
-    width: 80px;
-  }
-
-  &:nth-child(4) {
-    width: 80px;
-  }
-
-  &:nth-child(5) {
-    width: 80px;
-  }
-
-  &:last-child {
-    padding-right: ${({ theme }) => theme.spacing[6]};
-    width: 140px;
-  }
-`;
-
-const StyledTableBody = styled.tbody``;
-
-const StyledTableRow = styled.tr`
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray[200]};
-  transition: background-color 0.15s;
-  height: 58px;
-
-  &:last-child {
-    border-bottom: none;
-  }
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.gray[50]};
-  }
-`;
-
-const StyledTableCell = styled.td`
-  padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
-  color: ${({ theme }) => theme.colors.textSecondary};
-  text-align: center;
-  box-sizing: border-box;
-
-  &:first-child {
-    padding-left: ${({ theme }) => theme.spacing[6]};
-    text-align: left;
-  }
-
-  &:last-child {
-    padding-right: ${({ theme }) => theme.spacing[6]};
-  }
-`;
-
-const StyledJobCell = styled(StyledTableCell)`
-  & > div {
-    display: flex;
-    align-items: center;
-    gap: ${({ theme }) => theme.spacing[2]};
-  }
-`;
-
-const StyledWinRateText = styled.span<{ winRate: number }>`
-  font-weight: 600;
-  color: ${({ winRate, theme }) => (winRate >= 51 ? theme.colors.success[600] : winRate >= 40 ? theme.colors.warning[600] : theme.colors.error[600])};
-`;
-
-const StyledActionButtons = styled.div`
-  display: flex;
-  gap: ${({ theme }) => theme.spacing[2]};
-  justify-content: flex-end;
-`;
-
-const StyledActionButton = styled(Button)`
-  width: 32px;
-  height: 32px;
-  min-width: 32px;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.75rem;
-  font-weight: 600;
-`;
-
-const StyledEmptyMapState = styled.div`
-  text-align: center;
-  padding: ${({ theme }) => theme.spacing[4]} ${({ theme }) => theme.spacing[6]};
-  color: ${({ theme }) => theme.colors.textSecondary};
-  font-size: 0.875rem;
 `;
 
 type JobSummaryForMap = {
@@ -370,82 +251,13 @@ export const MatchRecordTable = ({ usedJobs, matchRecords, onAddWin, onAddLoss, 
             <StyledMapSummary>
               <span>{mapData.totalMatches}試合</span>
               <span>
-                {mapData.totalWins}勝{mapData.totalLosses}敗
+                {mapData.totalWins}勝 / {mapData.totalLosses}敗
               </span>
-              <StyledMapWinRate winRate={mapData.mapWinRate}>勝率{mapData.mapWinRate}%</StyledMapWinRate>
+              {0 < mapData.totalMatches ? <StyledMapWinRate winRate={mapData.mapWinRate}>勝率{mapData.mapWinRate}%</StyledMapWinRate> : <span>勝率--%</span>}
             </StyledMapSummary>
           </StyledMapTitle>
           <StyledMapContent isOpen={openMaps.has(mapData.map)}>
-            <StyledTableContainer>
-              <StyledTable>
-                <StyledTableHead>
-                  <tr>
-                    <StyledTableHeader>ジョブ</StyledTableHeader>
-                    <StyledTableHeader>試合数</StyledTableHeader>
-                    <StyledTableHeader>勝利</StyledTableHeader>
-                    <StyledTableHeader>敗北</StyledTableHeader>
-                    <StyledTableHeader>勝率</StyledTableHeader>
-                    {(onAddWin || onAddLoss || onRevertLast) && <StyledTableHeader>操作</StyledTableHeader>}
-                  </tr>
-                </StyledTableHead>
-                <StyledTableBody>
-                  {usedJobs.length === 0 ? (
-                    <StyledTableRow>
-                      <StyledTableCell colSpan={onAddWin || onAddLoss || onRevertLast ? 6 : 5}>
-                        <StyledEmptyMapState>ジョブを登録してください</StyledEmptyMapState>
-                      </StyledTableCell>
-                    </StyledTableRow>
-                  ) : (
-                    usedJobs.map((job) => {
-                      const summary = mapData.jobSummaries.find((s) => s.job === job) || {
-                        job,
-                        totalMatches: 0,
-                        wins: 0,
-                        losses: 0,
-                        winRate: 0,
-                      };
-                      return (
-                        <StyledTableRow key={job}>
-                          <StyledJobCell>
-                            <div>
-                              <JobIcon job={summary.job} size={20} />
-                              {summary.job}
-                            </div>
-                          </StyledJobCell>
-                          <StyledTableCell>{summary.totalMatches}</StyledTableCell>
-                          <StyledTableCell>{summary.wins}</StyledTableCell>
-                          <StyledTableCell>{summary.losses}</StyledTableCell>
-                          <StyledTableCell>
-                            <StyledWinRateText winRate={summary.winRate}>{summary.winRate}%</StyledWinRateText>
-                          </StyledTableCell>
-                          {(onAddWin || onAddLoss || onRevertLast) && (
-                            <StyledTableCell>
-                              <StyledActionButtons>
-                                {onAddWin && (
-                                  <StyledActionButton variant="win" onClick={() => onAddWin(summary.job, mapData.map)}>
-                                    W
-                                  </StyledActionButton>
-                                )}
-                                {onAddLoss && (
-                                  <StyledActionButton variant="secondary" onClick={() => onAddLoss(summary.job, mapData.map)}>
-                                    L
-                                  </StyledActionButton>
-                                )}
-                                {summary.totalMatches > 0 && onRevertLast ? (
-                                  <StyledActionButton variant="outline" icon={<Icon name="revert" size={16} />} onClick={() => onRevertLast(summary.job, mapData.map)} />
-                                ) : (
-                                  (onAddWin || onAddLoss) && <div style={{ width: "32px" }} />
-                                )}
-                              </StyledActionButtons>
-                            </StyledTableCell>
-                          )}
-                        </StyledTableRow>
-                      );
-                    })
-                  )}
-                </StyledTableBody>
-              </StyledTable>
-            </StyledTableContainer>
+            <JobSummaryTable usedJobs={usedJobs} jobSummaries={mapData.jobSummaries} onAddWin={onAddWin} onAddLoss={onAddLoss} onRevertLast={onRevertLast} map={mapData.map} />
           </StyledMapContent>
         </StyledMapSection>
       ))}
@@ -459,61 +271,12 @@ export const MatchRecordTable = ({ usedJobs, matchRecords, onAddWin, onAddLoss, 
           <StyledMapSummary>
             <span>{totalMatches}試合</span>
             <span>
-              {totalWins}勝{totalLosses}敗
+              {totalWins}勝 / {totalLosses}敗
             </span>
-            <StyledMapWinRate winRate={totalWinRate}>勝率{totalWinRate}%</StyledMapWinRate>
+            {0 < totalMatches ? <StyledMapWinRate winRate={totalWinRate}>勝率{totalWinRate}%</StyledMapWinRate> : <span>勝率--%</span>}
           </StyledMapSummary>
         </StyledMapTitle>
-        <StyledTableContainer>
-          <StyledTable>
-            <StyledTableHead>
-              <tr>
-                <StyledTableHeader>ジョブ</StyledTableHeader>
-                <StyledTableHeader>試合数</StyledTableHeader>
-                <StyledTableHeader>勝利</StyledTableHeader>
-                <StyledTableHeader>敗北</StyledTableHeader>
-                <StyledTableHeader>勝率</StyledTableHeader>
-                {(onAddWin || onAddLoss || onRevertLast) && <StyledTableHeader />}
-              </tr>
-            </StyledTableHead>
-            <StyledTableBody>
-              {usedJobs.length === 0 ? (
-                <StyledTableRow>
-                  <StyledTableCell colSpan={onAddWin || onAddLoss || onRevertLast ? 6 : 5}>
-                    <StyledEmptyMapState>ジョブを登録してください</StyledEmptyMapState>
-                  </StyledTableCell>
-                </StyledTableRow>
-              ) : (
-                usedJobs.map((job) => {
-                  const summary = totalSummaries.find((s) => s.job === job) || {
-                    job,
-                    totalMatches: 0,
-                    wins: 0,
-                    losses: 0,
-                    winRate: 0,
-                  };
-                  return (
-                    <StyledTableRow key={job}>
-                      <StyledJobCell>
-                        <div>
-                          <JobIcon job={summary.job} size={20} />
-                          {summary.job}
-                        </div>
-                      </StyledJobCell>
-                      <StyledTableCell>{summary.totalMatches}</StyledTableCell>
-                      <StyledTableCell>{summary.wins}</StyledTableCell>
-                      <StyledTableCell>{summary.losses}</StyledTableCell>
-                      <StyledTableCell>
-                        <StyledWinRateText winRate={summary.winRate}>{summary.winRate}%</StyledWinRateText>
-                      </StyledTableCell>
-                      {(onAddWin || onAddLoss || onRevertLast) && <StyledTableCell />}
-                    </StyledTableRow>
-                  );
-                })
-              )}
-            </StyledTableBody>
-          </StyledTable>
-        </StyledTableContainer>
+        <JobSummaryTable usedJobs={usedJobs} jobSummaries={totalSummaries} />
       </StyledMapSection>
     </StyledMapTablesContainer>
   );
