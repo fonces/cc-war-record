@@ -178,8 +178,7 @@ type History = {
   - `cc-war-record-match-records`: 現在のシーズンの戦績記録一覧
   - `cc-war-record-histories`: シーズン履歴一覧
   - `histories-{seasonUuid}`: 過去シーズンのアーカイブ戦績データ
-  - `cc-war-record:radar-chart-job1`: レーダーチャートジョブ1選択
-  - `cc-war-record:radar-chart-job2`: レーダーチャートジョブ2選択
+  - `cc-war-record:radar-chart-jobs`: レーダーチャートジョブ選択
 - JSON形式でシリアライズして保存
 - アプリケーション起動時に各ストアが自動的にデータを読み込み
 - シーズン作成時に前シーズンのデータを自動的にアーカイブ

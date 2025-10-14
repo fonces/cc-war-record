@@ -20,9 +20,9 @@ import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { routeTree } from "@/routeTree.gen";
 
 // ルーターインスタンスを作成
-const router = createRouter({ 
-  routeTree, 
-  basepath: import.meta.env.VITE_BASEPATH || "/" 
+const router = createRouter({
+  routeTree,
+  basepath: import.meta.env.VITE_BASEPATH || "/",
 });
 ```
 
