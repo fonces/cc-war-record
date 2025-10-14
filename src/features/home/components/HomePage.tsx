@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRouter } from "@tanstack/react-router";
 import styled from "styled-components";
 import { useHistoryStore, useCharacterStore } from "@/stores";
-import { JobRegistrationDialog, Button, PageContainer, PageTitleContainer, PageTitle, PageDescription } from "@/components/ui";
+import { JobRegistrationDialog, Button, PageContainer, PageTitleContainer, PageTitle, PageDescription, Icon } from "@/components/ui";
 import { EmptyState } from "./EmptyState";
 import { CharacterForm } from "./CharacterForm";
 import { CharacterCard } from "./CharacterCard";
@@ -278,6 +278,7 @@ export const HomePage = () => {
       <PageTitleContainer>
         <PageTitle>{latestSeason?.seasonName} の戦績</PageTitle>
         <Button variant="outline" size="sm" onClick={handleCreateSeason}>
+          <Icon name="add" size={16} />
           新しいシーズンを作成
         </Button>
       </PageTitleContainer>

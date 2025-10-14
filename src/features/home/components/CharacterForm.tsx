@@ -119,7 +119,7 @@ export const CharacterForm = ({ isOpen: isOpenProp, onCreateCharacter }: Charact
                 value={newCharacterName}
                 onChange={(e) => setNewCharacterName(e.target.value)}
                 placeholder="キャラクター名を入力"
-                onKeyPress={(e) => e.key === "Enter" && handleCreate()}
+                onKeyDown={(e) => e.key === "Enter" && handleCreate()}
               />
             </StyledFormGroup>
             <Button onClick={handleCreate} disabled={!newCharacterName.trim()}>
