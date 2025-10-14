@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 type IconProps = {
   /** アイコンの種類 */
-  name: "hamburger" | "close" | "home" | "history" | "chart" | "edit" | "accept" | "add" | "delete" | "minus" | "revert" | "detail";
+  name: "hamburger" | "close" | "home" | "history" | "chart" | "edit" | "accept" | "add" | "delete" | "minus" | "revert" | "detail" | "back";
   /** サイズ */
   size?: number;
   /** 色 */
@@ -124,6 +124,13 @@ const DetailIcon = () => (
   </svg>
 );
 
+const BackIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="19" y1="12" x2="5" y2="12" />
+    <polyline points="12,19 5,12 12,5" />
+  </svg>
+);
+
 /**
  * アイコンコンポーネント
  */
@@ -154,6 +161,8 @@ export const Icon = ({ name, size = 24, color, onClick, className }: IconProps) 
         return <RevertIcon />;
       case "detail":
         return <DetailIcon />;
+      case "back":
+        return <BackIcon />;
       default:
         return null;
     }
