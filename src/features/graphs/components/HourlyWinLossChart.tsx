@@ -168,6 +168,7 @@ export const HourlyWinLossChart = ({ history, matchRecords, characters }: Hourly
                 label: character.name,
               })),
             ]}
+            width="200px"
           />
           <Select
             label="ジョブ"
@@ -181,6 +182,7 @@ export const HourlyWinLossChart = ({ history, matchRecords, characters }: Hourly
                 label: `${JOB_INFO[job].name} (${job})`,
               })),
             ]}
+            width="200px"
           />
           <Select
             label="マップ"
@@ -194,6 +196,7 @@ export const HourlyWinLossChart = ({ history, matchRecords, characters }: Hourly
                 label: MAP_INFO[map].name,
               })),
             ]}
+            width="200px"
           />
         </StyledFiltersWrapper>
       </StyledChartHeader>

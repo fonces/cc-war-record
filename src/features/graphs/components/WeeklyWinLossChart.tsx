@@ -198,6 +198,7 @@ export const WeeklyWinLossChart = ({ history, matchRecords, characters }: Weekly
                 label: character.name,
               })),
             ]}
+            width="200px"
           />
           <Select
             label="ジョブ"
@@ -211,6 +212,7 @@ export const WeeklyWinLossChart = ({ history, matchRecords, characters }: Weekly
                 label: `${JOB_INFO[job].name} (${job})`,
               })),
             ]}
+            width="200px"
           />
           <Select
             label="マップ"
@@ -224,6 +226,7 @@ export const WeeklyWinLossChart = ({ history, matchRecords, characters }: Weekly
                 label: MAP_INFO[map].name,
               })),
             ]}
+            width="200px"
           />
         </StyledFiltersWrapper>
       </StyledChartHeader>

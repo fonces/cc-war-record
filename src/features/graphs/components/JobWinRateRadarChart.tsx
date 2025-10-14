@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Legend, ResponsiveContainer, Tooltip } from "recharts";
-import { Select } from "@/components/ui";
+import { Select, MultiSelect } from "@/components/ui";
 import type { History, MatchRecord, Job, Character } from "@/types";
 import { JOB_INFO, JOBS } from "@/types/jobs";
 import { MAP_INFO, MAPS } from "@/types/maps";
-import { getRadarChartJob1, saveRadarChartJob1, getRadarChartJob2, saveRadarChartJob2 } from "@/utils/localStorage";
+import { getRadarChartJobs, saveRadarChartJobs } from "@/utils/localStorage";
 
 const StyledChartContainer = styled.div`
   background: ${({ theme }) => theme.colors.gray[50]};
@@ -97,22 +97,15 @@ const aggregateJobWinRateByMap = (history: History, matchRecords: MatchRecord[],
  */
 export const JobWinRateRadarChart = ({ history, matchRecords, characters }: JobWinRateRadarChartProps) => {
   const [selectedCharacterUuid, setSelectedCharacterUuid] = useState<string | null>(null);
-  const [selectedJob1, setSelectedJob1] = useState<Job>(() => getRadarChartJob1());
-  const [selectedJob2, setSelectedJob2] = useState<Job>(() => getRadarChartJob2());
+  const [selectedJobs, setSelectedJobs] = useState<Job[]>(() => getRadarChartJobs());
 
-  // ジョブ1の変更ハンドラー
-  const handleJob1Change = (job: Job) => {
-    setSelectedJob1(job);
-    saveRadarChartJob1(job);
+  // ジョブ選択変更ハンドラー
+  const handleJobsChange = (jobs: string[]) => {
+    const jobList = jobs as Job[];
+    setSelectedJobs(jobList);
+    saveRadarChartJobs(jobList);
   };
 
-  // ジョブ2の変更ハンドラー
-  const handleJob2Change = (job: Job) => {
-    setSelectedJob2(job);
-    saveRadarChartJob2(job);
-  };
-
-  const selectedJobs = [selectedJob1, selectedJob2];
   const radarData = aggregateJobWinRateByMap(history, matchRecords, selectedCharacterUuid, selectedJobs);
 
   return (
@@ -132,26 +125,19 @@ export const JobWinRateRadarChart = ({ history, matchRecords, characters }: JobW
                 label: character.name,
               })),
             ]}
+            width="200px"
           />
-          <Select
-            label="ジョブ1"
-            id="job1-filter"
-            value={selectedJob1}
-            onChange={(e) => handleJob1Change(e.target.value as Job)}
+          <MultiSelect
+            label="ジョブ選択（最大5つ）"
+            value={selectedJobs}
+            onChange={handleJobsChange}
             options={Object.values(JOBS).map((job) => ({
               value: job,
               label: `${JOB_INFO[job].name} (${job})`,
             }))}
-          />
-          <Select
-            label="ジョブ2"
-            id="job2-filter"
-            value={selectedJob2}
-            onChange={(e) => handleJob2Change(e.target.value as Job)}
-            options={Object.values(JOBS).map((job) => ({
-              value: job,
-              label: `${JOB_INFO[job].name} (${job})`,
-            }))}
+            placeholder="ジョブを選択"
+            maxSelections={5}
+            width="200px"
           />
         </StyledFiltersWrapper>
       </StyledChartHeader>
@@ -160,20 +146,9 @@ export const JobWinRateRadarChart = ({ history, matchRecords, characters }: JobW
           <PolarGrid />
           <PolarAngleAxis dataKey="map" />
           <PolarRadiusAxis angle={90} domain={[0, 100]} />
-          <Radar
-            name={`${JOB_INFO[selectedJob1].name} (${selectedJob1})`}
-            dataKey={selectedJob1}
-            stroke={JOB_INFO[selectedJob1].color}
-            fill={JOB_INFO[selectedJob1].color}
-            fillOpacity={0.6}
-          />
-          <Radar
-            name={`${JOB_INFO[selectedJob2].name} (${selectedJob2})`}
-            dataKey={selectedJob2}
-            stroke={JOB_INFO[selectedJob2].color}
-            fill={JOB_INFO[selectedJob2].color}
-            fillOpacity={0.6}
-          />
+          {selectedJobs.map((job) => (
+            <Radar key={job} name={`${JOB_INFO[job].name} (${job})`} dataKey={job} stroke={JOB_INFO[job].color} fill={JOB_INFO[job].color} fillOpacity={0.6} />
+          ))}
           <Legend />
           <Tooltip />
         </RadarChart>

@@ -135,6 +135,7 @@ export const DailyWinLossChart = ({ history, matchRecords, characters }: DailyWi
                 label: character.name,
               })),
             ]}
+            width="200px"
           />
           <Select
             label="ジョブ"
@@ -148,6 +149,7 @@ export const DailyWinLossChart = ({ history, matchRecords, characters }: DailyWi
                 label: `${JOB_INFO[job].name} (${job})`,
               })),
             ]}
+            width="200px"
           />
           <Select
             label="マップ"
@@ -161,6 +163,7 @@ export const DailyWinLossChart = ({ history, matchRecords, characters }: DailyWi
                 label: MAP_INFO[map].name,
               })),
             ]}
+            width="200px"
           />
         </StyledFiltersWrapper>
       </StyledChartHeader>

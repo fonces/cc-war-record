@@ -7,8 +7,7 @@ import { JOBS } from "@/types/jobs";
 
 // ジョブフィルター用のキー定数
 export const STORAGE_KEYS = {
-  RADAR_CHART_JOB1: "cc-war-record:radar-chart-job1",
-  RADAR_CHART_JOB2: "cc-war-record:radar-chart-job2",
+  RADAR_CHART_JOBS: "cc-war-record:radar-chart-jobs",
 } as const;
 
 /**
@@ -84,29 +83,15 @@ export const clearLocalStorage = (): void => {
 };
 
 /**
- * レーダーチャート用のジョブ1を取得
+ * レーダーチャート用の選択ジョブリストを取得
  */
-export const getRadarChartJob1 = (): Job => {
-  return getFromLocalStorage(STORAGE_KEYS.RADAR_CHART_JOB1, JOBS.PALADIN);
+export const getRadarChartJobs = (): Job[] => {
+  return getFromLocalStorage(STORAGE_KEYS.RADAR_CHART_JOBS, [JOBS.PALADIN, JOBS.WHITE_MAGE]);
 };
 
 /**
- * レーダーチャート用のジョブ1を保存
+ * レーダーチャート用の選択ジョブリストを保存
  */
-export const saveRadarChartJob1 = (job: Job): void => {
-  saveToLocalStorage(STORAGE_KEYS.RADAR_CHART_JOB1, job);
-};
-
-/**
- * レーダーチャート用のジョブ2を取得
- */
-export const getRadarChartJob2 = (): Job => {
-  return getFromLocalStorage(STORAGE_KEYS.RADAR_CHART_JOB2, JOBS.WHITE_MAGE);
-};
-
-/**
- * レーダーチャート用のジョブ2を保存
- */
-export const saveRadarChartJob2 = (job: Job): void => {
-  saveToLocalStorage(STORAGE_KEYS.RADAR_CHART_JOB2, job);
+export const saveRadarChartJobs = (jobs: Job[]): void => {
+  saveToLocalStorage(STORAGE_KEYS.RADAR_CHART_JOBS, jobs);
 };
