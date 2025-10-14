@@ -1,0 +1,1 @@
+import"./usePageTitle-BX_2NIdR.js";import{n as e}from"./histories-DV9K5sI6.js";var t=e;export{t as component};
