@@ -16,6 +16,8 @@ const StyledButton = styled.button<ButtonProps>`
   align-items: center;
   justify-content: center;
   font-weight: 500;
+  gap: 0.4rem;
+  line-height: 1;
   transition: all 0.2s;
   border-radius: ${({ theme }) => theme.borderRadius.md};
   cursor: pointer;
@@ -26,7 +28,7 @@ const StyledButton = styled.button<ButtonProps>`
     // アイコンのみの場合はpaddingを削除
     if (icon) {
       return `
-        padding: 0;
+        padding: ${theme.spacing[1]};
         font-size: 1rem;
       `;
     }

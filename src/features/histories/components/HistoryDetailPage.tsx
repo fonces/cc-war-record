@@ -1,8 +1,8 @@
-import { useParams } from "@tanstack/react-router";
+import { useParams, useNavigate } from "@tanstack/react-router";
 import { useMemo, useRef } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import styled from "styled-components";
-import { PageContainer, PageTitleContainer, PageTitle, PageDescription } from "@/components/ui";
+import { PageContainer, PageTitleContainer, PageTitle, PageDescription, Button, Icon } from "@/components/ui";
 import { useHistoryStore } from "@/stores";
 import { JobIcon } from "@/components/ui/JobIcon";
 import { formatDateTable } from "@/utils/uuid";
@@ -16,7 +16,7 @@ const StyledTableContainer = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.gray[200]};
   background-color: ${({ theme }) => theme.colors.gray[50]};
   margin-top: ${({ theme }) => theme.spacing[6]};
-  height: calc(100dvh - 200px);
+  height: calc(100dvh - 216px);
   display: flex;
   flex-direction: column;
 `;
@@ -144,12 +144,20 @@ const StyledEmptyState = styled.div`
   font-size: 0.875rem;
 `;
 
+// 戻るボタンコンテナ
+const StyledBackButtonContainer = styled.div`
+  margin-top: ${({ theme }) => theme.spacing[6]};
+  display: flex;
+  justify-content: space-between;
+`;
+
 /**
  * シーズン履歴詳細画面コンポーネント
  * 特定シーズンの詳細戦績を表示
  */
 export const HistoryDetailPage = () => {
   const { id } = useParams({ from: "/histories/$id" });
+  const navigate = useNavigate();
   const { getHistoryByUuid, getMatchRecordsForSeason } = useHistoryStore();
   const parentRef = useRef<HTMLDivElement>(null);
 
@@ -217,7 +225,7 @@ export const HistoryDetailPage = () => {
         <PageTitle>{history.seasonName}</PageTitle>
       </PageTitleContainer>
       <PageDescription>
-        {allMatches.length}試合の戦績 • 作成日: {new Date(history.createdAt).toLocaleDateString("ja-JP")}
+        {allMatches.length}試合の戦績 / 作成日: {new Date(history.createdAt).toLocaleDateString("ja-JP")}
       </PageDescription>
 
       <StyledTableContainer>
@@ -264,10 +272,17 @@ export const HistoryDetailPage = () => {
               </div>
             </StyledVirtualContainer>
           ) : (
-            <StyledEmptyState>まだ戦績が記録されていません</StyledEmptyState>
+            <StyledEmptyState>戦績が記録されていません</StyledEmptyState>
           )}
         </StyledTable>
       </StyledTableContainer>
+
+      <StyledBackButtonContainer>
+        <Button variant="outline" size="sm" onClick={() => navigate({ to: "/histories" })}>
+          <Icon name="back" size={16} />
+          一覧に戻る
+        </Button>
+      </StyledBackButtonContainer>
     </PageContainer>
   );
 };
