@@ -39,6 +39,34 @@ FINAL FANTASY XIVのPvPコンテンツ「クリスタルコンフリクト」の
 ### データ可視化
 
 - **Recharts** v2.x - グラフ・チャート描画ライブラリ
+  - BarChart - 棒グラフ（日別・時間別勝敗数）
+  - ComposedChart - 複合チャート（勝敗数+勝率ライン）
+  - AreaChart - エリアチャート（曜日別勝率）
+  - RadarChart - レーダーチャート（ジョブ別勝率比較）
+  - PieChart - 円グラフ（ジョブ使用率）
+
+### アイコン・画像
+
+- **ローカル画像アセット** - FF14ジョブ・ロールアイコン
+  - `/public/img/00_ROLE/` - ロールアイコン（Tank, Healer, DPS系）
+  - `/public/img/01_TANK/Job/` - タンクジョブアイコン
+  - `/public/img/02_HEALER/Job/` - ヒーラージョブアイコン
+  - `/public/img/03_DPS/Job/` - DPSジョブアイコン
+
+## 環境変数
+
+プロジェクトでは以下の環境変数を使用します：
+
+```bash
+# ベースパス（GitHub Pagesなどでのサブパス配置用）
+VITE_BASEPATH=/cc-war-record
+```
+
+`.env.example` をコピーして `.env` を作成してください：
+
+```bash
+cp .env.example .env
+```
 
 ## データ管理アーキテクチャ
 
@@ -165,6 +193,16 @@ src/
 │   └── provider.tsx
 ├── components/       # 共有コンポーネント
 │   ├── ui/          # 基本UIコンポーネント
+│   │   ├── Button.tsx
+│   │   ├── Input.tsx
+│   │   ├── Select.tsx
+│   │   ├── MultiSelect.tsx
+│   │   ├── Checkbox.tsx
+│   │   ├── Icon/
+│   │   ├── JobIcon/      # ジョブアイコンコンポーネント
+│   │   ├── RoleIcon/     # ロールアイコンコンポーネント
+│   │   ├── Dialog/
+│   │   └── JobRegistrationDialog/
 │   ├── form/        # フォームコンポーネント
 │   └── layout/      # レイアウトコンポーネント
 ├── features/        # 機能別モジュール
@@ -172,18 +210,25 @@ src/
 │   ├── graphs/      # グラフ・統計表示
 │   └── histories/   # 履歴詳細表示
 ├── hooks/           # 共有カスタムフック
+│   ├── usePageTitle.ts    # ページタイトル設定
+│   ├── useScrollLock.ts   # スクロールロック
+│   └── index.ts
 ├── lib/             # 外部ライブラリ設定
 ├── stores/          # グローバルストア（Zustand）
 │   ├── characterStore.ts  # キャラクター・戦績管理
 │   └── historyStore.ts    # シーズン履歴管理
 ├── styles/          # スタイル設定
-├── types/           # 型定義
-└── utils/           # ユーティリティ関数
 │   ├── theme.ts
 │   ├── GlobalStyle.tsx
 │   └── styled.d.ts
 ├── types/           # 型定義
+│   ├── jobs.ts      # ジョブ・ロール定義
+│   ├── maps.ts      # マップ定義
+│   ├── history.ts   # 履歴型定義
+│   └── index.ts
 ├── utils/           # ユーティリティ関数
+│   ├── localStorage.ts
+│   └── uuid.ts
 └── test/            # テスト設定
     └── server/
 ```
@@ -206,7 +251,18 @@ npm install
 cp .env.example .env
 ```
 
-必要に応じて環境変数を編集してください。
+デフォルトの設定内容：
+
+```bash
+# ベースパス（GitHub Pagesなどでのサブパス配置用）
+VITE_BASEPATH=/cc-war-record
+```
+
+ローカル開発時は以下のように変更することも可能：
+
+```bash
+VITE_BASEPATH=/
+```
 
 ### 開発サーバーの起動
 
@@ -323,8 +379,9 @@ MIT
 
 ### データ可視化（Rechartsライブラリ使用）
 
-- **日別勝敗数チャート**（BarChart）
-  - 2ヶ月間の日毎勝敗推移を表示
+- **日別勝敗数チャート**（ComposedChart）
+  - 2ヶ月間の日毎勝敗推移を表示（Bar）
+  - 勝率ラインを重ね合わせ（Line）
   - キャラクター・ジョブ・マップでフィルタリング可能
 - **時間別勝率チャート**（BarChart）
   - 0-23時の時間帯別勝率分析
@@ -333,8 +390,11 @@ MIT
   - Sun-Satの曜日別勝率をエリアチャートで表示
   - connectNulls機能でデータ欠損日を補間
 - **ジョブ別勝率レーダーチャート**（RadarChart）
-  - マップ別の2ジョブ勝率比較
+  - マップ別の最大5ジョブ勝率比較
   - ジョブ選択状態をlocalStorageに永続化
+- **ジョブ使用率円グラフ**（PieChart）
+  - 各ジョブの使用頻度を可視化
+  - キャラクター・マップでフィルタリング可能
 
 ## 主要機能
 
@@ -361,8 +421,24 @@ MIT
 ### ジョブ・マップ対応
 
 - FF14の全ジョブに対応（ロール別分類）
+  - Tank: Paladin, Warrior, Dark Knight, Gunbreaker
+  - Healer: White Mage, Scholar, Astrologian, Sage
+  - Melee DPS: Monk, Dragoon, Ninja, Samurai, Reaper, Viper
+  - Physical Ranged DPS: Bard, Machinist, Dancer
+  - Magical Ranged DPS: Black Mage, Summoner, Red Mage, Pictomancer
 - クリスタルコンフリクト全マップに対応
-- XIVAPIからのジョブアイコン取得
+- ローカル画像アセットでジョブ・ロールアイコンを表示
+- 環境変数（VITE_BASEPATH）対応のパス管理
+
+### UI/UXコンポーネント
+
+- **JobIcon** - ジョブアイコン表示コンポーネント
+- **RoleIcon** - ロールアイコン表示コンポーネント
+- **MultiSelect** - 複数選択可能なセレクトボックス（最大5選択）
+- **Dialog** - モーダルダイアログ
+  - 背景スクロールロック機能（useScrollLock）
+  - スクロールバー表示維持
+- **ページタイトル** - usePageTitleフックによる動的タイトル設定
 
 ## 使用方法
 
@@ -402,8 +478,9 @@ MIT
 ### 1. 日別勝敗数チャート（DailyWinLossChart）
 
 - **表示期間**: シーズン作成日から2ヶ月間
-- **チャートタイプ**: BarChart（棒グラフ）
-- **データ**: 日毎の勝利数・敗北数
+- **チャートタイプ**: ComposedChart（Bar + Line）
+- **データ**: 日毎の勝利数・敗北数（Bar）+ 勝率ライン（Line）
+- **Y軸**: 左軸（試合数）、右軸（勝率0-100%）
 - **フィルター**: キャラクター・ジョブ・マップ
 
 ### 2. 時間別勝率チャート（HourlyWinLossChart）
@@ -426,11 +503,22 @@ MIT
 ### 4. ジョブ別勝率レーダーチャート（JobWinRateRadarChart）
 
 - **表示形式**: レーダーチャート（多角形）
-- **データ**: マップ別の2ジョブ勝率比較
+- **データ**: マップ別の最大5ジョブ勝率比較
 - **軸**: 各クリスタルコンフリクトマップ
 - **永続化**: ジョブ選択状態をlocalStorageに保存
 - **用途**: ジョブ・マップ相性分析
 - **フィルター**: キャラクター
+- **選択方式**: MultiSelectによる複数ジョブ選択（最大5）
+
+### 5. ジョブ使用率円グラフ（JobUsageRatePieChart）
+
+- **表示形式**: PieChart（円グラフ）
+- **データ**: 各ジョブの使用頻度（パーセンテージ）
+- **ラベル**: 5%以上のジョブに使用率を表示
+- **カラー**: JOB_INFOで定義されたジョブカラーを使用
+- **ツールチップ**: ジョブ名・使用回数・使用率を表示
+- **ソート**: 使用率降順
+- **フィルター**: キャラクター・マップ
 
 ### 共通機能
 
