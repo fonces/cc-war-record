@@ -8,3 +8,6 @@ export * from "./graphs";
 
 // Histories feature
 export * from "./histories";
+
+// FAQ feature
+export * from "./faq";

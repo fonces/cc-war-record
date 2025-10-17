@@ -9,13 +9,14 @@ type NavigationItem = {
   /** パス */
   path: string;
   /** アイコン */
-  icon: "home" | "history" | "chart";
+  icon: "home" | "history" | "chart" | "detail";
 };
 
 const navigationItems: NavigationItem[] = [
   { label: "ホーム", path: "/", icon: "home" },
   { label: "グラフ", path: "/graphs", icon: "chart" },
   { label: "履歴", path: "/histories", icon: "history" },
+  { label: "FAQ", path: "/faq", icon: "detail" },
 ];
 
 // デスクトップ用サイドメニュー
