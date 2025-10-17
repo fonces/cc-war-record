@@ -1,0 +1,1 @@
+import{L as e,P as t}from"./index-CtIgVn_i.js";var n=e(t());const r=e=>{(0,n.useEffect)(()=>{let t=`クリコン戦績記録`;return document.title=e?`${t} - ${e}`:t,()=>{document.title=t}},[e])};export{r as t};
