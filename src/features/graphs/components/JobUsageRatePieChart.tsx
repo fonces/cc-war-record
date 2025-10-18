@@ -3,11 +3,11 @@ import { useState } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recharts";
 import { Select } from "@/components/ui";
 import type { History, MatchRecord, Job, CrystalConflictMap, Character } from "@/types";
-import type { TFunction } from "i18next";
 import { JOB_INFO } from "@/types/jobs";
 import { MAPS } from "@/types/maps";
 import { getMapName } from "@/utils/maps";
 import { useTranslation } from "@/hooks";
+import { aggregateJobUsageRate } from "@/features/graphs/utils/aggregate";
 
 const StyledChartContainer = styled.div`
   background: ${({ theme }) => theme.colors.gray[50]};
@@ -41,40 +41,6 @@ interface JobUsageRatePieChartProps {
   matchRecords: MatchRecord[];
   characters: Character[];
 }
-
-/**
- * ジョブ使用率データを集計する関数
- */
-const aggregateJobUsageRate = (history: History, matchRecords: MatchRecord[], selectedCharacterUuid: string | null, selectedMap: CrystalConflictMap | null, t: TFunction) => {
-  // 該当シーズンの試合データをフィルタ
-  const seasonMatches = matchRecords.filter((match) => {
-    if (match.seasonUuid !== history.uuid) return false;
-    if (selectedCharacterUuid && match.characterUuid !== selectedCharacterUuid) return false;
-    if (selectedMap && match.map !== selectedMap) return false;
-    return true;
-  });
-
-  // ジョブごとの使用回数を集計
-  const jobUsageMap = new Map<Job, number>();
-
-  seasonMatches.forEach((match) => {
-    const currentCount = jobUsageMap.get(match.job) || 0;
-    jobUsageMap.set(match.job, currentCount + 1);
-  });
-
-  // PieChart用のデータ形式に変換
-  const totalMatches = seasonMatches.length;
-  const chartData = Array.from(jobUsageMap.entries())
-    .map(([job, count]) => ({
-      name: t(`job.${job}`),
-      job,
-      value: count,
-      percentage: totalMatches > 0 ? Math.round((count / totalMatches) * 100) : 0,
-    }))
-    .sort((a, b) => b.value - a.value); // 使用回数の多い順にソート
-
-  return chartData;
-};
 
 const RADIAN = Math.PI / 180;
 

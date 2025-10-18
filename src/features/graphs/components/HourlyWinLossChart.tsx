@@ -7,6 +7,7 @@ import { JOBS } from "@/types/jobs";
 import { MAPS } from "@/types/maps";
 import { getMapName } from "@/utils/maps";
 import { useTranslation } from "@/hooks";
+import { aggregateHourlyWinLoss } from "@/features/graphs/utils/aggregate";
 
 const StyledChartContainer = styled.div`
   background: ${({ theme }) => theme.colors.gray[50]};
@@ -40,67 +41,6 @@ interface HourlyWinLossChartProps {
   matchRecords: MatchRecord[];
   characters: Character[];
 }
-
-/**
- * 時間別の勝敗データを集計する関数
- */
-const aggregateHourlyWinLoss = (
-  history: History,
-  matchRecords: MatchRecord[],
-  selectedCharacterUuid: string | null,
-  selectedJob: Job | null,
-  selectedMap: CrystalConflictMap | null,
-) => {
-  // 0-23時の時間範囲を生成
-  const hourRange = Array.from({ length: 24 }, (_, i) => i);
-
-  // 時間ごとのマップを作成
-  const hourlyStats = new Map<number, { wins: number; losses: number; total: number }>();
-
-  hourRange.forEach((hour) => {
-    hourlyStats.set(hour, { wins: 0, losses: 0, total: 0 });
-  });
-
-  // 該当シーズンの全試合データを集計（フィルタ適用）
-  const seasonMatches = matchRecords.filter((match) => {
-    if (match.seasonUuid !== history.uuid) return false;
-    if (selectedCharacterUuid && match.characterUuid !== selectedCharacterUuid) return false;
-    if (selectedJob && match.job !== selectedJob) return false;
-    if (selectedMap && match.map !== selectedMap) return false;
-    return true;
-  });
-
-  seasonMatches.forEach((match: MatchRecord) => {
-    // recordedAtから時間を抽出（ISO 8601形式: 2024-01-01T15:30:00.000Z）
-    const matchHour = new Date(match.recordedAt).getHours();
-
-    if (hourlyStats.has(matchHour)) {
-      const hourStats = hourlyStats.get(matchHour)!;
-      hourStats.total++;
-      if (match.isWin) {
-        hourStats.wins++;
-      } else {
-        hourStats.losses++;
-      }
-    }
-  });
-
-  // グラフ用のデータ形式に変換
-  return hourRange.map((hour) => {
-    const stats = hourlyStats.get(hour)!;
-    const winRate = stats.total > 0 ? Math.round((stats.wins / stats.total) * 100) : 0;
-    const lossRate = stats.total > 0 ? Math.round((stats.losses / stats.total) * 100) : 0;
-
-    return {
-      hour: `${hour}時`,
-      winRate,
-      lossRate,
-      wins: stats.wins,
-      losses: stats.losses,
-      total: stats.total,
-    };
-  });
-};
 
 /**
  * カスタムツールチップコンポーネント

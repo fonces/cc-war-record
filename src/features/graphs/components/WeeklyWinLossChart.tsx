@@ -7,6 +7,7 @@ import { JOBS } from "@/types/jobs";
 import { MAPS } from "@/types/maps";
 import { getMapName } from "@/utils/maps";
 import { useTranslation } from "@/hooks";
+import { aggregateWeeklyWinLoss } from "@/features/graphs/utils/aggregate";
 
 const StyledChartContainer = styled.div`
   background: ${({ theme }) => theme.colors.gray[50]};
@@ -40,77 +41,6 @@ interface WeeklyWinLossChartProps {
   matchRecords: MatchRecord[];
   characters: Character[];
 }
-
-// 曜日定義（日曜日=0, 月曜日=1, ..., 土曜日=6）
-const WEEKDAYS = [
-  { index: 0, short: "Sun", name: "日曜日" },
-  { index: 1, short: "Mon", name: "月曜日" },
-  { index: 2, short: "Tue", name: "火曜日" },
-  { index: 3, short: "Wed", name: "水曜日" },
-  { index: 4, short: "Thu", name: "木曜日" },
-  { index: 5, short: "Fri", name: "金曜日" },
-  { index: 6, short: "Sat", name: "土曜日" },
-];
-
-/**
- * 曜日別の勝敗データを集計する関数
- */
-const aggregateWeeklyWinLoss = (
-  history: History,
-  matchRecords: MatchRecord[],
-  selectedCharacterUuid: string | null,
-  selectedJob: Job | null,
-  selectedMap: CrystalConflictMap | null,
-) => {
-  // 曜日ごとのマップを作成
-  const weeklyStats = new Map<number, { wins: number; losses: number; total: number }>();
-
-  WEEKDAYS.forEach((weekday) => {
-    weeklyStats.set(weekday.index, { wins: 0, losses: 0, total: 0 });
-  });
-
-  // 該当シーズンの全試合データを集計（フィルタ適用）
-  const seasonMatches = matchRecords.filter((match) => {
-    if (match.seasonUuid !== history.uuid) return false;
-    if (selectedCharacterUuid && match.characterUuid !== selectedCharacterUuid) return false;
-    if (selectedJob && match.job !== selectedJob) return false;
-    if (selectedMap && match.map !== selectedMap) return false;
-    return true;
-  });
-
-  seasonMatches.forEach((match: MatchRecord) => {
-    // recordedAtから曜日を取得（0=日曜日, 1=月曜日, ..., 6=土曜日）
-    const matchWeekday = new Date(match.recordedAt).getDay();
-
-    if (weeklyStats.has(matchWeekday)) {
-      const dayStats = weeklyStats.get(matchWeekday)!;
-      dayStats.total++;
-      if (match.isWin) {
-        dayStats.wins++;
-      } else {
-        dayStats.losses++;
-      }
-    }
-  });
-
-  // グラフ用のデータ形式に変換
-  return WEEKDAYS.map((weekday) => {
-    const stats = weeklyStats.get(weekday.index)!;
-    // 試合データがない場合はnullを返す（connectNullsで処理）
-    const winRate = stats.total > 0 ? Math.round((stats.wins / stats.total) * 100) : null;
-    const lossRate = stats.total > 0 ? Math.round((stats.losses / stats.total) * 100) : null;
-
-    return {
-      weekday: weekday.short,
-      weekdayName: weekday.name,
-      winRate,
-      lossRate,
-      wins: stats.wins,
-      losses: stats.losses,
-      total: stats.total,
-    };
-  });
-};
 
 /**
  * カスタムツールチップコンポーネント

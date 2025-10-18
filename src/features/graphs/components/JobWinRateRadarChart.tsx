@@ -3,12 +3,10 @@ import { useState } from "react";
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Legend, ResponsiveContainer, Tooltip } from "recharts";
 import { Select, MultiSelect } from "@/components/ui";
 import type { History, MatchRecord, Job, Character } from "@/types";
-import type { TFunction } from "i18next";
 import { JOB_INFO, JOBS } from "@/types/jobs";
-import { MAPS } from "@/types/maps";
 import { getRadarChartJobs, saveRadarChartJobs } from "@/utils/localStorage";
-import { getMapName } from "@/utils/maps";
 import { useTranslation } from "@/hooks";
+import { aggregateJobWinRateByMap } from "@/features/graphs/utils/aggregate";
 
 const StyledChartContainer = styled.div`
   background: ${({ theme }) => theme.colors.gray[50]};
@@ -42,58 +40,6 @@ interface JobWinRateRadarChartProps {
   matchRecords: MatchRecord[];
   characters: Character[];
 }
-
-/**
- * マップごとのジョブ勝率データを集計する関数
- */
-const aggregateJobWinRateByMap = (history: History, matchRecords: MatchRecord[], selectedCharacterUuid: string | null, selectedJobs: Job[], t: TFunction) => {
-  // 該当シーズンの試合データをフィルタ
-  const seasonMatches = matchRecords.filter((match) => {
-    if (match.seasonUuid !== history.uuid) return false;
-    if (selectedCharacterUuid && match.characterUuid !== selectedCharacterUuid) return false;
-    if (selectedJobs.length > 0 && !selectedJobs.includes(match.job)) return false;
-    return true;
-  });
-
-  // マップ × ジョブごとの勝敗を集計
-  const mapJobStats = new Map<string, Map<Job, { wins: number; total: number }>>();
-
-  seasonMatches.forEach((match) => {
-    if (!mapJobStats.has(match.map)) {
-      mapJobStats.set(match.map, new Map());
-    }
-
-    const jobStats = mapJobStats.get(match.map)!;
-    if (!jobStats.has(match.job)) {
-      jobStats.set(match.job, { wins: 0, total: 0 });
-    }
-
-    const stats = jobStats.get(match.job)!;
-    stats.total++;
-    if (match.isWin) {
-      stats.wins++;
-    }
-  });
-
-  // RadarChart用のデータ形式に変換
-  return Object.values(MAPS).map((map) => {
-    const mapData: Record<string, string | number> = {
-      map: getMapName(map, t),
-      fullMark: 100,
-    };
-
-    selectedJobs.forEach((job) => {
-      const jobStat = mapJobStats.get(map)?.get(job);
-      if (jobStat && jobStat.total > 0) {
-        mapData[job] = Math.round((jobStat.wins / jobStat.total) * 100);
-      } else {
-        mapData[job] = 0;
-      }
-    });
-
-    return mapData;
-  });
-};
 
 /**
  * ジョブ別勝率レーダーチャートコンポーネント
