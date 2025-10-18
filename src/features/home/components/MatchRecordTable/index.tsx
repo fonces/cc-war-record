@@ -2,11 +2,12 @@ import styled from "styled-components";
 import { useState } from "react";
 import { Icon } from "@/components/ui";
 import type { MatchRecord, Job, CrystalConflictMap } from "@/types";
-import { MAPS } from "@/types/maps";
 import { getWinRateColor } from "@/utils/colors";
 import { getMapName } from "@/utils/maps";
+import { calculateMapJobSummaries, calculateTotalSummary } from "@/features/home/utils/calculate";
 import { JobSummaryTable } from "./JobSummaryTable";
-import { useTranslation } from "@/hooks";
+import { StyledCurrentMapBadge, StyledNextMapBadge, StyledPulsingDot } from "./MapBadges";
+import { useTranslation, useCurrentMap, useNextMap } from "@/hooks";
 
 const StyledMapTablesContainer = styled.div`
   display: flex;
@@ -20,10 +21,10 @@ const StyledMapSection = styled.div`
   overflow: hidden;
 `;
 
-const StyledMapTitle = styled.h4`
+const StyledMapTitle = styled.h4<{ isCurrentMap?: boolean }>`
   margin: 0;
   padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
-  background-color: ${({ theme }) => theme.colors.gray[100]};
+  background-color: ${({ isCurrentMap, theme }) => (isCurrentMap ? theme.colors.primary[50] : theme.colors.gray[100])};
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray[200]};
   font-size: 1rem;
   font-weight: 600;
@@ -33,9 +34,18 @@ const StyledMapTitle = styled.h4`
   align-items: center;
   cursor: pointer;
   user-select: none;
+  position: relative;
+  transition: background-color 0.2s ease;
+
+  ${({ isCurrentMap, theme }) =>
+    isCurrentMap &&
+    `
+    border-left: 4px solid ${theme.colors.primary[500]};
+    padding-left: calc(${theme.spacing[4]} - 4px);
+  `}
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.gray[200]};
+    background-color: ${({ isCurrentMap, theme }) => (isCurrentMap ? theme.colors.primary[100] : theme.colors.gray[200])};
   }
 `;
 
@@ -64,23 +74,6 @@ const StyledMapContent = styled.div<{ isOpen: boolean }>`
   transition: max-height 0.3s ease-in-out;
 `;
 
-type JobSummaryForMap = {
-  job: Job;
-  totalMatches: number;
-  wins: number;
-  losses: number;
-  winRate: number;
-};
-
-type MapJobSummaries = {
-  map: CrystalConflictMap;
-  totalMatches: number;
-  totalWins: number;
-  totalLosses: number;
-  mapWinRate: number;
-  jobSummaries: JobSummaryForMap[];
-};
-
 type MatchRecordTableProps = {
   /** 使用ジョブ一覧 */
   usedJobs: Job[];
@@ -95,127 +88,16 @@ type MatchRecordTableProps = {
 };
 
 /**
- * マップごとのジョブサマリーを計算する関数
- */
-const calculateMapJobSummaries = (matchRecords: MatchRecord[]): MapJobSummaries[] => {
-  const allMaps = Object.values(MAPS);
-
-  // 全戦績記録から使用されているジョブを収集
-  const allUsedJobs = new Set<Job>();
-  matchRecords.forEach((record) => {
-    allUsedJobs.add(record.job);
-  });
-  const usedJobsList = Array.from(allUsedJobs);
-
-  return allMaps.map((map) => {
-    // このマップの記録のみフィルタ
-    const mapRecords = matchRecords.filter((record) => record.map === map);
-
-    // マップ全体の統計を計算
-    const totalMatches = mapRecords.length;
-    const totalWins = mapRecords.filter((r) => r.isWin).length;
-    const totalLosses = totalMatches - totalWins;
-    const mapWinRate = totalMatches > 0 ? Math.round((totalWins / totalMatches) * 100) : 0;
-
-    // ジョブごとに集計
-    const jobMap = new Map<Job, JobSummaryForMap>();
-
-    // すべての使用済みジョブを初期化（0勝0敗）
-    usedJobsList.forEach((job) => {
-      jobMap.set(job, {
-        job,
-        totalMatches: 0,
-        wins: 0,
-        losses: 0,
-        winRate: 0,
-      });
-    });
-
-    // 実際の記録で更新
-    mapRecords.forEach((record) => {
-      const summary = jobMap.get(record.job)!;
-      summary.totalMatches++;
-
-      if (record.isWin) {
-        summary.wins++;
-      } else {
-        summary.losses++;
-      }
-    });
-
-    // 勝率を計算
-    jobMap.forEach((summary) => {
-      summary.winRate = summary.totalMatches > 0 ? Math.round((summary.wins / summary.totalMatches) * 100) : 0;
-    });
-
-    // 試合数でソート（試合数が同じ場合はジョブ名でソート）
-    const jobSummaries = Array.from(jobMap.values()).sort((a, b) => {
-      if (b.totalMatches !== a.totalMatches) {
-        return b.totalMatches - a.totalMatches;
-      }
-      return a.job.localeCompare(b.job);
-    });
-
-    return {
-      map,
-      totalMatches,
-      totalWins,
-      totalLosses,
-      mapWinRate,
-      jobSummaries,
-    };
-  }); // すべてのマップを表示（データがない場合は空テーブル）
-};
-
-/**
- * 全ステージの合計を計算する関数
- */
-const calculateTotalSummary = (matchRecords: MatchRecord[], usedJobs: Job[]): JobSummaryForMap[] => {
-  const jobMap = new Map<Job, JobSummaryForMap>();
-
-  // すべての使用済みジョブを初期化
-  usedJobs.forEach((job) => {
-    jobMap.set(job, {
-      job,
-      totalMatches: 0,
-      wins: 0,
-      losses: 0,
-      winRate: 0,
-    });
-  });
-
-  // 実際の記録で更新
-  matchRecords.forEach((record) => {
-    const summary = jobMap.get(record.job);
-    if (summary) {
-      summary.totalMatches++;
-      if (record.isWin) {
-        summary.wins++;
-      } else {
-        summary.losses++;
-      }
-    }
-  });
-
-  // 勝率を計算
-  jobMap.forEach((summary) => {
-    summary.winRate = summary.totalMatches > 0 ? Math.round((summary.wins / summary.totalMatches) * 100) : 0;
-  });
-
-  // 試合数でソート
-  return Array.from(jobMap.values()).sort((a, b) => {
-    if (b.totalMatches !== a.totalMatches) {
-      return b.totalMatches - a.totalMatches;
-    }
-    return a.job.localeCompare(b.job);
-  });
-};
-
-/**
  * 戦績記録テーブルコンポーネント（マップごとのジョブサマリー表示）
  */
 export const MatchRecordTable = ({ usedJobs, matchRecords, onAddWin, onAddLoss, onRevertLast }: MatchRecordTableProps) => {
   const { t } = useTranslation();
+
+  // 現在開催中のマップをリアルタイムで取得
+  const currentMap = useCurrentMap();
+
+  // 次に開催されるマップをリアルタイムで取得
+  const nextMap = useNextMap();
 
   // マップごとのジョブサマリーを計算
   const mapJobSummaries = calculateMapJobSummaries(matchRecords);
@@ -227,8 +109,8 @@ export const MatchRecordTable = ({ usedJobs, matchRecords, onAddWin, onAddLoss, 
   const totalLosses = totalMatches - totalWins;
   const totalWinRate = totalMatches > 0 ? Math.round((totalWins / totalMatches) * 100) : 0;
 
-  // 開閉状態を管理（デフォルトはすべて閉じている）
-  const [openMaps, setOpenMaps] = useState<Set<CrystalConflictMap>>(new Set());
+  // 開閉状態を管理（デフォルトは現在のマップのみ開く）
+  const [openMaps, setOpenMaps] = useState<Set<CrystalConflictMap>>(() => new Set([currentMap]));
 
   // マップの開閉をトグル
   const toggleMap = (map: CrystalConflictMap) => {
@@ -243,30 +125,41 @@ export const MatchRecordTable = ({ usedJobs, matchRecords, onAddWin, onAddLoss, 
 
   return (
     <StyledMapTablesContainer>
-      {mapJobSummaries.map((mapData) => (
-        <StyledMapSection key={mapData.map}>
-          <StyledMapTitle onClick={() => toggleMap(mapData.map)}>
-            <StyledMapTitleLeft>
-              <Icon name={openMaps.has(mapData.map) ? "minus" : "add"} size={16} />
-              <span>{getMapName(mapData.map, t)}</span>
-            </StyledMapTitleLeft>
-            <StyledMapSummary>
-              <span>{t("character.stats.matches", { count: mapData.totalMatches })}</span>
-              <span>
-                {t("character.stats.wins", { count: mapData.totalWins })} / {t("character.stats.losses", { count: mapData.totalLosses })}
-              </span>
-              {0 < mapData.totalMatches ? (
-                <StyledMapWinRate winRate={mapData.mapWinRate}>{t("character.stats.winRate", { rate: mapData.mapWinRate })}</StyledMapWinRate>
-              ) : (
-                <span>{t("character.stats.noWinRate")}</span>
-              )}
-            </StyledMapSummary>
-          </StyledMapTitle>
-          <StyledMapContent isOpen={openMaps.has(mapData.map)}>
-            <JobSummaryTable usedJobs={usedJobs} jobSummaries={mapData.jobSummaries} onAddWin={onAddWin} onAddLoss={onAddLoss} onRevertLast={onRevertLast} map={mapData.map} />
-          </StyledMapContent>
-        </StyledMapSection>
-      ))}
+      {mapJobSummaries.map((mapData) => {
+        const isCurrentMap = mapData.map === currentMap;
+        const isNextMap = mapData.map === nextMap;
+        return (
+          <StyledMapSection key={mapData.map}>
+            <StyledMapTitle onClick={() => toggleMap(mapData.map)} isCurrentMap={isCurrentMap}>
+              <StyledMapTitleLeft>
+                <Icon name={openMaps.has(mapData.map) ? "minus" : "add"} size={16} />
+                <span>{getMapName(mapData.map, t)}</span>
+                {isCurrentMap && (
+                  <StyledCurrentMapBadge>
+                    <StyledPulsingDot />
+                    Now
+                  </StyledCurrentMapBadge>
+                )}
+                {isNextMap && <StyledNextMapBadge>Next</StyledNextMapBadge>}
+              </StyledMapTitleLeft>
+              <StyledMapSummary>
+                <span>{t("character.stats.matches", { count: mapData.totalMatches })}</span>
+                <span>
+                  {t("character.stats.wins", { count: mapData.totalWins })} / {t("character.stats.losses", { count: mapData.totalLosses })}
+                </span>
+                {0 < mapData.totalMatches ? (
+                  <StyledMapWinRate winRate={mapData.mapWinRate}>{t("character.stats.winRate", { rate: mapData.mapWinRate })}</StyledMapWinRate>
+                ) : (
+                  <span>{t("character.stats.noWinRate")}</span>
+                )}
+              </StyledMapSummary>
+            </StyledMapTitle>
+            <StyledMapContent isOpen={openMaps.has(mapData.map)}>
+              <JobSummaryTable usedJobs={usedJobs} jobSummaries={mapData.jobSummaries} onAddWin={onAddWin} onAddLoss={onAddLoss} onRevertLast={onRevertLast} map={mapData.map} />
+            </StyledMapContent>
+          </StyledMapSection>
+        );
+      })}
 
       {/* 全ステージ合計 */}
       <StyledMapSection>
