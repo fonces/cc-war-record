@@ -8,10 +8,10 @@ const StyledLanguageSelector = styled.div`
 `;
 
 const StyledLanguageButton = styled.button`
-  padding: ${({ theme }) => theme.spacing[2]} ${({ theme }) => theme.spacing[3]};
-  background-color: transparent;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  background-color: white;
   border: 1px solid ${({ theme }) => theme.colors.gray[300]};
-  border-radius: ${({ theme }) => theme.borderRadius.md};
+  border-radius: 8px;
   color: ${({ theme }) => theme.colors.text};
   cursor: pointer;
   font-size: 0.875rem;
@@ -19,31 +19,36 @@ const StyledLanguageButton = styled.button`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing[2]};
-  min-width: 80px;
+  min-width: 120px;
   justify-content: space-between;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.gray[50]};
     border-color: ${({ theme }) => theme.colors.gray[400]};
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
   }
 
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.primary[200]};
+    border-color: ${({ theme }) => theme.colors.primary[500]};
+    box-shadow: 0 0 0 3px ${({ theme }) => theme.colors.primary[100]};
   }
 `;
 
-const StyledLanguageDropdown = styled.div<{ isOpen: boolean }>`
+const StyledLanguageDropdown = styled.div<{ isOpen: boolean; direction: "up" | "down" }>`
   position: absolute;
-  top: 100%;
+  ${({ direction }) => (direction === "up" ? "bottom: calc(100% + 4px);" : "top: calc(100% + 4px);")}
+  left: 0;
   right: 0;
   background-color: white;
-  border: 1px solid ${({ theme }) => theme.colors.gray[200]};
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border: 1px solid ${({ theme }) => theme.colors.gray[300]};
+  border-radius: 8px;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
   z-index: 50;
-  min-width: 120px;
-  margin-top: ${({ theme }) => theme.spacing[1]};
   display: ${({ isOpen }) => (isOpen ? "block" : "none")};
 `;
 
@@ -72,7 +77,7 @@ const StyledLanguageOption = styled.button<{ isActive: boolean }>`
   }
 `;
 
-const StyledArrow = styled.span<{ isOpen: boolean }>`
+const StyledArrow = styled.span<{ isOpen: boolean; direction: "up" | "down" }>`
   transform: ${({ isOpen }) => (isOpen ? "rotate(180deg)" : "rotate(0deg)")};
   transition: transform 0.2s ease;
 `;
@@ -83,7 +88,12 @@ const languages = [
   { code: "ko", name: "한국어" },
 ];
 
-export const LanguageSelector = () => {
+type LanguageSelectorProps = {
+  /** プルダウンの表示方向 */
+  direction?: "up" | "down";
+};
+
+export const LanguageSelector = ({ direction = "down" }: LanguageSelectorProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const { currentLanguage, changeLanguage } = useTranslation();
 
@@ -98,10 +108,12 @@ export const LanguageSelector = () => {
     <StyledLanguageSelector>
       <StyledLanguageButton onClick={() => setIsOpen(!isOpen)}>
         <span>{currentLanguageName}</span>
-        <StyledArrow isOpen={isOpen}>▼</StyledArrow>
+        <StyledArrow isOpen={isOpen} direction={direction}>
+          ▼
+        </StyledArrow>
       </StyledLanguageButton>
 
-      <StyledLanguageDropdown isOpen={isOpen}>
+      <StyledLanguageDropdown isOpen={isOpen} direction={direction}>
         {languages.map((language) => (
           <StyledLanguageOption key={language.code} isActive={currentLanguage === language.code} onClick={() => handleLanguageChange(language.code)}>
             {language.name}

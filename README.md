@@ -373,6 +373,7 @@ import { useAuth } from "@/features/auth";
 - `.github/instructions/codeGeneration.instructions.md` - コード生成ガイドライン
 - `.github/instructions/commitMessage.instructions.md` - コミットメッセージルール
 - `.vscode/copilot.json` - Copilot設定
+- `.vscode/cSpell.json` - スペルチェック設定（技術用語・プロジェクト固有単語を登録）
 
 ## ライセンス
 
@@ -399,7 +400,7 @@ MIT
 
 ### 戦績記録
 
-- **勝ち/負けボタン**による手動入力
+- **勝利/敗北ボタン**による手動入力
 - タイムスタンプ付きで記録を自動保存
 - シーズンごとに記録を分類管理
 
@@ -470,13 +471,17 @@ MIT
 - **JobIcon** - ジョブアイコン表示コンポーネント
 - **RoleIcon** - ロールアイコン表示コンポーネント
 - **MultiSelect** - 複数選択可能なセレクトボックス（最大5選択）
+- **LanguageSelector** - 言語切り替えセレクター
+  - 3言語対応（日本語・英語・韓国語）
+  - プルダウン表示方向の選択可能（up/down）
+  - Select.tsxと統一されたデザイン
+  - サイドバー下部に配置
 - **Dialog** - モーダルダイアログ
   - 背景スクロールロック機能（useScrollLock）
   - スクロールバー表示維持
 - **ページタイトル** - usePageTitleフックによる動的タイトル設定
-- **LanguageSelector** - 言語切り替えセレクター
 
-## 国際化 (i18n) 機能
+### 国際化 (i18n) 機能
 
 ### 対応言語
 
@@ -484,11 +489,15 @@ MIT
 - **英語 (en)** - English
 - **韓国語 (ko)** - 한국어
 
-### 言語切り替え
+### 言語切り替え機能
 
-- ヘッダーの言語セレクターから選択
-- ブラウザの言語設定を自動検出
-- 選択した言語をローカルストレージに保存
+- **自動検出**: ブラウザの言語設定を自動検出（i18next-browser-languagedetector）
+- **手動切り替え**: サイドバー下部の言語セレクターから選択
+  - デスクトップ: 常にサイドバー下部に表示
+  - モバイル: ドロワーメニュー下部に表示
+- **永続化**: 選択した言語をローカルストレージに保存
+- **動的更新**: ページタイトルとHTML lang属性が自動更新
+- **UI統一**: Select.tsxと統一されたデザイン（8px border-radius、box-shadow対応）
 
 ### 翻訳ファイル構成
 
@@ -517,6 +526,14 @@ t("pages.home.title", { seasonName: "Season 1" });
 t("pages.faq.privacy.dataStorage.answer.points", { returnObjects: true });
 ```
 
+### 用語の統一
+
+- **勝利/敗北**: 日本語で統一された表現
+  - `match.win`: "勝利" (Victory)
+  - `match.loss`: "敗北" (Defeat)
+  - `stats.wins`: "{{count}}勝利"
+  - `stats.losses`: "{{count}}敗北"
+
 ### 新しい翻訳の追加方法
 
 1. `src/lib/locales/ja/translation.json` に日本語キーを追加
@@ -544,7 +561,7 @@ t("pages.faq.privacy.dataStorage.answer.points", { returnObjects: true });
 
 - キャラクター一覧から対象キャラクターを選択
 - 「戦績を記録」ボタンでジョブ選択ダイアログを開く
-- ジョブ・マップを選択して「勝ち」「負け」ボタンをクリック
+- ジョブ・マップを選択して「勝利」「敗北」ボタンをクリック
 - 戦績が自動的に記録され、統計が更新される
 
 #### 2. グラフ画面での分析

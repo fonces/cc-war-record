@@ -33,6 +33,8 @@ const StyledSidebar = styled.aside<{ isOpen: boolean }>`
   padding: ${({ theme }) => theme.spacing[6]} ${({ theme }) => theme.spacing[4]};
   transform: translateX(${({ isOpen }) => (isOpen ? "0" : "-100%")});
   transition: transform 0.15s ease-in-out;
+  display: flex;
+  flex-direction: column;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
     transform: translateX(0);
@@ -198,7 +200,6 @@ export const Header = ({ children }: HeaderProps) => {
         <StyledMobileHeaderContent>
           <StyledMobileTitle>{t("common.appName")}</StyledMobileTitle>
           <StyledMobileHeaderActions>
-            <LanguageSelector />
             <Icon name="hamburger" size={24} onClick={toggleMobileMenu} />
           </StyledMobileHeaderActions>
         </StyledMobileHeaderContent>
@@ -223,9 +224,9 @@ export const Header = ({ children }: HeaderProps) => {
           ))}
         </StyledNavList>
 
-        {/* デスクトップでは下部に言語セレクターを配置 */}
+        {/* 言語セレクターを下部に配置 */}
         <div style={{ marginTop: "auto", paddingTop: "24px" }}>
-          <LanguageSelector />
+          <LanguageSelector direction="up" />
         </div>
       </StyledSidebar>
 

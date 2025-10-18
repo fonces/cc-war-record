@@ -5,7 +5,6 @@ export { Icon } from "./Icon";
 export { JobIcon } from "./JobIcon";
 export { RoleIcon } from "./RoleIcon";
 export { Dialog } from "./Dialog";
-export { JobRegistrationDialog } from "./JobRegistrationDialog";
 export { MultiSelect } from "./MultiSelect";
 export { Checkbox } from "./Checkbox";
 export { PageContainer, PageTitleContainer, PageTitle, PageDescription } from "./PageLayout";
