@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { PageContainer, PageTitleContainer, PageTitle, PageDescription } from "@/components/ui";
-import { usePageTitle } from "@/hooks/usePageTitle";
+import { usePageTitle, useTranslation } from "@/hooks";
 
 const FaqContainer = styled.div`
   margin-top: ${({ theme }) => theme.spacing[6]};
@@ -71,26 +71,27 @@ const Answer = styled.div`
 `;
 
 export const FaqPage = () => {
-  usePageTitle("よくある質問 (FAQ)");
+  const { t } = useTranslation();
+  usePageTitle(t("pages.faq.title"));
 
   return (
     <PageContainer>
       <PageTitleContainer>
-        <PageTitle>よくある質問 (FAQ)</PageTitle>
+        <PageTitle>{t("pages.faq.title")}</PageTitle>
       </PageTitleContainer>
-      <PageDescription>CC戦績記録について、よくお寄せいただく質問とその回答をまとめました。</PageDescription>
+      <PageDescription>{t("pages.faq.description")}</PageDescription>
 
       <FaqContainer>
         <FaqSection>
-          <SectionTitle>プライバシー・データについて</SectionTitle>
+          <SectionTitle>{t("pages.faq.privacy.title")}</SectionTitle>
 
           <FaqItem>
-            <Question>戦績データはどこに保存されますか？</Question>
+            <Question>{t("pages.faq.privacy.dataStorage.question")}</Question>
             <Answer>
               <p>
-                <strong>戦績データはすべてお使いのブラウザのローカルストレージに保存されます。</strong>
+                <strong>{t("pages.faq.privacy.dataStorage.answer.intro")}</strong>
               </p>
-              <p>当アプリケーションでは、以下の方針でデータを扱っています：</p>
+              <p>{t("pages.faq.privacy.dataStorage.answer.description")}</p>
               <ul>
                 <li>戦績データや個人情報は一切サーバーに送信されません</li>
                 <li>すべてのデータはブラウザ内のみで管理されます</li>
@@ -101,48 +102,34 @@ export const FaqPage = () => {
           </FaqItem>
 
           <FaqItem>
-            <Question>Google Analyticsで何が収集されますか？</Question>
+            <Question>{t("pages.faq.privacy.analytics.question")}</Question>
             <Answer>
-              <p>
-                当サイトでは、サービス改善のために<strong>Google Analytics</strong>を使用しています。
-              </p>
-              <p>収集される情報：</p>
+              <p>{t("pages.faq.privacy.analytics.answer.intro")}</p>
+              <p>{t("pages.faq.privacy.analytics.answer.collected")}</p>
               <ul>
-                <li>
-                  <strong>アクセス統計</strong>：ページビュー数、セッション数、平均滞在時間など
-                </li>
-                <li>
-                  <strong>技術情報</strong>：ブラウザの種類、OS、画面サイズなど
-                </li>
-                <li>
-                  <strong>地域情報</strong>：国や地域レベルの大まかな位置情報（詳細な住所等は含まれません）
-                </li>
+                <li><strong>アクセス統計</strong>：ページビュー数、セッション数、平均滞在時間など</li>
+                <li><strong>技術情報</strong>：ブラウザの種類、OS、画面サイズなど</li>
+                <li><strong>地域情報</strong>：国や地域レベルの大まかな位置情報（詳細な住所等は含まれません）</li>
               </ul>
-              <p>
-                <strong>収集されない情報：</strong>
-              </p>
+              <p><strong>{t("pages.faq.privacy.analytics.answer.notCollected")}</strong></p>
               <ul>
                 <li>戦績データや個人の成績情報</li>
                 <li>キャラクター名やその他の個人情報</li>
                 <li>詳細な位置情報や住所</li>
               </ul>
-              <p>これらの統計情報は匿名化されており、個人を特定することはできません。</p>
+              <p>{t("pages.faq.privacy.analytics.answer.anonymous")}</p>
             </Answer>
           </FaqItem>
 
           <FaqItem>
-            <Question>データの削除方法を教えてください</Question>
+            <Question>{t("pages.faq.privacy.dataDeletion.question")}</Question>
             <Answer>
-              <p>保存されているデータを削除したい場合は、以下の方法で行えます：</p>
+              <p>{t("pages.faq.privacy.dataDeletion.answer.intro")}</p>
               <ul>
-                <li>
-                  <strong>個別削除</strong>：各ページで「削除」ボタンを使用
-                </li>
-                <li>
-                  <strong>完全削除</strong>：ブラウザの設定からサイトデータを削除
-                </li>
+                <li><strong>個別削除</strong>：各ページで「削除」ボタンを使用</li>
+                <li><strong>完全削除</strong>：ブラウザの設定からサイトデータを削除</li>
               </ul>
-              <p>ブラウザからのデータ削除方法：</p>
+              <p>{t("pages.faq.privacy.dataDeletion.answer.browserMethods")}</p>
               <ul>
                 <li>Chrome: 設定 → プライバシーとセキュリティ → サイトデータ</li>
                 <li>Firefox: 設定 → プライバシーとセキュリティ → Cookieとサイトデータ</li>
@@ -153,29 +140,27 @@ export const FaqPage = () => {
         </FaqSection>
 
         <FaqSection>
-          <SectionTitle>アプリケーションの使い方</SectionTitle>
-
+          <SectionTitle>{t("pages.faq.usage.title")}</SectionTitle>
+          
           <FaqItem>
-            <Question>データが消えてしまうことはありますか？</Question>
+            <Question>{t("pages.faq.usage.dataLoss.question")}</Question>
             <Answer>
-              <p>ローカルストレージに保存されたデータは、以下の場合に削除される可能性があります：</p>
+              <p>{t("pages.faq.usage.dataLoss.answer.intro")}</p>
               <ul>
                 <li>ブラウザのキャッシュクリア時</li>
                 <li>ブラウザの設定でサイトデータを削除した場合</li>
                 <li>プライベートブラウジングモード使用時</li>
                 <li>デバイスの容量不足時（ブラウザが自動削除する場合）</li>
               </ul>
-              <p>
-                <strong>重要なデータは定期的にバックアップを取ることをお勧めします。</strong>
-              </p>
+              <p><strong>{t("pages.faq.usage.dataLoss.answer.recommendation")}</strong></p>
             </Answer>
           </FaqItem>
 
           <FaqItem>
-            <Question>複数のブラウザでデータを共有できますか？</Question>
+            <Question>{t("pages.faq.usage.dataSyncing.question")}</Question>
             <Answer>
-              <p>申し訳ございませんが、現在のところブラウザ間でのデータ同期機能は提供していません。</p>
-              <p>各ブラウザのローカルストレージは独立しているため、データは使用したブラウザでのみ利用可能です。</p>
+              <p>{t("pages.faq.usage.dataSyncing.answer.limitation")}</p>
+              <p>{t("pages.faq.usage.dataSyncing.answer.explanation")}</p>
             </Answer>
           </FaqItem>
         </FaqSection>

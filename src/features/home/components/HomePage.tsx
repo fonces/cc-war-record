@@ -3,7 +3,7 @@ import { useRouter } from "@tanstack/react-router";
 import styled from "styled-components";
 import { useHistoryStore, useCharacterStore } from "@/stores";
 import { JobRegistrationDialog, Button, PageContainer, PageTitleContainer, PageTitle, PageDescription, Icon } from "@/components/ui";
-import { usePageTitle } from "@/hooks/usePageTitle";
+import { usePageTitle, useTranslation } from "@/hooks";
 import { EmptyState } from "./EmptyState";
 import { CharacterForm } from "./CharacterForm";
 import { CharacterCard } from "./CharacterCard";
@@ -47,7 +47,8 @@ const StyledErrorCloseButton = styled.button`
  * 現シーズンの戦績を表示、シーズン未作成時は作成ボタンを表示
  */
 export const HomePage = () => {
-  usePageTitle("ホーム");
+  const { t } = useTranslation();
+  usePageTitle(t("navigation.home"));
   const router = useRouter();
   const { histories, isLoading, getSortedHistories, addUsedJob } = useHistoryStore();
   const {
@@ -266,9 +267,9 @@ export const HomePage = () => {
     return (
       <PageContainer>
         <PageTitleContainer>
-          <PageTitle>現シーズンの戦績</PageTitle>
+          <PageTitle>{t("pages.home.noSeason")}</PageTitle>
         </PageTitleContainer>
-        <PageDescription>クリスタルコンフリクト戦績管理へようこそ！</PageDescription>
+        <PageDescription>{t("pages.home.createFirstSeason")}</PageDescription>
         <EmptyState onCreateSeason={handleCreateSeason} />
       </PageContainer>
     );
@@ -278,18 +279,18 @@ export const HomePage = () => {
   return (
     <PageContainer>
       <PageTitleContainer>
-        <PageTitle>{latestSeason?.seasonName} の戦績</PageTitle>
+        <PageTitle>{t("pages.home.title", { seasonName: latestSeason?.seasonName })}</PageTitle>
         <Button variant="outline" size="sm" onClick={handleCreateSeason}>
           <Icon name="add" size={16} />
-          新しいシーズンを作成
+          {t("pages.home.createSeason")}
         </Button>
       </PageTitleContainer>
-      <PageDescription>戦績と統計情報を入力します。</PageDescription>
+      <PageDescription>{t("pages.home.description")}</PageDescription>
 
       {characterError && (
         <StyledErrorMessage>
           <span>{characterError}</span>
-          <StyledErrorCloseButton onClick={clearError}>閉じる</StyledErrorCloseButton>
+          <StyledErrorCloseButton onClick={clearError}>{t("common.close")}</StyledErrorCloseButton>
         </StyledErrorMessage>
       )}
 

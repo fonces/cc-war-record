@@ -28,12 +28,17 @@ FINAL FANTASY XIVのPvPコンテンツ「クリスタルコンフリクト」の
 
 ### 状態管理・データフェッチング
 
-- **TanStack Query** v5.x - サーバー状態管理
 - **Zustand** v4.x - クライアント状態管理
 
 ### ルーティング
 
 - **TanStack Router** v1.x - 型安全なルーティング
+
+### 国際化 (i18n)
+
+- **react-i18next** v14.x - React向け国際化ライブラリ
+- **i18next** v23.x - 国際化フレームワーク  
+- **i18next-browser-languagedetector** v8.x - ブラウザ言語検出
 
 ### UI/UX
 
@@ -219,8 +224,14 @@ src/
 ├── hooks/           # 共有カスタムフック
 │   ├── usePageTitle.ts    # ページタイトル設定
 │   ├── useScrollLock.ts   # スクロールロック
+│   ├── useTranslation.ts  # 翻訳フック
 │   └── index.ts
 ├── lib/             # 外部ライブラリ設定
+│   └── i18n.ts      # 国際化設定
+│   └── locales/     # 翻訳ファイル
+│       ├── ja/      # 日本語翻訳
+│       ├── en/      # 英語翻訳
+│       └── ko/      # 韓国語翻訳
 ├── stores/          # グローバルストア（Zustand）
 │   ├── characterStore.ts  # キャラクター・戦績管理
 │   └── historyStore.ts    # シーズン履歴管理
@@ -369,6 +380,14 @@ MIT
 
 ## 主な機能
 
+### 多言語対応 (i18n)
+
+- **3言語対応**: 日本語、英語、韓国語
+- **自動言語検出**: ブラウザの言語設定を自動検出
+- **言語切り替え**: ヘッダーの言語セレクターで動的切り替え
+- **設定永続化**: 選択した言語をローカルストレージに保存
+- **動的タイトル更新**: ページタイトルとHTML lang属性の自動更新
+
 ### FAQ・プライバシー情報
 
 - **よくある質問ページ**
@@ -455,6 +474,54 @@ MIT
   - 背景スクロールロック機能（useScrollLock）
   - スクロールバー表示維持
 - **ページタイトル** - usePageTitleフックによる動的タイトル設定
+- **LanguageSelector** - 言語切り替えセレクター
+
+## 国際化 (i18n) 機能
+
+### 対応言語
+
+- **日本語 (ja)** - デフォルト言語
+- **英語 (en)** - English
+- **韓国語 (ko)** - 한국어
+
+### 言語切り替え
+
+- ヘッダーの言語セレクターから選択
+- ブラウザの言語設定を自動検出
+- 選択した言語をローカルストレージに保存
+
+### 翻訳ファイル構成
+
+```
+src/lib/locales/
+├── ja/translation.json  # 日本語翻訳
+├── en/translation.json  # 英語翻訳
+└── ko/translation.json  # 韓国語翻訳
+```
+
+### 翻訳キー構造
+
+```typescript
+// 使用例
+const { t } = useTranslation();
+
+// 基本的な翻訳
+t("common.appName")           // アプリ名
+t("navigation.home")          // ナビゲーションラベル
+t("pages.home.title")         // ページタイトル
+
+// パラメーター付き翻訳
+t("pages.home.title", { seasonName: "Season 1" })
+
+// 配列データの翻訳
+t("pages.faq.privacy.dataStorage.answer.points", { returnObjects: true })
+```
+
+### 新しい翻訳の追加方法
+
+1. `src/lib/locales/ja/translation.json` に日本語キーを追加
+2. 対応する英語・韓国語翻訳を各ファイルに追加
+3. `useTranslation` フックでtキーを使用
 
 ## 使用方法
 

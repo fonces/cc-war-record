@@ -1,0 +1,240 @@
+{
+  "common": {
+    "appName": "크리스탈 컨플릭트 전적 기록",
+    "confirm": "확인",
+    "cancel": "취소",
+    "delete": "삭제",
+    "edit": "편집",
+    "save": "저장",
+    "close": "닫기",
+    "add": "추가",
+    "back": "뒤로",
+    "loading": "로딩 중...",
+    "error": "오류가 발생했습니다",
+    "noData": "데이터가 없습니다",
+    "success": "성공했습니다",
+    "warning": "경고",
+    "info": "정보"
+  },
+  "navigation": {
+    "home": "홈",
+    "graphs": "그래프",
+    "histories": "기록",
+    "faq": "FAQ"
+  },
+  "pages": {
+    "home": {
+      "title": "{{seasonName}} 전적",
+      "description": "전적과 통계 정보를 입력합니다.",
+      "createSeason": "새 시즌 만들기",
+      "noSeason": "시즌이 생성되지 않았습니다",
+      "createFirstSeason": "첫 번째 시즌을 만들어주세요",
+      "errorOccurred": "오류가 발생했습니다"
+    },
+    "graphs": {
+      "title": "전적 그래프",
+      "description": "다양한 차트로 전적을 분석할 수 있습니다.",
+      "daily": "일별 승부",
+      "hourly": "시간별 승률",
+      "weekly": "요일별 승률",
+      "jobWinRate": "잡별 승률",
+      "jobUsage": "잡 사용률",
+      "filters": {
+        "character": "캐릭터",
+        "job": "잡",
+        "map": "맵",
+        "all": "전체"
+      }
+    },
+    "histories": {
+      "title": "기록 목록",
+      "description": "과거 시즌의 전적을 확인할 수 있습니다.",
+      "totalSeasons": "총 시즌 수: {{count}}",
+      "totalMatches": "총 경기 수: {{count}}",
+      "detail": "상세",
+      "delete": "삭제",
+      "confirmDelete": "이 시즌을 삭제하시겠습니까?",
+      "deleteDescription": "시즌 \"{{seasonName}}\"과 모든 전적 데이터가 삭제됩니다. 이 작업은 되돌릴 수 없습니다.",
+      "emptyState": "시즌이 없습니다",
+      "createFirstSeason": "첫 번째 시즌을 만들어주세요"
+    },
+    "historyDetail": {
+      "title": "{{seasonName}} 상세",
+      "description": "시즌의 모든 전적을 표시하고 있습니다.",
+      "backToList": "기록 목록으로 돌아가기",
+      "totalMatches": "총 경기 수: {{count}}",
+      "columns": {
+        "character": "캐릭터",
+        "job": "잡",
+        "map": "맵",
+        "result": "결과",
+        "date": "날짜"
+      },
+      "results": {
+        "win": "승리",
+        "loss": "패배"
+      },
+      "emptyState": "전적 데이터가 없습니다"
+    },
+    "newSeason": {
+      "title": "새 시즌 만들기",
+      "description": "새 시즌을 생성합니다. 현재 데이터는 기록으로 저장됩니다.",
+      "seasonName": "시즌 이름",
+      "seasonNamePlaceholder": "예: 시즌 1, 2024년 봄 등",
+      "create": "시즌 생성",
+      "cancel": "취소",
+      "confirmTitle": "시즌을 생성하시겠습니까?",
+      "confirmDescription": "현재 데이터는 기록으로 저장되고 새 시즌이 시작됩니다.",
+      "validationRequired": "시즌 이름을 입력해주세요"
+    },
+    "faq": {
+      "title": "자주 묻는 질문 (FAQ)",
+      "description": "크리스탈 컨플릭트 전적 기록에 대한 자주 묻는 질문과 답변입니다.",
+      "privacy": {
+        "title": "개인정보 및 데이터",
+        "dataStorage": {
+          "question": "전적 데이터는 어디에 저장되나요?",
+          "answer": {
+            "intro": "모든 전적 데이터는 사용자의 브라우저 로컬 스토리지에만 저장됩니다.",
+            "description": "본 애플리케이션은 다음 방침으로 데이터를 다룹니다:",
+            "points": [
+              "전적 데이터나 개인정보는 일체 서버로 전송되지 않습니다",
+              "모든 데이터는 브라우저 내에서만 관리됩니다",
+              "애플리케이션 개발자가 사용자의 전적 데이터에 접근할 수 없습니다",
+              "데이터 삭제는 브라우저 설정에서 할 수 있습니다"
+            ]
+          }
+        },
+        "analytics": {
+          "question": "Google Analytics에서 무엇을 수집하나요?",
+          "answer": {
+            "intro": "본 사이트는 서비스 개선을 위해 Google Analytics를 사용합니다.",
+            "collected": "수집되는 정보:",
+            "collectedPoints": [
+              "접속 통계: 페이지뷰 수, 세션 수, 평균 체류시간 등",
+              "기술 정보: 브라우저 종류, OS, 화면 크기 등",
+              "지역 정보: 국가나 지역 수준의 대략적인 위치 정보 (상세 주소 등은 포함되지 않음)"
+            ],
+            "notCollected": "수집되지 않는 정보:",
+            "notCollectedPoints": [
+              "전적 데이터나 개인 성적 정보",
+              "캐릭터명이나 기타 개인정보",
+              "상세한 위치 정보나 주소"
+            ],
+            "anonymous": "이러한 통계 정보는 익명화되어 있으며, 개인을 특정할 수 없습니다."
+          }
+        },
+        "dataDeletion": {
+          "question": "데이터 삭제 방법을 알려주세요",
+          "answer": {
+            "intro": "저장된 데이터를 삭제하고 싶은 경우 다음 방법으로 할 수 있습니다:",
+            "methods": [
+              "개별 삭제: 각 페이지에서 \"삭제\" 버튼 사용",
+              "완전 삭제: 브라우저 설정에서 사이트 데이터 삭제"
+            ],
+            "browserMethods": "브라우저에서 데이터 삭제 방법:",
+            "browserSteps": [
+              "Chrome: 설정 → 개인정보 및 보안 → 사이트 데이터",
+              "Firefox: 설정 → 개인정보 및 보안 → 쿠키 및 사이트 데이터",
+              "Safari: 환경설정 → 개인정보 보호 → 웹사이트 데이터 관리"
+            ]
+          }
+        }
+      },
+      "usage": {
+        "title": "애플리케이션 사용법",
+        "dataLoss": {
+          "question": "데이터가 사라질 수 있나요?",
+          "answer": {
+            "intro": "로컬 스토리지에 저장된 데이터는 다음의 경우 삭제될 수 있습니다:",
+            "causes": [
+              "브라우저 캐시 삭제 시",
+              "브라우저 설정에서 사이트 데이터를 삭제한 경우",
+              "프라이빗 브라우징 모드 사용 시",
+              "디바이스 용량 부족 시 (브라우저가 자동 삭제하는 경우)"
+            ],
+            "recommendation": "중요한 데이터는 정기적으로 백업을 받는 것을 권장합니다."
+          }
+        },
+        "dataSyncing": {
+          "question": "여러 브라우저에서 데이터를 공유할 수 있나요?",
+          "answer": {
+            "limitation": "죄송하지만 현재로서는 브라우저 간 데이터 동기화 기능을 제공하지 않습니다.",
+            "explanation": "각 브라우저의 로컬 스토리지는 독립적이므로, 데이터는 사용한 브라우저에서만 이용 가능합니다."
+          }
+        }
+      }
+    },
+    "notFound": {
+      "title": "페이지를 찾을 수 없음",
+      "description": "찾으시는 페이지가 존재하지 않거나 삭제되었을 수 있습니다.",
+      "backToHome": "홈으로 돌아가기"
+    }
+  },
+  "character": {
+    "name": "캐릭터명",
+    "create": "캐릭터 생성",
+    "edit": "캐릭터명 편집",
+    "delete": "캐릭터 삭제",
+    "confirmDelete": "캐릭터를 삭제하시겠습니까?",
+    "deleteDescription": "캐릭터 \"{{name}}\"과 모든 전적 데이터가 삭제됩니다. 이 작업은 되돌릴 수 없습니다.",
+    "namePlaceholder": "캐릭터명을 입력하세요",
+    "validationRequired": "캐릭터명을 입력해주세요",
+    "emptyState": "캐릭터가 없습니다",
+    "createFirst": "첫 번째 캐릭터를 만들어주세요",
+    "stats": {
+      "totalMatches": "{{count}}경기",
+      "winRate": "승률{{rate}}%",
+      "wins": "{{count}}승",
+      "losses": "{{count}}패"
+    }
+  },
+  "match": {
+    "record": "전적 기록",
+    "job": "잡",
+    "map": "맵",
+    "result": "결과",
+    "win": "승리",
+    "loss": "패배",
+    "memo": "메모",
+    "memoPlaceholder": "메모를 입력하세요 (선택사항)",
+    "selectJob": "잡을 선택해주세요",
+    "selectMap": "맵을 선택해주세요",
+    "recorded": "전적이 기록되었습니다",
+    "recentMatches": "최근 전적"
+  },
+  "job": {
+    "select": "잡 선택",
+    "tank": "탱커",
+    "healer": "힐러",
+    "meleeDps": "근접 DPS",
+    "physicalRangedDps": "물리 원거리 DPS",
+    "magicalRangedDps": "마법 원거리 DPS"
+  },
+  "chart": {
+    "winRate": "승률",
+    "winCount": "승리 수",
+    "lossCount": "패배 수",
+    "usageRate": "사용률",
+    "matches": "경기 수",
+    "noData": "데이터가 없습니다",
+    "selectJobs": "잡 선택 (최대 5개)",
+    "hour": "{{hour}}시",
+    "day": {
+      "sunday": "일",
+      "monday": "월",
+      "tuesday": "화",
+      "wednesday": "수",
+      "thursday": "목",
+      "friday": "금",
+      "saturday": "토"
+    }
+  },
+  "language": {
+    "current": "한국어",
+    "japanese": "日本語",
+    "english": "English",
+    "korean": "한국어",
+    "switch": "언어 변경"
+  }
+}

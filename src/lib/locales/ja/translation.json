@@ -1,0 +1,240 @@
+{
+  "common": {
+    "appName": "クリコン戦績記録",
+    "confirm": "確認",
+    "cancel": "キャンセル",
+    "delete": "削除",
+    "edit": "編集",
+    "save": "保存",
+    "close": "閉じる",
+    "add": "追加",
+    "back": "戻る",
+    "loading": "読み込み中...",
+    "error": "エラーが発生しました",
+    "noData": "データがありません",
+    "success": "成功しました",
+    "warning": "警告",
+    "info": "情報"
+  },
+  "navigation": {
+    "home": "ホーム",
+    "graphs": "グラフ",
+    "histories": "履歴",
+    "faq": "FAQ"
+  },
+  "pages": {
+    "home": {
+      "title": "{{seasonName}} の戦績",
+      "description": "戦績と統計情報を入力します。",
+      "createSeason": "新しいシーズンを作成",
+      "noSeason": "シーズンが作成されていません",
+      "createFirstSeason": "最初のシーズンを作成してください",
+      "errorOccurred": "エラーが発生しました"
+    },
+    "graphs": {
+      "title": "戦績グラフ",
+      "description": "様々なチャートで戦績を分析できます。",
+      "daily": "日別勝敗数",
+      "hourly": "時間別勝率",
+      "weekly": "曜日別勝率",
+      "jobWinRate": "ジョブ別勝率",
+      "jobUsage": "ジョブ使用率",
+      "filters": {
+        "character": "キャラクター",
+        "job": "ジョブ",
+        "map": "マップ",
+        "all": "すべて"
+      }
+    },
+    "histories": {
+      "title": "履歴一覧",
+      "description": "過去のシーズンの戦績を確認できます。",
+      "totalSeasons": "総シーズン数: {{count}}",
+      "totalMatches": "総試合数: {{count}}",
+      "detail": "詳細",
+      "delete": "削除",
+      "confirmDelete": "このシーズンを削除しますか？",
+      "deleteDescription": "シーズン「{{seasonName}}」とすべての戦績データが削除されます。この操作は取り消せません。",
+      "emptyState": "シーズンがありません",
+      "createFirstSeason": "最初のシーズンを作成してください"
+    },
+    "historyDetail": {
+      "title": "{{seasonName}} の詳細",
+      "description": "シーズンの全戦績を表示しています。",
+      "backToList": "履歴一覧に戻る",
+      "totalMatches": "総試合数: {{count}}",
+      "columns": {
+        "character": "キャラクター",
+        "job": "ジョブ",
+        "map": "マップ",
+        "result": "結果",
+        "date": "日時"
+      },
+      "results": {
+        "win": "勝利",
+        "loss": "敗北"
+      },
+      "emptyState": "戦績データがありません"
+    },
+    "newSeason": {
+      "title": "新しいシーズンを作成",
+      "description": "新しいシーズンを作成します。現在のデータは履歴として保存されます。",
+      "seasonName": "シーズン名",
+      "seasonNamePlaceholder": "例: シーズン1, 2024年春など",
+      "create": "シーズンを作成",
+      "cancel": "キャンセル",
+      "confirmTitle": "シーズンを作成しますか？",
+      "confirmDescription": "現在のデータは履歴として保存され、新しいシーズンが開始されます。",
+      "validationRequired": "シーズン名を入力してください"
+    },
+    "faq": {
+      "title": "よくある質問 (FAQ)",
+      "description": "CC戦績記録について、よくお寄せいただく質問とその回答をまとめました。",
+      "privacy": {
+        "title": "プライバシー・データについて",
+        "dataStorage": {
+          "question": "戦績データはどこに保存されますか？",
+          "answer": {
+            "intro": "戦績データはすべてお使いのブラウザのローカルストレージに保存されます。",
+            "description": "当アプリケーションでは、以下の方針でデータを扱っています：",
+            "points": [
+              "戦績データや個人情報は一切サーバーに送信されません",
+              "すべてのデータはブラウザ内のみで管理されます",
+              "アプリケーション開発者がユーザーの戦績データにアクセスすることはありません",
+              "データの削除はブラウザの設定から行えます"
+            ]
+          }
+        },
+        "analytics": {
+          "question": "Google Analyticsで何が収集されますか？",
+          "answer": {
+            "intro": "当サイトでは、サービス改善のためにGoogle Analyticsを使用しています。",
+            "collected": "収集される情報：",
+            "collectedPoints": [
+              "アクセス統計：ページビュー数、セッション数、平均滞在時間など",
+              "技術情報：ブラウザの種類、OS、画面サイズなど",
+              "地域情報：国や地域レベルの大まかな位置情報（詳細な住所等は含まれません）"
+            ],
+            "notCollected": "収集されない情報：",
+            "notCollectedPoints": [
+              "戦績データや個人の成績情報",
+              "キャラクター名やその他の個人情報",
+              "詳細な位置情報や住所"
+            ],
+            "anonymous": "これらの統計情報は匿名化されており、個人を特定することはできません。"
+          }
+        },
+        "dataDeletion": {
+          "question": "データの削除方法を教えてください",
+          "answer": {
+            "intro": "保存されているデータを削除したい場合は、以下の方法で行えます：",
+            "methods": [
+              "個別削除：各ページで「削除」ボタンを使用",
+              "完全削除：ブラウザの設定からサイトデータを削除"
+            ],
+            "browserMethods": "ブラウザからのデータ削除方法：",
+            "browserSteps": [
+              "Chrome: 設定 → プライバシーとセキュリティ → サイトデータ",
+              "Firefox: 設定 → プライバシーとセキュリティ → Cookieとサイトデータ",
+              "Safari: 環境設定 → プライバシー → Webサイトデータを管理"
+            ]
+          }
+        }
+      },
+      "usage": {
+        "title": "アプリケーションの使い方",
+        "dataLoss": {
+          "question": "データが消えてしまうことはありますか？",
+          "answer": {
+            "intro": "ローカルストレージに保存されたデータは、以下の場合に削除される可能性があります：",
+            "causes": [
+              "ブラウザのキャッシュクリア時",
+              "ブラウザの設定でサイトデータを削除した場合",
+              "プライベートブラウジングモード使用時",
+              "デバイスの容量不足時（ブラウザが自動削除する場合）"
+            ],
+            "recommendation": "重要なデータは定期的にバックアップを取ることをお勧めします。"
+          }
+        },
+        "dataSyncing": {
+          "question": "複数のブラウザでデータを共有できますか？",
+          "answer": {
+            "limitation": "申し訳ございませんが、現在のところブラウザ間でのデータ同期機能は提供していません。",
+            "explanation": "各ブラウザのローカルストレージは独立しているため、データは使用したブラウザでのみ利用可能です。"
+          }
+        }
+      }
+    },
+    "notFound": {
+      "title": "ページが見つかりません",
+      "description": "お探しのページは存在しないか、削除された可能性があります。",
+      "backToHome": "ホームに戻る"
+    }
+  },
+  "character": {
+    "name": "キャラクター名",
+    "create": "キャラクターを作成",
+    "edit": "キャラクター名を編集",
+    "delete": "キャラクターを削除",
+    "confirmDelete": "キャラクターを削除しますか？",
+    "deleteDescription": "キャラクター「{{name}}」とすべての戦績データが削除されます。この操作は取り消せません。",
+    "namePlaceholder": "キャラクター名を入力",
+    "validationRequired": "キャラクター名を入力してください",
+    "emptyState": "キャラクターがありません",
+    "createFirst": "最初のキャラクターを作成してください",
+    "stats": {
+      "totalMatches": "{{count}}試合",
+      "winRate": "勝率{{rate}}%",
+      "wins": "{{count}}勝",
+      "losses": "{{count}}敗"
+    }
+  },
+  "match": {
+    "record": "戦績を記録",
+    "job": "ジョブ",
+    "map": "マップ",
+    "result": "結果",
+    "win": "勝ち",
+    "loss": "負け",
+    "memo": "メモ",
+    "memoPlaceholder": "メモを入力（任意）",
+    "selectJob": "ジョブを選択してください",
+    "selectMap": "マップを選択してください",
+    "recorded": "戦績を記録しました",
+    "recentMatches": "最近の戦績"
+  },
+  "job": {
+    "select": "ジョブ選択",
+    "tank": "タンク",
+    "healer": "ヒーラー",
+    "meleeDps": "近接DPS",
+    "physicalRangedDps": "物理遠隔DPS",
+    "magicalRangedDps": "魔法遠隔DPS"
+  },
+  "chart": {
+    "winRate": "勝率",
+    "winCount": "勝利数",
+    "lossCount": "敗北数",
+    "usageRate": "使用率",
+    "matches": "試合数",
+    "noData": "データがありません",
+    "selectJobs": "ジョブを選択（最大5個）",
+    "hour": "{{hour}}時",
+    "day": {
+      "sunday": "日",
+      "monday": "月",
+      "tuesday": "火",
+      "wednesday": "水",
+      "thursday": "木",
+      "friday": "金",
+      "saturday": "土"
+    }
+  },
+  "language": {
+    "current": "日本語",
+    "japanese": "日本語",
+    "english": "English",
+    "korean": "한국어",
+    "switch": "言語を切り替え"
+  }
+}

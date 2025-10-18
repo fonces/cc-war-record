@@ -1,0 +1,240 @@
+{
+  "common": {
+    "appName": "CC War Record",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "save": "Save",
+    "close": "Close",
+    "add": "Add",
+    "back": "Back",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "noData": "No data available",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Information"
+  },
+  "navigation": {
+    "home": "Home",
+    "graphs": "Graphs",
+    "histories": "Histories",
+    "faq": "FAQ"
+  },
+  "pages": {
+    "home": {
+      "title": "{{seasonName}} Records",
+      "description": "Enter your match records and view statistics.",
+      "createSeason": "Create New Season",
+      "noSeason": "No season has been created",
+      "createFirstSeason": "Please create your first season",
+      "errorOccurred": "An error occurred"
+    },
+    "graphs": {
+      "title": "Match Statistics",
+      "description": "Analyze your performance with various charts.",
+      "daily": "Daily Win/Loss",
+      "hourly": "Hourly Win Rate",
+      "weekly": "Weekly Win Rate",
+      "jobWinRate": "Job Win Rate",
+      "jobUsage": "Job Usage Rate",
+      "filters": {
+        "character": "Character",
+        "job": "Job",
+        "map": "Map",
+        "all": "All"
+      }
+    },
+    "histories": {
+      "title": "Season History",
+      "description": "View your past season records.",
+      "totalSeasons": "Total Seasons: {{count}}",
+      "totalMatches": "Total Matches: {{count}}",
+      "detail": "Detail",
+      "delete": "Delete",
+      "confirmDelete": "Delete this season?",
+      "deleteDescription": "Season \"{{seasonName}}\" and all match data will be deleted. This action cannot be undone.",
+      "emptyState": "No seasons found",
+      "createFirstSeason": "Please create your first season"
+    },
+    "historyDetail": {
+      "title": "{{seasonName}} Details",
+      "description": "Displaying all matches for this season.",
+      "backToList": "Back to History",
+      "totalMatches": "Total Matches: {{count}}",
+      "columns": {
+        "character": "Character",
+        "job": "Job",
+        "map": "Map",
+        "result": "Result",
+        "date": "Date"
+      },
+      "results": {
+        "win": "Win",
+        "loss": "Loss"
+      },
+      "emptyState": "No match data available"
+    },
+    "newSeason": {
+      "title": "Create New Season",
+      "description": "Create a new season. Current data will be saved as history.",
+      "seasonName": "Season Name",
+      "seasonNamePlaceholder": "e.g., Season 1, Spring 2024, etc.",
+      "create": "Create Season",
+      "cancel": "Cancel",
+      "confirmTitle": "Create new season?",
+      "confirmDescription": "Current data will be saved as history and a new season will begin.",
+      "validationRequired": "Please enter a season name"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions (FAQ)",
+      "description": "Common questions and answers about CC War Record.",
+      "privacy": {
+        "title": "Privacy & Data",
+        "dataStorage": {
+          "question": "Where is my match data stored?",
+          "answer": {
+            "intro": "All match data is stored in your browser's local storage only.",
+            "description": "Our application handles data with the following policy:",
+            "points": [
+              "Match data and personal information are never sent to servers",
+              "All data is managed within your browser only",
+              "Application developers cannot access your match data",
+              "Data can be deleted through browser settings"
+            ]
+          }
+        },
+        "analytics": {
+          "question": "What does Google Analytics collect?",
+          "answer": {
+            "intro": "We use Google Analytics to improve our service.",
+            "collected": "Information collected:",
+            "collectedPoints": [
+              "Access statistics: page views, sessions, average session duration, etc.",
+              "Technical information: browser type, OS, screen size, etc.",
+              "Regional information: general location at country/region level (no detailed addresses)"
+            ],
+            "notCollected": "Information NOT collected:",
+            "notCollectedPoints": [
+              "Match data or personal performance information",
+              "Character names or other personal information",
+              "Detailed location information or addresses"
+            ],
+            "anonymous": "All statistical information is anonymized and cannot identify individuals."
+          }
+        },
+        "dataDeletion": {
+          "question": "How can I delete my data?",
+          "answer": {
+            "intro": "To delete stored data, you can use the following methods:",
+            "methods": [
+              "Individual deletion: Use the \"Delete\" button on each page",
+              "Complete deletion: Delete site data through browser settings"
+            ],
+            "browserMethods": "Browser data deletion methods:",
+            "browserSteps": [
+              "Chrome: Settings → Privacy and security → Site data",
+              "Firefox: Settings → Privacy & Security → Cookies and Site Data",
+              "Safari: Preferences → Privacy → Manage Website Data"
+            ]
+          }
+        }
+      },
+      "usage": {
+        "title": "Application Usage",
+        "dataLoss": {
+          "question": "Can my data be lost?",
+          "answer": {
+            "intro": "Data stored in local storage may be deleted in the following cases:",
+            "causes": [
+              "When browser cache is cleared",
+              "When site data is deleted through browser settings",
+              "When using private browsing mode",
+              "When device storage is low (browser may auto-delete)"
+            ],
+            "recommendation": "We recommend regularly backing up important data."
+          }
+        },
+        "dataSyncing": {
+          "question": "Can I share data between multiple browsers?",
+          "answer": {
+            "limitation": "Unfortunately, we do not currently provide data synchronization between browsers.",
+            "explanation": "Each browser's local storage is independent, so data is only available in the browser where it was created."
+          }
+        }
+      }
+    },
+    "notFound": {
+      "title": "Page Not Found",
+      "description": "The page you're looking for doesn't exist or may have been deleted.",
+      "backToHome": "Back to Home"
+    }
+  },
+  "character": {
+    "name": "Character Name",
+    "create": "Create Character",
+    "edit": "Edit Character Name",
+    "delete": "Delete Character",
+    "confirmDelete": "Delete character?",
+    "deleteDescription": "Character \"{{name}}\" and all match data will be deleted. This action cannot be undone.",
+    "namePlaceholder": "Enter character name",
+    "validationRequired": "Please enter a character name",
+    "emptyState": "No characters found",
+    "createFirst": "Please create your first character",
+    "stats": {
+      "totalMatches": "{{count}} matches",
+      "winRate": "{{rate}}% win rate",
+      "wins": "{{count}} wins",
+      "losses": "{{count}} losses"
+    }
+  },
+  "match": {
+    "record": "Record Match",
+    "job": "Job",
+    "map": "Map",
+    "result": "Result",
+    "win": "Win",
+    "loss": "Loss",
+    "memo": "Memo",
+    "memoPlaceholder": "Enter memo (optional)",
+    "selectJob": "Please select a job",
+    "selectMap": "Please select a map",
+    "recorded": "Match recorded successfully",
+    "recentMatches": "Recent Matches"
+  },
+  "job": {
+    "select": "Select Job",
+    "tank": "Tank",
+    "healer": "Healer",
+    "meleeDps": "Melee DPS",
+    "physicalRangedDps": "Physical Ranged DPS",
+    "magicalRangedDps": "Magical Ranged DPS"
+  },
+  "chart": {
+    "winRate": "Win Rate",
+    "winCount": "Wins",
+    "lossCount": "Losses",
+    "usageRate": "Usage Rate",
+    "matches": "Matches",
+    "noData": "No data available",
+    "selectJobs": "Select jobs (max 5)",
+    "hour": "{{hour}}:00",
+    "day": {
+      "sunday": "Sun",
+      "monday": "Mon",
+      "tuesday": "Tue",
+      "wednesday": "Wed",
+      "thursday": "Thu",
+      "friday": "Fri",
+      "saturday": "Sat"
+    }
+  },
+  "language": {
+    "current": "English",
+    "japanese": "日本語",
+    "english": "English",
+    "korean": "한국어",
+    "switch": "Switch Language"
+  }
+}

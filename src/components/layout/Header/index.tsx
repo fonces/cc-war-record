@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
 import styled from "styled-components";
-import { Icon } from "@/components/ui";
+import { Icon, LanguageSelector } from "@/components/ui";
+import { useTranslation } from "@/hooks";
 
 type NavigationItem = {
   /** ラベル */
-  label: string;
+  labelKey: string;
   /** パス */
   path: string;
   /** アイコン */
@@ -13,10 +14,10 @@ type NavigationItem = {
 };
 
 const navigationItems: NavigationItem[] = [
-  { label: "ホーム", path: "/", icon: "home" },
-  { label: "グラフ", path: "/graphs", icon: "chart" },
-  { label: "履歴", path: "/histories", icon: "history" },
-  { label: "FAQ", path: "/faq", icon: "detail" },
+  { labelKey: "navigation.home", path: "/", icon: "home" },
+  { labelKey: "navigation.graphs", path: "/graphs", icon: "chart" },
+  { labelKey: "navigation.histories", path: "/histories", icon: "history" },
+  { labelKey: "navigation.faq", path: "/faq", icon: "detail" },
 ];
 
 // デスクトップ用サイドメニュー
@@ -98,6 +99,13 @@ const StyledMobileHeaderContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: ${({ theme }) => theme.spacing[2]};
+`;
+
+const StyledMobileHeaderActions = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing[2]};
 `;
 
 const StyledMobileTitle = styled.h1`
@@ -166,6 +174,7 @@ type HeaderProps = {
 export const Header = ({ children }: HeaderProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { t } = useTranslation();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -187,8 +196,11 @@ export const Header = ({ children }: HeaderProps) => {
       {/* モバイル用ヘッダー */}
       <StyledMobileHeader>
         <StyledMobileHeaderContent>
-          <StyledMobileTitle>クリコン戦績記録</StyledMobileTitle>
-          <Icon name="hamburger" size={24} onClick={toggleMobileMenu} />
+          <StyledMobileTitle>{t("common.appName")}</StyledMobileTitle>
+          <StyledMobileHeaderActions>
+            <LanguageSelector />
+            <Icon name="hamburger" size={24} onClick={toggleMobileMenu} />
+          </StyledMobileHeaderActions>
         </StyledMobileHeaderContent>
       </StyledMobileHeader>
 
@@ -198,7 +210,7 @@ export const Header = ({ children }: HeaderProps) => {
           <Icon name="close" size={24} onClick={closeMobileMenu} />
         </StyledCloseButton>
 
-        <StyledSidebarTitle>クリコン戦績記録</StyledSidebarTitle>
+        <StyledSidebarTitle>{t("common.appName")}</StyledSidebarTitle>
 
         <StyledNavList>
           {navigationItems.map((item) => (
@@ -206,10 +218,15 @@ export const Header = ({ children }: HeaderProps) => {
               <StyledNavIcon $isActive={isActivePath(item.path)}>
                 <Icon name={item.icon} size={20} />
               </StyledNavIcon>
-              {item.label}
+              {t(item.labelKey)}
             </StyledNavLink>
           ))}
         </StyledNavList>
+
+        {/* デスクトップでは下部に言語セレクターを配置 */}
+        <div style={{ marginTop: "auto", paddingTop: "24px" }}>
+          <LanguageSelector />
+        </div>
       </StyledSidebar>
 
       {/* オーバーレイ（モバイル用） */}
