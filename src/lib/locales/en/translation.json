@@ -33,7 +33,8 @@
     },
     "graphs": {
       "title": "Match Statistics",
-      "description": "Analyze your performance with various charts.",
+      "description": "Visualize current season match statistics in graph format.",
+      "descriptionWithSeason": "Visualize {{seasonName}} match statistics in graph format.",
       "daily": "Daily Win/Loss",
       "hourly": "Hourly Win Rate",
       "weekly": "Weekly Win Rate",
@@ -63,31 +64,36 @@
       "title": "{{seasonName}} Details",
       "description": "Displaying all matches for this season.",
       "backToList": "Back to History",
-      "totalMatches": "Total Matches: {{count}}",
+      "totalMatches": "{{count}} matches",
+      "createdDate": "Created",
+      "notFound": "History not found",
       "columns": {
         "season": "Season Name",
-        "character": "Character",
-        "job": "Job",
+        "character": "Character Name",
+        "job": "Job Used",
         "map": "Map",
         "result": "Result",
         "date": "Date"
       },
       "results": {
         "win": "Win",
-        "loss": "Loss"
+        "loss": "Lose"
       },
-      "emptyState": "No match data available"
+      "emptyState": "No matches recorded"
     },
     "newSeason": {
       "title": "Create New Season",
-      "description": "Create a new season. Current data will be saved as history.",
+      "description": "Create a new season. Please enter a season name.",
       "seasonName": "Season Name",
-      "seasonNamePlaceholder": "e.g., Season 1, Spring 2024, etc.",
-      "create": "Create Season",
+      "seasonNamePlaceholder": "e.g. Season 1",
+      "create": "Create",
+      "creating": "Creating...",
       "cancel": "Cancel",
-      "confirmTitle": "Create new season?",
-      "confirmDescription": "Current data will be saved as history and a new season will begin.",
-      "validationRequired": "Please enter a season name"
+      "confirmTitle": "Confirm Season Creation",
+      "confirmDescription": "Creating a new season will archive the match data for \"{{seasonName}}\" and start recording new matches. Continue?",
+      "validationRequired": "Please enter a season name",
+      "validationMaxLength": "Season name must be 50 characters or less",
+      "successMessage": "Season \"{{seasonName}}\" created successfully"
     },
     "faq": {
       "title": "Frequently Asked Questions (FAQ)",

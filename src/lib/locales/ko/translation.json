@@ -33,7 +33,8 @@
     },
     "graphs": {
       "title": "전적 그래프",
-      "description": "다양한 차트로 전적을 분석할 수 있습니다.",
+      "description": "현재 시즌 전적을 그래프 형식으로 시각화합니다.",
+      "descriptionWithSeason": "{{seasonName}} 전적을 그래프 형식으로 시각화합니다.",
       "daily": "일별 승부",
       "hourly": "시간별 승률",
       "weekly": "요일별 승률",
@@ -63,31 +64,36 @@
       "title": "{{seasonName}} 상세",
       "description": "시즌의 모든 전적을 표시하고 있습니다.",
       "backToList": "기록 목록으로 돌아가기",
-      "totalMatches": "총 경기 수: {{count}}",
+      "totalMatches": "{{count}}경기 전적",
+      "createdDate": "생성일",
+      "notFound": "기록을 찾을 수 없습니다",
       "columns": {
         "season": "시즌명",
-        "character": "캐릭터",
-        "job": "잡",
+        "character": "캐릭터명",
+        "job": "사용 잡",
         "map": "맵",
         "result": "결과",
-        "date": "날짜"
+        "date": "생성일시"
       },
       "results": {
-        "win": "승리",
-        "loss": "패배"
+        "win": "Win",
+        "loss": "Lose"
       },
-      "emptyState": "전적 데이터가 없습니다"
+      "emptyState": "전적이 기록되지 않았습니다"
     },
     "newSeason": {
       "title": "새 시즌 만들기",
-      "description": "새 시즌을 생성합니다. 현재 데이터는 기록으로 저장됩니다.",
-      "seasonName": "시즌 이름",
-      "seasonNamePlaceholder": "예: 시즌 1, 2024년 봄 등",
-      "create": "시즌 생성",
+      "description": "새 시즌을 만듭니다. 시즌명을 입력해주세요.",
+      "seasonName": "시즌명",
+      "seasonNamePlaceholder": "예: 시즌 1",
+      "create": "만들기",
+      "creating": "만드는 중...",
       "cancel": "취소",
-      "confirmTitle": "시즌을 생성하시겠습니까?",
-      "confirmDescription": "현재 데이터는 기록으로 저장되고 새 시즌이 시작됩니다.",
-      "validationRequired": "시즌 이름을 입력해주세요"
+      "confirmTitle": "시즌 생성 확인",
+      "confirmDescription": "새 시즌을 만들면 \"{{seasonName}}\"의 전적 데이터가 과거 시즌으로 아카이브되고 새로운 전적 입력이 시작됩니다. 계속하시겠습니까?",
+      "validationRequired": "시즌명을 입력해주세요",
+      "validationMaxLength": "시즌명은 50자 이내로 입력해주세요",
+      "successMessage": "시즌 \"{{seasonName}}\"을 만들었습니다"
     },
     "faq": {
       "title": "자주 묻는 질문 (FAQ)",

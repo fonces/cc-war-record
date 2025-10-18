@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useHistoryStore } from "@/stores";
 import { Button, Input, Dialog, PageTitle, PageDescription } from "@/components/ui";
 import { usePageTitle } from "@/hooks/usePageTitle";
+import { useTranslation } from "@/hooks";
 
 const StyledContainer = styled.div`
   max-width: 600px;
@@ -63,7 +64,8 @@ const StyledSuccessMessage = styled.div`
  * シーズン名を入力してnewHistoryを作成
  */
 export const NewSeasonPage = () => {
-  usePageTitle("新シーズン作成");
+  const { t } = useTranslation();
+  usePageTitle(t("pages.newSeason.title"));
   const router = useRouter();
   const { createHistory, error, clearError, getSortedHistories } = useHistoryStore();
 
@@ -80,12 +82,12 @@ export const NewSeasonPage = () => {
     // バリデーション
     const trimmedSeasonName = seasonName.trim();
     if (!trimmedSeasonName) {
-      setValidationError("シーズン名を入力してください");
+      setValidationError(t("pages.newSeason.validationRequired"));
       return;
     }
 
     if (trimmedSeasonName.length > 50) {
-      setValidationError("シーズン名は50文字以内で入力してください");
+      setValidationError(t("pages.newSeason.validationMaxLength"));
       return;
     }
 
@@ -112,7 +114,7 @@ export const NewSeasonPage = () => {
       // 新規履歴作成
       const newHistory = createHistory({ seasonName: trimmedSeasonName });
 
-      setSuccessMessage(`シーズン「${newHistory.seasonName}」を作成しました`);
+      setSuccessMessage(t("pages.newSeason.successMessage", { seasonName: newHistory.seasonName }));
 
       // 少し待ってからホーム画面に遷移
       setTimeout(() => {
@@ -160,22 +162,21 @@ export const NewSeasonPage = () => {
       <Dialog
         isOpen={showWarningDialog}
         onClose={handleCancelCreate}
-        title="シーズン作成の確認"
-        confirmText="作成する"
-        cancelText="キャンセル"
+        title={t("pages.newSeason.confirmTitle")}
+        confirmText={t("pages.newSeason.create")}
+        cancelText={t("pages.newSeason.cancel")}
         onConfirm={handleConfirmCreate}
         confirmType="danger"
         isLoading={isSubmitting}
       >
-        新しいシーズンを作成すると「{latestSeasonName}
-        」の戦績データは過去のシーズンとしてアーカイブされ、新しい戦績の入力が開始されます。よろしいでしょうか?
+        {t("pages.newSeason.confirmDescription", { seasonName: latestSeasonName })}
       </Dialog>
 
       {/* メインコンテンツ */}
       <StyledContainer>
         <StyledHeader>
-          <PageTitle>新規シーズン作成</PageTitle>
-          <PageDescription>新しいシーズンを作成します。シーズン名を入力してください。</PageDescription>
+          <PageTitle>{t("pages.newSeason.title")}</PageTitle>
+          <PageDescription>{t("pages.newSeason.description")}</PageDescription>
         </StyledHeader>
 
         <StyledForm onSubmit={handleSubmit}>
@@ -188,11 +189,11 @@ export const NewSeasonPage = () => {
           {/* シーズン名入力 */}
           <StyledFormGroup>
             <Input
-              label="シーズン名"
+              label={t("pages.newSeason.seasonName")}
               type="text"
               value={seasonName}
               onChange={handleSeasonNameChange}
-              placeholder="例: シーズン1"
+              placeholder={t("pages.newSeason.seasonNamePlaceholder")}
               disabled={isSubmitting || !!successMessage}
               fullWidth
               required
@@ -202,10 +203,10 @@ export const NewSeasonPage = () => {
           {/* アクションボタン */}
           <StyledActions>
             <Button type="button" variant="outline" onClick={handleCancel} disabled={isSubmitting || !!successMessage}>
-              キャンセル
+              {t("pages.newSeason.cancel")}
             </Button>
             <Button type="submit" disabled={isSubmitting || !!successMessage || !seasonName.trim()}>
-              {isSubmitting ? "作成中..." : "作成する"}
+              {isSubmitting ? t("pages.newSeason.creating") : t("pages.newSeason.create")}
             </Button>
           </StyledActions>
         </StyledForm>

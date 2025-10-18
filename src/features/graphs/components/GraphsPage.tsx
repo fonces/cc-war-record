@@ -8,13 +8,15 @@ import { JobWinRateRadarChart } from "./JobWinRateRadarChart";
 import { HourlyWinLossChart } from "./HourlyWinLossChart";
 import { WeeklyWinLossChart } from "./WeeklyWinLossChart";
 import { JobUsageRatePieChart } from "./JobUsageRatePieChart";
+import { useTranslation } from "@/hooks";
 
 /**
  * グラフ画面コンポーネント
  * 現シーズンの戦績をチャート表示
  */
 export const GraphsPage = () => {
-  usePageTitle("戦績グラフ");
+  const { t } = useTranslation();
+  usePageTitle(t("pages.graphs.title"));
   const navigate = useNavigate();
   const { histories } = useHistoryStore();
   const { characters, matchRecords } = useCharacterStore();
@@ -28,9 +30,11 @@ export const GraphsPage = () => {
   return (
     <PageContainer>
       <PageTitleContainer>
-        <PageTitle>戦績グラフ</PageTitle>
+        <PageTitle>{t("pages.graphs.title")}</PageTitle>
       </PageTitleContainer>
-      <PageDescription>{latestHistory ? `${latestHistory.seasonName} の戦績をグラフ形式で可視化します。` : "現シーズンの戦績をグラフ形式で可視化します。"}</PageDescription>
+      <PageDescription>
+        {latestHistory ? t("pages.graphs.descriptionWithSeason", { seasonName: latestHistory.seasonName }) : t("pages.graphs.description")}
+      </PageDescription>
 
       {latestHistory ? (
         <>

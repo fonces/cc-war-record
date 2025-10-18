@@ -33,7 +33,8 @@
     },
     "graphs": {
       "title": "戦績グラフ",
-      "description": "様々なチャートで戦績を分析できます。",
+      "description": "現シーズンの戦績をグラフ形式で可視化します。",
+      "descriptionWithSeason": "{{seasonName}} の戦績をグラフ形式で可視化します。",
       "daily": "日別勝敗数",
       "hourly": "時間別勝率",
       "weekly": "曜日別勝率",
@@ -63,31 +64,36 @@
       "title": "{{seasonName}} の詳細",
       "description": "シーズンの全戦績を表示しています。",
       "backToList": "履歴一覧に戻る",
-      "totalMatches": "総試合数: {{count}}",
+      "totalMatches": "{{count}}試合の戦績",
+      "createdDate": "作成日",
+      "notFound": "履歴が見つかりません",
       "columns": {
         "season": "シーズン名",
-        "character": "キャラクター",
-        "job": "ジョブ",
+        "character": "キャラクター名",
+        "job": "使用ジョブ",
         "map": "マップ",
-        "result": "結果",
-        "date": "日時"
+        "result": "勝敗",
+        "date": "作成日時"
       },
       "results": {
-        "win": "勝利",
-        "loss": "敗北"
+        "win": "Win",
+        "loss": "Lose"
       },
-      "emptyState": "戦績データがありません"
+      "emptyState": "戦績が記録されていません"
     },
     "newSeason": {
       "title": "新しいシーズンを作成",
-      "description": "新しいシーズンを作成します。現在のデータは履歴として保存されます。",
+      "description": "新しいシーズンを作成します。シーズン名を入力してください。",
       "seasonName": "シーズン名",
-      "seasonNamePlaceholder": "例: シーズン1, 2024年春など",
-      "create": "シーズンを作成",
+      "seasonNamePlaceholder": "例: シーズン1",
+      "create": "作成する",
+      "creating": "作成中...",
       "cancel": "キャンセル",
-      "confirmTitle": "シーズンを作成しますか？",
-      "confirmDescription": "現在のデータは履歴として保存され、新しいシーズンが開始されます。",
-      "validationRequired": "シーズン名を入力してください"
+      "confirmTitle": "シーズン作成の確認",
+      "confirmDescription": "新しいシーズンを作成すると「{{seasonName}}」の戦績データは過去のシーズンとしてアーカイブされ、新しい戦績の入力が開始されます。よろしいでしょうか?",
+      "validationRequired": "シーズン名を入力してください",
+      "validationMaxLength": "シーズン名は50文字以内で入力してください",
+      "successMessage": "シーズン「{{seasonName}}」を作成しました"
     },
     "faq": {
       "title": "よくある質問 (FAQ)",

@@ -8,6 +8,7 @@ import { useHistoryStore } from "@/stores";
 import { formatDateTable } from "@/utils/uuid";
 import { JOB_INFO } from "@/types/jobs";
 import type { MatchRecord } from "@/types";
+import { useTranslation } from "@/hooks";
 
 // テーブルコンテナ
 const StyledTableContainer = styled.div`
@@ -156,6 +157,7 @@ const StyledBackButtonContainer = styled.div`
  * 特定シーズンの詳細戦績を表示
  */
 export const HistoryDetailPage = () => {
+  const { t } = useTranslation();
   const { id } = useParams({ from: "/histories/$id" });
   const navigate = useNavigate();
   const { getHistoryByUuid, getMatchRecordsForSeason } = useHistoryStore();
@@ -165,7 +167,7 @@ export const HistoryDetailPage = () => {
   const history = useMemo(() => getHistoryByUuid(id), [id, getHistoryByUuid]);
 
   // ページタイトルを設定（履歴データが取得できたらシーズン名を表示）
-  usePageTitle(history ? `${history.seasonName} 詳細` : "シーズン詳細");
+  usePageTitle(history ? t("pages.historyDetail.title", { seasonName: history.seasonName }) : t("pages.historyDetail.title", { seasonName: "" }));
 
   // 過去のシーズンのマッチレコードを取得
   const archivedMatchRecords = useMemo(() => getMatchRecordsForSeason(id), [id, getMatchRecordsForSeason]);
@@ -217,7 +219,7 @@ export const HistoryDetailPage = () => {
   if (!history) {
     return (
       <PageContainer>
-        <PageTitle>履歴が見つかりません</PageTitle>
+        <PageTitle>{t("pages.historyDetail.notFound")}</PageTitle>
       </PageContainer>
     );
   }
@@ -228,17 +230,17 @@ export const HistoryDetailPage = () => {
         <PageTitle>{history.seasonName}</PageTitle>
       </PageTitleContainer>
       <PageDescription>
-        {allMatches.length}試合の戦績 / 作成日: {new Date(history.createdAt).toLocaleDateString("ja-JP")}
+        {t("pages.historyDetail.totalMatches", { count: allMatches.length })} / {t("pages.historyDetail.createdDate")}: {new Date(history.createdAt).toLocaleDateString("ja-JP")}
       </PageDescription>
 
       <StyledTableContainer>
         <StyledTable>
           {/* ヘッダー */}
           <StyledTableHeader>
-            <StyledHeaderCell>キャラクター名</StyledHeaderCell>
-            <StyledHeaderCell width="120px">使用ジョブ</StyledHeaderCell>
-            <StyledHeaderCell width="180px">作成日時</StyledHeaderCell>
-            <StyledHeaderCell width="100px">勝敗</StyledHeaderCell>
+            <StyledHeaderCell>{t("pages.historyDetail.columns.character")}</StyledHeaderCell>
+            <StyledHeaderCell width="120px">{t("pages.historyDetail.columns.job")}</StyledHeaderCell>
+            <StyledHeaderCell width="180px">{t("pages.historyDetail.columns.date")}</StyledHeaderCell>
+            <StyledHeaderCell width="100px">{t("pages.historyDetail.columns.result")}</StyledHeaderCell>
           </StyledTableHeader>
 
           {/* 仮想スクロールリスト */}
@@ -267,7 +269,7 @@ export const HistoryDetailPage = () => {
                       </StyledJobCell>
                       <StyledDateCell width="180px">{formatDateTable(match.recordedAt)}</StyledDateCell>
                       <StyledTableCell width="100px">
-                        <StyledWinBadge $isWin={match.isWin}>{match.isWin ? "Win" : "Lose"}</StyledWinBadge>
+                        <StyledWinBadge $isWin={match.isWin}>{match.isWin ? t("pages.historyDetail.results.win") : t("pages.historyDetail.results.loss")}</StyledWinBadge>
                       </StyledTableCell>
                     </StyledTableRow>
                   );
@@ -275,7 +277,7 @@ export const HistoryDetailPage = () => {
               </div>
             </StyledVirtualContainer>
           ) : (
-            <StyledEmptyState>戦績が記録されていません</StyledEmptyState>
+            <StyledEmptyState>{t("pages.historyDetail.emptyState")}</StyledEmptyState>
           )}
         </StyledTable>
       </StyledTableContainer>
@@ -283,7 +285,7 @@ export const HistoryDetailPage = () => {
       <StyledBackButtonContainer>
         <Button variant="outline" size="sm" onClick={() => navigate({ to: "/histories" })}>
           <Icon name="back" size={16} />
-          一覧に戻る
+          {t("pages.historyDetail.backToList")}
         </Button>
       </StyledBackButtonContainer>
     </PageContainer>
