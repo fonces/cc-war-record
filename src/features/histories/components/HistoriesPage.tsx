@@ -91,7 +91,9 @@ export const HistoriesPage = () => {
       {/* エラー表示 */}
       {error && (
         <StyledErrorMessage>
-          <div>{t("common.error")}: {error}</div>
+          <div>
+            {t("common.error")}: {error}
+          </div>
           <button onClick={clearError} style={{ marginTop: "8px", textDecoration: "underline" }}>
             {t("common.close")}
           </button>
@@ -101,9 +103,7 @@ export const HistoriesPage = () => {
       {/* 統計情報 */}
       <StyledActions>
         <StyledStats>
-          <StyledStatItem>
-            {t("pages.histories.totalSeasons", { count: histories.length })}
-          </StyledStatItem>
+          <StyledStatItem>{t("pages.histories.totalSeasons", { count: histories.length })}</StyledStatItem>
           {histories.length > 0 && (
             <StyledStatItem>
               {t("pages.histories.latestCreated")}: <StyledStatValue>{new Date(sortedHistories[0]?.createdAt).toLocaleDateString("ja-JP")}</StyledStatValue>

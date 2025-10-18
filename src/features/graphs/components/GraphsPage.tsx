@@ -32,9 +32,7 @@ export const GraphsPage = () => {
       <PageTitleContainer>
         <PageTitle>{t("pages.graphs.title")}</PageTitle>
       </PageTitleContainer>
-      <PageDescription>
-        {latestHistory ? t("pages.graphs.descriptionWithSeason", { seasonName: latestHistory.seasonName }) : t("pages.graphs.description")}
-      </PageDescription>
+      <PageDescription>{latestHistory ? t("pages.graphs.descriptionWithSeason", { seasonName: latestHistory.seasonName }) : t("pages.graphs.description")}</PageDescription>
 
       {latestHistory ? (
         <>

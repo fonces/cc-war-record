@@ -315,9 +315,7 @@ export const HistoryTable = ({ histories, isLoading = false, onDelete }: History
       {/* 削除確認ダイアログ */}
       <Dialog isOpen={deleteDialogOpen} onClose={handleCancelDelete} title={t("pages.histories.confirmDelete")}>
         <StyledDialogContent>
-          <StyledDialogDescription>
-            {t("pages.histories.deleteDescription", { seasonName: historyToDelete?.seasonName })}
-          </StyledDialogDescription>
+          <StyledDialogDescription>{t("pages.histories.deleteDescription", { seasonName: historyToDelete?.seasonName })}</StyledDialogDescription>
           <StyledDialogActions>
             <Button variant="outline" onClick={handleCancelDelete}>
               {t("common.cancel")}

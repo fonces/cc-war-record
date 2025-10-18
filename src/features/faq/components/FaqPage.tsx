@@ -93,10 +93,10 @@ export const FaqPage = () => {
               </p>
               <p>{t("pages.faq.privacy.dataStorage.answer.description")}</p>
               <ul>
-                <li>戦績データや個人情報は一切サーバーに送信されません</li>
-                <li>すべてのデータはブラウザ内のみで管理されます</li>
-                <li>アプリケーション開発者がユーザーの戦績データにアクセスすることはありません</li>
-                <li>データの削除はブラウザの設定から行えます</li>
+                <li>{t("pages.faq.privacy.dataStorage.answer.points.0")}</li>
+                <li>{t("pages.faq.privacy.dataStorage.answer.points.1")}</li>
+                <li>{t("pages.faq.privacy.dataStorage.answer.points.2")}</li>
+                <li>{t("pages.faq.privacy.dataStorage.answer.points.3")}</li>
               </ul>
             </Answer>
           </FaqItem>
@@ -107,23 +107,17 @@ export const FaqPage = () => {
               <p>{t("pages.faq.privacy.analytics.answer.intro")}</p>
               <p>{t("pages.faq.privacy.analytics.answer.collected")}</p>
               <ul>
-                <li>
-                  <strong>アクセス統計</strong>：ページビュー数、セッション数、平均滞在時間など
-                </li>
-                <li>
-                  <strong>技術情報</strong>：ブラウザの種類、OS、画面サイズなど
-                </li>
-                <li>
-                  <strong>地域情報</strong>：国や地域レベルの大まかな位置情報（詳細な住所等は含まれません）
-                </li>
+                <li>{t("pages.faq.privacy.analytics.answer.collectedPoints.0")}</li>
+                <li>{t("pages.faq.privacy.analytics.answer.collectedPoints.1")}</li>
+                <li>{t("pages.faq.privacy.analytics.answer.collectedPoints.2")}</li>
               </ul>
               <p>
                 <strong>{t("pages.faq.privacy.analytics.answer.notCollected")}</strong>
               </p>
               <ul>
-                <li>戦績データや個人の成績情報</li>
-                <li>キャラクター名やその他の個人情報</li>
-                <li>詳細な位置情報や住所</li>
+                <li>{t("pages.faq.privacy.analytics.answer.notCollectedPoints.0")}</li>
+                <li>{t("pages.faq.privacy.analytics.answer.notCollectedPoints.1")}</li>
+                <li>{t("pages.faq.privacy.analytics.answer.notCollectedPoints.2")}</li>
               </ul>
               <p>{t("pages.faq.privacy.analytics.answer.anonymous")}</p>
             </Answer>
@@ -134,18 +128,14 @@ export const FaqPage = () => {
             <Answer>
               <p>{t("pages.faq.privacy.dataDeletion.answer.intro")}</p>
               <ul>
-                <li>
-                  <strong>個別削除</strong>：各ページで「削除」ボタンを使用
-                </li>
-                <li>
-                  <strong>完全削除</strong>：ブラウザの設定からサイトデータを削除
-                </li>
+                <li>{t("pages.faq.privacy.dataDeletion.answer.methods.0")}</li>
+                <li>{t("pages.faq.privacy.dataDeletion.answer.methods.1")}</li>
               </ul>
               <p>{t("pages.faq.privacy.dataDeletion.answer.browserMethods")}</p>
               <ul>
-                <li>Chrome: 設定 → プライバシーとセキュリティ → サイトデータ</li>
-                <li>Firefox: 設定 → プライバシーとセキュリティ → Cookieとサイトデータ</li>
-                <li>Safari: 環境設定 → プライバシー → Webサイトデータを管理</li>
+                <li>{t("pages.faq.privacy.dataDeletion.answer.browserSteps.0")}</li>
+                <li>{t("pages.faq.privacy.dataDeletion.answer.browserSteps.1")}</li>
+                <li>{t("pages.faq.privacy.dataDeletion.answer.browserSteps.2")}</li>
               </ul>
             </Answer>
           </FaqItem>
@@ -159,10 +149,10 @@ export const FaqPage = () => {
             <Answer>
               <p>{t("pages.faq.usage.dataLoss.answer.intro")}</p>
               <ul>
-                <li>ブラウザのキャッシュクリア時</li>
-                <li>ブラウザの設定でサイトデータを削除した場合</li>
-                <li>プライベートブラウジングモード使用時</li>
-                <li>デバイスの容量不足時（ブラウザが自動削除する場合）</li>
+                <li>{t("pages.faq.usage.dataLoss.answer.causes.0")}</li>
+                <li>{t("pages.faq.usage.dataLoss.answer.causes.1")}</li>
+                <li>{t("pages.faq.usage.dataLoss.answer.causes.2")}</li>
+                <li>{t("pages.faq.usage.dataLoss.answer.causes.3")}</li>
               </ul>
               <p>
                 <strong>{t("pages.faq.usage.dataLoss.answer.recommendation")}</strong>
