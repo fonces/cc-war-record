@@ -3,8 +3,11 @@ import { useState } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recharts";
 import { Select } from "@/components/ui";
 import type { History, MatchRecord, Job, CrystalConflictMap, Character } from "@/types";
+import type { TFunction } from "i18next";
 import { JOB_INFO } from "@/types/jobs";
-import { MAP_INFO, MAPS } from "@/types/maps";
+import { MAPS } from "@/types/maps";
+import { getMapName } from "@/utils/maps";
+import { useTranslation } from "@/hooks";
 
 const StyledChartContainer = styled.div`
   background: ${({ theme }) => theme.colors.gray[50]};
@@ -42,7 +45,7 @@ interface JobUsageRatePieChartProps {
 /**
  * ジョブ使用率データを集計する関数
  */
-const aggregateJobUsageRate = (history: History, matchRecords: MatchRecord[], selectedCharacterUuid: string | null, selectedMap: CrystalConflictMap | null) => {
+const aggregateJobUsageRate = (history: History, matchRecords: MatchRecord[], selectedCharacterUuid: string | null, selectedMap: CrystalConflictMap | null, t: TFunction) => {
   // 該当シーズンの試合データをフィルタ
   const seasonMatches = matchRecords.filter((match) => {
     if (match.seasonUuid !== history.uuid) return false;
@@ -63,7 +66,7 @@ const aggregateJobUsageRate = (history: History, matchRecords: MatchRecord[], se
   const totalMatches = seasonMatches.length;
   const chartData = Array.from(jobUsageMap.entries())
     .map(([job, count]) => ({
-      name: JOB_INFO[job].name,
+      name: t(`job.${job}`),
       job,
       value: count,
       percentage: totalMatches > 0 ? Math.round((count / totalMatches) * 100) : 0,
@@ -101,8 +104,6 @@ const renderCustomizedLabel = (props: any) => {
 interface TooltipProps {
   active?: boolean;
   payload?: Array<{
-    name: string;
-    value: number;
     payload: {
       name: string;
       job: Job;
@@ -113,6 +114,7 @@ interface TooltipProps {
 }
 
 const CustomTooltip = ({ active, payload }: TooltipProps) => {
+  const { t } = useTranslation();
   if (active && payload && payload.length) {
     const data = payload[0].payload;
     return (
@@ -126,35 +128,34 @@ const CustomTooltip = ({ active, payload }: TooltipProps) => {
         }}
       >
         <p style={{ margin: "0 0 8px 0", fontWeight: "bold" }}>{`${data.name} (${data.job})`}</p>
-        <p style={{ margin: "4px 0", color: JOB_INFO[data.job].color }}>{`使用回数: ${data.value}試合`}</p>
-        <p style={{ margin: "4px 0 0 0", fontWeight: "bold" }}>{`使用率: ${data.percentage}%`}</p>
+        <p style={{ margin: "4px 0", color: JOB_INFO[data.job].color }}>{`${t("chart.tooltip.usageCount")}: ${data.value}${t("chart.matches")}`}</p>
+        <p style={{ margin: "4px 0 0 0", fontWeight: "bold" }}>{`${t("chart.tooltip.usageRatePercent")}: ${data.percentage}%`}</p>
       </div>
     );
   }
   return null;
-};
-
-/**
+}; /**
  * ジョブ使用率円グラフコンポーネント
  */
 export const JobUsageRatePieChart = ({ history, matchRecords, characters }: JobUsageRatePieChartProps) => {
+  const { t } = useTranslation();
   const [selectedCharacterUuid, setSelectedCharacterUuid] = useState<string | null>(null);
   const [selectedMap, setSelectedMap] = useState<CrystalConflictMap | null>(null);
 
-  const chartData = aggregateJobUsageRate(history, matchRecords, selectedCharacterUuid, selectedMap);
+  const chartData = aggregateJobUsageRate(history, matchRecords, selectedCharacterUuid, selectedMap, t);
 
   return (
     <StyledChartContainer>
       <StyledChartHeader>
-        <StyledChartTitle>ジョブ使用率</StyledChartTitle>
+        <StyledChartTitle>{t("chart.titles.jobUsageRate")}</StyledChartTitle>
         <StyledFiltersWrapper>
           <Select
-            label="キャラクター"
+            label={t("chart.labels.character")}
             id="character-filter-job-usage"
             value={selectedCharacterUuid || ""}
             onChange={(e) => setSelectedCharacterUuid(e.target.value || null)}
             options={[
-              { value: "", label: "すべてのキャラクター" },
+              { value: "", label: t("chart.labels.allCharacters") },
               ...characters.map((character) => ({
                 value: character.uuid,
                 label: character.name,
@@ -163,15 +164,15 @@ export const JobUsageRatePieChart = ({ history, matchRecords, characters }: JobU
             width="200px"
           />
           <Select
-            label="マップ"
+            label={t("chart.labels.map")}
             id="map-filter-job-usage"
             value={selectedMap || ""}
             onChange={(e) => setSelectedMap((e.target.value as CrystalConflictMap) || null)}
             options={[
-              { value: "", label: "すべてのマップ" },
+              { value: "", label: t("chart.labels.allMaps") },
               ...Object.values(MAPS).map((map) => ({
                 value: map,
-                label: MAP_INFO[map].name,
+                label: getMapName(map, t),
               })),
             ]}
             width="200px"
@@ -191,7 +192,7 @@ export const JobUsageRatePieChart = ({ history, matchRecords, characters }: JobU
           </PieChart>
         </ResponsiveContainer>
       ) : (
-        <div style={{ textAlign: "center", padding: "3rem", color: "#6b7280" }}>試合データがありません</div>
+        <div style={{ textAlign: "center", padding: "3rem", color: "#6b7280" }}>{t("chart.noMatchData")}</div>
       )}
     </StyledChartContainer>
   );

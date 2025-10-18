@@ -10,6 +10,8 @@
     "add": "追加",
     "back": "戻る",
     "loading": "読み込み中...",
+    "processing": "処理中...",
+    "closeDialog": "ダイアログを閉じる",
     "error": "エラーが発生しました",
     "noData": "データがありません",
     "success": "成功しました",
@@ -58,7 +60,13 @@
       "confirmDelete": "シーズンの削除",
       "deleteDescription": "「{{seasonName}}」を削除してもよろしいですか？\nこの操作は取り消すことができません。",
       "emptyState": "履歴がありません",
-      "createFirstSeason": "シーズンの履歴がまだ作成されていません。\n新しいシーズンを作成してください。"
+      "createFirstSeason": "シーズンの履歴がまだ作成されていません。\n新しいシーズンを作成してください。",
+      "errors": {
+        "loadFailed": "履歴の読み込みに失敗しました",
+        "alreadyExists": "シーズン「{{seasonName}}」は既に存在します",
+        "notFound": "指定された履歴が見つかりません",
+        "characterNotFound": "指定されたキャラクターが見つかりません"
+      }
     },
     "historyDetail": {
       "title": "{{seasonName}} の詳細",
@@ -190,6 +198,12 @@
     "validationRequired": "キャラクター名を入力してください",
     "emptyState": "キャラクターがありません",
     "createFirst": "最初のキャラクターを作成してください",
+    "errors": {
+      "alreadyExists": "キャラクター「{{name}}」は既に存在します",
+      "notFound": "キャラクターが見つかりません",
+      "loadFailed": "データの読み込みに失敗しました",
+      "matchRecordNotFound": "戦績記録が見つかりません"
+    },
     "stats": {
       "matches": "{{count}}試合",
       "totalMatches": "{{count}}試合",
@@ -218,17 +232,52 @@
     "recorded": "戦績を記録しました",
     "totalMatches": "試合数",
     "winRate": "勝率",
+    "allStagesTotal": "全ステージ合計",
     "actions": "操作",
     "pleaseRegisterJob": "ジョブを登録してください",
     "recentMatches": "最近の戦績"
   },
   "job": {
     "select": "ジョブ選択",
+    "selectJob": "使用ジョブを選択",
+    "selectJobDescription": "ジョブを選択してください",
     "tank": "タンク",
     "healer": "ヒーラー",
     "meleeDps": "近接DPS",
+    "melee_dps": "近接DPS",
     "physicalRangedDps": "物理遠隔DPS",
-    "magicalRangedDps": "魔法遠隔DPS"
+    "physical_ranged_dps": "物理遠隔DPS",
+    "magicalRangedDps": "魔法遠隔DPS",
+    "magical_ranged_dps": "魔法遠隔DPS",
+    "PLD": "ナイト",
+    "WAR": "戦士",
+    "DRK": "暗黒騎士",
+    "GNB": "ガンブレイカー",
+    "WHM": "白魔道士",
+    "SCH": "学者",
+    "AST": "占星術師",
+    "SGE": "賢者",
+    "MNK": "モンク",
+    "DRG": "竜騎士",
+    "NIN": "忍者",
+    "SAM": "侍",
+    "RPR": "リーパー",
+    "VPR": "ヴァイパー",
+    "BRD": "吟遊詩人",
+    "MCH": "機工士",
+    "DNC": "踊り子",
+    "BLM": "黒魔道士",
+    "SMN": "召喚士",
+    "RDM": "赤魔道士",
+    "PCT": "ピクトマンサー"
+  },
+  "maps": {
+    "THE_PALAISTRA": "パライストラ",
+    "VOLCANIC_HEART": "ヴォルカニックハート",
+    "CLOUD_NINE": "クラウドナイン",
+    "TOUHOU_KARAKURI_GOTEN": "東方絡繰御殿",
+    "RED_SANDS": "レッドサンズ",
+    "BAYSIDE_BATTLEGROUND": "ベイサイドバトルグラウンド"
   },
   "chart": {
     "winRate": "勝率",
@@ -237,6 +286,7 @@
     "usageRate": "使用率",
     "matches": "試合数",
     "noData": "データがありません",
+    "noMatchData": "試合データがありません",
     "selectJobs": "ジョブを選択（最大5個）",
     "hour": "{{hour}}時",
     "day": {
@@ -247,6 +297,54 @@
       "thursday": "木",
       "friday": "金",
       "saturday": "土"
+    },
+    "labels": {
+      "character": "キャラクター",
+      "job": "ジョブ",
+      "map": "マップ",
+      "allCharacters": "すべてのキャラクター",
+      "allJobs": "すべてのジョブ",
+      "allMaps": "すべてのマップ",
+      "jobSelection": "ジョブ選択（最大5つ）",
+      "selectJob": "ジョブを選択"
+    },
+    "titles": {
+      "dailyWinLoss": "日別勝敗数と勝率推移",
+      "weeklyWinRate": "曜日別勝率比較",
+      "hourlyWinRate": "時間帯別勝率分析",
+      "jobUsageRate": "ジョブ使用率",
+      "jobWinRateByMap": "マップ別ジョブ勝率比較"
+    },
+    "axes": {
+      "matchCount": "対戦回数",
+      "winRatePercent": "勝率 (%)",
+      "date": "日付",
+      "weekday": "曜日",
+      "hour": "時間帯"
+    },
+    "legend": {
+      "win": "Win",
+      "lose": "Lose",
+      "winRate": "WinRate",
+      "lossRate": "LoseRate"
+    },
+    "tooltip": {
+      "usageCount": "使用回数",
+      "usageRatePercent": "使用率",
+      "win": "Win",
+      "lose": "Lose",
+      "total": "合計",
+      "matches": "試合",
+      "noMatchData": "試合データなし"
+    },
+    "weekdays": {
+      "sunday": "日曜日",
+      "monday": "月曜日",
+      "tuesday": "火曜日",
+      "wednesday": "水曜日",
+      "thursday": "木曜日",
+      "friday": "金曜日",
+      "saturday": "土曜日"
     }
   },
   "language": {

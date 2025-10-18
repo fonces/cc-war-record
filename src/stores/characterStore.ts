@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import i18next from "i18next";
 import type { Character, MatchRecord, CharacterStats, CreateCharacterInput, CreateMatchRecordInput } from "@/types";
 import { generateUUID, getCurrentISOString } from "@/utils/uuid";
 import { getFromLocalStorage, saveToLocalStorage } from "@/utils/localStorage";
@@ -69,7 +70,7 @@ export const useCharacterStore = create<CharacterState & CharacterActions>((set,
     } catch (error) {
       set({
         isLoading: false,
-        error: error instanceof Error ? error.message : "データの読み込みに失敗しました",
+        error: error instanceof Error ? error.message : i18next.t("character.errors.loadFailed"),
       });
     }
   },
@@ -81,8 +82,9 @@ export const useCharacterStore = create<CharacterState & CharacterActions>((set,
     // 重複チェック（キャラクター名）
     const existingCharacter = characters.find((c) => c.name === input.name);
     if (existingCharacter) {
-      set({ error: `キャラクター「${input.name}」は既に存在します` });
-      throw new Error(`キャラクター「${input.name}」は既に存在します`);
+      const errorMsg = i18next.t("character.errors.alreadyExists", { name: input.name });
+      set({ error: errorMsg });
+      throw new Error(errorMsg);
     }
 
     const now = getCurrentISOString();
@@ -112,14 +114,14 @@ export const useCharacterStore = create<CharacterState & CharacterActions>((set,
 
     const targetCharacter = characters.find((c) => c.uuid === uuid);
     if (!targetCharacter) {
-      set({ error: "キャラクターが見つかりません" });
+      set({ error: i18next.t("character.errors.notFound") });
       return false;
     }
 
     // 重複チェック（同じ名前の他のキャラクターが存在するか）
     const existingCharacter = characters.find((c) => c.name === name.trim() && c.uuid !== uuid);
     if (existingCharacter) {
-      set({ error: `キャラクター「${name.trim()}」は既に存在します` });
+      set({ error: i18next.t("character.errors.alreadyExists", { name: name.trim() }) });
       return false;
     }
 
@@ -143,7 +145,7 @@ export const useCharacterStore = create<CharacterState & CharacterActions>((set,
 
     const targetCharacter = characters.find((c) => c.uuid === uuid);
     if (!targetCharacter) {
-      set({ error: "キャラクターが見つかりません" });
+      set({ error: i18next.t("character.errors.notFound") });
       return false;
     }
 
@@ -200,7 +202,7 @@ export const useCharacterStore = create<CharacterState & CharacterActions>((set,
 
     const targetRecord = matchRecords.find((m) => m.uuid === uuid);
     if (!targetRecord) {
-      set({ error: "戦績記録が見つかりません" });
+      set({ error: i18next.t("character.errors.matchRecordNotFound") });
       return false;
     }
 

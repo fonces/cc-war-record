@@ -251,9 +251,7 @@ export const CharacterCard = ({
         <StyledCharacterBody>
           {stats.usedJobs.length === 0 ? (
             <StyledEmptyStats>
-              <StyledAddJobButton onClick={() => onOpenJobRegistration(stats.character.uuid)}>
-                {t("match.pleaseRegisterJob")}
-              </StyledAddJobButton>
+              <StyledAddJobButton onClick={() => onOpenJobRegistration(stats.character.uuid)}>{t("match.pleaseRegisterJob")}</StyledAddJobButton>
             </StyledEmptyStats>
           ) : (
             <MatchRecordTable

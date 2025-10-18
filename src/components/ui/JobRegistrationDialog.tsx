@@ -4,6 +4,7 @@ import { JOBS, JOB_INFO, ROLE_INFO, ROLES } from "@/types/jobs";
 import type { Job } from "@/types";
 import { useHistoryStore } from "@/stores/historyStore";
 import { useCharacterStore } from "@/stores/characterStore";
+import { useTranslation } from "@/hooks";
 
 type JobRegistrationDialogProps = {
   /** ダイアログの表示状態 */
@@ -89,6 +90,7 @@ const StyledJobName = styled.span`
  * ジョブ登録ダイアログコンポーネント
  */
 export const JobRegistrationDialog = ({ isOpen, onClose, onRegister, characterUuid, historyUuid, isLoading = false }: JobRegistrationDialogProps) => {
+  const { t } = useTranslation();
   const addCharacterStats = useHistoryStore((state) => state.addCharacterStats);
   const getHistoryByUuid = useHistoryStore((state) => state.getHistoryByUuid);
   const characters = useCharacterStore((state) => state.characters);
@@ -131,14 +133,14 @@ export const JobRegistrationDialog = ({ isOpen, onClose, onRegister, characterUu
   }));
 
   return (
-    <Dialog isOpen={isOpen} onClose={onClose} title="使用ジョブを選択" isLoading={isLoading}>
+    <Dialog isOpen={isOpen} onClose={onClose} title={t("job.selectJob")} isLoading={isLoading}>
       <StyledJobSelection>
-        <StyledSectionTitle>ジョブを選択してください</StyledSectionTitle>
-        {jobsByRole.map(({ role, roleInfo, jobs }) => (
+        <StyledSectionTitle>{t("job.selectJobDescription")}</StyledSectionTitle>
+        {jobsByRole.map(({ role, jobs }) => (
           <StyledRoleSection key={role}>
             <StyledRoleTitle>
               <RoleIcon role={role} size={24} />
-              {roleInfo.name}
+              {t(`job.${role}`)}
             </StyledRoleTitle>
             <StyledJobGrid>
               {jobs.map((job) => {
@@ -146,7 +148,7 @@ export const JobRegistrationDialog = ({ isOpen, onClose, onRegister, characterUu
                 return (
                   <StyledJobCard key={job} isSelected={false} isDisabled={isDisabled} onClick={() => handleJobSelect(job)} type="button" disabled={isDisabled}>
                     <JobIcon job={job} size={32} />
-                    <StyledJobName>{JOB_INFO[job].name}</StyledJobName>
+                    <StyledJobName>{t(`job.${job}`)}</StyledJobName>
                   </StyledJobCard>
                 );
               })}

@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import i18next from "i18next";
 import type { History, CreateHistoryInput, UpdateHistoryInput, CharacterStats, Character, AddUsedJobInput, MatchRecord } from "@/types";
 import { generateUUID, getCurrentISOString } from "@/utils/uuid";
 import { getFromLocalStorage, removeFromLocalStorage, saveToLocalStorage } from "@/utils/localStorage";
@@ -64,7 +65,7 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
     } catch (error) {
       set({
         isLoading: false,
-        error: error instanceof Error ? error.message : "履歴の読み込みに失敗しました",
+        error: error instanceof Error ? error.message : i18next.t("histories.errors.loadFailed"),
       });
     }
   },
@@ -76,8 +77,9 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
     // 重複チェック（シーズン名）
     const existingHistory = histories.find((h) => h.seasonName === input.seasonName);
     if (existingHistory) {
-      set({ error: `シーズン「${input.seasonName}」は既に存在します` });
-      throw new Error(`シーズン「${input.seasonName}」は既に存在します`);
+      const errorMsg = i18next.t("histories.errors.alreadyExists", { seasonName: input.seasonName });
+      set({ error: errorMsg });
+      throw new Error(errorMsg);
     }
 
     const now = getCurrentISOString();
@@ -132,7 +134,7 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
 
     const historyIndex = histories.findIndex((h) => h.uuid === uuid);
     if (historyIndex === -1) {
-      set({ error: "指定された履歴が見つかりません" });
+      set({ error: i18next.t("histories.errors.notFound") });
       return false;
     }
 
@@ -140,7 +142,7 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
     if (input.seasonName) {
       const existingHistory = histories.find((h) => h.uuid !== uuid && h.seasonName === input.seasonName);
       if (existingHistory) {
-        set({ error: `シーズン「${input.seasonName}」は既に存在します` });
+        set({ error: i18next.t("histories.errors.alreadyExists", { seasonName: input.seasonName }) });
         return false;
       }
     }
@@ -171,7 +173,7 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
 
     const historyIndex = histories.findIndex((h) => h.uuid === uuid);
     if (historyIndex === -1) {
-      set({ error: "指定された履歴が見つかりません" });
+      set({ error: i18next.t("histories.errors.notFound") });
       return false;
     }
 
@@ -213,7 +215,7 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
 
     const historyIndex = histories.findIndex((h) => h.uuid === historyUuid);
     if (historyIndex === -1) {
-      set({ error: "指定された履歴が見つかりません" });
+      set({ error: i18next.t("histories.errors.notFound") });
       return null;
     }
 
@@ -261,7 +263,7 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
 
     const historyIndex = histories.findIndex((h) => h.uuid === input.seasonUuid);
     if (historyIndex === -1) {
-      set({ error: "指定された履歴が見つかりません" });
+      set({ error: i18next.t("histories.errors.notFound") });
       return false;
     }
 
@@ -271,7 +273,7 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
     const characterStatsIndex = history.characterStats.findIndex((cs) => cs.character.uuid === input.characterUuid);
 
     if (characterStatsIndex === -1) {
-      set({ error: "指定されたキャラクターが見つかりません" });
+      set({ error: i18next.t("histories.errors.characterNotFound") });
       return false;
     }
 

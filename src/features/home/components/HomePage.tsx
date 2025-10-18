@@ -256,8 +256,8 @@ export const HomePage = () => {
   if (isLoading) {
     return (
       <PageContainer>
-        <PageTitle>現シーズンの戦績</PageTitle>
-        <PageDescription>読み込み中...</PageDescription>
+        <PageTitle>{t("pages.home.title", { seasonName: "" })}</PageTitle>
+        <PageDescription>{t("common.loading")}</PageDescription>
       </PageContainer>
     );
   }

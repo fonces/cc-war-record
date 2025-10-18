@@ -3,8 +3,10 @@ import { useState } from "react";
 import { ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { Select } from "@/components/ui";
 import type { History, MatchRecord, Job, CrystalConflictMap, Character } from "@/types";
-import { JOB_INFO, JOBS } from "@/types/jobs";
-import { MAP_INFO, MAPS } from "@/types/maps";
+import { JOBS } from "@/types/jobs";
+import { MAPS } from "@/types/maps";
+import { getMapName } from "@/utils/maps";
+import { useTranslation } from "@/hooks";
 
 const StyledChartContainer = styled.div`
   background: ${({ theme }) => theme.colors.gray[50]};
@@ -116,6 +118,7 @@ const aggregateDailyWinLoss = (
  * 日別勝敗数グラフコンポーネント
  */
 export const DailyWinLossChart = ({ history, matchRecords, characters }: DailyWinLossChartProps) => {
+  const { t } = useTranslation();
   const [selectedCharacterUuid, setSelectedCharacterUuid] = useState<string | null>(null);
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const [selectedMap, setSelectedMap] = useState<CrystalConflictMap | null>(null);
@@ -125,15 +128,15 @@ export const DailyWinLossChart = ({ history, matchRecords, characters }: DailyWi
   return (
     <StyledChartContainer>
       <StyledChartHeader>
-        <StyledChartTitle>日別勝敗数</StyledChartTitle>
+        <StyledChartTitle>{t("chart.titles.dailyWinLoss")}</StyledChartTitle>
         <StyledFiltersWrapper>
           <Select
-            label="キャラクター"
+            label={t("chart.labels.character")}
             id="character-filter"
             value={selectedCharacterUuid || ""}
             onChange={(e) => setSelectedCharacterUuid(e.target.value || null)}
             options={[
-              { value: "", label: "すべてのキャラクター" },
+              { value: "", label: t("chart.labels.allCharacters") },
               ...characters.map((character) => ({
                 value: character.uuid,
                 label: character.name,
@@ -142,29 +145,29 @@ export const DailyWinLossChart = ({ history, matchRecords, characters }: DailyWi
             width="200px"
           />
           <Select
-            label="ジョブ"
+            label={t("chart.labels.job")}
             id="job-filter"
             value={selectedJob || ""}
             onChange={(e) => setSelectedJob((e.target.value as Job) || null)}
             options={[
-              { value: "", label: "すべてのジョブ" },
+              { value: "", label: t("chart.labels.allJobs") },
               ...Object.values(JOBS).map((job) => ({
                 value: job,
-                label: `${JOB_INFO[job].name} (${job})`,
+                label: `${t(`job.${job}`)} (${job})`,
               })),
             ]}
             width="200px"
           />
           <Select
-            label="マップ"
+            label={t("chart.labels.map")}
             id="map-filter"
             value={selectedMap || ""}
             onChange={(e) => setSelectedMap((e.target.value as CrystalConflictMap) || null)}
             options={[
-              { value: "", label: "すべてのマップ" },
+              { value: "", label: t("chart.labels.allMaps") },
               ...Object.values(MAPS).map((map) => ({
                 value: map,
-                label: MAP_INFO[map].name,
+                label: getMapName(map, t),
               })),
             ]}
             width="200px"
@@ -175,8 +178,8 @@ export const DailyWinLossChart = ({ history, matchRecords, characters }: DailyWi
         <ComposedChart data={dailyData}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" tick={{ fontSize: 12 }} angle={-45} textAnchor="end" height={80} />
-          <YAxis yAxisId="left" label={{ value: "対戦回数", angle: -90, position: "insideLeft" }} allowDecimals={false} />
-          <YAxis yAxisId="right" orientation="right" label={{ value: "勝率 (%)", angle: 90, position: "insideRight" }} domain={[0, 100]} />
+          <YAxis yAxisId="left" label={{ value: t("chart.axes.matchCount"), angle: -90, position: "insideLeft" }} allowDecimals={false} />
+          <YAxis yAxisId="right" orientation="right" label={{ value: t("chart.axes.winRatePercent"), angle: 90, position: "insideRight" }} domain={[0, 100]} />
           <Tooltip />
           <Legend />
           <Bar yAxisId="left" dataKey="Win" fill="#4ade80" stackId="a" />

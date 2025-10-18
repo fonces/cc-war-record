@@ -138,6 +138,7 @@ applyTo: "src/**"
 - **TypeScriptを必ず使用し、すべてのコンポーネントに型定義を行う**
 - コンポーネントファイルの拡張子は`.tsx`を使用
 - **スタイリングはstyled-componentsを使用**
+- **多言語化対応は必須**: すべてのユーザー向けテキストは`react-i18next`を使用して翻訳可能にする
 - コンポーネントは機能ごとに分割し、再利用可能な形で設計
 - コンポーネント名はPascalCaseを使用
 - **Feature-based構造**: 機能ごとに`features/`ディレクトリ配下に配置
@@ -169,7 +170,160 @@ applyTo: "src/**"
 - カスタムフックは`use`で始まる名前にし、戻り値の型を明示してロジックの再利用を促進
 - イベントハンドラーの型は`React.MouseEvent`、`React.ChangeEvent`などを使用
 
+## 多言語化対応ルール
+
+### 基本原則
+
+- **すべてのユーザー向けテキストは多言語化対応必須**
+- ハードコードされた日本語テキストは絶対に使用しない
+- `react-i18next`を使用し、翻訳キーで管理
+- 対応言語: 日本語（ja）、英語（en）、韓国語（ko）
+
+### コンポーネントでの使用
+
+- `useTranslation`フックを使用: `const { t } = useTranslation();`
+- テキスト表示は翻訳キーで: `{t("common.confirm")}`, `{t("pages.home.title")}`
+- 動的な値は補間機能を使用: `t("character.errors.alreadyExists", { name: characterName })`
+- aria-labelなどアクセシビリティ属性も翻訳対象
+
+### Zustandストアでの使用
+
+- i18nextを直接インポート: `import i18next from "i18next";`
+- エラーメッセージは翻訳キーで: `set({ error: i18next.t("histories.errors.notFound") });`
+- ストア内では`useTranslation`フックは使用できないため`i18next.t()`を使用
+
+### 翻訳ファイルの構造
+
+- 翻訳ファイル: `/src/lib/locales/{ja,en,ko}/translation.json`
+- ネストした構造で整理: `common`, `navigation`, `pages`, `character`, `job`, `maps`, `chart`など
+- キー名は明確で一貫性のある命名規則に従う
+
 ## 良い例・悪い例
+
+### ✅ 良い例（多言語化対応）
+
+#### コンポーネントでの多言語化
+
+```tsx
+import { useTranslation } from "react-i18next";
+import { Button } from "@/components/ui/Button";
+
+export const DeleteDialog = ({ onConfirm, onCancel }: DeleteDialogProps) => {
+  const { t } = useTranslation();
+
+  return (
+    <div>
+      <h2>{t("common.confirmDelete")}</h2>
+      <p>{t("character.messages.deleteConfirmation")}</p>
+      <Button onClick={onConfirm}>{t("common.delete")}</Button>
+      <Button onClick={onCancel}>{t("common.cancel")}</Button>
+    </div>
+  );
+};
+```
+
+#### Zustandストアでの多言語化
+
+```tsx
+import { create } from "zustand";
+import i18next from "i18next";
+import type { Character } from "@/types";
+
+type CharacterState = {
+  characters: Character[];
+  error: string | null;
+  addCharacter: (character: Character) => boolean;
+};
+
+export const useCharacterStore = create<CharacterState>((set, get) => ({
+  characters: [],
+  error: null,
+  addCharacter: (character) => {
+    const { characters } = get();
+
+    if (characters.some((c) => c.name === character.name)) {
+      set({ error: i18next.t("character.errors.alreadyExists", { name: character.name }) });
+      return false;
+    }
+
+    set({ characters: [...characters, character], error: null });
+    return true;
+  },
+}));
+```
+
+#### 動的な値を含む翻訳
+
+```tsx
+import { useTranslation } from "react-i18next";
+
+export const WelcomeMessage = ({ userName }: WelcomeMessageProps) => {
+  const { t } = useTranslation();
+
+  return (
+    <div>
+      <h1>{t("pages.home.welcome", { name: userName })}</h1>
+      <p>{t("pages.home.lastLogin", { date: new Date().toLocaleDateString() })}</p>
+    </div>
+  );
+};
+```
+
+### ❌ 悪い例（多言語化対応なし）
+
+#### ハードコードされたテキスト（絶対禁止）
+
+```tsx
+// ❌ 悪い例: ハードコードされた日本語テキスト
+export const DeleteDialog = ({ onConfirm, onCancel }: DeleteDialogProps) => {
+  return (
+    <div>
+      <h2>削除の確認</h2>
+      <p>本当に削除しますか？</p>
+      <Button onClick={onConfirm}>削除</Button>
+      <Button onClick={onCancel}>キャンセル</Button>
+    </div>
+  );
+};
+```
+
+#### ストアでのハードコードされたエラーメッセージ（絶対禁止）
+
+```tsx
+// ❌ 悪い例: ハードコードされた日本語エラーメッセージ
+export const useCharacterStore = create<CharacterState>((set, get) => ({
+  characters: [],
+  error: null,
+  addCharacter: (character) => {
+    const { characters } = get();
+
+    if (characters.some((c) => c.name === character.name)) {
+      set({ error: `キャラクター「${character.name}」は既に存在します` });
+      return false;
+    }
+
+    set({ characters: [...characters, character], error: null });
+    return true;
+  },
+}));
+```
+
+#### 英語のハードコードも同様に禁止
+
+```tsx
+// ❌ 悪い例: 英語のハードコードも禁止
+export const ConfirmButton = () => {
+  return <Button>Confirm</Button>; // "Confirm"もハードコード
+};
+
+// ✅ 良い例: 翻訳キーを使用
+export const ConfirmButton = () => {
+  const { t } = useTranslation();
+  return <Button>{t("common.confirm")}</Button>;
+};
+```
+
+## 良い例・悪い例（その他）
 
 ### ✅ 良い例（Bulletproof React準拠）
 
@@ -335,6 +489,7 @@ export { authApi } from "./api/auth";
 #### Feature内のコンポーネント (`src/features/auth/components/LoginForm/index.tsx`)
 
 ```tsx
+import { useTranslation } from "react-i18next";
 import { useLogin } from "@/features/auth";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -344,6 +499,7 @@ type LoginFormProps = {
 };
 
 export const LoginForm = ({ onSuccess }: LoginFormProps) => {
+  const { t } = useTranslation();
   const { mutate: login, isPending } = useLogin({ onSuccess });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -357,10 +513,10 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Input name="email" type="email" label="メールアドレス" required />
-      <Input name="password" type="password" label="パスワード" required />
+      <Input name="email" type="email" label={t("auth.emailLabel")} required />
+      <Input name="password" type="password" label={t("auth.passwordLabel")} required />
       <Button type="submit" disabled={isPending}>
-        {isPending ? "ログイン中..." : "ログイン"}
+        {isPending ? t("auth.loggingIn") : t("auth.login")}
       </Button>
     </form>
   );

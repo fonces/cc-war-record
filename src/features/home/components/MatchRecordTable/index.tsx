@@ -2,9 +2,11 @@ import styled from "styled-components";
 import { useState } from "react";
 import { Icon } from "@/components/ui";
 import type { MatchRecord, Job, CrystalConflictMap } from "@/types";
-import { MAPS, MAP_INFO } from "@/types/maps";
+import { MAPS } from "@/types/maps";
 import { getWinRateColor } from "@/utils/colors";
+import { getMapName } from "@/utils/maps";
 import { JobSummaryTable } from "./JobSummaryTable";
+import { useTranslation } from "@/hooks";
 
 const StyledMapTablesContainer = styled.div`
   display: flex;
@@ -72,7 +74,6 @@ type JobSummaryForMap = {
 
 type MapJobSummaries = {
   map: CrystalConflictMap;
-  mapName: string;
   totalMatches: number;
   totalWins: number;
   totalLosses: number;
@@ -157,7 +158,6 @@ const calculateMapJobSummaries = (matchRecords: MatchRecord[]): MapJobSummaries[
 
     return {
       map,
-      mapName: MAP_INFO[map].name,
       totalMatches,
       totalWins,
       totalLosses,
@@ -215,6 +215,8 @@ const calculateTotalSummary = (matchRecords: MatchRecord[], usedJobs: Job[]): Jo
  * 戦績記録テーブルコンポーネント（マップごとのジョブサマリー表示）
  */
 export const MatchRecordTable = ({ usedJobs, matchRecords, onAddWin, onAddLoss, onRevertLast }: MatchRecordTableProps) => {
+  const { t } = useTranslation();
+
   // マップごとのジョブサマリーを計算
   const mapJobSummaries = calculateMapJobSummaries(matchRecords);
 
@@ -246,14 +248,18 @@ export const MatchRecordTable = ({ usedJobs, matchRecords, onAddWin, onAddLoss, 
           <StyledMapTitle onClick={() => toggleMap(mapData.map)}>
             <StyledMapTitleLeft>
               <Icon name={openMaps.has(mapData.map) ? "minus" : "add"} size={16} />
-              <span>{mapData.mapName}</span>
+              <span>{getMapName(mapData.map, t)}</span>
             </StyledMapTitleLeft>
             <StyledMapSummary>
-              <span>{mapData.totalMatches}試合</span>
+              <span>{t("character.stats.matches", { count: mapData.totalMatches })}</span>
               <span>
-                {mapData.totalWins}勝 / {mapData.totalLosses}敗
+                {t("character.stats.wins", { count: mapData.totalWins })} / {t("character.stats.losses", { count: mapData.totalLosses })}
               </span>
-              {0 < mapData.totalMatches ? <StyledMapWinRate winRate={mapData.mapWinRate}>勝率{mapData.mapWinRate}%</StyledMapWinRate> : <span>勝率--%</span>}
+              {0 < mapData.totalMatches ? (
+                <StyledMapWinRate winRate={mapData.mapWinRate}>{t("character.stats.winRate", { rate: mapData.mapWinRate })}</StyledMapWinRate>
+              ) : (
+                <span>{t("character.stats.noWinRate")}</span>
+              )}
             </StyledMapSummary>
           </StyledMapTitle>
           <StyledMapContent isOpen={openMaps.has(mapData.map)}>
@@ -266,14 +272,18 @@ export const MatchRecordTable = ({ usedJobs, matchRecords, onAddWin, onAddLoss, 
       <StyledMapSection>
         <StyledMapTitle style={{ cursor: "default" }}>
           <StyledMapTitleLeft>
-            <span>全ステージ合計</span>
+            <span>{t("match.allStagesTotal")}</span>
           </StyledMapTitleLeft>
           <StyledMapSummary>
-            <span>{totalMatches}試合</span>
+            <span>{t("character.stats.matches", { count: totalMatches })}</span>
             <span>
-              {totalWins}勝 / {totalLosses}敗
+              {t("character.stats.wins", { count: totalWins })} / {t("character.stats.losses", { count: totalLosses })}
             </span>
-            {0 < totalMatches ? <StyledMapWinRate winRate={totalWinRate}>勝率{totalWinRate}%</StyledMapWinRate> : <span>勝率--%</span>}
+            {0 < totalMatches ? (
+              <StyledMapWinRate winRate={totalWinRate}>{t("character.stats.winRate", { rate: totalWinRate })}</StyledMapWinRate>
+            ) : (
+              <span>{t("character.stats.noWinRate")}</span>
+            )}
           </StyledMapSummary>
         </StyledMapTitle>
         <JobSummaryTable usedJobs={usedJobs} jobSummaries={totalSummaries} />

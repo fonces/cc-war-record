@@ -3,9 +3,12 @@ import { useState } from "react";
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Legend, ResponsiveContainer, Tooltip } from "recharts";
 import { Select, MultiSelect } from "@/components/ui";
 import type { History, MatchRecord, Job, Character } from "@/types";
+import type { TFunction } from "i18next";
 import { JOB_INFO, JOBS } from "@/types/jobs";
-import { MAP_INFO, MAPS } from "@/types/maps";
+import { MAPS } from "@/types/maps";
 import { getRadarChartJobs, saveRadarChartJobs } from "@/utils/localStorage";
+import { getMapName } from "@/utils/maps";
+import { useTranslation } from "@/hooks";
 
 const StyledChartContainer = styled.div`
   background: ${({ theme }) => theme.colors.gray[50]};
@@ -43,7 +46,7 @@ interface JobWinRateRadarChartProps {
 /**
  * マップごとのジョブ勝率データを集計する関数
  */
-const aggregateJobWinRateByMap = (history: History, matchRecords: MatchRecord[], selectedCharacterUuid: string | null, selectedJobs: Job[]) => {
+const aggregateJobWinRateByMap = (history: History, matchRecords: MatchRecord[], selectedCharacterUuid: string | null, selectedJobs: Job[], t: TFunction) => {
   // 該当シーズンの試合データをフィルタ
   const seasonMatches = matchRecords.filter((match) => {
     if (match.seasonUuid !== history.uuid) return false;
@@ -75,7 +78,7 @@ const aggregateJobWinRateByMap = (history: History, matchRecords: MatchRecord[],
   // RadarChart用のデータ形式に変換
   return Object.values(MAPS).map((map) => {
     const mapData: Record<string, string | number> = {
-      map: MAP_INFO[map].name,
+      map: getMapName(map, t),
       fullMark: 100,
     };
 
@@ -96,6 +99,7 @@ const aggregateJobWinRateByMap = (history: History, matchRecords: MatchRecord[],
  * ジョブ別勝率レーダーチャートコンポーネント
  */
 export const JobWinRateRadarChart = ({ history, matchRecords, characters }: JobWinRateRadarChartProps) => {
+  const { t } = useTranslation();
   const [selectedCharacterUuid, setSelectedCharacterUuid] = useState<string | null>(null);
   const [selectedJobs, setSelectedJobs] = useState<Job[]>(() => getRadarChartJobs());
 
@@ -106,20 +110,20 @@ export const JobWinRateRadarChart = ({ history, matchRecords, characters }: JobW
     saveRadarChartJobs(jobList);
   };
 
-  const radarData = aggregateJobWinRateByMap(history, matchRecords, selectedCharacterUuid, selectedJobs);
+  const radarData = aggregateJobWinRateByMap(history, matchRecords, selectedCharacterUuid, selectedJobs, t);
 
   return (
     <StyledChartContainer>
       <StyledChartHeader>
-        <StyledChartTitle>マップ別ジョブ勝率比較</StyledChartTitle>
+        <StyledChartTitle>{t("chart.titles.jobWinRateByMap")}</StyledChartTitle>
         <StyledFiltersWrapper>
           <Select
-            label="キャラクター"
+            label={t("chart.labels.character")}
             id="character-filter-radar"
             value={selectedCharacterUuid || ""}
             onChange={(e) => setSelectedCharacterUuid(e.target.value || null)}
             options={[
-              { value: "", label: "すべてのキャラクター" },
+              { value: "", label: t("chart.labels.allCharacters") },
               ...characters.map((character) => ({
                 value: character.uuid,
                 label: character.name,
@@ -128,14 +132,14 @@ export const JobWinRateRadarChart = ({ history, matchRecords, characters }: JobW
             width="200px"
           />
           <MultiSelect
-            label="ジョブ選択（最大5つ）"
+            label={t("chart.labels.jobSelection")}
             value={selectedJobs}
             onChange={handleJobsChange}
             options={Object.values(JOBS).map((job) => ({
               value: job,
-              label: `${JOB_INFO[job].name} (${job})`,
+              label: `${t(`job.${job}`)} (${job})`,
             }))}
-            placeholder="ジョブを選択"
+            placeholder={t("chart.labels.selectJob")}
             maxSelections={5}
             width="200px"
           />
@@ -147,7 +151,7 @@ export const JobWinRateRadarChart = ({ history, matchRecords, characters }: JobW
           <PolarAngleAxis dataKey="map" />
           <PolarRadiusAxis angle={90} domain={[0, 100]} />
           {selectedJobs.map((job) => (
-            <Radar key={job} name={`${JOB_INFO[job].name} (${job})`} dataKey={job} stroke={JOB_INFO[job].color} fill={JOB_INFO[job].color} fillOpacity={0.6} />
+            <Radar key={job} name={`${t(`job.${job}`)} (${job})`} dataKey={job} stroke={JOB_INFO[job].color} fill={JOB_INFO[job].color} fillOpacity={0.6} />
           ))}
           <Legend />
           <Tooltip />

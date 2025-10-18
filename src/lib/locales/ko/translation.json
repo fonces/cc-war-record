@@ -10,9 +10,11 @@
     "add": "추가",
     "back": "뒤로",
     "loading": "로딩 중...",
+    "processing": "처리 중...",
+    "closeDialog": "대화상자 닫기",
     "error": "오류가 발생했습니다",
     "noData": "데이터가 없습니다",
-    "success": "성공했습니다",
+    "success": "성공",
     "warning": "경고",
     "info": "정보"
   },
@@ -48,17 +50,23 @@
       }
     },
     "histories": {
-      "title": "기록 목록",
-      "description": "과거 시즌 목록을 표시하고 관리합니다. 각 시즌의 상세 정보는 상세 버튼에서 확인할 수 있습니다.",
+      "title": "히스토리 목록",
+      "description": "과거 시즌 목록을 표시하고 관리합니다. 각 시즌의 세부정보는 상세 버튼에서 확인할 수 있습니다.",
       "totalSeasons": "총 시즌 수: {{count}}개",
       "totalMatches": "총 경기 수: {{count}}",
       "latestCreated": "최근 생성",
       "detail": "상세",
       "delete": "삭제",
       "confirmDelete": "시즌 삭제",
-      "deleteDescription": "\"{{seasonName}}\"을 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.",
-      "emptyState": "기록이 없습니다",
-      "createFirstSeason": "시즌 기록이 아직 생성되지 않았습니다.\n새로운 시즌을 만들어주세요."
+      "deleteDescription": "\"{{seasonName}}\"을(를) 삭제하시겠습니까?\n이 작업은 취소할 수 없습니다.",
+      "emptyState": "히스토리가 없습니다",
+      "createFirstSeason": "시즌 히스토리가 아직 생성되지 않았습니다.\n새 시즌을 생성해주세요.",
+      "errors": {
+        "loadFailed": "히스토리 로드에 실패했습니다",
+        "alreadyExists": "시즌 \"{{seasonName}}\"은(는) 이미 존재합니다",
+        "notFound": "지정된 히스토리를 찾을 수 없습니다",
+        "characterNotFound": "지정된 캐릭터를 찾을 수 없습니다"
+      }
     },
     "historyDetail": {
       "title": "{{seasonName}} 상세",
@@ -180,16 +188,22 @@
     }
   },
   "character": {
-    "name": "캐릭터명",
+    "name": "캐릭터 이름",
     "create": "캐릭터 생성",
-    "edit": "캐릭터명 편집",
+    "edit": "캐릭터 이름 편집",
     "delete": "캐릭터 삭제",
     "confirmDelete": "삭제",
-    "deleteDescription": "캐릭터 \"{{name}}\"을 삭제하시겠습니까?<br/><span style='color: #dc2626; margin-top: 12px; font-size: 0.875rem; display: block;'>⚠️ 관련된 모든 전적 기록도 삭제됩니다. 이 작업은 되돌릴 수 없습니다.</span>",
-    "namePlaceholder": "캐릭터명을 입력하세요",
-    "validationRequired": "캐릭터명을 입력해주세요",
+    "deleteDescription": "캐릭터 \"{{name}}\"을(를) 삭제하시겠습니까?<br/><span style='color: #dc2626; margin-top: 12px; font-size: 0.875rem; display: block;'>⚠️ 관련된 모든 전적 기록도 삭제됩니다. 이 작업은 취소할 수 없습니다.</span>",
+    "namePlaceholder": "캐릭터 이름 입력",
+    "validationRequired": "캐릭터 이름을 입력해주세요",
     "emptyState": "캐릭터가 없습니다",
-    "createFirst": "첫 번째 캐릭터를 만들어주세요",
+    "createFirst": "첫 번째 캐릭터를 생성하세요",
+    "errors": {
+      "alreadyExists": "캐릭터 \"{{name}}\"은(는) 이미 존재합니다",
+      "notFound": "캐릭터를 찾을 수 없습니다",
+      "loadFailed": "데이터 로드에 실패했습니다",
+      "matchRecordNotFound": "전적 기록을 찾을 수 없습니다"
+    },
     "stats": {
       "matches": "{{count}}경기",
       "totalMatches": "{{count}}경기",
@@ -218,17 +232,52 @@
     "recorded": "전적이 기록되었습니다",
     "totalMatches": "경기 수",
     "winRate": "승률",
+    "allStagesTotal": "전체 스테이지 합계",
     "actions": "작업",
     "pleaseRegisterJob": "잡을 등록해주세요",
     "recentMatches": "최근 전적"
   },
   "job": {
     "select": "잡 선택",
+    "selectJob": "사용할 잡 선택",
+    "selectJobDescription": "잡을 선택해주세요",
     "tank": "탱커",
     "healer": "힐러",
     "meleeDps": "근접 DPS",
+    "melee_dps": "근접 DPS",
     "physicalRangedDps": "물리 원거리 DPS",
-    "magicalRangedDps": "마법 원거리 DPS"
+    "physical_ranged_dps": "물리 원거리 DPS",
+    "magicalRangedDps": "마법 원거리 DPS",
+    "magical_ranged_dps": "마법 원거리 DPS",
+    "PLD": "나이트",
+    "WAR": "전사",
+    "DRK": "암흑기사",
+    "GNB": "건브레이커",
+    "WHM": "백마도사",
+    "SCH": "학자",
+    "AST": "점성술사",
+    "SGE": "현자",
+    "MNK": "몽크",
+    "DRG": "용기사",
+    "NIN": "닌자",
+    "SAM": "사무라이",
+    "RPR": "리퍼",
+    "VPR": "바이퍼",
+    "BRD": "음유시인",
+    "MCH": "기공사",
+    "DNC": "무도가",
+    "BLM": "흑마도사",
+    "SMN": "소환사",
+    "RDM": "적마도사",
+    "PCT": "픽토맨서"
+  },
+  "maps": {
+    "THE_PALAISTRA": "팔라이스트라",
+    "VOLCANIC_HEART": "화산의 심장부",
+    "CLOUD_NINE": "클라우드 나인",
+    "TOUHOU_KARAKURI_GOTEN": "동방 기믹 저택",
+    "RED_SANDS": "붉은 사막 지대",
+    "BAYSIDE_BATTLEGROUND": "베이사이드 배틀그라운드"
   },
   "chart": {
     "winRate": "승률",
@@ -237,6 +286,7 @@
     "usageRate": "사용률",
     "matches": "경기 수",
     "noData": "데이터가 없습니다",
+    "noMatchData": "경기 데이터가 없습니다",
     "selectJobs": "잡 선택 (최대 5개)",
     "hour": "{{hour}}시",
     "day": {
@@ -247,6 +297,54 @@
       "thursday": "목",
       "friday": "금",
       "saturday": "토"
+    },
+    "labels": {
+      "character": "캐릭터",
+      "job": "잡",
+      "map": "맵",
+      "allCharacters": "모든 캐릭터",
+      "allJobs": "모든 잡",
+      "allMaps": "모든 맵",
+      "jobSelection": "잡 선택 (최대 5개)",
+      "selectJob": "잡 선택"
+    },
+    "titles": {
+      "dailyWinLoss": "일별 승패 및 승률 추이",
+      "weeklyWinRate": "요일별 승률 비교",
+      "hourlyWinRate": "시간대별 승률 분석",
+      "jobUsageRate": "잡 사용률",
+      "jobWinRateByMap": "맵별 잡 승률 비교"
+    },
+    "axes": {
+      "matchCount": "대전 횟수",
+      "winRatePercent": "승률 (%)",
+      "date": "날짜",
+      "weekday": "요일",
+      "hour": "시간대"
+    },
+    "legend": {
+      "win": "승리",
+      "lose": "패배",
+      "winRate": "승률",
+      "lossRate": "패배율"
+    },
+    "tooltip": {
+      "usageCount": "사용 횟수",
+      "usageRatePercent": "사용률",
+      "win": "승리",
+      "lose": "패배",
+      "total": "합계",
+      "matches": "경기",
+      "noMatchData": "경기 데이터 없음"
+    },
+    "weekdays": {
+      "sunday": "일요일",
+      "monday": "월요일",
+      "tuesday": "화요일",
+      "wednesday": "수요일",
+      "thursday": "목요일",
+      "friday": "금요일",
+      "saturday": "토요일"
     }
   },
   "language": {

@@ -24,7 +24,7 @@ i18n
   .use(initReactI18next) // React向けのi18n初期化
   .init({
     resources,
-    fallbackLng: "ja", // デフォルト言語
+    fallbackLng: "en", // デフォルト言語
     debug: false, // 開発時はtrueにしてデバッグ
 
     // 言語検出設定

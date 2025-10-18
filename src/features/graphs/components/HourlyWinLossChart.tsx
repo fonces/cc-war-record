@@ -3,8 +3,10 @@ import { useState } from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from "recharts";
 import { Select } from "@/components/ui";
 import type { History, MatchRecord, Job, CrystalConflictMap, Character } from "@/types";
-import { JOB_INFO, JOBS } from "@/types/jobs";
-import { MAP_INFO, MAPS } from "@/types/maps";
+import { JOBS } from "@/types/jobs";
+import { MAPS } from "@/types/maps";
+import { getMapName } from "@/utils/maps";
+import { useTranslation } from "@/hooks";
 
 const StyledChartContainer = styled.div`
   background: ${({ theme }) => theme.colors.gray[50]};
@@ -119,6 +121,7 @@ interface TooltipProps {
 }
 
 const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
+  const { t } = useTranslation();
   if (active && payload && payload.length) {
     const data = payload[0].payload;
     return (
@@ -132,9 +135,9 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
         }}
       >
         <p style={{ margin: "0 0 8px 0", fontWeight: "bold" }}>{`${label}`}</p>
-        <p style={{ margin: "4px 0", color: "#10b981" }}>{`Win: ${data.wins}試合 (${data.winRate}%)`}</p>
-        <p style={{ margin: "4px 0", color: "#ef4444" }}>{`Lose: ${data.losses}試合 (${data.lossRate}%)`}</p>
-        <p style={{ margin: "4px 0 0 0", fontWeight: "bold" }}>{`合計: ${data.total}試合`}</p>
+        <p style={{ margin: "4px 0", color: "#10b981" }}>{`${t("chart.tooltip.win")}: ${data.wins}${t("chart.tooltip.matches")} (${data.winRate}%)`}</p>
+        <p style={{ margin: "4px 0", color: "#ef4444" }}>{`${t("chart.tooltip.lose")}: ${data.losses}${t("chart.tooltip.matches")} (${data.lossRate}%)`}</p>
+        <p style={{ margin: "4px 0 0 0", fontWeight: "bold" }}>{`${t("chart.tooltip.total")}: ${data.total}${t("chart.tooltip.matches")}`}</p>
       </div>
     );
   }
@@ -145,6 +148,7 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
  * 時間別勝敗数チャートコンポーネント
  */
 export const HourlyWinLossChart = ({ history, matchRecords, characters }: HourlyWinLossChartProps) => {
+  const { t } = useTranslation();
   const [selectedCharacterUuid, setSelectedCharacterUuid] = useState<string | null>(null);
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const [selectedMap, setSelectedMap] = useState<CrystalConflictMap | null>(null);
@@ -154,15 +158,15 @@ export const HourlyWinLossChart = ({ history, matchRecords, characters }: Hourly
   return (
     <StyledChartContainer>
       <StyledChartHeader>
-        <StyledChartTitle>時間別勝敗率</StyledChartTitle>
+        <StyledChartTitle>{t("chart.titles.hourlyWinRate")}</StyledChartTitle>
         <StyledFiltersWrapper>
           <Select
-            label="キャラクター"
+            label={t("chart.labels.character")}
             id="character-filter-hourly"
             value={selectedCharacterUuid || ""}
             onChange={(e) => setSelectedCharacterUuid(e.target.value || null)}
             options={[
-              { value: "", label: "すべてのキャラクター" },
+              { value: "", label: t("chart.labels.allCharacters") },
               ...characters.map((character) => ({
                 value: character.uuid,
                 label: character.name,
@@ -171,29 +175,29 @@ export const HourlyWinLossChart = ({ history, matchRecords, characters }: Hourly
             width="200px"
           />
           <Select
-            label="ジョブ"
+            label={t("chart.labels.job")}
             id="job-filter-hourly"
             value={selectedJob || ""}
             onChange={(e) => setSelectedJob((e.target.value as Job) || null)}
             options={[
-              { value: "", label: "すべてのジョブ" },
+              { value: "", label: t("chart.labels.allJobs") },
               ...Object.values(JOBS).map((job) => ({
                 value: job,
-                label: `${JOB_INFO[job].name} (${job})`,
+                label: `${t(`job.${job}`)} (${job})`,
               })),
             ]}
             width="200px"
           />
           <Select
-            label="マップ"
+            label={t("chart.labels.map")}
             id="map-filter-hourly"
             value={selectedMap || ""}
             onChange={(e) => setSelectedMap((e.target.value as CrystalConflictMap) || null)}
             options={[
-              { value: "", label: "すべてのマップ" },
+              { value: "", label: t("chart.labels.allMaps") },
               ...Object.values(MAPS).map((map) => ({
                 value: map,
-                label: MAP_INFO[map].name,
+                label: getMapName(map, t),
               })),
             ]}
             width="200px"
@@ -212,7 +216,7 @@ export const HourlyWinLossChart = ({ history, matchRecords, characters }: Hourly
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="hour" tick={{ fontSize: 12 }} />
-          <YAxis label={{ value: "勝率 (%)", angle: -90, position: "insideLeft" }} domain={[0, 100]} tick={{ fontSize: 12 }} />
+          <YAxis label={{ value: t("chart.axes.winRatePercent"), angle: -90, position: "insideLeft" }} domain={[0, 100]} tick={{ fontSize: 12 }} />
           <Tooltip content={<CustomTooltip />} />
           <Legend />
           <Bar dataKey="winRate" name="WinRate" fill="#10b981" radius={[2, 2, 0, 0]}>

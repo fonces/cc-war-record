@@ -10,6 +10,8 @@
     "add": "Add",
     "back": "Back",
     "loading": "Loading...",
+    "processing": "Processing...",
+    "closeDialog": "Close dialog",
     "error": "An error occurred",
     "noData": "No data available",
     "success": "Success",
@@ -48,17 +50,23 @@
       }
     },
     "histories": {
-      "title": "Season History",
-      "description": "View and manage your past seasons. Click the detail button to view each season's details.",
+      "title": "History List",
+      "description": "View and manage past seasons. You can check the details of each season by clicking the detail button.",
       "totalSeasons": "Total Seasons: {{count}}",
       "totalMatches": "Total Matches: {{count}}",
       "latestCreated": "Latest Created",
-      "detail": "Detail",
+      "detail": "Details",
       "delete": "Delete",
       "confirmDelete": "Delete Season",
       "deleteDescription": "Are you sure you want to delete \"{{seasonName}}\"?\nThis action cannot be undone.",
-      "emptyState": "No history found",
-      "createFirstSeason": "No season history has been created yet.\nPlease create a new season."
+      "emptyState": "No history available",
+      "createFirstSeason": "No season history has been created yet.\nPlease create a new season.",
+      "errors": {
+        "loadFailed": "Failed to load history",
+        "alreadyExists": "Season \"{{seasonName}}\" already exists",
+        "notFound": "The specified history was not found",
+        "characterNotFound": "The specified character was not found"
+      }
     },
     "historyDetail": {
       "title": "{{seasonName}} Details",
@@ -185,11 +193,17 @@
     "edit": "Edit Character Name",
     "delete": "Delete Character",
     "confirmDelete": "Delete",
-    "deleteDescription": "Delete character \"{{name}}\"?<br/><span style='color: #dc2626; margin-top: 12px; font-size: 0.875rem; display: block;'>⚠️ All related match records will also be deleted. This action cannot be undone.</span>",
+    "deleteDescription": "Are you sure you want to delete character \"{{name}}\"?<br/><span style='color: #dc2626; margin-top: 12px; font-size: 0.875rem; display: block;'>⚠️ All associated match records will also be deleted. This action cannot be undone.</span>",
     "namePlaceholder": "Enter character name",
     "validationRequired": "Please enter a character name",
-    "emptyState": "No characters found",
-    "createFirst": "Please create your first character",
+    "emptyState": "No characters",
+    "createFirst": "Create your first character",
+    "errors": {
+      "alreadyExists": "Character \"{{name}}\" already exists",
+      "notFound": "Character not found",
+      "loadFailed": "Failed to load data",
+      "matchRecordNotFound": "Match record not found"
+    },
     "stats": {
       "matches": "{{count}} matches",
       "totalMatches": "{{count}} matches",
@@ -218,17 +232,52 @@
     "recorded": "Match recorded successfully",
     "totalMatches": "Matches",
     "winRate": "Win Rate",
+    "allStagesTotal": "All Stages Total",
     "actions": "Actions",
     "pleaseRegisterJob": "Please register a job",
     "recentMatches": "Recent Matches"
   },
   "job": {
     "select": "Select Job",
+    "selectJob": "Select Job to Use",
+    "selectJobDescription": "Please select a job",
     "tank": "Tank",
     "healer": "Healer",
     "meleeDps": "Melee DPS",
+    "melee_dps": "Melee DPS",
     "physicalRangedDps": "Physical Ranged DPS",
-    "magicalRangedDps": "Magical Ranged DPS"
+    "physical_ranged_dps": "Physical Ranged DPS",
+    "magicalRangedDps": "Magical Ranged DPS",
+    "magical_ranged_dps": "Magical Ranged DPS",
+    "PLD": "Paladin",
+    "WAR": "Warrior",
+    "DRK": "Dark Knight",
+    "GNB": "Gunbreaker",
+    "WHM": "White Mage",
+    "SCH": "Scholar",
+    "AST": "Astrologian",
+    "SGE": "Sage",
+    "MNK": "Monk",
+    "DRG": "Dragoon",
+    "NIN": "Ninja",
+    "SAM": "Samurai",
+    "RPR": "Reaper",
+    "VPR": "Viper",
+    "BRD": "Bard",
+    "MCH": "Machinist",
+    "DNC": "Dancer",
+    "BLM": "Black Mage",
+    "SMN": "Summoner",
+    "RDM": "Red Mage",
+    "PCT": "Pictomancer"
+  },
+  "maps": {
+    "THE_PALAISTRA": "The Palaistra",
+    "VOLCANIC_HEART": "Volcanic Heart",
+    "CLOUD_NINE": "Cloud Nine",
+    "TOUHOU_KARAKURI_GOTEN": "The Clockwork Castletown",
+    "RED_SANDS": "Red Sands",
+    "BAYSIDE_BATTLEGROUND": "Bayside Battleground"
   },
   "chart": {
     "winRate": "Win Rate",
@@ -237,6 +286,7 @@
     "usageRate": "Usage Rate",
     "matches": "Matches",
     "noData": "No data available",
+    "noMatchData": "No match data available",
     "selectJobs": "Select jobs (max 5)",
     "hour": "{{hour}}:00",
     "day": {
@@ -247,6 +297,54 @@
       "thursday": "Thu",
       "friday": "Fri",
       "saturday": "Sat"
+    },
+    "labels": {
+      "character": "Character",
+      "job": "Job",
+      "map": "Map",
+      "allCharacters": "All Characters",
+      "allJobs": "All Jobs",
+      "allMaps": "All Maps",
+      "jobSelection": "Job Selection (Max 5)",
+      "selectJob": "Select Job"
+    },
+    "titles": {
+      "dailyWinLoss": "Daily Win/Loss and Win Rate Trend",
+      "weeklyWinRate": "Win Rate Comparison by Day of Week",
+      "hourlyWinRate": "Win Rate Analysis by Time of Day",
+      "jobUsageRate": "Job Usage Rate",
+      "jobWinRateByMap": "Job Win Rate Comparison by Map"
+    },
+    "axes": {
+      "matchCount": "Match Count",
+      "winRatePercent": "Win Rate (%)",
+      "date": "Date",
+      "weekday": "Day of Week",
+      "hour": "Time of Day"
+    },
+    "legend": {
+      "win": "Win",
+      "lose": "Lose",
+      "winRate": "WinRate",
+      "lossRate": "LossRate"
+    },
+    "tooltip": {
+      "usageCount": "Usage Count",
+      "usageRatePercent": "Usage Rate",
+      "win": "Win",
+      "lose": "Lose",
+      "total": "Total",
+      "matches": "Matches",
+      "noMatchData": "No match data"
+    },
+    "weekdays": {
+      "sunday": "Sunday",
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday"
     }
   },
   "language": {

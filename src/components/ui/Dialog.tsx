@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import styled from "styled-components";
 import { Button, Icon } from "@/components/ui";
-import { useScrollLock } from "@/hooks";
+import { useScrollLock, useTranslation } from "@/hooks";
 
 type DialogProps = {
   /** ダイアログの表示状態 */
@@ -129,17 +129,13 @@ const StyledConfirmButton = styled(Button)<{
 /**
  * 汎用ダイアログコンポーネント
  */
-export const Dialog = ({
-  isOpen,
-  onClose,
-  title,
-  children,
-  confirmText = "確認",
-  cancelText = "キャンセル",
-  onConfirm,
-  confirmType = "primary",
-  isLoading = false,
-}: DialogProps) => {
+export const Dialog = ({ isOpen, onClose, title, children, confirmText, cancelText, onConfirm, confirmType = "primary", isLoading = false }: DialogProps) => {
+  const { t } = useTranslation();
+
+  // デフォルト値を翻訳キーから取得
+  const defaultConfirmText = confirmText ?? t("common.confirm");
+  const defaultCancelText = cancelText ?? t("common.cancel");
+
   // ダイアログが開いているときに背景のスクロールを防ぐ
   useScrollLock(isOpen);
 
@@ -164,7 +160,7 @@ export const Dialog = ({
       <StyledDialog role="dialog" aria-modal="true" aria-labelledby="dialog-title">
         <StyledHeader>
           <StyledTitle id="dialog-title">{title}</StyledTitle>
-          <StyledCloseButton onClick={onClose} aria-label="ダイアログを閉じる">
+          <StyledCloseButton onClick={onClose} aria-label={t("common.closeDialog")}>
             <Icon name="close" size={20} />
           </StyledCloseButton>
         </StyledHeader>
@@ -174,10 +170,10 @@ export const Dialog = ({
         {onConfirm && (
           <StyledFooter>
             <Button variant="secondary" onClick={onClose} disabled={isLoading}>
-              {cancelText}
+              {defaultCancelText}
             </Button>
             <StyledConfirmButton confirmType={confirmType} onClick={onConfirm} disabled={isLoading}>
-              {isLoading ? "処理中..." : confirmText}
+              {isLoading ? t("common.processing") : defaultConfirmText}
             </StyledConfirmButton>
           </StyledFooter>
         )}
