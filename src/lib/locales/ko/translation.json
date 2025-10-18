@@ -85,7 +85,7 @@
       },
       "results": {
         "win": "Win",
-        "loss": "Lose"
+        "loss": "Defeat"
       },
       "emptyState": "전적이 기록되지 않았습니다"
     },
@@ -323,16 +323,16 @@
       "hour": "시간대"
     },
     "legend": {
-      "win": "승리",
-      "lose": "패배",
-      "winRate": "승률",
-      "lossRate": "패배율"
+      "win": "Win",
+      "lose": "Defeat",
+      "winRate": "WinRate",
+      "lossRate": "DefeatRate"
     },
     "tooltip": {
       "usageCount": "사용 횟수",
       "usageRatePercent": "사용률",
-      "win": "승리",
-      "lose": "패배",
+      "win": "Win",
+      "lose": "Defeat",
       "total": "합계",
       "matches": "경기",
       "noMatchData": "경기 데이터 없음"

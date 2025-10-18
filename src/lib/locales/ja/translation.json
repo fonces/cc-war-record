@@ -85,7 +85,7 @@
       },
       "results": {
         "win": "Win",
-        "loss": "Lose"
+        "loss": "Defeat"
       },
       "emptyState": "戦績が記録されていません"
     },
@@ -224,7 +224,7 @@
     "map": "マップ",
     "result": "結果",
     "win": "勝ち",
-    "loss": "負け",
+    "loss": "敗北",
     "memo": "メモ",
     "memoPlaceholder": "メモを入力（任意）",
     "selectJob": "ジョブを選択してください",
@@ -324,15 +324,15 @@
     },
     "legend": {
       "win": "Win",
-      "lose": "Lose",
+      "lose": "Defeat",
       "winRate": "WinRate",
-      "lossRate": "LoseRate"
+      "lossRate": "DefeatRate"
     },
     "tooltip": {
       "usageCount": "使用回数",
       "usageRatePercent": "使用率",
       "win": "Win",
-      "lose": "Lose",
+      "lose": "Defeat",
       "total": "合計",
       "matches": "試合",
       "noMatchData": "試合データなし"

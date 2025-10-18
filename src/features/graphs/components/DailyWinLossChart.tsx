@@ -111,7 +111,7 @@ export const DailyWinLossChart = ({ history, matchRecords, characters }: DailyWi
           <Tooltip />
           <Legend />
           <Bar yAxisId="left" dataKey="Win" fill="#4ade80" stackId="a" />
-          <Bar yAxisId="left" dataKey="Lose" fill="#f87171" stackId="a" />
+          <Bar yAxisId="left" dataKey="Defeat" fill="#f87171" stackId="a" />
           <Line yAxisId="right" type="monotone" dataKey="WinRate" stroke="#3b82f6" strokeWidth={2} dot={{ r: 3 }} connectNulls={true} />
         </ComposedChart>
       </ResponsiveContainer>

@@ -81,7 +81,7 @@ export const aggregateDailyWinLoss = (
       date: formattedDate,
       fullDate: date, // ツールチップ用に完全な日付も保持
       Win: stats.wins,
-      Lose: stats.losses,
+      Defeat: stats.losses,
       WinRate: winRate,
     };
   });
@@ -251,13 +251,7 @@ export const aggregateJobUsageRate = (
 /**
  * マップごとのジョブ勝率データを集計する関数
  */
-export const aggregateJobWinRateByMap = (
-  history: History,
-  matchRecords: MatchRecord[],
-  selectedCharacterUuid: string | null,
-  selectedJobs: Job[],
-  t: TFunction,
-) => {
+export const aggregateJobWinRateByMap = (history: History, matchRecords: MatchRecord[], selectedCharacterUuid: string | null, selectedJobs: Job[], t: TFunction) => {
   // 該当シーズンの試合データをフィルタ
   const seasonMatches = matchRecords.filter((match) => {
     if (match.seasonUuid !== history.uuid) return false;

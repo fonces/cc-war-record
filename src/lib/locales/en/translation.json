@@ -85,7 +85,7 @@
       },
       "results": {
         "win": "Win",
-        "loss": "Lose"
+        "loss": "Defeat"
       },
       "emptyState": "No matches recorded"
     },
@@ -224,7 +224,7 @@
     "map": "Map",
     "result": "Result",
     "win": "Win",
-    "loss": "Loss",
+    "loss": "Defeat",
     "memo": "Memo",
     "memoPlaceholder": "Enter memo (optional)",
     "selectJob": "Please select a job",
@@ -282,7 +282,7 @@
   "chart": {
     "winRate": "Win Rate",
     "winCount": "Wins",
-    "lossCount": "Losses",
+    "lossCount": "Defeats",
     "usageRate": "Usage Rate",
     "matches": "Matches",
     "noData": "No data available",
@@ -324,15 +324,15 @@
     },
     "legend": {
       "win": "Win",
-      "lose": "Lose",
+      "lose": "Defeat",
       "winRate": "WinRate",
-      "lossRate": "LossRate"
+      "lossRate": "DefeatRate"
     },
     "tooltip": {
       "usageCount": "Usage Count",
       "usageRatePercent": "Usage Rate",
       "win": "Win",
-      "lose": "Lose",
+      "lose": "Defeat",
       "total": "Total",
       "matches": "Matches",
       "noMatchData": "No match data"
