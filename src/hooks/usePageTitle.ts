@@ -7,7 +7,7 @@ import { useTranslation } from "./useTranslation";
  */
 export const usePageTitle = (title?: string) => {
   const { t } = useTranslation();
-  
+
   useEffect(() => {
     const baseTitle = t("common.appName");
     document.title = title ? `${baseTitle} - ${title}` : baseTitle;

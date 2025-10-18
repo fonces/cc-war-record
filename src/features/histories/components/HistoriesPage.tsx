@@ -3,6 +3,7 @@ import { useHistoryStore, useCharacterStore } from "@/stores";
 import { PageContainer, PageTitle, PageDescription, PageTitleContainer } from "@/components/ui";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { HistoryTable } from "./HistoryTable";
+import { useTranslation } from "@/hooks";
 
 const StyledActions = styled.div`
   display: flex;
@@ -53,7 +54,8 @@ const StyledErrorMessage = styled.div`
  * シーズンの履歴一覧をテーブル形式で表示
  */
 export const HistoriesPage = () => {
-  usePageTitle("シーズン履歴");
+  const { t } = useTranslation();
+  usePageTitle(t("pages.histories.title"));
   const { histories, isLoading, error, getSortedHistories, deleteHistory, clearError } = useHistoryStore();
 
   const { matchRecords } = useCharacterStore();
@@ -82,16 +84,16 @@ export const HistoriesPage = () => {
   return (
     <PageContainer>
       <PageTitleContainer>
-        <PageTitle>シーズン履歴一覧</PageTitle>
+        <PageTitle>{t("pages.histories.title")}</PageTitle>
       </PageTitleContainer>
-      <PageDescription>過去のシーズンの一覧を表示・管理します。各シーズンの詳細は詳細ボタンから確認できます。</PageDescription>
+      <PageDescription>{t("pages.histories.description")}</PageDescription>
 
       {/* エラー表示 */}
       {error && (
         <StyledErrorMessage>
-          <div>エラー: {error}</div>
+          <div>{t("common.error")}: {error}</div>
           <button onClick={clearError} style={{ marginTop: "8px", textDecoration: "underline" }}>
-            エラーを閉じる
+            {t("common.close")}
           </button>
         </StyledErrorMessage>
       )}
@@ -100,11 +102,11 @@ export const HistoriesPage = () => {
       <StyledActions>
         <StyledStats>
           <StyledStatItem>
-            総シーズン数: <StyledStatValue>{histories.length}件</StyledStatValue>
+            {t("pages.histories.totalSeasons", { count: histories.length })}
           </StyledStatItem>
           {histories.length > 0 && (
             <StyledStatItem>
-              最新作成: <StyledStatValue>{new Date(sortedHistories[0]?.createdAt).toLocaleDateString("ja-JP")}</StyledStatValue>
+              {t("pages.histories.latestCreated")}: <StyledStatValue>{new Date(sortedHistories[0]?.createdAt).toLocaleDateString("ja-JP")}</StyledStatValue>
             </StyledStatItem>
           )}
         </StyledStats>

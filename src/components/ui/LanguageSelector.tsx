@@ -56,7 +56,7 @@ const StyledLanguageOption = styled.button<{ isActive: boolean }>`
   cursor: pointer;
   font-size: 0.875rem;
   text-align: left;
-  
+
   &:hover {
     background-color: ${({ theme }) => theme.colors.gray[50]};
   }
@@ -92,7 +92,7 @@ export const LanguageSelector = () => {
     setIsOpen(false);
   };
 
-  const currentLanguageName = languages.find(lang => lang.code === currentLanguage)?.name || "日本語";
+  const currentLanguageName = languages.find((lang) => lang.code === currentLanguage)?.name || "日本語";
 
   return (
     <StyledLanguageSelector>
@@ -103,11 +103,7 @@ export const LanguageSelector = () => {
 
       <StyledLanguageDropdown isOpen={isOpen}>
         {languages.map((language) => (
-          <StyledLanguageOption
-            key={language.code}
-            isActive={currentLanguage === language.code}
-            onClick={() => handleLanguageChange(language.code)}
-          >
+          <StyledLanguageOption key={language.code} isActive={currentLanguage === language.code} onClick={() => handleLanguageChange(language.code)}>
             {language.name}
           </StyledLanguageOption>
         ))}

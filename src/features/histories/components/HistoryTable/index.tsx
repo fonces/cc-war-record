@@ -4,6 +4,7 @@ import styled from "styled-components";
 import type { History } from "@/types";
 import { Button, Icon, Dialog } from "@/components/ui";
 import { formatDateTable } from "@/utils/uuid";
+import { useTranslation } from "@/hooks";
 
 type HistoryTableProps = {
   /** 履歴一覧 */
@@ -199,6 +200,7 @@ const StyledLoadingCell = styled(StyledTableCell)`
  * テーブル形式でシーズン履歴一覧を表示
  */
 export const HistoryTable = ({ histories, isLoading = false, onDelete }: HistoryTableProps) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [historyToDelete, setHistoryToDelete] = useState<{
@@ -245,14 +247,14 @@ export const HistoryTable = ({ histories, isLoading = false, onDelete }: History
         <StyledTable>
           <StyledTableHeader>
             <tr>
-              <StyledHeaderCell>シーズン名</StyledHeaderCell>
-              <StyledHeaderCell>作成日時</StyledHeaderCell>
-              <StyledHeaderCell>詳細</StyledHeaderCell>
+              <StyledHeaderCell>{t("pages.historyDetail.columns.season")}</StyledHeaderCell>
+              <StyledHeaderCell>{t("pages.historyDetail.columns.date")}</StyledHeaderCell>
+              <StyledHeaderCell>{t("pages.histories.detail")}</StyledHeaderCell>
             </tr>
           </StyledTableHeader>
           <StyledTableBody>
             <StyledLoadingRow>
-              <StyledLoadingCell colSpan={3}>読み込み中...</StyledLoadingCell>
+              <StyledLoadingCell colSpan={3}>{t("common.loading")}</StyledLoadingCell>
             </StyledLoadingRow>
           </StyledTableBody>
         </StyledTable>
@@ -267,12 +269,8 @@ export const HistoryTable = ({ histories, isLoading = false, onDelete }: History
         <StyledEmptyIcon>
           <Icon name="history" size={24} />
         </StyledEmptyIcon>
-        <StyledEmptyTitle>履歴がありません</StyledEmptyTitle>
-        <StyledEmptyDescription>
-          シーズンの履歴がまだ作成されていません。
-          <br />
-          新しいシーズンを作成してください。
-        </StyledEmptyDescription>
+        <StyledEmptyTitle>{t("pages.histories.emptyState")}</StyledEmptyTitle>
+        <StyledEmptyDescription>{t("pages.histories.createFirstSeason")}</StyledEmptyDescription>
       </StyledEmptyState>
     );
   }
@@ -283,9 +281,9 @@ export const HistoryTable = ({ histories, isLoading = false, onDelete }: History
       <StyledTable>
         <StyledTableHeader>
           <tr>
-            <StyledHeaderCell>シーズン名</StyledHeaderCell>
-            <StyledHeaderCell>作成日時</StyledHeaderCell>
-            <StyledHeaderCell>操作</StyledHeaderCell>
+            <StyledHeaderCell>{t("pages.historyDetail.columns.season")}</StyledHeaderCell>
+            <StyledHeaderCell>{t("pages.historyDetail.columns.date")}</StyledHeaderCell>
+            <StyledHeaderCell>{t("match.actions")}</StyledHeaderCell>
           </tr>
         </StyledTableHeader>
         <StyledTableBody>
@@ -299,13 +297,13 @@ export const HistoryTable = ({ histories, isLoading = false, onDelete }: History
                     variant="outline"
                     icon={<Icon name="detail" size={16} />}
                     onClick={() => handleNavigateToDetail(history.uuid)}
-                    title={`${history.seasonName}の詳細を表示`}
+                    title={t("pages.histories.detail")}
                   />
                   <StyledDeleteButton
                     variant="outline"
                     icon={<Icon name="delete" size={16} />}
                     onClick={() => handleOpenDeleteDialog(history.uuid, history.seasonName)}
-                    title={`${history.seasonName}を削除`}
+                    title={t("pages.histories.delete")}
                   />
                 </StyledButtonGroup>
               </StyledTableCell>
@@ -315,19 +313,17 @@ export const HistoryTable = ({ histories, isLoading = false, onDelete }: History
       </StyledTable>
 
       {/* 削除確認ダイアログ */}
-      <Dialog isOpen={deleteDialogOpen} onClose={handleCancelDelete} title="シーズンの削除">
+      <Dialog isOpen={deleteDialogOpen} onClose={handleCancelDelete} title={t("pages.histories.confirmDelete")}>
         <StyledDialogContent>
           <StyledDialogDescription>
-            「{historyToDelete?.seasonName}」を削除してもよろしいですか？
-            <br />
-            この操作は取り消すことができません。
+            {t("pages.histories.deleteDescription", { seasonName: historyToDelete?.seasonName })}
           </StyledDialogDescription>
           <StyledDialogActions>
             <Button variant="outline" onClick={handleCancelDelete}>
-              キャンセル
+              {t("common.cancel")}
             </Button>
             <Button variant="primary" onClick={handleConfirmDelete}>
-              削除する
+              {t("character.confirmDelete")}
             </Button>
           </StyledDialogActions>
         </StyledDialogContent>

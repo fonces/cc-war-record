@@ -107,11 +107,19 @@ export const FaqPage = () => {
               <p>{t("pages.faq.privacy.analytics.answer.intro")}</p>
               <p>{t("pages.faq.privacy.analytics.answer.collected")}</p>
               <ul>
-                <li><strong>アクセス統計</strong>：ページビュー数、セッション数、平均滞在時間など</li>
-                <li><strong>技術情報</strong>：ブラウザの種類、OS、画面サイズなど</li>
-                <li><strong>地域情報</strong>：国や地域レベルの大まかな位置情報（詳細な住所等は含まれません）</li>
+                <li>
+                  <strong>アクセス統計</strong>：ページビュー数、セッション数、平均滞在時間など
+                </li>
+                <li>
+                  <strong>技術情報</strong>：ブラウザの種類、OS、画面サイズなど
+                </li>
+                <li>
+                  <strong>地域情報</strong>：国や地域レベルの大まかな位置情報（詳細な住所等は含まれません）
+                </li>
               </ul>
-              <p><strong>{t("pages.faq.privacy.analytics.answer.notCollected")}</strong></p>
+              <p>
+                <strong>{t("pages.faq.privacy.analytics.answer.notCollected")}</strong>
+              </p>
               <ul>
                 <li>戦績データや個人の成績情報</li>
                 <li>キャラクター名やその他の個人情報</li>
@@ -126,8 +134,12 @@ export const FaqPage = () => {
             <Answer>
               <p>{t("pages.faq.privacy.dataDeletion.answer.intro")}</p>
               <ul>
-                <li><strong>個別削除</strong>：各ページで「削除」ボタンを使用</li>
-                <li><strong>完全削除</strong>：ブラウザの設定からサイトデータを削除</li>
+                <li>
+                  <strong>個別削除</strong>：各ページで「削除」ボタンを使用
+                </li>
+                <li>
+                  <strong>完全削除</strong>：ブラウザの設定からサイトデータを削除
+                </li>
               </ul>
               <p>{t("pages.faq.privacy.dataDeletion.answer.browserMethods")}</p>
               <ul>
@@ -141,7 +153,7 @@ export const FaqPage = () => {
 
         <FaqSection>
           <SectionTitle>{t("pages.faq.usage.title")}</SectionTitle>
-          
+
           <FaqItem>
             <Question>{t("pages.faq.usage.dataLoss.question")}</Question>
             <Answer>
@@ -152,7 +164,9 @@ export const FaqPage = () => {
                 <li>プライベートブラウジングモード使用時</li>
                 <li>デバイスの容量不足時（ブラウザが自動削除する場合）</li>
               </ul>
-              <p><strong>{t("pages.faq.usage.dataLoss.answer.recommendation")}</strong></p>
+              <p>
+                <strong>{t("pages.faq.usage.dataLoss.answer.recommendation")}</strong>
+              </p>
             </Answer>
           </FaqItem>
 

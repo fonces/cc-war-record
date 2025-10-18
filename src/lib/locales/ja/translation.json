@@ -48,15 +48,16 @@
     },
     "histories": {
       "title": "履歴一覧",
-      "description": "過去のシーズンの戦績を確認できます。",
-      "totalSeasons": "総シーズン数: {{count}}",
+      "description": "過去のシーズンの一覧を表示・管理します。各シーズンの詳細は詳細ボタンから確認できます。",
+      "totalSeasons": "総シーズン数: {{count}}件",
       "totalMatches": "総試合数: {{count}}",
+      "latestCreated": "最新作成",
       "detail": "詳細",
       "delete": "削除",
-      "confirmDelete": "このシーズンを削除しますか？",
-      "deleteDescription": "シーズン「{{seasonName}}」とすべての戦績データが削除されます。この操作は取り消せません。",
-      "emptyState": "シーズンがありません",
-      "createFirstSeason": "最初のシーズンを作成してください"
+      "confirmDelete": "シーズンの削除",
+      "deleteDescription": "「{{seasonName}}」を削除してもよろしいですか？\nこの操作は取り消すことができません。",
+      "emptyState": "履歴がありません",
+      "createFirstSeason": "シーズンの履歴がまだ作成されていません。\n新しいシーズンを作成してください。"
     },
     "historyDetail": {
       "title": "{{seasonName}} の詳細",
@@ -64,6 +65,7 @@
       "backToList": "履歴一覧に戻る",
       "totalMatches": "総試合数: {{count}}",
       "columns": {
+        "season": "シーズン名",
         "character": "キャラクター",
         "job": "ジョブ",
         "map": "マップ",
@@ -176,17 +178,24 @@
     "create": "キャラクターを作成",
     "edit": "キャラクター名を編集",
     "delete": "キャラクターを削除",
-    "confirmDelete": "キャラクターを削除しますか？",
-    "deleteDescription": "キャラクター「{{name}}」とすべての戦績データが削除されます。この操作は取り消せません。",
+    "confirmDelete": "削除する",
+    "deleteDescription": "キャラクター「{{name}}」を削除しますか？<br/><span style='color: #dc2626; margin-top: 12px; font-size: 0.875rem; display: block;'>⚠️ 関連する戦績記録もすべて削除されます。この操作は取り消せません。</span>",
     "namePlaceholder": "キャラクター名を入力",
     "validationRequired": "キャラクター名を入力してください",
     "emptyState": "キャラクターがありません",
     "createFirst": "最初のキャラクターを作成してください",
     "stats": {
+      "matches": "{{count}}試合",
       "totalMatches": "{{count}}試合",
       "winRate": "勝率{{rate}}%",
+      "noWinRate": "勝率--%",
       "wins": "{{count}}勝",
       "losses": "{{count}}敗"
+    },
+    "actions": {
+      "addJob": "ジョブの追加",
+      "editName": "名前を編集",
+      "deleteName": "削除"
     }
   },
   "match": {
@@ -201,6 +210,10 @@
     "selectJob": "ジョブを選択してください",
     "selectMap": "マップを選択してください",
     "recorded": "戦績を記録しました",
+    "totalMatches": "試合数",
+    "winRate": "勝率",
+    "actions": "操作",
+    "pleaseRegisterJob": "ジョブを登録してください",
     "recentMatches": "最近の戦績"
   },
   "job": {

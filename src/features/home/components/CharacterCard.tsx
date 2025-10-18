@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Button, Icon, Input } from "@/components/ui";
+import { useTranslation } from "@/hooks";
 import type { CharacterStats, Job, CrystalConflictMap } from "@/types";
 import { getTotalMatches, getWins, getLosses, getWinRate } from "@/types/history";
 import { MatchRecordTable } from "./MatchRecordTable";
@@ -155,6 +156,8 @@ export const CharacterCard = ({
   onSaveEdit,
   onCancelEdit,
 }: CharacterCardProps) => {
+  const { t } = useTranslation();
+
   // 戦績統計を計算
   const totalMatches = getTotalMatches(stats.recentMatches);
   const wins = getWins(stats.recentMatches);
@@ -194,7 +197,7 @@ export const CharacterCard = ({
                   e.stopPropagation();
                   onCancelEdit();
                 }}
-                title="キャンセル"
+                title={t("common.cancel")}
               />
             </StyledCharacterActions>
           </StyledEditForm>
@@ -202,11 +205,15 @@ export const CharacterCard = ({
           <>
             <StyledCharacterName>{stats.character.name}</StyledCharacterName>
             <StyledCharacterStatsContainer onClick={(e) => e.stopPropagation()}>
-              <span>{totalMatches}試合</span>
+              <span>{t("character.stats.matches", { count: totalMatches })}</span>
               <span>
-                {wins}勝 / {losses}敗
+                {t("character.stats.wins", { count: wins })} / {t("character.stats.losses", { count: losses })}
               </span>
-              {0 < totalMatches ? <StyledWinRate winRate={winRate}>勝率{winRate}%</StyledWinRate> : <span>勝率--%</span>}
+              {0 < totalMatches ? (
+                <StyledWinRate winRate={winRate}>{t("character.stats.winRate", { rate: winRate })}</StyledWinRate>
+              ) : (
+                <span>{t("character.stats.noWinRate")}</span>
+              )}
               <StyledCharacterActions>
                 <StyledActionButton
                   variant="outline"
@@ -215,7 +222,7 @@ export const CharacterCard = ({
                     e.stopPropagation();
                     onOpenJobRegistration(stats.character.uuid);
                   }}
-                  title="ジョブの追加"
+                  title={t("character.actions.addJob")}
                 />
                 <StyledActionButton
                   variant="outline"

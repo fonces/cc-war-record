@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Button, Icon, Input } from "@/components/ui";
+import { useTranslation } from "@/hooks";
 
 const StyledCharacterCard = styled.div`
   background-color: white;
@@ -82,6 +83,7 @@ type CharacterFormProps = {
  * キャラクター作成フォームコンポーネント
  */
 export const CharacterForm = ({ isOpen: isOpenProp, onCreateCharacter }: CharacterFormProps) => {
+  const { t } = useTranslation();
   const [newCharacterName, setNewCharacterName] = useState("");
   const [isOpen, setIsOpen] = useState(isOpenProp);
 
@@ -103,7 +105,7 @@ export const CharacterForm = ({ isOpen: isOpenProp, onCreateCharacter }: Charact
   return (
     <StyledCharacterCard>
       <StyledCharacterHeader onClick={handleToggle}>
-        <StyledCharacterName>キャラクター登録</StyledCharacterName>
+        <StyledCharacterName>{t("character.create")}</StyledCharacterName>
         <StyledCharacterStats>
           <Icon name={isOpen ? "close" : "hamburger"} size={16} />
         </StyledCharacterStats>
@@ -113,17 +115,17 @@ export const CharacterForm = ({ isOpen: isOpenProp, onCreateCharacter }: Charact
         <StyledCharacterBody>
           <StyledCharacterFormContent>
             <StyledFormGroup>
-              <StyledLabel htmlFor="character-name">キャラクター名</StyledLabel>
+              <StyledLabel htmlFor="character-name">{t("character.name")}</StyledLabel>
               <Input
                 id="character-name"
                 value={newCharacterName}
                 onChange={(e) => setNewCharacterName(e.target.value)}
-                placeholder="キャラクター名を入力"
+                placeholder={t("character.namePlaceholder")}
                 onKeyDown={(e) => e.key === "Enter" && handleCreate()}
               />
             </StyledFormGroup>
             <Button onClick={handleCreate} disabled={!newCharacterName.trim()}>
-              キャラクターを登録
+              {t("character.create")}
             </Button>
           </StyledCharacterFormContent>
         </StyledCharacterBody>

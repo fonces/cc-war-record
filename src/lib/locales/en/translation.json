@@ -48,15 +48,16 @@
     },
     "histories": {
       "title": "Season History",
-      "description": "View your past season records.",
+      "description": "View and manage your past seasons. Click the detail button to view each season's details.",
       "totalSeasons": "Total Seasons: {{count}}",
       "totalMatches": "Total Matches: {{count}}",
+      "latestCreated": "Latest Created",
       "detail": "Detail",
       "delete": "Delete",
-      "confirmDelete": "Delete this season?",
-      "deleteDescription": "Season \"{{seasonName}}\" and all match data will be deleted. This action cannot be undone.",
-      "emptyState": "No seasons found",
-      "createFirstSeason": "Please create your first season"
+      "confirmDelete": "Delete Season",
+      "deleteDescription": "Are you sure you want to delete \"{{seasonName}}\"?\nThis action cannot be undone.",
+      "emptyState": "No history found",
+      "createFirstSeason": "No season history has been created yet.\nPlease create a new season."
     },
     "historyDetail": {
       "title": "{{seasonName}} Details",
@@ -64,6 +65,7 @@
       "backToList": "Back to History",
       "totalMatches": "Total Matches: {{count}}",
       "columns": {
+        "season": "Season Name",
         "character": "Character",
         "job": "Job",
         "map": "Map",
@@ -176,17 +178,24 @@
     "create": "Create Character",
     "edit": "Edit Character Name",
     "delete": "Delete Character",
-    "confirmDelete": "Delete character?",
-    "deleteDescription": "Character \"{{name}}\" and all match data will be deleted. This action cannot be undone.",
+    "confirmDelete": "Delete",
+    "deleteDescription": "Delete character \"{{name}}\"?<br/><span style='color: #dc2626; margin-top: 12px; font-size: 0.875rem; display: block;'>⚠️ All related match records will also be deleted. This action cannot be undone.</span>",
     "namePlaceholder": "Enter character name",
     "validationRequired": "Please enter a character name",
     "emptyState": "No characters found",
     "createFirst": "Please create your first character",
     "stats": {
+      "matches": "{{count}} matches",
       "totalMatches": "{{count}} matches",
       "winRate": "{{rate}}% win rate",
+      "noWinRate": "-- % win rate",
       "wins": "{{count}} wins",
       "losses": "{{count}} losses"
+    },
+    "actions": {
+      "addJob": "Add Job",
+      "editName": "Edit Name",
+      "deleteName": "Delete"
     }
   },
   "match": {
@@ -201,6 +210,10 @@
     "selectJob": "Please select a job",
     "selectMap": "Please select a map",
     "recorded": "Match recorded successfully",
+    "totalMatches": "Matches",
+    "winRate": "Win Rate",
+    "actions": "Actions",
+    "pleaseRegisterJob": "Please register a job",
     "recentMatches": "Recent Matches"
   },
   "job": {

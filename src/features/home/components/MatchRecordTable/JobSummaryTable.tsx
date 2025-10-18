@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Button, JobIcon, Icon } from "@/components/ui";
 import type { Job, CrystalConflictMap } from "@/types";
 import { getWinRateColor } from "@/utils/colors";
+import { useTranslation } from "@/hooks";
 
 const StyledTableContainer = styled.div`
   overflow-x: auto;
@@ -147,6 +148,7 @@ type JobSummaryTableProps = {
  * ジョブサマリーテーブルコンポーネント
  */
 export const JobSummaryTable = ({ usedJobs, jobSummaries, onAddWin, onAddLoss, onRevertLast, map }: JobSummaryTableProps) => {
+  const { t } = useTranslation();
   const showActions = !!(onAddWin || onAddLoss || onRevertLast);
 
   return (
@@ -154,19 +156,19 @@ export const JobSummaryTable = ({ usedJobs, jobSummaries, onAddWin, onAddLoss, o
       <StyledTable>
         <StyledTableHead>
           <tr>
-            <StyledTableHeader>ジョブ</StyledTableHeader>
-            <StyledTableHeader>試合数</StyledTableHeader>
-            <StyledTableHeader>勝利</StyledTableHeader>
-            <StyledTableHeader>敗北</StyledTableHeader>
-            <StyledTableHeader>勝率</StyledTableHeader>
-            {<StyledTableHeader>{showActions && map ? "操作" : ""}</StyledTableHeader>}
+            <StyledTableHeader>{t("match.job")}</StyledTableHeader>
+            <StyledTableHeader>{t("match.totalMatches")}</StyledTableHeader>
+            <StyledTableHeader>{t("match.win")}</StyledTableHeader>
+            <StyledTableHeader>{t("match.loss")}</StyledTableHeader>
+            <StyledTableHeader>{t("match.winRate")}</StyledTableHeader>
+            {<StyledTableHeader>{showActions && map ? t("match.actions") : ""}</StyledTableHeader>}
           </tr>
         </StyledTableHead>
         <StyledTableBody>
           {usedJobs.length === 0 ? (
             <StyledTableRow>
               <StyledTableCell colSpan={showActions ? 6 : 5}>
-                <StyledEmptyMapState>ジョブを登録してください</StyledEmptyMapState>
+                <StyledEmptyMapState>{t("match.pleaseRegisterJob")}</StyledEmptyMapState>
               </StyledTableCell>
             </StyledTableRow>
           ) : (

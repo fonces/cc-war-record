@@ -37,7 +37,7 @@ FINAL FANTASY XIVのPvPコンテンツ「クリスタルコンフリクト」の
 ### 国際化 (i18n)
 
 - **react-i18next** v14.x - React向け国際化ライブラリ
-- **i18next** v23.x - 国際化フレームワーク  
+- **i18next** v23.x - 国際化フレームワーク
 - **i18next-browser-languagedetector** v8.x - ブラウザ言語検出
 
 ### UI/UX
@@ -506,15 +506,15 @@ src/lib/locales/
 const { t } = useTranslation();
 
 // 基本的な翻訳
-t("common.appName")           // アプリ名
-t("navigation.home")          // ナビゲーションラベル
-t("pages.home.title")         // ページタイトル
+t("common.appName"); // アプリ名
+t("navigation.home"); // ナビゲーションラベル
+t("pages.home.title"); // ページタイトル
 
 // パラメーター付き翻訳
-t("pages.home.title", { seasonName: "Season 1" })
+t("pages.home.title", { seasonName: "Season 1" });
 
 // 配列データの翻訳
-t("pages.faq.privacy.dataStorage.answer.points", { returnObjects: true })
+t("pages.faq.privacy.dataStorage.answer.points", { returnObjects: true });
 ```
 
 ### 新しい翻訳の追加方法

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Button, Icon } from "@/components/ui";
+import { useTranslation } from "@/hooks";
 
 const StyledEmptyState = styled.div`
   display: flex;
@@ -57,16 +58,18 @@ type EmptyStateProps = {
  * シーズン未作成時の空状態表示コンポーネント
  */
 export const EmptyState = ({ onCreateSeason }: EmptyStateProps) => {
+  const { t } = useTranslation();
+
   return (
     <StyledEmptyState>
       <StyledEmptyIcon>
         <Icon name="home" size={32} />
       </StyledEmptyIcon>
-      <StyledEmptyTitle>まだシーズンが作成されていません</StyledEmptyTitle>
-      <StyledEmptyDescription>戦績を記録するために、まず最初のシーズンを作成してください。 シーズン名を設定して、勝敗の記録を開始できます。</StyledEmptyDescription>
+      <StyledEmptyTitle>{t("pages.home.noSeason")}</StyledEmptyTitle>
+      <StyledEmptyDescription>{t("pages.home.createFirstSeason")}</StyledEmptyDescription>
       <StyledCreateButton onClick={onCreateSeason}>
         <Icon name="add" size={20} color="white" />
-        シーズンを作成する
+        {t("pages.home.createSeason")}
       </StyledCreateButton>
     </StyledEmptyState>
   );

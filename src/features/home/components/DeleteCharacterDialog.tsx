@@ -1,4 +1,5 @@
 import { Dialog } from "@/components/ui";
+import { useTranslation } from "@/hooks";
 
 type DeleteCharacterDialogProps = {
   /** ダイアログの表示状態 */
@@ -15,12 +16,19 @@ type DeleteCharacterDialogProps = {
  * キャラクター削除確認ダイアログコンポーネント
  */
 export const DeleteCharacterDialog = ({ isOpen, character, onClose, onConfirm }: DeleteCharacterDialogProps) => {
+  const { t } = useTranslation();
+
   return (
-    <Dialog isOpen={isOpen} onClose={onClose} onConfirm={onConfirm} title="キャラクターを削除" confirmText="削除する" confirmType="danger" cancelText="キャンセル">
-      <p>
-        キャラクター「<strong>{character?.name}</strong>」を削除しますか？
-      </p>
-      <p style={{ color: "#dc2626", marginTop: "12px", fontSize: "0.875rem" }}>⚠️ 関連する戦績記録もすべて削除されます。この操作は取り消せません。</p>
+    <Dialog
+      isOpen={isOpen}
+      onClose={onClose}
+      onConfirm={onConfirm}
+      title={t("character.delete")}
+      confirmText={t("character.confirmDelete")}
+      confirmType="danger"
+      cancelText={t("common.cancel")}
+    >
+      <p dangerouslySetInnerHTML={{ __html: t("character.deleteDescription", { name: `<strong>${character?.name}</strong>` }) }} />
     </Dialog>
   );
 };
