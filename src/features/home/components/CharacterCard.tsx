@@ -188,7 +188,7 @@ export const CharacterCard = ({
                   e.stopPropagation();
                   onSaveEdit();
                 }}
-                title="保存"
+                title={t("common.save")}
               />
               <StyledActionButton
                 variant="outline"
@@ -231,7 +231,7 @@ export const CharacterCard = ({
                     e.stopPropagation();
                     onStartEdit(stats.character.uuid, stats.character.name);
                   }}
-                  title="キャラクター名の編集"
+                  title={t("character.actions.editName")}
                 />
                 <StyledActionButton
                   variant="outline"
@@ -240,7 +240,7 @@ export const CharacterCard = ({
                     e.stopPropagation();
                     onDelete(stats.character.uuid, stats.character.name);
                   }}
-                  title="キャラクターの削除"
+                  title={t("character.actions.deleteName")}
                 />
               </StyledCharacterActions>
             </StyledCharacterStatsContainer>
@@ -251,7 +251,9 @@ export const CharacterCard = ({
         <StyledCharacterBody>
           {stats.usedJobs.length === 0 ? (
             <StyledEmptyStats>
-              <StyledAddJobButton onClick={() => onOpenJobRegistration(stats.character.uuid)}>ジョブを登録してください</StyledAddJobButton>
+              <StyledAddJobButton onClick={() => onOpenJobRegistration(stats.character.uuid)}>
+                {t("match.pleaseRegisterJob")}
+              </StyledAddJobButton>
             </StyledEmptyStats>
           ) : (
             <MatchRecordTable
