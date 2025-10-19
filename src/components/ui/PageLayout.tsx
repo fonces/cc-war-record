@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { memo } from "react";
 
 const StyledPageContainer = styled.div`
   padding: ${({ theme }) => theme.spacing[6]};
@@ -54,30 +55,38 @@ type PageDescriptionProps = {
  * ページコンテナコンポーネント
  * ページ全体のコンテナとして使用
  */
-export const PageContainer = ({ children }: PageContainerProps) => {
+export const PageContainer = memo(({ children }: PageContainerProps) => {
   return <StyledPageContainer>{children}</StyledPageContainer>;
-};
+});
+
+PageContainer.displayName = "PageContainer";
 
 /**
  * ページタイトルコンテナコンポーネント
  * タイトルとアクションボタンを横並びで配置
  */
-export const PageTitleContainer = ({ children }: PageTitleContainerProps) => {
+export const PageTitleContainer = memo(({ children }: PageTitleContainerProps) => {
   return <StyledPageTitleContainer>{children}</StyledPageTitleContainer>;
-};
+});
+
+PageTitleContainer.displayName = "PageTitleContainer";
 
 /**
  * ページタイトルコンポーネント
  * 各ページのメインタイトル表示
  */
-export const PageTitle = ({ children }: PageTitleProps) => {
+export const PageTitle = memo(({ children }: PageTitleProps) => {
   return <StyledPageTitle>{children}</StyledPageTitle>;
-};
+});
+
+PageTitle.displayName = "PageTitle";
 
 /**
  * ページ説明コンポーネント
  * ページの説明文を表示
  */
-export const PageDescription = ({ children }: PageDescriptionProps) => {
+export const PageDescription = memo(({ children }: PageDescriptionProps) => {
   return <StyledPageDescription>{children}</StyledPageDescription>;
-};
+});
+
+PageDescription.displayName = "PageDescription";

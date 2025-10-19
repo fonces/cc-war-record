@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, memo } from "react";
 import styled from "styled-components";
 import { useTranslation } from "@/hooks";
 import { Icon } from "./Icon";
@@ -104,7 +104,7 @@ type LanguageSelectorProps = {
   fullWidth?: boolean;
 };
 
-export const LanguageSelector = ({ direction = "down", fullWidth = false }: LanguageSelectorProps) => {
+export const LanguageSelector = memo(({ direction = "down", fullWidth = false }: LanguageSelectorProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const { currentLanguage, changeLanguage } = useTranslation();
   const selectorRef = useRef<HTMLDivElement>(null);
@@ -154,4 +154,6 @@ export const LanguageSelector = ({ direction = "down", fullWidth = false }: Lang
       </StyledLanguageDropdown>
     </StyledLanguageSelector>
   );
-};
+});
+
+LanguageSelector.displayName = "LanguageSelector";

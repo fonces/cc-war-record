@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { memo } from "react";
 import type { Role } from "@/types";
 import { getRoleIconUrl, ROLE_INFO } from "@/types";
 
@@ -37,7 +38,7 @@ const StyledFallbackIcon = styled.div<{ size: number; bgColor: string }>`
  * FF14ロールアイコンコンポーネント
  * ロールアイコンを表示
  */
-export const RoleIcon = ({ role, size = 32, alt, className }: RoleIconProps) => {
+export const RoleIcon = memo(({ role, size = 32, alt, className }: RoleIconProps) => {
   const iconUrl = getRoleIconUrl(role);
   const roleInfo = ROLE_INFO[role];
   const fallbackText = roleInfo?.name || role;
@@ -90,4 +91,6 @@ export const RoleIcon = ({ role, size = 32, alt, className }: RoleIconProps) => 
       }}
     />
   );
-};
+});
+
+RoleIcon.displayName = "RoleIcon";

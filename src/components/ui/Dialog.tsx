@@ -1,3 +1,4 @@
+import { memo } from "react";
 import type { ReactNode } from "react";
 import styled from "styled-components";
 import { Button, Icon } from "@/components/ui";
@@ -129,7 +130,7 @@ const StyledConfirmButton = styled(Button)<{
 /**
  * 汎用ダイアログコンポーネント
  */
-export const Dialog = ({ isOpen, onClose, title, children, confirmText, cancelText, onConfirm, confirmType = "primary", isLoading = false }: DialogProps) => {
+export const Dialog = memo(({ isOpen, onClose, title, children, confirmText, cancelText, onConfirm, confirmType = "primary", isLoading = false }: DialogProps) => {
   const { t } = useTranslation();
 
   // デフォルト値を翻訳キーから取得
@@ -180,4 +181,6 @@ export const Dialog = ({ isOpen, onClose, title, children, confirmText, cancelTe
       </StyledDialog>
     </StyledOverlay>
   );
-};
+});
+
+Dialog.displayName = "Dialog";

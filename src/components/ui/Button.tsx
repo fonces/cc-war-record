@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { memo } from "react";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 
 type ButtonVariant = "primary" | "secondary" | "outline" | "ghost" | "win" | "defeat";
@@ -159,10 +160,12 @@ const StyledButton = styled.button<ButtonProps>`
   }
 `;
 
-export const Button = ({ children, icon, ...props }: ButtonProps) => {
+export const Button = memo(({ children, icon, ...props }: ButtonProps) => {
   return (
     <StyledButton {...props} icon={icon}>
       {icon || children}
     </StyledButton>
   );
-};
+});
+
+Button.displayName = "Button";

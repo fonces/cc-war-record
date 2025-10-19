@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import type { SelectHTMLAttributes } from "react";
-import { forwardRef } from "react";
+import { forwardRef, memo } from "react";
 
 type SelectProps = SelectHTMLAttributes<HTMLSelectElement> & {
   label?: string;
@@ -67,20 +67,22 @@ const ErrorMessage = styled.span`
   color: ${({ theme }) => theme.colors.error[500]};
 `;
 
-export const Select = forwardRef<HTMLSelectElement, SelectProps>(({ label, error, fullWidth, width, options, ...props }, ref) => {
-  return (
-    <Container fullWidth={fullWidth} width={width}>
-      {label && <Label>{label}</Label>}
-      <StyledSelect ref={ref} hasError={!!error} {...props}>
-        {options.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </StyledSelect>
-      {error && <ErrorMessage>{error}</ErrorMessage>}
-    </Container>
-  );
-});
+export const Select = memo(
+  forwardRef<HTMLSelectElement, SelectProps>(({ label, error, fullWidth, width, options, ...props }, ref) => {
+    return (
+      <Container fullWidth={fullWidth} width={width}>
+        {label && <Label>{label}</Label>}
+        <StyledSelect ref={ref} hasError={!!error} {...props}>
+          {options.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </StyledSelect>
+        {error && <ErrorMessage>{error}</ErrorMessage>}
+      </Container>
+    );
+  })
+);
 
 Select.displayName = "Select";

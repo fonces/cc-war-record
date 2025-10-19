@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import type { InputHTMLAttributes } from "react";
-import { forwardRef } from "react";
+import { forwardRef, memo } from "react";
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   label?: string;
@@ -69,14 +69,16 @@ const ErrorMessage = styled.span`
   color: ${({ theme }) => theme.colors.error[500]};
 `;
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(({ label, error, fullWidth, inputSize = "md", ...props }, ref) => {
-  return (
-    <Container fullWidth={fullWidth}>
-      {label && <Label>{label}</Label>}
-      <StyledInput ref={ref} hasError={!!error} inputSize={inputSize} {...props} />
-      {error && <ErrorMessage>{error}</ErrorMessage>}
-    </Container>
-  );
-});
+export const Input = memo(
+  forwardRef<HTMLInputElement, InputProps>(({ label, error, fullWidth, inputSize = "md", ...props }, ref) => {
+    return (
+      <Container fullWidth={fullWidth}>
+        {label && <Label>{label}</Label>}
+        <StyledInput ref={ref} hasError={!!error} inputSize={inputSize} {...props} />
+        {error && <ErrorMessage>{error}</ErrorMessage>}
+      </Container>
+    );
+  })
+);
 
 Input.displayName = "Input";

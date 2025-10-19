@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { memo } from "react";
 import type { Job } from "@/types";
 import { getJobIconUrl, getJobInfo } from "@/types";
 
@@ -38,7 +39,7 @@ const StyledFallbackIcon = styled.div<{ size: number; bgColor: string }>`
  * FF14ジョブアイコンコンポーネント
  * XIVAPIからジョブアイコンを表示
  */
-export const JobIcon = ({ job, size = 32, alt, className }: JobIconProps) => {
+export const JobIcon = memo(({ job, size = 32, alt, className }: JobIconProps) => {
   const iconUrl = getJobIconUrl(job);
   const fallbackText = job;
 
@@ -90,4 +91,6 @@ export const JobIcon = ({ job, size = 32, alt, className }: JobIconProps) => {
       }}
     />
   );
-};
+});
+
+JobIcon.displayName = "JobIcon";

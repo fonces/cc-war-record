@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { memo } from "react";
 
 type CheckboxProps = {
   /** チェック状態 */
@@ -45,6 +46,8 @@ const StyledCheckbox = styled.input`
 /**
  * チェックボックスコンポーネント
  */
-export const Checkbox = ({ checked, onChange, disabled = false }: CheckboxProps) => {
+export const Checkbox = memo(({ checked, onChange, disabled = false }: CheckboxProps) => {
   return <StyledCheckbox type="checkbox" checked={checked} onChange={onChange} disabled={disabled} />;
-};
+});
+
+Checkbox.displayName = "Checkbox";

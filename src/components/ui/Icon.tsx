@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { memo } from "react";
 
 type IconProps = {
   /** アイコンの種類 */
@@ -142,7 +143,7 @@ const LanguageIcon = () => (
 /**
  * アイコンコンポーネント
  */
-export const Icon = ({ name, size = 24, color, onClick, className }: IconProps) => {
+export const Icon = memo(({ name, size = 24, color, onClick, className }: IconProps) => {
   const renderIcon = () => {
     switch (name) {
       case "hamburger":
@@ -183,4 +184,6 @@ export const Icon = ({ name, size = 24, color, onClick, className }: IconProps) 
       {renderIcon()}
     </StyledIcon>
   );
-};
+});
+
+Icon.displayName = "Icon";

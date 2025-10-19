@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, memo } from "react";
 import { Icon } from "./Icon";
 import { Checkbox } from "./Checkbox";
 
@@ -123,7 +123,7 @@ const SelectedCount = styled.span`
 /**
  * 複数選択可能なセレクトボックスコンポーネント
  */
-export const MultiSelect = ({ label, value, onChange, options, placeholder = "選択してください", maxSelections, width }: MultiSelectProps) => {
+export const MultiSelect = memo(({ label, value, onChange, options, placeholder = "選択してください", maxSelections, width }: MultiSelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -181,4 +181,6 @@ export const MultiSelect = ({ label, value, onChange, options, placeholder = "�
       </DropdownContainer>
     </Container>
   );
-};
+});
+
+MultiSelect.displayName = "MultiSelect";
