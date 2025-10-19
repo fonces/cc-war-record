@@ -2,7 +2,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { useHistoryStore, useCharacterStore } from "@/stores";
 import { PageContainer, PageTitle, PageDescription, PageTitleContainer } from "@/components/ui";
 import { usePageTitle } from "@/hooks/usePageTitle";
-import { EmptyState } from "@/features/home/components/EmptyState";
+import { EmptyState } from "@/components/layout";
 import { DailyWinDefeatChart } from "./DailyWinDefeatChart";
 import { JobWinRateRadarChart } from "./JobWinRateRadarChart";
 import { HourlyWinDefeatChart } from "./HourlyWinDefeatChart";

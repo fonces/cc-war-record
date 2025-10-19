@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { memo } from "react";
 import { Button, Icon } from "@/components/ui";
 import { useTranslation } from "@/hooks";
 
@@ -56,7 +57,7 @@ type EmptyStateProps = {
 /**
  * シーズン未作成時の空状態表示コンポーネント
  */
-export const EmptyState = ({ onCreateSeason }: EmptyStateProps) => {
+export const EmptyState = memo(({ onCreateSeason }: EmptyStateProps) => {
   const { t } = useTranslation();
 
   return (
@@ -72,4 +73,6 @@ export const EmptyState = ({ onCreateSeason }: EmptyStateProps) => {
       </StyledCreateButton>
     </StyledEmptyState>
   );
-};
+});
+
+EmptyState.displayName = "EmptyState";
