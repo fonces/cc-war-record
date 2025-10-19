@@ -1,1 +1,0 @@
-import"./stores-COG_dGUy.js";import{t as e}from"./histories-CkafRRVb.js";var t=e;export{t as component};
