@@ -21,7 +21,7 @@ const SectionTitle = styled.h2`
 
 const FaqItem = styled.div`
   margin-bottom: ${({ theme }) => theme.spacing[6]};
-  padding: ${({ theme }) => theme.spacing[4]};
+  padding: ${({ theme }) => theme.spacing[6]} ${({ theme }) => theme.spacing[5]};
   border: 1px solid ${({ theme }) => theme.colors.gray[200]};
   border-radius: ${({ theme }) => theme.borderRadius.md};
   background-color: ${({ theme }) => theme.colors.gray[50]};
@@ -57,6 +57,7 @@ const Answer = styled.div`
 
   ul {
     margin: ${({ theme }) => theme.spacing[2]} 0;
+    margin-left: 0.5rem;
     padding-left: ${({ theme }) => theme.spacing[4]};
   }
 
