@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/cc-war-record/sw.js', { scope: '/cc-war-record/' })})}
