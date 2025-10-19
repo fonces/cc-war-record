@@ -14,6 +14,7 @@ import { Route as GraphsRouteImport } from './routes/graphs'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as HistoriesIndexRouteImport } from './routes/histories/index'
+import { Route as HistoriesCurrentRouteImport } from './routes/histories/current'
 import { Route as HistoriesIdRouteImport } from './routes/histories/$id'
 
 const NewRoute = NewRouteImport.update({
@@ -41,6 +42,11 @@ const HistoriesIndexRoute = HistoriesIndexRouteImport.update({
   path: '/histories/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HistoriesCurrentRoute = HistoriesCurrentRouteImport.update({
+  id: '/histories/current',
+  path: '/histories/current',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HistoriesIdRoute = HistoriesIdRouteImport.update({
   id: '/histories/$id',
   path: '/histories/$id',
@@ -53,6 +59,7 @@ export interface FileRoutesByFullPath {
   '/graphs': typeof GraphsRoute
   '/new': typeof NewRoute
   '/histories/$id': typeof HistoriesIdRoute
+  '/histories/current': typeof HistoriesCurrentRoute
   '/histories': typeof HistoriesIndexRoute
 }
 export interface FileRoutesByTo {
@@ -61,6 +68,7 @@ export interface FileRoutesByTo {
   '/graphs': typeof GraphsRoute
   '/new': typeof NewRoute
   '/histories/$id': typeof HistoriesIdRoute
+  '/histories/current': typeof HistoriesCurrentRoute
   '/histories': typeof HistoriesIndexRoute
 }
 export interface FileRoutesById {
@@ -70,13 +78,28 @@ export interface FileRoutesById {
   '/graphs': typeof GraphsRoute
   '/new': typeof NewRoute
   '/histories/$id': typeof HistoriesIdRoute
+  '/histories/current': typeof HistoriesCurrentRoute
   '/histories/': typeof HistoriesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/faq' | '/graphs' | '/new' | '/histories/$id' | '/histories'
+  fullPaths:
+    | '/'
+    | '/faq'
+    | '/graphs'
+    | '/new'
+    | '/histories/$id'
+    | '/histories/current'
+    | '/histories'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/faq' | '/graphs' | '/new' | '/histories/$id' | '/histories'
+  to:
+    | '/'
+    | '/faq'
+    | '/graphs'
+    | '/new'
+    | '/histories/$id'
+    | '/histories/current'
+    | '/histories'
   id:
     | '__root__'
     | '/'
@@ -84,6 +107,7 @@ export interface FileRouteTypes {
     | '/graphs'
     | '/new'
     | '/histories/$id'
+    | '/histories/current'
     | '/histories/'
   fileRoutesById: FileRoutesById
 }
@@ -93,6 +117,7 @@ export interface RootRouteChildren {
   GraphsRoute: typeof GraphsRoute
   NewRoute: typeof NewRoute
   HistoriesIdRoute: typeof HistoriesIdRoute
+  HistoriesCurrentRoute: typeof HistoriesCurrentRoute
   HistoriesIndexRoute: typeof HistoriesIndexRoute
 }
 
@@ -133,6 +158,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HistoriesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/histories/current': {
+      id: '/histories/current'
+      path: '/histories/current'
+      fullPath: '/histories/current'
+      preLoaderRoute: typeof HistoriesCurrentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/histories/$id': {
       id: '/histories/$id'
       path: '/histories/$id'
@@ -149,6 +181,7 @@ const rootRouteChildren: RootRouteChildren = {
   GraphsRoute: GraphsRoute,
   NewRoute: NewRoute,
   HistoriesIdRoute: HistoriesIdRoute,
+  HistoriesCurrentRoute: HistoriesCurrentRoute,
   HistoriesIndexRoute: HistoriesIndexRoute,
 }
 export const routeTree = rootRouteImport

@@ -295,7 +295,7 @@ export const HistoryTable = ({ histories, isLoading = false, onDelete }: History
                     <StyledDetailButton
                       variant="outline"
                       icon={<Icon name="detail" size={16} />}
-                      onClick={() => handleNavigateToDetail(history.uuid)}
+                      onClick={() => handleNavigateToDetail(isLatestHistory ? "current" : history.uuid)}
                       title={t("pages.histories.detail")}
                     />
                     <StyledDeleteButton

@@ -4,7 +4,7 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 import styled from "styled-components";
 import { PageContainer, PageTitleContainer, PageTitle, PageDescription, Button, Icon, JobIcon } from "@/components/ui";
 import { usePageTitle } from "@/hooks/usePageTitle";
-import { useHistoryStore } from "@/stores";
+import { useHistoryStore, useCharacterStore } from "@/stores";
 import { formatDateTable } from "@/utils/uuid";
 import { JOB_INFO } from "@/types/jobs";
 import type { MatchRecord } from "@/types";
@@ -155,22 +155,39 @@ const StyledBackButtonContainer = styled.div`
 /**
  * シーズン履歴詳細画面コンポーネント
  * 特定シーズンの詳細戦績を表示
+ * `/histories/current`の場合は現在のマッチレコードを表示
  */
 export const HistoryDetailPage = () => {
   const { t } = useTranslation();
   const { id } = useParams({ from: "/histories/$id" });
   const navigate = useNavigate();
-  const { getHistoryByUuid, getMatchRecordsForSeason } = useHistoryStore();
+  const { getHistoryByUuid, getMatchRecordsForSeason, histories } = useHistoryStore();
   const parentRef = useRef<HTMLDivElement>(null);
 
+  // currentの場合は最新のhistoryを使用
+  const isCurrent = id === "current";
+  const latestHistory = useMemo(() => histories[0], [histories]);
+
   // 履歴データを取得
-  const history = useMemo(() => getHistoryByUuid(id), [id, getHistoryByUuid]);
+  const history = useMemo(() => {
+    if (isCurrent) {
+      return latestHistory;
+    }
+    return getHistoryByUuid(id);
+  }, [isCurrent, latestHistory, id, getHistoryByUuid]);
 
   // ページタイトルを設定（履歴データが取得できたらシーズン名を表示）
   usePageTitle(history ? t("pages.historyDetail.title", { seasonName: history.seasonName }) : t("pages.historyDetail.title", { seasonName: "" }));
 
   // 過去のシーズンのマッチレコードを取得
-  const archivedMatchRecords = useMemo(() => getMatchRecordsForSeason(id), [id, getMatchRecordsForSeason]);
+  const archivedMatchRecords = useMemo(() => {
+    if (isCurrent) {
+      // currentの場合は現在のマッチレコードを取得
+      const { matchRecords } = useCharacterStore.getState();
+      return matchRecords;
+    }
+    return getMatchRecordsForSeason(id);
+  }, [isCurrent, id, getMatchRecordsForSeason]);
 
   // 全戦績を収集（アーカイブされたマッチレコード + 履歴内の戦績）
   const allMatches = useMemo(() => {
@@ -179,10 +196,20 @@ export const HistoryDetailPage = () => {
     const matches: (MatchRecord & { characterName: string })[] = [];
 
     // アーカイブされたマッチレコードを追加
-    archivedMatchRecords.forEach((match) => {
-      // キャラクター名を取得（characterStatsから検索）
-      const characterStats = history.characterStats.find((stats) => stats.character.uuid === match.characterUuid);
-      const characterName = characterStats?.character.name || "不明";
+    archivedMatchRecords.forEach((match: MatchRecord) => {
+      // キャラクター名を取得
+      let characterName = "不明";
+
+      if (isCurrent) {
+        // currentの場合はcharacterStoreから取得
+        const { characters } = useCharacterStore.getState();
+        const character = characters.find((c) => c.uuid === match.characterUuid);
+        characterName = character?.name || "不明";
+      } else {
+        // 過去のシーズンの場合はcharacterStatsから検索
+        const characterStats = history.characterStats.find((stats) => stats.character.uuid === match.characterUuid);
+        characterName = characterStats?.character.name || "不明";
+      }
 
       matches.push({
         ...match,
@@ -190,23 +217,25 @@ export const HistoryDetailPage = () => {
       });
     });
 
-    // 履歴内の戦績も追加（念のため）
-    history.characterStats.forEach((stats) => {
-      stats.recentMatches.forEach((match) => {
-        // 重複チェック（アーカイブと履歴で重複する可能性があるため）
-        const isDuplicate = matches.some((m) => m.uuid === match.uuid);
-        if (!isDuplicate) {
-          matches.push({
-            ...match,
-            characterName: stats.character.name,
-          });
-        }
+    // currentでない場合は、履歴内の戦績も追加（念のため）
+    if (!isCurrent) {
+      history.characterStats.forEach((stats) => {
+        stats.recentMatches.forEach((match) => {
+          // 重複チェック（アーカイブと履歴で重複する可能性があるため）
+          const isDuplicate = matches.some((m) => m.uuid === match.uuid);
+          if (!isDuplicate) {
+            matches.push({
+              ...match,
+              characterName: stats.character.name,
+            });
+          }
+        });
       });
-    });
+    }
 
     // 記録日時で降順ソート（新しい順）
     return matches.sort((a, b) => new Date(b.recordedAt).getTime() - new Date(a.recordedAt).getTime());
-  }, [history, archivedMatchRecords]);
+  }, [history, archivedMatchRecords, isCurrent]);
 
   // 仮想化設定
   const rowVirtualizer = useVirtualizer({
