@@ -3,24 +3,30 @@ import type { CrystalConflictMap } from "@/types";
 import { getCurrentMap, getNextMap, getNextMapChangeTime } from "@/utils/maps";
 
 /**
- * 現在のマップをリアルタイムで取得するカスタムフック
+ * 現在のマップと次のマップをリアルタイムで取得するカスタムフック
  * マップが切り替わるタイミングで自動的に更新されます
  *
- * @returns 現在のマップ
+ * @returns 現在のマップと次のマップ
  *
  * @example
- * const currentMap = useCurrentMap();
+ * const { currentMap, nextMap } = useMapRotation();
  * console.log(currentMap); // "THE_PALAISTRA" など
+ * console.log(nextMap); // "VOLCANIC_HEART" など
  */
-export const useCurrentMap = (): CrystalConflictMap => {
+export const useMapRotation = (): {
+  currentMap: CrystalConflictMap;
+  nextMap: CrystalConflictMap;
+} => {
   const [currentMap, setCurrentMap] = useState<CrystalConflictMap>(() => getCurrentMap());
+  const [nextMap, setNextMap] = useState<CrystalConflictMap>(() => getNextMap());
 
   useEffect(() => {
     // 初期マップを設定
     setCurrentMap(getCurrentMap());
+    setNextMap(getNextMap());
 
     // 次の切り替え時刻までの待機時間を計算してタイマーをセット
-    const updateMap = () => {
+    const updateMaps = () => {
       const now = new Date();
       const nextChangeTime = getNextMapChangeTime(now);
       const timeUntilChange = nextChangeTime.getTime() - now.getTime();
@@ -28,58 +34,15 @@ export const useCurrentMap = (): CrystalConflictMap => {
       // 次の切り替え時刻にマップを更新
       const timeoutId = setTimeout(() => {
         setCurrentMap(getCurrentMap());
-        // 次の切り替えのためにタイマーを再設定
-        updateMap();
-      }, timeUntilChange);
-
-      return timeoutId;
-    };
-
-    const timeoutId = updateMap();
-
-    // クリーンアップ
-    return () => {
-      clearTimeout(timeoutId);
-    };
-  }, []);
-
-  return currentMap;
-};
-
-/**
- * 次に表示されるマップをリアルタイムで取得するカスタムフック
- * マップが切り替わるタイミングで自動的に更新されます
- *
- * @returns 次に表示されるマップ
- *
- * @example
- * const nextMap = useNextMap();
- * console.log(nextMap); // "VOLCANIC_HEART" など
- */
-export const useNextMap = (): CrystalConflictMap => {
-  const [nextMap, setNextMap] = useState<CrystalConflictMap>(() => getNextMap());
-
-  useEffect(() => {
-    // 初期マップを設定
-    setNextMap(getNextMap());
-
-    // 次の切り替え時刻までの待機時間を計算してタイマーをセット
-    const updateMap = () => {
-      const now = new Date();
-      const nextChangeTime = getNextMapChangeTime(now);
-      const timeUntilChange = nextChangeTime.getTime() - now.getTime();
-
-      // 次の切り替え時刻にマップを更新
-      const timeoutId = setTimeout(() => {
         setNextMap(getNextMap());
         // 次の切り替えのためにタイマーを再設定
-        updateMap();
+        updateMaps();
       }, timeUntilChange);
 
       return timeoutId;
     };
 
-    const timeoutId = updateMap();
+    const timeoutId = updateMaps();
 
     // クリーンアップ
     return () => {
@@ -87,7 +50,7 @@ export const useNextMap = (): CrystalConflictMap => {
     };
   }, []);
 
-  return nextMap;
+  return { currentMap, nextMap };
 };
 
 /**

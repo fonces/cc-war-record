@@ -7,7 +7,7 @@ import { getMapName } from "@/utils/maps";
 import { calculateMapJobSummaries, calculateTotalSummary } from "@/features/home/utils/calculate";
 import { JobSummaryTable } from "./JobSummaryTable";
 import { StyledCurrentMapBadge, StyledNextMapBadge, StyledPulsingDot } from "./MapBadges";
-import { useTranslation, useCurrentMap, useNextMap } from "@/hooks";
+import { useTranslation, useMapRotation } from "@/hooks";
 
 const StyledMapTablesContainer = styled.div`
   display: flex;
@@ -93,11 +93,8 @@ type MatchRecordTableProps = {
 export const MatchRecordTable = ({ usedJobs, matchRecords, onAddWin, onAddLoss, onRevertLast }: MatchRecordTableProps) => {
   const { t } = useTranslation();
 
-  // 現在開催中のマップをリアルタイムで取得
-  const currentMap = useCurrentMap();
-
-  // 次に開催されるマップをリアルタイムで取得
-  const nextMap = useNextMap();
+  // 現在開催中のマップと次に開催されるマップをリアルタイムで取得
+  const { currentMap, nextMap } = useMapRotation();
 
   // マップごとのジョブサマリーを計算
   const mapJobSummaries = calculateMapJobSummaries(matchRecords);
