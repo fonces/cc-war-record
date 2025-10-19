@@ -203,7 +203,7 @@ export const JobSummaryTable = ({ usedJobs, jobSummaries, onAddWin, onAddLoss, o
                           </StyledActionButton>
                         )}
                         {onAddLoss && (
-                          <StyledActionButton variant="secondary" onClick={() => onAddLoss(summary.job, map)}>
+                          <StyledActionButton variant="defeat" onClick={() => onAddLoss(summary.job, map)}>
                             D
                           </StyledActionButton>
                         )}

@@ -113,30 +113,30 @@ const StyledButton = styled.button<ButtonProps>`
         `;
       case "win":
         return `
-          background-color: ${theme.colors.win[600]};
+          background-color: ${theme.colors.success[600]};
           color: white;
           border: none;
 
           &:hover:not(:disabled) {
-            background-color: ${theme.colors.win[700]};
+            background-color: ${theme.colors.success[700]};
           }
 
           &:active:not(:disabled) {
-            background-color: ${theme.colors.win[800]};
+            background-color: ${theme.colors.success[800]};
           }
         `;
       case "defeat":
         return `
-          background-color: ${theme.colors.defeat[600]};
+          background-color: ${theme.colors.error[600]};
           color: white;
           border: none;
 
           &:hover:not(:disabled) {
-            background-color: ${theme.colors.defeat[700]};
+            background-color: ${theme.colors.error[700]};
           }
 
           &:active:not(:disabled) {
-            background-color: ${theme.colors.defeat[800]};
+            background-color: ${theme.colors.error[800]};
           }
         `;
     }
