@@ -42,6 +42,45 @@ interface JobWinRateRadarChartProps {
 }
 
 /**
+ * カスタムツールチップコンポーネント
+ */
+interface TooltipProps {
+  active?: boolean;
+  payload?: Array<{
+    name: string;
+    value: number;
+    dataKey: string;
+    stroke: string;
+    fill: string;
+  }>;
+  label?: string;
+}
+
+const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
+  if (active && payload && payload.length) {
+    return (
+      <div
+        style={{
+          backgroundColor: "white",
+          border: "1px solid #ccc",
+          borderRadius: "8px",
+          padding: "12px",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+        }}
+      >
+        <p style={{ margin: "0 0 8px 0", fontWeight: "bold" }}>{label}</p>
+        {payload.map((entry, index) => (
+          <p key={index} style={{ margin: "4px 0", color: entry.stroke }}>
+            {`${entry.name}: ${entry.value}%`}
+          </p>
+        ))}
+      </div>
+    );
+  }
+  return null;
+};
+
+/**
  * マップ別ジョブ勝率レーダーチャートコンポーネント
  */
 const JobWinRateRadarChartComponent = ({ history, matchRecords, characters }: JobWinRateRadarChartProps) => {
@@ -108,7 +147,7 @@ const JobWinRateRadarChartComponent = ({ history, matchRecords, characters }: Jo
             />
           ))}
           <Legend />
-          <Tooltip />
+          <Tooltip content={<CustomTooltip />} />
         </RadarChart>
       </ResponsiveContainer>
     </StyledChartContainer>
