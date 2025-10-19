@@ -215,7 +215,7 @@
     "actions": {
       "addJob": "Add Job",
       "editName": "Edit Name",
-      "deleteName": "Delete"
+      "deleteName": "Delete Character"
     }
   },
   "match": {

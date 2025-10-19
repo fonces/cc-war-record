@@ -215,7 +215,7 @@
     "actions": {
       "addJob": "ジョブの追加",
       "editName": "名前を編集",
-      "deleteName": "削除"
+      "deleteName": "キャラクターの削除"
     }
   },
   "match": {
