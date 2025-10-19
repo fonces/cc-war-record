@@ -8,14 +8,16 @@ applyTo: "src/**"
 
 ### 技術スタック
 
-- React v18.x
-- TypeScript v5.x
-- Vite v5.x（ビルドツール）
-- TanStack Router v1.x（ルーティング）
+- React v19.1.1
+- TypeScript v5.9.3
+- Vite 7.x (Rolldown) - `npm:rolldown-vite@7.1.14`
+- TanStack Router v1.132+（ルーティング、Devtools使用）
 - TanStack Virtual v4.x（仮想リスト）
 - Zustand v4.x（クライアント状態管理）
-- styled-components v6.x（スタイリング）
+- styled-components v6.1.19（スタイリング）
 - recharts v2.x（チャート描画）
+- i18next v25.6.0（多言語化）
+- ESLint（Flat Config形式、eslint-plugin-import使用）
 
 ### アーキテクチャ原則（Bulletproof React）
 
@@ -51,10 +53,8 @@ applyTo: "src/**"
 - `src/`
   - `app/` - アプリケーション層
     - `provider.tsx` - アプリケーションプロバイダー
-    - `routes.tsx` - ルーティング設定
   - `components/` - 共有コンポーネント
     - `ui/` - UIコンポーネント（Button, Input等）
-    - `form/` - フォームコンポーネント
     - `layout/` - レイアウトコンポーネント
   - `features/` - 機能モジュール（Feature-based構造）
     - `[feature-name]/` - 各機能ディレクトリ
@@ -67,8 +67,9 @@ applyTo: "src/**"
       - `index.ts` - 公開API（エクスポート）
   - `hooks/` - 共有カスタムフック
   - `lib/` - 外部ライブラリの設定・再エクスポート
-    - `router.ts` - TanStack Router設定
+    - `i18n.ts` - i18next設定
   - `stores/` - グローバル状態管理（Zustand）
+  - `routes/` - TanStack Router ルート定義
   - `types/` - 共有型定義
   - `utils/` - 共有ユーティリティ関数
   - `test/` - テストユーティリティ
@@ -98,6 +99,8 @@ applyTo: "src/**"
 #### 型定義の基本
 
 - すべての変数、関数、コンポーネントpropsに明示的な型を定義
+- **type優先**: interfaceではなくtypeを使用（例外: `*.d.ts`、`routeTree.gen.ts`）
+- interfaceは基本的に使用禁止（既存の`*.d.ts`ファイルを除く）
 - `any`型は使用禁止（どうしても必要な場合は`unknown`を使用し、型ガードで安全に扱う）
 - 型推論が明確な場合は型注釈を省略可能
 - インターフェースよりも型エイリアス（`type`）を優先
@@ -162,6 +165,8 @@ applyTo: "src/**"
 
 - 関数コンポーネントの型は`React.FC`を使用せず、通常の関数型で定義
 - props型は`type Props = { ... }`の形式で定義
+- **UIコンポーネント (`src/components/ui/*`) はReact.memoで必ずラップし、displayNameを設定**
+- **コンポーネントが大きくなる場合はディレクトリ分割を検討**（例: `Icon.tsx` → `Icon/icons/*`）
 - 関数コンポーネントの先頭でHooksを呼び出す（条件分岐やループ内では使用しない）
 - `props`の分割代入は関数の引数で行い、型注釈を付ける
 - `useState`や`useReducer`で状態を管理し、ジェネリクスで型を明示
@@ -169,6 +174,20 @@ applyTo: "src/**"
 - パフォーマンス最適化には`useMemo`、`useCallback`を使用（必要な場合のみ）
 - カスタムフックは`use`で始まる名前にし、戻り値の型を明示してロジックの再利用を促進
 - イベントハンドラーの型は`React.MouseEvent`、`React.ChangeEvent`などを使用
+
+#### importの順序ルール
+
+- **ESLintのimport順序ルールに従う**:
+  1. Node.js組み込みモジュール (builtin)
+  2. 外部ライブラリ (external)
+  3. 内部モジュール (internal) - `@/`で始まるパス
+  4. 親ディレクトリ (parent) - `../`
+  5. 兄弟ディレクトリ (sibling) - `./`
+  6. インデックス (index)
+  7. 型定義 (type)
+- グループ間に空行は挿入しない
+- アルファベット順にソート（大文字小文字を区別しない）
+- `npm run lint -- --fix`で自動整形可能
 
 ## 多言語化対応ルール
 
@@ -184,6 +203,12 @@ applyTo: "src/**"
 - `useTranslation`フックを使用: `const { t } = useTranslation();`
 - テキスト表示は翻訳キーで: `{t("common.confirm")}`, `{t("pages.home.title")}`
 - 動的な値は補間機能を使用: `t("character.errors.alreadyExists", { name: characterName })`
+
+### TanStack Router Devtools
+
+- 開発環境では`@tanstack/router-devtools`を使用
+- `src/app/App.tsx`に`TanStackRouterDevtools`コンポーネントを配置
+- ルーターの状態、ナビゲーション履歴、ルート情報をデバッグ可能
 - aria-labelなどアクセシビリティ属性も翻訳対象
 
 ### Zustandストアでの使用
@@ -327,9 +352,10 @@ export const ConfirmButton = () => {
 
 ### ✅ 良い例（Bulletproof React準拠）
 
-#### 共有UIコンポーネント (`src/components/ui/Button/index.tsx`)
+#### 共有UIコンポーネント（memo化） (`src/components/ui/Button/index.tsx`)
 
 ```tsx
+import { memo } from "react";
 import styled from "styled-components";
 
 type ButtonProps = {
@@ -399,9 +425,9 @@ const StyledButton = styled.button<Pick<ButtonProps, "variant" | "size">>`
 `;
 
 /**
- * 共有ボタンコンポーネント
+ * 共有ボタンコンポーネント（memo化）
  */
-export const Button = ({ variant = "primary", size = "md", disabled = false, icon, children, onClick }: ButtonProps) => {
+export const Button = memo(({ variant = "primary", size = "md", disabled = false, icon, children, onClick }: ButtonProps) => {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (disabled) return;
     onClick?.(e);
@@ -413,7 +439,9 @@ export const Button = ({ variant = "primary", size = "md", disabled = false, ico
       {children && <span>{children}</span>}
     </StyledButton>
   );
-};
+});
+
+Button.displayName = "Button";
 ```
 
 #### TanStack Queryを使用したカスタムフック (`src/features/auth/hooks/useLogin.ts`)
@@ -525,12 +553,12 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
 
 ### ❌ 悪い例
 
-#### React.FCの使用（非推奨）
+#### React.FCの使用とmemo化なし（非推奨）
 
 ```tsx
 import styled from "styled-components";
 
-// React.FCは使用しない
+// ❌ React.FCは使用しない、UIコンポーネントはmemo化必須
 const Button: React.FC<{
   primary?: boolean;
   disabled?: boolean;
@@ -538,7 +566,7 @@ const Button: React.FC<{
   children?: any;
   onClick?: Function; // Function型は使用しない
 }> = ({ primary, disabled, icon, children, onClick }) => {
-  // styled-componentsを使わずインラインスタイル（非推奨）
+  // ❌ styled-componentsを使わずインラインスタイル（非推奨）
   const buttonStyle = {
     backgroundColor: primary ? "blue" : "gray",
     opacity: disabled ? 0.5 : 1,
@@ -577,6 +605,22 @@ import { loginUser } from "@/features/auth/api/login"; // 内部実装に直接�
 import { LoginForm, useLogin } from "@/features/auth";
 ```
 
+#### interfaceの使用（非推奨）
+
+```tsx
+// ❌ 悪い例: interfaceを使用（typeを使用すべき）
+interface ButtonProps {
+  variant?: "primary" | "secondary";
+  onClick?: () => void;
+}
+
+// ✅ 良い例: typeを使用
+type ButtonProps = {
+  variant?: "primary" | "secondary";
+  onClick?: () => void;
+};
+```
+
 #### Zustandストアの悪い使い方
 
 ```tsx
@@ -596,6 +640,9 @@ export const useStore = create((set: any) => ({
 #### styled-componentsの悪い使い方
 
 ```tsx
+#### styled-componentsの悪い使い方
+
+```tsx
 // ❌ 悪い例: スタイルコンポーネント名にプレフィックスがない、テーマを使わない
 const Container = styled.div`
   background-color: #ffffff; // ハードコードされた色
@@ -606,4 +653,114 @@ const Button = styled.button`
   color: ${(props: any) => props.color}; // any型は使用禁止
   font-size: ${(props) => props.size || "16px"}; // デフォルト値が不明確
 `;
+```
+
+### ✅ ディレクトリ分割パターン（大きなコンポーネント）
+
+#### Icon.tsxの分割例 (`src/components/ui/Icon/`)
+
+```
+Icon/
+├── index.tsx          # 公開APIとIconコンポーネント
+├── types.ts           # 型定義
+└── icons/             # 個別アイコンコンポーネント
+    ├── HamburgerIcon.tsx
+    ├── CloseIcon.tsx
+    ├── HomeIcon.tsx
+    ├── ChartIcon.tsx
+    ├── HistoryIcon.tsx
+    ├── QuestionIcon.tsx
+    ├── LanguageIcon.tsx
+    ├── CheckIcon.tsx
+    ├── EditIcon.tsx
+    ├── DeleteIcon.tsx
+    ├── ArrowLeftIcon.tsx
+    ├── ArrowRightIcon.tsx
+    ├── PlusIcon.tsx
+    └── WarningIcon.tsx
+```
+
+#### index.tsx（公開API）
+
+```tsx
+import { memo } from "react";
+import { CheckIcon } from "./icons/CheckIcon";
+import { CloseIcon } from "./icons/CloseIcon";
+// ... 他のimport
+
+import type { IconProps } from "./types";
+
+export const Icon = memo(({ name, ...props }: IconProps) => {
+  switch (name) {
+    case "check": return <CheckIcon {...props} />;
+    case "close": return <CloseIcon {...props} />;
+    // ... 他のケース
+    default: return null;
+  }
+});
+
+Icon.displayName = "Icon";
+```
+
+#### types.ts
+
+```tsx
+export type IconName = 
+  | "hamburger" 
+  | "close" 
+  | "home" 
+  // ... 他のアイコン名
+  ;
+
+export type IconProps = {
+  name: IconName;
+  size?: string;
+  color?: string;
+};
+```
+
+#### 個別アイコンコンポーネント例
+
+```tsx
+// icons/CheckIcon.tsx
+import { memo } from "react";
+import type { Omit } from "react";
+import type { IconProps } from "../types";
+
+export const CheckIcon = memo(({ size = "24", color = "currentColor" }: Omit<IconProps, "name">) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <path d="M5 13l4 4L19 7" stroke={color} strokeWidth="2" />
+  </svg>
+));
+
+CheckIcon.displayName = "CheckIcon";
+```
+
+### コンポーネント配置ルール
+
+#### 共有コンポーネント (`src/components/`)
+
+- **layout/**: レイアウトコンポーネント（Flex、Grid、Header、EmptyState等）
+  - 複数のfeatureで使用される共通のレイアウトパターン
+  - EmptyStateなど、状態表示に関わる汎用コンポーネントもここに配置
+- **ui/**: UIコンポーネント（Button、Input、Select、Icon等）
+  - 再利用可能な基本的なUIパーツ
+  - 必ずReact.memoでラップし、displayNameを設定
+- **form/**: フォーム関連コンポーネント
+  - バリデーション、フィールドラッパー等
+
+#### Feature固有コンポーネント (`src/features/[feature-name]/components/`)
+
+- 特定の機能にのみ使用されるコンポーネント
+- 例: `features/home/components/CharacterCard.tsx`
+- 他のfeatureから直接importしない（公開APIを経由）
+
+#### 判断基準
+
+- **2つ以上のfeatureで使う** → `src/components/`に配置
+- **1つのfeatureでのみ使う** → `src/features/[feature-name]/components/`に配置
+- **状態を持たない純粋なUIパーツ** → `src/components/ui/`
+- **レイアウトやコンテナ的な役割** → `src/components/layout/`
+
+````
 ```
