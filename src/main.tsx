@@ -9,7 +9,7 @@ import "@/lib/i18n"; // i18n初期化
 // Google Analytics初期化 (production環境のみ)
 initializeAnalytics();
 
-// ServiceWorker登録 (PWA機能)
+// ServiceWorker登録 (PWA機能, production環境のみ)
 registerServiceWorker();
 
 createRoot(document.getElementById("root")!).render(

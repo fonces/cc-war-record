@@ -5,9 +5,9 @@
 export const initializeAnalytics = () => {
   if (import.meta.env.PROD) {
     // Google Analytics script
-    const gtagScript = document.createElement('script');
+    const gtagScript = document.createElement("script");
     gtagScript.async = true;
-    gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-8MW9KTB7Q5';
+    gtagScript.src = "https://www.googletagmanager.com/gtag/js?id=G-8MW9KTB7Q5";
     document.head.appendChild(gtagScript);
 
     // Initialize dataLayer and gtag
@@ -15,8 +15,8 @@ export const initializeAnalytics = () => {
     function gtag(...args: unknown[]) {
       window.dataLayer.push(args);
     }
-    gtag('js', new Date());
-    gtag('config', 'G-8MW9KTB7Q5');
+    gtag("js", new Date());
+    gtag("config", "G-8MW9KTB7Q5");
   }
 };
 

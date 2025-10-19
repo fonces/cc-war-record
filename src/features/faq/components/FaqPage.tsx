@@ -78,12 +78,12 @@ const Copyright = styled.div`
   text-align: center;
   color: ${({ theme }) => theme.colors.textSecondary};
   font-size: 0.875rem;
-  
+
   p {
     margin-bottom: ${({ theme }) => theme.spacing[2]};
     line-height: 1.6;
   }
-  
+
   strong {
     color: ${({ theme }) => theme.colors.text};
     font-weight: 600;
@@ -191,15 +191,11 @@ export const FaqPage = () => {
       </FaqContainer>
 
       <Copyright>
-        <p>
-          FINAL FANTASY is a registered trademark of Square Enix Holdings Co., Ltd.
-        </p>
+        <p>FINAL FANTASY is a registered trademark of Square Enix Holdings Co., Ltd.</p>
         <p>
           <strong>© SQUARE ENIX CO., LTD. All Rights Reserved.</strong>
         </p>
-        <p>
-          {t("pages.faq.copyright.disclaimer")}
-        </p>
+        <p>{t("pages.faq.copyright.disclaimer")}</p>
       </Copyright>
     </PageContainer>
   );

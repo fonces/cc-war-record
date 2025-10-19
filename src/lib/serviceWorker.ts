@@ -5,7 +5,7 @@
 export const registerServiceWorker = () => {
   if (import.meta.env.PROD && "serviceWorker" in navigator) {
     const basePath = import.meta.env.VITE_BASEPATH || "/";
-    
+
     // パスを正規化（末尾のスラッシュを統一）
     const normalizedBase = basePath.endsWith("/") ? basePath : `${basePath}/`;
     const swPath = `${normalizedBase}sw.js`;
