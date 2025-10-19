@@ -1,11 +1,26 @@
 import { Link } from "@tanstack/react-router";
 import styled from "styled-components";
 import { PageContainer, Button } from "@/components/ui";
-import { Flex } from "@/components/layout";
 
-const StyledContainer = styled(Flex)`
+const StyledContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
   min-height: 400px;
   text-align: center;
+`;
+
+const StyledContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+`;
+
+const StyledButtonWrapper = styled.div`
+  display: flex;
+  gap: 1rem;
 `;
 
 const StyledErrorCode = styled.h1`
@@ -44,18 +59,18 @@ const StyledDescription = styled.p`
 export const NotFoundPage = () => {
   return (
     <PageContainer>
-      <StyledContainer direction="column" align="center" justify="center" gap="1.5rem">
-        <Flex direction="column" gap="0.5rem">
+      <StyledContainer>
+        <StyledContentWrapper>
           <StyledErrorCode>404</StyledErrorCode>
           <StyledTitle>ページが見つかりません</StyledTitle>
           <StyledDescription>お探しのページは削除されたか、URLが間違っている可能性があります。</StyledDescription>
-        </Flex>
+        </StyledContentWrapper>
 
-        <Flex gap="1rem">
+        <StyledButtonWrapper>
           <Link to="/">
             <Button>ホームに戻る</Button>
           </Link>
-        </Flex>
+        </StyledButtonWrapper>
       </StyledContainer>
     </PageContainer>
   );
