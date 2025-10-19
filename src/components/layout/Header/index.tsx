@@ -137,7 +137,7 @@ const StyledMainContent = styled.main`
   flex: 1;
   min-height: 100vh;
   overflow-x: hidden;
-  background-image: url("${import.meta.env.BASE_URL}img/bg.jpg");
+  background-image: url("${import.meta.env.BASE_URL}img/bg.webp");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
