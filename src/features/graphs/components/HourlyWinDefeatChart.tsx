@@ -43,7 +43,7 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
     return (
       <div
         style={{
-          backgroundColor: "#ffffff",
+          backgroundColor: theme.colors.white,
           border: `1px solid ${theme.colors.gray[300]}`,
           borderRadius: "8px",
           padding: "12px",

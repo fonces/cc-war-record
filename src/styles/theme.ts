@@ -84,6 +84,7 @@ export const theme = {
       800: "#1f2937",
       900: "#111827",
     },
+    white: "#ffffff",
     text: "#111827",
     textSecondary: "#6b7280",
     info: "#3b82f6",

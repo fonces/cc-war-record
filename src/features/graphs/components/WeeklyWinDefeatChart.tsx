@@ -46,7 +46,7 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
       return (
         <div
           style={{
-            backgroundColor: "#ffffff",
+            backgroundColor: theme.colors.white,
             border: `1px solid ${theme.colors.gray[300]}`,
             borderRadius: "8px",
             padding: "12px",
@@ -62,7 +62,7 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
     return (
       <div
         style={{
-          backgroundColor: "#ffffff",
+          backgroundColor: theme.colors.white,
           border: `1px solid ${theme.colors.gray[300]}`,
           borderRadius: "8px",
           padding: "12px",
@@ -155,8 +155,26 @@ const WeeklyWinDefeatChartComponent = ({ history, matchRecords, characters }: We
           <YAxis label={{ value: t("chart.axes.winRatePercent"), angle: -90, position: "insideLeft" }} domain={[0, 100]} tick={{ fontSize: 12 }} />
           <Tooltip content={<CustomTooltip />} />
           <Legend />
-          <Area type="monotone" dataKey="winRate" name="WinRate" stroke={theme.colors.win[600]} fill={theme.colors.win[600]} fillOpacity={0.3} connectNulls={true} isAnimationActive={false} />
-          <Area type="monotone" dataKey="defeatRate" name="DefeatRate" stroke={theme.colors.defeat[600]} fill={theme.colors.defeat[600]} fillOpacity={0.3} connectNulls={false} isAnimationActive={false} />
+          <Area
+            type="monotone"
+            dataKey="winRate"
+            name="WinRate"
+            stroke={theme.colors.win[600]}
+            fill={theme.colors.win[600]}
+            fillOpacity={0.3}
+            connectNulls={true}
+            isAnimationActive={false}
+          />
+          <Area
+            type="monotone"
+            dataKey="defeatRate"
+            name="DefeatRate"
+            stroke={theme.colors.defeat[600]}
+            fill={theme.colors.defeat[600]}
+            fillOpacity={0.3}
+            connectNulls={false}
+            isAnimationActive={false}
+          />
         </AreaChart>
       </ResponsiveContainer>
     </StyledChartContainer>
