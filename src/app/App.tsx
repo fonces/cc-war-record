@@ -2,7 +2,12 @@ import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { routeTree } from "@/routeTree.gen";
 
 // ルーターインスタンスを作成
-const router = createRouter({ routeTree, basepath: import.meta.env.VITE_BASEPATH || "/" });
+const router = createRouter({
+  routeTree,
+  basepath: import.meta.env.VITE_BASEPATH || "/",
+  // View Transition APIを有効化
+  defaultViewTransition: true,
+});
 
 // 型安全性のためにルーター型を宣言
 declare module "@tanstack/react-router" {

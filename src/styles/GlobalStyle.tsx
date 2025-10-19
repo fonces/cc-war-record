@@ -11,6 +11,17 @@ export const GlobalStyle = createGlobalStyle`
     height: 100%;
   }
 
+  /* View Transition API サポート */
+  @view-transition {
+    navigation: auto;
+  }
+
+  /* ページ遷移アニメーション */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.3s;
+  }
+
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
       'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
