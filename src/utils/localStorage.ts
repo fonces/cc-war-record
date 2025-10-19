@@ -68,21 +68,6 @@ export const removeFromLocalStorage = (key: string): void => {
 };
 
 /**
- * localStorageをクリア
- */
-export const clearLocalStorage = (): void => {
-  try {
-    if (typeof window === "undefined") {
-      return;
-    }
-
-    window.localStorage.clear();
-  } catch (error) {
-    console.error("Error clearing localStorage:", error);
-  }
-};
-
-/**
  * レーダーチャート用の選択ジョブリストを取得
  */
 export const getRadarChartJobs = (): Job[] => {

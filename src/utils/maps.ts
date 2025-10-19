@@ -106,15 +106,3 @@ export const getNextMapChangeTime = (currentDate: Date = new Date()): Date => {
   // 次の切り替え時刻
   return new Date(currentDate.getTime() + remainingMs);
 };
-
-/**
- * 指定した時刻のマップを取得する
- * @param date - 日時
- * @returns その時刻に表示されているマップ
- *
- * @example
- * const map = getMapAtTime(new Date("2025-10-19T15:00:00Z"));
- */
-export const getMapAtTime = (date: Date): CrystalConflictMap => {
-  return getCurrentMap(date);
-};

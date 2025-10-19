@@ -23,36 +23,6 @@ export const getCurrentISOString = (): string => {
 };
 
 /**
- * 日付文字列をフォーマット
- * @param isoString ISO日時文字列
- * @param locale ロケール（デフォルト: 'ja-JP'）
- * @returns フォーマット済み日付文字列
- */
-export const formatDate = (isoString: string, locale: string = "ja-JP"): string => {
-  return new Date(isoString).toLocaleDateString(locale, {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-};
-
-/**
- * 日付文字列をフォーマット（短縮版）
- * @param isoString ISO日時文字列
- * @param locale ロケール（デフォルト: 'ja-JP'）
- * @returns フォーマット済み日付文字列
- */
-export const formatDateShort = (isoString: string, locale: string = "ja-JP"): string => {
-  return new Date(isoString).toLocaleDateString(locale, {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-};
-
-/**
  * 日付文字列をyyyy-MM-dd HH:mm形式でフォーマット
  * @param isoString ISO日時文字列
  * @returns yyyy-MM-dd HH:mm形式の日付文字列
