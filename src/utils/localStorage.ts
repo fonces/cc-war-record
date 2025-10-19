@@ -2,8 +2,8 @@
  * localStorage ユーティリティ
  */
 
-import type { Job } from "@/types";
 import { JOBS } from "@/types/jobs";
+import type { Job } from "@/types";
 
 // ジョブフィルター用のキー定数
 export const STORAGE_KEYS = {

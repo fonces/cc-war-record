@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { Dialog, JobIcon, RoleIcon } from "@/components/ui";
+import { useTranslation } from "@/hooks";
+import { useCharacterStore } from "@/stores/characterStore";
+import { useHistoryStore } from "@/stores/historyStore";
 import { JOBS, JOB_INFO, ROLE_INFO, ROLES } from "@/types/jobs";
 import type { Job } from "@/types";
-import { useHistoryStore } from "@/stores/historyStore";
-import { useCharacterStore } from "@/stores/characterStore";
-import { useTranslation } from "@/hooks";
 
 type JobRegistrationDialogProps = {
   /** ダイアログの表示状態 */

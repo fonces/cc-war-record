@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import { memo } from "react";
+import styled from "styled-components";
 
 const StyledPageContainer = styled.div`
   padding: ${({ theme }) => theme.spacing[6]};

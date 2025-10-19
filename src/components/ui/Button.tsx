@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import { memo } from "react";
+import styled from "styled-components";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 
 type ButtonVariant = "primary" | "secondary" | "outline" | "ghost" | "win" | "defeat";

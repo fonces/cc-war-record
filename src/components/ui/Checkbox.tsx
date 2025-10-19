@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import { memo } from "react";
+import styled from "styled-components";
 
 type CheckboxProps = {
   /** チェック状態 */

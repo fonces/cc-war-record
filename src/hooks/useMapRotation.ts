@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import type { CrystalConflictMap } from "@/types";
 import { getCurrentMap, getNextMap, getNextMapChangeTime } from "@/utils/maps";
+import type { CrystalConflictMap } from "@/types";
 
 /**
  * 現在のマップと次のマップをリアルタイムで取得するカスタムフック

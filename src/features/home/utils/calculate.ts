@@ -1,5 +1,5 @@
-import type { MatchRecord, Job, CrystalConflictMap } from "@/types";
 import { MAPS } from "@/types/maps";
+import type { MatchRecord, Job, CrystalConflictMap } from "@/types";
 
 type JobSummaryForMap = {
   job: Job;

@@ -1,12 +1,12 @@
-import { useState } from "react";
 import { useRouter } from "@tanstack/react-router";
+import { useState } from "react";
 import styled from "styled-components";
-import { useHistoryStore, useCharacterStore } from "@/stores";
-import { Button, PageContainer, PageTitleContainer, PageTitle, PageDescription, Icon } from "@/components/ui";
 import { EmptyState } from "@/components/layout";
+import { Button, PageContainer, PageTitleContainer, PageTitle, PageDescription, Icon } from "@/components/ui";
 import { usePageTitle, useTranslation } from "@/hooks";
-import { CharacterForm } from "./CharacterForm";
+import { useHistoryStore, useCharacterStore } from "@/stores";
 import { CharacterCard } from "./CharacterCard";
+import { CharacterForm } from "./CharacterForm";
 import { DeleteCharacterDialog } from "./DeleteCharacterDialog";
 import { JobRegistrationDialog } from "./JobRegistrationDialog";
 import type { Job, CrystalConflictMap } from "@/types";

@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import { memo } from "react";
+import styled from "styled-components";
 import { Button, Icon } from "@/components/ui";
 import { useTranslation } from "@/hooks";
 

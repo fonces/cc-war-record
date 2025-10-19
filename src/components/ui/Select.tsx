@@ -1,6 +1,6 @@
+import { forwardRef, memo } from "react";
 import styled from "styled-components";
 import type { SelectHTMLAttributes } from "react";
-import { forwardRef, memo } from "react";
 
 type SelectProps = SelectHTMLAttributes<HTMLSelectElement> & {
   label?: string;

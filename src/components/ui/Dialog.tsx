@@ -1,8 +1,8 @@
 import { memo } from "react";
-import type { ReactNode } from "react";
 import styled from "styled-components";
 import { Button, Icon } from "@/components/ui";
 import { useScrollLock, useTranslation } from "@/hooks";
+import type { ReactNode } from "react";
 
 type DialogProps = {
   /** ダイアログの表示状態 */

@@ -1,14 +1,14 @@
 import { useParams, useNavigate } from "@tanstack/react-router";
-import { useMemo, useRef, useState } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
+import { useMemo, useRef, useState } from "react";
 import styled from "styled-components";
 import { PageContainer, PageTitleContainer, PageTitle, PageDescription, Button, Icon, JobIcon, Dialog } from "@/components/ui";
+import { useTranslation } from "@/hooks";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { useHistoryStore, useCharacterStore } from "@/stores";
-import { formatDateTable } from "@/utils/uuid";
 import { JOB_INFO } from "@/types/jobs";
+import { formatDateTable } from "@/utils/uuid";
 import type { MatchRecord } from "@/types";
-import { useTranslation } from "@/hooks";
 
 // テーブルコンテナ
 const StyledTableContainer = styled.div`

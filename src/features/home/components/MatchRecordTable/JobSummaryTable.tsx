@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { Button, JobIcon, Icon } from "@/components/ui";
-import type { Job, CrystalConflictMap } from "@/types";
-import { getWinRateColor } from "@/utils/colors";
 import { useTranslation } from "@/hooks";
+import { getWinRateColor } from "@/utils/colors";
+import type { Job, CrystalConflictMap } from "@/types";
 
 const StyledTableContainer = styled.div`
   overflow-x: auto;

@@ -1,5 +1,5 @@
-import type { DefaultTheme } from "styled-components";
 import type { Theme } from "@/styles/theme";
+import type { DefaultTheme } from "styled-components";
 
 /**
  * 勝率に基づいて適切な色を返す

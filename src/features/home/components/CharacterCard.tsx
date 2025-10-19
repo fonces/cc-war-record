@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { Button, Icon, Input } from "@/components/ui";
 import { useTranslation } from "@/hooks";
-import type { CharacterStats, Job, CrystalConflictMap } from "@/types";
 import { getTotalMatches, getWins, getDefeats, getWinRate } from "@/types/history";
-import { MatchRecordTable } from "./MatchRecordTable";
 import { getWinRateColor } from "@/utils/colors";
+import { MatchRecordTable } from "./MatchRecordTable";
+import type { CharacterStats, Job, CrystalConflictMap } from "@/types";
 
 const StyledCharacterCard = styled.div`
   background-color: white;

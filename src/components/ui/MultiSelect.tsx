@@ -1,7 +1,7 @@
-import styled from "styled-components";
 import { useState, useRef, useEffect, memo } from "react";
-import { Icon } from "./Icon";
+import styled from "styled-components";
 import { Checkbox } from "./Checkbox";
+import { Icon } from "./Icon";
 
 type MultiSelectOption = {
   value: string;

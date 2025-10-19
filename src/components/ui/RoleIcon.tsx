@@ -1,7 +1,7 @@
-import styled from "styled-components";
 import { memo } from "react";
-import type { Role } from "@/types";
+import styled from "styled-components";
 import { getRoleIconUrl, ROLE_INFO } from "@/types";
+import type { Role } from "@/types";
 
 type RoleIconProps = {
   /** ロールコード */

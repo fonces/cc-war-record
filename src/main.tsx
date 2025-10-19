@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { AppProvider } from "@/app/provider";
 import { App } from "@/app/App";
+import { AppProvider } from "@/app/provider";
 import "@/lib/i18n"; // i18n初期化
 
 // ServiceWorker登録

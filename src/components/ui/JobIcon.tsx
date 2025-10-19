@@ -1,7 +1,7 @@
-import styled from "styled-components";
 import { memo } from "react";
-import type { Job } from "@/types";
+import styled from "styled-components";
 import { getJobIconUrl, getJobInfo } from "@/types";
+import type { Job } from "@/types";
 
 type JobIconProps = {
   /** ジョブコード */

@@ -1,10 +1,10 @@
-import { useState } from "react";
 import { useRouter } from "@tanstack/react-router";
+import { useState } from "react";
 import styled from "styled-components";
-import { useHistoryStore } from "@/stores";
 import { Button, Input, Dialog, PageTitle, PageDescription } from "@/components/ui";
-import { usePageTitle } from "@/hooks/usePageTitle";
 import { useTranslation } from "@/hooks";
+import { usePageTitle } from "@/hooks/usePageTitle";
+import { useHistoryStore } from "@/stores";
 
 const StyledContainer = styled.div`
   max-width: 600px;

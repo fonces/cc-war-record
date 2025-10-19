@@ -1,13 +1,13 @@
-import styled from "styled-components";
 import { useState } from "react";
+import styled from "styled-components";
 import { Icon } from "@/components/ui";
-import type { MatchRecord, Job, CrystalConflictMap } from "@/types";
+import { calculateMapJobSummaries, calculateTotalSummary } from "@/features/home/utils/calculate";
+import { useTranslation, useMapRotation } from "@/hooks";
 import { getWinRateColor } from "@/utils/colors";
 import { getMapName } from "@/utils/maps";
-import { calculateMapJobSummaries, calculateTotalSummary } from "@/features/home/utils/calculate";
 import { JobSummaryTable } from "./JobSummaryTable";
 import { StyledCurrentMapBadge, StyledNextMapBadge, StyledPulsingDot } from "./MapBadges";
-import { useTranslation, useMapRotation } from "@/hooks";
+import type { MatchRecord, Job, CrystalConflictMap } from "@/types";
 
 const StyledMapTablesContainer = styled.div`
   display: flex;

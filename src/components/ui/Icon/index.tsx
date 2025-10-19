@@ -1,6 +1,5 @@
-import styled from "styled-components";
 import { memo } from "react";
-import type { IconProps } from "./types";
+import styled from "styled-components";
 import {
   HamburgerIcon,
   CloseIcon,
@@ -17,6 +16,7 @@ import {
   BackIcon,
   LanguageIcon,
 } from "./icons";
+import type { IconProps } from "./types";
 
 const StyledIcon = styled.div<Pick<IconProps, "size" | "color">>`
   display: inline-flex;

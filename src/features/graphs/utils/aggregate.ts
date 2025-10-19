@@ -1,7 +1,7 @@
-import type { TFunction } from "i18next";
-import type { History, MatchRecord, Job, CrystalConflictMap } from "@/types";
 import { MAPS } from "@/types/maps";
 import { getMapName } from "@/utils/maps";
+import type { History, MatchRecord, Job, CrystalConflictMap } from "@/types";
+import type { TFunction } from "i18next";
 
 // 曜日定義（日曜日=0, 月曜日=1, ..., 土曜日=6）
 export const WEEKDAYS = [

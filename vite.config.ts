@@ -1,10 +1,10 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import { tanstackRouter } from "@tanstack/router-plugin/vite";
-import { VitePWA } from "vite-plugin-pwa";
-import { visualizer } from "rollup-plugin-visualizer";
-import path from "path";
 import fs from "fs";
+import path from "path";
+import { tanstackRouter } from "@tanstack/router-plugin/vite";
+import react from "@vitejs/plugin-react";
+import { visualizer } from "rollup-plugin-visualizer";
+import { defineConfig } from "vite";
+import { VitePWA } from "vite-plugin-pwa";
 
 // GitHub Pages用ファイル生成プラグイン
 const generateGitHubPagesFilesPlugin = () => {

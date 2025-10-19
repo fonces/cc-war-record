@@ -1,7 +1,7 @@
-import { ThemeProvider, StyleSheetManager } from "styled-components";
 import isPropValid from "@emotion/is-prop-valid";
-import { theme } from "@/styles/theme";
+import { ThemeProvider, StyleSheetManager } from "styled-components";
 import { GlobalStyle } from "@/styles/GlobalStyle";
+import { theme } from "@/styles/theme";
 
 type AppProviderProps = {
   children: React.ReactNode;

@@ -1,9 +1,9 @@
-import { create } from "zustand";
 import i18next from "i18next";
-import type { History, CreateHistoryInput, UpdateHistoryInput, CharacterStats, Character, AddUsedJobInput, MatchRecord } from "@/types";
-import { generateUUID, getCurrentISOString } from "@/utils/uuid";
+import { create } from "zustand";
 import { getFromLocalStorage, removeFromLocalStorage, saveToLocalStorage } from "@/utils/localStorage";
+import { generateUUID, getCurrentISOString } from "@/utils/uuid";
 import { useCharacterStore } from "./characterStore";
+import type { History, CreateHistoryInput, UpdateHistoryInput, CharacterStats, Character, AddUsedJobInput, MatchRecord } from "@/types";
 
 // localStorageのキー
 const STORAGE_KEY = "cc-war-record-histories";

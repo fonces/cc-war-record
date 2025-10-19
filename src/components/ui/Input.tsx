@@ -1,6 +1,6 @@
+import { forwardRef, memo } from "react";
 import styled from "styled-components";
 import type { InputHTMLAttributes } from "react";
-import { forwardRef, memo } from "react";
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   label?: string;

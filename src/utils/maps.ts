@@ -1,6 +1,6 @@
-import type { TFunction } from "i18next";
-import type { CrystalConflictMap } from "@/types";
 import { MAPS } from "@/types/maps";
+import type { CrystalConflictMap } from "@/types";
+import type { TFunction } from "i18next";
 
 /**
  * マップ名の翻訳を取得する

@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { useHistoryStore, useCharacterStore } from "@/stores";
 import { PageContainer, PageTitle, PageDescription, PageTitleContainer } from "@/components/ui";
-import { usePageTitle } from "@/hooks/usePageTitle";
-import { HistoryTable } from "./HistoryTable";
 import { useTranslation } from "@/hooks";
+import { usePageTitle } from "@/hooks/usePageTitle";
+import { useHistoryStore, useCharacterStore } from "@/stores";
+import { HistoryTable } from "./HistoryTable";
 
 const StyledActions = styled.div`
   display: flex;

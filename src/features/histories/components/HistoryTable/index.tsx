@@ -1,10 +1,10 @@
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import styled from "styled-components";
-import type { History } from "@/types";
 import { Button, Icon, Dialog } from "@/components/ui";
-import { formatDateTable } from "@/utils/uuid";
 import { useTranslation } from "@/hooks";
+import { formatDateTable } from "@/utils/uuid";
+import type { History } from "@/types";
 
 type HistoryTableProps = {
   /** 履歴一覧 */
