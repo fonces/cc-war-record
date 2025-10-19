@@ -238,6 +238,7 @@
     "recentMatches": "最近の戦績",
     "deleteMatch": "戦績を削除",
     "confirmDelete": "戦績の削除",
+    "confirmDeleteButton": "削除する",
     "deleteConfirmation": "{{characterName}} の {{date}} の戦績を削除してもよろしいですか？\nこの操作は取り消すことができません。"
   },
   "job": {

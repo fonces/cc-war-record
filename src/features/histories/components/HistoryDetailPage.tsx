@@ -144,24 +144,6 @@ const StyledDeleteButton = styled(Button)`
   padding: 0;
 `;
 
-// ダイアログ関連
-const StyledDialogContent = styled.div`
-  padding: ${({ theme }) => theme.spacing[6]};
-`;
-
-const StyledDialogDescription = styled.p`
-  color: ${({ theme }) => theme.colors.textSecondary};
-  font-size: 0.875rem;
-  margin-bottom: ${({ theme }) => theme.spacing[6]};
-  line-height: 1.6;
-`;
-
-const StyledDialogActions = styled.div`
-  display: flex;
-  gap: ${({ theme }) => theme.spacing[3]};
-  justify-content: flex-end;
-`;
-
 // 空状態表示
 const StyledEmptyState = styled.div`
   display: flex;
@@ -389,23 +371,18 @@ export const HistoryDetailPage = () => {
 
       {/* 削除確認ダイアログ */}
       {isCurrent && (
-        <Dialog isOpen={deleteDialogOpen} onClose={handleCancelDelete} title={t("match.confirmDelete")}>
-          <StyledDialogContent>
-            <StyledDialogDescription>
-              {t("match.deleteConfirmation", {
-                characterName: matchToDelete?.characterName,
-                date: matchToDelete?.date,
-              })}
-            </StyledDialogDescription>
-            <StyledDialogActions>
-              <Button variant="outline" onClick={handleCancelDelete}>
-                {t("common.cancel")}
-              </Button>
-              <Button variant="primary" onClick={handleConfirmDelete}>
-                {t("common.delete")}
-              </Button>
-            </StyledDialogActions>
-          </StyledDialogContent>
+        <Dialog
+          isOpen={deleteDialogOpen}
+          title={t("match.confirmDelete")}
+          confirmText={t("match.confirmDeleteButton")}
+          confirmType="danger"
+          onClose={handleCancelDelete}
+          onConfirm={handleConfirmDelete}
+        >
+          {t("match.deleteConfirmation", {
+            characterName: matchToDelete?.characterName,
+            date: matchToDelete?.date,
+          })}
         </Dialog>
       )}
     </PageContainer>

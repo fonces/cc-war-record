@@ -238,6 +238,7 @@
     "recentMatches": "Recent Matches",
     "deleteMatch": "Delete Match",
     "confirmDelete": "Delete Match Record",
+    "confirmDeleteButton": "Delete",
     "deleteConfirmation": "Are you sure you want to delete the match record for {{characterName}} on {{date}}?\nThis action cannot be undone."
   },
   "job": {
