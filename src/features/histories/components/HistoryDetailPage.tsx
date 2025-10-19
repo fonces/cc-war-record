@@ -1,8 +1,8 @@
 import { useParams, useNavigate } from "@tanstack/react-router";
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import styled from "styled-components";
-import { PageContainer, PageTitleContainer, PageTitle, PageDescription, Button, Icon, JobIcon } from "@/components/ui";
+import { PageContainer, PageTitleContainer, PageTitle, PageDescription, Button, Icon, JobIcon, Dialog } from "@/components/ui";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { useHistoryStore, useCharacterStore } from "@/stores";
 import { formatDateTable } from "@/utils/uuid";
@@ -134,6 +134,34 @@ const StyledWinBadge = styled.span<{ $isWin: boolean }>`
   width: 50px;
 `;
 
+// 削除ボタン
+const StyledDeleteButton = styled(Button)`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+`;
+
+// ダイアログ関連
+const StyledDialogContent = styled.div`
+  padding: ${({ theme }) => theme.spacing[6]};
+`;
+
+const StyledDialogDescription = styled.p`
+  color: ${({ theme }) => theme.colors.textSecondary};
+  font-size: 0.875rem;
+  margin-bottom: ${({ theme }) => theme.spacing[6]};
+  line-height: 1.6;
+`;
+
+const StyledDialogActions = styled.div`
+  display: flex;
+  gap: ${({ theme }) => theme.spacing[3]};
+  justify-content: flex-end;
+`;
+
 // 空状態表示
 const StyledEmptyState = styled.div`
   display: flex;
@@ -162,7 +190,16 @@ export const HistoryDetailPage = () => {
   const { id } = useParams({ from: "/histories/$id" });
   const navigate = useNavigate();
   const { getHistoryByUuid, getMatchRecordsForSeason, histories } = useHistoryStore();
+  const { deleteMatchRecord } = useCharacterStore();
   const parentRef = useRef<HTMLDivElement>(null);
+
+  // 削除ダイアログの状態管理
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [matchToDelete, setMatchToDelete] = useState<{
+    uuid: string;
+    characterName: string;
+    date: string;
+  } | null>(null);
 
   // currentの場合は最新のhistoryを使用
   const isCurrent = id === "current";
@@ -245,6 +282,27 @@ export const HistoryDetailPage = () => {
     overscan: 5, // 表示領域外にレンダリングする行数
   });
 
+  // 削除ダイアログを開く
+  const handleOpenDeleteDialog = (matchUuid: string, characterName: string, date: string) => {
+    setMatchToDelete({ uuid: matchUuid, characterName, date });
+    setDeleteDialogOpen(true);
+  };
+
+  // 削除をキャンセル
+  const handleCancelDelete = () => {
+    setDeleteDialogOpen(false);
+    setMatchToDelete(null);
+  };
+
+  // 削除を確定
+  const handleConfirmDelete = () => {
+    if (matchToDelete && isCurrent) {
+      deleteMatchRecord(matchToDelete.uuid);
+      setDeleteDialogOpen(false);
+      setMatchToDelete(null);
+    }
+  };
+
   if (!history) {
     return (
       <PageContainer>
@@ -270,6 +328,7 @@ export const HistoryDetailPage = () => {
             <StyledHeaderCell width="120px">{t("pages.historyDetail.columns.job")}</StyledHeaderCell>
             <StyledHeaderCell width="180px">{t("pages.historyDetail.columns.date")}</StyledHeaderCell>
             <StyledHeaderCell width="100px">{t("pages.historyDetail.columns.result")}</StyledHeaderCell>
+            {isCurrent && <StyledHeaderCell width="80px">{t("match.actions")}</StyledHeaderCell>}
           </StyledTableHeader>
 
           {/* 仮想スクロールリスト */}
@@ -300,6 +359,16 @@ export const HistoryDetailPage = () => {
                       <StyledTableCell width="100px">
                         <StyledWinBadge $isWin={match.isWin}>{match.isWin ? t("pages.historyDetail.results.win") : t("pages.historyDetail.results.loss")}</StyledWinBadge>
                       </StyledTableCell>
+                      {isCurrent && (
+                        <StyledTableCell width="80px">
+                          <StyledDeleteButton
+                            variant="outline"
+                            icon={<Icon name="delete" size={16} />}
+                            onClick={() => handleOpenDeleteDialog(match.uuid, match.characterName, formatDateTable(match.recordedAt))}
+                            title={t("match.deleteMatch")}
+                          />
+                        </StyledTableCell>
+                      )}
                     </StyledTableRow>
                   );
                 })}
@@ -317,6 +386,28 @@ export const HistoryDetailPage = () => {
           {t("pages.historyDetail.backToList")}
         </Button>
       </StyledBackButtonContainer>
+
+      {/* 削除確認ダイアログ */}
+      {isCurrent && (
+        <Dialog isOpen={deleteDialogOpen} onClose={handleCancelDelete} title={t("match.confirmDelete")}>
+          <StyledDialogContent>
+            <StyledDialogDescription>
+              {t("match.deleteConfirmation", {
+                characterName: matchToDelete?.characterName,
+                date: matchToDelete?.date,
+              })}
+            </StyledDialogDescription>
+            <StyledDialogActions>
+              <Button variant="outline" onClick={handleCancelDelete}>
+                {t("common.cancel")}
+              </Button>
+              <Button variant="primary" onClick={handleConfirmDelete}>
+                {t("common.delete")}
+              </Button>
+            </StyledDialogActions>
+          </StyledDialogContent>
+        </Dialog>
+      )}
     </PageContainer>
   );
 };

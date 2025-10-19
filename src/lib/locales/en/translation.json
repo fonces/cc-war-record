@@ -235,7 +235,10 @@
     "allStagesTotal": "All Stages Total",
     "actions": "Actions",
     "pleaseRegisterJob": "Please register a job",
-    "recentMatches": "Recent Matches"
+    "recentMatches": "Recent Matches",
+    "deleteMatch": "Delete Match",
+    "confirmDelete": "Delete Match Record",
+    "deleteConfirmation": "Are you sure you want to delete the match record for {{characterName}} on {{date}}?\nThis action cannot be undone."
   },
   "job": {
     "select": "Select Job",
