@@ -1,4 +1,4 @@
-import{D as e,N as t,P as n,d as r,w as i,z as a}from"./index-BRKS9oX4.js";var o=a(t()),s=n.div`
+import{D as e,N as t,P as n,d as r,w as i,z as a}from"./index-BuwaVw-Z.js";var o=a(t()),s=n.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,5 +34,4 @@ import{D as e,N as t,P as n,d as r,w as i,z as a}from"./index-BRKS9oX4.js";var o
   align-items: center;
   gap: ${({theme:e})=>e.spacing[2]};
   font-size: 1.1rem;
-  padding: ${({theme:e})=>e.spacing[4]} ${({theme:e})=>e.spacing[8]};
 `;const f=({onCreateSeason:e})=>{let{t}=r();return(0,o.jsxs)(s,{children:[(0,o.jsx)(c,{children:(0,o.jsx)(i,{name:`home`,size:32})}),(0,o.jsx)(l,{children:t(`pages.home.noSeason`)}),(0,o.jsx)(u,{children:t(`pages.home.createFirstSeason`)}),(0,o.jsxs)(d,{onClick:e,children:[(0,o.jsx)(i,{name:`add`,size:20,color:`white`}),t(`pages.home.createSeason`)]})]})};export{f as t};

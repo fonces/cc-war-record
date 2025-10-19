@@ -1,1 +1,0 @@
-import"./stores-BYnJhk5N.js";import{n as e}from"./histories-P--hOUU2.js";var t=e;export{t as component};
