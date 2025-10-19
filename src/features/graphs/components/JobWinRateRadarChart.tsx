@@ -7,6 +7,7 @@ import { getRadarChartJobs, saveRadarChartJobs } from "@/utils/localStorage";
 import { useTranslation } from "@/hooks";
 import { aggregateJobWinRateByMap } from "@/features/graphs/utils/aggregate";
 import { StyledChartContainer, StyledChartHeader, StyledChartTitle, StyledFiltersWrapper } from "./ChartContainer";
+import { useTheme } from "styled-components";
 
 interface JobWinRateRadarChartProps {
   history: History;
@@ -30,18 +31,19 @@ interface TooltipProps {
 }
 
 const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
+  const theme = useTheme();
   if (active && payload && payload.length) {
     return (
       <div
         style={{
-          backgroundColor: "white",
-          border: "1px solid #ccc",
+          backgroundColor: "#ffffff",
+          border: `1px solid ${theme.colors.gray[300]}`,
           borderRadius: "8px",
           padding: "12px",
           boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
         }}
       >
-        <p style={{ margin: "0 0 8px 0", fontWeight: "bold" }}>{label}</p>
+        <p style={{ margin: "0 0 8px 0", fontWeight: "bold", color: theme.colors.text }}>{label}</p>
         {payload.map((entry, index) => (
           <p key={index} style={{ margin: "4px 0", color: entry.stroke }}>
             {`${entry.name}: ${entry.value}%`}

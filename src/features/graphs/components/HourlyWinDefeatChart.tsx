@@ -36,23 +36,24 @@ interface TooltipProps {
 }
 
 const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
+  const theme = useTheme();
   const { t } = useTranslation();
   if (active && payload && payload.length) {
     const data = payload[0].payload;
     return (
       <div
         style={{
-          backgroundColor: "white",
-          border: "1px solid #ccc",
+          backgroundColor: "#ffffff",
+          border: `1px solid ${theme.colors.gray[300]}`,
           borderRadius: "8px",
           padding: "12px",
           boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
         }}
       >
-        <p style={{ margin: "0 0 8px 0", fontWeight: "bold" }}>{`${label}`}</p>
-        <p style={{ margin: "4px 0", color: "#10b981" }}>{`${t("chart.tooltip.win")}: ${data.wins}${t("chart.tooltip.matches")} (${data.winRate}%)`}</p>
-        <p style={{ margin: "4px 0", color: "#ef4444" }}>{`${t("chart.tooltip.lose")}: ${data.defeats}${t("chart.tooltip.matches")} (${data.defeatRate}%)`}</p>
-        <p style={{ margin: "4px 0 0 0", fontWeight: "bold" }}>{`${t("chart.tooltip.total")}: ${data.total}${t("chart.tooltip.matches")}`}</p>
+        <p style={{ margin: "0 0 8px 0", fontWeight: "bold", color: theme.colors.text }}>{`${label}`}</p>
+        <p style={{ margin: "4px 0", color: theme.colors.win[600] }}>{`${t("chart.tooltip.win")}: ${data.wins}${t("chart.tooltip.matches")} (${data.winRate}%)`}</p>
+        <p style={{ margin: "4px 0", color: theme.colors.defeat[600] }}>{`${t("chart.tooltip.lose")}: ${data.defeats}${t("chart.tooltip.matches")} (${data.defeatRate}%)`}</p>
+        <p style={{ margin: "4px 0 0 0", fontWeight: "bold", color: theme.colors.text }}>{`${t("chart.tooltip.total")}: ${data.total}${t("chart.tooltip.matches")}`}</p>
       </div>
     );
   }

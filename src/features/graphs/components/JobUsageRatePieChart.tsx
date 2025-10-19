@@ -8,6 +8,7 @@ import { getMapName } from "@/utils/maps";
 import { useTranslation } from "@/hooks";
 import { aggregateJobUsageRate } from "@/features/graphs/utils/aggregate";
 import { StyledChartContainer, StyledChartHeader, StyledChartTitle, StyledFiltersWrapper } from "./ChartContainer";
+import { useTheme } from "styled-components";
 
 interface JobUsageRatePieChartProps {
   history: History;
@@ -53,22 +54,23 @@ interface TooltipProps {
 }
 
 const CustomTooltip = ({ active, payload }: TooltipProps) => {
+  const theme = useTheme();
   const { t } = useTranslation();
   if (active && payload && payload.length) {
     const data = payload[0].payload;
     return (
       <div
         style={{
-          backgroundColor: "white",
-          border: "1px solid #ccc",
+          backgroundColor: "#ffffff",
+          border: `1px solid ${theme.colors.gray[300]}`,
           borderRadius: "8px",
           padding: "12px",
           boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
         }}
       >
-        <p style={{ margin: "0 0 8px 0", fontWeight: "bold" }}>{`${data.name} (${data.job})`}</p>
+        <p style={{ margin: "0 0 8px 0", fontWeight: "bold", color: theme.colors.text }}>{`${data.name} (${data.job})`}</p>
         <p style={{ margin: "4px 0", color: JOB_INFO[data.job].color }}>{`${t("chart.tooltip.usageCount")}: ${data.value}${t("chart.matches")}`}</p>
-        <p style={{ margin: "4px 0 0 0", fontWeight: "bold" }}>{`${t("chart.tooltip.usageRatePercent")}: ${data.percentage}%`}</p>
+        <p style={{ margin: "4px 0 0 0", fontWeight: "bold", color: theme.colors.text }}>{`${t("chart.tooltip.usageRatePercent")}: ${data.percentage}%`}</p>
       </div>
     );
   }
@@ -77,6 +79,7 @@ const CustomTooltip = ({ active, payload }: TooltipProps) => {
  * ジョブ使用率円グラフコンポーネント
  */
 const JobUsageRatePieChartComponent = ({ history, matchRecords, characters }: JobUsageRatePieChartProps) => {
+  const theme = useTheme();
   const { t } = useTranslation();
   const [selectedCharacterUuid, setSelectedCharacterUuid] = useState<string | null>(null);
   const [selectedMap, setSelectedMap] = useState<CrystalConflictMap | null>(null);
@@ -131,7 +134,7 @@ const JobUsageRatePieChartComponent = ({ history, matchRecords, characters }: Jo
           </PieChart>
         </ResponsiveContainer>
       ) : (
-        <div style={{ textAlign: "center", padding: "3rem", color: "#6b7280" }}>{t("chart.noMatchData")}</div>
+        <div style={{ textAlign: "center", padding: "3rem", color: theme.colors.textSecondary }}>{t("chart.noMatchData")}</div>
       )}
     </StyledChartContainer>
   );

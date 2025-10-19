@@ -8,6 +8,7 @@ import { getMapName } from "@/utils/maps";
 import { useTranslation } from "@/hooks";
 import { aggregateDailyWinDefeat } from "@/features/graphs/utils/aggregate";
 import { StyledChartContainer, StyledChartHeader, StyledChartTitle, StyledFiltersWrapper } from "./ChartContainer";
+import { useTheme } from "styled-components";
 
 interface DailyWinDefeatChartProps {
   history: History;
@@ -19,6 +20,7 @@ interface DailyWinDefeatChartProps {
  * 日別勝敗数グラフコンポーネント
  */
 const DailyWinDefeatChartComponent = ({ history, matchRecords, characters }: DailyWinDefeatChartProps) => {
+  const theme = useTheme();
   const { t } = useTranslation();
   const [selectedCharacterUuid, setSelectedCharacterUuid] = useState<string | null>(null);
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
@@ -83,9 +85,9 @@ const DailyWinDefeatChartComponent = ({ history, matchRecords, characters }: Dai
           <YAxis yAxisId="right" orientation="right" label={{ value: t("chart.axes.winRatePercent"), angle: 90, position: "insideRight" }} domain={[0, 100]} />
           <Tooltip />
           <Legend />
-          <Bar yAxisId="left" dataKey="Win" fill="#4ade80" stackId="a" isAnimationActive={false} />
-          <Bar yAxisId="left" dataKey="Defeat" fill="#f87171" stackId="a" isAnimationActive={false} />
-          <Line yAxisId="right" type="monotone" dataKey="WinRate" stroke="#3b82f6" strokeWidth={2} dot={{ r: 3 }} connectNulls={true} isAnimationActive={false} />
+          <Bar yAxisId="left" dataKey="Win" fill={theme.colors.win[400]} stackId="a" isAnimationActive={false} />
+          <Bar yAxisId="left" dataKey="Defeat" fill={theme.colors.defeat[400]} stackId="a" isAnimationActive={false} />
+          <Line yAxisId="right" type="monotone" dataKey="WinRate" stroke={theme.colors.info} strokeWidth={2} dot={{ r: 3 }} connectNulls={true} isAnimationActive={false} />
         </ComposedChart>
       </ResponsiveContainer>
     </StyledChartContainer>

@@ -8,6 +8,7 @@ import { getMapName } from "@/utils/maps";
 import { useTranslation } from "@/hooks";
 import { aggregateWeeklyWinDefeat } from "@/features/graphs/utils/aggregate";
 import { StyledChartContainer, StyledChartHeader, StyledChartTitle, StyledFiltersWrapper } from "./ChartContainer";
+import { useTheme } from "styled-components";
 
 interface WeeklyWinDefeatChartProps {
   history: History;
@@ -35,6 +36,7 @@ interface TooltipProps {
 }
 
 const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
+  const theme = useTheme();
   const { t } = useTranslation();
   if (active && payload && payload.length) {
     const data = payload[0].payload;
@@ -44,15 +46,15 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
       return (
         <div
           style={{
-            backgroundColor: "white",
-            border: "1px solid #ccc",
+            backgroundColor: "#ffffff",
+            border: `1px solid ${theme.colors.gray[300]}`,
             borderRadius: "8px",
             padding: "12px",
             boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
           }}
         >
-          <p style={{ margin: "0 0 8px 0", fontWeight: "bold" }}>{`${data.weekdayName} (${label})`}</p>
-          <p style={{ margin: "4px 0", color: "#6b7280" }}>{t("chart.tooltip.noMatchData")}</p>
+          <p style={{ margin: "0 0 8px 0", fontWeight: "bold", color: theme.colors.text }}>{`${data.weekdayName} (${label})`}</p>
+          <p style={{ margin: "4px 0", color: theme.colors.textSecondary }}>{t("chart.tooltip.noMatchData")}</p>
         </div>
       );
     }
@@ -60,17 +62,17 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
     return (
       <div
         style={{
-          backgroundColor: "white",
-          border: "1px solid #ccc",
+          backgroundColor: "#ffffff",
+          border: `1px solid ${theme.colors.gray[300]}`,
           borderRadius: "8px",
           padding: "12px",
           boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
         }}
       >
-        <p style={{ margin: "0 0 8px 0", fontWeight: "bold" }}>{`${data.weekdayName} (${label})`}</p>
-        <p style={{ margin: "4px 0", color: "#10b981" }}>{`${t("chart.tooltip.win")}: ${data.wins}${t("chart.tooltip.matches")} (${data.winRate || 0}%)`}</p>
-        <p style={{ margin: "4px 0", color: "#ef4444" }}>{`${t("chart.tooltip.lose")}: ${data.defeats}${t("chart.tooltip.matches")} (${data.defeatRate || 0}%)`}</p>
-        <p style={{ margin: "4px 0 0 0", fontWeight: "bold" }}>{`${t("chart.tooltip.total")}: ${data.total}${t("chart.tooltip.matches")}`}</p>
+        <p style={{ margin: "0 0 8px 0", fontWeight: "bold", color: theme.colors.text }}>{`${data.weekdayName} (${label})`}</p>
+        <p style={{ margin: "4px 0", color: theme.colors.win[600] }}>{`${t("chart.tooltip.win")}: ${data.wins}${t("chart.tooltip.matches")} (${data.winRate || 0}%)`}</p>
+        <p style={{ margin: "4px 0", color: theme.colors.defeat[600] }}>{`${t("chart.tooltip.lose")}: ${data.defeats}${t("chart.tooltip.matches")} (${data.defeatRate || 0}%)`}</p>
+        <p style={{ margin: "4px 0 0 0", fontWeight: "bold", color: theme.colors.text }}>{`${t("chart.tooltip.total")}: ${data.total}${t("chart.tooltip.matches")}`}</p>
       </div>
     );
   }
@@ -81,6 +83,7 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
  * 曜日別勝率比較チャートコンポーネント
  */
 const WeeklyWinDefeatChartComponent = ({ history, matchRecords, characters }: WeeklyWinDefeatChartProps) => {
+  const theme = useTheme();
   const { t } = useTranslation();
   const [selectedCharacterUuid, setSelectedCharacterUuid] = useState<string | null>(null);
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
@@ -152,8 +155,8 @@ const WeeklyWinDefeatChartComponent = ({ history, matchRecords, characters }: We
           <YAxis label={{ value: t("chart.axes.winRatePercent"), angle: -90, position: "insideLeft" }} domain={[0, 100]} tick={{ fontSize: 12 }} />
           <Tooltip content={<CustomTooltip />} />
           <Legend />
-          <Area type="monotone" dataKey="winRate" name="WinRate" stroke="#10b981" fill="#10b981" fillOpacity={0.3} connectNulls={true} isAnimationActive={false} />
-          <Area type="monotone" dataKey="defeatRate" name="DefeatRate" stroke="#ef4444" fill="#ef4444" fillOpacity={0.3} connectNulls={false} isAnimationActive={false} />
+          <Area type="monotone" dataKey="winRate" name="WinRate" stroke={theme.colors.win[600]} fill={theme.colors.win[600]} fillOpacity={0.3} connectNulls={true} isAnimationActive={false} />
+          <Area type="monotone" dataKey="defeatRate" name="DefeatRate" stroke={theme.colors.defeat[600]} fill={theme.colors.defeat[600]} fillOpacity={0.3} connectNulls={false} isAnimationActive={false} />
         </AreaChart>
       </ResponsiveContainer>
     </StyledChartContainer>
