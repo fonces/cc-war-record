@@ -63,14 +63,14 @@ const StyledNavLink = styled(Link)<{ $isActive: boolean }>`
   padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
   border-radius: ${({ theme }) => theme.borderRadius.md};
   text-decoration: none;
-  color: ${({ theme, $isActive }) => ($isActive ? theme.colors.primary[600] : theme.colors.gray[700])};
-  background-color: ${({ theme, $isActive }) => ($isActive ? theme.colors.primary[50] : "transparent")};
+  color: ${({ theme, $isActive }) => ($isActive ? theme.colors.primary[700] : theme.colors.gray[700])};
+  background-color: ${({ theme, $isActive }) => ($isActive ? theme.colors.primary[100] : "transparent")};
   font-weight: ${({ $isActive }) => ($isActive ? "600" : "400")};
   transition: all 0.2s ease-in-out;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.gray[100]};
-    color: ${({ theme }) => theme.colors.primary[600]};
+    background-color: ${({ theme, $isActive }) => ($isActive ? theme.colors.primary[100] : theme.colors.gray[100])};
+    color: ${({ theme }) => theme.colors.primary[700]};
   }
 `;
 
@@ -80,7 +80,7 @@ const StyledNavIcon = styled.div<{ $isActive: boolean }>`
   justify-content: center;
   width: 20px;
   height: 20px;
-  color: ${({ theme, $isActive }) => ($isActive ? theme.colors.primary[600] : theme.colors.gray[500])};
+  color: ${({ theme, $isActive }) => ($isActive ? theme.colors.primary[700] : theme.colors.gray[500])};
 `;
 
 // モバイル用ヘッダー

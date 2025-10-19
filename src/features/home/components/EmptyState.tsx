@@ -46,7 +46,6 @@ const StyledCreateButton = styled(Button)`
   align-items: center;
   gap: ${({ theme }) => theme.spacing[2]};
   font-size: 1.1rem;
-  padding: ${({ theme }) => theme.spacing[4]} ${({ theme }) => theme.spacing[8]};
 `;
 
 type EmptyStateProps = {

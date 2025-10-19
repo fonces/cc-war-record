@@ -169,7 +169,7 @@ export const Icon = ({ name, size = 24, color, onClick, className }: IconProps) 
   };
 
   return (
-    <StyledIcon size={size} color={color} onClick={onClick} className={className} aria-label={name}>
+    <StyledIcon size={size} color={color} onClick={onClick} className={className}>
       {renderIcon()}
     </StyledIcon>
   );
