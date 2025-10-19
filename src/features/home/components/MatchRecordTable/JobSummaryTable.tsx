@@ -204,7 +204,7 @@ export const JobSummaryTable = ({ usedJobs, jobSummaries, onAddWin, onAddLoss, o
                         )}
                         {onAddLoss && (
                           <StyledActionButton variant="secondary" onClick={() => onAddLoss(summary.job, map)}>
-                            L
+                            D
                           </StyledActionButton>
                         )}
                         {summary.totalMatches > 0 && onRevertLast ? (

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 
-type ButtonVariant = "primary" | "secondary" | "outline" | "ghost" | "win";
+type ButtonVariant = "primary" | "secondary" | "outline" | "ghost" | "win" | "defeat";
 type ButtonSize = "sm" | "md" | "lg";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -123,6 +123,20 @@ const StyledButton = styled.button<ButtonProps>`
 
           &:active:not(:disabled) {
             background-color: ${theme.colors.win[800]};
+          }
+        `;
+      case "defeat":
+        return `
+          background-color: ${theme.colors.defeat[600]};
+          color: white;
+          border: none;
+
+          &:hover:not(:disabled) {
+            background-color: ${theme.colors.defeat[700]};
+          }
+
+          &:active:not(:disabled) {
+            background-color: ${theme.colors.defeat[800]};
           }
         `;
     }
