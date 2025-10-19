@@ -1,1 +1,0 @@
-import"./stores-D_tU3b4s.js";import{r as e}from"./histories-CFy-npXd.js";var t=e;export{t as component};
