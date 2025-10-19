@@ -82,7 +82,7 @@ export const Select = memo(
         {error && <ErrorMessage>{error}</ErrorMessage>}
       </Container>
     );
-  })
+  }),
 );
 
 Select.displayName = "Select";

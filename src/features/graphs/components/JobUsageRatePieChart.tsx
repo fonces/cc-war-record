@@ -75,7 +75,9 @@ const CustomTooltip = ({ active, payload }: TooltipProps) => {
     );
   }
   return null;
-}; /**
+};
+
+/**
  * ジョブ使用率円グラフコンポーネント
  */
 const JobUsageRatePieChartComponent = ({ history, matchRecords, characters }: JobUsageRatePieChartProps) => {

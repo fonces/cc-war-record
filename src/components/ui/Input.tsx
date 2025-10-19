@@ -78,7 +78,7 @@ export const Input = memo(
         {error && <ErrorMessage>{error}</ErrorMessage>}
       </Container>
     );
-  })
+  }),
 );
 
 Input.displayName = "Input";
