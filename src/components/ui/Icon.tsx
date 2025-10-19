@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 type IconProps = {
   /** アイコンの種類 */
-  name: "hamburger" | "close" | "home" | "history" | "chart" | "edit" | "accept" | "add" | "delete" | "minus" | "revert" | "detail" | "back";
+  name: "hamburger" | "close" | "home" | "history" | "chart" | "edit" | "accept" | "add" | "delete" | "minus" | "revert" | "detail" | "back" | "language";
   /** サイズ */
   size?: number;
   /** 色 */
@@ -131,6 +131,14 @@ const BackIcon = () => (
   </svg>
 );
 
+const LanguageIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="10" />
+    <line x1="2" y1="12" x2="22" y2="12" />
+    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+  </svg>
+);
+
 /**
  * アイコンコンポーネント
  */
@@ -163,6 +171,8 @@ export const Icon = ({ name, size = 24, color, onClick, className }: IconProps) 
         return <DetailIcon />;
       case "back":
         return <BackIcon />;
+      case "language":
+        return <LanguageIcon />;
       default:
         return null;
     }

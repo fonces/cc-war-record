@@ -8,6 +8,8 @@ import { getMapName } from "@/utils/maps";
 import { useTranslation } from "@/hooks";
 import { aggregateHourlyWinDefeat } from "@/features/graphs/utils/aggregate";
 import { StyledChartContainer, StyledChartHeader, StyledChartTitle, StyledFiltersWrapper } from "./ChartContainer";
+import { getWinRateColor } from "@/utils";
+import { useTheme } from "styled-components";
 
 interface HourlyWinDefeatChartProps {
   history: History;
@@ -61,12 +63,13 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
  * 時間別勝敗数チャートコンポーネント
  */
 const HourlyWinDefeatChartComponent = ({ history, matchRecords, characters }: HourlyWinDefeatChartProps) => {
+  const theme = useTheme();
   const { t } = useTranslation();
   const [selectedCharacterUuid, setSelectedCharacterUuid] = useState<string | null>(null);
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const [selectedMap, setSelectedMap] = useState<CrystalConflictMap | null>(null);
 
-  const chartData = aggregateHourlyWinDefeat(history, matchRecords, selectedCharacterUuid, selectedJob, selectedMap);
+  const chartData = aggregateHourlyWinDefeat(history, matchRecords, selectedCharacterUuid, selectedJob, selectedMap, t);
 
   return (
     <StyledChartContainer>
@@ -132,9 +135,9 @@ const HourlyWinDefeatChartComponent = ({ history, matchRecords, characters }: Ho
           <YAxis label={{ value: t("chart.axes.winRatePercent"), angle: -90, position: "insideLeft" }} domain={[0, 100]} tick={{ fontSize: 12 }} />
           <Tooltip content={<CustomTooltip />} />
           <Legend />
-          <Bar dataKey="winRate" name="WinRate" fill="#10b981" radius={[2, 2, 0, 0]} isAnimationActive={false}>
+          <Bar dataKey="winRate" name="WinRate" fill={theme.colors.textSecondary} radius={[2, 2, 0, 0]} isAnimationActive={false}>
             {chartData.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={entry.total === 0 ? "#d1d5db" : "#10b981"} />
+              <Cell key={`cell-${index}`} fill={getWinRateColor(entry.winRate, theme)} />
             ))}
           </Bar>
         </BarChart>

@@ -156,6 +156,7 @@ export const aggregateHourlyWinDefeat = (
   selectedCharacterUuid: string | null,
   selectedJob: Job | null,
   selectedMap: CrystalConflictMap | null,
+  t: TFunction,
 ) => {
   // 0-23時の時間範囲を生成
   const hourRange = Array.from({ length: 24 }, (_, i) => i);
@@ -198,7 +199,7 @@ export const aggregateHourlyWinDefeat = (
     const defeatRate = stats.total > 0 ? Math.round((stats.defeats / stats.total) * 100) : 0;
 
     return {
-      hour: `${hour}時`,
+      hour: t("chart.hour", { hour }),
       winRate,
       defeatRate,
       wins: stats.wins,

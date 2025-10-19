@@ -230,7 +230,7 @@ export const Header = ({ children }: HeaderProps) => {
 
         {/* 言語セレクターを下部に配置 */}
         <div style={{ marginTop: "auto", paddingTop: "24px" }}>
-          <LanguageSelector direction="up" />
+          <LanguageSelector direction="up" fullWidth />
         </div>
       </StyledSidebar>
 

@@ -1,13 +1,15 @@
 import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useTranslation } from "@/hooks";
+import { Icon } from "./Icon";
 
-const StyledLanguageSelector = styled.div`
+const StyledLanguageSelector = styled.div<{ $fullWidth?: boolean }>`
   position: relative;
-  display: inline-block;
+  display: ${({ $fullWidth }) => ($fullWidth ? "block" : "inline-block")};
+  width: ${({ $fullWidth }) => ($fullWidth ? "100%" : "auto")};
 `;
 
-const StyledLanguageButton = styled.button`
+const StyledLanguageButton = styled.button<{ $fullWidth?: boolean }>`
   padding: 0.5rem 1rem 0.5rem 1rem;
   background-color: white;
   border: 1px solid ${({ theme }) => theme.colors.gray[300]};
@@ -19,7 +21,8 @@ const StyledLanguageButton = styled.button`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing[2]};
-  min-width: 120px;
+  min-width: ${({ $fullWidth }) => ($fullWidth ? "auto" : "120px")};
+  width: ${({ $fullWidth }) => ($fullWidth ? "100%" : "auto")};
   justify-content: space-between;
   transition: all 0.2s ease;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -34,6 +37,12 @@ const StyledLanguageButton = styled.button`
     border-color: ${({ theme }) => theme.colors.primary[500]};
     box-shadow: 0 0 0 3px ${({ theme }) => theme.colors.primary[100]};
   }
+`;
+
+const StyledIconWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing[2]};
 `;
 
 const StyledLanguageDropdown = styled.div<{ isOpen: boolean; direction: "up" | "down" }>`
@@ -91,9 +100,11 @@ const languages = [
 type LanguageSelectorProps = {
   /** プルダウンの表示方向 */
   direction?: "up" | "down";
+  /** 幅を親要素に合わせるかどうか */
+  fullWidth?: boolean;
 };
 
-export const LanguageSelector = ({ direction = "down" }: LanguageSelectorProps) => {
+export const LanguageSelector = ({ direction = "down", fullWidth = false }: LanguageSelectorProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const { currentLanguage, changeLanguage } = useTranslation();
   const selectorRef = useRef<HTMLDivElement>(null);
@@ -123,9 +134,12 @@ export const LanguageSelector = ({ direction = "down" }: LanguageSelectorProps) 
   const currentLanguageName = languages.find((lang) => lang.code === currentLanguage)?.name || "日本語";
 
   return (
-    <StyledLanguageSelector ref={selectorRef}>
-      <StyledLanguageButton onClick={() => setIsOpen(!isOpen)}>
-        <span>{currentLanguageName}</span>
+    <StyledLanguageSelector ref={selectorRef} $fullWidth={fullWidth}>
+      <StyledLanguageButton onClick={() => setIsOpen(!isOpen)} $fullWidth={fullWidth}>
+        <StyledIconWrapper>
+          <Icon name="language" size={18} />
+          <span>{currentLanguageName}</span>
+        </StyledIconWrapper>
         <StyledArrow isOpen={isOpen} direction={direction}>
           ▼
         </StyledArrow>

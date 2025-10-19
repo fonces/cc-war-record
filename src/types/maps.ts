@@ -91,7 +91,7 @@ export const MAP_INFO: Record<CrystalConflictMap, MapInfo> = {
   [MAPS.VOLCANIC_HEART]: {
     code: MAPS.VOLCANIC_HEART,
     name: "ヴォルカニックハート",
-    nameEn: "Volcanic Heart",
+    nameEn: "The Volcanic Heart",
     theme: MAP_THEMES.VOLCANIC,
     size: MAP_SIZES.MEDIUM,
     features: [MAP_FEATURES.ENVIRONMENTAL_HAZARDS, MAP_FEATURES.CENTRAL_CRYSTAL],
@@ -117,7 +117,7 @@ export const MAP_INFO: Record<CrystalConflictMap, MapInfo> = {
   [MAPS.TOUHOU_KARAKURI_GOTEN]: {
     code: MAPS.TOUHOU_KARAKURI_GOTEN,
     name: "東方絡繰御殿",
-    nameEn: "Touhou Karakuri Goten",
+    nameEn: "The Clockwork Castletown",
     theme: MAP_THEMES.CASTLE,
     size: MAP_SIZES.MEDIUM,
     features: [MAP_FEATURES.MULTI_LEVEL, MAP_FEATURES.NARROW_PATHS, MAP_FEATURES.ENVIRONMENTAL_HAZARDS],
@@ -130,7 +130,7 @@ export const MAP_INFO: Record<CrystalConflictMap, MapInfo> = {
   [MAPS.RED_SANDS]: {
     code: MAPS.RED_SANDS,
     name: "レッドサンズ",
-    nameEn: "Red Sands",
+    nameEn: "The Red Sands",
     theme: MAP_THEMES.DESERT,
     size: MAP_SIZES.LARGE,
     features: [MAP_FEATURES.OPEN_AREA, MAP_FEATURES.ENVIRONMENTAL_HAZARDS],
@@ -143,7 +143,7 @@ export const MAP_INFO: Record<CrystalConflictMap, MapInfo> = {
   [MAPS.BAYSIDE_BATTLEGROUND]: {
     code: MAPS.BAYSIDE_BATTLEGROUND,
     name: "ベイサイドバトルグラウンド",
-    nameEn: "Bayside Battleground",
+    nameEn: "The Bayside Battleground",
     theme: MAP_THEMES.WATER,
     size: MAP_SIZES.LARGE,
     features: [MAP_FEATURES.OPEN_AREA, MAP_FEATURES.CENTRAL_CRYSTAL, MAP_FEATURES.ENVIRONMENTAL_HAZARDS],

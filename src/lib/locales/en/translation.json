@@ -280,11 +280,11 @@
   },
   "maps": {
     "THE_PALAISTRA": "The Palaistra",
-    "VOLCANIC_HEART": "Volcanic Heart",
+    "VOLCANIC_HEART": "The Volcanic Heart",
     "CLOUD_NINE": "Cloud Nine",
     "TOUHOU_KARAKURI_GOTEN": "The Clockwork Castletown",
-    "RED_SANDS": "Red Sands",
-    "BAYSIDE_BATTLEGROUND": "Bayside Battleground"
+    "RED_SANDS": "The Red Sands",
+    "BAYSIDE_BATTLEGROUND": "The Bayside Battleground"
   },
   "chart": {
     "winRate": "Win Rate",

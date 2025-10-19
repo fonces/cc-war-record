@@ -22,9 +22,9 @@ FINAL FANTASY XIVのPvPコンテンツ「クリスタルコンフリクト」の
 
 ### コアライブラリ
 
-- **React** v18.x - UIライブラリ
+- **React** v19.x - UIライブラリ
 - **TypeScript** v5.x - 型安全性
-- **Vite** v5.x - ビルドツール
+- **Vite** v7.x (Rolldown) - 高速ビルドツール
 
 ### 状態管理・データフェッチング
 
@@ -43,6 +43,14 @@ FINAL FANTASY XIVのPvPコンテンツ「クリスタルコンフリクト」の
 ### UI/UX
 
 - **TanStack Virtual** v4.x - 仮想スクロール（大量データの効率的な表示）
+- **View Transition API** - ネイティブブラウザAPIによるページ遷移アニメーション
+
+### PWA機能
+
+- **vite-plugin-pwa** v1.x - Progressive Web App対応
+- **workbox-window** v7.x - ServiceWorkerによるオフラインキャッシュ
+  - 画像アセット (`/img/*`) の自動キャッシュ（30日間有効）
+  - CacheFirstストラテジーで高速表示
 
 ### スタイリング
 
@@ -51,11 +59,16 @@ FINAL FANTASY XIVのPvPコンテンツ「クリスタルコンフリクト」の
 ### データ可視化
 
 - **Recharts** v2.x - グラフ・チャート描画ライブラリ
-  - BarChart - 棒グラフ（日別・時間別勝敗数）
-  - ComposedChart - 複合チャート（勝敗数+勝率ライン）
-  - AreaChart - エリアチャート（曜日別勝率）
-  - RadarChart - レーダーチャート（ジョブ別勝率比較）
+  - ComposedChart - 複合チャート（日別勝敗数+勝率ライン）
+  - BarChart - 棒グラフ（時間別勝率分析）
+  - AreaChart - エリアチャート（曜日別勝率比較）
+  - RadarChart - レーダーチャート（マップ別ジョブ勝率比較）
   - PieChart - 円グラフ（ジョブ使用率）
+
+### ビルド分析
+
+- **rollup-plugin-visualizer** v6.x - バンドルサイズ可視化ツール
+  - ビルド時に `dist/stats.html` を生成してバンドル内容を分析可能
 
 ### アイコン・画像
 
@@ -203,25 +216,46 @@ src/
 │   ├── App.tsx
 │   └── provider.tsx
 ├── components/       # 共有コンポーネント
-│   ├── ui/          # 基本UIコンポーネント
+│   ├── ui/           # 基本UIコンポーネント
 │   │   ├── Button.tsx
 │   │   ├── Input.tsx
 │   │   ├── Select.tsx
 │   │   ├── MultiSelect.tsx
 │   │   ├── Checkbox.tsx
-│   │   ├── Icon/
-│   │   ├── JobIcon/      # ジョブアイコンコンポーネント
-│   │   ├── RoleIcon/     # ロールアイコンコンポーネント
-│   │   ├── Dialog/
-│   │   └── JobRegistrationDialog/
+│   │   ├── Dialog.tsx
+│   │   ├── Icon.tsx
+│   │   ├── JobIcon.tsx        # ジョブアイコンコンポーネント
+│   │   ├── RoleIcon.tsx       # ロールアイコンコンポーネント
+│   │   ├── LanguageSelector.tsx
+│   │   └── PageLayout.tsx
 │   ├── form/        # フォームコンポーネント
 │   └── layout/      # レイアウトコンポーネント
+│       ├── Header/
+│       └── NotFoundPage/
 ├── features/        # 機能別モジュール
 │   ├── home/        # ホーム画面（キャラクター管理）
+│   │   ├── components/
+│   │   │   ├── CharacterCard.tsx
+│   │   │   ├── CharacterForm.tsx
+│   │   │   ├── DeleteCharacterDialog.tsx
+│   │   │   ├── JobRegistrationDialog.tsx
+│   │   │   └── MatchRecordTable/
+│   │   └── utils/
 │   ├── graphs/      # グラフ・統計表示
+│   │   ├── components/
+│   │   │   ├── GraphsPage.tsx
+│   │   │   ├── ChartContainer.tsx     # 共通チャートスタイル
+│   │   │   ├── DailyWinDefeatChart.tsx
+│   │   │   ├── HourlyWinDefeatChart.tsx
+│   │   │   ├── WeeklyWinDefeatChart.tsx
+│   │   │   ├── JobUsageRatePieChart.tsx
+│   │   │   └── JobWinRateRadarChart.tsx
+│   │   └── utils/
+│   │       └── aggregate.ts           # データ集計ユーティリティ
 │   ├── histories/   # 履歴詳細表示
 │   └── faq/         # よくある質問ページ
 ├── hooks/           # 共有カスタムフック
+│   ├── useMapRotation.ts  # マップローテーション取得
 │   ├── usePageTitle.ts    # ページタイトル設定
 │   ├── useScrollLock.ts   # スクロールロック
 │   ├── useTranslation.ts  # 翻訳フック
@@ -245,7 +279,9 @@ src/
 │   ├── history.ts   # 履歴型定義
 │   └── index.ts
 ├── utils/           # ユーティリティ関数
+│   ├── colors.ts
 │   ├── localStorage.ts
+│   ├── maps.ts
 │   └── uuid.ts
 └── test/            # テスト設定
     └── server/
@@ -592,13 +628,14 @@ t("pages.faq.privacy.dataStorage.answer.points", { returnObjects: true });
 
 #### 2. グラフ画面での分析
 
-- ナビゲーションから「戦績グラフ」を選択
-- 4種類のチャートで多角的に戦績を分析:
-  - **日別推移**: 長期トレンドの確認
-  - **時間別分析**: 最適プレイ時間の発見
-  - **曜日別比較**: 平日・休日パフォーマンスの差
-  - **ジョブ・マップ相性**: 得意不得意の発見
-- 各チャートでフィルタリング機能を活用
+- ナビゲーションから「グラフ」を選択
+- 5種類のチャートで多角的に戦績を分析:
+  - **日別勝敗数と勝率推移**: 長期トレンドの確認
+  - **時間帯別勝率分析**: 最適プレイ時間の発見
+  - **曜日別勝率比較**: 平日・休日パフォーマンスの差
+  - **ジョブ使用率**: よく使用するジョブの確認
+  - **マップ別ジョブ勝率比較**: ジョブとマップの相性分析
+- 各チャートでキャラクター・ジョブ・マップによるフィルタリングが可能
 
 #### 3. 履歴管理
 
@@ -607,7 +644,11 @@ t("pages.faq.privacy.dataStorage.answer.points", { returnObjects: true });
 
 ## グラフ機能詳細
 
-### 1. 日別勝敗数チャート（DailyWinDefeatChart）
+### 共通機能
+
+全てのチャートコンポーネントは共通のスタイルコンポーネント (`ChartContainer.tsx`) を使用し、統一されたUI/UXを提供します。
+
+### 1. 日別勝敗数と勝率推移チャート（DailyWinDefeatChart）
 
 - **表示期間**: シーズン作成日から2ヶ月間
 - **チャートタイプ**: ComposedChart（Bar + Line）
@@ -615,44 +656,54 @@ t("pages.faq.privacy.dataStorage.answer.points", { returnObjects: true });
 - **Y軸**: 左軸（試合数）、右軸（勝率0-100%）
 - **フィルター**: キャラクター・ジョブ・マップ
 
-### 2. 時間別勝率チャート（HourlyWinDefeatChart）
+### 2. 時間帯別勝率分析チャート（HourlyWinDefeatChart）
 
 - **表示範囲**: 0時-23時（24時間）
 - **チャートタイプ**: BarChart（棒グラフ）
 - **データ**: 時間帯別勝率（パーセンテージ）
+- **ツールチップ**: 勝利数・敗北数・合計試合数を表示
 - **用途**: プレイ時間による勝率傾向分析
 - **フィルター**: キャラクター・ジョブ・マップ
 
-### 3. 曜日別勝率比較（WeeklyWinDefeatChart）
+### 3. 曜日別勝率比較チャート（WeeklyWinDefeatChart）
 
 - **表示範囲**: 日曜日-土曜日（Sun-Sat）
 - **チャートタイプ**: AreaChart（エリアチャート）
 - **データ**: 曜日別勝率・敗率
 - **特徴**: connectNulls機能でデータ欠損日を補間
+- **ツールチップ**: 勝利数・敗北数・合計試合数を表示
 - **用途**: 平日・休日による勝率差分析
 - **フィルター**: キャラクター・ジョブ・マップ
 
-### 4. ジョブ別勝率レーダーチャート（JobWinRateRadarChart）
+### 4. ジョブ使用率円グラフ（JobUsageRatePieChart）
 
-- **表示形式**: レーダーチャート（多角形）
+- **チャートタイプ**: PieChart（円グラフ）
+- **データ**: 各ジョブの使用頻度（パーセンテージ）
+- **ラベル**: 5%以上のジョブに使用率を表示
+- **カラー**: JOB_INFOで定義されたジョブカラー
+- **ツールチップ**: ジョブ名・使用回数・使用率
+- **ソート**: 使用率降順
+- **フィルター**: キャラクター・マップ
+
+### 5. マップ別ジョブ勝率比較レーダーチャート（JobWinRateRadarChart）
+
+- **表示形式**: RadarChart（レーダーチャート）
 - **データ**: マップ別の最大5ジョブ勝率比較
 - **軸**: 各クリスタルコンフリクトマップ
+- **ツールチップ**: 勝率を%付きで表示
 - **永続化**: ジョブ選択状態をlocalStorageに保存
 - **用途**: ジョブ・マップ相性分析
 - **フィルター**: キャラクター
 - **選択方式**: MultiSelectによる複数ジョブ選択（最大5）
 
-### 5. ジョブ使用率円グラフ（JobUsageRatePieChart）
+## マップローテーション機能
 
-- **表示形式**: PieChart（円グラフ）
-- **データ**: 各ジョブの使用頻度（パーセンテージ）
-- **ラベル**: 5%以上のジョブに使用率を表示
-- **カラー**: JOB_INFOで定義されたジョブカラーを使用
-- **ツールチップ**: ジョブ名・使用回数・使用率を表示
-- **ソート**: 使用率降順
-- **フィルター**: キャラクター・マップ
+- **useMapRotation フック**: 現在のマップと次のマップをリアルタイムで取得
+- **表示場所**: ホーム画面のマップ別戦績テーブル
+- **自動更新**: マップ切り替え時刻に自動的に更新
+- **視覚的表示**: 現在のマップに「Now」バッジ、次のマップに「Next」バッジを表示
 
-### 共通機能
+## 共通機能
 
 - **レスポンシブ対応**: 画面サイズに自動調整
 - **カスタムツールチップ**: 詳細データ表示
