@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
+import { VitePWA } from "vite-plugin-pwa";
 import path from "path";
 import fs from "fs";
 
@@ -36,6 +37,33 @@ export default defineConfig({
       autoCodeSplitting: true,
     }),
     react(),
+    VitePWA({
+      registerType: "autoUpdate",
+      includeAssets: ["img/**/*"],
+      workbox: {
+        globPatterns: ["**/*.{js,css,html,ico,png,svg,jpg,jpeg,gif,webp}"],
+        runtimeCaching: [
+          {
+            urlPattern: /^https?:\/\/.*\/img\/.*/i,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "images-cache",
+              expiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 60 * 60 * 24 * 30, // 30日間
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+        ],
+      },
+      manifest: false,
+      devOptions: {
+        enabled: false,
+      },
+    }),
     generateGitHubPagesFilesPlugin(),
   ],
   resolve: {
