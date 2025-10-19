@@ -71,6 +71,25 @@ const Answer = styled.div`
   }
 `;
 
+const Copyright = styled.div`
+  margin-top: ${({ theme }) => theme.spacing[10]};
+  padding-top: ${({ theme }) => theme.spacing[6]};
+  border-top: 1px solid ${({ theme }) => theme.colors.gray[200]};
+  text-align: center;
+  color: ${({ theme }) => theme.colors.textSecondary};
+  font-size: 0.875rem;
+  
+  p {
+    margin-bottom: ${({ theme }) => theme.spacing[2]};
+    line-height: 1.6;
+  }
+  
+  strong {
+    color: ${({ theme }) => theme.colors.text};
+    font-weight: 600;
+  }
+`;
+
 export const FaqPage = () => {
   const { t } = useTranslation();
   usePageTitle(t("pages.faq.title"));
@@ -170,6 +189,18 @@ export const FaqPage = () => {
           </FaqItem>
         </FaqSection>
       </FaqContainer>
+
+      <Copyright>
+        <p>
+          FINAL FANTASY is a registered trademark of Square Enix Holdings Co., Ltd.
+        </p>
+        <p>
+          <strong>© SQUARE ENIX CO., LTD. All Rights Reserved.</strong>
+        </p>
+        <p>
+          {t("pages.faq.copyright.disclaimer")}
+        </p>
+      </Copyright>
     </PageContainer>
   );
 };

@@ -179,6 +179,9 @@
             "explanation": "Each browser's local storage is independent, so data is only available in the browser where it was created."
           }
         }
+      },
+      "copyright": {
+        "disclaimer": "This application is a fan-made unofficial tool and is not affiliated with Square Enix Co., Ltd. in any way."
       }
     },
     "notFound": {
