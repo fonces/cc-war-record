@@ -33,18 +33,24 @@
     <link rel="alternate" hreflang="en" href="https://fonces.github.io/cc-war-record/" />
     <link rel="alternate" hreflang="ko" href="https://fonces.github.io/cc-war-record/" />
     <link rel="alternate" hreflang="x-default" href="https://fonces.github.io/cc-war-record/" />
-    <script type="module" crossorigin src="/cc-war-record/assets/index-DhA9AGh8.js"></script>
+    <script type="module" crossorigin src="/cc-war-record/assets/index-MzI5li_m.js"></script>
   <script id="vite-plugin-pwa:register-sw" src="/cc-war-record/registerSW.js"></script></head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8MW9KTB7Q5"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-8MW9KTB7Q5');
-  </script>
   <body>
-    <div id="root"></div> 
+    <div id="root"></div>
+    <!-- Google tag (gtag.js) - Production only -->
+    <script>
+      if (import.meta.env.PROD) {
+        // Google Analytics script
+        const gtagScript = document.createElement('script');
+        gtagScript.async = true;
+        gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-8MW9KTB7Q5';
+        document.head.appendChild(gtagScript);
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-8MW9KTB7Q5');
+      }
+    </script> 
   </body>
 </html>
