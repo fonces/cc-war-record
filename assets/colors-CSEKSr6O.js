@@ -1,4 +1,4 @@
-import{C as e,E as t,M as n,N as r,u as i,z as a}from"./index-ctg_uAAC.js";var o=a(n()),s=r.div`
+import{C as e,E as t,M as n,N as r,u as i,z as a}from"./index-DhA9AGh8.js";var o=a(n()),s=r.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,4 +34,4 @@ import{C as e,E as t,M as n,N as r,u as i,z as a}from"./index-ctg_uAAC.js";var o
   align-items: center;
   gap: ${({theme:e})=>e.spacing[2]};
   font-size: 1.1rem;
-`;const f=({onCreateSeason:t})=>{let{t:n}=i();return(0,o.jsxs)(s,{children:[(0,o.jsx)(c,{children:(0,o.jsx)(e,{name:`home`,size:32})}),(0,o.jsx)(l,{children:n(`pages.home.noSeason`)}),(0,o.jsx)(u,{children:n(`pages.home.createFirstSeason`)}),(0,o.jsxs)(d,{onClick:t,children:[(0,o.jsx)(e,{name:`add`,size:20,color:`white`}),n(`pages.home.createSeason`)]})]})},p=(e,t)=>e>=51?t.colors.success[600]:e>=40?t.colors.warning[600]:t.colors.error[600];export{f as n,p as t};
+`;const f=({onCreateSeason:t})=>{let{t:n}=i();return(0,o.jsxs)(s,{children:[(0,o.jsx)(c,{children:(0,o.jsx)(e,{name:`home`,size:32})}),(0,o.jsx)(l,{children:n(`pages.home.noSeason`)}),(0,o.jsx)(u,{children:n(`pages.home.createFirstSeason`)}),(0,o.jsxs)(d,{onClick:t,children:[(0,o.jsx)(e,{name:`add`,size:20,color:`white`}),n(`pages.home.createSeason`)]})]})},p=(e,t,n=600)=>e>=51?t.colors.success[n]:e>=40?t.colors.warning[n]:t.colors.error[n];export{f as n,p as t};

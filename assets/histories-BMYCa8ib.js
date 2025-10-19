@@ -1,1 +1,0 @@
-import"./stores-CVGIZ8Pb.js";import{r as e}from"./histories-CCl-FsBu.js";var t=e;export{t as component};
