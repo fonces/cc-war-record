@@ -10,11 +10,11 @@ import { aggregateJobUsageRate } from "@/features/graphs/utils/aggregate";
 import { StyledChartContainer, StyledChartHeader, StyledChartTitle, StyledFiltersWrapper } from "./ChartContainer";
 import { useTheme } from "styled-components";
 
-interface JobUsageRatePieChartProps {
+type JobUsageRatePieChartProps = {
   history: History;
   matchRecords: MatchRecord[];
   characters: Character[];
-}
+};
 
 const RADIAN = Math.PI / 180;
 
@@ -41,7 +41,7 @@ const renderCustomizedLabel = (props: any) => {
 /**
  * カスタムツールチップコンポーネント
  */
-interface TooltipProps {
+type TooltipProps = {
   active?: boolean;
   payload?: Array<{
     payload: {
@@ -51,7 +51,7 @@ interface TooltipProps {
       percentage: number;
     };
   }>;
-}
+};
 
 const CustomTooltip = ({ active, payload }: TooltipProps) => {
   const theme = useTheme();

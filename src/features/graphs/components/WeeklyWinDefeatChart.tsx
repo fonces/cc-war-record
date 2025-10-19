@@ -10,16 +10,16 @@ import { aggregateWeeklyWinDefeat } from "@/features/graphs/utils/aggregate";
 import { StyledChartContainer, StyledChartHeader, StyledChartTitle, StyledFiltersWrapper } from "./ChartContainer";
 import { useTheme } from "styled-components";
 
-interface WeeklyWinDefeatChartProps {
+type WeeklyWinDefeatChartProps = {
   history: History;
   matchRecords: MatchRecord[];
   characters: Character[];
-}
+};
 
 /**
  * カスタムツールチップコンポーネント
  */
-interface TooltipProps {
+type TooltipProps = {
   active?: boolean;
   payload?: Array<{
     payload: {

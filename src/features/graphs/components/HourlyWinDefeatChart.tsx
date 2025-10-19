@@ -11,16 +11,16 @@ import { StyledChartContainer, StyledChartHeader, StyledChartTitle, StyledFilter
 import { getWinRateColor } from "@/utils";
 import { useTheme } from "styled-components";
 
-interface HourlyWinDefeatChartProps {
+type HourlyWinDefeatChartProps = {
   history: History;
   matchRecords: MatchRecord[];
   characters: Character[];
-}
+};
 
 /**
  * カスタムツールチップコンポーネント
  */
-interface TooltipProps {
+type TooltipProps = {
   active?: boolean;
   payload?: Array<{
     payload: {

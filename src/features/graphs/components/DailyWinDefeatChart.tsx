@@ -10,11 +10,11 @@ import { aggregateDailyWinDefeat } from "@/features/graphs/utils/aggregate";
 import { StyledChartContainer, StyledChartHeader, StyledChartTitle, StyledFiltersWrapper } from "./ChartContainer";
 import { useTheme } from "styled-components";
 
-interface DailyWinDefeatChartProps {
+type DailyWinDefeatChartProps = {
   history: History;
   matchRecords: MatchRecord[];
   characters: Character[];
-}
+};
 
 /**
  * 日別勝敗数グラフコンポーネント
