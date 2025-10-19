@@ -44,6 +44,8 @@ FINAL FANTASY XIVのPvPコンテンツ「クリスタルコンフリクト」の
 
 - **TanStack Virtual** v4.x - 仮想スクロール（大量データの効率的な表示）
 - **View Transition API** - ネイティブブラウザAPIによるページ遷移アニメーション
+- **React Suspense** - 遅延読み込みコンポーネント用フォールバック
+- **Code Splitting** - lazyRouteComponentによるルートベースの動的インポート
 
 ### PWA機能
 
@@ -64,6 +66,13 @@ FINAL FANTASY XIVのPvPコンテンツ「クリスタルコンフリクト」の
   - AreaChart - エリアチャート（曜日別勝率比較）
   - RadarChart - レーダーチャート（マップ別ジョブ勝率比較）
   - PieChart - 円グラフ（ジョブ使用率）
+
+### アナリティクス
+
+- **react-ga4** v2.x - Google Analytics 4統合
+  - ページビュー自動追跡（ルート変更時）
+  - カスタムイベント送信機能
+  - production環境でのみ動作
 
 ### Linter・Code Quality
 
@@ -93,6 +102,9 @@ FINAL FANTASY XIVのPvPコンテンツ「クリスタルコンフリクト」の
 ```bash
 # ベースパス（GitHub Pagesなどでのサブパス配置用）
 VITE_BASEPATH=/cc-war-record
+
+# Google Analytics 4 測定ID（オプション）
+# VITE_GA_MEASUREMENT_ID=G-XXXXXXXXXX
 ```
 
 `.env.example` をコピーして `.env` を作成してください：
@@ -101,11 +113,20 @@ VITE_BASEPATH=/cc-war-record
 cp .env.example .env
 ```
 
+### 環境変数の説明
+
+- **VITE_BASEPATH**: アプリケーションのベースパス（GitHub Pagesなどでサブディレクトリに配置する場合に使用）
+- **VITE_GA_MEASUREMENT_ID**: Google Analytics 4の測定ID（設定しない場合、アナリティクスは無効化されます）
+
 ## データ管理アーキテクチャ
 
-### Zustandストア構成
+### 状態管理の構成
 
-#### characterStore.ts - キャラクター・戦績管理
+#### Zustandストア（グローバル状態）
+
+グローバルに共有されるデータの管理に使用：
+
+##### characterStore.ts - キャラクター・戦績管理
 
 ```typescript
 type CharacterState = {
@@ -127,7 +148,7 @@ type CharacterState = {
 - getMatchRecordsForCharacter(characterUuid: string) // キャラクター別戦績取得
 ```
 
-#### historyStore.ts - シーズン履歴管理
+##### historyStore.ts - シーズン履歴管理
 
 ```typescript
 type HistoryState = {
@@ -501,9 +522,9 @@ MIT
 
 ### パフォーマンス最適化
 
-#### React.memo化戦略
+#### React最適化戦略
 
-- **UIコンポーネント全体のmemo化**（11コンポーネント）
+- **UIコンポーネントのmemo化**（11コンポーネント）
   - Button, Checkbox, Dialog, Icon, Input, JobIcon, LanguageSelector, MultiSelect, PageLayout, RoleIcon, Select
   - すべてにdisplayName設定済み
   - 不要な再レンダリングを防止
@@ -511,9 +532,20 @@ MIT
   - 全チャートコンポーネント（5つ）にカスタム比較関数付きmemoを実装
   - `history.uuid`, `matchRecords.length`, `characters.length` で精密な比較
   - レスポンス速度を向上
+- **useCallbackによる関数メモ化**
+  - MapSectionコンポーネントのハンドラー関数（onAddWin, onAddDefeat, onRevertLast）
+  - 子コンポーネント（JobSummaryTable）への不要な再レンダリング防止
 
 #### ルーティング最適化
 
+- **Code Splitting（コード分割）**
+  - 全ルートで`lazyRouteComponent`を使用した動的インポート
+  - 初期バンドルサイズの削減
+  - ページごとに必要なコードのみ読み込み
+- **React Suspense**
+  - ローディングフォールバックコンポーネント実装
+  - スピナーアニメーション付きローディング表示
+  - 遅延読み込み時のUX改善
 - **TanStack Router キャッシュ戦略**
   - `/graphs` ルートに5分間の `staleTime` を設定
   - 10分間の `gcTime` でメモリにキャッシュを保持
