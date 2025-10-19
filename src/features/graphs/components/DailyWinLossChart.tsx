@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, memo } from "react";
 import { ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { Select } from "@/components/ui";
 import type { History, MatchRecord, Job, CrystalConflictMap, Character } from "@/types";
@@ -45,7 +45,7 @@ interface DailyWinLossChartProps {
 /**
  * 日別勝敗数グラフコンポーネント
  */
-export const DailyWinLossChart = ({ history, matchRecords, characters }: DailyWinLossChartProps) => {
+const DailyWinLossChartComponent = ({ history, matchRecords, characters }: DailyWinLossChartProps) => {
   const { t } = useTranslation();
   const [selectedCharacterUuid, setSelectedCharacterUuid] = useState<string | null>(null);
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
@@ -110,11 +110,20 @@ export const DailyWinLossChart = ({ history, matchRecords, characters }: DailyWi
           <YAxis yAxisId="right" orientation="right" label={{ value: t("chart.axes.winRatePercent"), angle: 90, position: "insideRight" }} domain={[0, 100]} />
           <Tooltip />
           <Legend />
-          <Bar yAxisId="left" dataKey="Win" fill="#4ade80" stackId="a" />
-          <Bar yAxisId="left" dataKey="Defeat" fill="#f87171" stackId="a" />
-          <Line yAxisId="right" type="monotone" dataKey="WinRate" stroke="#3b82f6" strokeWidth={2} dot={{ r: 3 }} connectNulls={true} />
+          <Bar yAxisId="left" dataKey="Win" fill="#4ade80" stackId="a" isAnimationActive={false} />
+          <Bar yAxisId="left" dataKey="Defeat" fill="#f87171" stackId="a" isAnimationActive={false} />
+          <Line yAxisId="right" type="monotone" dataKey="WinRate" stroke="#3b82f6" strokeWidth={2} dot={{ r: 3 }} connectNulls={true} isAnimationActive={false} />
         </ComposedChart>
       </ResponsiveContainer>
     </StyledChartContainer>
   );
 };
+
+/**
+ * Shallow比較でメモ化されたDailyWinLossChart
+ * history.uuid, matchRecords.length, characters.lengthで比較
+ */
+export const DailyWinLossChart = memo(
+  DailyWinLossChartComponent,
+  (prev, next) => prev.history.uuid === next.history.uuid && prev.matchRecords.length === next.matchRecords.length && prev.characters.length === next.characters.length,
+);

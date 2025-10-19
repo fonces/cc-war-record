@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, memo } from "react";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { Select } from "@/components/ui";
 import type { History, MatchRecord, Job, CrystalConflictMap, Character } from "@/types";
@@ -107,7 +107,7 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
 /**
  * 曜日別勝率比較チャートコンポーネント
  */
-export const WeeklyWinLossChart = ({ history, matchRecords, characters }: WeeklyWinLossChartProps) => {
+const WeeklyWinLossChartComponent = ({ history, matchRecords, characters }: WeeklyWinLossChartProps) => {
   const { t } = useTranslation();
   const [selectedCharacterUuid, setSelectedCharacterUuid] = useState<string | null>(null);
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
@@ -179,10 +179,19 @@ export const WeeklyWinLossChart = ({ history, matchRecords, characters }: Weekly
           <YAxis label={{ value: t("chart.axes.winRatePercent"), angle: -90, position: "insideLeft" }} domain={[0, 100]} tick={{ fontSize: 12 }} />
           <Tooltip content={<CustomTooltip />} />
           <Legend />
-          <Area type="monotone" dataKey="winRate" name="WinRate" stroke="#10b981" fill="#10b981" fillOpacity={0.3} connectNulls={true} />
-          <Area type="monotone" dataKey="lossRate" name="LoseRate" stroke="#ef4444" fill="#ef4444" fillOpacity={0.3} connectNulls={false} />
+          <Area type="monotone" dataKey="winRate" name="WinRate" stroke="#10b981" fill="#10b981" fillOpacity={0.3} connectNulls={true} isAnimationActive={false} />
+          <Area type="monotone" dataKey="lossRate" name="LoseRate" stroke="#ef4444" fill="#ef4444" fillOpacity={0.3} connectNulls={false} isAnimationActive={false} />
         </AreaChart>
       </ResponsiveContainer>
     </StyledChartContainer>
   );
 };
+
+/**
+ * Shallow比較でメモ化されたWeeklyWinLossChart
+ * history.uuid, matchRecords.length, characters.lengthで比較
+ */
+export const WeeklyWinLossChart = memo(
+  WeeklyWinLossChartComponent,
+  (prev, next) => prev.history.uuid === next.history.uuid && prev.matchRecords.length === next.matchRecords.length && prev.characters.length === next.characters.length,
+);

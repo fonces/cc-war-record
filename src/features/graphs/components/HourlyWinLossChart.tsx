@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, memo } from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from "recharts";
 import { Select } from "@/components/ui";
 import type { History, MatchRecord, Job, CrystalConflictMap, Character } from "@/types";
@@ -87,7 +87,7 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
 /**
  * 時間別勝敗数チャートコンポーネント
  */
-export const HourlyWinLossChart = ({ history, matchRecords, characters }: HourlyWinLossChartProps) => {
+const HourlyWinLossChartComponent = ({ history, matchRecords, characters }: HourlyWinLossChartProps) => {
   const { t } = useTranslation();
   const [selectedCharacterUuid, setSelectedCharacterUuid] = useState<string | null>(null);
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
@@ -159,7 +159,7 @@ export const HourlyWinLossChart = ({ history, matchRecords, characters }: Hourly
           <YAxis label={{ value: t("chart.axes.winRatePercent"), angle: -90, position: "insideLeft" }} domain={[0, 100]} tick={{ fontSize: 12 }} />
           <Tooltip content={<CustomTooltip />} />
           <Legend />
-          <Bar dataKey="winRate" name="WinRate" fill="#10b981" radius={[2, 2, 0, 0]}>
+          <Bar dataKey="winRate" name="WinRate" fill="#10b981" radius={[2, 2, 0, 0]} isAnimationActive={false}>
             {chartData.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={entry.total === 0 ? "#d1d5db" : "#10b981"} />
             ))}
@@ -169,3 +169,12 @@ export const HourlyWinLossChart = ({ history, matchRecords, characters }: Hourly
     </StyledChartContainer>
   );
 };
+
+/**
+ * Shallow比較でメモ化されたHourlyWinLossChart
+ * history.uuid, matchRecords.length, characters.lengthで比較
+ */
+export const HourlyWinLossChart = memo(
+  HourlyWinLossChartComponent,
+  (prev, next) => prev.history.uuid === next.history.uuid && prev.matchRecords.length === next.matchRecords.length && prev.characters.length === next.characters.length,
+);

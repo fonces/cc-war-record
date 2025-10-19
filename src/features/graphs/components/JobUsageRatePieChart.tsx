@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, memo } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recharts";
 import { Select } from "@/components/ui";
 import type { History, MatchRecord, Job, CrystalConflictMap, Character } from "@/types";
@@ -103,7 +103,7 @@ const CustomTooltip = ({ active, payload }: TooltipProps) => {
 }; /**
  * ジョブ使用率円グラフコンポーネント
  */
-export const JobUsageRatePieChart = ({ history, matchRecords, characters }: JobUsageRatePieChartProps) => {
+const JobUsageRatePieChartComponent = ({ history, matchRecords, characters }: JobUsageRatePieChartProps) => {
   const { t } = useTranslation();
   const [selectedCharacterUuid, setSelectedCharacterUuid] = useState<string | null>(null);
   const [selectedMap, setSelectedMap] = useState<CrystalConflictMap | null>(null);
@@ -148,7 +148,7 @@ export const JobUsageRatePieChart = ({ history, matchRecords, characters }: JobU
       {chartData.length > 0 ? (
         <ResponsiveContainer width="100%" height={400}>
           <PieChart>
-            <Pie data={chartData} cx="50%" cy="50%" labelLine={false} label={renderCustomizedLabel} outerRadius={150} fill="#8884d8" dataKey="value">
+            <Pie data={chartData} cx="50%" cy="50%" labelLine={false} label={renderCustomizedLabel} outerRadius={150} fill="#8884d8" dataKey="value" isAnimationActive={false}>
               {chartData.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={JOB_INFO[entry.job].color} />
               ))}
@@ -163,3 +163,12 @@ export const JobUsageRatePieChart = ({ history, matchRecords, characters }: JobU
     </StyledChartContainer>
   );
 };
+
+/**
+ * Shallow比較でメモ化されたJobUsageRatePieChart
+ * history.uuid, matchRecords.length, characters.lengthで比較
+ */
+export const JobUsageRatePieChart = memo(
+  JobUsageRatePieChartComponent,
+  (prev, next) => prev.history.uuid === next.history.uuid && prev.matchRecords.length === next.matchRecords.length && prev.characters.length === next.characters.length,
+);

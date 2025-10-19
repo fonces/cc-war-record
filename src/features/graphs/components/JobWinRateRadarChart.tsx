@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, memo } from "react";
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Legend, ResponsiveContainer, Tooltip } from "recharts";
 import { Select, MultiSelect } from "@/components/ui";
 import type { History, MatchRecord, Job, Character } from "@/types";
@@ -42,9 +42,9 @@ interface JobWinRateRadarChartProps {
 }
 
 /**
- * ジョブ別勝率レーダーチャートコンポーネント
+ * マップ別ジョブ勝率レーダーチャートコンポーネント
  */
-export const JobWinRateRadarChart = ({ history, matchRecords, characters }: JobWinRateRadarChartProps) => {
+const JobWinRateRadarChartComponent = ({ history, matchRecords, characters }: JobWinRateRadarChartProps) => {
   const { t } = useTranslation();
   const [selectedCharacterUuid, setSelectedCharacterUuid] = useState<string | null>(null);
   const [selectedJobs, setSelectedJobs] = useState<Job[]>(() => getRadarChartJobs());
@@ -97,7 +97,15 @@ export const JobWinRateRadarChart = ({ history, matchRecords, characters }: JobW
           <PolarAngleAxis dataKey="map" />
           <PolarRadiusAxis angle={90} domain={[0, 100]} />
           {selectedJobs.map((job) => (
-            <Radar key={job} name={`${t(`job.${job}`)} (${job})`} dataKey={job} stroke={JOB_INFO[job].color} fill={JOB_INFO[job].color} fillOpacity={0.6} />
+            <Radar
+              key={job}
+              name={`${t(`job.${job}`)} (${job})`}
+              dataKey={job}
+              stroke={JOB_INFO[job].color}
+              fill={JOB_INFO[job].color}
+              fillOpacity={0.6}
+              isAnimationActive={false}
+            />
           ))}
           <Legend />
           <Tooltip />
@@ -106,3 +114,12 @@ export const JobWinRateRadarChart = ({ history, matchRecords, characters }: JobW
     </StyledChartContainer>
   );
 };
+
+/**
+ * Shallow比較でメモ化されたJobWinRateRadarChart
+ * history.uuid, matchRecords.length, characters.lengthで比較
+ */
+export const JobWinRateRadarChart = memo(
+  JobWinRateRadarChartComponent,
+  (prev, next) => prev.history.uuid === next.history.uuid && prev.matchRecords.length === next.matchRecords.length && prev.characters.length === next.characters.length,
+);
