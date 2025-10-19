@@ -37,7 +37,7 @@
       "title": "Match Statistics",
       "description": "Visualize current season match statistics in graph format.",
       "descriptionWithSeason": "Visualize {{seasonName}} match statistics in graph format.",
-      "daily": "Daily Win/Loss",
+      "daily": "Daily Win/Defeat",
       "hourly": "Hourly Win Rate",
       "weekly": "Weekly Win Rate",
       "jobWinRate": "Job Win Rate",
@@ -210,7 +210,7 @@
       "winRate": "{{rate}}% win rate",
       "noWinRate": "-- % win rate",
       "wins": "{{count}} wins",
-      "losses": "{{count}} losses"
+      "losses": "{{count}} defeats"
     },
     "actions": {
       "addJob": "Add Job",
@@ -316,7 +316,7 @@
       "selectJob": "Select Job"
     },
     "titles": {
-      "dailyWinLoss": "Daily Win/Loss and Win Rate Trend",
+      "dailyWinLoss": "Daily Win/Defeat and Win Rate Trend",
       "weeklyWinRate": "Win Rate Comparison by Day of Week",
       "hourlyWinRate": "Win Rate Analysis by Time of Day",
       "jobUsageRate": "Job Usage Rate",
