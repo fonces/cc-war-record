@@ -3,12 +3,14 @@
  * PWA機能のためのServiceWorkerを登録
  */
 export const registerServiceWorker = () => {
-  if ("serviceWorker" in navigator) {
+  if (import.meta.env.PROD && "serviceWorker" in navigator) {
+    const basePath = import.meta.env.VITE_BASEPATH || "/";
+    const swPath = `${basePath}/sw.js`.replace(/\/+/g, "/"); // 重複スラッシュを除去
+    const scope = `${basePath}/`.replace(/\/+/g, "/");
+
     window.addEventListener("load", () => {
       navigator.serviceWorker
-        .register("/cc-war-record/sw.js", {
-          scope: "/cc-war-record/",
-        })
+        .register(swPath, { scope })
         .then((registration) => {
           console.log("ServiceWorker registered:", registration.scope);
         })
