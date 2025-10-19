@@ -209,8 +209,8 @@
       "totalMatches": "{{count}}試合",
       "winRate": "勝率{{rate}}%",
       "noWinRate": "勝率--%",
-      "wins": "{{count}}勝利",
-      "losses": "{{count}}敗北"
+      "wins": "{{count}}勝",
+      "losses": "{{count}}敗"
     },
     "actions": {
       "addJob": "ジョブの追加",
@@ -223,8 +223,8 @@
     "job": "ジョブ",
     "map": "マップ",
     "result": "結果",
-    "win": "勝利",
-    "loss": "敗北",
+    "win": "勝利数",
+    "loss": "敗北数",
     "memo": "メモ",
     "memoPlaceholder": "メモを入力（任意）",
     "selectJob": "ジョブを選択してください",
