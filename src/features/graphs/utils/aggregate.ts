@@ -41,10 +41,10 @@ export const aggregateDailyWinLoss = (
   }
 
   // 日付ごとのマップを作成
-  const dailyStats = new Map<string, { wins: number; losses: number }>();
+  const dailyStats = new Map<string, { wins: number; defeats: number }>();
 
   dateRange.forEach((date) => {
-    dailyStats.set(date, { wins: 0, losses: 0 });
+    dailyStats.set(date, { wins: 0, defeats: 0 });
   });
 
   // 該当シーズンの全試合データを集計（フィルタ適用）
@@ -64,7 +64,7 @@ export const aggregateDailyWinLoss = (
       if (match.isWin) {
         dayStats.wins++;
       } else {
-        dayStats.losses++;
+        dayStats.defeats++;
       }
     }
   });
@@ -74,14 +74,14 @@ export const aggregateDailyWinLoss = (
     const [, month, day] = date.split("-");
     const formattedDate = `${parseInt(month)}/${parseInt(day)}`;
     const stats = dailyStats.get(date)!;
-    const total = stats.wins + stats.losses;
+    const total = stats.wins + stats.defeats;
     const winRate = total > 0 ? Math.round((stats.wins / total) * 100) : null;
 
     return {
       date: formattedDate,
       fullDate: date, // ツールチップ用に完全な日付も保持
       Win: stats.wins,
-      Defeat: stats.losses,
+      Defeat: stats.defeats,
       WinRate: winRate,
     };
   });
@@ -98,10 +98,10 @@ export const aggregateWeeklyWinLoss = (
   selectedMap: CrystalConflictMap | null,
 ) => {
   // 曜日ごとのマップを作成
-  const weeklyStats = new Map<number, { wins: number; losses: number; total: number }>();
+  const weeklyStats = new Map<number, { wins: number; defeats: number; total: number }>();
 
   WEEKDAYS.forEach((weekday) => {
-    weeklyStats.set(weekday.index, { wins: 0, losses: 0, total: 0 });
+    weeklyStats.set(weekday.index, { wins: 0, defeats: 0, total: 0 });
   });
 
   // 該当シーズンの全試合データを集計（フィルタ適用）
@@ -123,7 +123,7 @@ export const aggregateWeeklyWinLoss = (
       if (match.isWin) {
         dayStats.wins++;
       } else {
-        dayStats.losses++;
+        dayStats.defeats++;
       }
     }
   });
@@ -133,15 +133,15 @@ export const aggregateWeeklyWinLoss = (
     const stats = weeklyStats.get(weekday.index)!;
     // 試合データがない場合はnullを返す（connectNullsで処理）
     const winRate = stats.total > 0 ? Math.round((stats.wins / stats.total) * 100) : null;
-    const lossRate = stats.total > 0 ? Math.round((stats.losses / stats.total) * 100) : null;
+    const defeatRate = stats.total > 0 ? Math.round((stats.defeats / stats.total) * 100) : null;
 
     return {
       weekday: weekday.short,
       weekdayName: weekday.name,
       winRate,
-      lossRate,
+      defeatRate,
       wins: stats.wins,
-      losses: stats.losses,
+      defeats: stats.defeats,
       total: stats.total,
     };
   });
@@ -161,10 +161,10 @@ export const aggregateHourlyWinLoss = (
   const hourRange = Array.from({ length: 24 }, (_, i) => i);
 
   // 時間ごとのマップを作成
-  const hourlyStats = new Map<number, { wins: number; losses: number; total: number }>();
+  const hourlyStats = new Map<number, { wins: number; defeats: number; total: number }>();
 
   hourRange.forEach((hour) => {
-    hourlyStats.set(hour, { wins: 0, losses: 0, total: 0 });
+    hourlyStats.set(hour, { wins: 0, defeats: 0, total: 0 });
   });
 
   // 該当シーズンの全試合データを集計（フィルタ適用）
@@ -186,7 +186,7 @@ export const aggregateHourlyWinLoss = (
       if (match.isWin) {
         hourStats.wins++;
       } else {
-        hourStats.losses++;
+        hourStats.defeats++;
       }
     }
   });
@@ -195,14 +195,14 @@ export const aggregateHourlyWinLoss = (
   return hourRange.map((hour) => {
     const stats = hourlyStats.get(hour)!;
     const winRate = stats.total > 0 ? Math.round((stats.wins / stats.total) * 100) : 0;
-    const lossRate = stats.total > 0 ? Math.round((stats.losses / stats.total) * 100) : 0;
+    const defeatRate = stats.total > 0 ? Math.round((stats.defeats / stats.total) * 100) : 0;
 
     return {
       hour: `${hour}時`,
       winRate,
-      lossRate,
+      defeatRate,
       wins: stats.wins,
-      losses: stats.losses,
+      defeats: stats.defeats,
       total: stats.total,
     };
   });

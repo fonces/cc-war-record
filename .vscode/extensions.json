@@ -5,6 +5,7 @@
     "streetsidesoftware.code-spell-checker",
     "formulahendry.auto-close-tag",
     "formulahendry.auto-rename-tag",
+    "lokalise.i18n-ally",
     "esbenp.prettier-vscode",
     "dbaeumer.vscode-eslint",
     "styled-components.vscode-styled-components"

@@ -142,7 +142,7 @@ export const getWins = (matches: MatchRecord[]): number => {
 /**
  * 戦績記録から敗北数を計算
  */
-export const getLosses = (matches: MatchRecord[]): number => {
+export const getDefeats = (matches: MatchRecord[]): number => {
   return matches.filter((m) => !m.isWin).length;
 };
 

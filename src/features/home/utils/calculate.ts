@@ -5,7 +5,7 @@ type JobSummaryForMap = {
   job: Job;
   totalMatches: number;
   wins: number;
-  losses: number;
+  defeats: number;
   winRate: number;
 };
 
@@ -13,7 +13,7 @@ type MapJobSummaries = {
   map: CrystalConflictMap;
   totalMatches: number;
   totalWins: number;
-  totalLosses: number;
+  totalDefeats: number;
   mapWinRate: number;
   jobSummaries: JobSummaryForMap[];
 };
@@ -38,7 +38,7 @@ export const calculateMapJobSummaries = (matchRecords: MatchRecord[]): MapJobSum
     // マップ全体の統計を計算
     const totalMatches = mapRecords.length;
     const totalWins = mapRecords.filter((r) => r.isWin).length;
-    const totalLosses = totalMatches - totalWins;
+    const totalDefeats = totalMatches - totalWins;
     const mapWinRate = totalMatches > 0 ? Math.round((totalWins / totalMatches) * 100) : 0;
 
     // ジョブごとに集計
@@ -50,7 +50,7 @@ export const calculateMapJobSummaries = (matchRecords: MatchRecord[]): MapJobSum
         job,
         totalMatches: 0,
         wins: 0,
-        losses: 0,
+        defeats: 0,
         winRate: 0,
       });
     });
@@ -63,7 +63,7 @@ export const calculateMapJobSummaries = (matchRecords: MatchRecord[]): MapJobSum
       if (record.isWin) {
         summary.wins++;
       } else {
-        summary.losses++;
+        summary.defeats++;
       }
     });
 
@@ -84,7 +84,7 @@ export const calculateMapJobSummaries = (matchRecords: MatchRecord[]): MapJobSum
       map,
       totalMatches,
       totalWins,
-      totalLosses,
+      totalDefeats,
       mapWinRate,
       jobSummaries,
     };
@@ -103,7 +103,7 @@ export const calculateTotalSummary = (matchRecords: MatchRecord[], usedJobs: Job
       job,
       totalMatches: 0,
       wins: 0,
-      losses: 0,
+      defeats: 0,
       winRate: 0,
     });
   });
@@ -116,7 +116,7 @@ export const calculateTotalSummary = (matchRecords: MatchRecord[], usedJobs: Job
       if (record.isWin) {
         summary.wins++;
       } else {
-        summary.losses++;
+        summary.defeats++;
       }
     }
   });

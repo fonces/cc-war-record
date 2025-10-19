@@ -210,7 +210,7 @@
       "winRate": "승률{{rate}}%",
       "noWinRate": "승률--%",
       "wins": "{{count}}승",
-      "losses": "{{count}}패"
+      "defeats": "{{count}}패"
     },
     "actions": {
       "addJob": "잡 추가",

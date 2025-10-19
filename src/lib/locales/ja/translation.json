@@ -210,7 +210,7 @@
       "winRate": "勝率{{rate}}%",
       "noWinRate": "勝率--%",
       "wins": "{{count}}勝",
-      "losses": "{{count}}敗"
+      "defeats": "{{count}}敗"
     },
     "actions": {
       "addJob": "ジョブの追加",

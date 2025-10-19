@@ -210,7 +210,7 @@
       "winRate": "{{rate}}% win rate",
       "noWinRate": "-- % win rate",
       "wins": "{{count}} wins",
-      "losses": "{{count}} defeats"
+      "defeats": "{{count}} defeats"
     },
     "actions": {
       "addJob": "Add Job",

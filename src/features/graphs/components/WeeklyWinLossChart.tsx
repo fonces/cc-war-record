@@ -52,9 +52,9 @@ interface TooltipProps {
       weekday: string;
       weekdayName: string;
       winRate: number | null;
-      lossRate: number | null;
+      defeatRate: number | null;
       wins: number;
-      losses: number;
+      defeats: number;
       total: number;
     };
   }>;
@@ -96,7 +96,7 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
       >
         <p style={{ margin: "0 0 8px 0", fontWeight: "bold" }}>{`${data.weekdayName} (${label})`}</p>
         <p style={{ margin: "4px 0", color: "#10b981" }}>{`${t("chart.tooltip.win")}: ${data.wins}${t("chart.tooltip.matches")} (${data.winRate || 0}%)`}</p>
-        <p style={{ margin: "4px 0", color: "#ef4444" }}>{`${t("chart.tooltip.lose")}: ${data.losses}${t("chart.tooltip.matches")} (${data.lossRate || 0}%)`}</p>
+        <p style={{ margin: "4px 0", color: "#ef4444" }}>{`${t("chart.tooltip.lose")}: ${data.defeats}${t("chart.tooltip.matches")} (${data.defeatRate || 0}%)`}</p>
         <p style={{ margin: "4px 0 0 0", fontWeight: "bold" }}>{`${t("chart.tooltip.total")}: ${data.total}${t("chart.tooltip.matches")}`}</p>
       </div>
     );
@@ -180,7 +180,7 @@ const WeeklyWinLossChartComponent = ({ history, matchRecords, characters }: Week
           <Tooltip content={<CustomTooltip />} />
           <Legend />
           <Area type="monotone" dataKey="winRate" name="WinRate" stroke="#10b981" fill="#10b981" fillOpacity={0.3} connectNulls={true} isAnimationActive={false} />
-          <Area type="monotone" dataKey="lossRate" name="DefeatRate" stroke="#ef4444" fill="#ef4444" fillOpacity={0.3} connectNulls={false} isAnimationActive={false} />
+          <Area type="monotone" dataKey="defeatRate" name="DefeatRate" stroke="#ef4444" fill="#ef4444" fillOpacity={0.3} connectNulls={false} isAnimationActive={false} />
         </AreaChart>
       </ResponsiveContainer>
     </StyledChartContainer>

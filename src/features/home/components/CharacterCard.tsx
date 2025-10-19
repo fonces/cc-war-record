@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Button, Icon, Input } from "@/components/ui";
 import { useTranslation } from "@/hooks";
 import type { CharacterStats, Job, CrystalConflictMap } from "@/types";
-import { getTotalMatches, getWins, getLosses, getWinRate } from "@/types/history";
+import { getTotalMatches, getWins, getDefeats, getWinRate } from "@/types/history";
 import { MatchRecordTable } from "./MatchRecordTable";
 import { getWinRateColor } from "@/utils/colors";
 
@@ -161,7 +161,7 @@ export const CharacterCard = ({
   // 戦績統計を計算
   const totalMatches = getTotalMatches(stats.recentMatches);
   const wins = getWins(stats.recentMatches);
-  const losses = getLosses(stats.recentMatches);
+  const defeats = getDefeats(stats.recentMatches);
   const winRate = getWinRate(stats.recentMatches);
 
   return (
@@ -207,7 +207,7 @@ export const CharacterCard = ({
             <StyledCharacterStatsContainer onClick={(e) => e.stopPropagation()}>
               <span>{t("character.stats.matches", { count: totalMatches })}</span>
               <span>
-                {t("character.stats.wins", { count: wins })} / {t("character.stats.losses", { count: losses })}
+                {t("character.stats.wins", { count: wins })} / {t("character.stats.defeats", { count: defeats })}
               </span>
               {0 < totalMatches ? (
                 <StyledWinRate winRate={winRate}>{t("character.stats.winRate", { rate: winRate })}</StyledWinRate>

@@ -125,7 +125,7 @@ type JobSummary = {
   job: Job;
   totalMatches: number;
   wins: number;
-  losses: number;
+  defeats: number;
   winRate: number;
 };
 
@@ -177,7 +177,7 @@ export const JobSummaryTable = ({ usedJobs, jobSummaries, onAddWin, onAddLoss, o
                 job,
                 totalMatches: 0,
                 wins: 0,
-                losses: 0,
+                defeats: 0,
                 winRate: 0,
               };
               return (
@@ -190,7 +190,7 @@ export const JobSummaryTable = ({ usedJobs, jobSummaries, onAddWin, onAddLoss, o
                   </StyledJobCell>
                   <StyledTableCell>{summary.totalMatches}</StyledTableCell>
                   <StyledTableCell>{summary.wins}</StyledTableCell>
-                  <StyledTableCell>{summary.losses}</StyledTableCell>
+                  <StyledTableCell>{summary.defeats}</StyledTableCell>
                   <StyledTableCell>
                     {0 < summary.totalMatches ? <StyledWinRateText winRate={summary.winRate}>{summary.winRate}%</StyledWinRateText> : <span>--%</span>}
                   </StyledTableCell>

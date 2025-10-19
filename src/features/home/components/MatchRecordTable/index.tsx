@@ -103,7 +103,7 @@ export const MatchRecordTable = ({ usedJobs, matchRecords, onAddWin, onAddLoss, 
   const totalSummaries = calculateTotalSummary(matchRecords, usedJobs);
   const totalMatches = matchRecords.length;
   const totalWins = matchRecords.filter((r) => r.isWin).length;
-  const totalLosses = totalMatches - totalWins;
+  const totalDefeats = totalMatches - totalWins;
   const totalWinRate = totalMatches > 0 ? Math.round((totalWins / totalMatches) * 100) : 0;
 
   // 開閉状態を管理（デフォルトは現在のマップのみ開く）
@@ -142,7 +142,7 @@ export const MatchRecordTable = ({ usedJobs, matchRecords, onAddWin, onAddLoss, 
               <StyledMapSummary>
                 <span>{t("character.stats.matches", { count: mapData.totalMatches })}</span>
                 <span>
-                  {t("character.stats.wins", { count: mapData.totalWins })} / {t("character.stats.losses", { count: mapData.totalLosses })}
+                  {t("character.stats.wins", { count: mapData.totalWins })} / {t("character.stats.defeats", { count: mapData.totalDefeats })}
                 </span>
                 {0 < mapData.totalMatches ? (
                   <StyledMapWinRate winRate={mapData.mapWinRate}>{t("character.stats.winRate", { rate: mapData.mapWinRate })}</StyledMapWinRate>
@@ -167,7 +167,7 @@ export const MatchRecordTable = ({ usedJobs, matchRecords, onAddWin, onAddLoss, 
           <StyledMapSummary>
             <span>{t("character.stats.matches", { count: totalMatches })}</span>
             <span>
-              {t("character.stats.wins", { count: totalWins })} / {t("character.stats.losses", { count: totalLosses })}
+              {t("character.stats.wins", { count: totalWins })} / {t("character.stats.defeats", { count: totalDefeats })}
             </span>
             {0 < totalMatches ? (
               <StyledMapWinRate winRate={totalWinRate}>{t("character.stats.winRate", { rate: totalWinRate })}</StyledMapWinRate>

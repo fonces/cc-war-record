@@ -51,9 +51,9 @@ interface TooltipProps {
     payload: {
       hour: string;
       winRate: number;
-      lossRate: number;
+      defeatRate: number;
       wins: number;
-      losses: number;
+      defeats: number;
       total: number;
     };
   }>;
@@ -76,7 +76,7 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
       >
         <p style={{ margin: "0 0 8px 0", fontWeight: "bold" }}>{`${label}`}</p>
         <p style={{ margin: "4px 0", color: "#10b981" }}>{`${t("chart.tooltip.win")}: ${data.wins}${t("chart.tooltip.matches")} (${data.winRate}%)`}</p>
-        <p style={{ margin: "4px 0", color: "#ef4444" }}>{`${t("chart.tooltip.lose")}: ${data.losses}${t("chart.tooltip.matches")} (${data.lossRate}%)`}</p>
+        <p style={{ margin: "4px 0", color: "#ef4444" }}>{`${t("chart.tooltip.lose")}: ${data.defeats}${t("chart.tooltip.matches")} (${data.defeatRate}%)`}</p>
         <p style={{ margin: "4px 0 0 0", fontWeight: "bold" }}>{`${t("chart.tooltip.total")}: ${data.total}${t("chart.tooltip.matches")}`}</p>
       </div>
     );
