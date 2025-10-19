@@ -33,7 +33,7 @@ type TooltipProps = {
     };
   }>;
   label?: string;
-}
+};
 
 const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
   const theme = useTheme();

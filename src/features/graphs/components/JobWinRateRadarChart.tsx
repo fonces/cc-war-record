@@ -28,7 +28,7 @@ type TooltipProps = {
     fill: string;
   }>;
   label?: string;
-}
+};
 
 const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
   const theme = useTheme();

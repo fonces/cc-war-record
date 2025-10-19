@@ -1,4 +1,5 @@
 import { RouterProvider, createRouter } from "@tanstack/react-router";
+import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { routeTree } from "@/routeTree.gen";
 
 // ルーターインスタンスを作成
@@ -17,5 +18,10 @@ declare module "@tanstack/react-router" {
 }
 
 export const App = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+      <TanStackRouterDevtools router={router} />
+    </>
+  );
 };
