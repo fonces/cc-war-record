@@ -212,7 +212,7 @@ export const HomePage = () => {
   };
 
   // 敗北記録を追加
-  const handleAddLoss = (characterUuid: string, job: Job, map: CrystalConflictMap) => {
+  const handleAddDefeat = (characterUuid: string, job: Job, map: CrystalConflictMap) => {
     if (!latestSeason) return;
 
     try {
@@ -306,7 +306,7 @@ export const HomePage = () => {
             onDelete={handleDeleteCharacter}
             onOpenJobRegistration={handleOpenJobRegistration}
             onAddWin={handleAddWin}
-            onAddLoss={handleAddLoss}
+            onAddDefeat={handleAddDefeat}
             onRevertLast={handleRevertLast}
             isEditing={editingCharacterUuid === stats.character.uuid}
             editingName={editingCharacterName}

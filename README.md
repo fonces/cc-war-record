@@ -164,7 +164,7 @@ type CharacterStats = {
   character: Character; // キャラクター情報
   totalMatches: number; // 総試合数
   wins: number; // 勝利数
-  losses: number; // 敗北数
+  defeat: number; // 敗北数
   winRate: number; // 勝率（0-100の数値）
   recentMatches: MatchRecord[]; // 最近の戦績記録
 };
@@ -561,9 +561,9 @@ t("pages.faq.privacy.dataStorage.answer.points", { returnObjects: true });
 
 - **勝利/敗北**: 日本語で統一された表現
   - `match.win`: "勝利" (Victory)
-  - `match.loss`: "敗北" (Defeat)
+  - `match.defeat`: "敗北" (Defeat)
   - `stats.wins`: "{{count}}勝利"
-  - `stats.losses`: "{{count}}敗北"
+  - `stats.defeat`: "{{count}}敗北"
 
 ### 新しい翻訳の追加方法
 
@@ -612,7 +612,7 @@ t("pages.faq.privacy.dataStorage.answer.points", { returnObjects: true });
 
 ## グラフ機能詳細
 
-### 1. 日別勝敗数チャート（DailyWinLossChart）
+### 1. 日別勝敗数チャート（DailyWinDefeatChart）
 
 - **表示期間**: シーズン作成日から2ヶ月間
 - **チャートタイプ**: ComposedChart（Bar + Line）
@@ -620,7 +620,7 @@ t("pages.faq.privacy.dataStorage.answer.points", { returnObjects: true });
 - **Y軸**: 左軸（試合数）、右軸（勝率0-100%）
 - **フィルター**: キャラクター・ジョブ・マップ
 
-### 2. 時間別勝率チャート（HourlyWinLossChart）
+### 2. 時間別勝率チャート（HourlyWinDefeatChart）
 
 - **表示範囲**: 0時-23時（24時間）
 - **チャートタイプ**: BarChart（棒グラフ）
@@ -628,7 +628,7 @@ t("pages.faq.privacy.dataStorage.answer.points", { returnObjects: true });
 - **用途**: プレイ時間による勝率傾向分析
 - **フィルター**: キャラクター・ジョブ・マップ
 
-### 3. 曜日別勝率比較（WeeklyWinLossChart）
+### 3. 曜日別勝率比較（WeeklyWinDefeatChart）
 
 - **表示範囲**: 日曜日-土曜日（Sun-Sat）
 - **チャートタイプ**: AreaChart（エリアチャート）

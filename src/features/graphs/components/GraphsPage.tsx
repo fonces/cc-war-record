@@ -3,10 +3,10 @@ import { useHistoryStore, useCharacterStore } from "@/stores";
 import { PageContainer, PageTitle, PageDescription, PageTitleContainer } from "@/components/ui";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { EmptyState } from "@/features/home/components/EmptyState";
-import { DailyWinLossChart } from "./DailyWinLossChart";
+import { DailyWinDefeatChart } from "./DailyWinDefeatChart";
 import { JobWinRateRadarChart } from "./JobWinRateRadarChart";
-import { HourlyWinLossChart } from "./HourlyWinLossChart";
-import { WeeklyWinLossChart } from "./WeeklyWinLossChart";
+import { HourlyWinDefeatChart } from "./HourlyWinDefeatChart";
+import { WeeklyWinDefeatChart } from "./WeeklyWinDefeatChart";
 import { JobUsageRatePieChart } from "./JobUsageRatePieChart";
 import { useTranslation } from "@/hooks";
 
@@ -36,9 +36,9 @@ export const GraphsPage = () => {
 
       {latestHistory ? (
         <>
-          <DailyWinLossChart history={latestHistory} matchRecords={matchRecords} characters={characters} />
-          <HourlyWinLossChart history={latestHistory} matchRecords={matchRecords} characters={characters} />
-          <WeeklyWinLossChart history={latestHistory} matchRecords={matchRecords} characters={characters} />
+          <DailyWinDefeatChart history={latestHistory} matchRecords={matchRecords} characters={characters} />
+          <HourlyWinDefeatChart history={latestHistory} matchRecords={matchRecords} characters={characters} />
+          <WeeklyWinDefeatChart history={latestHistory} matchRecords={matchRecords} characters={characters} />
           <JobUsageRatePieChart history={latestHistory} matchRecords={matchRecords} characters={characters} />
           <JobWinRateRadarChart history={latestHistory} matchRecords={matchRecords} characters={characters} />
         </>

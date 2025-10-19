@@ -85,7 +85,7 @@
       },
       "results": {
         "win": "Win",
-        "loss": "Defeat"
+        "defeat": "Defeat"
       },
       "emptyState": "戦績が記録されていません"
     },
@@ -159,7 +159,7 @@
       },
       "usage": {
         "title": "アプリケーションの使い方",
-        "dataLoss": {
+        "dataDefeat": {
           "question": "データが消えてしまうことはありますか？",
           "answer": {
             "intro": "ローカルストレージに保存されたデータは、以下の場合に削除される可能性があります：",
@@ -224,7 +224,7 @@
     "map": "マップ",
     "result": "結果",
     "win": "勝利数",
-    "loss": "敗北数",
+    "defeat": "敗北数",
     "memo": "メモ",
     "memoPlaceholder": "メモを入力（任意）",
     "selectJob": "ジョブを選択してください",
@@ -289,7 +289,7 @@
   "chart": {
     "winRate": "勝率",
     "winCount": "勝利数",
-    "lossCount": "敗北数",
+    "defeatCount": "敗北数",
     "usageRate": "使用率",
     "matches": "試合数",
     "noData": "データがありません",
@@ -316,7 +316,7 @@
       "selectJob": "ジョブを選択"
     },
     "titles": {
-      "dailyWinLoss": "日別勝敗数と勝率推移",
+      "dailyWinDefeat": "日別勝敗数と勝率推移",
       "weeklyWinRate": "曜日別勝率比較",
       "hourlyWinRate": "時間帯別勝率分析",
       "jobUsageRate": "ジョブ使用率",
@@ -333,7 +333,7 @@
       "win": "Win",
       "lose": "Defeat",
       "winRate": "WinRate",
-      "lossRate": "DefeatRate"
+      "defeatRate": "DefeatRate"
     },
     "tooltip": {
       "usageCount": "使用回数",

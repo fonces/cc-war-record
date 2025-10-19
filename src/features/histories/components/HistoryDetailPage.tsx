@@ -339,7 +339,7 @@ export const HistoryDetailPage = () => {
                       </StyledJobCell>
                       <StyledDateCell width="180px">{formatDateTable(match.recordedAt)}</StyledDateCell>
                       <StyledTableCell width="100px">
-                        <StyledWinBadge $isWin={match.isWin}>{match.isWin ? t("pages.historyDetail.results.win") : t("pages.historyDetail.results.loss")}</StyledWinBadge>
+                        <StyledWinBadge $isWin={match.isWin}>{match.isWin ? t("pages.historyDetail.results.win") : t("pages.historyDetail.results.defeat")}</StyledWinBadge>
                       </StyledTableCell>
                       {isCurrent && (
                         <StyledTableCell width="80px">

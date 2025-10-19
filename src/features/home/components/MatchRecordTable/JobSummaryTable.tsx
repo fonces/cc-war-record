@@ -137,7 +137,7 @@ type JobSummaryTableProps = {
   /** 勝利記録追加ハンドラー（指定した場合に操作列を表示） */
   onAddWin?: (job: Job, map: CrystalConflictMap) => void;
   /** 敗北記録追加ハンドラー（指定した場合に操作列を表示） */
-  onAddLoss?: (job: Job, map: CrystalConflictMap) => void;
+  onAddDefeat?: (job: Job, map: CrystalConflictMap) => void;
   /** 直近の記録取り消しハンドラー（指定した場合に操作列を表示） */
   onRevertLast?: (job: Job, map: CrystalConflictMap) => void;
   /** 操作ボタン用のマップ（マップごとのテーブルの場合に指定） */
@@ -147,9 +147,9 @@ type JobSummaryTableProps = {
 /**
  * ジョブサマリーテーブルコンポーネント
  */
-export const JobSummaryTable = ({ usedJobs, jobSummaries, onAddWin, onAddLoss, onRevertLast, map }: JobSummaryTableProps) => {
+export const JobSummaryTable = ({ usedJobs, jobSummaries, onAddWin, onAddDefeat, onRevertLast, map }: JobSummaryTableProps) => {
   const { t } = useTranslation();
-  const showActions = !!(onAddWin || onAddLoss || onRevertLast);
+  const showActions = !!(onAddWin || onAddDefeat || onRevertLast);
 
   return (
     <StyledTableContainer>
@@ -159,7 +159,7 @@ export const JobSummaryTable = ({ usedJobs, jobSummaries, onAddWin, onAddLoss, o
             <StyledTableHeader>{t("match.job")}</StyledTableHeader>
             <StyledTableHeader>{t("match.totalMatches")}</StyledTableHeader>
             <StyledTableHeader>{t("match.win")}</StyledTableHeader>
-            <StyledTableHeader>{t("match.loss")}</StyledTableHeader>
+            <StyledTableHeader>{t("match.defeat")}</StyledTableHeader>
             <StyledTableHeader>{t("match.winRate")}</StyledTableHeader>
             {<StyledTableHeader>{showActions && map ? t("match.actions") : ""}</StyledTableHeader>}
           </tr>
@@ -202,15 +202,15 @@ export const JobSummaryTable = ({ usedJobs, jobSummaries, onAddWin, onAddLoss, o
                             W
                           </StyledActionButton>
                         )}
-                        {onAddLoss && (
-                          <StyledActionButton variant="defeat" onClick={() => onAddLoss(summary.job, map)} title={t("match.addDefeat")}>
+                        {onAddDefeat && (
+                          <StyledActionButton variant="defeat" onClick={() => onAddDefeat(summary.job, map)} title={t("match.addDefeat")}>
                             D
                           </StyledActionButton>
                         )}
                         {summary.totalMatches > 0 && onRevertLast ? (
                           <StyledActionButton variant="ghost" icon={<Icon name="revert" size={16} />} onClick={() => onRevertLast(summary.job, map)} title={t("match.rollback")} />
                         ) : (
-                          (onAddWin || onAddLoss) && <div style={{ width: "32px" }} />
+                          (onAddWin || onAddDefeat) && <div style={{ width: "32px" }} />
                         )}
                       </StyledActionButtons>
                     ) : null}

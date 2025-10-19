@@ -122,7 +122,7 @@ type CharacterCardProps = {
   /** 勝利記録を追加（ジョブとマップ指定） */
   onAddWin?: (characterUuid: string, job: Job, map: CrystalConflictMap) => void;
   /** 敗北記録を追加（ジョブとマップ指定） */
-  onAddLoss?: (characterUuid: string, job: Job, map: CrystalConflictMap) => void;
+  onAddDefeat?: (characterUuid: string, job: Job, map: CrystalConflictMap) => void;
   /** 直近の記録を取り消し（ジョブとマップ指定） */
   onRevertLast?: (characterUuid: string, job: Job, map: CrystalConflictMap) => void;
   /** 編集中かどうか */
@@ -148,7 +148,7 @@ export const CharacterCard = ({
   onDelete,
   onOpenJobRegistration,
   onAddWin,
-  onAddLoss,
+  onAddDefeat,
   onRevertLast,
   isEditing,
   editingName,
@@ -258,7 +258,7 @@ export const CharacterCard = ({
               usedJobs={stats.usedJobs}
               matchRecords={stats.recentMatches}
               onAddWin={onAddWin ? (job, map) => onAddWin(stats.character.uuid, job, map) : undefined}
-              onAddLoss={onAddLoss ? (job, map) => onAddLoss(stats.character.uuid, job, map) : undefined}
+              onAddDefeat={onAddDefeat ? (job, map) => onAddDefeat(stats.character.uuid, job, map) : undefined}
               onRevertLast={onRevertLast ? (job, map) => onRevertLast(stats.character.uuid, job, map) : undefined}
             />
           )}

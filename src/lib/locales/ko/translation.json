@@ -85,7 +85,7 @@
       },
       "results": {
         "win": "Win",
-        "loss": "Defeat"
+        "defeat": "Defeat"
       },
       "emptyState": "전적이 기록되지 않았습니다"
     },
@@ -159,7 +159,7 @@
       },
       "usage": {
         "title": "애플리케이션 사용법",
-        "dataLoss": {
+        "dataDefeat": {
           "question": "데이터가 사라질 수 있나요?",
           "answer": {
             "intro": "로컬 스토리지에 저장된 데이터는 다음의 경우 삭제될 수 있습니다:",
@@ -224,7 +224,7 @@
     "map": "맵",
     "result": "결과",
     "win": "승리 수",
-    "loss": "패배 수",
+    "defeat": "패배 수",
     "memo": "메모",
     "memoPlaceholder": "메모를 입력하세요 (선택사항)",
     "selectJob": "잡을 선택해주세요",
@@ -289,7 +289,7 @@
   "chart": {
     "winRate": "승률",
     "winCount": "승리 수",
-    "lossCount": "패배 수",
+    "defeatCount": "패배 수",
     "usageRate": "사용률",
     "matches": "경기 수",
     "noData": "데이터가 없습니다",
@@ -316,7 +316,7 @@
       "selectJob": "잡 선택"
     },
     "titles": {
-      "dailyWinLoss": "일별 승패 및 승률 추이",
+      "dailyWinDefeat": "일별 승패 및 승률 추이",
       "weeklyWinRate": "요일별 승률 비교",
       "hourlyWinRate": "시간대별 승률 분석",
       "jobUsageRate": "잡 사용률",
@@ -333,7 +333,7 @@
       "win": "Win",
       "lose": "Defeat",
       "winRate": "WinRate",
-      "lossRate": "DefeatRate"
+      "defeatRate": "DefeatRate"
     },
     "tooltip": {
       "usageCount": "사용 횟수",

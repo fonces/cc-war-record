@@ -17,7 +17,7 @@ export const WEEKDAYS = [
 /**
  * 日別の勝敗データを集計する関数
  */
-export const aggregateDailyWinLoss = (
+export const aggregateDailyWinDefeat = (
   history: History,
   matchRecords: MatchRecord[],
   selectedCharacterUuid: string | null,
@@ -90,7 +90,7 @@ export const aggregateDailyWinLoss = (
 /**
  * 曜日別の勝敗データを集計する関数
  */
-export const aggregateWeeklyWinLoss = (
+export const aggregateWeeklyWinDefeat = (
   history: History,
   matchRecords: MatchRecord[],
   selectedCharacterUuid: string | null,
@@ -150,7 +150,7 @@ export const aggregateWeeklyWinLoss = (
 /**
  * 時間別の勝敗データを集計する関数
  */
-export const aggregateHourlyWinLoss = (
+export const aggregateHourlyWinDefeat = (
   history: History,
   matchRecords: MatchRecord[],
   selectedCharacterUuid: string | null,

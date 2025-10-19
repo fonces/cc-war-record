@@ -8,9 +8,9 @@
 graphs/
 ├── components/
 │   ├── GraphsPage.tsx              # グラフ画面メインコンポーネント
-│   ├── DailyWinLossChart.tsx       # 日別勝敗数チャート
-│   ├── HourlyWinLossChart.tsx      # 時間別勝率チャート
-│   ├── WeeklyWinLossChart.tsx      # 曜日別勝率チャート
+│   ├── DailyWinDefeatChart.tsx       # 日別勝敗数チャート
+│   ├── HourlyWinDefeatChart.tsx      # 時間別勝率チャート
+│   ├── WeeklyWinDefeatChart.tsx      # 曜日別勝率チャート
 │   ├── JobUsageRatePieChart.tsx    # ジョブ使用率円グラフ
 │   └── JobWinRateRadarChart.tsx    # ジョブ別勝率レーダーチャート
 ├── index.ts                         # 公開API
@@ -19,7 +19,7 @@ graphs/
 
 ## チャートコンポーネント詳細
 
-### DailyWinLossChart - 日別勝敗数チャート
+### DailyWinDefeatChart - 日別勝敗数チャート
 
 - **チャートタイプ**: ComposedChart（Bar + Line）
 - **表示期間**: シーズン作成日から2ヶ月間
@@ -28,7 +28,7 @@ graphs/
 - **フィルター**: キャラクター・ジョブ・マップ
 - **特徴**: 勝敗数と勝率を同時に可視化
 
-### HourlyWinLossChart - 時間別勝率チャート
+### HourlyWinDefeatChart - 時間別勝率チャート
 
 - **チャートタイプ**: BarChart
 - **表示範囲**: 0時-23時（24時間）
@@ -36,7 +36,7 @@ graphs/
 - **フィルター**: キャラクター・ジョブ・マップ
 - **用途**: プレイ時間による勝率傾向分析
 
-### WeeklyWinLossChart - 曜日別勝率比較
+### WeeklyWinDefeatChart - 曜日別勝率比較
 
 - **チャートタイプ**: AreaChart
 - **表示範囲**: 日曜日-土曜日（Sun-Sat）

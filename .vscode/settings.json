@@ -18,5 +18,6 @@
   },
   "i18n-ally.localesPaths": [
     "src/lib/locales"
-  ]
+  ],
+  "i18n-ally.sourceLanguage": "ja"
 }

@@ -146,17 +146,17 @@ export const FaqPage = () => {
           <SectionTitle>{t("pages.faq.usage.title")}</SectionTitle>
 
           <FaqItem>
-            <Question>{t("pages.faq.usage.dataLoss.question")}</Question>
+            <Question>{t("pages.faq.usage.dataDefeat.question")}</Question>
             <Answer>
-              <p>{t("pages.faq.usage.dataLoss.answer.intro")}</p>
+              <p>{t("pages.faq.usage.dataDefeat.answer.intro")}</p>
               <ul>
-                <li>{t("pages.faq.usage.dataLoss.answer.causes.0")}</li>
-                <li>{t("pages.faq.usage.dataLoss.answer.causes.1")}</li>
-                <li>{t("pages.faq.usage.dataLoss.answer.causes.2")}</li>
-                <li>{t("pages.faq.usage.dataLoss.answer.causes.3")}</li>
+                <li>{t("pages.faq.usage.dataDefeat.answer.causes.0")}</li>
+                <li>{t("pages.faq.usage.dataDefeat.answer.causes.1")}</li>
+                <li>{t("pages.faq.usage.dataDefeat.answer.causes.2")}</li>
+                <li>{t("pages.faq.usage.dataDefeat.answer.causes.3")}</li>
               </ul>
               <p>
-                <strong>{t("pages.faq.usage.dataLoss.answer.recommendation")}</strong>
+                <strong>{t("pages.faq.usage.dataDefeat.answer.recommendation")}</strong>
               </p>
             </Answer>
           </FaqItem>

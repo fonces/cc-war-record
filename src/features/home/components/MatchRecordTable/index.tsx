@@ -82,7 +82,7 @@ type MatchRecordTableProps = {
   /** 勝利記録追加ハンドラー */
   onAddWin?: (job: Job, map: CrystalConflictMap) => void;
   /** 敗北記録追加ハンドラー */
-  onAddLoss?: (job: Job, map: CrystalConflictMap) => void;
+  onAddDefeat?: (job: Job, map: CrystalConflictMap) => void;
   /** 直近の記録取り消しハンドラー */
   onRevertLast?: (job: Job, map: CrystalConflictMap) => void;
 };
@@ -90,7 +90,7 @@ type MatchRecordTableProps = {
 /**
  * 戦績記録テーブルコンポーネント（マップごとのジョブサマリー表示）
  */
-export const MatchRecordTable = ({ usedJobs, matchRecords, onAddWin, onAddLoss, onRevertLast }: MatchRecordTableProps) => {
+export const MatchRecordTable = ({ usedJobs, matchRecords, onAddWin, onAddDefeat, onRevertLast }: MatchRecordTableProps) => {
   const { t } = useTranslation();
 
   // 現在開催中のマップと次に開催されるマップをリアルタイムで取得
@@ -152,7 +152,14 @@ export const MatchRecordTable = ({ usedJobs, matchRecords, onAddWin, onAddLoss, 
               </StyledMapSummary>
             </StyledMapTitle>
             <StyledMapContent isOpen={openMaps.has(mapData.map)}>
-              <JobSummaryTable usedJobs={usedJobs} jobSummaries={mapData.jobSummaries} onAddWin={onAddWin} onAddLoss={onAddLoss} onRevertLast={onRevertLast} map={mapData.map} />
+              <JobSummaryTable
+                usedJobs={usedJobs}
+                jobSummaries={mapData.jobSummaries}
+                onAddWin={onAddWin}
+                onAddDefeat={onAddDefeat}
+                onRevertLast={onRevertLast}
+                map={mapData.map}
+              />
             </StyledMapContent>
           </StyledMapSection>
         );

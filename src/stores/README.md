@@ -146,7 +146,7 @@ const MyComponent = () => {
     <div>
       {stats.map((stat) => (
         <div key={stat.character.uuid}>
-          {stat.character.name}: {stat.wins}勝 {stat.losses}敗
+          {stat.character.name}: {stat.wins}勝 {stat.defeat}敗
         </div>
       ))}
     </div>

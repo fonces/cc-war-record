@@ -85,7 +85,7 @@
       },
       "results": {
         "win": "Win",
-        "loss": "Defeat"
+        "defeat": "Defeat"
       },
       "emptyState": "No matches recorded"
     },
@@ -159,7 +159,7 @@
       },
       "usage": {
         "title": "Application Usage",
-        "dataLoss": {
+        "dataDefeat": {
           "question": "Can my data be lost?",
           "answer": {
             "intro": "Data stored in local storage may be deleted in the following cases:",
@@ -224,7 +224,7 @@
     "map": "Map",
     "result": "Result",
     "win": "Wins",
-    "loss": "Defeats",
+    "defeat": "Defeats",
     "memo": "Memo",
     "memoPlaceholder": "Enter memo (optional)",
     "selectJob": "Please select a job",
@@ -289,7 +289,7 @@
   "chart": {
     "winRate": "Win Rate",
     "winCount": "Wins",
-    "lossCount": "Defeats",
+    "defeatCount": "Defeats",
     "usageRate": "Usage Rate",
     "matches": "Matches",
     "noData": "No data available",
@@ -316,7 +316,7 @@
       "selectJob": "Select Job"
     },
     "titles": {
-      "dailyWinLoss": "Daily Win/Defeat and Win Rate Trend",
+      "dailyWinDefeat": "Daily Win/Defeat and Win Rate Trend",
       "weeklyWinRate": "Win Rate Comparison by Day of Week",
       "hourlyWinRate": "Win Rate Analysis by Time of Day",
       "jobUsageRate": "Job Usage Rate",
@@ -333,7 +333,7 @@
       "win": "Win",
       "lose": "Defeat",
       "winRate": "WinRate",
-      "lossRate": "DefeatRate"
+      "defeatRate": "DefeatRate"
     },
     "tooltip": {
       "usageCount": "Usage Count",

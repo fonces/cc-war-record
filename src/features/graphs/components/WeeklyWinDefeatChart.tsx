@@ -7,7 +7,7 @@ import { JOBS } from "@/types/jobs";
 import { MAPS } from "@/types/maps";
 import { getMapName } from "@/utils/maps";
 import { useTranslation } from "@/hooks";
-import { aggregateWeeklyWinLoss } from "@/features/graphs/utils/aggregate";
+import { aggregateWeeklyWinDefeat } from "@/features/graphs/utils/aggregate";
 
 const StyledChartContainer = styled.div`
   background: ${({ theme }) => theme.colors.gray[50]};
@@ -36,7 +36,7 @@ const StyledFiltersWrapper = styled.div`
   gap: 1rem;
 `;
 
-interface WeeklyWinLossChartProps {
+interface WeeklyWinDefeatChartProps {
   history: History;
   matchRecords: MatchRecord[];
   characters: Character[];
@@ -107,13 +107,13 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
 /**
  * 曜日別勝率比較チャートコンポーネント
  */
-const WeeklyWinLossChartComponent = ({ history, matchRecords, characters }: WeeklyWinLossChartProps) => {
+const WeeklyWinDefeatChartComponent = ({ history, matchRecords, characters }: WeeklyWinDefeatChartProps) => {
   const { t } = useTranslation();
   const [selectedCharacterUuid, setSelectedCharacterUuid] = useState<string | null>(null);
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const [selectedMap, setSelectedMap] = useState<CrystalConflictMap | null>(null);
 
-  const chartData = aggregateWeeklyWinLoss(history, matchRecords, selectedCharacterUuid, selectedJob, selectedMap);
+  const chartData = aggregateWeeklyWinDefeat(history, matchRecords, selectedCharacterUuid, selectedJob, selectedMap);
 
   return (
     <StyledChartContainer>
@@ -188,10 +188,10 @@ const WeeklyWinLossChartComponent = ({ history, matchRecords, characters }: Week
 };
 
 /**
- * Shallow比較でメモ化されたWeeklyWinLossChart
+ * Shallow比較でメモ化されたWeeklyWinDefeatChart
  * history.uuid, matchRecords.length, characters.lengthで比較
  */
-export const WeeklyWinLossChart = memo(
-  WeeklyWinLossChartComponent,
+export const WeeklyWinDefeatChart = memo(
+  WeeklyWinDefeatChartComponent,
   (prev, next) => prev.history.uuid === next.history.uuid && prev.matchRecords.length === next.matchRecords.length && prev.characters.length === next.characters.length,
 );
