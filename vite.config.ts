@@ -67,7 +67,7 @@ export default defineConfig({
     }),
     generateGitHubPagesFilesPlugin(),
     visualizer({
-      filename: "./dist/stats.html",
+      filename: "./analyze/stats.html",
       open: true,
       gzipSize: true,
       brotliSize: true,

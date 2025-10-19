@@ -137,7 +137,7 @@ const HourlyWinDefeatChartComponent = ({ history, matchRecords, characters }: Ho
           <Legend />
           <Bar dataKey="winRate" name="WinRate" fill={theme.colors.textSecondary} radius={[2, 2, 0, 0]} isAnimationActive={false}>
             {chartData.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={getWinRateColor(entry.winRate, theme)} />
+              <Cell key={`cell-${index}`} fill={getWinRateColor(entry.winRate, theme, 400)} />
             ))}
           </Bar>
         </BarChart>
