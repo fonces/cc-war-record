@@ -1,0 +1,1 @@
+import"./stores-Cu0vJ8LX.js";import{n as e}from"./histories-CPb2ZPCD.js";var t=e;export{t as component};

@@ -1,1 +1,0 @@
-import"./stores-DOPs_5ki.js";import{r as e}from"./histories-CdNU5bCg.js";var t=e;export{t as component};
