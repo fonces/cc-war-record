@@ -133,6 +133,10 @@ const StyledButton = styled.button<ButtonProps>`
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+
+    svg {
+      cursor: not-allowed;
+    }
   }
 
   &:focus-visible {

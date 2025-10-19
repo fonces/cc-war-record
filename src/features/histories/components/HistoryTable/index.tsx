@@ -115,10 +115,6 @@ const StyledDeleteButton = styled(Button)`
   border-radius: ${({ theme }) => theme.borderRadius.md};
   text-decoration: none;
   transition: all 0.2s ease-in-out;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.error[500]};
-  }
 `;
 
 // ボタングループ
@@ -287,28 +283,33 @@ export const HistoryTable = ({ histories, isLoading = false, onDelete }: History
           </tr>
         </StyledTableHeader>
         <StyledTableBody>
-          {histories.map((history) => (
-            <StyledTableRow key={history.uuid}>
-              <StyledSeasonNameCell>{history.seasonName}</StyledSeasonNameCell>
-              <StyledDateCell>{formatDateTable(history.createdAt)}</StyledDateCell>
-              <StyledTableCell>
-                <StyledButtonGroup>
-                  <StyledDetailButton
-                    variant="outline"
-                    icon={<Icon name="detail" size={16} />}
-                    onClick={() => handleNavigateToDetail(history.uuid)}
-                    title={t("pages.histories.detail")}
-                  />
-                  <StyledDeleteButton
-                    variant="outline"
-                    icon={<Icon name="delete" size={16} />}
-                    onClick={() => handleOpenDeleteDialog(history.uuid, history.seasonName)}
-                    title={t("pages.histories.delete")}
-                  />
-                </StyledButtonGroup>
-              </StyledTableCell>
-            </StyledTableRow>
-          ))}
+          {histories.map((history) => {
+            const isLatestHistory = history.uuid === histories[0]?.uuid;
+
+            return (
+              <StyledTableRow key={history.uuid}>
+                <StyledSeasonNameCell>{history.seasonName}</StyledSeasonNameCell>
+                <StyledDateCell>{formatDateTable(history.createdAt)}</StyledDateCell>
+                <StyledTableCell>
+                  <StyledButtonGroup>
+                    <StyledDetailButton
+                      variant="outline"
+                      icon={<Icon name="detail" size={16} />}
+                      onClick={() => handleNavigateToDetail(history.uuid)}
+                      title={t("pages.histories.detail")}
+                    />
+                    <StyledDeleteButton
+                      variant="outline"
+                      icon={<Icon name="delete" size={16} />}
+                      onClick={() => handleOpenDeleteDialog(history.uuid, history.seasonName)}
+                      title={t("pages.histories.delete")}
+                      disabled={isLatestHistory}
+                    />
+                  </StyledButtonGroup>
+                </StyledTableCell>
+              </StyledTableRow>
+            );
+          })}
         </StyledTableBody>
       </StyledTable>
 
