@@ -198,17 +198,17 @@ export const JobSummaryTable = ({ usedJobs, jobSummaries, onAddWin, onAddLoss, o
                     {map ? (
                       <StyledActionButtons>
                         {onAddWin && (
-                          <StyledActionButton variant="win" onClick={() => onAddWin(summary.job, map)}>
+                          <StyledActionButton variant="win" onClick={() => onAddWin(summary.job, map)} title={t("match.addWin")}>
                             W
                           </StyledActionButton>
                         )}
                         {onAddLoss && (
-                          <StyledActionButton variant="defeat" onClick={() => onAddLoss(summary.job, map)}>
+                          <StyledActionButton variant="defeat" onClick={() => onAddLoss(summary.job, map)} title={t("match.addDefeat")}>
                             D
                           </StyledActionButton>
                         )}
                         {summary.totalMatches > 0 && onRevertLast ? (
-                          <StyledActionButton variant="outline" icon={<Icon name="revert" size={16} />} onClick={() => onRevertLast(summary.job, map)} />
+                          <StyledActionButton variant="ghost" icon={<Icon name="revert" size={16} />} onClick={() => onRevertLast(summary.job, map)} title={t("match.rollback")} />
                         ) : (
                           (onAddWin || onAddLoss) && <div style={{ width: "32px" }} />
                         )}

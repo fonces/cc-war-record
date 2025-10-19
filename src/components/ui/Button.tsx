@@ -113,30 +113,30 @@ const StyledButton = styled.button<ButtonProps>`
         `;
       case "win":
         return `
-          background-color: ${theme.colors.success[600]};
-          color: white;
+          background-color: ${theme.colors.win[200]};
+          color: ${theme.colors.win[700]};
           border: none;
 
           &:hover:not(:disabled) {
-            background-color: ${theme.colors.success[700]};
+            background-color: ${theme.colors.win[300]};
           }
 
           &:active:not(:disabled) {
-            background-color: ${theme.colors.success[800]};
+            background-color: ${theme.colors.win[800]};
           }
         `;
       case "defeat":
         return `
-          background-color: ${theme.colors.error[600]};
-          color: white;
+          background-color: ${theme.colors.defeat[200]};
+          color: ${theme.colors.defeat[700]};
           border: none;
 
           &:hover:not(:disabled) {
-            background-color: ${theme.colors.error[700]};
+            background-color: ${theme.colors.defeat[300]};
           }
 
           &:active:not(:disabled) {
-            background-color: ${theme.colors.error[800]};
+            background-color: ${theme.colors.defeat[800]};
           }
         `;
     }

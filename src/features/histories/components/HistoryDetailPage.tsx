@@ -129,8 +129,8 @@ const StyledWinBadge = styled.span<{ $isWin: boolean }>`
   border-radius: ${({ theme }) => theme.borderRadius.full};
   font-weight: 600;
   font-size: 0.75rem;
-  background-color: ${({ theme, $isWin }) => ($isWin ? theme.colors.success[100] : theme.colors.error[100])};
-  color: ${({ theme, $isWin }) => ($isWin ? theme.colors.success[700] : theme.colors.error[700])};
+  background-color: ${({ theme, $isWin }) => ($isWin ? theme.colors.win[100] : theme.colors.defeat[100])};
+  color: ${({ theme, $isWin }) => ($isWin ? theme.colors.win[700] : theme.colors.defeat[700])};
   width: 50px;
 `;
 

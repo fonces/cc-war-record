@@ -239,7 +239,10 @@
     "deleteMatch": "전적 삭제",
     "confirmDelete": "전적 삭제",
     "confirmDeleteButton": "삭제",
-    "deleteConfirmation": "{{characterName}}의 {{date}} 전적을 삭제하시겠습니까?\n이 작업은 취소할 수 없습니다."
+    "deleteConfirmation": "{{characterName}}의 {{date}} 전적을 삭제하시겠습니까?\n이 작업은 취소할 수 없습니다.",
+    "addWin": "승리 기록",
+    "addDefeat": "패배 기록",
+    "rollback": "마지막 기록 취소"
   },
   "job": {
     "select": "잡 선택",

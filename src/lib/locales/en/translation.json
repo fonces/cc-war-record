@@ -239,7 +239,10 @@
     "deleteMatch": "Delete Match",
     "confirmDelete": "Delete Match Record",
     "confirmDeleteButton": "Delete",
-    "deleteConfirmation": "Are you sure you want to delete the match record for {{characterName}} on {{date}}?\nThis action cannot be undone."
+    "deleteConfirmation": "Are you sure you want to delete the match record for {{characterName}} on {{date}}?\nThis action cannot be undone.",
+    "addWin": "Record Win",
+    "addDefeat": "Record Defeat",
+    "rollback": "Undo Last Record"
   },
   "job": {
     "select": "Select Job",
