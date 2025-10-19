@@ -1,4 +1,5 @@
-import { createRootRoute, Outlet } from "@tanstack/react-router";
+import { createRootRoute, Outlet, useRouterState } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { Header, NotFoundPage } from "@/components/layout";
 
 /**
@@ -11,6 +12,13 @@ export const Route = createRootRoute({
 });
 
 function RootComponent() {
+  const router = useRouterState();
+
+  // ページ遷移時にスクロールを一番上に戻す
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [router.location.pathname]);
+
   return (
     <Header>
       <Outlet />

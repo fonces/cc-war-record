@@ -137,6 +137,10 @@ const StyledMainContent = styled.main`
   flex: 1;
   min-height: 100vh;
   overflow-x: hidden;
+  background-image: url("${import.meta.env.BASE_URL}img/bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
     margin-left: 240px;

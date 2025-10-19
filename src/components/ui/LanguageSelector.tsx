@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useTranslation } from "@/hooks";
 
@@ -96,6 +96,24 @@ type LanguageSelectorProps = {
 export const LanguageSelector = ({ direction = "down" }: LanguageSelectorProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const { currentLanguage, changeLanguage } = useTranslation();
+  const selectorRef = useRef<HTMLDivElement>(null);
+
+  // 外側クリックで閉じる
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (selectorRef.current && !selectorRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
 
   const handleLanguageChange = (languageCode: string) => {
     changeLanguage(languageCode);
@@ -105,7 +123,7 @@ export const LanguageSelector = ({ direction = "down" }: LanguageSelectorProps) 
   const currentLanguageName = languages.find((lang) => lang.code === currentLanguage)?.name || "日本語";
 
   return (
-    <StyledLanguageSelector>
+    <StyledLanguageSelector ref={selectorRef}>
       <StyledLanguageButton onClick={() => setIsOpen(!isOpen)}>
         <span>{currentLanguageName}</span>
         <StyledArrow isOpen={isOpen} direction={direction}>
