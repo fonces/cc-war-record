@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { EmptyState } from "@/components/layout";
 import { Button, PageContainer, PageTitleContainer, PageTitle, PageDescription, Icon } from "@/components/ui";
 import { usePageTitle, useTranslation } from "@/hooks";
+import { sendEvent } from "@/lib/analytics";
 import { useHistoryStore, useCharacterStore } from "@/stores";
 import { CharacterCard } from "./CharacterCard";
 import { CharacterForm } from "./CharacterForm";
@@ -206,6 +207,9 @@ export const HomePage = () => {
         map,
         isWin: true,
       });
+
+      // 解析イベント送信
+      sendEvent("record", "win");
     } catch {
       // エラーは characterError で表示される
     }
@@ -223,6 +227,9 @@ export const HomePage = () => {
         map,
         isWin: false,
       });
+
+      // 解析イベント送信
+      sendEvent("record", "defeat");
     } catch {
       // エラーは characterError で表示される
     }
@@ -248,6 +255,9 @@ export const HomePage = () => {
 
       // 最新の記録を削除
       deleteMatchRecord(latestRecord.uuid);
+
+      // 解析イベント送信
+      sendEvent("record", "revert");
     } catch {
       // エラーは characterError で表示される
     }

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { PageContainer, PageTitle, PageDescription, PageTitleContainer } from "@/components/ui";
 import { useTranslation } from "@/hooks";
 import { usePageTitle } from "@/hooks/usePageTitle";
+import { sendEvent } from "@/lib/analytics";
 import { useHistoryStore, useCharacterStore } from "@/stores";
 import { HistoryTable } from "./HistoryTable";
 
@@ -79,6 +80,9 @@ export const HistoriesPage = () => {
 
     // 履歴を削除
     deleteHistory(historyUuid);
+
+    // 解析イベント送信
+    sendEvent("histories", "delete");
   };
 
   return (
