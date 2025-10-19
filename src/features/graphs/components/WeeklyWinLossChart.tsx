@@ -180,7 +180,7 @@ const WeeklyWinLossChartComponent = ({ history, matchRecords, characters }: Week
           <Tooltip content={<CustomTooltip />} />
           <Legend />
           <Area type="monotone" dataKey="winRate" name="WinRate" stroke="#10b981" fill="#10b981" fillOpacity={0.3} connectNulls={true} isAnimationActive={false} />
-          <Area type="monotone" dataKey="lossRate" name="LoseRate" stroke="#ef4444" fill="#ef4444" fillOpacity={0.3} connectNulls={false} isAnimationActive={false} />
+          <Area type="monotone" dataKey="lossRate" name="DefeatRate" stroke="#ef4444" fill="#ef4444" fillOpacity={0.3} connectNulls={false} isAnimationActive={false} />
         </AreaChart>
       </ResponsiveContainer>
     </StyledChartContainer>
