@@ -22,9 +22,9 @@ FINAL FANTASY XIVのPvPコンテンツ「クリスタルコンフリクト」の
 
 ### コアライブラリ
 
-- **React** v19.x - UIライブラリ
-- **TypeScript** v5.x - 型安全性
-- **Vite** v7.x (Rolldown) - 高速ビルドツール
+- **React** v19.1.1 - UIライブラリ（memo化パターン適用）
+- **TypeScript** v5.9.3 - 型安全性（type優先、interface禁止）
+- **Vite** v7.x (Rolldown) - `npm:rolldown-vite@7.1.14` 高速ビルドツール
 
 ### 状態管理・データフェッチング
 
@@ -32,12 +32,12 @@ FINAL FANTASY XIVのPvPコンテンツ「クリスタルコンフリクト」の
 
 ### ルーティング
 
-- **TanStack Router** v1.x - 型安全なルーティング
+- **TanStack Router** v1.132+ - 型安全なルーティング（Devtools使用）
 
 ### 国際化 (i18n)
 
+- **i18next** v25.6.0 - 国際化フレームワーク
 - **react-i18next** v14.x - React向け国際化ライブラリ
-- **i18next** v23.x - 国際化フレームワーク
 - **i18next-browser-languagedetector** v8.x - ブラウザ言語検出
 
 ### UI/UX
@@ -64,6 +64,14 @@ FINAL FANTASY XIVのPvPコンテンツ「クリスタルコンフリクト」の
   - AreaChart - エリアチャート（曜日別勝率比較）
   - RadarChart - レーダーチャート（マップ別ジョブ勝率比較）
   - PieChart - 円グラフ（ジョブ使用率）
+
+### Linter・Code Quality
+
+- **ESLint** - Flat Config形式
+- **eslint-plugin-import** - import順序管理
+  - グループ順序: builtin → external → internal → parent → sibling → index → type
+  - アルファベット順にソート（大文字小文字を区別しない）
+  - `npm run lint -- --fix`で自動整形可能
 
 ### ビルド分析
 
@@ -215,15 +223,18 @@ src/
 ├── app/              # アプリケーション設定
 │   ├── App.tsx
 │   └── provider.tsx
-├── components/       # 共有コンポーネント
-│   ├── ui/           # 基本UIコンポーネント
+├── components/       # 共有コンポーネント（全てmemo化済み）
+│   ├── ui/           # 基本UIコンポーネント（React.memo + displayName設定）
 │   │   ├── Button.tsx
 │   │   ├── Input.tsx
 │   │   ├── Select.tsx
 │   │   ├── MultiSelect.tsx
 │   │   ├── Checkbox.tsx
 │   │   ├── Dialog.tsx
-│   │   ├── Icon.tsx
+│   │   ├── Icon/              # アイコンコンポーネント（ディレクトリ分割）
+│   │   │   ├── index.tsx      # 公開API
+│   │   │   ├── types.ts       # 型定義
+│   │   │   └── icons/         # 個別アイコン（14ファイル）
 │   │   ├── JobIcon.tsx        # ジョブアイコンコンポーネント
 │   │   ├── RoleIcon.tsx       # ロールアイコンコンポーネント
 │   │   ├── LanguageSelector.tsx
@@ -231,44 +242,60 @@ src/
 │   ├── form/        # フォームコンポーネント
 │   └── layout/      # レイアウトコンポーネント
 │       ├── Header/
+│       ├── EmptyState/        # 空状態表示（共有コンポーネント）
 │       └── NotFoundPage/
-├── features/        # 機能別モジュール
+├── features/        # 機能別モジュール（Feature-based構造）
 │   ├── home/        # ホーム画面（キャラクター管理）
 │   │   ├── components/
+│   │   │   ├── HomePage.tsx
 │   │   │   ├── CharacterCard.tsx
 │   │   │   ├── CharacterForm.tsx
 │   │   │   ├── DeleteCharacterDialog.tsx
 │   │   │   ├── JobRegistrationDialog.tsx
 │   │   │   └── MatchRecordTable/
-│   │   └── utils/
-│   ├── graphs/      # グラフ・統計表示
+│   │   ├── utils/
+│   │   │   └── calculate.ts
+│   │   └── index.ts           # 公開API
+│   ├── graphs/      # グラフ・統計表示（type定義統一済み）
 │   │   ├── components/
 │   │   │   ├── GraphsPage.tsx
-│   │   │   ├── ChartContainer.tsx     # 共通チャートスタイル
-│   │   │   ├── DailyWinDefeatChart.tsx
-│   │   │   ├── HourlyWinDefeatChart.tsx
-│   │   │   ├── WeeklyWinDefeatChart.tsx
+│   │   │   ├── ChartSkeleton.tsx      # ローディング表示
+│   │   │   ├── DailyWinLossChart.tsx  # 日別勝敗数チャート
+│   │   │   ├── HourlyWinLossChart.tsx # 時間別勝率チャート
+│   │   │   ├── WeeklyWinLossChart.tsx # 曜日別勝率チャート
 │   │   │   ├── JobUsageRatePieChart.tsx
 │   │   │   └── JobWinRateRadarChart.tsx
-│   │   └── utils/
-│   │       └── aggregate.ts           # データ集計ユーティリティ
+│   │   ├── utils/
+│   │   │   └── aggregate.ts           # データ集計ユーティリティ
+│   │   └── index.ts           # 公開API
 │   ├── histories/   # 履歴詳細表示
+│   │   ├── components/
+│   │   │   ├── HistoriesPage.tsx
+│   │   │   ├── HistoryDetailPage.tsx
+│   │   │   ├── NewSeasonPage.tsx
+│   │   │   └── HistoryTable/
+│   │   └── index.ts           # 公開API
 │   └── faq/         # よくある質問ページ
+│       ├── components/
+│       │   └── FaqPage.tsx
+│       └── index.ts           # 公開API
 ├── hooks/           # 共有カスタムフック
-│   ├── useMapRotation.ts  # マップローテーション取得
+│   ├── useMapRotation.ts  # マップローテーション取得（未使用関数削除済み）
 │   ├── usePageTitle.ts    # ページタイトル設定
 │   ├── useScrollLock.ts   # スクロールロック
-│   ├── useTranslation.ts  # 翻訳フック
+│   ├── useTranslation.ts  # 翻訳フック（react-i18nextラッパー）
 │   └── index.ts
 ├── lib/             # 外部ライブラリ設定
-│   └── i18n.ts      # 国際化設定
-│   └── locales/     # 翻訳ファイル
-│       ├── ja/      # 日本語翻訳
-│       ├── en/      # 英語翻訳
-│       └── ko/      # 韓国語翻訳
-├── stores/          # グローバルストア（Zustand）
+│   ├── i18n.ts      # 国際化設定（import順序整理済み）
+│   └── locales/     # 翻訳ファイル（ja/en/ko）
+│       ├── ja/translation.json  # 日本語翻訳
+│       ├── en/translation.json  # 英語翻訳
+│       └── ko/translation.json  # 韓国語翻訳
+├── stores/          # グローバルストア（Zustand + localStorage）
 │   ├── characterStore.ts  # キャラクター・戦績管理
-│   └── historyStore.ts    # シーズン履歴管理
+│   ├── historyStore.ts    # シーズン履歴管理
+│   ├── index.ts           # ストア公開API
+│   └── README.md          # ストア詳細ドキュメント
 ├── styles/          # スタイル設定
 │   ├── theme.ts
 │   ├── GlobalStyle.tsx
@@ -278,11 +305,12 @@ src/
 │   ├── maps.ts      # マップ定義
 │   ├── history.ts   # 履歴型定義
 │   └── index.ts
-├── utils/           # ユーティリティ関数
-│   ├── colors.ts
-│   ├── localStorage.ts
-│   ├── maps.ts
-│   └── uuid.ts
+├── utils/           # ユーティリティ関数（未使用関数削除済み）
+│   ├── colors.ts          # カラーユーティリティ
+│   ├── localStorage.ts    # localStorage操作（clearLocalStorage削除済み）
+│   ├── maps.ts            # マップ関連ユーティリティ（getMapAtTime削除済み）
+│   ├── uuid.ts            # UUID生成・日付フォーマット（formatDate等削除済み）
+│   └── index.ts
 └── test/            # テスト設定
     └── server/
 ```
@@ -407,8 +435,11 @@ import { useAuth } from "@/features/auth";
 このプロジェクトにはGitHub Copilotの設定が含まれています：
 
 - `.github/instructions/codeGeneration.instructions.md` - コード生成ガイドライン
+  - React v19.1.1、Vite 7.x、TypeScript v5.9.3対応
+  - memo化ルール（UIコンポーネント必須）
+  - type優先ルール（interface禁止）
+  - import順序ルール（ESLint設定準拠）
 - `.github/instructions/commitMessage.instructions.md` - コミットメッセージルール
-- `.vscode/copilot.json` - Copilot設定
 - `.vscode/cSpell.json` - スペルチェック設定（技術用語・プロジェクト固有単語を登録）
 
 ## ライセンス
@@ -470,29 +501,44 @@ MIT
 
 ### パフォーマンス最適化
 
-#### グラフページの最適化
+#### React.memo化戦略
 
-- **React.memo によるメモ化**
+- **UIコンポーネント全体のmemo化**（11コンポーネント）
+  - Button, Checkbox, Dialog, Icon, Input, JobIcon, LanguageSelector, MultiSelect, PageLayout, RoleIcon, Select
+  - すべてにdisplayName設定済み
+  - 不要な再レンダリングを防止
+- **グラフページの最適化**
   - 全チャートコンポーネント（5つ）にカスタム比較関数付きmemoを実装
   - `history.uuid`, `matchRecords.length`, `characters.length` で精密な比較
-  - 不要な再レンダリングを防止し、レスポンス速度を向上
+  - レスポンス速度を向上
+
+#### ルーティング最適化
+
 - **TanStack Router キャッシュ戦略**
   - `/graphs` ルートに5分間の `staleTime` を設定
   - 10分間の `gcTime` でメモリにキャッシュを保持
   - ページ遷移時の再フェッチを最小化
+- **TanStack Router Devtools**
+  - 開発環境でルーターの状態をデバッグ可能
+
+#### レンダリング最適化
+
 - **Recharts アニメーション無効化**
   - 全チャート要素に `isAnimationActive={false}` を適用
   - 初回レンダリング時間を短縮（300-600ms削減）
   - キャッシュからの復元時も即座に表示
-
-#### その他の最適化
-
 - **TanStack Virtual による仮想スクロール**
-  - 大量の戦績データを効率的に表示
+  - 大量の戦績データを効率的に表示（HistoryDetailPage）
   - DOMノード数を最小限に抑え、スクロールパフォーマンスを向上
-- **遅延ローディング**
-  - ページコンポーネントの遅延読み込み
-  - 初回ロード時間の短縮
+
+#### コード整理による最適化
+
+- **未使用関数の削除**（5関数、113行削減）
+  - formatDate, formatDateShort, clearLocalStorage, getMapAtTime, useCurrentMapWithTimer
+- **Icon.tsxのディレクトリ分割**（190行 → 17ファイル）
+  - 保守性向上とバンドルサイズ最適化
+- **import順序統一**（ESLint自動整形）
+  - 全42ファイルの整理完了
 
 ## 主要機能
 
@@ -590,11 +636,14 @@ t("pages.faq.privacy.dataStorage.answer.points", { returnObjects: true });
 
 ### 用語の統一
 
-- **勝利/敗北**: 日本語で統一された表現
-  - `match.win`: "勝利" (Victory)
-  - `match.defeat`: "敗北" (Defeat)
+- **勝利/敗北**: 統一された表現
+  - `match.win`: "勝利" (Victory / 승리)
+  - `match.defeat`: "敗北" (Defeat / 패배)
   - `stats.wins`: "{{count}}勝利"
-  - `stats.defeat`: "{{count}}敗北"
+  - `stats.defeats`: "{{count}}敗北"
+- **型定義の統一**: type優先（interface禁止）
+  - 全グラフコンポーネント: interface → type統一済み
+  - 例外: `*.d.ts`, `routeTree.gen.ts`のみinterface許可
 
 ### 新しい翻訳の追加方法
 

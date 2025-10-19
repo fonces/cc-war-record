@@ -6,17 +6,18 @@
 
 ```
 app/
-├── App.tsx         # ルートコンポーネント（ルーター設定）
-├── provider.tsx    # アプリケーションプロバイダー
+├── App.tsx         # ルートコンポーネント（ルーター設定 + Devtools）
+├── provider.tsx    # アプリケーションプロバイダー（Theme + Router）
 └── README.md       # このファイル
 ```
 
 ## App.tsx
 
-TanStack Routerを使用したルーティング設定を行います。
+TanStack Router v1.132+を使用したルーティング設定を行います。
 
 ```tsx
 import { RouterProvider, createRouter } from "@tanstack/react-router";
+import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { routeTree } from "@/routeTree.gen";
 
 // ルーターインスタンスを作成
@@ -24,12 +25,24 @@ const router = createRouter({
   routeTree,
   basepath: import.meta.env.VITE_BASEPATH || "/",
 });
+
+export const App = () => (
+  <>
+    <RouterProvider router={router} />
+    <TanStackRouterDevtools router={router} />
+  </>
+);
 ```
 
 ### 環境変数対応
 
 - `VITE_BASEPATH`: ルーターのベースパスを環境変数で設定
 - GitHub Pagesなどのサブパス配置に対応
+
+### TanStack Router Devtools
+
+- 開発環境でルーターの状態をデバッグ可能
+- ナビゲーション履歴、ルート情報、パラメータを可視化
 
 ## ルーティング構成
 
@@ -107,19 +120,19 @@ export const HomePage = () => {
 
 `src/app/provider.tsx` では以下のプロバイダーを統合します：
 
-- **ThemeProvider** (styled-components): テーマ設定
-- **QueryClientProvider** (TanStack Query): サーバー状態管理
-- **Router** (TanStack Router): ルーティング（予定）
+- **ThemeProvider** (styled-components v6.1.19): テーマ設定
+- **App** (TanStack Router v1.132+): ルーティング + Devtools
 
 ## 使用方法
 
 ### 新しいルートの追加
 
-TanStack Routerを使用してルートを追加する場合：
+TanStack Routerのファイルベースルーティングを使用してルートを追加する場合：
 
-1. `src/features` 配下に機能ディレクトリを作成
-2. 機能固有のコンポーネントを作成
-3. `routes.tsx` にルート定義を追加（予定）
+1. `src/routes/` 配下にルートファイルを作成（例: `new-feature.tsx`）
+2. `src/features/` 配下に機能ディレクトリを作成
+3. 機能固有のコンポーネントを作成（index.tsで公開）
+4. ルートファイルでfeatureの公開APIをimport
 
 ```tsx
 // 例: src/features/home/components/HomePage.tsx
@@ -138,11 +151,10 @@ export const HomePage = () => {
 新しいプロバイダーを追加する場合は `src/app/provider.tsx` を編集します：
 
 ```tsx
-export const AppProvider = ({ children }: AppProviderProps) => {
+export const AppProvider = () => {
   return (
     <ThemeProvider theme={theme}>
-      <QueryClientProvider client={queryClient}>
-        <GlobalStyle />
+      <GlobalStyle />
         {children}
       </QueryClientProvider>
     </ThemeProvider>

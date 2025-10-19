@@ -639,7 +639,7 @@ export const useStore = create((set: any) => ({
 
 #### styled-componentsの悪い使い方
 
-```tsx
+````tsx
 #### styled-componentsの悪い使い方
 
 ```tsx
@@ -653,7 +653,7 @@ const Button = styled.button`
   color: ${(props: any) => props.color}; // any型は使用禁止
   font-size: ${(props) => props.size || "16px"}; // デフォルト値が不明確
 `;
-```
+````
 
 ### ✅ ディレクトリ分割パターン（大きなコンポーネント）
 
@@ -692,10 +692,13 @@ import type { IconProps } from "./types";
 
 export const Icon = memo(({ name, ...props }: IconProps) => {
   switch (name) {
-    case "check": return <CheckIcon {...props} />;
-    case "close": return <CloseIcon {...props} />;
+    case "check":
+      return <CheckIcon {...props} />;
+    case "close":
+      return <CloseIcon {...props} />;
     // ... 他のケース
-    default: return null;
+    default:
+      return null;
   }
 });
 
@@ -705,12 +708,8 @@ Icon.displayName = "Icon";
 #### types.ts
 
 ```tsx
-export type IconName = 
-  | "hamburger" 
-  | "close" 
-  | "home" 
-  // ... 他のアイコン名
-  ;
+export type IconName = "hamburger" | "close" | "home";
+// ... 他のアイコン名
 
 export type IconProps = {
   name: IconName;
@@ -764,3 +763,4 @@ CheckIcon.displayName = "CheckIcon";
 
 ````
 ```
+````

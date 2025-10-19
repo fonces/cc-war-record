@@ -27,6 +27,7 @@ graphs/
 - **Y軸**: 左軸（試合数）、右軸（勝率0-100%）
 - **フィルター**: キャラクター・ジョブ・マップ
 - **特徴**: 勝敗数と勝率を同時に可視化
+- **型定義**: type Props（interface削除済み）
 
 ### HourlyWinDefeatChart - 時間別勝率チャート
 
@@ -44,6 +45,7 @@ graphs/
 - **フィルター**: キャラクター・ジョブ・マップ
 - **特徴**: connectNulls機能でデータ欠損日を補間
 - **用途**: 平日・休日による勝率差分析
+- **型定義**: type Props（interface削除済み）
 
 ### JobUsageRatePieChart - ジョブ使用率円グラフ
 
@@ -54,6 +56,7 @@ graphs/
 - **カラー**: JOB_INFOで定義されたジョブカラー
 - **ツールチップ**: ジョブ名・使用回数・使用率
 - **ソート**: 使用率降順
+- **型定義**: type Props（interface削除済み）
 
 ### JobWinRateRadarChart - ジョブ別勝率レーダーチャート
 
@@ -64,6 +67,18 @@ graphs/
 - **選択方式**: MultiSelectによる複数ジョブ選択（最大5）
 - **永続化**: ジョブ選択状態をlocalStorageに保存
 - **用途**: ジョブ・マップ相性分析
+- **型定義**: type Props（interface削除済み）
+
+## データ集計ユーティリティ
+
+### aggregate.ts
+
+- `aggregateDailyWinLoss`: 日別勝敗数集計
+- `aggregateHourlyWinRate`: 時間別勝率集計
+- `aggregateWeeklyWinRate`: 曜日別勝率集計
+- `aggregateJobUsage`: ジョブ使用率集計
+- `aggregateJobWinRateByMap`: マップ別ジョブ勝率集計
+- 各関数で勝敗データのフィルタリングと集計を実行
 
 ## 公開API
 
@@ -90,4 +105,18 @@ export const Route = createFileRoute("/graphs")({
 - **ジョブフィルター**: 特定ジョブのデータのみ表示
 - **マップフィルター**: 特定マップのデータのみ表示
 
-フィルター選択はSelectコンポーネント（width: 200px統一）で実現。
+フィルター選択はSelectコンポーネント（width: 200px統一、memo化済み）で実現。
+
+## チャートスケルトン
+
+### ChartSkeleton
+
+- ローディング中の表示用スケルトンコンポーネント
+- 各チャートで共通使用
+- styled-componentsでアニメーション実装
+
+## コードスタイル
+
+- **type優先**: 全チャートでinterface → type統一済み
+- **React.memo化**: 将来的にパフォーマンス最適化で適用予定
+- **import順序**: ESLintルールに準拠（external → internal → type）
