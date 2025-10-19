@@ -21,7 +21,7 @@ export const App = () => {
   return (
     <>
       <RouterProvider router={router} />
-      <TanStackRouterDevtools router={router} />
+      {import.meta.env.DEV && <TanStackRouterDevtools router={router} />}
     </>
   );
 };
