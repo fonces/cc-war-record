@@ -1,4 +1,4 @@
-import{A as e,D as t,E as n,F as r,I as i,N as a,O as o,P as s,d as c,i as l,k as u,m as d,n as f,o as p,r as m,t as h,u as g,w as _,x as v,z as y}from"./index-TzX44Huk.js";import{a as b,n as x,t as S}from"./stores-CJPsZhJj.js";var C=y(i()),w=y(a()),T=s.div`
+import{A as e,D as t,E as n,F as r,I as i,N as a,O as o,P as s,d as c,i as l,k as u,m as d,n as f,o as p,r as m,t as h,u as g,w as _,x as v,z as y}from"./index-B1W7Mw1R.js";import{a as b,n as x,t as S}from"./stores-DKKu7yjr.js";var C=y(i()),w=y(a()),T=s.div`
   overflow-x: auto;
   border-radius: ${({theme:e})=>e.borderRadius.lg};
   border: 1px solid ${({theme:e})=>e.colors.gray[200]};
@@ -244,8 +244,8 @@ import{A as e,D as t,E as n,F as r,I as i,N as a,O as o,P as s,d as c,i as l,k a
   border-radius: ${({theme:e})=>e.borderRadius.full};
   font-weight: 600;
   font-size: 0.75rem;
-  background-color: ${({theme:e,$isWin:t})=>t?e.colors.success[100]:e.colors.error[100]};
-  color: ${({theme:e,$isWin:t})=>t?e.colors.success[700]:e.colors.error[700]};
+  background-color: ${({theme:e,$isWin:t})=>t?e.colors.win[100]:e.colors.defeat[100]};
+  color: ${({theme:e,$isWin:t})=>t?e.colors.win[700]:e.colors.defeat[700]};
   width: 50px;
 `,Me=s(t)`
   display: inline-flex;
