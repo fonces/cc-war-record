@@ -1,4 +1,4 @@
-import{L as e,M as t,S as n,T as r,j as i}from"./index-CtIgVn_i.js";var a=e(i()),o=t.div`
+import{D as e,N as t,P as n,d as r,w as i,z as a}from"./index-BRKS9oX4.js";var o=a(t()),s=n.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,7 +9,7 @@ import{L as e,M as t,S as n,T as r,j as i}from"./index-CtIgVn_i.js";var a=e(i())
   border-radius: ${({theme:e})=>e.borderRadius.lg};
   border: 1px solid ${({theme:e})=>e.colors.gray[200]};
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-`,s=t.div`
+`,c=n.div`
   width: 80px;
   height: 80px;
   background-color: ${({theme:e})=>e.colors.primary[100]};
@@ -18,21 +18,21 @@ import{L as e,M as t,S as n,T as r,j as i}from"./index-CtIgVn_i.js";var a=e(i())
   align-items: center;
   justify-content: center;
   margin-bottom: ${({theme:e})=>e.spacing[6]};
-`,c=t.h2`
+`,l=n.h2`
   font-size: 1.5rem;
   font-weight: 600;
   color: ${({theme:e})=>e.colors.text};
   margin-bottom: ${({theme:e})=>e.spacing[4]};
-`,l=t.p`
+`,u=n.p`
   font-size: 1rem;
   color: ${({theme:e})=>e.colors.textSecondary};
   margin-bottom: ${({theme:e})=>e.spacing[8]};
   max-width: 400px;
   line-height: 1.6;
-`,u=t(r)`
+`,d=n(e)`
   display: inline-flex;
   align-items: center;
   gap: ${({theme:e})=>e.spacing[2]};
   font-size: 1.1rem;
   padding: ${({theme:e})=>e.spacing[4]} ${({theme:e})=>e.spacing[8]};
-`;const d=({onCreateSeason:e})=>(0,a.jsxs)(o,{children:[(0,a.jsx)(s,{children:(0,a.jsx)(n,{name:`home`,size:32})}),(0,a.jsx)(c,{children:`まだシーズンが作成されていません`}),(0,a.jsx)(l,{children:`戦績を記録するために、まず最初のシーズンを作成してください。 シーズン名を設定して、勝敗の記録を開始できます。`}),(0,a.jsxs)(u,{onClick:e,children:[(0,a.jsx)(n,{name:`add`,size:20,color:`white`}),`シーズンを作成する`]})]});export{d as t};
+`;const f=({onCreateSeason:e})=>{let{t}=r();return(0,o.jsxs)(s,{children:[(0,o.jsx)(c,{children:(0,o.jsx)(i,{name:`home`,size:32})}),(0,o.jsx)(l,{children:t(`pages.home.noSeason`)}),(0,o.jsx)(u,{children:t(`pages.home.createFirstSeason`)}),(0,o.jsxs)(d,{onClick:e,children:[(0,o.jsx)(i,{name:`add`,size:20,color:`white`}),t(`pages.home.createSeason`)]})]})};export{f as t};

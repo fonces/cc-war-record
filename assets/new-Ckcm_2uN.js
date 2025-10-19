@@ -1,1 +1,0 @@
-import"./usePageTitle-D8lqTfDd.js";import"./stores-F4lXWS7a.js";import{t as e}from"./histories-BAuK-Q7-.js";var t=e;export{t as component};
