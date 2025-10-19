@@ -18,6 +18,7 @@ const StyledJobIcon = styled.img<{ size: number }>`
   height: ${({ size }) => size}px;
   object-fit: contain;
   display: inline-block;
+  filter: brightness(1.25);
 `;
 
 const StyledFallbackIcon = styled.div<{ size: number; bgColor: string }>`
