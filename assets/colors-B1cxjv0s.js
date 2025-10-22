@@ -1,1 +1,0 @@
-const e=(e,t,n=600)=>e>=51?t.colors.success[n]:e>=40?t.colors.warning[n]:t.colors.error[n];export{e as t};
