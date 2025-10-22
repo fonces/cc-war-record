@@ -1,8 +1,20 @@
 import { useParams, useNavigate } from "@tanstack/react-router";
-import { useVirtualizer } from "@tanstack/react-virtual";
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import styled, { keyframes } from "styled-components";
-import { PageContainer, PageTitleContainer, PageTitle, PageDescription, Button, Icon, JobIcon, Dialog } from "@/components/ui";
+import {
+  PageContainer,
+  PageTitleContainer,
+  PageTitle,
+  PageDescription,
+  Button,
+  Icon,
+  JobIcon,
+  Dialog,
+  VirtualTable,
+  StyledTableRow,
+  StyledTableCell,
+  type VirtualTableColumn,
+} from "@/components/ui";
 import { useTranslation } from "@/hooks";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { useHistoryStore, useCharacterStore } from "@/stores";
@@ -15,11 +27,6 @@ import type { MatchRecord } from "@/types";
 const fadeIn = keyframes`
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
-`;
-
-const pulse = keyframes`
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
 `;
 
 // 統計グリッド
@@ -76,13 +83,13 @@ const StyledStatValue = styled.div<{ $type?: "default" | "win" | "defeat" | "win
 
   ${({ theme, $type, $winRate }) => {
     if ($type === "win") {
-      return `color: ${theme.colors.win[600]};`;
+      return `color: ${theme.colors.win[400]};`;
     }
     if ($type === "defeat") {
-      return `color: ${theme.colors.defeat[600]};`;
+      return `color: ${theme.colors.defeat[400]};`;
     }
     if ($type === "winRate" && $winRate !== undefined) {
-      return `color: ${getWinRateColor($winRate, theme)};`;
+      return `color: ${getWinRateColor($winRate, theme, 400)};`;
     }
     // デフォルトはグラデーション
     return `
@@ -97,128 +104,6 @@ const StyledStatValue = styled.div<{ $type?: "default" | "win" | "defeat" | "win
 const StyledStatDescription = styled.div`
   font-size: 0.875rem;
   color: ${({ theme }) => theme.colors.gray[500]};
-`;
-
-// テーブルコンテナ
-const StyledTableContainer = styled.div`
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
-  border: 1px solid rgba(38, 161, 223, 0.1);
-  margin-top: ${({ theme }) => theme.spacing[6]};
-  height: calc(100dvh - 380px);
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  animation: ${fadeIn} 0.6s ease-out 0.1s backwards;
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
-  }
-
-  &:hover {
-    box-shadow:
-      0 12px 40px rgba(38, 161, 223, 0.12),
-      0 0 0 1px rgba(38, 161, 223, 0.1);
-  }
-`;
-
-// テーブル
-const StyledTable = styled.div`
-  width: 100%;
-  background-color: transparent;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  min-height: 0;
-`;
-
-// テーブルヘッダー
-const StyledTableHeader = styled.div`
-  display: flex;
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(8px);
-  border-bottom: 2px solid rgba(38, 161, 223, 0.1);
-  position: sticky;
-  top: 0;
-  z-index: 2;
-`;
-
-const StyledHeaderCell = styled.div<{ width?: string }>`
-  padding: ${({ theme }) => theme.spacing[4]} ${({ theme }) => theme.spacing[6]};
-  font-weight: 700;
-  font-size: 0.75rem;
-  color: ${({ theme }) => theme.colors.gray[700]};
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  white-space: nowrap;
-  flex: ${({ width }) => (width ? "0 0 " + width : "1")};
-  text-align: left;
-
-  &:last-child {
-    text-align: center;
-  }
-`;
-
-// 仮想スクロールコンテナ
-const StyledVirtualContainer = styled.div`
-  position: relative;
-  width: 100%;
-  flex: 1;
-  overflow: auto;
-  min-height: 0;
-`;
-
-// テーブル行
-const StyledTableRow = styled.div`
-  display: flex;
-  border-bottom: 1px solid rgba(38, 161, 223, 0.05);
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: transparent;
-
-  &::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 0;
-    background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
-    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  &:hover {
-    background: rgba(38, 161, 223, 0.03);
-
-    &::before {
-      width: 4px;
-    }
-  }
-`;
-
-const StyledTableCell = styled.div<{ width?: string }>`
-  padding: ${({ theme }) => theme.spacing[4]} ${({ theme }) => theme.spacing[6]};
-  font-size: 0.875rem;
-  color: ${({ theme }) => theme.colors.gray[900]};
-  flex: ${({ width }) => (width ? "0 0 " + width : "1")};
-  display: flex;
-  align-items: center;
-
-  &:last-child {
-    justify-content: center;
-  }
 `;
 
 // キャラクター名セル
@@ -236,7 +121,6 @@ const StyledCharacterNameCell = styled(StyledTableCell)`
 // 作成日時セル
 const StyledDateCell = styled(StyledTableCell)`
   color: ${({ theme }) => theme.colors.textSecondary};
-  font-family: "Courier New", monospace;
   font-size: 0.8125rem;
   white-space: nowrap;
 `;
@@ -252,7 +136,6 @@ const StyledJobShortName = styled.span`
   font-size: 0.75rem;
   font-weight: 700;
   color: ${({ theme }) => theme.colors.gray[600]};
-  font-family: "Courier New", monospace;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 `;
@@ -286,6 +169,7 @@ const StyledWinBadge = styled.span<{ $isWin: boolean }>`
 const StyledDeleteButton = styled(Button)`
   display: inline-flex;
   align-items: center;
+  color: ${({ theme }) => theme.colors.error[500]};
   justify-content: center;
   width: 36px;
   height: 36px;
@@ -298,35 +182,10 @@ const StyledDeleteButton = styled(Button)`
   &:hover:not(:disabled) {
     background: ${({ theme }) => theme.colors.error[500]};
     border-color: ${({ theme }) => theme.colors.error[500]};
-    color: white;
+    color: ${({ theme }) => theme.colors.white};
     transform: scale(1.05);
     box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
   }
-`;
-
-// 空状態表示
-const StyledEmptyState = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: ${({ theme }) => theme.spacing[16]} ${({ theme }) => theme.spacing[6]};
-  color: ${({ theme }) => theme.colors.gray[400]};
-  font-size: 0.875rem;
-  gap: ${({ theme }) => theme.spacing[4]};
-
-  &::before {
-    content: "📊";
-    font-size: 4rem;
-    opacity: 0.5;
-    animation: ${pulse} 2s ease-in-out infinite;
-  }
-`;
-
-const StyledEmptyStateText = styled.div`
-  font-size: 1rem;
-  font-weight: 500;
-  color: ${({ theme }) => theme.colors.gray[500]};
 `;
 
 // 戻るボタンコンテナ
@@ -362,7 +221,6 @@ export const HistoryDetailPage = () => {
   const navigate = useNavigate();
   const { getHistoryByUuid, getMatchRecordsForSeason, histories } = useHistoryStore();
   const { deleteMatchRecord } = useCharacterStore();
-  const parentRef = useRef<HTMLDivElement>(null);
 
   // 現在の言語に応じたロケールを取得
   const locale = i18n.language === "ja" ? "ja-JP" : i18n.language === "ko" ? "ko-KR" : "en-US";
@@ -459,24 +317,33 @@ export const HistoryDetailPage = () => {
   }, [allMatches]);
 
   // ヘッダーセルの幅設定
-  const columnWidths = useMemo(() => {
-    const scrollbarWidth = getScrollbarWidth();
-    return {
+  const columnWidths = useMemo(
+    () => ({
       character: undefined, // flex: 1
       job: "120px",
       date: "180px",
-      result: !isCurrent ? `${108 + scrollbarWidth}px` : "108px",
-      actions: isCurrent ? `${84 + scrollbarWidth}px` : "84px",
-    };
-  }, [isCurrent]);
+      result: "108px",
+      actions: "84px",
+    }),
+    [],
+  );
 
-  // 仮想化設定
-  const rowVirtualizer = useVirtualizer({
-    count: allMatches.length,
-    getScrollElement: () => parentRef.current,
-    estimateSize: () => 56, // 行の高さ（px）
-    overscan: 5, // 表示領域外にレンダリングする行数
-  });
+  // テーブルカラム定義
+  const columns: VirtualTableColumn[] = useMemo(() => {
+    const scrollbarWidth = getScrollbarWidth();
+    const baseColumns: VirtualTableColumn[] = [
+      { key: "character", label: t("pages.historyDetail.columns.character"), width: undefined },
+      { key: "job", label: t("pages.historyDetail.columns.job"), width: "120px" },
+      { key: "date", label: t("pages.historyDetail.columns.date"), width: "180px" },
+      { key: "result", label: t("pages.historyDetail.columns.result"), width: !isCurrent ? `${108 + scrollbarWidth}px` : "108px" },
+    ];
+
+    if (isCurrent) {
+      baseColumns.push({ key: "actions", label: t("match.actions"), width: isCurrent ? `${84 + scrollbarWidth}px` : "84px" });
+    }
+
+    return baseColumns;
+  }, [t, isCurrent]);
 
   // 削除ダイアログを開く
   const handleOpenDeleteDialog = (matchUuid: string, characterName: string, date: string) => {
@@ -542,67 +409,39 @@ export const HistoryDetailPage = () => {
         </StyledStatCard>
       </StyledStatsGrid>
 
-      <StyledTableContainer>
-        <StyledTable>
-          {/* ヘッダー */}
-          <StyledTableHeader>
-            <StyledHeaderCell width={columnWidths.character}>{t("pages.historyDetail.columns.character")}</StyledHeaderCell>
-            <StyledHeaderCell width={columnWidths.job}>{t("pages.historyDetail.columns.job")}</StyledHeaderCell>
-            <StyledHeaderCell width={columnWidths.date}>{t("pages.historyDetail.columns.date")}</StyledHeaderCell>
-            <StyledHeaderCell width={columnWidths.result}>{t("pages.historyDetail.columns.result")}</StyledHeaderCell>
-            {isCurrent && <StyledHeaderCell width={columnWidths.actions}>{t("match.actions")}</StyledHeaderCell>}
-          </StyledTableHeader>
-
-          {/* 仮想スクロールリスト */}
-          {allMatches.length > 0 ? (
-            <StyledVirtualContainer ref={parentRef}>
-              <div
-                style={{
-                  height: `${rowVirtualizer.getTotalSize()}px`,
-                  position: "relative",
-                }}
-              >
-                {rowVirtualizer.getVirtualItems().map((virtualRow: { index: number; start: number; size: number }) => {
-                  const match = allMatches[virtualRow.index];
-                  return (
-                    <StyledTableRow
-                      key={match.uuid}
-                      style={{
-                        transform: `translateY(${virtualRow.start}px)`,
-                        height: `${virtualRow.size}px`,
-                      }}
-                    >
-                      <StyledCharacterNameCell>{match.characterName}</StyledCharacterNameCell>
-                      <StyledJobCell width="120px">
-                        <JobIcon job={match.job} size={24} />
-                        <StyledJobShortName>{JOB_INFO[match.job].shortName}</StyledJobShortName>
-                      </StyledJobCell>
-                      <StyledDateCell width="180px">{formatDateTable(match.recordedAt)}</StyledDateCell>
-                      <StyledTableCell width="108px">
-                        <StyledWinBadge $isWin={match.isWin}>{match.isWin ? t("pages.historyDetail.results.win") : t("pages.historyDetail.results.defeat")}</StyledWinBadge>
-                      </StyledTableCell>
-                      {isCurrent && (
-                        <StyledTableCell width="84px">
-                          <StyledDeleteButton
-                            variant="outline"
-                            icon={<Icon name="delete" size={16} />}
-                            onClick={() => handleOpenDeleteDialog(match.uuid, match.characterName, formatDateTable(match.recordedAt))}
-                            title={t("match.deleteMatch")}
-                          />
-                        </StyledTableCell>
-                      )}
-                    </StyledTableRow>
-                  );
-                })}
-              </div>
-            </StyledVirtualContainer>
-          ) : (
-            <StyledEmptyState>
-              <StyledEmptyStateText>{t("pages.historyDetail.emptyState")}</StyledEmptyStateText>
-            </StyledEmptyState>
-          )}
-        </StyledTable>
-      </StyledTableContainer>
+      {/* テーブル */}
+      <VirtualTable
+        data={allMatches}
+        columns={columns}
+        rowHeight={56}
+        overscan={5}
+        height="calc(100dvh - 380px)"
+        emptyText={t("pages.historyDetail.emptyState")}
+        getRowKey={(match: MatchRecord & { characterName: string }) => match.uuid}
+        renderRow={(match: MatchRecord & { characterName: string }) => (
+          <StyledTableRow>
+            <StyledCharacterNameCell width={columnWidths.character}>{match.characterName}</StyledCharacterNameCell>
+            <StyledJobCell width={columnWidths.job}>
+              <JobIcon job={match.job} size={24} />
+              <StyledJobShortName>{JOB_INFO[match.job].shortName}</StyledJobShortName>
+            </StyledJobCell>
+            <StyledDateCell width={columnWidths.date}>{formatDateTable(match.recordedAt)}</StyledDateCell>
+            <StyledTableCell width={columnWidths.result}>
+              <StyledWinBadge $isWin={match.isWin}>{match.isWin ? t("pages.historyDetail.results.win") : t("pages.historyDetail.results.defeat")}</StyledWinBadge>
+            </StyledTableCell>
+            {isCurrent && (
+              <StyledTableCell width={columnWidths.actions}>
+                <StyledDeleteButton
+                  variant="outline"
+                  icon={<Icon name="delete" size={16} />}
+                  onClick={() => handleOpenDeleteDialog(match.uuid, match.characterName, formatDateTable(match.recordedAt))}
+                  title={t("match.deleteMatch")}
+                />
+              </StyledTableCell>
+            )}
+          </StyledTableRow>
+        )}
+      />
 
       <StyledBackButtonContainer>
         <StyledBackButton variant="outline" size="sm" onClick={() => navigate({ to: "/histories" })}>

@@ -1,8 +1,9 @@
 import { useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import styled from "styled-components";
-import { Button, Icon, Dialog } from "@/components/ui";
+import { Button, Icon, Dialog, VirtualTable, StyledTableRow, StyledTableCell, type VirtualTableColumn } from "@/components/ui";
 import { useTranslation } from "@/hooks";
+import { getScrollbarWidth } from "@/utils";
 import { formatDateTable } from "@/utils/uuid";
 import type { History } from "@/types";
 
@@ -15,124 +16,12 @@ type HistoryTableProps = {
   onDelete: (historyUuid: string) => void;
 };
 
-// テーブルコンテナ
-const StyledTableContainer = styled.div`
-  overflow: hidden;
-  border-radius: ${({ theme }) => theme.borderRadius.xl};
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: ${({ theme }) => theme.blur.md};
-  border: 1px solid rgba(38, 161, 223, 0.2);
-  box-shadow: ${({ theme }) => theme.shadows.xl};
-  transition: all ${({ theme }) => theme.transitions.base};
-  position: relative;
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: ${({ theme }) => theme.gradients.primary};
-  }
-
-  &:hover {
-    box-shadow: ${({ theme }) => theme.shadows["2xl"]}, ${({ theme }) => theme.shadows.glow};
-  }
-`;
-
-// テーブル
-const StyledTable = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-  background: transparent;
-`;
-
-// テーブルヘッダー
-const StyledTableHeader = styled.thead`
-  background: ${({ theme }) => theme.gradients.glass};
-  backdrop-filter: ${({ theme }) => theme.blur.sm};
-  border-bottom: 1px solid rgba(38, 161, 223, 0.2);
-`;
-
-const StyledHeaderCell = styled.th`
-  padding: ${({ theme }) => theme.spacing[5]} ${({ theme }) => theme.spacing[6]};
-  text-align: left;
-  font-weight: 700;
-  font-size: 0.875rem;
-  color: ${({ theme }) => theme.colors.gray[700]};
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  white-space: nowrap;
-
-  &:last-child {
-    text-align: center;
-    width: 140px;
-  }
-`;
-
-// テーブルボディ
-const StyledTableBody = styled.tbody``;
-
-const StyledTableRow = styled.tr`
-  border-bottom: 1px solid rgba(38, 161, 223, 0.1);
-  transition: all ${({ theme }) => theme.transitions.base};
-  position: relative;
-
-  &::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 0;
-    background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
-    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  &:hover {
-    background: rgba(38, 161, 223, 0.05);
-
-    &::before {
-      width: 4px;
-    }
-  }
-
-  &:last-child {
-    border-bottom: none;
-  }
-`;
-
-const StyledTableCell = styled.td`
-  padding: ${({ theme }) => theme.spacing[5]} ${({ theme }) => theme.spacing[6]};
-  font-size: 0.9375rem;
-  color: ${({ theme }) => theme.colors.gray[900]};
-
-  &:last-child {
-    text-align: center;
-  }
-`;
-
 // シーズン名セル
 const StyledSeasonNameCell = styled(StyledTableCell)`
   font-weight: 600;
   color: ${({ theme }) => theme.colors.text};
   position: relative;
   padding-left: calc(${({ theme }) => theme.spacing[6]} + 8px);
-
-  &::before {
-    content: "";
-    position: absolute;
-    left: calc(${({ theme }) => theme.spacing[4]} + 4px);
-    top: 50%;
-    transform: translateY(-50%);
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: ${({ theme }) => theme.gradients.primary};
-    opacity: 0;
-    transition: opacity ${({ theme }) => theme.transitions.base};
-  }
 
   ${StyledTableRow}:hover &::before {
     opacity: 1;
@@ -146,8 +35,7 @@ const StyledSeasonNameCell = styled(StyledTableCell)`
 // 作成日時セル
 const StyledDateCell = styled(StyledTableCell)`
   color: ${({ theme }) => theme.colors.textSecondary};
-  font-family: "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", monospace;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   white-space: nowrap;
 `;
 
@@ -299,38 +187,6 @@ const StyledEmptyDescription = styled.p`
   max-width: 400px;
 `;
 
-// ローディング状態
-const StyledLoadingRow = styled(StyledTableRow)`
-  &:hover {
-    background: transparent;
-
-    &::before {
-      width: 0;
-    }
-  }
-`;
-
-const StyledLoadingCell = styled(StyledTableCell)`
-  text-align: center;
-  color: ${({ theme }) => theme.colors.textSecondary};
-  font-style: italic;
-  padding: ${({ theme }) => theme.spacing[8]};
-
-  @keyframes shimmer {
-    0% {
-      opacity: 0.5;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0.5;
-    }
-  }
-
-  animation: shimmer 1.5s ease-in-out infinite;
-`;
-
 /**
  * 履歴テーブルコンポーネント
  * テーブル形式でシーズン履歴一覧を表示
@@ -343,6 +199,26 @@ export const HistoryTable = ({ histories, isLoading = false, onDelete }: History
     uuid: string;
     seasonName: string;
   } | null>(null);
+
+  // カラム幅設定
+  const columnWidths = useMemo(
+    () => ({
+      seasonName: undefined, // flex: 1
+      date: "220px",
+      actions: "160px",
+    }),
+    [],
+  );
+
+  // テーブルカラム定義
+  const columns: VirtualTableColumn[] = useMemo(() => {
+    const scrollBarWidth = getScrollbarWidth();
+    return [
+      { key: "seasonName", label: t("pages.historyDetail.columns.season"), width: undefined },
+      { key: "date", label: t("pages.historyDetail.columns.date"), width: "220px" },
+      { key: "actions", label: t("match.actions"), width: `${160 + scrollBarWidth}px` },
+    ];
+  }, [t]);
 
   // 履歴詳細へ遷移
   const handleNavigateToDetail = (historyUuid: string) => {
@@ -370,30 +246,8 @@ export const HistoryTable = ({ histories, isLoading = false, onDelete }: History
     }
   };
 
-  // ローディング中の表示
-  if (isLoading) {
-    return (
-      <StyledTableContainer>
-        <StyledTable>
-          <StyledTableHeader>
-            <tr>
-              <StyledHeaderCell>{t("pages.historyDetail.columns.season")}</StyledHeaderCell>
-              <StyledHeaderCell>{t("pages.historyDetail.columns.date")}</StyledHeaderCell>
-              <StyledHeaderCell>{t("match.actions")}</StyledHeaderCell>
-            </tr>
-          </StyledTableHeader>
-          <StyledTableBody>
-            <StyledLoadingRow>
-              <StyledLoadingCell colSpan={3}>{t("common.loading")}</StyledLoadingCell>
-            </StyledLoadingRow>
-          </StyledTableBody>
-        </StyledTable>
-      </StyledTableContainer>
-    );
-  }
-
   // 履歴が0件の場合
-  if (histories.length === 0) {
+  if (!isLoading && histories.length === 0) {
     return (
       <StyledEmptyState>
         <StyledEmptyIcon>
@@ -407,45 +261,45 @@ export const HistoryTable = ({ histories, isLoading = false, onDelete }: History
 
   // 履歴テーブル表示
   return (
-    <StyledTableContainer>
-      <StyledTable>
-        <StyledTableHeader>
-          <tr>
-            <StyledHeaderCell>{t("pages.historyDetail.columns.season")}</StyledHeaderCell>
-            <StyledHeaderCell>{t("pages.historyDetail.columns.date")}</StyledHeaderCell>
-            <StyledHeaderCell>{t("match.actions")}</StyledHeaderCell>
-          </tr>
-        </StyledTableHeader>
-        <StyledTableBody>
-          {histories.map((history) => {
-            const isLatestHistory = history.uuid === histories[0]?.uuid;
+    <>
+      <VirtualTable
+        data={histories}
+        columns={columns}
+        rowHeight={64}
+        overscan={5}
+        height="calc(100dvh - 400px)"
+        isLoading={isLoading}
+        loadingText={t("common.loading")}
+        emptyText={t("pages.histories.emptyState")}
+        getRowKey={(history: History) => history.uuid}
+        renderRow={(history: History) => {
+          const isLatestHistory = history.uuid === histories[0]?.uuid;
 
-            return (
-              <StyledTableRow key={history.uuid}>
-                <StyledSeasonNameCell>{history.seasonName}</StyledSeasonNameCell>
-                <StyledDateCell>{formatDateTable(history.createdAt)}</StyledDateCell>
-                <StyledTableCell>
-                  <StyledButtonGroup>
-                    <StyledDetailButton
-                      variant="outline"
-                      icon={<Icon name="detail" size={16} />}
-                      onClick={() => handleNavigateToDetail(isLatestHistory ? "current" : history.uuid)}
-                      title={t("pages.histories.detail")}
-                    />
-                    <StyledDeleteButton
-                      variant="outline"
-                      icon={<Icon name="delete" size={16} />}
-                      onClick={() => handleOpenDeleteDialog(history.uuid, history.seasonName)}
-                      title={t("pages.histories.delete")}
-                      disabled={isLatestHistory}
-                    />
-                  </StyledButtonGroup>
-                </StyledTableCell>
-              </StyledTableRow>
-            );
-          })}
-        </StyledTableBody>
-      </StyledTable>
+          return (
+            <StyledTableRow>
+              <StyledSeasonNameCell width={columnWidths.seasonName}>{history.seasonName}</StyledSeasonNameCell>
+              <StyledDateCell width={columnWidths.date}>{formatDateTable(history.createdAt)}</StyledDateCell>
+              <StyledTableCell width={columnWidths.actions}>
+                <StyledButtonGroup>
+                  <StyledDetailButton
+                    variant="outline"
+                    icon={<Icon name="detail" size={16} />}
+                    onClick={() => handleNavigateToDetail(isLatestHistory ? "current" : history.uuid)}
+                    title={t("pages.histories.detail")}
+                  />
+                  <StyledDeleteButton
+                    variant="outline"
+                    icon={<Icon name="delete" size={16} />}
+                    onClick={() => handleOpenDeleteDialog(history.uuid, history.seasonName)}
+                    title={t("pages.histories.delete")}
+                    disabled={isLatestHistory}
+                  />
+                </StyledButtonGroup>
+              </StyledTableCell>
+            </StyledTableRow>
+          );
+        }}
+      />
 
       {/* 削除確認ダイアログ */}
       <Dialog isOpen={deleteDialogOpen} onClose={handleCancelDelete} title={t("pages.histories.confirmDelete")}>
@@ -461,6 +315,6 @@ export const HistoryTable = ({ histories, isLoading = false, onDelete }: History
           </StyledDialogActions>
         </StyledDialogContent>
       </Dialog>
-    </StyledTableContainer>
+    </>
   );
 };

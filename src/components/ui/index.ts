@@ -9,3 +9,4 @@ export { MultiSelect } from "./MultiSelect";
 export { Checkbox } from "./Checkbox";
 export { PageContainer, PageTitleContainer, PageTitle, PageDescription } from "./PageLayout";
 export { LanguageSelector } from "./LanguageSelector";
+export { VirtualTable, StyledTableRow, StyledTableCell, StyledHeaderCell, type VirtualTableColumn, type VirtualTableProps } from "./VirtualTable";
