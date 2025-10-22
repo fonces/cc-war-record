@@ -1,0 +1,2 @@
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/histories-DZOCOgEh.js","assets/index-To-EfGX1.js","assets/colors-DotGBCxc.js","assets/utils-ahtYqTut.js"])))=>i.map(i=>d[i]);
+import{F as e,I as t}from"./index-To-EfGX1.js";var n=t(()=>e(()=>import(`./histories-DZOCOgEh.js`),__vite__mapDeps([0,1,2,3])).then(e=>({default:e.HistoriesPage})));export{n as component};
