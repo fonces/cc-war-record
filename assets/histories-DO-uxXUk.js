@@ -1,4 +1,4 @@
-import{A as e,L as t,M as n,N as r,O as i,R as a,T as o,V as s,W as c,a as l,c as u,d,f,i as p,j as m,l as h,o as g,p as _,q as v,r as y,s as b,t as x,v as S,z as C}from"./index-UOGkbLPS.js";import{i as w,n as T,r as E,t as D}from"./colors-D3wXRjTW.js";import{t as O}from"./utils-ahtYqTut.js";var k=v(c()),A=v(s()),j=n(y)`
+import{A as e,L as t,M as n,N as r,O as i,R as a,T as o,V as s,W as c,a as l,c as u,d,f,i as p,j as m,l as h,o as g,p as _,q as v,r as y,s as b,t as x,v as S,z as C}from"./index-DaFt98iw.js";import{i as w,n as T,r as E,t as D}from"./colors-DlxFM7fh.js";import{t as O}from"./utils-ahtYqTut.js";var k=v(c()),A=v(s()),j=n(y)`
   font-weight: 600;
   color: ${({theme:e})=>e.colors.text};
   position: relative;
@@ -24,7 +24,6 @@ import{A as e,L as t,M as n,N as r,O as i,R as a,T as o,V as s,W as c,a as l,c a
   border-radius: ${({theme:e})=>e.borderRadius.lg};
   text-decoration: none;
   transition: all ${({theme:e})=>e.transitions.base};
-  border: 1px solid rgba(38, 161, 223, 0.3);
   background: ${({theme:e})=>e.colors.surface};
   backdrop-filter: ${({theme:e})=>e.blur.sm};
 
@@ -37,13 +36,14 @@ import{A as e,L as t,M as n,N as r,O as i,R as a,T as o,V as s,W as c,a as l,c a
 `,P=n(m)`
   display: inline-flex;
   align-items: center;
+  color: ${({theme:e})=>e.colors.error[500]};
   justify-content: center;
   width: 36px;
   height: 36px;
   border-radius: ${({theme:e})=>e.borderRadius.lg};
   text-decoration: none;
   transition: all ${({theme:e})=>e.transitions.base};
-  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-color: rgba(239, 68, 68, 0.3);
   background: ${({theme:e})=>e.colors.surface};
   backdrop-filter: ${({theme:e})=>e.blur.sm};
 
@@ -336,7 +336,7 @@ import{A as e,L as t,M as n,N as r,O as i,R as a,T as o,V as s,W as c,a as l,c a
   padding: 0;
   background: ${({theme:e})=>e.colors.surface};
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-color: rgba(239, 68, 68, 0.3);
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
   &:hover:not(:disabled) {
@@ -354,7 +354,6 @@ import{A as e,L as t,M as n,N as r,O as i,R as a,T as o,V as s,W as c,a as l,c a
 `,de=n(m)`
   background: ${({theme:e})=>e.colors.surface};
   backdrop-filter: blur(8px);
-  border: 1px solid ${({theme:e})=>e.colors.border};
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   &:hover {
