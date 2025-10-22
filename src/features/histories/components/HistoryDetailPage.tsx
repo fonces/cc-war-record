@@ -53,7 +53,9 @@ const StyledStatCard = styled.div`
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(38, 161, 223, 0.15), 0 0 0 1px rgba(38, 161, 223, 0.1);
+    box-shadow:
+      0 8px 24px rgba(38, 161, 223, 0.15),
+      0 0 0 1px rgba(38, 161, 223, 0.1);
   }
 `;
 
@@ -107,7 +109,9 @@ const StyledTableContainer = styled.div`
   }
 
   &:hover {
-    box-shadow: 0 12px 40px rgba(38, 161, 223, 0.12), 0 0 0 1px rgba(38, 161, 223, 0.1);
+    box-shadow:
+      0 12px 40px rgba(38, 161, 223, 0.12),
+      0 0 0 1px rgba(38, 161, 223, 0.1);
   }
 `;
 
@@ -181,7 +185,7 @@ const StyledTableRow = styled.div`
 
   &:hover {
     background: rgba(38, 161, 223, 0.03);
-    
+
     &::before {
       width: 4px;
     }
@@ -251,12 +255,13 @@ const StyledWinBadge = styled.span<{ $isWin: boolean }>`
   width: 60px;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   background: ${({ $isWin }) =>
-    $isWin ? "linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(34, 197, 94, 0.15) 100%)" : "linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.15) 100%)"};
+    $isWin
+      ? "linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(34, 197, 94, 0.15) 100%)"
+      : "linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.15) 100%)"};
   color: ${({ theme, $isWin }) => ($isWin ? theme.colors.win[700] : theme.colors.defeat[700])};
   border: 1px solid ${({ $isWin }) => ($isWin ? "rgba(34, 197, 94, 0.2)" : "rgba(239, 68, 68, 0.2)")};
 
   ${StyledTableRow}:hover & {
-    transform: scale(1.05);
     box-shadow: ${({ $isWin }) => ($isWin ? "0 4px 12px rgba(34, 197, 94, 0.2)" : "0 4px 12px rgba(239, 68, 68, 0.2)")};
   }
 `;
