@@ -519,8 +519,8 @@ export const HistoryDetailPage = () => {
             <StyledHeaderCell>{t("pages.historyDetail.columns.character")}</StyledHeaderCell>
             <StyledHeaderCell width="120px">{t("pages.historyDetail.columns.job")}</StyledHeaderCell>
             <StyledHeaderCell width="180px">{t("pages.historyDetail.columns.date")}</StyledHeaderCell>
-            <StyledHeaderCell width="100px">{t("pages.historyDetail.columns.result")}</StyledHeaderCell>
-            {isCurrent && <StyledHeaderCell width="80px">{t("match.actions")}</StyledHeaderCell>}
+            <StyledHeaderCell width="108px">{t("pages.historyDetail.columns.result")}</StyledHeaderCell>
+            {isCurrent && <StyledHeaderCell width="84px">{t("match.actions")}</StyledHeaderCell>}
           </StyledTableHeader>
 
           {/* 仮想スクロールリスト */}
