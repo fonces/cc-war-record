@@ -18,6 +18,8 @@ FINAL FANTASY XIVのPvPコンテンツ「クリスタルコンフリクト」の
 
 [https://fonces.github.io/cc-war-record/](https://fonces.github.io/cc-war-record/)
 
+![CC War Record](./public/img/og.png)
+
 ## 技術スタック
 
 ### コアライブラリ
