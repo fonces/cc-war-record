@@ -74,6 +74,9 @@
       "description": "シーズンの全戦績を表示しています。",
       "backToList": "履歴一覧に戻る",
       "totalMatches": "{{count}}試合の戦績",
+      "matchesCount": "試合数",
+      "winRate": "勝率",
+      "overall": "全体",
       "createdDate": "作成日",
       "notFound": "履歴が見つかりません",
       "columns": {

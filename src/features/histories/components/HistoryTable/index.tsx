@@ -79,17 +79,6 @@ const StyledTableRow = styled.tr`
   transition: all ${({ theme }) => theme.transitions.base};
   position: relative;
 
-  &::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 0;
-    background: ${({ theme }) => theme.gradients.primary};
-    transition: width ${({ theme }) => theme.transitions.base};
-  }
-
   &:hover {
     background: rgba(38, 161, 223, 0.05);
 
@@ -163,7 +152,6 @@ const StyledDetailButton = styled(Button)`
   &:hover {
     background: ${({ theme }) => theme.colors.primary[500]};
     border-color: ${({ theme }) => theme.colors.primary[500]};
-    color: white;
     transform: scale(1.05);
     box-shadow: 0 4px 12px rgba(38, 161, 223, 0.3);
   }
@@ -375,7 +363,7 @@ export const HistoryTable = ({ histories, isLoading = false, onDelete }: History
             <tr>
               <StyledHeaderCell>{t("pages.historyDetail.columns.season")}</StyledHeaderCell>
               <StyledHeaderCell>{t("pages.historyDetail.columns.date")}</StyledHeaderCell>
-              <StyledHeaderCell>{t("pages.histories.detail")}</StyledHeaderCell>
+              <StyledHeaderCell>{t("match.actions")}</StyledHeaderCell>
             </tr>
           </StyledTableHeader>
           <StyledTableBody>

@@ -116,7 +116,7 @@ const StyledTableWrapper = styled.div`
  * シーズンの履歴一覧をテーブル形式で表示
  */
 export const HistoriesPage = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   usePageTitle(t("pages.histories.title"));
   const { histories, isLoading, error, getSortedHistories, deleteHistory, clearError } = useHistoryStore();
 
@@ -124,6 +124,9 @@ export const HistoriesPage = () => {
 
   // 日付順（新しい順）にソートされた履歴を取得
   const sortedHistories = getSortedHistories();
+
+  // 現在の言語に応じたロケールを取得
+  const locale = i18n.language === "ja" ? "ja-JP" : i18n.language === "ko" ? "ko-KR" : "en-US";
 
   /**
    * 履歴削除ハンドラー
@@ -173,8 +176,8 @@ export const HistoriesPage = () => {
           </StyledStatCard>
           <StyledStatCard>
             <StyledStatLabel>{t("pages.histories.latestCreated")}</StyledStatLabel>
-            <StyledStatValue>{new Date(sortedHistories[0]?.createdAt).toLocaleDateString("ja-JP", { month: "numeric", day: "numeric" })}</StyledStatValue>
-            <StyledStatDescription>{new Date(sortedHistories[0]?.createdAt).toLocaleDateString("ja-JP", { year: "numeric", month: "long", day: "numeric" })}</StyledStatDescription>
+            <StyledStatValue>{new Date(sortedHistories[0]?.createdAt).toLocaleDateString(locale, { month: "numeric", day: "numeric" })}</StyledStatValue>
+            <StyledStatDescription>{new Date(sortedHistories[0]?.createdAt).toLocaleDateString(locale, { year: "numeric", month: "long", day: "numeric" })}</StyledStatDescription>
           </StyledStatCard>
         </StyledStatsGrid>
       )}

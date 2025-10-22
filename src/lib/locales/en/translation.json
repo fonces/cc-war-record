@@ -74,6 +74,9 @@
       "description": "Displaying all matches for this season.",
       "backToList": "Back to History",
       "totalMatches": "{{count}} matches",
+      "matchesCount": "Matches",
+      "winRate": "Win Rate",
+      "overall": "Overall",
       "createdDate": "Created",
       "notFound": "History not found",
       "columns": {

@@ -74,6 +74,9 @@
       "description": "시즌의 모든 전적을 표시하고 있습니다.",
       "backToList": "기록 목록으로 돌아가기",
       "totalMatches": "{{count}}경기 전적",
+      "matchesCount": "경기 수",
+      "winRate": "승률",
+      "overall": "전체",
       "createdDate": "생성일",
       "notFound": "기록을 찾을 수 없습니다",
       "columns": {
