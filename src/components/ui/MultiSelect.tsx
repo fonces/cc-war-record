@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, memo } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Checkbox } from "./Checkbox";
 import { Icon } from "./Icon";
 
@@ -23,14 +23,29 @@ type MultiSelectProps = {
   maxSelections?: number;
   /** 幅 */
   width?: string;
+  /** フルワイド */
+  fullWidth?: boolean;
 };
 
-const Container = styled.div<{ width?: string }>`
+// アニメーション
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+const Container = styled.div<{ width?: string; fullWidth?: boolean }>`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing[2]};
   position: relative;
-  width: ${({ width }) => width || "auto"};
+  ${({ fullWidth }) => fullWidth && "width: 100%;"}
+  ${({ width }) => width && `width: ${width};`}
 `;
 
 const Label = styled.label`
@@ -41,30 +56,33 @@ const Label = styled.label`
 
 const SelectButton = styled.button<{ isOpen: boolean }>`
   padding: 0.5rem 2.5rem 0.5rem 1rem;
-  border: 1px solid ${({ theme }) => theme.colors.gray[300]};
-  border-radius: 8px;
-  background: white;
+  border: 2px solid ${({ isOpen, theme }) => (isOpen ? theme.colors.primary[400] : "rgba(38, 161, 223, 0.2)")};
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
+  background: ${({ isOpen }) => (isOpen ? "rgba(255, 255, 255, 0.95)" : "rgba(255, 255, 255, 0.8)")};
+  backdrop-filter: ${({ theme }) => theme.blur.sm};
   color: ${({ theme }) => theme.colors.text};
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
   text-align: left;
-  transition: all 0.2s ease;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: all ${({ theme }) => theme.transitions.base};
+  box-shadow: ${({ theme, isOpen }) => (isOpen ? `${theme.shadows.md}, ${theme.shadows.glow}` : theme.shadows.sm)};
   position: relative;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 
   &:hover {
-    border-color: ${({ theme }) => theme.colors.gray[400]};
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    border-color: ${({ theme }) => theme.colors.primary[400]};
+    box-shadow: ${({ theme }) => theme.shadows.md};
+    transform: translateY(-1px);
   }
 
   &:focus {
     outline: none;
     border-color: ${({ theme }) => theme.colors.primary[500]};
-    box-shadow: 0 0 0 3px ${({ theme }) => theme.colors.primary[100]};
+    box-shadow: ${({ theme }) => `${theme.shadows.md}, ${theme.shadows.glow}`};
+    background: rgba(255, 255, 255, 0.95);
   }
 `;
 
@@ -73,40 +91,77 @@ const IconWrapper = styled.div<{ isOpen: boolean }>`
   right: 0.75rem;
   top: 50%;
   transform: translateY(-50%) ${({ isOpen }) => (isOpen ? "rotate(180deg)" : "rotate(0deg)")};
-  transition: transform 0.2s ease;
+  transition: transform ${({ theme }) => theme.transitions.base};
   pointer-events: none;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #26a1df;
 `;
 
 const DropdownContainer = styled.div<{ isOpen: boolean }>`
   position: absolute;
-  top: calc(100% + 0.25rem);
+  top: calc(100% + 0.5rem);
   left: 0;
   right: 0;
-  background: white;
-  border: 1px solid ${({ theme }) => theme.colors.gray[300]};
-  border-radius: 8px;
-  box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: ${({ theme }) => theme.blur.md};
+  border: 2px solid rgba(38, 161, 223, 0.2);
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
+  box-shadow: ${({ theme }) => `${theme.shadows.xl}, ${theme.shadows.glow}`};
   max-height: 300px;
   overflow-y: auto;
   z-index: 50;
   display: ${({ isOpen }) => (isOpen ? "block" : "none")};
+  animation: ${fadeIn} 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
+  }
 `;
 
-const OptionItem = styled.label`
+const OptionItem = styled.label<{ disabled?: boolean }>`
   display: flex;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing[2]};
-  padding: ${({ theme }) => theme.spacing[2]} ${({ theme }) => theme.spacing[3]};
-  cursor: pointer;
-  transition: background-color 0.15s ease;
+  gap: ${({ theme }) => theme.spacing[3]};
+  padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+  transition: all ${({ theme }) => theme.transitions.base};
+  position: relative;
+  opacity: ${({ disabled }) => (disabled ? "0.5" : "1")};
 
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.gray[50]};
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
+    transition: width ${({ theme }) => theme.transitions.base};
+  }
+
+  &:hover:not([disabled]) {
+    background-color: rgba(38, 161, 223, 0.05);
+    padding-left: ${({ theme }) => theme.spacing[5]};
+
+    &::before {
+      width: 3px;
+    }
+  }
+
+  &:first-child {
+    padding-top: ${({ theme }) => theme.spacing[4]};
+  }
+
+  &:last-child {
+    padding-bottom: ${({ theme }) => theme.spacing[4]};
   }
 `;
 
@@ -114,16 +169,19 @@ const OptionLabel = styled.span`
   font-size: 0.875rem;
   color: ${({ theme }) => theme.colors.text};
   flex: 1;
+  font-weight: 500;
 `;
 
 const SelectedCount = styled.span`
   color: ${({ theme }) => theme.colors.textSecondary};
+  font-size: 0.75rem;
+  font-weight: 600;
 `;
 
 /**
  * 複数選択可能なセレクトボックスコンポーネント
  */
-export const MultiSelect = memo(({ label, value, onChange, options, placeholder = "選択してください", maxSelections, width }: MultiSelectProps) => {
+export const MultiSelect = memo(({ label, value, onChange, options, placeholder = "選択してください", maxSelections, width, fullWidth }: MultiSelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -158,26 +216,25 @@ export const MultiSelect = memo(({ label, value, onChange, options, placeholder 
   };
 
   return (
-    <Container ref={containerRef} width={width}>
+    <Container ref={containerRef} width={width} fullWidth={fullWidth}>
       {label && <Label>{label}</Label>}
       <SelectButton type="button" onClick={() => setIsOpen(!isOpen)} isOpen={isOpen}>
         {getDisplayText()}
-        {value.length > 0 && <SelectedCount> ({value.length}件選択)</SelectedCount>}
+        {value.length > 0 && <SelectedCount> ({value.length})</SelectedCount>}
         <IconWrapper isOpen={isOpen}>
           <Icon name="add" size={16} />
         </IconWrapper>
       </SelectButton>
       <DropdownContainer isOpen={isOpen}>
-        {options.map((option) => (
-          <OptionItem key={option.value}>
-            <Checkbox
-              checked={value.includes(option.value)}
-              onChange={() => handleToggle(option.value)}
-              disabled={maxSelections ? value.length >= maxSelections && !value.includes(option.value) : false}
-            />
-            <OptionLabel>{option.label}</OptionLabel>
-          </OptionItem>
-        ))}
+        {options.map((option) => {
+          const isDisabled = maxSelections ? value.length >= maxSelections && !value.includes(option.value) : false;
+          return (
+            <OptionItem key={option.value} disabled={isDisabled}>
+              <Checkbox checked={value.includes(option.value)} onChange={() => handleToggle(option.value)} disabled={isDisabled} />
+              <OptionLabel>{option.label}</OptionLabel>
+            </OptionItem>
+          );
+        })}
       </DropdownContainer>
     </Container>
   );

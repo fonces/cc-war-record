@@ -1,5 +1,5 @@
 import { useState, memo } from "react";
-import { ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import { ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import styled, { useTheme } from "styled-components";
 import { Select } from "@/components/ui";
 import { aggregateDailyWinDefeat } from "@/features/graphs/utils/aggregate";
@@ -151,7 +151,7 @@ const DailyWinDefeatChartComponent = ({ history, matchRecords, characters }: Dai
         </StyledFiltersWrapper>
       </StyledChartHeader>
       <ResponsiveContainer width="100%" height={400}>
-        <ComposedChart data={dailyData}>
+        <ComposedChart data={dailyData} margin={{ top: 20, right: 20, left: 20, bottom: -28 }}>
           <defs>
             <linearGradient id="colorWin" x1="0" y1="0" x2="0" y2="1">
               <stop offset="5%" stopColor={theme.colors.win[400]} stopOpacity={0.8} />
@@ -182,7 +182,6 @@ const DailyWinDefeatChartComponent = ({ history, matchRecords, characters }: Dai
             tick={{ fill: theme.colors.gray[600] }}
           />
           <Tooltip content={<CustomTooltip />} />
-          <Legend wrapperStyle={{ paddingTop: "20px" }} />
           <Bar yAxisId="left" dataKey="Win" fill="url(#colorWin)" stackId="a" isAnimationActive={false} radius={[4, 4, 0, 0]} />
           <Bar yAxisId="left" dataKey="Defeat" fill="url(#colorDefeat)" stackId="a" isAnimationActive={false} radius={[4, 4, 0, 0]} />
           <Line

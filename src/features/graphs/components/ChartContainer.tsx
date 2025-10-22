@@ -28,6 +28,11 @@ export const StyledChartContainer = styled.div`
   &:hover {
     box-shadow: ${({ theme }) => theme.shadows["2xl"]}, ${({ theme }) => theme.shadows.glow};
   }
+
+  /* Recharts要素のフォーカスoutlineを打ち消し */
+  .recharts-surface:focus {
+    outline: none;
+  }
 `;
 
 /**

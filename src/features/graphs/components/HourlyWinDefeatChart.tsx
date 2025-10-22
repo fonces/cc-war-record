@@ -1,5 +1,5 @@
 import { useState, memo } from "react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
 import styled, { useTheme } from "styled-components";
 import { Select } from "@/components/ui";
 import { aggregateHourlyWinDefeat } from "@/features/graphs/utils/aggregate";
@@ -88,15 +88,15 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
         <div className="label">{label}</div>
         <div className="value">
           <div className="dot-win" />
-          <span>{`${t("chart.tooltip.win")}: ${data.wins}${t("chart.tooltip.matches")} (${data.winRate}%)`}</span>
+          <span>{`${t("chart.tooltip.win")}: ${data.wins} ${t("chart.tooltip.matches")} (${data.winRate}%)`}</span>
         </div>
         <div className="value">
           <div className="dot-defeat" />
-          <span>{`${t("chart.tooltip.lose")}: ${data.defeats}${t("chart.tooltip.matches")} (${data.defeatRate}%)`}</span>
+          <span>{`${t("chart.tooltip.lose")}: ${data.defeats} ${t("chart.tooltip.matches")} (${data.defeatRate}%)`}</span>
         </div>
         <div className="value">
           <div className="dot-total" />
-          <span>{`${t("chart.tooltip.total")}: ${data.total}${t("chart.tooltip.matches")}`}</span>
+          <span>{`${t("chart.tooltip.total")}: ${data.total} ${t("chart.tooltip.matches")}`}</span>
         </div>
       </StyledTooltip>
     );
@@ -189,7 +189,6 @@ const HourlyWinDefeatChartComponent = ({ history, matchRecords, characters }: Ho
             tick={{ fontSize: 12, fill: theme.colors.gray[600] }}
           />
           <Tooltip content={<CustomTooltip />} />
-          <Legend wrapperStyle={{ paddingTop: "20px" }} />
           <Bar dataKey="winRate" name="WinRate" radius={[8, 8, 0, 0]} isAnimationActive={false}>
             {chartData.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={getWinRateColor(entry.winRate, theme, 400)} opacity={0.8} />

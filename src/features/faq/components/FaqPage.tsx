@@ -215,10 +215,13 @@ const Copyright = styled.div`
   }
 
   p {
-    margin-bottom: ${({ theme }) => theme.spacing[2]};
     line-height: 1.7;
     position: relative;
     z-index: 1;
+
+    &:not(:last-of-type) {
+      margin-bottom: ${({ theme }) => theme.spacing[2]};
+    }
   }
 
   strong {

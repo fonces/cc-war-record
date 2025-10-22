@@ -17,18 +17,6 @@ const StyledGraphsGrid = styled.div`
   animation: fadeIn 0.5s ease-out;
 `;
 
-const StyledSeasonBadge = styled.div`
-  display: inline-block;
-  padding: ${({ theme }) => theme.spacing[2]} ${({ theme }) => theme.spacing[4]};
-  background: ${({ theme }) => theme.gradients.primary};
-  color: white;
-  border-radius: ${({ theme }) => theme.borderRadius.full};
-  font-size: 0.875rem;
-  font-weight: 600;
-  margin-top: ${({ theme }) => theme.spacing[2]};
-  box-shadow: ${({ theme }) => theme.shadows.md};
-`;
-
 /**
  * グラフ画面コンポーネント
  * 現シーズンの戦績をチャート表示
@@ -49,10 +37,7 @@ export const GraphsPage = () => {
   return (
     <PageContainer>
       <PageTitleContainer>
-        <div>
-          <PageTitle>{t("pages.graphs.title")}</PageTitle>
-          {latestHistory && <StyledSeasonBadge>{latestHistory.seasonName}</StyledSeasonBadge>}
-        </div>
+        <PageTitle>{t("pages.graphs.title")}</PageTitle>
       </PageTitleContainer>
       <PageDescription>{latestHistory ? t("pages.graphs.descriptionWithSeason", { seasonName: latestHistory.seasonName }) : t("pages.graphs.description")}</PageDescription>
 

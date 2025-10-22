@@ -402,9 +402,13 @@ export const HistoryDetailPage = () => {
         </StyledStatCard>
         <StyledStatCard>
           <StyledStatLabel>{t("pages.historyDetail.winRate")}</StyledStatLabel>
-          <StyledStatValue $type="winRate" $winRate={stats.winRate}>
-            {stats.winRate.toFixed(1)}%
-          </StyledStatValue>
+          {0 < stats.totalMatches ? (
+            <StyledStatValue $type="winRate" $winRate={stats.winRate}>
+              {stats.winRate.toFixed(1)}%
+            </StyledStatValue>
+          ) : (
+            <StyledStatValue>--%</StyledStatValue>
+          )}
           <StyledStatDescription>{t("pages.historyDetail.overall")}</StyledStatDescription>
         </StyledStatCard>
       </StyledStatsGrid>

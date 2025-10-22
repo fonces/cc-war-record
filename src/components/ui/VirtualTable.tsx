@@ -146,23 +146,6 @@ const StyledEmptyState = styled.div`
   color: ${({ theme }) => theme.colors.gray[400]};
   font-size: 0.875rem;
   gap: ${({ theme }) => theme.spacing[4]};
-
-  &::before {
-    content: "📊";
-    font-size: 4rem;
-    opacity: 0.5;
-    animation: pulse 2s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.5;
-    }
-  }
 `;
 
 const StyledEmptyStateText = styled.div`

@@ -99,7 +99,7 @@ const CustomTooltip = ({ active, payload }: TooltipProps) => {
         <div className="label">{`${data.name} (${data.job})`}</div>
         <div className="value">
           <div className="dot" style={{ backgroundColor: jobColor }} />
-          <span>{`${t("chart.tooltip.usageCount")}: ${data.value}${t("chart.matches")}`}</span>
+          <span>{`${t("chart.tooltip.usageCount")}: ${data.value} ${t("chart.matches")}`}</span>
         </div>
         <div className="value">
           <div className="dot-total" />

@@ -1,5 +1,5 @@
 import { useState, memo } from "react";
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import styled, { useTheme } from "styled-components";
 import { Select } from "@/components/ui";
 import { aggregateWeeklyWinDefeat } from "@/features/graphs/utils/aggregate";
@@ -114,15 +114,15 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
         <div className="label">{`${weekdayName} (${label})`}</div>
         <div className="value">
           <div className="dot-win" />
-          <span>{`${t("chart.tooltip.win")}: ${data.wins}${t("chart.tooltip.matches")} (${data.winRate || 0}%)`}</span>
+          <span>{`${t("chart.tooltip.win")}: ${data.wins} ${t("chart.tooltip.matches")} (${data.winRate || 0}%)`}</span>
         </div>
         <div className="value">
           <div className="dot-defeat" />
-          <span>{`${t("chart.tooltip.lose")}: ${data.defeats}${t("chart.tooltip.matches")} (${data.defeatRate || 0}%)`}</span>
+          <span>{`${t("chart.tooltip.lose")}: ${data.defeats} ${t("chart.tooltip.matches")} (${data.defeatRate || 0}%)`}</span>
         </div>
         <div className="value">
           <div className="dot-total" />
-          <span>{`${t("chart.tooltip.total")}: ${data.total}${t("chart.tooltip.matches")}`}</span>
+          <span>{`${t("chart.tooltip.total")}: ${data.total} ${t("chart.tooltip.matches")}`}</span>
         </div>
       </StyledTooltip>
     );
@@ -219,7 +219,6 @@ const WeeklyWinDefeatChartComponent = ({ history, matchRecords, characters }: We
             tick={{ fontSize: 12, fill: theme.colors.gray[600] }}
           />
           <Tooltip content={<CustomTooltip />} />
-          <Legend wrapperStyle={{ paddingTop: "20px" }} />
           <Area type="monotone" dataKey="winRate" name="WinRate" stroke="#10b981" strokeWidth={2} fill="url(#colorWeeklyWin)" connectNulls={true} isAnimationActive={false} />
           <Area
             type="monotone"
