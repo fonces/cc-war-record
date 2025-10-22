@@ -22,7 +22,7 @@ const FaqContainer = styled.div`
 const FaqSection = styled.div`
   margin-bottom: ${({ theme }) => theme.spacing[8]};
   animation: ${fadeIn} 0.6s ease-out;
-  
+
   &:nth-child(2) {
     animation-delay: 0.1s;
   }
@@ -37,7 +37,7 @@ const SectionTitle = styled.h2`
   position: relative;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  
+
   &::after {
     content: "";
     position: absolute;
@@ -135,7 +135,7 @@ const ExpandIcon = styled.div<{ $isOpen: boolean }>`
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   transform: rotate(${({ $isOpen }) => ($isOpen ? "180deg" : "0deg")});
   color: ${({ theme }) => theme.colors.gray[400]};
-  
+
   svg {
     width: 20px;
     height: 20px;
@@ -169,7 +169,7 @@ const Answer = styled.div<{ $isOpen: boolean }>`
   li {
     margin-bottom: ${({ theme }) => theme.spacing[2]};
     position: relative;
-    
+
     &::before {
       content: "▸";
       position: absolute;
@@ -210,12 +210,7 @@ const Copyright = styled.div`
     left: -200%;
     width: 200%;
     height: 100%;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(38, 161, 223, 0.05),
-      transparent
-    );
+    background: linear-gradient(90deg, transparent, rgba(38, 161, 223, 0.05), transparent);
     animation: ${shine} 3s ease-in-out infinite;
   }
 

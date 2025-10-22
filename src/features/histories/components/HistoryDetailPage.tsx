@@ -276,14 +276,15 @@ const StyledDeleteButton = styled(Button)`
   padding: 0;
   background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.3);
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
-  &:hover {
-    background: rgba(239, 68, 68, 0.1);
-    border-color: rgba(239, 68, 68, 0.3);
+  &:hover:not(:disabled) {
+    background: ${({ theme }) => theme.colors.error[500]};
+    border-color: ${({ theme }) => theme.colors.error[500]};
+    color: white;
     transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
   }
 `;
 
