@@ -79,6 +79,17 @@ const StyledTableRow = styled.tr`
   transition: all ${({ theme }) => theme.transitions.base};
   position: relative;
 
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
   &:hover {
     background: rgba(38, 161, 223, 0.05);
 
@@ -107,11 +118,12 @@ const StyledSeasonNameCell = styled(StyledTableCell)`
   font-weight: 600;
   color: ${({ theme }) => theme.colors.text};
   position: relative;
+  padding-left: calc(${({ theme }) => theme.spacing[6]} + 8px);
 
   &::before {
     content: "";
     position: absolute;
-    left: ${({ theme }) => theme.spacing[4]};
+    left: calc(${({ theme }) => theme.spacing[4]} + 4px);
     top: 50%;
     transform: translateY(-50%);
     width: 6px;
@@ -124,6 +136,10 @@ const StyledSeasonNameCell = styled(StyledTableCell)`
 
   ${StyledTableRow}:hover &::before {
     opacity: 1;
+  }
+
+  ${StyledTableRow}:hover & {
+    color: #26a1df;
   }
 `;
 
