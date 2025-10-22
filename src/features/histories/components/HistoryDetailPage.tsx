@@ -7,6 +7,7 @@ import { useTranslation } from "@/hooks";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { useHistoryStore, useCharacterStore } from "@/stores";
 import { JOB_INFO } from "@/types/jobs";
+import { getScrollbarWidth, getWinRateColor } from "@/utils";
 import { formatDateTable } from "@/utils/uuid";
 import type { MatchRecord } from "@/types";
 
@@ -68,14 +69,29 @@ const StyledStatLabel = styled.div`
   margin-bottom: ${({ theme }) => theme.spacing[2]};
 `;
 
-const StyledStatValue = styled.div`
+const StyledStatValue = styled.div<{ $type?: "default" | "win" | "defeat" | "winRate"; $winRate?: number }>`
   font-size: 1.875rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
   margin-bottom: ${({ theme }) => theme.spacing[1]};
+
+  ${({ theme, $type, $winRate }) => {
+    if ($type === "win") {
+      return `color: ${theme.colors.win[600]};`;
+    }
+    if ($type === "defeat") {
+      return `color: ${theme.colors.defeat[600]};`;
+    }
+    if ($type === "winRate" && $winRate !== undefined) {
+      return `color: ${getWinRateColor($winRate, theme)};`;
+    }
+    // デフォルトはグラデーション
+    return `
+      background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    `;
+  }}
 `;
 
 const StyledStatDescription = styled.div`
@@ -442,6 +458,18 @@ export const HistoryDetailPage = () => {
     return { totalMatches, wins, defeats, winRate };
   }, [allMatches]);
 
+  // ヘッダーセルの幅設定
+  const columnWidths = useMemo(() => {
+    const scrollbarWidth = getScrollbarWidth();
+    return {
+      character: undefined, // flex: 1
+      job: "120px",
+      date: "180px",
+      result: !isCurrent ? `${108 + scrollbarWidth}px` : "108px",
+      actions: isCurrent ? `${84 + scrollbarWidth}px` : "84px",
+    };
+  }, [isCurrent]);
+
   // 仮想化設定
   const rowVirtualizer = useVirtualizer({
     count: allMatches.length,
@@ -497,17 +525,19 @@ export const HistoryDetailPage = () => {
         </StyledStatCard>
         <StyledStatCard>
           <StyledStatLabel>{t("pages.historyDetail.results.win")}</StyledStatLabel>
-          <StyledStatValue>{stats.wins}</StyledStatValue>
+          <StyledStatValue $type="win">{stats.wins}</StyledStatValue>
           <StyledStatDescription>{stats.totalMatches > 0 ? `${((stats.wins / stats.totalMatches) * 100).toFixed(1)}%` : "0%"}</StyledStatDescription>
         </StyledStatCard>
         <StyledStatCard>
           <StyledStatLabel>{t("pages.historyDetail.results.defeat")}</StyledStatLabel>
-          <StyledStatValue>{stats.defeats}</StyledStatValue>
+          <StyledStatValue $type="defeat">{stats.defeats}</StyledStatValue>
           <StyledStatDescription>{stats.totalMatches > 0 ? `${((stats.defeats / stats.totalMatches) * 100).toFixed(1)}%` : "0%"}</StyledStatDescription>
         </StyledStatCard>
         <StyledStatCard>
           <StyledStatLabel>{t("pages.historyDetail.winRate")}</StyledStatLabel>
-          <StyledStatValue>{stats.winRate.toFixed(1)}%</StyledStatValue>
+          <StyledStatValue $type="winRate" $winRate={stats.winRate}>
+            {stats.winRate.toFixed(1)}%
+          </StyledStatValue>
           <StyledStatDescription>{t("pages.historyDetail.overall")}</StyledStatDescription>
         </StyledStatCard>
       </StyledStatsGrid>
@@ -516,11 +546,11 @@ export const HistoryDetailPage = () => {
         <StyledTable>
           {/* ヘッダー */}
           <StyledTableHeader>
-            <StyledHeaderCell>{t("pages.historyDetail.columns.character")}</StyledHeaderCell>
-            <StyledHeaderCell width="120px">{t("pages.historyDetail.columns.job")}</StyledHeaderCell>
-            <StyledHeaderCell width="180px">{t("pages.historyDetail.columns.date")}</StyledHeaderCell>
-            <StyledHeaderCell width="108px">{t("pages.historyDetail.columns.result")}</StyledHeaderCell>
-            {isCurrent && <StyledHeaderCell width="84px">{t("match.actions")}</StyledHeaderCell>}
+            <StyledHeaderCell width={columnWidths.character}>{t("pages.historyDetail.columns.character")}</StyledHeaderCell>
+            <StyledHeaderCell width={columnWidths.job}>{t("pages.historyDetail.columns.job")}</StyledHeaderCell>
+            <StyledHeaderCell width={columnWidths.date}>{t("pages.historyDetail.columns.date")}</StyledHeaderCell>
+            <StyledHeaderCell width={columnWidths.result}>{t("pages.historyDetail.columns.result")}</StyledHeaderCell>
+            {isCurrent && <StyledHeaderCell width={columnWidths.actions}>{t("match.actions")}</StyledHeaderCell>}
           </StyledTableHeader>
 
           {/* 仮想スクロールリスト */}
@@ -548,11 +578,11 @@ export const HistoryDetailPage = () => {
                         <StyledJobShortName>{JOB_INFO[match.job].shortName}</StyledJobShortName>
                       </StyledJobCell>
                       <StyledDateCell width="180px">{formatDateTable(match.recordedAt)}</StyledDateCell>
-                      <StyledTableCell width="100px">
+                      <StyledTableCell width="108px">
                         <StyledWinBadge $isWin={match.isWin}>{match.isWin ? t("pages.historyDetail.results.win") : t("pages.historyDetail.results.defeat")}</StyledWinBadge>
                       </StyledTableCell>
                       {isCurrent && (
-                        <StyledTableCell width="80px">
+                        <StyledTableCell width="84px">
                           <StyledDeleteButton
                             variant="outline"
                             icon={<Icon name="delete" size={16} />}
