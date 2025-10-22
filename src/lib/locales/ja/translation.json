@@ -61,6 +61,7 @@
       "deleteDescription": "「{{seasonName}}」を削除してもよろしいですか？\nこの操作は取り消すことができません。",
       "emptyState": "履歴がありません",
       "createFirstSeason": "シーズンの履歴がまだ作成されていません。\n新しいシーズンを作成してください。",
+      "stats": "シーズン数",
       "errors": {
         "loadFailed": "履歴の読み込みに失敗しました",
         "alreadyExists": "シーズン「{{seasonName}}」は既に存在します",

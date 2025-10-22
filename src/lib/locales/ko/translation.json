@@ -61,6 +61,7 @@
       "deleteDescription": "\"{{seasonName}}\"을(를) 삭제하시겠습니까?\n이 작업은 취소할 수 없습니다.",
       "emptyState": "히스토리가 없습니다",
       "createFirstSeason": "시즌 히스토리가 아직 생성되지 않았습니다.\n새 시즌을 생성해주세요.",
+      "stats": "시즌",
       "errors": {
         "loadFailed": "히스토리 로드에 실패했습니다",
         "alreadyExists": "시즌 \"{{seasonName}}\"은(는) 이미 존재합니다",

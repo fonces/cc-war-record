@@ -6,48 +6,109 @@ import { sendEvent } from "@/lib/analytics";
 import { useHistoryStore, useCharacterStore } from "@/stores";
 import { HistoryTable } from "./HistoryTable";
 
-const StyledActions = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+const StyledStatsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: ${({ theme }) => theme.spacing[4]};
   margin-bottom: ${({ theme }) => theme.spacing[6]};
+  animation: fadeIn 0.5s ease-out;
+`;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    flex-direction: column;
-    align-items: stretch;
-    gap: ${({ theme }) => theme.spacing[4]};
+const StyledStatCard = styled.div`
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: ${({ theme }) => theme.blur.md};
+  border: 1px solid rgba(38, 161, 223, 0.2);
+  border-radius: ${({ theme }) => theme.borderRadius.xl};
+  padding: ${({ theme }) => theme.spacing[5]};
+  box-shadow: ${({ theme }) => theme.shadows.md};
+  transition: all ${({ theme }) => theme.transitions.base};
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: ${({ theme }) => theme.gradients.primary};
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: ${({ theme }) => theme.shadows.xl}, ${({ theme }) => theme.shadows.glow};
   }
 `;
 
-const StyledStats = styled.div`
-  display: flex;
-  gap: ${({ theme }) => theme.spacing[6]};
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    flex-direction: column;
-    gap: ${({ theme }) => theme.spacing[2]};
-  }
+const StyledStatLabel = styled.div`
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: ${({ theme }) => theme.colors.gray[500]};
+  margin-bottom: ${({ theme }) => theme.spacing[2]};
 `;
 
-const StyledStatItem = styled.div`
+const StyledStatValue = styled.div`
+  font-size: 1.875rem;
+  font-weight: 700;
+  background: ${({ theme }) => theme.gradients.primary};
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+`;
+
+const StyledStatDescription = styled.div`
   font-size: 0.875rem;
   color: ${({ theme }) => theme.colors.textSecondary};
-`;
-
-const StyledStatValue = styled.span`
-  font-weight: 600;
-  color: ${({ theme }) => theme.colors.text};
+  margin-top: ${({ theme }) => theme.spacing[2]};
 `;
 
 // エラー表示
 const StyledErrorMessage = styled.div`
   padding: ${({ theme }) => theme.spacing[4]} ${({ theme }) => theme.spacing[6]};
-  background-color: ${({ theme }) => theme.colors.error[500]}20;
-  border: 1px solid ${({ theme }) => theme.colors.error[500]}40;
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  color: ${({ theme }) => theme.colors.error[500]};
+  background: rgba(239, 68, 68, 0.1);
+  backdrop-filter: ${({ theme }) => theme.blur.sm};
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
+  color: ${({ theme }) => theme.colors.error[600]};
   margin-bottom: ${({ theme }) => theme.spacing[6]};
   font-size: 0.875rem;
+  box-shadow: ${({ theme }) => theme.shadows.md};
+  animation: slideDown 0.3s ease-out;
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  button {
+    margin-top: ${({ theme }) => theme.spacing[2]};
+    background: none;
+    border: none;
+    color: ${({ theme }) => theme.colors.error[700]};
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: color ${({ theme }) => theme.transitions.base};
+
+    &:hover {
+      color: ${({ theme }) => theme.colors.error[900]};
+    }
+  }
+`;
+
+const StyledTableWrapper = styled.div`
+  animation: fadeIn 0.5s ease-out 0.1s both;
 `;
 
 /**
@@ -98,26 +159,30 @@ export const HistoriesPage = () => {
           <div>
             {t("common.error")}: {error}
           </div>
-          <button onClick={clearError} style={{ marginTop: "8px", textDecoration: "underline" }}>
-            {t("common.close")}
-          </button>
+          <button onClick={clearError}>{t("common.close")}</button>
         </StyledErrorMessage>
       )}
 
-      {/* 統計情報 */}
-      <StyledActions>
-        <StyledStats>
-          <StyledStatItem>{t("pages.histories.totalSeasons", { count: histories.length })}</StyledStatItem>
-          {histories.length > 0 && (
-            <StyledStatItem>
-              {t("pages.histories.latestCreated")}: <StyledStatValue>{new Date(sortedHistories[0]?.createdAt).toLocaleDateString("ja-JP")}</StyledStatValue>
-            </StyledStatItem>
-          )}
-        </StyledStats>
-      </StyledActions>
+      {/* 統計情報カード */}
+      {histories.length > 0 && (
+        <StyledStatsGrid>
+          <StyledStatCard>
+            <StyledStatLabel>{t("pages.histories.stats")}</StyledStatLabel>
+            <StyledStatValue>{histories.length}</StyledStatValue>
+            <StyledStatDescription>{t("pages.histories.totalSeasons", { count: histories.length })}</StyledStatDescription>
+          </StyledStatCard>
+          <StyledStatCard>
+            <StyledStatLabel>{t("pages.histories.latestCreated")}</StyledStatLabel>
+            <StyledStatValue>{new Date(sortedHistories[0]?.createdAt).toLocaleDateString("ja-JP", { month: "numeric", day: "numeric" })}</StyledStatValue>
+            <StyledStatDescription>{new Date(sortedHistories[0]?.createdAt).toLocaleDateString("ja-JP", { year: "numeric", month: "long", day: "numeric" })}</StyledStatDescription>
+          </StyledStatCard>
+        </StyledStatsGrid>
+      )}
 
       {/* 履歴テーブル */}
-      <HistoryTable histories={sortedHistories} isLoading={isLoading} onDelete={handleDelete} />
+      <StyledTableWrapper>
+        <HistoryTable histories={sortedHistories} isLoading={isLoading} onDelete={handleDelete} />
+      </StyledTableWrapper>
     </PageContainer>
   );
 };
