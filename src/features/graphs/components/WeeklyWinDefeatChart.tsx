@@ -1,6 +1,6 @@
 import { useState, memo } from "react";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
-import { useTheme } from "styled-components";
+import styled, { useTheme } from "styled-components";
 import { Select } from "@/components/ui";
 import { aggregateWeeklyWinDefeat } from "@/features/graphs/utils/aggregate";
 import { useTranslation } from "@/hooks";
@@ -9,6 +9,57 @@ import { MAPS } from "@/types/maps";
 import { getMapName } from "@/utils/maps";
 import { StyledChartContainer, StyledChartHeader, StyledChartTitle, StyledFiltersWrapper } from "./ChartContainer";
 import type { History, MatchRecord, Job, CrystalConflictMap, Character } from "@/types";
+
+const StyledTooltip = styled.div`
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: ${({ theme }) => theme.blur.md};
+  border: 1px solid rgba(38, 161, 223, 0.3);
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
+  padding: ${({ theme }) => theme.spacing[3]};
+  box-shadow: ${({ theme }) => theme.shadows.xl};
+
+  .label {
+    font-weight: 600;
+    margin-bottom: ${({ theme }) => theme.spacing[2]};
+    color: ${({ theme }) => theme.colors.text};
+  }
+
+  .value {
+    font-size: 0.875rem;
+    margin: ${({ theme }) => theme.spacing[1]} 0;
+    display: flex;
+    align-items: center;
+    gap: ${({ theme }) => theme.spacing[2]};
+  }
+
+  .dot-win {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: ${({ theme }) => theme.colors.win[400]};
+  }
+
+  .dot-defeat {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: ${({ theme }) => theme.colors.defeat[400]};
+  }
+
+  .dot-total {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: ${({ theme }) => theme.colors.gray[600]};
+  }
+
+  .dot-nodata {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: ${({ theme }) => theme.colors.gray[400]};
+  }
+`;
 
 type WeeklyWinDefeatChartProps = {
   history: History;
@@ -25,6 +76,7 @@ type TooltipProps = {
     payload: {
       weekday: string;
       weekdayName: string;
+      weekdayIndex: number;
       winRate: number | null;
       defeatRate: number | null;
       wins: number;
@@ -36,44 +88,43 @@ type TooltipProps = {
 };
 
 const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
-  const theme = useTheme();
   const { t } = useTranslation();
   if (active && payload && payload.length) {
     const data = payload[0].payload;
 
+    // 曜日名を多言語化
+    const weekdayNames = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+    const weekdayName = t(`chart.weekdays.${weekdayNames[data.weekdayIndex]}`);
+
     // データがない場合の表示
     if (data.total === 0) {
       return (
-        <div
-          style={{
-            backgroundColor: theme.colors.white,
-            border: `1px solid ${theme.colors.gray[300]}`,
-            borderRadius: "8px",
-            padding: "12px",
-            boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-          }}
-        >
-          <p style={{ margin: "0 0 8px 0", fontWeight: "bold", color: theme.colors.text }}>{`${data.weekdayName} (${label})`}</p>
-          <p style={{ margin: "4px 0", color: theme.colors.textSecondary }}>{t("chart.tooltip.noMatchData")}</p>
-        </div>
+        <StyledTooltip>
+          <div className="label">{`${weekdayName} (${label})`}</div>
+          <div className="value">
+            <div className="dot-nodata" />
+            <span>{t("chart.tooltip.noMatchData")}</span>
+          </div>
+        </StyledTooltip>
       );
     }
 
     return (
-      <div
-        style={{
-          backgroundColor: theme.colors.white,
-          border: `1px solid ${theme.colors.gray[300]}`,
-          borderRadius: "8px",
-          padding: "12px",
-          boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-        }}
-      >
-        <p style={{ margin: "0 0 8px 0", fontWeight: "bold", color: theme.colors.text }}>{`${data.weekdayName} (${label})`}</p>
-        <p style={{ margin: "4px 0", color: theme.colors.win[600] }}>{`${t("chart.tooltip.win")}: ${data.wins}${t("chart.tooltip.matches")} (${data.winRate || 0}%)`}</p>
-        <p style={{ margin: "4px 0", color: theme.colors.defeat[600] }}>{`${t("chart.tooltip.lose")}: ${data.defeats}${t("chart.tooltip.matches")} (${data.defeatRate || 0}%)`}</p>
-        <p style={{ margin: "4px 0 0 0", fontWeight: "bold", color: theme.colors.text }}>{`${t("chart.tooltip.total")}: ${data.total}${t("chart.tooltip.matches")}`}</p>
-      </div>
+      <StyledTooltip>
+        <div className="label">{`${weekdayName} (${label})`}</div>
+        <div className="value">
+          <div className="dot-win" />
+          <span>{`${t("chart.tooltip.win")}: ${data.wins}${t("chart.tooltip.matches")} (${data.winRate || 0}%)`}</span>
+        </div>
+        <div className="value">
+          <div className="dot-defeat" />
+          <span>{`${t("chart.tooltip.lose")}: ${data.defeats}${t("chart.tooltip.matches")} (${data.defeatRate || 0}%)`}</span>
+        </div>
+        <div className="value">
+          <div className="dot-total" />
+          <span>{`${t("chart.tooltip.total")}: ${data.total}${t("chart.tooltip.matches")}`}</span>
+        </div>
+      </StyledTooltip>
     );
   }
   return null;
@@ -150,28 +201,33 @@ const WeeklyWinDefeatChartComponent = ({ history, matchRecords, characters }: We
             bottom: 5,
           }}
         >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="weekday" tick={{ fontSize: 12 }} />
-          <YAxis label={{ value: t("chart.axes.winRatePercent"), angle: -90, position: "insideLeft" }} domain={[0, 100]} tick={{ fontSize: 12 }} />
-          <Tooltip content={<CustomTooltip />} />
-          <Legend />
-          <Area
-            type="monotone"
-            dataKey="winRate"
-            name="WinRate"
-            stroke={theme.colors.win[600]}
-            fill={theme.colors.win[600]}
-            fillOpacity={0.3}
-            connectNulls={true}
-            isAnimationActive={false}
+          <defs>
+            <linearGradient id="colorWeeklyWin" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#10b981" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#10b981" stopOpacity={0.1} />
+            </linearGradient>
+            <linearGradient id="colorWeeklyDefeat" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#ef4444" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#ef4444" stopOpacity={0.1} />
+            </linearGradient>
+          </defs>
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.05)" />
+          <XAxis dataKey="weekday" tick={{ fontSize: 12, fill: theme.colors.gray[600] }} />
+          <YAxis
+            label={{ value: t("chart.axes.winRatePercent"), angle: -90, position: "insideLeft", fill: theme.colors.gray[700] }}
+            domain={[0, 100]}
+            tick={{ fontSize: 12, fill: theme.colors.gray[600] }}
           />
+          <Tooltip content={<CustomTooltip />} />
+          <Legend wrapperStyle={{ paddingTop: "20px" }} />
+          <Area type="monotone" dataKey="winRate" name="WinRate" stroke="#10b981" strokeWidth={2} fill="url(#colorWeeklyWin)" connectNulls={true} isAnimationActive={false} />
           <Area
             type="monotone"
             dataKey="defeatRate"
             name="DefeatRate"
-            stroke={theme.colors.defeat[600]}
-            fill={theme.colors.defeat[600]}
-            fillOpacity={0.3}
+            stroke="#ef4444"
+            strokeWidth={2}
+            fill="url(#colorWeeklyDefeat)"
             connectNulls={false}
             isAnimationActive={false}
           />

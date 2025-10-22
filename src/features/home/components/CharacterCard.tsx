@@ -16,7 +16,6 @@ const StyledCharacterCard = styled.div`
   transition: all ${({ theme }) => theme.transitions.base};
 
   &:hover {
-    transform: translateY(-4px);
     box-shadow: ${({ theme }) => theme.shadows["2xl"]}, ${({ theme }) => theme.shadows.glow};
   }
 `;

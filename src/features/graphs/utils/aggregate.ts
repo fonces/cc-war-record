@@ -138,6 +138,7 @@ export const aggregateWeeklyWinDefeat = (
     return {
       weekday: weekday.short,
       weekdayName: weekday.name,
+      weekdayIndex: weekday.index,
       winRate,
       defeatRate,
       wins: stats.wins,
