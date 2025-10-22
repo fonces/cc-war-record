@@ -23,9 +23,9 @@ const StyledLanguageSelector = styled.div<{ $fullWidth?: boolean }>`
 
 const StyledLanguageButton = styled.button<{ $fullWidth?: boolean }>`
   padding: 0.625rem 1rem;
-  background: rgba(255, 255, 255, 0.95);
+  background: ${({ theme }) => theme.colors.surface};
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(38, 161, 223, 0.2);
+  border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   color: ${({ theme }) => theme.colors.text};
   cursor: pointer;
@@ -98,9 +98,9 @@ const StyledLanguageDropdown = styled.div<{ isOpen: boolean; direction: "up" | "
   ${({ direction }) => (direction === "up" ? "bottom: calc(100% + 8px);" : "top: calc(100% + 8px);")}
   left: 0;
   right: 0;
-  background: rgba(255, 255, 255, 0.98);
+  background: ${({ theme }) => theme.colors.surface};
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(38, 161, 223, 0.2);
+  border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   box-shadow:
     0 10px 40px rgba(38, 161, 223, 0.15),

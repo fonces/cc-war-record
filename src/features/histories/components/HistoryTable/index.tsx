@@ -49,8 +49,7 @@ const StyledDetailButton = styled(Button)`
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   text-decoration: none;
   transition: all ${({ theme }) => theme.transitions.base};
-  border: 1px solid rgba(38, 161, 223, 0.3);
-  background: rgba(255, 255, 255, 0.5);
+  background: ${({ theme }) => theme.colors.surface};
   backdrop-filter: ${({ theme }) => theme.blur.sm};
 
   &:hover {
@@ -65,14 +64,15 @@ const StyledDetailButton = styled(Button)`
 const StyledDeleteButton = styled(Button)`
   display: inline-flex;
   align-items: center;
+  color: ${({ theme }) => theme.colors.error[500]};
   justify-content: center;
   width: 36px;
   height: 36px;
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   text-decoration: none;
   transition: all ${({ theme }) => theme.transitions.base};
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  background: rgba(255, 255, 255, 0.5);
+  border-color: rgba(239, 68, 68, 0.3);
+  background: ${({ theme }) => theme.colors.surface};
   backdrop-filter: ${({ theme }) => theme.blur.sm};
 
   &:hover:not(:disabled) {
@@ -123,10 +123,10 @@ const StyledEmptyState = styled.div`
   justify-content: center;
   padding: ${({ theme }) => theme.spacing[16]} ${({ theme }) => theme.spacing[6]};
   text-align: center;
-  background: rgba(255, 255, 255, 0.8);
+  background: ${({ theme }) => theme.colors.surface};
   backdrop-filter: ${({ theme }) => theme.blur.md};
   border-radius: ${({ theme }) => theme.borderRadius.xl};
-  border: 1px solid rgba(38, 161, 223, 0.2);
+  border: 1px solid ${({ theme }) => theme.colors.border};
   box-shadow: ${({ theme }) => theme.shadows.xl};
   position: relative;
   overflow: hidden;
@@ -265,9 +265,9 @@ export const HistoryTable = ({ histories, isLoading = false, onDelete }: History
       <VirtualTable
         data={histories}
         columns={columns}
-        rowHeight={64}
+        rowHeight={68}
         overscan={5}
-        height="calc(100dvh - 400px)"
+        height="calc(100dvh - 320px)"
         isLoading={isLoading}
         loadingText={t("common.loading")}
         emptyText={t("pages.histories.emptyState")}

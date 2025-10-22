@@ -92,23 +92,35 @@ const StyledButton = styled.button<ButtonProps>`
         `;
       case "secondary":
         return `
-          background-color: ${theme.colors.gray[600]};
+          background-color: ${
+            theme.isDark
+              ? "rgba(100, 116, 139, 0.9)" // ダークモード: slate-500相当の透明度付き
+              : theme.colors.gray[600]
+          };
           color: white;
           border: none;
 
           &:hover:not(:disabled) {
-            background-color: ${theme.colors.gray[700]};
+            background-color: ${
+              theme.isDark
+                ? "rgba(148, 163, 184, 1)" // ダークモード: slate-400相当
+                : theme.colors.gray[700]
+            };
           }
 
           &:active:not(:disabled) {
-            background-color: ${theme.colors.gray[800]};
+            background-color: ${
+              theme.isDark
+                ? "rgba(71, 85, 105, 1)" // ダークモード: slate-600相当
+                : theme.colors.gray[800]
+            };
           }
         `;
       case "outline":
         return `
           background-color: transparent;
           color: ${theme.colors.primary[600]};
-          border: 2px solid ${theme.colors.primary[400]};
+          border: 1px solid ${theme.colors.primary[400]};
           box-shadow: ${theme.shadows.sm};
 
           &:hover:not(:disabled) {
@@ -127,43 +139,45 @@ const StyledButton = styled.button<ButtonProps>`
       case "ghost":
         return `
           background-color: transparent;
-          color: ${theme.colors.gray[700]};
+          color: ${theme.colors.textSecondary};
           border: none;
 
           &:hover:not(:disabled) {
-            background-color: ${theme.colors.gray[100]};
+            background-color: ${theme.isDark ? "rgba(255, 255, 255, 0.05)" : theme.colors.gray[100]};
           }
 
           &:active:not(:disabled) {
-            background-color: ${theme.colors.gray[200]};
+            background-color: ${theme.isDark ? "rgba(255, 255, 255, 0.1)" : theme.colors.gray[200]};
           }
         `;
       case "win":
         return `
-          background-color: ${theme.colors.win[200]};
-          color: ${theme.colors.win[700]};
-          border: none;
+          background-color: ${theme.isDark ? "rgba(34, 197, 94, 0.15)" : theme.colors.win[200]};
+          color: ${theme.isDark ? "rgba(134, 239, 172, 1)" : theme.colors.win[700]};
+          border: ${theme.isDark ? "1px solid rgba(34, 197, 94, 0.3)" : "none"};
 
           &:hover:not(:disabled) {
-            background-color: ${theme.colors.win[300]};
+            background-color: ${theme.isDark ? "rgba(34, 197, 94, 0.25)" : theme.colors.win[300]};
+            border-color: ${theme.isDark ? "rgba(34, 197, 94, 0.5)" : "transparent"};
           }
 
           &:active:not(:disabled) {
-            background-color: ${theme.colors.win[800]};
+            background-color: ${theme.isDark ? "rgba(34, 197, 94, 0.35)" : theme.colors.win[800]};
           }
         `;
       case "defeat":
         return `
-          background-color: ${theme.colors.defeat[200]};
-          color: ${theme.colors.defeat[700]};
-          border: none;
+          background-color: ${theme.isDark ? "rgba(239, 68, 68, 0.15)" : theme.colors.defeat[200]};
+          color: ${theme.isDark ? "rgba(252, 165, 165, 1)" : theme.colors.defeat[700]};
+          border: ${theme.isDark ? "1px solid rgba(239, 68, 68, 0.3)" : "none"};
 
           &:hover:not(:disabled) {
-            background-color: ${theme.colors.defeat[300]};
+            background-color: ${theme.isDark ? "rgba(239, 68, 68, 0.25)" : theme.colors.defeat[300]};
+            border-color: ${theme.isDark ? "rgba(239, 68, 68, 0.5)" : "transparent"};
           }
 
           &:active:not(:disabled) {
-            background-color: ${theme.colors.defeat[800]};
+            background-color: ${theme.isDark ? "rgba(239, 68, 68, 0.35)" : theme.colors.defeat[800]};
           }
         `;
     }

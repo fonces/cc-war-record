@@ -42,10 +42,10 @@ const StyledOverlay = styled.div<{ isOpen: boolean }>`
 `;
 
 const StyledDialog = styled.div`
-  background: rgba(255, 255, 255, 0.95);
+  background: ${({ theme }) => theme.colors.surface};
   backdrop-filter: ${({ theme }) => theme.blur.lg};
   border-radius: ${({ theme }) => theme.borderRadius["2xl"]};
-  border: 1px solid rgba(38, 161, 223, 0.2);
+  border: 1px solid ${({ theme }) => theme.colors.border};
   box-shadow: ${({ theme }) => theme.shadows["2xl"]}, ${({ theme }) => theme.shadows.glow};
   width: 100%;
   max-width: 500px;
@@ -68,7 +68,7 @@ const StyledDialog = styled.div`
 
 const StyledHeader = styled.div`
   padding: ${({ theme }) => theme.spacing[6]} ${({ theme }) => theme.spacing[6]} ${({ theme }) => theme.spacing[4]};
-  border-bottom: 1px solid rgba(38, 161, 223, 0.15);
+  border-bottom: 1px solid ${({ theme }) => theme.colors.borderLight};
   background: ${({ theme }) => theme.gradients.glass};
   border-radius: ${({ theme }) => theme.borderRadius["2xl"]} ${({ theme }) => theme.borderRadius["2xl"]} 0 0;
   display: flex;
@@ -101,7 +101,7 @@ const StyledCloseButton = styled.button`
   justify-content: center;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.gray[100]};
+    background-color: ${({ theme }) => (theme.isDark ? "rgba(255, 255, 255, 0.1)" : theme.colors.gray[100])};
     color: ${({ theme }) => theme.colors.text};
   }
 `;

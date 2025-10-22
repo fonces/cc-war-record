@@ -1,12 +1,26 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+/**
+ * フェードインアニメーション
+ */
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
 
 /**
  * グラフコンテナの共通スタイル
  */
 export const StyledChartContainer = styled.div`
-  background: rgba(255, 255, 255, 0.8);
+  background: ${({ theme }) => theme.colors.surface};
   backdrop-filter: ${({ theme }) => theme.blur.md};
-  border: 1px solid rgba(38, 161, 223, 0.2);
+  border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.xl};
   padding: ${({ theme }) => theme.spacing[6]};
   margin-top: ${({ theme }) => theme.spacing[6]};
@@ -14,6 +28,7 @@ export const StyledChartContainer = styled.div`
   transition: all ${({ theme }) => theme.transitions.base};
   position: relative;
   overflow: hidden;
+  animation: ${fadeIn} 0.6s ease-out;
 
   &::before {
     content: "";

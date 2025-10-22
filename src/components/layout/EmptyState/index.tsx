@@ -40,10 +40,10 @@ const StyledEmptyState = styled.div`
   justify-content: center;
   padding: ${({ theme }) => theme.spacing[16]} ${({ theme }) => theme.spacing[6]};
   text-align: center;
-  background: rgba(255, 255, 255, 0.95);
+  background: ${({ theme }) => theme.colors.surface};
   backdrop-filter: blur(12px);
   border-radius: ${({ theme }) => theme.borderRadius.xl};
-  border: 1px solid rgba(38, 161, 223, 0.15);
+  border: 1px solid ${({ theme }) => theme.colors.border};
   box-shadow: ${({ theme }) => theme.shadows["2xl"]};
   position: relative;
   overflow: hidden;
@@ -118,7 +118,7 @@ const StyledEmptyTitle = styled.h2`
 
 const StyledEmptyDescription = styled.p`
   font-size: 1rem;
-  color: ${({ theme }) => theme.colors.gray[600]};
+  color: ${({ theme }) => theme.colors.textSecondary};
   margin-bottom: ${({ theme }) => theme.spacing[8]};
   max-width: 450px;
   line-height: 1.7;

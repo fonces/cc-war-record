@@ -16,7 +16,7 @@ const StyledMapTablesContainer = styled.div`
 `;
 
 const StyledMapSection = styled.div`
-  border: 1px solid ${({ theme }) => theme.colors.gray[200]};
+  border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.md};
   overflow: hidden;
 `;
@@ -24,8 +24,14 @@ const StyledMapSection = styled.div`
 const StyledMapTitle = styled.h4<{ isCurrentMap?: boolean }>`
   margin: 0;
   padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
-  background-color: ${({ isCurrentMap, theme }) => (isCurrentMap ? theme.colors.primary[50] : theme.colors.gray[100])};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray[200]};
+  background-color: ${({ isCurrentMap, theme }) => {
+    const isDark = theme.isDark;
+    if (isCurrentMap) {
+      return isDark ? "rgba(38, 161, 223, 0.15)" : "rgba(38, 161, 223, 0.08)";
+    }
+    return isDark ? "rgba(255, 255, 255, 0.03)" : "rgba(0, 0, 0, 0.02)";
+  }};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
   font-size: 1rem;
   font-weight: 600;
   color: ${({ theme }) => theme.colors.text};
@@ -45,7 +51,13 @@ const StyledMapTitle = styled.h4<{ isCurrentMap?: boolean }>`
   `}
 
   &:hover {
-    background-color: ${({ isCurrentMap, theme }) => (isCurrentMap ? theme.colors.primary[100] : theme.colors.gray[200])};
+    background-color: ${({ isCurrentMap, theme }) => {
+      const isDark = theme.isDark;
+      if (isCurrentMap) {
+        return isDark ? "rgba(38, 161, 223, 0.22)" : "rgba(38, 161, 223, 0.12)";
+      }
+      return isDark ? "rgba(255, 255, 255, 0.05)" : "rgba(0, 0, 0, 0.04)";
+    }};
   }
 `;
 

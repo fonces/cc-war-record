@@ -66,7 +66,9 @@
         "loadFailed": "히스토리 로드에 실패했습니다",
         "alreadyExists": "시즌 \"{{seasonName}}\"은(는) 이미 존재합니다",
         "notFound": "지정된 히스토리를 찾을 수 없습니다",
-        "characterNotFound": "지정된 캐릭터를 찾을 수 없습니다"
+        "characterNotFound": "지정된 캐릭터를 찾을 수 없습니다",
+        "deleteMatchRecordsFailed": "시즌 {{uuid}}의 매치 기록 삭제 중 오류가 발생했습니다",
+        "loadMatchRecordsFailed": "시즌 {{seasonUuid}}의 매치 기록 로드 중 오류가 발생했습니다"
       }
     },
     "historyDetail": {

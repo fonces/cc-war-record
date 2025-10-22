@@ -56,9 +56,9 @@ const Label = styled.label`
 
 const SelectButton = styled.button<{ isOpen: boolean }>`
   padding: 0.5rem 2.5rem 0.5rem 1rem;
-  border: 2px solid ${({ isOpen, theme }) => (isOpen ? theme.colors.primary[400] : "rgba(38, 161, 223, 0.2)")};
+  border: 2px solid ${({ isOpen, theme }) => (isOpen ? theme.colors.primary[400] : theme.colors.border)};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
-  background: ${({ isOpen }) => (isOpen ? "rgba(255, 255, 255, 0.95)" : "rgba(255, 255, 255, 0.8)")};
+  background: ${({ theme }) => theme.colors.surface};
   backdrop-filter: ${({ theme }) => theme.blur.sm};
   color: ${({ theme }) => theme.colors.text};
   font-size: 0.875rem;
@@ -82,7 +82,7 @@ const SelectButton = styled.button<{ isOpen: boolean }>`
     outline: none;
     border-color: ${({ theme }) => theme.colors.primary[500]};
     box-shadow: ${({ theme }) => `${theme.shadows.md}, ${theme.shadows.glow}`};
-    background: rgba(255, 255, 255, 0.95);
+    background: ${({ theme }) => (theme.isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(255, 255, 255, 0.95)")};
   }
 `;
 
@@ -104,9 +104,9 @@ const DropdownContainer = styled.div<{ isOpen: boolean }>`
   top: calc(100% + 0.5rem);
   left: 0;
   right: 0;
-  background: rgba(255, 255, 255, 0.98);
+  background: ${({ theme }) => theme.colors.surface};
   backdrop-filter: ${({ theme }) => theme.blur.md};
-  border: 2px solid rgba(38, 161, 223, 0.2);
+  border: 2px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   box-shadow: ${({ theme }) => `${theme.shadows.xl}, ${theme.shadows.glow}`};
   max-height: 300px;

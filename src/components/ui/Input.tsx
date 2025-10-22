@@ -19,7 +19,7 @@ const Container = styled.div<{ fullWidth?: boolean }>`
 const Label = styled.label`
   font-size: 0.875rem;
   font-weight: 500;
-  color: ${({ theme }) => theme.colors.gray[700]};
+  color: ${({ theme }) => theme.colors.textSecondary};
 `;
 
 const StyledInput = styled.input<{ hasError?: boolean; inputSize?: "sm" | "md" | "lg" }>`
@@ -44,19 +44,20 @@ const StyledInput = styled.input<{ hasError?: boolean; inputSize?: "sm" | "md" |
     }
   }};
   line-height: 1;
-  border: 2px solid ${({ theme, hasError }) => (hasError ? theme.colors.error[500] : "rgba(38, 161, 223, 0.2)")};
+  border: 2px solid ${({ theme, hasError }) => (hasError ? theme.colors.error[500] : theme.colors.border)};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   outline: none;
   transition: all ${({ theme }) => theme.transitions.base};
-  background: rgba(255, 255, 255, 0.8);
+  background: ${({ theme }) => theme.colors.surface};
   backdrop-filter: ${({ theme }) => theme.blur.sm};
   box-shadow: ${({ theme }) => theme.shadows.sm};
+  color: ${({ theme }) => theme.colors.text};
 
   &:focus {
     border-color: ${({ theme, hasError }) => (hasError ? theme.colors.error[500] : theme.colors.primary[500])};
     box-shadow: ${({ theme, hasError }) => (hasError ? theme.shadows.md : `${theme.shadows.md}, ${theme.shadows.glow}`)};
     transform: translateY(-1px);
-    background: rgba(255, 255, 255, 0.95);
+    background: ${({ theme }) => (theme.isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(255, 255, 255, 0.95)")};
   }
 
   &:hover:not(:disabled) {
@@ -64,13 +65,24 @@ const StyledInput = styled.input<{ hasError?: boolean; inputSize?: "sm" | "md" |
   }
 
   &:disabled {
-    background-color: ${({ theme }) => theme.colors.gray[100]};
+    background-color: ${({ theme }) => (theme.isDark ? "rgba(51, 65, 85, 0.5)" : theme.colors.gray[100])};
+    color: ${({ theme }) => (theme.isDark ? "rgba(148, 163, 184, 0.6)" : theme.colors.gray[500])};
+    border-color: ${({ theme }) => (theme.isDark ? "rgba(71, 85, 105, 0.5)" : theme.colors.gray[300])};
     cursor: not-allowed;
-    opacity: 0.6;
+    opacity: ${({ theme }) => (theme.isDark ? "1" : "0.6")};
   }
 
   &::placeholder {
-    color: ${({ theme }) => theme.colors.gray[400]};
+    color: ${({ theme }) => theme.colors.textTertiary};
+  }
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px ${({ theme }) => (theme.isDark ? "rgba(26, 32, 44, 1)" : "rgba(255, 255, 255, 1)")} inset !important;
+    -webkit-text-fill-color: ${({ theme }) => theme.colors.text} !important;
+    transition: background-color 5000s ease-in-out 0s;
   }
 `;
 

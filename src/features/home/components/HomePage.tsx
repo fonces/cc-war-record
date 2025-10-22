@@ -22,10 +22,10 @@ const StyledCharacterList = styled.div`
 const StyledErrorMessage = styled.div`
   padding: ${({ theme }) => theme.spacing[3]};
   margin-bottom: ${({ theme }) => theme.spacing[6]};
-  background-color: #fef2f2;
+  background-color: ${({ theme }) => (theme.isDark ? "rgba(239, 68, 68, 0.15)" : "#fef2f2")};
   border: 1px solid #fecaca;
   border-radius: ${({ theme }) => theme.borderRadius.md};
-  color: #dc2626;
+  color: ${({ theme }) => theme.colors.error[600]};
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -33,7 +33,7 @@ const StyledErrorMessage = styled.div`
 
 const StyledErrorCloseButton = styled.button`
   margin-left: ${({ theme }) => theme.spacing[2]};
-  color: #dc2626;
+  color: ${({ theme }) => theme.colors.error[600]};
   text-decoration: underline;
   background: none;
   border: none;

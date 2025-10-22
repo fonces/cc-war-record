@@ -66,7 +66,9 @@
         "loadFailed": "Failed to load history",
         "alreadyExists": "Season \"{{seasonName}}\" already exists",
         "notFound": "The specified history was not found",
-        "characterNotFound": "The specified character was not found"
+        "characterNotFound": "The specified character was not found",
+        "deleteMatchRecordsFailed": "Error deleting match records for season {{uuid}}",
+        "loadMatchRecordsFailed": "Error loading match records for season {{seasonUuid}}"
       }
     },
     "historyDetail": {

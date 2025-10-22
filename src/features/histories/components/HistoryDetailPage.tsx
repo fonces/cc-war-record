@@ -40,11 +40,11 @@ const StyledStatsGrid = styled.div`
 
 // 統計カード
 const StyledStatCard = styled.div`
-  background: rgba(255, 255, 255, 0.9);
+  background: ${({ theme }) => theme.colors.surface};
   backdrop-filter: blur(10px);
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   padding: ${({ theme }) => theme.spacing[6]};
-  border: 1px solid rgba(38, 161, 223, 0.1);
+  border: 1px solid ${({ theme }) => theme.colors.borderLight};
   position: relative;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -70,7 +70,7 @@ const StyledStatCard = styled.div`
 const StyledStatLabel = styled.div`
   font-size: 0.75rem;
   font-weight: 600;
-  color: ${({ theme }) => theme.colors.gray[600]};
+  color: ${({ theme }) => theme.colors.textSecondary};
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: ${({ theme }) => theme.spacing[2]};
@@ -103,7 +103,7 @@ const StyledStatValue = styled.div<{ $type?: "default" | "win" | "defeat" | "win
 
 const StyledStatDescription = styled.div`
   font-size: 0.875rem;
-  color: ${({ theme }) => theme.colors.gray[500]};
+  color: ${({ theme }) => theme.colors.textSecondary};
 `;
 
 // キャラクター名セル
@@ -135,7 +135,7 @@ const StyledJobCell = styled(StyledTableCell)`
 const StyledJobShortName = styled.span`
   font-size: 0.75rem;
   font-weight: 700;
-  color: ${({ theme }) => theme.colors.gray[600]};
+  color: ${({ theme }) => theme.colors.textSecondary};
   text-transform: uppercase;
   letter-spacing: 0.05em;
 `;
@@ -174,9 +174,9 @@ const StyledDeleteButton = styled(Button)`
   width: 36px;
   height: 36px;
   padding: 0;
-  background: rgba(255, 255, 255, 0.9);
+  background: ${({ theme }) => theme.colors.surface};
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-color: rgba(239, 68, 68, 0.3);
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
   &:hover:not(:disabled) {
@@ -197,14 +197,13 @@ const StyledBackButtonContainer = styled.div`
 `;
 
 const StyledBackButton = styled(Button)`
-  background: rgba(255, 255, 255, 0.9);
+  background: ${({ theme }) => theme.colors.surface};
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(38, 161, 223, 0.2);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   &:hover {
-    background: rgba(38, 161, 223, 0.1);
-    border-color: rgba(38, 161, 223, 0.3);
+    background: ${({ theme }) => (theme.isDark ? "rgba(38, 161, 223, 0.15)" : "rgba(38, 161, 223, 0.1)")};
+    border-color: ${({ theme }) => theme.colors.primary[400]};
     transform: translateX(-4px);
     box-shadow: 0 4px 12px rgba(38, 161, 223, 0.15);
   }
@@ -417,7 +416,7 @@ export const HistoryDetailPage = () => {
       <VirtualTable
         data={allMatches}
         columns={columns}
-        rowHeight={56}
+        rowHeight={66}
         overscan={5}
         height="calc(100dvh - 380px)"
         emptyText={t("pages.historyDetail.emptyState")}

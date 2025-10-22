@@ -15,9 +15,9 @@ const StyledStatsGrid = styled.div`
 `;
 
 const StyledStatCard = styled.div`
-  background: rgba(255, 255, 255, 0.8);
+  background: ${({ theme }) => theme.colors.surface};
   backdrop-filter: ${({ theme }) => theme.blur.md};
-  border: 1px solid rgba(38, 161, 223, 0.2);
+  border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.xl};
   padding: ${({ theme }) => theme.spacing[5]};
   box-shadow: ${({ theme }) => theme.shadows.md};
@@ -46,7 +46,7 @@ const StyledStatLabel = styled.div`
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: ${({ theme }) => theme.colors.gray[500]};
+  color: ${({ theme }) => theme.colors.textSecondary};
   margin-bottom: ${({ theme }) => theme.spacing[2]};
 `;
 
@@ -69,7 +69,7 @@ const StyledStatDescription = styled.div`
 // エラー表示
 const StyledErrorMessage = styled.div`
   padding: ${({ theme }) => theme.spacing[4]} ${({ theme }) => theme.spacing[6]};
-  background: rgba(239, 68, 68, 0.1);
+  background: ${({ theme }) => (theme.isDark ? "rgba(239, 68, 68, 0.15)" : "rgba(239, 68, 68, 0.1)")};
   backdrop-filter: ${({ theme }) => theme.blur.sm};
   border: 1px solid rgba(239, 68, 68, 0.3);
   border-radius: ${({ theme }) => theme.borderRadius.lg};

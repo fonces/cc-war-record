@@ -52,10 +52,10 @@ const SectionTitle = styled.h2`
 
 const FaqItem = styled.div<{ $isOpen: boolean }>`
   margin-bottom: ${({ theme }) => theme.spacing[4]};
-  background: rgba(255, 255, 255, 0.95);
+  background: ${({ theme }) => theme.colors.surface};
   backdrop-filter: blur(10px);
   border-radius: ${({ theme }) => theme.borderRadius.lg};
-  border: 1px solid rgba(38, 161, 223, 0.1);
+  border: 1px solid ${({ theme }) => theme.colors.borderLight};
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
@@ -75,7 +75,7 @@ const FaqItem = styled.div<{ $isOpen: boolean }>`
   &:hover {
     transform: translateX(4px);
     box-shadow: 0 8px 24px rgba(38, 161, 223, 0.12);
-    border-color: rgba(38, 161, 223, 0.2);
+    border-color: ${({ theme }) => theme.colors.border};
   }
 `;
 
@@ -93,7 +93,7 @@ const QuestionButton = styled.button<{ $isOpen: boolean }>`
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
   &:hover {
-    background: rgba(38, 161, 223, 0.03);
+    background: ${({ theme }) => (theme.isDark ? "rgba(38, 161, 223, 0.08)" : "rgba(38, 161, 223, 0.03)")};
   }
 `;
 
@@ -134,7 +134,7 @@ const ExpandIcon = styled.div<{ $isOpen: boolean }>`
   justify-content: center;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   transform: rotate(${({ $isOpen }) => ($isOpen ? "180deg" : "0deg")});
-  color: ${({ theme }) => theme.colors.gray[400]};
+  color: ${({ theme }) => theme.colors.textSecondary};
 
   svg {
     width: 20px;
@@ -151,7 +151,8 @@ const Answer = styled.div<{ $isOpen: boolean }>`
   opacity: ${({ $isOpen }) => ($isOpen ? 1 : 0)};
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  background: linear-gradient(to bottom, rgba(38, 161, 223, 0.02), transparent);
+  background: ${({ theme }) =>
+    theme.isDark ? "linear-gradient(to bottom, rgba(38, 161, 223, 0.05), transparent)" : "linear-gradient(to bottom, rgba(38, 161, 223, 0.02), transparent)"};
 
   p {
     margin-bottom: ${({ theme }) => theme.spacing[3]};
@@ -192,10 +193,10 @@ const Answer = styled.div<{ $isOpen: boolean }>`
 const Copyright = styled.div`
   margin-top: ${({ theme }) => theme.spacing[12]};
   padding: ${({ theme }) => theme.spacing[8]};
-  background: rgba(255, 255, 255, 0.95);
+  background: ${({ theme }) => theme.colors.surface};
   backdrop-filter: blur(10px);
   border-radius: ${({ theme }) => theme.borderRadius.lg};
-  border: 1px solid rgba(38, 161, 223, 0.1);
+  border: 1px solid ${({ theme }) => theme.colors.borderLight};
   text-align: center;
   color: ${({ theme }) => theme.colors.textSecondary};
   font-size: 0.875rem;
@@ -210,7 +211,8 @@ const Copyright = styled.div`
     left: -200%;
     width: 200%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(38, 161, 223, 0.05), transparent);
+    background: ${({ theme }) =>
+      theme.isDark ? "linear-gradient(90deg, transparent, rgba(38, 161, 223, 0.1), transparent)" : "linear-gradient(90deg, transparent, rgba(38, 161, 223, 0.05), transparent)"};
     animation: ${shine} 3s ease-in-out infinite;
   }
 

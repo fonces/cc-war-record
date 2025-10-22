@@ -18,9 +18,9 @@ const fadeIn = keyframes`
 
 const StyledTableContainer = styled.div`
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.95);
+  background: ${({ theme }) => theme.colors.surface};
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(38, 161, 223, 0.15);
+  border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 0 0 ${({ theme }) => theme.borderRadius.md} ${({ theme }) => theme.borderRadius.md};
   box-shadow: ${({ theme }) => theme.shadows.xl};
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);

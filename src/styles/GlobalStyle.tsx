@@ -28,12 +28,14 @@ export const GlobalStyle = createGlobalStyle`
       sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    color: ${({ theme }) => theme.colors.gray[900]};
-    background: linear-gradient(to bottom right, #faf5ff 0%, #f3f4f6 50%, #e9d5ff 100%);
+    color: ${({ theme }) => theme.colors.text};
+    background: ${({ theme }) =>
+      theme.isDark ? "linear-gradient(to bottom right, #0a0a0b 0%, #18181b 50%, #27272a 100%)" : "linear-gradient(to bottom right, #faf5ff 0%, #f3f4f6 50%, #e9d5ff 100%)"};
     background-attachment: fixed;
     overflow-y: scroll;
     scrollbar-width: thin;
     scrollbar-color: ${({ theme }) => theme.colors.primary[300]} ${({ theme }) => theme.colors.gray[100]};
+    transition: background 0.3s ease, color 0.3s ease;
   }
 
   /* カスタムスクロールバー (Webkit) */

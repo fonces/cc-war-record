@@ -65,7 +65,7 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
     } catch (error) {
       set({
         isLoading: false,
-        error: error instanceof Error ? error.message : i18next.t("histories.errors.loadFailed"),
+        error: error instanceof Error ? error.message : i18next.t("pages.histories.errors.loadFailed"),
       });
     }
   },
@@ -77,7 +77,7 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
     // 重複チェック（シーズン名）
     const existingHistory = histories.find((h) => h.seasonName === input.seasonName);
     if (existingHistory) {
-      const errorMsg = i18next.t("histories.errors.alreadyExists", { seasonName: input.seasonName });
+      const errorMsg = i18next.t("pages.histories.errors.alreadyExists", { seasonName: input.seasonName });
       set({ error: errorMsg });
       throw new Error(errorMsg);
     }
@@ -134,7 +134,7 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
 
     const historyIndex = histories.findIndex((h) => h.uuid === uuid);
     if (historyIndex === -1) {
-      set({ error: i18next.t("histories.errors.notFound") });
+      set({ error: i18next.t("pages.histories.errors.notFound") });
       return false;
     }
 
@@ -142,7 +142,7 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
     if (input.seasonName) {
       const existingHistory = histories.find((h) => h.uuid !== uuid && h.seasonName === input.seasonName);
       if (existingHistory) {
-        set({ error: i18next.t("histories.errors.alreadyExists", { seasonName: input.seasonName }) });
+        set({ error: i18next.t("pages.histories.errors.alreadyExists", { seasonName: input.seasonName }) });
         return false;
       }
     }
@@ -173,14 +173,14 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
 
     const historyIndex = histories.findIndex((h) => h.uuid === uuid);
     if (historyIndex === -1) {
-      set({ error: i18next.t("histories.errors.notFound") });
+      set({ error: i18next.t("pages.histories.errors.notFound") });
       return false;
     }
 
     try {
       removeFromLocalStorage(`histories-${uuid}`);
     } catch (error) {
-      console.error(`Error deleting match records for season ${uuid}:`, error);
+      console.error(i18next.t("pages.histories.errors.deleteMatchRecordsFailed", { uuid }), error);
       return false;
     }
 
@@ -215,7 +215,7 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
 
     const historyIndex = histories.findIndex((h) => h.uuid === historyUuid);
     if (historyIndex === -1) {
-      set({ error: i18next.t("histories.errors.notFound") });
+      set({ error: i18next.t("pages.histories.errors.notFound") });
       return null;
     }
 
@@ -263,7 +263,7 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
 
     const historyIndex = histories.findIndex((h) => h.uuid === input.seasonUuid);
     if (historyIndex === -1) {
-      set({ error: i18next.t("histories.errors.notFound") });
+      set({ error: i18next.t("pages.histories.errors.notFound") });
       return false;
     }
 
@@ -273,7 +273,7 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
     const characterStatsIndex = history.characterStats.findIndex((cs) => cs.character.uuid === input.characterUuid);
 
     if (characterStatsIndex === -1) {
-      set({ error: i18next.t("histories.errors.characterNotFound") });
+      set({ error: i18next.t("pages.histories.errors.characterNotFound") });
       return false;
     }
 
@@ -321,7 +321,7 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
       const matchRecords = getFromLocalStorage<MatchRecord[]>(`histories-${seasonUuid}`, []);
       return matchRecords;
     } catch (error) {
-      console.error(`Error loading match records for season ${seasonUuid}:`, error);
+      console.error(i18next.t("pages.histories.errors.loadMatchRecordsFailed", { seasonUuid }), error);
       return [];
     }
   },

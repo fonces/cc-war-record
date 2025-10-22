@@ -11,14 +11,16 @@ const StyledSidebar = styled.aside<{ $isOpen: boolean }>`
   top: 0;
   height: 100vh;
   width: 260px;
-  background: rgba(255, 255, 255, 0.7);
+  background: ${({ theme }) => theme.colors.surface};
   backdrop-filter: ${({ theme }) => theme.blur.lg};
-  border-right: 1px solid rgba(38, 161, 223, 0.2);
+  border-right: 1px solid ${({ theme }) => theme.colors.border};
   box-shadow: ${({ theme }) => theme.shadows.xl};
   z-index: 10;
   padding: ${({ theme }) => theme.spacing[6]} ${({ theme }) => theme.spacing[4]};
   transform: translateX(${({ $isOpen }) => ($isOpen ? "0" : "-100%")});
-  transition: transform ${({ theme }) => theme.transitions.base};
+  transition:
+    transform ${({ theme }) => theme.transitions.base},
+    background 0.3s ease;
   display: flex;
   flex-direction: column;
 
@@ -61,9 +63,8 @@ const StyledNavLink = styled(Link)<{ $isActive: boolean }>`
   padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   text-decoration: none;
-  color: ${({ theme, $isActive }) => ($isActive ? theme.colors.primary[700] : theme.colors.gray[700])};
+  color: ${({ theme, $isActive }) => ($isActive ? theme.colors.white : theme.colors.text)};
   background: ${({ theme, $isActive }) => ($isActive ? theme.gradients.primary : "transparent")};
-  color: ${({ theme, $isActive }) => ($isActive ? "white" : theme.colors.gray[700])};
   font-weight: ${({ $isActive }) => ($isActive ? "600" : "500")};
   transition: all ${({ theme }) => theme.transitions.bounce};
   box-shadow: ${({ theme, $isActive }) => ($isActive ? theme.shadows.md : theme.shadows.none)};
@@ -80,8 +81,7 @@ const StyledNavLink = styled(Link)<{ $isActive: boolean }>`
   }
 
   &:hover {
-    background: ${({ theme, $isActive }) => ($isActive ? theme.gradients.primary : theme.gradients.glass)};
-    color: ${({ theme, $isActive }) => ($isActive ? theme.colors.white : theme.colors.primary[700])};
+    color: ${({ theme, $isActive }) => ($isActive ? theme.colors.white : theme.isDark ? theme.colors.primary[300] : theme.colors.primary[700])};
     transform: translateX(4px);
     box-shadow: ${({ theme }) => theme.shadows.md};
 
@@ -150,7 +150,7 @@ export const Sidebar = ({ isOpen, isActivePath, onClose }: SidebarProps) => {
         ))}
       </StyledNavList>
 
-      {/* 言語セレクターを下部に配置 */}
+      {/* 設定エリアを下部に配置 */}
       <div style={{ marginTop: "auto", paddingTop: "24px" }}>
         <LanguageSelector direction="up" fullWidth />
       </div>

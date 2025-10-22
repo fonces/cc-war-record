@@ -66,7 +66,9 @@
         "loadFailed": "履歴の読み込みに失敗しました",
         "alreadyExists": "シーズン「{{seasonName}}」は既に存在します",
         "notFound": "指定された履歴が見つかりません",
-        "characterNotFound": "指定されたキャラクターが見つかりません"
+        "characterNotFound": "指定されたキャラクターが見つかりません",
+        "deleteMatchRecordsFailed": "シーズン {{uuid}} のマッチレコード削除中にエラーが発生しました",
+        "loadMatchRecordsFailed": "シーズン {{seasonUuid}} のマッチレコード読み込み中にエラーが発生しました"
       }
     },
     "historyDetail": {

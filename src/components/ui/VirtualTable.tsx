@@ -6,9 +6,9 @@ import styled from "styled-components";
 const StyledTableContainer = styled.div<{ $height?: string }>`
   overflow: hidden;
   border-radius: ${({ theme }) => theme.borderRadius.xl};
-  background: rgba(255, 255, 255, 0.95);
+  background: ${({ theme }) => theme.colors.surface};
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(38, 161, 223, 0.1);
+  border: 1px solid ${({ theme }) => theme.colors.borderLight};
   margin-top: ${({ theme }) => theme.spacing[6]};
   height: ${({ $height }) => $height || "calc(100dvh - 380px)"};
   display: flex;
@@ -59,9 +59,9 @@ const StyledTable = styled.div`
 // テーブルヘッダー
 const StyledTableHeader = styled.div`
   display: flex;
-  background: rgba(255, 255, 255, 0.6);
+  background: ${({ theme }) => (theme.isDark ? "rgba(39, 39, 42, 0.6)" : "rgba(255, 255, 255, 0.6)")};
   backdrop-filter: blur(8px);
-  border-bottom: 2px solid rgba(38, 161, 223, 0.1);
+  border-bottom: 2px solid ${({ theme }) => theme.colors.borderLight};
   position: sticky;
   top: 0;
   z-index: 2;
@@ -71,7 +71,7 @@ export const StyledHeaderCell = styled.div<{ width?: string }>`
   padding: ${({ theme }) => theme.spacing[4]} ${({ theme }) => theme.spacing[6]};
   font-weight: 700;
   font-size: 0.75rem;
-  color: ${({ theme }) => theme.colors.gray[700]};
+  color: ${({ theme }) => theme.colors.textSecondary};
   text-transform: uppercase;
   letter-spacing: 0.05em;
   white-space: nowrap;
@@ -95,7 +95,7 @@ const StyledVirtualContainer = styled.div`
 // テーブル行
 export const StyledTableRow = styled.div`
   display: flex;
-  border-bottom: 1px solid rgba(38, 161, 223, 0.05);
+  border-bottom: 1px solid ${({ theme }) => theme.colors.borderLight};
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   position: absolute;
   top: 0;
@@ -115,7 +115,7 @@ export const StyledTableRow = styled.div`
   }
 
   &:hover {
-    background: rgba(38, 161, 223, 0.03);
+    background: ${({ theme }) => (theme.isDark ? "rgba(38, 161, 223, 0.08)" : "rgba(38, 161, 223, 0.03)")};
 
     &::before {
       width: 4px;
@@ -126,7 +126,7 @@ export const StyledTableRow = styled.div`
 export const StyledTableCell = styled.div<{ width?: string }>`
   padding: ${({ theme }) => theme.spacing[4]} ${({ theme }) => theme.spacing[6]};
   font-size: 0.875rem;
-  color: ${({ theme }) => theme.colors.gray[900]};
+  color: ${({ theme }) => theme.colors.text};
   flex: ${({ width }) => (width ? "0 0 " + width : "1")};
   display: flex;
   align-items: center;
@@ -143,7 +143,7 @@ const StyledEmptyState = styled.div`
   align-items: center;
   justify-content: center;
   padding: ${({ theme }) => theme.spacing[16]} ${({ theme }) => theme.spacing[6]};
-  color: ${({ theme }) => theme.colors.gray[400]};
+  color: ${({ theme }) => theme.colors.textSecondary};
   font-size: 0.875rem;
   gap: ${({ theme }) => theme.spacing[4]};
 `;

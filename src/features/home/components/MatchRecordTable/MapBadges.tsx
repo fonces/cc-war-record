@@ -33,7 +33,7 @@ export const StyledNextMapBadge = styled.span`
 export const StyledPulsingDot = styled.span`
   width: 6px;
   height: 6px;
-  background-color: white;
+  background-color: ${({ theme }) => (theme.isDark ? "rgba(255, 255, 255, 0.9)" : theme.colors.white)};
   border-radius: 50%;
   animation: pulse 2s ease-in-out infinite;
 

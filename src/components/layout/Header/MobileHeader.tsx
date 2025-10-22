@@ -1,14 +1,17 @@
 import styled from "styled-components";
-import { Icon } from "@/components/ui";
+import { Icon, ThemeToggle } from "@/components/ui";
 import { useTranslation } from "@/hooks";
 
 const StyledMobileHeader = styled.header`
   position: sticky;
   top: 0;
   z-index: 20;
-  background-color: ${({ theme }) => theme.colors.gray[50]};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray[200]};
+  background-color: ${({ theme }) => theme.colors.surface};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
   padding: ${({ theme }) => theme.spacing[4]};
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
     display: none;
@@ -66,6 +69,7 @@ export const MobileHeader = ({ onMenuClick }: MobileHeaderProps) => {
           <StyledMobileTitle>{t("common.appName")}</StyledMobileTitle>
         </StyledMobileTitleWrapper>
         <StyledMobileHeaderActions>
+          <ThemeToggle />
           <Icon name="hamburger" size={24} onClick={onMenuClick} />
         </StyledMobileHeaderActions>
       </StyledMobileHeaderContent>

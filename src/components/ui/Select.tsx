@@ -26,9 +26,9 @@ const Label = styled.label`
 
 const StyledSelect = styled.select<{ hasError?: boolean }>`
   padding: 0.5rem 2rem 0.5rem 1rem;
-  border: 2px solid ${({ theme, hasError }) => (hasError ? theme.colors.error[500] : "rgba(38, 161, 223, 0.2)")};
+  border: 2px solid ${({ theme, hasError }) => (hasError ? theme.colors.error[500] : theme.colors.border)};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
-  background: rgba(255, 255, 255, 0.8);
+  background: ${({ theme }) => theme.colors.surface};
   backdrop-filter: ${({ theme }) => theme.blur.sm};
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2326A1DF' d='M10.293 3.293L6 7.586 1.707 3.293A1 1 0 00.293 4.707l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -45,6 +45,12 @@ const StyledSelect = styled.select<{ hasError?: boolean }>`
   overflow: hidden;
   text-overflow: ellipsis;
 
+  option {
+    background: ${({ theme }) => theme.colors.surface};
+    color: ${({ theme }) => theme.colors.text};
+    padding: ${({ theme }) => theme.spacing[2]};
+  }
+
   &:hover {
     border-color: ${({ theme }) => theme.colors.primary[400]};
     box-shadow: ${({ theme }) => theme.shadows.md};
@@ -55,13 +61,15 @@ const StyledSelect = styled.select<{ hasError?: boolean }>`
     outline: none;
     border-color: ${({ theme, hasError }) => (hasError ? theme.colors.error[500] : theme.colors.primary[500])};
     box-shadow: ${({ theme, hasError }) => (hasError ? theme.shadows.md : `${theme.shadows.md}, ${theme.shadows.glow}`)};
-    background: rgba(255, 255, 255, 0.95);
+    background: ${({ theme }) => (theme.isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(255, 255, 255, 0.95)")};
   }
 
   &:disabled {
-    background-color: ${({ theme }) => theme.colors.gray[100]};
+    background-color: ${({ theme }) => (theme.isDark ? "rgba(51, 65, 85, 0.5)" : theme.colors.gray[100])};
+    color: ${({ theme }) => (theme.isDark ? "rgba(148, 163, 184, 0.6)" : theme.colors.gray[500])};
+    border-color: ${({ theme }) => (theme.isDark ? "rgba(71, 85, 105, 0.5)" : theme.colors.gray[300])};
     cursor: not-allowed;
-    opacity: 0.6;
+    opacity: ${({ theme }) => (theme.isDark ? "1" : "0.6")};
   }
 `;
 

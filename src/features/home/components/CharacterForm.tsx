@@ -4,10 +4,10 @@ import { Button, Icon, Input } from "@/components/ui";
 import { useTranslation } from "@/hooks";
 
 const StyledCharacterCard = styled.div`
-  background: rgba(255, 255, 255, 0.8);
+  background: ${({ theme }) => theme.colors.surface};
   backdrop-filter: ${({ theme }) => theme.blur.md};
   border-radius: ${({ theme }) => theme.borderRadius.xl};
-  border: 1px solid rgba(38, 161, 223, 0.2);
+  border: 1px solid ${({ theme }) => theme.colors.border};
   overflow: hidden;
   box-shadow: ${({ theme }) => theme.shadows.xl};
   transition: all ${({ theme }) => theme.transitions.base};
@@ -21,7 +21,7 @@ const StyledCharacterHeader = styled.div`
   padding: ${({ theme }) => theme.spacing[4]} ${({ theme }) => theme.spacing[6]};
   background: ${({ theme }) => theme.gradients.glass};
   backdrop-filter: ${({ theme }) => theme.blur.sm};
-  border-bottom: 1px solid rgba(38, 161, 223, 0.1);
+  border-bottom: 1px solid ${({ theme }) => theme.colors.borderLight};
   cursor: pointer;
   user-select: none;
   display: flex;
@@ -30,7 +30,10 @@ const StyledCharacterHeader = styled.div`
   transition: all ${({ theme }) => theme.transitions.base};
 
   &:hover {
-    background: linear-gradient(135deg, rgba(38, 161, 223, 0.1) 0%, rgba(255, 255, 255, 0.1) 100%);
+    background: ${({ theme }) =>
+      theme.isDark
+        ? "linear-gradient(135deg, rgba(38, 161, 223, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%)"
+        : "linear-gradient(135deg, rgba(38, 161, 223, 0.1) 0%, rgba(255, 255, 255, 0.1) 100%)"};
   }
 `;
 

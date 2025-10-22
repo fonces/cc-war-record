@@ -18,10 +18,10 @@ const StyledHeader = styled.div`
 `;
 
 const StyledForm = styled.form`
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.surface};
   padding: ${({ theme }) => theme.spacing[8]};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
-  border: 1px solid ${({ theme }) => theme.colors.gray[200]};
+  border: 1px solid ${({ theme }) => theme.colors.border};
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 `;
 
@@ -41,20 +41,20 @@ const StyledActions = styled.div`
 
 const StyledErrorMessage = styled.div`
   padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
-  background-color: ${({ theme }) => theme.colors.error[500]}20;
-  border: 1px solid ${({ theme }) => theme.colors.error[500]}40;
+  background-color: ${({ theme }) => (theme.isDark ? "rgba(239, 68, 68, 0.15)" : `${theme.colors.error[500]}20`)};
+  border: 1px solid ${({ theme }) => (theme.isDark ? "rgba(239, 68, 68, 0.3)" : `${theme.colors.error[500]}40`)};
   border-radius: ${({ theme }) => theme.borderRadius.md};
-  color: ${({ theme }) => theme.colors.error[500]};
+  color: ${({ theme }) => (theme.isDark ? "#fca5a5" : theme.colors.error[500])};
   margin-bottom: ${({ theme }) => theme.spacing[4]};
   font-size: 0.875rem;
 `;
 
 const StyledSuccessMessage = styled.div`
   padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
-  background-color: ${({ theme }) => theme.colors.success[500]}20;
-  border: 1px solid ${({ theme }) => theme.colors.success[500]}40;
+  background-color: ${({ theme }) => (theme.isDark ? "rgba(34, 197, 94, 0.15)" : `${theme.colors.success[500]}20`)};
+  border: 1px solid ${({ theme }) => (theme.isDark ? "rgba(34, 197, 94, 0.3)" : `${theme.colors.success[500]}40`)};
   border-radius: ${({ theme }) => theme.borderRadius.md};
-  color: ${({ theme }) => theme.colors.success[500]};
+  color: ${({ theme }) => (theme.isDark ? "#86efac" : theme.colors.success[500])};
   margin-bottom: ${({ theme }) => theme.spacing[4]};
   font-size: 0.875rem;
 `;

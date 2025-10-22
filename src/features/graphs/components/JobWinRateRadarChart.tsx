@@ -10,9 +10,9 @@ import { StyledChartContainer, StyledChartHeader, StyledChartTitle, StyledFilter
 import type { History, MatchRecord, Job, Character } from "@/types";
 
 const StyledTooltip = styled.div`
-  background: rgba(255, 255, 255, 0.95);
+  background: ${({ theme }) => theme.colors.surface};
   backdrop-filter: ${({ theme }) => theme.blur.md};
-  border: 1px solid rgba(38, 161, 223, 0.3);
+  border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   padding: ${({ theme }) => theme.spacing[3]};
   box-shadow: ${({ theme }) => theme.shadows.xl};
@@ -29,6 +29,7 @@ const StyledTooltip = styled.div`
     display: flex;
     align-items: center;
     gap: ${({ theme }) => theme.spacing[2]};
+    color: ${({ theme }) => theme.colors.text};
   }
 
   .dot {
