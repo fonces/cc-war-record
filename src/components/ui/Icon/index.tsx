@@ -28,7 +28,7 @@ const StyledIcon = styled.div<Pick<IconProps, "size" | "color">>`
   padding: 0;
   width: ${({ size = 24 }) => size}px;
   height: ${({ size = 24 }) => size}px;
-  color: ${({ color, theme }) => color || theme.colors.gray[700]};
+  color: ${({ color }) => color || "inherit"};
 
   &:hover {
     opacity: 0.7;

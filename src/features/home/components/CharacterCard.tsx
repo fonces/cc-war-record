@@ -7,24 +7,34 @@ import { MatchRecordTable } from "./MatchRecordTable";
 import type { CharacterStats, Job, CrystalConflictMap } from "@/types";
 
 const StyledCharacterCard = styled.div`
-  background-color: white;
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
-  border: 1px solid ${({ theme }) => theme.colors.gray[200]};
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: ${({ theme }) => theme.blur.md};
+  border-radius: ${({ theme }) => theme.borderRadius.xl};
+  border: 1px solid rgba(38, 161, 223, 0.2);
   overflow: hidden;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: ${({ theme }) => theme.shadows.xl};
+  transition: all ${({ theme }) => theme.transitions.base};
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: ${({ theme }) => theme.shadows["2xl"]}, ${({ theme }) => theme.shadows.glow};
+  }
 `;
 
 const StyledCharacterHeader = styled.div`
   padding: ${({ theme }) => theme.spacing[4]} ${({ theme }) => theme.spacing[6]};
-  background-color: ${({ theme }) => theme.colors.gray[50]};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray[200]};
+  background: ${({ theme }) => theme.gradients.glass};
+  backdrop-filter: ${({ theme }) => theme.blur.sm};
+  border-bottom: 1px solid rgba(38, 161, 223, 0.1);
   user-select: none;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: all ${({ theme }) => theme.transitions.base};
+  cursor: pointer;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.gray[100]};
+    background: linear-gradient(135deg, rgba(38, 161, 223, 0.1) 0%, rgba(255, 255, 255, 0.1) 100%);
   }
 `;
 

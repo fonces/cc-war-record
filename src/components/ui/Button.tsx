@@ -16,13 +16,15 @@ const StyledButton = styled.button<ButtonProps>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-weight: 500;
+  font-weight: 600;
   gap: 0.4rem;
   line-height: 1;
-  transition: all 0.2s;
-  border-radius: ${({ theme }) => theme.borderRadius.md};
+  transition: all ${({ theme }) => theme.transitions.bounce};
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
   cursor: pointer;
   outline: none;
+  position: relative;
+  overflow: hidden;
 
   /* サイズ */
   ${({ size = "md", theme, icon }) => {
@@ -58,16 +60,34 @@ const StyledButton = styled.button<ButtonProps>`
     switch (variant) {
       case "primary":
         return `
-          background-color: ${theme.colors.primary[600]};
+          background: ${theme.gradients.primary};
           color: white;
           border: none;
+          box-shadow: ${theme.shadows.glow};
 
           &:hover:not(:disabled) {
-            background-color: ${theme.colors.primary[700]};
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: ${theme.shadows.glowLg};
           }
 
           &:active:not(:disabled) {
-            background-color: ${theme.colors.primary[800]};
+            transform: translateY(0) scale(0.98);
+            box-shadow: ${theme.shadows.glow};
+          }
+
+          &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: ${theme.gradients.shimmer};
+            transition: left ${theme.transitions.slow};
+          }
+
+          &:hover::before {
+            left: 100%;
           }
         `;
       case "secondary":
@@ -87,15 +107,21 @@ const StyledButton = styled.button<ButtonProps>`
       case "outline":
         return `
           background-color: transparent;
-          color: ${theme.colors.gray[700]};
-          border: 2px solid ${theme.colors.gray[600]};
+          color: ${theme.colors.primary[600]};
+          border: 2px solid ${theme.colors.primary[400]};
+          box-shadow: ${theme.shadows.sm};
 
           &:hover:not(:disabled) {
-            background-color: ${theme.colors.primary[50]};
+            background: ${theme.gradients.glass};
+            backdrop-filter: ${theme.blur.sm};
+            border-color: ${theme.colors.primary[600]};
+            transform: translateY(-1px);
+            box-shadow: ${theme.shadows.md};
           }
 
           &:active:not(:disabled) {
-            background-color: ${theme.colors.primary[100]};
+            transform: translateY(0);
+            box-shadow: ${theme.shadows.sm};
           }
         `;
       case "ghost":

@@ -11,12 +11,14 @@ const StyledSidebar = styled.aside<{ $isOpen: boolean }>`
   top: 0;
   height: 100vh;
   width: 260px;
-  background-color: ${({ theme }) => theme.colors.gray[50]};
-  border-right: 1px solid ${({ theme }) => theme.colors.gray[200]};
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: ${({ theme }) => theme.blur.lg};
+  border-right: 1px solid rgba(38, 161, 223, 0.2);
+  box-shadow: ${({ theme }) => theme.shadows.xl};
   z-index: 10;
   padding: ${({ theme }) => theme.spacing[6]} ${({ theme }) => theme.spacing[4]};
   transform: translateX(${({ $isOpen }) => ($isOpen ? "0" : "-100%")});
-  transition: transform 0.15s ease-in-out;
+  transition: transform ${({ theme }) => theme.transitions.base};
   display: flex;
   flex-direction: column;
 
@@ -36,7 +38,7 @@ const StyledSidebarTitleWrapper = styled.div`
 
 const StyledLogoIcon = styled.img`
   width: 3rem;
-  height: 2rem;
+  height: 3rem;
   object-fit: contain;
 `;
 
@@ -57,16 +59,35 @@ const StyledNavLink = styled(Link)<{ $isActive: boolean }>`
   align-items: center;
   gap: ${({ theme }) => theme.spacing[3]};
   padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
-  border-radius: ${({ theme }) => theme.borderRadius.md};
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
   text-decoration: none;
   color: ${({ theme, $isActive }) => ($isActive ? theme.colors.primary[700] : theme.colors.gray[700])};
-  background-color: ${({ theme, $isActive }) => ($isActive ? theme.colors.primary[100] : "transparent")};
-  font-weight: ${({ $isActive }) => ($isActive ? "600" : "400")};
-  transition: all 0.2s ease-in-out;
+  background: ${({ theme, $isActive }) => ($isActive ? theme.gradients.primary : "transparent")};
+  color: ${({ theme, $isActive }) => ($isActive ? "white" : theme.colors.gray[700])};
+  font-weight: ${({ $isActive }) => ($isActive ? "600" : "500")};
+  transition: all ${({ theme }) => theme.transitions.bounce};
+  box-shadow: ${({ theme, $isActive }) => ($isActive ? theme.shadows.md : theme.shadows.none)};
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: ${({ theme }) => theme.gradients.glass};
+    opacity: 0;
+    transition: opacity ${({ theme }) => theme.transitions.base};
+  }
 
   &:hover {
-    background-color: ${({ theme, $isActive }) => ($isActive ? theme.colors.primary[100] : theme.colors.gray[100])};
-    color: ${({ theme }) => theme.colors.primary[700]};
+    background: ${({ theme, $isActive }) => ($isActive ? theme.gradients.primary : theme.gradients.glass)};
+    color: ${({ theme, $isActive }) => ($isActive ? theme.colors.white : theme.colors.primary[700])};
+    transform: translateX(4px);
+    box-shadow: ${({ theme }) => theme.shadows.md};
+
+    &::before {
+      opacity: 1;
+    }
   }
 `;
 
@@ -76,7 +97,7 @@ const StyledNavIcon = styled.div<{ $isActive: boolean }>`
   justify-content: center;
   width: 20px;
   height: 20px;
-  color: ${({ theme, $isActive }) => ($isActive ? theme.colors.primary[700] : theme.colors.gray[500])};
+  color: inherit;
 `;
 
 const StyledCloseButton = styled.div`

@@ -43,20 +43,30 @@ const StyledInput = styled.input<{ hasError?: boolean; inputSize?: "sm" | "md" |
         return "1rem";
     }
   }};
-  border: 2px solid ${({ theme, hasError }) => (hasError ? theme.colors.error[500] : theme.colors.gray[300])};
-  border-radius: ${({ theme }) => theme.borderRadius.md};
+  line-height: 1;
+  border: 2px solid ${({ theme, hasError }) => (hasError ? theme.colors.error[500] : "rgba(38, 161, 223, 0.2)")};
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
   outline: none;
-  transition: all 0.2s;
-  background-color: white;
+  transition: all ${({ theme }) => theme.transitions.base};
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: ${({ theme }) => theme.blur.sm};
+  box-shadow: ${({ theme }) => theme.shadows.sm};
 
   &:focus {
     border-color: ${({ theme, hasError }) => (hasError ? theme.colors.error[500] : theme.colors.primary[500])};
-    box-shadow: 0 0 0 3px ${({ theme, hasError }) => (hasError ? theme.colors.error[500] + "20" : theme.colors.primary[100])};
+    box-shadow: ${({ theme, hasError }) => (hasError ? theme.shadows.md : `${theme.shadows.md}, ${theme.shadows.glow}`)};
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.95);
+  }
+
+  &:hover:not(:disabled) {
+    border-color: ${({ theme, hasError }) => (hasError ? theme.colors.error[600] : theme.colors.primary[400])};
   }
 
   &:disabled {
     background-color: ${({ theme }) => theme.colors.gray[100]};
     cursor: not-allowed;
+    opacity: 0.6;
   }
 
   &::placeholder {

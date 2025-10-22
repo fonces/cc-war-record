@@ -31,31 +31,33 @@ const StyledOverlay = styled.div<{ isOpen: boolean }>`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: ${({ theme }) => theme.blur.md};
   display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
   align-items: center;
   justify-content: center;
   z-index: 1000;
   padding: ${({ theme }) => theme.spacing[4]};
+  animation: fadeIn ${({ theme }) => theme.transitions.base};
 `;
 
 const StyledDialog = styled.div`
-  background: white;
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
-  box-shadow:
-    0 20px 25px -5px rgba(0, 0, 0, 0.1),
-    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: ${({ theme }) => theme.blur.lg};
+  border-radius: ${({ theme }) => theme.borderRadius["2xl"]};
+  border: 1px solid rgba(38, 161, 223, 0.2);
+  box-shadow: ${({ theme }) => theme.shadows["2xl"]}, ${({ theme }) => theme.shadows.glow};
   width: 100%;
   max-width: 500px;
   max-height: 90vh;
   display: flex;
   flex-direction: column;
-  animation: dialogSlideIn 0.2s ease-out;
+  animation: dialogSlideIn ${({ theme }) => theme.transitions.bounce};
 
   @keyframes dialogSlideIn {
     from {
       opacity: 0;
-      transform: scale(0.95) translateY(-10px);
+      transform: scale(0.9) translateY(-20px);
     }
     to {
       opacity: 1;
@@ -66,7 +68,9 @@ const StyledDialog = styled.div`
 
 const StyledHeader = styled.div`
   padding: ${({ theme }) => theme.spacing[6]} ${({ theme }) => theme.spacing[6]} ${({ theme }) => theme.spacing[4]};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray[200]};
+  border-bottom: 1px solid rgba(38, 161, 223, 0.15);
+  background: ${({ theme }) => theme.gradients.glass};
+  border-radius: ${({ theme }) => theme.borderRadius["2xl"]} ${({ theme }) => theme.borderRadius["2xl"]} 0 0;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -74,9 +78,12 @@ const StyledHeader = styled.div`
 `;
 
 const StyledTitle = styled.h2`
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: ${({ theme }) => theme.colors.text};
+  font-size: 1.25rem;
+  font-weight: 700;
+  background: ${({ theme }) => theme.gradients.primary};
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin: 0;
   flex: 1;
   margin-right: ${({ theme }) => theme.spacing[4]};

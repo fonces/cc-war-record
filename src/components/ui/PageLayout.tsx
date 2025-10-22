@@ -27,7 +27,11 @@ const StyledPageTitle = styled.h1`
   font-size: 2rem;
   font-weight: bold;
   margin: 0;
-  color: ${({ theme }) => theme.colors.text};
+  background: ${({ theme }) => theme.gradients.primary};
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: fadeIn 0.5s ease-out;
 `;
 
 const StyledPageDescription = styled.p`
