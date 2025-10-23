@@ -46,19 +46,6 @@ const StyledErrorCloseButton = styled.button`
   }
 `;
 
-const StyledCreateButton = styled(Button)`
-  background: ${({ theme }) => theme.colors.surface};
-  backdrop-filter: blur(8px);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-  &:hover {
-    background: ${({ theme }) => (theme.isDark ? "rgba(38, 161, 223, 0.15)" : "rgba(38, 161, 223, 0.1)")};
-    border-color: ${({ theme }) => theme.colors.primary[400]};
-    transform: translateX(-4px);
-    box-shadow: 0 4px 12px rgba(38, 161, 223, 0.15);
-  }
-`;
-
 /**
  * ホーム画面コンポーネント
  * 現シーズンの戦績を表示、シーズン未作成時は作成ボタンを表示
@@ -306,10 +293,10 @@ export const HomePage = () => {
     <PageContainer>
       <PageTitleContainer>
         <PageTitle>{t("pages.home.title", { seasonName: latestSeason?.seasonName })}</PageTitle>
-        <StyledCreateButton variant="outline" size="sm" onClick={handleCreateSeason}>
+        <Button variant="outline" size="sm" onClick={handleCreateSeason}>
           <Icon name="add" size={16} />
           {t("pages.home.createSeason")}
-        </StyledCreateButton>
+        </Button>
       </PageTitleContainer>
       <PageDescription>{t("pages.home.description")}</PageDescription>
 

@@ -5,7 +5,7 @@ import type { ButtonHTMLAttributes, ReactNode } from "react";
 type ButtonVariant = "primary" | "secondary" | "outline" | "ghost" | "win" | "defeat";
 type ButtonSize = "sm" | "md" | "lg";
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: ButtonVariant;
   size?: ButtonSize;
   fullWidth?: boolean;
@@ -19,7 +19,7 @@ const StyledButton = styled.button<ButtonProps>`
   font-weight: 600;
   gap: 0.4rem;
   line-height: 1;
-  transition: all ${({ theme }) => theme.transitions.bounce};
+  transition: all ${({ theme }) => theme.transitions.base};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   cursor: pointer;
   outline: none;

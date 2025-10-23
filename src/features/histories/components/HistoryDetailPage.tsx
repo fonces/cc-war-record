@@ -97,19 +97,6 @@ const StyledBackButtonContainer = styled.div`
   animation: ${fadeIn} 0.6s ease-out 0.2s backwards;
 `;
 
-const StyledBackButton = styled(Button)`
-  background: ${({ theme }) => theme.colors.surface};
-  backdrop-filter: blur(8px);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-  &:hover {
-    background: ${({ theme }) => (theme.isDark ? "rgba(38, 161, 223, 0.15)" : "rgba(38, 161, 223, 0.1)")};
-    border-color: ${({ theme }) => theme.colors.primary[400]};
-    transform: translateX(-4px);
-    box-shadow: 0 4px 12px rgba(38, 161, 223, 0.15);
-  }
-`;
-
 /**
  * シーズン履歴詳細画面コンポーネント
  * 特定シーズンの詳細戦績を表示
@@ -348,10 +335,10 @@ export const HistoryDetailPage = () => {
       />
 
       <StyledBackButtonContainer>
-        <StyledBackButton variant="outline" size="sm" onClick={() => navigate({ to: "/histories" })}>
+        <Button variant="outline" size="sm" onClick={() => navigate({ to: "/histories" })}>
           <Icon name="back" size={16} />
           {t("pages.historyDetail.backToList")}
-        </StyledBackButton>
+        </Button>
       </StyledBackButtonContainer>
 
       {/* 削除確認ダイアログ */}

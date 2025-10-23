@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Button, Icon, Input } from "@/components/ui";
+import { Button, Icon, IconicButton, Input } from "@/components/ui";
 import { useTranslation } from "@/hooks";
 import { getTotalMatches, getWins, getDefeats, getWinRate } from "@/types/history";
 import { getWinRateColor } from "@/utils/colors";
@@ -114,23 +114,6 @@ const StyledEditInput = styled(Input)`
   font-weight: 600;
 `;
 
-const StyledActionButton = styled(Button)`
-  padding: ${({ theme }) => theme.spacing[1]};
-  min-width: auto;
-
-  &.delete:hover {
-    background-color: ${({ theme }) => theme.colors.error[50]};
-    border-color: ${({ theme }) => theme.colors.error[600]};
-    color: ${({ theme }) => theme.colors.error[600]};
-  }
-
-  &.save:hover {
-    background-color: ${({ theme }) => theme.colors.success[50]};
-    border-color: ${({ theme }) => theme.colors.success[600]};
-    color: ${({ theme }) => theme.colors.success[600]};
-  }
-`;
-
 type CharacterCardProps = {
   /** キャラクター戦績統計 */
   stats: CharacterStats;
@@ -206,8 +189,7 @@ export const CharacterCard = ({
               autoFocus
             />
             <StyledCharacterActions>
-              <StyledActionButton
-                variant="outline"
+              <IconicButton
                 icon={<Icon name="accept" size={16} />}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -215,8 +197,7 @@ export const CharacterCard = ({
                 }}
                 title={t("common.save")}
               />
-              <StyledActionButton
-                variant="outline"
+              <IconicButton
                 icon={<Icon name="close" size={16} />}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -240,8 +221,7 @@ export const CharacterCard = ({
                 <span>{t("character.stats.noWinRate")}</span>
               )}
               <StyledCharacterActions>
-                <StyledActionButton
-                  variant="outline"
+                <IconicButton
                   icon={<Icon name="add" size={16} />}
                   onClick={(e) => {
                     e.stopPropagation();
@@ -249,8 +229,7 @@ export const CharacterCard = ({
                   }}
                   title={t("character.actions.addJob")}
                 />
-                <StyledActionButton
-                  variant="outline"
+                <IconicButton
                   icon={<Icon name="edit" size={16} />}
                   onClick={(e) => {
                     e.stopPropagation();
@@ -258,8 +237,7 @@ export const CharacterCard = ({
                   }}
                   title={t("character.actions.editName")}
                 />
-                <StyledActionButton
-                  variant="outline"
+                <IconicButton
                   icon={<Icon name="delete" size={16} />}
                   onClick={(e) => {
                     e.stopPropagation();
