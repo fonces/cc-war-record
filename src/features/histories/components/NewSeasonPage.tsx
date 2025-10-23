@@ -1,31 +1,10 @@
 import { useRouter } from "@tanstack/react-router";
 import { useState } from "react";
-import styled from "styled-components";
 import { Form, FormGroup, FormActions } from "@/components/layout";
-import { Button, Input, Dialog, PageContainer, PageTitleContainer, PageTitle, PageDescription } from "@/components/ui";
+import { Button, Input, Dialog, PageContainer, PageTitleContainer, PageTitle, PageDescription, Flush } from "@/components/ui";
 import { useTranslation } from "@/hooks";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { useHistoryStore } from "@/stores";
-
-const StyledErrorMessage = styled.div`
-  padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
-  background-color: ${({ theme }) => (theme.isDark ? "rgba(239, 68, 68, 0.15)" : `${theme.colors.error[500]}20`)};
-  border: 1px solid ${({ theme }) => (theme.isDark ? "rgba(239, 68, 68, 0.3)" : `${theme.colors.error[500]}40`)};
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  color: ${({ theme }) => (theme.isDark ? "#fca5a5" : theme.colors.error[500])};
-  margin-bottom: ${({ theme }) => theme.spacing[4]};
-  font-size: 0.875rem;
-`;
-
-const StyledSuccessMessage = styled.div`
-  padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
-  background-color: ${({ theme }) => (theme.isDark ? "rgba(34, 197, 94, 0.15)" : `${theme.colors.success[500]}20`)};
-  border: 1px solid ${({ theme }) => (theme.isDark ? "rgba(34, 197, 94, 0.3)" : `${theme.colors.success[500]}40`)};
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  color: ${({ theme }) => (theme.isDark ? "#86efac" : theme.colors.success[500])};
-  margin-bottom: ${({ theme }) => theme.spacing[4]};
-  font-size: 0.875rem;
-`;
 
 /**
  * 新規シーズン作成画面コンポーネント
@@ -149,10 +128,10 @@ export const NewSeasonPage = () => {
 
         <Form onSubmit={handleSubmit}>
           {/* エラーメッセージ */}
-          {(error || validationError) && <StyledErrorMessage>{validationError || error}</StyledErrorMessage>}
+          {(error || validationError) && <Flush type="error">{validationError || error}</Flush>}
 
           {/* 成功メッセージ */}
-          {successMessage && <StyledSuccessMessage>{successMessage}</StyledSuccessMessage>}
+          {successMessage && <Flush type="success">{successMessage}</Flush>}
 
           {/* シーズン名入力 */}
           <FormGroup>
