@@ -1,2 +1,0 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/histories-CPYWWnsJ.js","assets/index-j1yoC5uG.js","assets/colors-CQ5nDc5_.js","assets/utils-ahtYqTut.js"])))=>i.map(i=>d[i]);
-import{B as e,z as t}from"./index-j1yoC5uG.js";var n=e(()=>t(()=>import(`./histories-CPYWWnsJ.js`),__vite__mapDeps([0,1,2,3])).then(e=>({default:e.NewSeasonPage})));export{n as component};

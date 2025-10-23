@@ -1,0 +1,2 @@
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/home-Cxri4YS8.js","assets/index-BERaIJaj.js","assets/stores-DsdzEjKc.js"])))=>i.map(i=>d[i]);
+import{X as e,Y as t}from"./index-BERaIJaj.js";var n=e(()=>t(()=>import(`./home-Cxri4YS8.js`),__vite__mapDeps([0,1,2])).then(e=>({default:e.HomePage})));export{n as component};

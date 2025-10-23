@@ -48,7 +48,7 @@ Error generating stack: `+e.message+`
   font-weight: 600;
   gap: 0.4rem;
   line-height: 1;
-  transition: all ${({theme:e})=>e.transitions.bounce};
+  transition: all ${({theme:e})=>e.transitions.base};
   border-radius: ${({theme:e})=>e.borderRadius.lg};
   cursor: pointer;
   outline: none;
@@ -102,29 +102,33 @@ Error generating stack: `+e.message+`
             left: 100%;
           }
         `;case`secondary`:return`
-          background-color: ${t.isDark?`rgba(100, 116, 139, 0.9)`:t.colors.gray[600]};
-          color: white;
-          border: none;
-
-          &:hover:not(:disabled) {
-            background-color: ${t.isDark?`rgba(148, 163, 184, 1)`:t.colors.gray[700]};
-          }
-
-          &:active:not(:disabled) {
-            background-color: ${t.isDark?`rgba(71, 85, 105, 1)`:t.colors.gray[800]};
-          }
-        `;case`outline`:return`
-          background-color: transparent;
-          color: ${t.colors.primary[600]};
-          border: 1px solid ${t.colors.primary[400]};
+          background: ${t.gradients.glass};
+          backdrop-filter: ${t.blur.md};
+          color: ${t.colors.text};
+          border: 1px solid ${t.colors.borderLight};
           box-shadow: ${t.shadows.sm};
 
           &:hover:not(:disabled) {
-            background: ${t.gradients.glass};
-            backdrop-filter: ${t.blur.sm};
-            border-color: ${t.colors.primary[600]};
-            transform: translateY(-1px);
+            border-color: ${t.colors.border};
+            transform: translateY(-2px);
             box-shadow: ${t.shadows.md};
+          }
+
+          &:active:not(:disabled) {
+            transform: translateY(0);
+            box-shadow: ${t.shadows.sm};
+          }
+        `;case`outline`:return`
+          background: ${t.gradients.glass};
+          backdrop-filter: ${t.blur.md};
+          color: ${t.colors.primary[600]};
+          border: 1px solid ${t.colors.borderLight};
+          box-shadow: ${t.shadows.sm};
+
+          &:hover:not(:disabled) {
+            border-color: ${t.colors.border};
+            transform: translateY(-2px);
+            box-shadow: ${t.shadows.md}, 0 0 0 1px rgba(38, 161, 223, 0.1);
           }
 
           &:active:not(:disabled) {
@@ -137,37 +141,48 @@ Error generating stack: `+e.message+`
           border: none;
 
           &:hover:not(:disabled) {
-            background-color: ${t.isDark?`rgba(255, 255, 255, 0.05)`:t.colors.gray[100]};
+            background: ${t.gradients.glass};
+            backdrop-filter: ${t.blur.sm};
           }
 
           &:active:not(:disabled) {
-            background-color: ${t.isDark?`rgba(255, 255, 255, 0.1)`:t.colors.gray[200]};
+            background: ${t.isDark?`rgba(255, 255, 255, 0.1)`:t.colors.gray[200]};
           }
         `;case`win`:return`
-          background-color: ${t.isDark?`rgba(34, 197, 94, 0.15)`:t.colors.win[200]};
-          color: ${t.isDark?`rgba(134, 239, 172, 1)`:t.colors.win[700]};
-          border: ${t.isDark?`1px solid rgba(34, 197, 94, 0.3)`:`none`};
+          background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(34, 197, 94, 0.15) 100%);
+          backdrop-filter: ${t.blur.md};
+          color: ${t.colors.win[700]};
+          border: 1px solid rgba(34, 197, 94, 0.2);
+          box-shadow: ${t.shadows.sm};
 
           &:hover:not(:disabled) {
-            background-color: ${t.isDark?`rgba(34, 197, 94, 0.25)`:t.colors.win[300]};
-            border-color: ${t.isDark?`rgba(34, 197, 94, 0.5)`:`transparent`};
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(34, 197, 94, 0.2) 100%);
+            border-color: rgba(34, 197, 94, 0.3);
+            transform: translateY(-2px);
+            box-shadow: ${t.shadows.md}, 0 4px 12px rgba(34, 197, 94, 0.2);
           }
 
           &:active:not(:disabled) {
-            background-color: ${t.isDark?`rgba(34, 197, 94, 0.35)`:t.colors.win[800]};
+            transform: translateY(0);
+            box-shadow: ${t.shadows.sm};
           }
         `;case`defeat`:return`
-          background-color: ${t.isDark?`rgba(239, 68, 68, 0.15)`:t.colors.defeat[200]};
-          color: ${t.isDark?`rgba(252, 165, 165, 1)`:t.colors.defeat[700]};
-          border: ${t.isDark?`1px solid rgba(239, 68, 68, 0.3)`:`none`};
+          background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.15) 100%);
+          backdrop-filter: ${t.blur.md};
+          color: ${t.colors.defeat[700]};
+          border: 1px solid rgba(239, 68, 68, 0.2);
+          box-shadow: ${t.shadows.sm};
 
           &:hover:not(:disabled) {
-            background-color: ${t.isDark?`rgba(239, 68, 68, 0.25)`:t.colors.defeat[300]};
-            border-color: ${t.isDark?`rgba(239, 68, 68, 0.5)`:`transparent`};
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(239, 68, 68, 0.2) 100%);
+            border-color: rgba(239, 68, 68, 0.3);
+            transform: translateY(-2px);
+            box-shadow: ${t.shadows.md}, 0 4px 12px rgba(239, 68, 68, 0.2);
           }
 
           &:active:not(:disabled) {
-            background-color: ${t.isDark?`rgba(239, 68, 68, 0.35)`:t.colors.defeat[800]};
+            transform: translateY(0);
+            box-shadow: ${t.shadows.sm};
           }
         `}}}
 
@@ -199,32 +214,32 @@ Error generating stack: `+e.message+`
   padding: ${({theme:e,inputSize:t=`md`})=>{switch(t){case`sm`:return`${e.spacing[2]} ${e.spacing[3]}`;case`lg`:return`${e.spacing[4]} ${e.spacing[5]}`;default:return`${e.spacing[3]} ${e.spacing[4]}`}}};
   font-size: ${({size:e=`md`})=>{switch(e){case`sm`:return`0.875rem`;case`lg`:return`1.125rem`;default:return`1rem`}}};
   line-height: 1;
-  border: 2px solid ${({theme:e,hasError:t})=>t?e.colors.error[500]:e.colors.border};
+  border: 1px solid ${({theme:e,hasError:t})=>t?e.colors.error[500]:e.colors.borderLight};
   border-radius: ${({theme:e})=>e.borderRadius.lg};
   outline: none;
   transition: all ${({theme:e})=>e.transitions.base};
-  background: ${({theme:e})=>e.colors.surface};
-  backdrop-filter: ${({theme:e})=>e.blur.sm};
+  background: ${({theme:e})=>e.gradients.glass};
+  backdrop-filter: ${({theme:e})=>e.blur.md};
   box-shadow: ${({theme:e})=>e.shadows.sm};
   color: ${({theme:e})=>e.colors.text};
 
   &:focus {
-    border-color: ${({theme:e,hasError:t})=>t?e.colors.error[500]:e.colors.primary[500]};
-    box-shadow: ${({theme:e,hasError:t})=>t?e.shadows.md:`${e.shadows.md}, ${e.shadows.glow}`};
+    border-color: ${({theme:e,hasError:t})=>t?e.colors.error[500]:e.colors.border};
+    box-shadow: ${({theme:e,hasError:t})=>t?e.shadows.md:`${e.shadows.md}, 0 0 0 1px rgba(38, 161, 223, 0.1)`};
     transform: translateY(-1px);
-    background: ${({theme:e})=>e.isDark?`rgba(255, 255, 255, 0.08)`:`rgba(255, 255, 255, 0.95)`};
   }
 
   &:hover:not(:disabled) {
-    border-color: ${({theme:e,hasError:t})=>t?e.colors.error[600]:e.colors.primary[400]};
+    border-color: ${({theme:e,hasError:t})=>t?e.colors.error[600]:e.colors.border};
   }
 
   &:disabled {
-    background-color: ${({theme:e})=>e.isDark?`rgba(51, 65, 85, 0.5)`:e.colors.gray[100]};
-    color: ${({theme:e})=>e.isDark?`rgba(148, 163, 184, 0.6)`:e.colors.gray[500]};
-    border-color: ${({theme:e})=>e.isDark?`rgba(71, 85, 105, 0.5)`:e.colors.gray[300]};
+    background: ${({theme:e})=>e.isDark?`rgba(255, 255, 255, 0.03)`:`rgba(0, 0, 0, 0.03)`};
+    backdrop-filter: ${({theme:e})=>e.blur.sm};
+    color: ${({theme:e})=>e.colors.textSecondary};
+    border-color: ${({theme:e})=>e.colors.borderLight};
     cursor: not-allowed;
-    opacity: ${({theme:e})=>e.isDark?`1`:`0.6`};
+    opacity: 0.5;
   }
 
   &::placeholder {
@@ -284,17 +299,17 @@ Error generating stack: `+e.message+`
   color: ${({theme:e})=>e.colors.textSecondary};
 `,ps=B.button`
   padding: 0.5rem 2.5rem 0.5rem 1rem;
-  border: 2px solid ${({isOpen:e,hasError:t,theme:n})=>t?n.colors.error[500]:e?n.colors.primary[400]:n.colors.border};
+  border: 1px solid ${({isOpen:e,hasError:t,theme:n})=>t?n.colors.error[500]:e?n.colors.border:n.colors.borderLight};
   border-radius: ${({theme:e})=>e.borderRadius.lg};
-  background: ${({theme:e})=>e.colors.surface};
-  backdrop-filter: ${({theme:e})=>e.blur.sm};
+  background: ${({theme:e})=>e.gradients.glass};
+  backdrop-filter: ${({theme:e})=>e.blur.md};
   color: ${({theme:e})=>e.colors.text};
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
   text-align: left;
   transition: all ${({theme:e})=>e.transitions.base};
-  box-shadow: ${({theme:e,isOpen:t})=>t?`${e.shadows.md}, ${e.shadows.glow}`:e.shadows.sm};
+  box-shadow: ${({theme:e,isOpen:t})=>t?`${e.shadows.md}, 0 0 0 1px rgba(38, 161, 223, 0.1)`:e.shadows.sm};
   position: relative;
   white-space: nowrap;
   overflow: hidden;
@@ -302,24 +317,24 @@ Error generating stack: `+e.message+`
   width: 100%;
 
   &:hover:not(:disabled) {
-    border-color: ${({theme:e})=>e.colors.primary[400]};
+    border-color: ${({theme:e})=>e.colors.border};
     box-shadow: ${({theme:e})=>e.shadows.md};
     transform: translateY(-1px);
   }
 
   &:focus {
     outline: none;
-    border-color: ${({theme:e,hasError:t})=>t?e.colors.error[500]:e.colors.primary[500]};
-    box-shadow: ${({theme:e})=>`${e.shadows.md}, ${e.shadows.glow}`};
-    background: ${({theme:e})=>e.isDark?`rgba(255, 255, 255, 0.08)`:`rgba(255, 255, 255, 0.95)`};
+    border-color: ${({theme:e,hasError:t})=>t?e.colors.error[500]:e.colors.border};
+    box-shadow: ${({theme:e})=>`${e.shadows.md}, 0 0 0 1px rgba(38, 161, 223, 0.1)`};
   }
 
   &:disabled {
-    background-color: ${({theme:e})=>e.isDark?`rgba(51, 65, 85, 0.5)`:e.colors.gray[100]};
-    color: ${({theme:e})=>e.isDark?`rgba(148, 163, 184, 0.6)`:e.colors.gray[500]};
-    border-color: ${({theme:e})=>e.isDark?`rgba(71, 85, 105, 0.5)`:e.colors.gray[300]};
+    background: ${({theme:e})=>e.isDark?`rgba(255, 255, 255, 0.03)`:`rgba(0, 0, 0, 0.03)`};
+    backdrop-filter: ${({theme:e})=>e.blur.sm};
+    color: ${({theme:e})=>e.colors.textSecondary};
+    border-color: ${({theme:e})=>e.colors.borderLight};
     cursor: not-allowed;
-    opacity: ${({theme:e})=>e.isDark?`1`:`0.6`};
+    opacity: 0.5;
   }
 `,ms=B.div`
   position: absolute;
@@ -337,11 +352,11 @@ Error generating stack: `+e.message+`
   top: calc(100% + 0.5rem);
   left: 0;
   right: 0;
-  background: ${({theme:e})=>e.colors.surface};
-  backdrop-filter: ${({theme:e})=>e.blur.md};
-  border: 2px solid ${({theme:e})=>e.colors.border};
+  background: ${({theme:e})=>e.gradients.glass};
+  backdrop-filter: ${({theme:e})=>`${e.blur.md} brightness(${e.isDark?`0%`:`100%`})`};
+  border: 1px solid ${({theme:e})=>e.colors.borderLight};
   border-radius: ${({theme:e})=>e.borderRadius.lg};
-  box-shadow: ${({theme:e})=>`${e.shadows.xl}, ${e.shadows.glow}`};
+  box-shadow: ${({theme:e})=>`${e.shadows.xl}, 0 0 0 1px rgba(38, 161, 223, 0.1)`};
   max-height: 300px;
   overflow-y: auto;
   z-index: 50;
@@ -356,6 +371,7 @@ Error generating stack: `+e.message+`
     right: 0;
     height: 3px;
     background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
+    border-radius: ${({theme:e})=>e.borderRadius.lg} ${({theme:e})=>e.borderRadius.lg} 0 0;
   }
 `,gs=B.div`
   padding: ${({theme:e})=>e.spacing[3]} ${({theme:e})=>e.spacing[4]};
@@ -467,7 +483,7 @@ Error generating stack: `+e.message+`
     opacity: 1;
     transform: translateY(0);
   }
-`,bl=V`
+`;V`
   from {
     opacity: 0;
     transform: translateY(-10px);
@@ -476,7 +492,7 @@ Error generating stack: `+e.message+`
     opacity: 1;
     transform: translateY(0);
   }
-`,xl=V`
+`;const bl=V`
     0%,
     100% {
       opacity: 1;
@@ -486,7 +502,7 @@ Error generating stack: `+e.message+`
       opacity: 0.5;
       transform: scale(0.8);
     }
-`,Sl=V`
+`,xl=V`
     0% {
       opacity: 0.5;
     }
@@ -496,14 +512,14 @@ Error generating stack: `+e.message+`
     100% {
       opacity: 0.5;
     }
-`,Cl=V`
+`,Sl=V`
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
   }
-`,wl=V`
+`,Cl=V`
   from {
     opacity: 0;
     transform: scale(0.9) translateY(-20px);
@@ -512,7 +528,7 @@ Error generating stack: `+e.message+`
     opacity: 1;
     transform: scale(1) translateY(0);
   }
-`;var Tl=B.div`
+`;var wl=B.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -526,7 +542,7 @@ Error generating stack: `+e.message+`
   z-index: 1000;
   padding: ${({theme:e})=>e.spacing[4]};
   animation: ${yl} ${({theme:e})=>e.transitions.base};
-`,El=B.div`
+`,Tl=B.div`
   background: ${({theme:e})=>e.colors.surface};
   backdrop-filter: ${({theme:e})=>e.blur.lg};
   border-radius: ${({theme:e})=>e.borderRadius[`2xl`]};
@@ -537,8 +553,8 @@ Error generating stack: `+e.message+`
   max-height: 90vh;
   display: flex;
   flex-direction: column;
-  animation: ${wl} ${({theme:e})=>e.transitions.bounce};
-`,Dl=B.div`
+  animation: ${Cl} ${({theme:e})=>e.transitions.bounce};
+`,El=B.div`
   padding: ${({theme:e})=>e.spacing[6]} ${({theme:e})=>e.spacing[6]} ${({theme:e})=>e.spacing[4]};
   border-bottom: 1px solid ${({theme:e})=>e.colors.borderLight};
   background: ${({theme:e})=>e.gradients.glass};
@@ -547,7 +563,7 @@ Error generating stack: `+e.message+`
   justify-content: space-between;
   align-items: flex-start;
   flex-shrink: 0;
-`,Ol=B.h2`
+`,Dl=B.h2`
   font-size: 1.25rem;
   font-weight: 700;
   background: ${({theme:e})=>e.gradients.primary};
@@ -557,7 +573,7 @@ Error generating stack: `+e.message+`
   margin: 0;
   flex: 1;
   margin-right: ${({theme:e})=>e.spacing[4]};
-`,kl=B.button`
+`,Ol=B.button`
   background: none;
   border: none;
   padding: ${({theme:e})=>e.spacing[1]};
@@ -572,27 +588,27 @@ Error generating stack: `+e.message+`
     background-color: ${({theme:e})=>e.isDark?`rgba(255, 255, 255, 0.1)`:e.colors.gray[100]};
     color: ${({theme:e})=>e.colors.text};
   }
-`,Al=B.div`
+`,kl=B.div`
   padding: ${({theme:e})=>e.spacing[4]} ${({theme:e})=>e.spacing[6]};
   color: ${({theme:e})=>e.colors.textSecondary};
   line-height: 1.6;
   overflow-y: auto;
   flex: 1;
   min-height: 0;
-`,jl=B.div`
+`,Al=B.div`
   padding: ${({theme:e})=>e.spacing[4]} ${({theme:e})=>e.spacing[6]} ${({theme:e})=>e.spacing[6]};
   display: flex;
   gap: ${({theme:e})=>e.spacing[3]};
   justify-content: flex-end;
   border-top: 1px solid ${({theme:e})=>e.colors.gray[200]};
   flex-shrink: 0;
-`,Ml=B(zo)`
+`,jl=B(zo)`
   background-color: ${({confirmType:e,theme:t})=>e===`danger`?t.colors.error[600]:t.colors.primary[600]};
 
   &:hover:not(:disabled) {
     background-color: ${({confirmType:e,theme:t})=>e===`danger`?t.colors.error[700]:t.colors.primary[700]};
   }
-`;const Nl=(0,j.memo)(({isOpen:e,onClose:t,title:n,children:r,confirmText:i,cancelText:a,onConfirm:o,confirmType:s=`primary`,isLoading:c=!1})=>{let{t:l}=ml(),u=i??l(`common.confirm`),d=a??l(`common.cancel`);return gl(e),e?(0,A.jsx)(Tl,{isOpen:e,onClick:e=>{e.target===e.currentTarget&&t()},onKeyDown:e=>{e.key===`Escape`&&t()},children:(0,A.jsxs)(El,{role:`dialog`,"aria-modal":`true`,"aria-labelledby":`dialog-title`,children:[(0,A.jsxs)(Dl,{children:[(0,A.jsx)(Ol,{id:`dialog-title`,children:n}),(0,A.jsx)(kl,{onClick:t,"aria-label":l(`common.closeDialog`),children:(0,A.jsx)(ls,{name:`close`,size:20})})]}),(0,A.jsx)(Al,{children:r}),o&&(0,A.jsxs)(jl,{children:[(0,A.jsx)(zo,{variant:`secondary`,onClick:t,disabled:c,children:d}),(0,A.jsx)(Ml,{confirmType:s,onClick:o,disabled:c,children:c?l(`common.processing`):u})]})]})}):null});Nl.displayName=`Dialog`;var Pl=B.input`
+`;const Ml=(0,j.memo)(({isOpen:e,onClose:t,title:n,children:r,confirmText:i,cancelText:a,onConfirm:o,confirmType:s=`primary`,isLoading:c=!1})=>{let{t:l}=ml(),u=i??l(`common.confirm`),d=a??l(`common.cancel`);return gl(e),e?(0,A.jsx)(wl,{isOpen:e,onClick:e=>{e.target===e.currentTarget&&t()},onKeyDown:e=>{e.key===`Escape`&&t()},children:(0,A.jsxs)(Tl,{role:`dialog`,"aria-modal":`true`,"aria-labelledby":`dialog-title`,children:[(0,A.jsxs)(El,{children:[(0,A.jsx)(Dl,{id:`dialog-title`,children:n}),(0,A.jsx)(Ol,{onClick:t,"aria-label":l(`common.closeDialog`),children:(0,A.jsx)(ls,{name:`close`,size:20})})]}),(0,A.jsx)(kl,{children:r}),o&&(0,A.jsxs)(Al,{children:[(0,A.jsx)(zo,{variant:`secondary`,onClick:t,disabled:c,children:d}),(0,A.jsx)(jl,{confirmType:s,onClick:o,disabled:c,children:c?l(`common.processing`):u})]})]})}):null});Ml.displayName=`Dialog`;var Nl=B.input`
   appearance: none;
   width: 1rem;
   height: 1rem;
@@ -623,7 +639,7 @@ Error generating stack: `+e.message+`
     opacity: 0.5;
     cursor: not-allowed;
   }
-`;const Fl=(0,j.memo)(({checked:e,onChange:t,disabled:n=!1})=>(0,A.jsx)(Pl,{type:`checkbox`,checked:e,onChange:t,disabled:n}));Fl.displayName=`Checkbox`;var Il=V`
+`;const Pl=(0,j.memo)(({checked:e,onChange:t,disabled:n=!1})=>(0,A.jsx)(Nl,{type:`checkbox`,checked:e,onChange:t,disabled:n}));Pl.displayName=`Checkbox`;var Fl=V`
   from {
     opacity: 0;
     transform: translateY(-8px);
@@ -632,48 +648,47 @@ Error generating stack: `+e.message+`
     opacity: 1;
     transform: translateY(0);
   }
-`,Ll=B.div`
+`,Il=B.div`
   display: flex;
   flex-direction: column;
   gap: ${({theme:e})=>e.spacing[2]};
   position: relative;
   ${({fullWidth:e})=>e&&`width: 100%;`}
   ${({width:e})=>e&&`width: ${e};`}
-`,Rl=B.label`
+`,Ll=B.label`
   font-size: 0.75rem;
   font-weight: 500;
   color: ${({theme:e})=>e.colors.textSecondary};
-`,zl=B.button`
+`,Rl=B.button`
   padding: 0.5rem 2.5rem 0.5rem 1rem;
-  border: 2px solid ${({isOpen:e,theme:t})=>e?t.colors.primary[400]:t.colors.border};
+  border: 1px solid ${({isOpen:e,theme:t})=>e?t.colors.border:t.colors.borderLight};
   border-radius: ${({theme:e})=>e.borderRadius.lg};
-  background: ${({theme:e})=>e.colors.surface};
-  backdrop-filter: ${({theme:e})=>e.blur.sm};
+  background: ${({theme:e})=>e.gradients.glass};
+  backdrop-filter: ${({theme:e})=>e.blur.md};
   color: ${({theme:e})=>e.colors.text};
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
   text-align: left;
   transition: all ${({theme:e})=>e.transitions.base};
-  box-shadow: ${({theme:e,isOpen:t})=>t?`${e.shadows.md}, ${e.shadows.glow}`:e.shadows.sm};
+  box-shadow: ${({theme:e,isOpen:t})=>t?`${e.shadows.md}, 0 0 0 1px rgba(38, 161, 223, 0.1)`:e.shadows.sm};
   position: relative;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 
   &:hover {
-    border-color: ${({theme:e})=>e.colors.primary[400]};
+    border-color: ${({theme:e})=>e.colors.border};
     box-shadow: ${({theme:e})=>e.shadows.md};
     transform: translateY(-1px);
   }
 
   &:focus {
     outline: none;
-    border-color: ${({theme:e})=>e.colors.primary[500]};
-    box-shadow: ${({theme:e})=>`${e.shadows.md}, ${e.shadows.glow}`};
-    background: ${({theme:e})=>e.isDark?`rgba(255, 255, 255, 0.08)`:`rgba(255, 255, 255, 0.95)`};
+    border-color: ${({theme:e})=>e.colors.border};
+    box-shadow: ${({theme:e})=>`${e.shadows.md}, 0 0 0 1px rgba(38, 161, 223, 0.1)`};
   }
-`,Bl=B.div`
+`,zl=B.div`
   position: absolute;
   right: 0.75rem;
   top: 50%;
@@ -684,21 +699,21 @@ Error generating stack: `+e.message+`
   align-items: center;
   justify-content: center;
   color: #26a1df;
-`,Vl=B.div`
+`,Bl=B.div`
   position: absolute;
   top: calc(100% + 0.5rem);
   left: 0;
   right: 0;
-  background: ${({theme:e})=>e.colors.surface};
-  backdrop-filter: ${({theme:e})=>e.blur.md};
-  border: 2px solid ${({theme:e})=>e.colors.border};
+  background: ${({theme:e})=>e.gradients.glass};
+  backdrop-filter: ${({theme:e})=>e.blur.md} brightness(0%);
+  border: 1px solid ${({theme:e})=>e.colors.borderLight};
   border-radius: ${({theme:e})=>e.borderRadius.lg};
-  box-shadow: ${({theme:e})=>`${e.shadows.xl}, ${e.shadows.glow}`};
+  box-shadow: ${({theme:e})=>`${e.shadows.xl}, 0 0 0 1px rgba(38, 161, 223, 0.1)`};
   max-height: 300px;
   overflow-y: auto;
   z-index: 50;
   display: ${({isOpen:e})=>e?`block`:`none`};
-  animation: ${Il} 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: ${Fl} 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
   &::before {
     content: "";
@@ -708,8 +723,9 @@ Error generating stack: `+e.message+`
     right: 0;
     height: 3px;
     background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
+    border-radius: ${({theme:e})=>e.borderRadius.lg} ${({theme:e})=>e.borderRadius.lg} 0 0;
   }
-`,Hl=B.label`
+`,Vl=B.label`
   display: flex;
   align-items: center;
   gap: ${({theme:e})=>e.spacing[3]};
@@ -746,22 +762,22 @@ Error generating stack: `+e.message+`
   &:last-child {
     padding-bottom: ${({theme:e})=>e.spacing[4]};
   }
-`,Ul=B.span`
+`,Hl=B.span`
   font-size: 0.875rem;
   color: ${({theme:e})=>e.colors.text};
   flex: 1;
   font-weight: 500;
-`,Wl=B.span`
+`,Ul=B.span`
   color: ${({theme:e})=>e.colors.textSecondary};
   font-size: 0.75rem;
   font-weight: 600;
-`;const Gl=(0,j.memo)(({label:e,value:t,onChange:n,options:r,placeholder:i=`選択してください`,maxSelections:a,width:o,fullWidth:s})=>{let[c,l]=(0,j.useState)(!1),u=(0,j.useRef)(null);(0,j.useEffect)(()=>{let e=e=>{u.current&&!u.current.contains(e.target)&&l(!1)};return document.addEventListener(`mousedown`,e),()=>document.removeEventListener(`mousedown`,e)},[]);let d=e=>{if(t.includes(e))n(t.filter(t=>t!==e));else{if(a&&t.length>=a)return;n([...t,e])}};return(0,A.jsxs)(Ll,{ref:u,width:o,fullWidth:s,children:[e&&(0,A.jsx)(Rl,{children:e}),(0,A.jsxs)(zl,{type:`button`,onClick:()=>l(!c),isOpen:c,children:[(()=>t.length===0?i:t.map(e=>r.find(t=>t.value===e)?.label||e).join(`, `))(),t.length>0&&(0,A.jsxs)(Wl,{children:[` (`,t.length,`)`]}),(0,A.jsx)(Bl,{isOpen:c,children:(0,A.jsx)(ls,{name:`add`,size:16})})]}),(0,A.jsx)(Vl,{isOpen:c,children:r.map(e=>{let n=a?t.length>=a&&!t.includes(e.value):!1;return(0,A.jsxs)(Hl,{disabled:n,children:[(0,A.jsx)(Fl,{checked:t.includes(e.value),onChange:()=>d(e.value),disabled:n}),(0,A.jsx)(Ul,{children:e.label})]},e.value)})})]})});Gl.displayName=`MultiSelect`;var Kl=B.div`
+`;const Wl=(0,j.memo)(({label:e,value:t,onChange:n,options:r,placeholder:i=`選択してください`,maxSelections:a,width:o,fullWidth:s})=>{let[c,l]=(0,j.useState)(!1),u=(0,j.useRef)(null);(0,j.useEffect)(()=>{let e=e=>{u.current&&!u.current.contains(e.target)&&l(!1)};return document.addEventListener(`mousedown`,e),()=>document.removeEventListener(`mousedown`,e)},[]);let d=e=>{if(t.includes(e))n(t.filter(t=>t!==e));else{if(a&&t.length>=a)return;n([...t,e])}};return(0,A.jsxs)(Il,{ref:u,width:o,fullWidth:s,children:[e&&(0,A.jsx)(Ll,{children:e}),(0,A.jsxs)(Rl,{type:`button`,onClick:()=>l(!c),isOpen:c,children:[(()=>t.length===0?i:t.map(e=>r.find(t=>t.value===e)?.label||e).join(`, `))(),t.length>0&&(0,A.jsxs)(Ul,{children:[` (`,t.length,`)`]}),(0,A.jsx)(zl,{isOpen:c,children:(0,A.jsx)(ls,{name:`add`,size:16})})]}),(0,A.jsx)(Bl,{isOpen:c,children:r.map(e=>{let n=a?t.length>=a&&!t.includes(e.value):!1;return(0,A.jsxs)(Vl,{disabled:n,children:[(0,A.jsx)(Pl,{checked:t.includes(e.value),onChange:()=>d(e.value),disabled:n}),(0,A.jsx)(Hl,{children:e.label})]},e.value)})})]})});Wl.displayName=`MultiSelect`;var Gl=B.div`
   padding: ${({theme:e})=>e.spacing[6]};
   max-width: 1200px;
   min-width: 800px;
   margin: 0 auto;
   width: 100%;
-`,ql=B.div`
+`,Kl=B.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -773,7 +789,7 @@ Error generating stack: `+e.message+`
     align-items: flex-start;
     gap: ${({theme:e})=>e.spacing[2]};
   }
-`,Jl=B.h1`
+`,ql=B.h1`
   font-size: 2rem;
   font-weight: bold;
   margin: 0;
@@ -782,11 +798,11 @@ Error generating stack: `+e.message+`
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: ${yl} 0.5s ease-out;
-`,Yl=B.p`
+`,Jl=B.p`
   font-size: 1rem;
   color: ${({theme:e})=>e.colors.textSecondary};
   margin-bottom: ${({theme:e})=>e.spacing[6]};
-`;const Xl=(0,j.memo)(({children:e})=>(0,A.jsx)(Kl,{children:e}));Xl.displayName=`PageContainer`;const Zl=(0,j.memo)(({children:e})=>(0,A.jsx)(ql,{children:e}));Zl.displayName=`PageTitleContainer`;const K=(0,j.memo)(({children:e})=>(0,A.jsx)(Jl,{children:e}));K.displayName=`PageTitle`;const q=(0,j.memo)(({children:e})=>(0,A.jsx)(Yl,{children:e}));q.displayName=`PageDescription`;var J=V`
+`;const Yl=(0,j.memo)(({children:e})=>(0,A.jsx)(Gl,{children:e}));Yl.displayName=`PageContainer`;const Xl=(0,j.memo)(({children:e})=>(0,A.jsx)(Kl,{children:e}));Xl.displayName=`PageTitleContainer`;const Zl=(0,j.memo)(({children:e})=>(0,A.jsx)(ql,{children:e}));Zl.displayName=`PageTitle`;const K=(0,j.memo)(({children:e})=>(0,A.jsx)(Jl,{children:e}));K.displayName=`PageDescription`;var q=V`
   from {
     opacity: 0;
     transform: translateY(8px);
@@ -795,7 +811,7 @@ Error generating stack: `+e.message+`
     opacity: 1;
     transform: translateY(0);
   }
-`,Y=V`
+`,J=V`
   from {
     opacity: 0;
     transform: translateY(-8px);
@@ -804,15 +820,15 @@ Error generating stack: `+e.message+`
     opacity: 1;
     transform: translateY(0);
   }
-`,X=B.div`
+`,Y=B.div`
   position: relative;
   display: ${({$fullWidth:e})=>e?`block`:`inline-block`};
   width: ${({$fullWidth:e})=>e?`100%`:`auto`};
-`,Ql=B.button`
+`,X=B.button`
   padding: 0.625rem 1rem;
-  background: ${({theme:e})=>e.colors.surface};
-  backdrop-filter: blur(10px);
-  border: 1px solid ${({theme:e})=>e.colors.border};
+  background: ${({theme:e})=>e.gradients.glass};
+  backdrop-filter: ${({theme:e})=>e.blur.md};
+  border: 1px solid ${({theme:e})=>e.colors.borderLight};
   border-radius: ${({theme:e})=>e.borderRadius.lg};
   color: ${({theme:e})=>e.colors.text};
   cursor: pointer;
@@ -825,9 +841,7 @@ Error generating stack: `+e.message+`
   width: ${({$fullWidth:e})=>e?`100%`:`auto`};
   justify-content: space-between;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.05),
-    0 0 0 1px rgba(38, 161, 223, 0.05);
+  box-shadow: ${({theme:e})=>e.shadows.sm};
   position: relative;
   overflow: hidden;
 
@@ -844,11 +858,11 @@ Error generating stack: `+e.message+`
   }
 
   &:hover {
-    border-color: rgba(38, 161, 223, 0.4);
+    border-color: ${({theme:e})=>e.colors.border};
     box-shadow:
-      0 4px 12px rgba(38, 161, 223, 0.15),
+      ${({theme:e})=>e.shadows.md},
       0 0 0 1px rgba(38, 161, 223, 0.1);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
 
     &::before {
       opacity: 1;
@@ -857,16 +871,16 @@ Error generating stack: `+e.message+`
 
   &:focus {
     outline: none;
-    border-color: rgba(38, 161, 223, 0.5);
+    border-color: ${({theme:e})=>e.colors.border};
     box-shadow:
-      0 0 0 3px rgba(38, 161, 223, 0.1),
-      0 4px 12px rgba(38, 161, 223, 0.2);
+      ${({theme:e})=>e.shadows.md},
+      0 0 0 1px rgba(38, 161, 223, 0.1);
   }
 
   &:active {
     transform: translateY(0);
   }
-`,$l=B.div`
+`,Ql=B.div`
   display: flex;
   align-items: center;
   gap: ${({theme:e})=>e.spacing[2]};
@@ -876,22 +890,22 @@ Error generating stack: `+e.message+`
   span {
     color: ${({theme:e})=>e.colors.text};
   }
-`,eu=B.div`
+`,$l=B.div`
   position: absolute;
   ${({direction:e})=>e===`up`?`bottom: calc(100% + 8px);`:`top: calc(100% + 8px);`}
   left: 0;
   right: 0;
-  background: ${({theme:e})=>e.colors.surface};
-  backdrop-filter: blur(20px);
-  border: 1px solid ${({theme:e})=>e.colors.border};
+  background: ${({theme:e})=>e.gradients.glass};
+  backdrop-filter: ${({theme:e})=>e.blur.md} brightness(0%);
+  border: 1px solid ${({theme:e})=>e.colors.borderLight};
   border-radius: ${({theme:e})=>e.borderRadius.lg};
   box-shadow:
-    0 10px 40px rgba(38, 161, 223, 0.15),
-    0 0 0 1px rgba(38, 161, 223, 0.05);
+    ${({theme:e})=>e.shadows.xl},
+    0 0 0 1px rgba(38, 161, 223, 0.1);
   overflow: hidden;
   z-index: 50;
   display: ${({isOpen:e})=>e?`block`:`none`};
-  animation: ${({direction:e})=>e===`up`?J:Y} 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: ${({direction:e})=>e===`up`?q:J} 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
   &::before {
     content: "";
@@ -901,8 +915,9 @@ Error generating stack: `+e.message+`
     right: 0;
     height: 3px;
     background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
+    border-radius: ${({theme:e})=>e.borderRadius.lg} ${({theme:e})=>e.borderRadius.lg} 0 0;
   }
-`,tu=B.button`
+`,eu=B.button`
   width: 100%;
   padding: ${({theme:e})=>e.spacing[3]} ${({theme:e})=>e.spacing[4]};
   background-color: ${({isActive:e})=>e?`rgba(38, 161, 223, 0.08)`:`transparent`};
@@ -946,7 +961,7 @@ Error generating stack: `+e.message+`
   &:last-child {
     padding-bottom: ${({theme:e})=>e.spacing[4]};
   }
-`,nu=B.span`
+`,tu=B.span`
   font-size: 1.25rem;
   line-height: 1;
   display: flex;
@@ -957,13 +972,13 @@ Error generating stack: `+e.message+`
   border-radius: ${({theme:e})=>e.borderRadius.sm};
   overflow: hidden;
   background: rgba(0, 0, 0, 0.02);
-`,ru=B.span`
+`,nu=B.span`
   display: flex;
   align-items: center;
   color: #26a1df;
   transform: ${({isOpen:e})=>e?`rotate(180deg)`:`rotate(0deg)`};
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-`,iu=[{code:`ja`,name:`日本語`,flag:`🇯🇵`},{code:`en`,name:`English`,flag:`🇺🇸`},{code:`ko`,name:`한국어`,flag:`🇰🇷`}];const au=(0,j.memo)(({direction:e=`down`,fullWidth:t=!1})=>{let[n,r]=(0,j.useState)(!1),{currentLanguage:i,changeLanguage:a}=ml(),o=(0,j.useRef)(null);(0,j.useEffect)(()=>{let e=e=>{o.current&&!o.current.contains(e.target)&&r(!1)};return n&&document.addEventListener(`mousedown`,e),()=>{document.removeEventListener(`mousedown`,e)}},[n]);let s=e=>{a(e),r(!1)},c=iu.find(e=>e.code===i)?.name||`日本語`;return(0,A.jsxs)(X,{ref:o,$fullWidth:t,children:[(0,A.jsxs)(Ql,{onClick:()=>r(!n),$fullWidth:t,children:[(0,A.jsxs)($l,{children:[(0,A.jsx)(ls,{name:`language`,size:18}),(0,A.jsx)(`span`,{children:c})]}),(0,A.jsx)(ru,{isOpen:n,children:(0,A.jsx)(ls,{name:`arrowDropDown`,size:24})})]}),(0,A.jsx)(eu,{isOpen:n,direction:e,children:iu.map(e=>(0,A.jsxs)(tu,{isActive:i===e.code,onClick:()=>s(e.code),children:[(0,A.jsx)(nu,{children:e.flag}),(0,A.jsx)(`span`,{children:e.name})]},e.code))})]})});au.displayName=`LanguageSelector`;var ou=l(h()),su=B.div`
+`,ru=[{code:`ja`,name:`日本語`,flag:`🇯🇵`},{code:`en`,name:`English`,flag:`🇺🇸`},{code:`ko`,name:`한국어`,flag:`🇰🇷`}];const iu=(0,j.memo)(({direction:e=`down`,fullWidth:t=!1})=>{let[n,r]=(0,j.useState)(!1),{currentLanguage:i,changeLanguage:a}=ml(),o=(0,j.useRef)(null);(0,j.useEffect)(()=>{let e=e=>{o.current&&!o.current.contains(e.target)&&r(!1)};return n&&document.addEventListener(`mousedown`,e),()=>{document.removeEventListener(`mousedown`,e)}},[n]);let s=e=>{a(e),r(!1)},c=ru.find(e=>e.code===i)?.name||`日本語`;return(0,A.jsxs)(Y,{ref:o,$fullWidth:t,children:[(0,A.jsxs)(X,{onClick:()=>r(!n),$fullWidth:t,children:[(0,A.jsxs)(Ql,{children:[(0,A.jsx)(ls,{name:`language`,size:18}),(0,A.jsx)(`span`,{children:c})]}),(0,A.jsx)(nu,{isOpen:n,children:(0,A.jsx)(ls,{name:`arrowDropDown`,size:24})})]}),(0,A.jsx)($l,{isOpen:n,direction:e,children:ru.map(e=>(0,A.jsxs)(eu,{isActive:i===e.code,onClick:()=>s(e.code),children:[(0,A.jsx)(tu,{children:e.flag}),(0,A.jsx)(`span`,{children:e.name})]},e.code))})]})});iu.displayName=`LanguageSelector`;var au=l(h()),ou=B.div`
   position: fixed;
   bottom: ${({theme:e})=>e.spacing[6]};
   right: ${({theme:e})=>e.spacing[6]};
@@ -973,13 +988,13 @@ Error generating stack: `+e.message+`
     bottom: ${({theme:e})=>e.spacing[4]};
     right: ${({theme:e})=>e.spacing[4]};
   }
-`,cu=B.button`
+`,su=B.button`
   width: 56px;
   height: 56px;
   border-radius: ${({theme:e})=>e.borderRadius.full};
-  background: ${({theme:e})=>e.colors.surface};
+  background: ${({theme:e})=>e.gradients.glass};
   backdrop-filter: ${({theme:e})=>e.blur.md};
-  border: 2px solid ${({theme:e})=>e.colors.border};
+  border: 1px solid ${({theme:e})=>e.colors.borderLight};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -989,17 +1004,38 @@ Error generating stack: `+e.message+`
   position: relative;
   overflow: hidden;
 
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: ${({theme:e})=>e.borderRadius.full};
+    padding: 2px;
+    background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
   &:hover {
     transform: translateY(-4px) scale(1.1);
-    box-shadow: ${({theme:e})=>e.shadows[`2xl`]}, ${({theme:e})=>e.shadows.glow};
-    border-color: ${({theme:e})=>e.colors.primary[400]};
+    box-shadow:
+      ${({theme:e})=>e.shadows[`2xl`]},
+      0 8px 24px rgba(38, 161, 223, 0.2);
+    border-color: ${({theme:e})=>e.colors.border};
 
     &::before {
       opacity: 1;
     }
 
     svg {
-      animation: ${Cl} 0.6s ease-in-out;
+      animation: ${Sl} 0.6s ease-in-out;
     }
   }
 
@@ -1023,14 +1059,14 @@ Error generating stack: `+e.message+`
       height: 20px;
     }
   }
-`;const lu=(0,j.memo)(()=>{let{mode:e,toggleMode:t}=vl(),{t:n}=ml(),r=(0,A.jsx)(su,{children:(0,A.jsx)(cu,{onClick:t,"aria-label":n(`common.toggleTheme`),title:n(e===`light`?`common.switchToDarkMode`:`common.switchToLightMode`),children:e===`light`?(0,A.jsx)(`svg`,{xmlns:`http://www.w3.org/2000/svg`,fill:`none`,viewBox:`0 0 24 24`,strokeWidth:2,stroke:`currentColor`,children:(0,A.jsx)(`path`,{strokeLinecap:`round`,strokeLinejoin:`round`,d:`M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z`})}):(0,A.jsx)(`svg`,{xmlns:`http://www.w3.org/2000/svg`,fill:`none`,viewBox:`0 0 24 24`,strokeWidth:2,stroke:`currentColor`,children:(0,A.jsx)(`path`,{strokeLinecap:`round`,strokeLinejoin:`round`,d:`M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z`})})})});return(0,ou.createPortal)(r,document.body)});function uu(e,t,n){let r=n.initialDeps??[],i;function a(){var a;let o;n.key&&n.debug?.call(n)&&(o=Date.now());let s=e();if(!(s.length!==r.length||s.some((e,t)=>r[t]!==e)))return i;r=s;let c;if(n.key&&n.debug?.call(n)&&(c=Date.now()),i=t(...s),n.key&&n.debug?.call(n)){let e=Math.round((Date.now()-o)*100)/100,t=Math.round((Date.now()-c)*100)/100,r=t/16,i=(e,t)=>{for(e=String(e);e.length<t;)e=` `+e;return e};console.info(`%c⏱ ${i(t,5)} /${i(e,5)} ms`,`
+`;const cu=(0,j.memo)(()=>{let{mode:e,toggleMode:t}=vl(),{t:n}=ml(),r=(0,A.jsx)(ou,{children:(0,A.jsx)(su,{onClick:t,"aria-label":n(`common.toggleTheme`),title:n(e===`light`?`common.switchToDarkMode`:`common.switchToLightMode`),children:e===`light`?(0,A.jsx)(`svg`,{xmlns:`http://www.w3.org/2000/svg`,fill:`none`,viewBox:`0 0 24 24`,strokeWidth:2,stroke:`currentColor`,children:(0,A.jsx)(`path`,{strokeLinecap:`round`,strokeLinejoin:`round`,d:`M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z`})}):(0,A.jsx)(`svg`,{xmlns:`http://www.w3.org/2000/svg`,fill:`none`,viewBox:`0 0 24 24`,strokeWidth:2,stroke:`currentColor`,children:(0,A.jsx)(`path`,{strokeLinecap:`round`,strokeLinejoin:`round`,d:`M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z`})})})});return(0,au.createPortal)(r,document.body)});function lu(e,t,n){let r=n.initialDeps??[],i;function a(){var a;let o;n.key&&n.debug?.call(n)&&(o=Date.now());let s=e();if(!(s.length!==r.length||s.some((e,t)=>r[t]!==e)))return i;r=s;let c;if(n.key&&n.debug?.call(n)&&(c=Date.now()),i=t(...s),n.key&&n.debug?.call(n)){let e=Math.round((Date.now()-o)*100)/100,t=Math.round((Date.now()-c)*100)/100,r=t/16,i=(e,t)=>{for(e=String(e);e.length<t;)e=` `+e;return e};console.info(`%c⏱ ${i(t,5)} /${i(e,5)} ms`,`
             font-size: .6rem;
             font-weight: bold;
-            color: hsl(${Math.max(0,Math.min(120-120*r,120))}deg 100% 31%);`,n?.key)}return(a=n?.onChange)==null||a.call(n,i),i}return a.updateDeps=e=>{r=e},a}function du(e,t){if(e===void 0)throw Error(`Unexpected undefined${t?`: ${t}`:``}`);return e}var fu=(e,t)=>Math.abs(e-t)<1.01,pu=(e,t,n)=>{let r;return function(...i){e.clearTimeout(r),r=e.setTimeout(()=>t.apply(this,i),n)}},mu=e=>{let{offsetWidth:t,offsetHeight:n}=e;return{width:t,height:n}},hu=e=>e,gu=e=>{let t=Math.max(e.startIndex-e.overscan,0),n=Math.min(e.endIndex+e.overscan,e.count-1),r=[];for(let e=t;e<=n;e++)r.push(e);return r},_u=(e,t)=>{let n=e.scrollElement;if(!n)return;let r=e.targetWindow;if(!r)return;let i=e=>{let{width:n,height:r}=e;t({width:Math.round(n),height:Math.round(r)})};if(i(mu(n)),!r.ResizeObserver)return()=>{};let a=new r.ResizeObserver(t=>{let r=()=>{let e=t[0];if(e?.borderBoxSize){let t=e.borderBoxSize[0];if(t){i({width:t.inlineSize,height:t.blockSize});return}}i(mu(n))};e.options.useAnimationFrameWithResizeObserver?requestAnimationFrame(r):r()});return a.observe(n,{box:`border-box`}),()=>{a.unobserve(n)}},vu={passive:!0},yu=typeof window>`u`?!0:`onscrollend`in window,bu=(e,t)=>{let n=e.scrollElement;if(!n)return;let r=e.targetWindow;if(!r)return;let i=0,a=e.options.useScrollendEvent&&yu?()=>void 0:pu(r,()=>{t(i,!1)},e.options.isScrollingResetDelay),o=r=>()=>{let{horizontal:o,isRtl:s}=e.options;i=o?n.scrollLeft*(s&&-1||1):n.scrollTop,a(),t(i,r)},s=o(!0),c=o(!1);c(),n.addEventListener(`scroll`,s,vu);let l=e.options.useScrollendEvent&&yu;return l&&n.addEventListener(`scrollend`,c,vu),()=>{n.removeEventListener(`scroll`,s),l&&n.removeEventListener(`scrollend`,c)}},xu=(e,t,n)=>{if(t?.borderBoxSize){let e=t.borderBoxSize[0];if(e)return Math.round(e[n.options.horizontal?`inlineSize`:`blockSize`])}return e[n.options.horizontal?`offsetWidth`:`offsetHeight`]},Su=(e,{adjustments:t=0,behavior:n},r)=>{var i,a;let o=e+t;(a=(i=r.scrollElement)?.scrollTo)==null||a.call(i,{[r.options.horizontal?`left`:`top`]:o,behavior:n})},Cu=class{constructor(e){this.unsubs=[],this.scrollElement=null,this.targetWindow=null,this.isScrolling=!1,this.measurementsCache=[],this.itemSizeCache=new Map,this.pendingMeasuredCacheIndexes=[],this.scrollRect=null,this.scrollOffset=null,this.scrollDirection=null,this.scrollAdjustments=0,this.elementsCache=new Map,this.observer=(()=>{let e=null,t=()=>e||(!this.targetWindow||!this.targetWindow.ResizeObserver?null:e=new this.targetWindow.ResizeObserver(e=>{e.forEach(e=>{let t=()=>{this._measureElement(e.target,e)};this.options.useAnimationFrameWithResizeObserver?requestAnimationFrame(t):t()})}));return{disconnect:()=>{var n;(n=t())==null||n.disconnect(),e=null},observe:e=>t()?.observe(e,{box:`border-box`}),unobserve:e=>t()?.unobserve(e)}})(),this.range=null,this.setOptions=e=>{Object.entries(e).forEach(([t,n])=>{n===void 0&&delete e[t]}),this.options={debug:!1,initialOffset:0,overscan:1,paddingStart:0,paddingEnd:0,scrollPaddingStart:0,scrollPaddingEnd:0,horizontal:!1,getItemKey:hu,rangeExtractor:gu,onChange:()=>{},measureElement:xu,initialRect:{width:0,height:0},scrollMargin:0,gap:0,indexAttribute:`data-index`,initialMeasurementsCache:[],lanes:1,isScrollingResetDelay:150,enabled:!0,isRtl:!1,useScrollendEvent:!1,useAnimationFrameWithResizeObserver:!1,...e}},this.notify=e=>{var t,n;(n=(t=this.options).onChange)==null||n.call(t,this,e)},this.maybeNotify=uu(()=>(this.calculateRange(),[this.isScrolling,this.range?this.range.startIndex:null,this.range?this.range.endIndex:null]),e=>{this.notify(e)},{key:!1,debug:()=>this.options.debug,initialDeps:[this.isScrolling,this.range?this.range.startIndex:null,this.range?this.range.endIndex:null]}),this.cleanup=()=>{this.unsubs.filter(Boolean).forEach(e=>e()),this.unsubs=[],this.observer.disconnect(),this.scrollElement=null,this.targetWindow=null},this._didMount=()=>()=>{this.cleanup()},this._willUpdate=()=>{let e=this.options.enabled?this.options.getScrollElement():null;if(this.scrollElement!==e){if(this.cleanup(),!e){this.maybeNotify();return}this.scrollElement=e,this.scrollElement&&`ownerDocument`in this.scrollElement?this.targetWindow=this.scrollElement.ownerDocument.defaultView:this.targetWindow=this.scrollElement?.window??null,this.elementsCache.forEach(e=>{this.observer.observe(e)}),this._scrollToOffset(this.getScrollOffset(),{adjustments:void 0,behavior:void 0}),this.unsubs.push(this.options.observeElementRect(this,e=>{this.scrollRect=e,this.maybeNotify()})),this.unsubs.push(this.options.observeElementOffset(this,(e,t)=>{this.scrollAdjustments=0,this.scrollDirection=t?this.getScrollOffset()<e?`forward`:`backward`:null,this.scrollOffset=e,this.isScrolling=t,this.maybeNotify()}))}},this.getSize=()=>this.options.enabled?(this.scrollRect=this.scrollRect??this.options.initialRect,this.scrollRect[this.options.horizontal?`width`:`height`]):(this.scrollRect=null,0),this.getScrollOffset=()=>this.options.enabled?(this.scrollOffset=this.scrollOffset??(typeof this.options.initialOffset==`function`?this.options.initialOffset():this.options.initialOffset),this.scrollOffset):(this.scrollOffset=null,0),this.getFurthestMeasurement=(e,t)=>{let n=new Map,r=new Map;for(let i=t-1;i>=0;i--){let t=e[i];if(n.has(t.lane))continue;let a=r.get(t.lane);if(a==null||t.end>a.end?r.set(t.lane,t):t.end<a.end&&n.set(t.lane,!0),n.size===this.options.lanes)break}return r.size===this.options.lanes?Array.from(r.values()).sort((e,t)=>e.end===t.end?e.index-t.index:e.end-t.end)[0]:void 0},this.getMeasurementOptions=uu(()=>[this.options.count,this.options.paddingStart,this.options.scrollMargin,this.options.getItemKey,this.options.enabled],(e,t,n,r,i)=>(this.pendingMeasuredCacheIndexes=[],{count:e,paddingStart:t,scrollMargin:n,getItemKey:r,enabled:i}),{key:!1}),this.getMeasurements=uu(()=>[this.getMeasurementOptions(),this.itemSizeCache],({count:e,paddingStart:t,scrollMargin:n,getItemKey:r,enabled:i},a)=>{if(!i)return this.measurementsCache=[],this.itemSizeCache.clear(),[];this.measurementsCache.length===0&&(this.measurementsCache=this.options.initialMeasurementsCache,this.measurementsCache.forEach(e=>{this.itemSizeCache.set(e.key,e.size)}));let o=this.pendingMeasuredCacheIndexes.length>0?Math.min(...this.pendingMeasuredCacheIndexes):0;this.pendingMeasuredCacheIndexes=[];let s=this.measurementsCache.slice(0,o);for(let i=o;i<e;i++){let e=r(i),o=this.options.lanes===1?s[i-1]:this.getFurthestMeasurement(s,i),c=o?o.end+this.options.gap:t+n,l=a.get(e),u=typeof l==`number`?l:this.options.estimateSize(i),d=c+u,f=o?o.lane:i%this.options.lanes;s[i]={index:i,start:c,size:u,end:d,key:e,lane:f}}return this.measurementsCache=s,s},{key:!1,debug:()=>this.options.debug}),this.calculateRange=uu(()=>[this.getMeasurements(),this.getSize(),this.getScrollOffset(),this.options.lanes],(e,t,n,r)=>this.range=e.length>0&&t>0?Tu({measurements:e,outerSize:t,scrollOffset:n,lanes:r}):null,{key:!1,debug:()=>this.options.debug}),this.getVirtualIndexes=uu(()=>{let e=null,t=null,n=this.calculateRange();return n&&(e=n.startIndex,t=n.endIndex),this.maybeNotify.updateDeps([this.isScrolling,e,t]),[this.options.rangeExtractor,this.options.overscan,this.options.count,e,t]},(e,t,n,r,i)=>r===null||i===null?[]:e({startIndex:r,endIndex:i,overscan:t,count:n}),{key:!1,debug:()=>this.options.debug}),this.indexFromElement=e=>{let t=this.options.indexAttribute,n=e.getAttribute(t);return n?parseInt(n,10):(console.warn(`Missing attribute name '${t}={index}' on measured element.`),-1)},this._measureElement=(e,t)=>{let n=this.indexFromElement(e),r=this.measurementsCache[n];if(!r)return;let i=r.key,a=this.elementsCache.get(i);a!==e&&(a&&this.observer.unobserve(a),this.observer.observe(e),this.elementsCache.set(i,e)),e.isConnected&&this.resizeItem(n,this.options.measureElement(e,t,this))},this.resizeItem=(e,t)=>{let n=this.measurementsCache[e];if(!n)return;let r=this.itemSizeCache.get(n.key)??n.size,i=t-r;i!==0&&((this.shouldAdjustScrollPositionOnItemSizeChange===void 0?n.start<this.getScrollOffset()+this.scrollAdjustments:this.shouldAdjustScrollPositionOnItemSizeChange(n,i,this))&&this._scrollToOffset(this.getScrollOffset(),{adjustments:this.scrollAdjustments+=i,behavior:void 0}),this.pendingMeasuredCacheIndexes.push(n.index),this.itemSizeCache=new Map(this.itemSizeCache.set(n.key,t)),this.notify(!1))},this.measureElement=e=>{if(!e){this.elementsCache.forEach((e,t)=>{e.isConnected||(this.observer.unobserve(e),this.elementsCache.delete(t))});return}this._measureElement(e,void 0)},this.getVirtualItems=uu(()=>[this.getVirtualIndexes(),this.getMeasurements()],(e,t)=>{let n=[];for(let r=0,i=e.length;r<i;r++){let i=e[r],a=t[i];n.push(a)}return n},{key:!1,debug:()=>this.options.debug}),this.getVirtualItemForOffset=e=>{let t=this.getMeasurements();if(t.length!==0)return du(t[wu(0,t.length-1,e=>du(t[e]).start,e)])},this.getOffsetForAlignment=(e,t,n=0)=>{let r=this.getSize(),i=this.getScrollOffset();t===`auto`&&(t=e>=i+r?`end`:`start`),t===`center`?e+=(n-r)/2:t===`end`&&(e-=r);let a=this.getTotalSize()+this.options.scrollMargin-r;return Math.max(Math.min(a,e),0)},this.getOffsetForIndex=(e,t=`auto`)=>{e=Math.max(0,Math.min(e,this.options.count-1));let n=this.measurementsCache[e];if(!n)return;let r=this.getSize(),i=this.getScrollOffset();if(t===`auto`)if(n.end>=i+r-this.options.scrollPaddingEnd)t=`end`;else if(n.start<=i+this.options.scrollPaddingStart)t=`start`;else return[i,t];let a=t===`end`?n.end+this.options.scrollPaddingEnd:n.start-this.options.scrollPaddingStart;return[this.getOffsetForAlignment(a,t,n.size),t]},this.isDynamicMode=()=>this.elementsCache.size>0,this.scrollToOffset=(e,{align:t=`start`,behavior:n}={})=>{n===`smooth`&&this.isDynamicMode()&&console.warn("The `smooth` scroll behavior is not fully supported with dynamic size."),this._scrollToOffset(this.getOffsetForAlignment(e,t),{adjustments:void 0,behavior:n})},this.scrollToIndex=(e,{align:t=`auto`,behavior:n}={})=>{n===`smooth`&&this.isDynamicMode()&&console.warn("The `smooth` scroll behavior is not fully supported with dynamic size."),e=Math.max(0,Math.min(e,this.options.count-1));let r=0,i=t=>{if(!this.targetWindow)return;let r=this.getOffsetForIndex(e,t);if(!r){console.warn(`Failed to get offset for index:`,e);return}let[i,o]=r;this._scrollToOffset(i,{adjustments:void 0,behavior:n}),this.targetWindow.requestAnimationFrame(()=>{let t=this.getScrollOffset(),n=this.getOffsetForIndex(e,o);if(!n){console.warn(`Failed to get offset for index:`,e);return}fu(n[0],t)||a(o)})},a=t=>{this.targetWindow&&(r++,r<10?this.targetWindow.requestAnimationFrame(()=>i(t)):console.warn(`Failed to scroll to index ${e} after 10 attempts.`))};i(t)},this.scrollBy=(e,{behavior:t}={})=>{t===`smooth`&&this.isDynamicMode()&&console.warn("The `smooth` scroll behavior is not fully supported with dynamic size."),this._scrollToOffset(this.getScrollOffset()+e,{adjustments:void 0,behavior:t})},this.getTotalSize=()=>{let e=this.getMeasurements(),t;if(e.length===0)t=this.options.paddingStart;else if(this.options.lanes===1)t=e[e.length-1]?.end??0;else{let n=Array(this.options.lanes).fill(null),r=e.length-1;for(;r>=0&&n.some(e=>e===null);){let t=e[r];n[t.lane]===null&&(n[t.lane]=t.end),r--}t=Math.max(...n.filter(e=>e!==null))}return Math.max(t-this.options.scrollMargin+this.options.paddingEnd,0)},this._scrollToOffset=(e,{adjustments:t,behavior:n})=>{this.options.scrollToFn(e,{behavior:n,adjustments:t},this)},this.measure=()=>{this.itemSizeCache=new Map,this.notify(!1)},this.setOptions(e)}},wu=(e,t,n,r)=>{for(;e<=t;){let i=(e+t)/2|0,a=n(i);if(a<r)e=i+1;else if(a>r)t=i-1;else return i}return e>0?e-1:0};function Tu({measurements:e,outerSize:t,scrollOffset:n,lanes:r}){let i=e.length-1,a=t=>e[t].start;if(e.length<=r)return{startIndex:0,endIndex:i};let o=wu(0,i,a,n),s=o;if(r===1)for(;s<i&&e[s].end<n+t;)s++;else if(r>1){let a=Array(r).fill(0);for(;s<i&&a.some(e=>e<n+t);){let t=e[s];a[t.lane]=t.end,s++}let c=Array(r).fill(n+t);for(;o>=0&&c.some(e=>e>=n);){let t=e[o];c[t.lane]=t.start,o--}o=Math.max(0,o-o%r),s=Math.min(i,s+(r-1-s%r))}return{startIndex:o,endIndex:s}}var Eu=l(h()),Du=typeof document<`u`?j.useLayoutEffect:j.useEffect;function Ou(e){let t=j.useReducer(()=>({}),{})[1],n={...e,onChange:(n,r)=>{var i;r?(0,Eu.flushSync)(t):t(),(i=e.onChange)==null||i.call(e,n,r)}},[r]=j.useState(()=>new Cu(n));return r.setOptions(n),Du(()=>r._didMount(),[]),Du(()=>r._willUpdate()),r}function ku(e){return Ou({observeElementRect:_u,observeElementOffset:bu,scrollToFn:Su,...e})}var Au=B.div`
+            color: hsl(${Math.max(0,Math.min(120-120*r,120))}deg 100% 31%);`,n?.key)}return(a=n?.onChange)==null||a.call(n,i),i}return a.updateDeps=e=>{r=e},a}function uu(e,t){if(e===void 0)throw Error(`Unexpected undefined${t?`: ${t}`:``}`);return e}var du=(e,t)=>Math.abs(e-t)<1.01,fu=(e,t,n)=>{let r;return function(...i){e.clearTimeout(r),r=e.setTimeout(()=>t.apply(this,i),n)}},pu=e=>{let{offsetWidth:t,offsetHeight:n}=e;return{width:t,height:n}},mu=e=>e,hu=e=>{let t=Math.max(e.startIndex-e.overscan,0),n=Math.min(e.endIndex+e.overscan,e.count-1),r=[];for(let e=t;e<=n;e++)r.push(e);return r},gu=(e,t)=>{let n=e.scrollElement;if(!n)return;let r=e.targetWindow;if(!r)return;let i=e=>{let{width:n,height:r}=e;t({width:Math.round(n),height:Math.round(r)})};if(i(pu(n)),!r.ResizeObserver)return()=>{};let a=new r.ResizeObserver(t=>{let r=()=>{let e=t[0];if(e?.borderBoxSize){let t=e.borderBoxSize[0];if(t){i({width:t.inlineSize,height:t.blockSize});return}}i(pu(n))};e.options.useAnimationFrameWithResizeObserver?requestAnimationFrame(r):r()});return a.observe(n,{box:`border-box`}),()=>{a.unobserve(n)}},_u={passive:!0},vu=typeof window>`u`?!0:`onscrollend`in window,yu=(e,t)=>{let n=e.scrollElement;if(!n)return;let r=e.targetWindow;if(!r)return;let i=0,a=e.options.useScrollendEvent&&vu?()=>void 0:fu(r,()=>{t(i,!1)},e.options.isScrollingResetDelay),o=r=>()=>{let{horizontal:o,isRtl:s}=e.options;i=o?n.scrollLeft*(s&&-1||1):n.scrollTop,a(),t(i,r)},s=o(!0),c=o(!1);c(),n.addEventListener(`scroll`,s,_u);let l=e.options.useScrollendEvent&&vu;return l&&n.addEventListener(`scrollend`,c,_u),()=>{n.removeEventListener(`scroll`,s),l&&n.removeEventListener(`scrollend`,c)}},bu=(e,t,n)=>{if(t?.borderBoxSize){let e=t.borderBoxSize[0];if(e)return Math.round(e[n.options.horizontal?`inlineSize`:`blockSize`])}return e[n.options.horizontal?`offsetWidth`:`offsetHeight`]},xu=(e,{adjustments:t=0,behavior:n},r)=>{var i,a;let o=e+t;(a=(i=r.scrollElement)?.scrollTo)==null||a.call(i,{[r.options.horizontal?`left`:`top`]:o,behavior:n})},Su=class{constructor(e){this.unsubs=[],this.scrollElement=null,this.targetWindow=null,this.isScrolling=!1,this.measurementsCache=[],this.itemSizeCache=new Map,this.pendingMeasuredCacheIndexes=[],this.scrollRect=null,this.scrollOffset=null,this.scrollDirection=null,this.scrollAdjustments=0,this.elementsCache=new Map,this.observer=(()=>{let e=null,t=()=>e||(!this.targetWindow||!this.targetWindow.ResizeObserver?null:e=new this.targetWindow.ResizeObserver(e=>{e.forEach(e=>{let t=()=>{this._measureElement(e.target,e)};this.options.useAnimationFrameWithResizeObserver?requestAnimationFrame(t):t()})}));return{disconnect:()=>{var n;(n=t())==null||n.disconnect(),e=null},observe:e=>t()?.observe(e,{box:`border-box`}),unobserve:e=>t()?.unobserve(e)}})(),this.range=null,this.setOptions=e=>{Object.entries(e).forEach(([t,n])=>{n===void 0&&delete e[t]}),this.options={debug:!1,initialOffset:0,overscan:1,paddingStart:0,paddingEnd:0,scrollPaddingStart:0,scrollPaddingEnd:0,horizontal:!1,getItemKey:mu,rangeExtractor:hu,onChange:()=>{},measureElement:bu,initialRect:{width:0,height:0},scrollMargin:0,gap:0,indexAttribute:`data-index`,initialMeasurementsCache:[],lanes:1,isScrollingResetDelay:150,enabled:!0,isRtl:!1,useScrollendEvent:!1,useAnimationFrameWithResizeObserver:!1,...e}},this.notify=e=>{var t,n;(n=(t=this.options).onChange)==null||n.call(t,this,e)},this.maybeNotify=lu(()=>(this.calculateRange(),[this.isScrolling,this.range?this.range.startIndex:null,this.range?this.range.endIndex:null]),e=>{this.notify(e)},{key:!1,debug:()=>this.options.debug,initialDeps:[this.isScrolling,this.range?this.range.startIndex:null,this.range?this.range.endIndex:null]}),this.cleanup=()=>{this.unsubs.filter(Boolean).forEach(e=>e()),this.unsubs=[],this.observer.disconnect(),this.scrollElement=null,this.targetWindow=null},this._didMount=()=>()=>{this.cleanup()},this._willUpdate=()=>{let e=this.options.enabled?this.options.getScrollElement():null;if(this.scrollElement!==e){if(this.cleanup(),!e){this.maybeNotify();return}this.scrollElement=e,this.scrollElement&&`ownerDocument`in this.scrollElement?this.targetWindow=this.scrollElement.ownerDocument.defaultView:this.targetWindow=this.scrollElement?.window??null,this.elementsCache.forEach(e=>{this.observer.observe(e)}),this._scrollToOffset(this.getScrollOffset(),{adjustments:void 0,behavior:void 0}),this.unsubs.push(this.options.observeElementRect(this,e=>{this.scrollRect=e,this.maybeNotify()})),this.unsubs.push(this.options.observeElementOffset(this,(e,t)=>{this.scrollAdjustments=0,this.scrollDirection=t?this.getScrollOffset()<e?`forward`:`backward`:null,this.scrollOffset=e,this.isScrolling=t,this.maybeNotify()}))}},this.getSize=()=>this.options.enabled?(this.scrollRect=this.scrollRect??this.options.initialRect,this.scrollRect[this.options.horizontal?`width`:`height`]):(this.scrollRect=null,0),this.getScrollOffset=()=>this.options.enabled?(this.scrollOffset=this.scrollOffset??(typeof this.options.initialOffset==`function`?this.options.initialOffset():this.options.initialOffset),this.scrollOffset):(this.scrollOffset=null,0),this.getFurthestMeasurement=(e,t)=>{let n=new Map,r=new Map;for(let i=t-1;i>=0;i--){let t=e[i];if(n.has(t.lane))continue;let a=r.get(t.lane);if(a==null||t.end>a.end?r.set(t.lane,t):t.end<a.end&&n.set(t.lane,!0),n.size===this.options.lanes)break}return r.size===this.options.lanes?Array.from(r.values()).sort((e,t)=>e.end===t.end?e.index-t.index:e.end-t.end)[0]:void 0},this.getMeasurementOptions=lu(()=>[this.options.count,this.options.paddingStart,this.options.scrollMargin,this.options.getItemKey,this.options.enabled],(e,t,n,r,i)=>(this.pendingMeasuredCacheIndexes=[],{count:e,paddingStart:t,scrollMargin:n,getItemKey:r,enabled:i}),{key:!1}),this.getMeasurements=lu(()=>[this.getMeasurementOptions(),this.itemSizeCache],({count:e,paddingStart:t,scrollMargin:n,getItemKey:r,enabled:i},a)=>{if(!i)return this.measurementsCache=[],this.itemSizeCache.clear(),[];this.measurementsCache.length===0&&(this.measurementsCache=this.options.initialMeasurementsCache,this.measurementsCache.forEach(e=>{this.itemSizeCache.set(e.key,e.size)}));let o=this.pendingMeasuredCacheIndexes.length>0?Math.min(...this.pendingMeasuredCacheIndexes):0;this.pendingMeasuredCacheIndexes=[];let s=this.measurementsCache.slice(0,o);for(let i=o;i<e;i++){let e=r(i),o=this.options.lanes===1?s[i-1]:this.getFurthestMeasurement(s,i),c=o?o.end+this.options.gap:t+n,l=a.get(e),u=typeof l==`number`?l:this.options.estimateSize(i),d=c+u,f=o?o.lane:i%this.options.lanes;s[i]={index:i,start:c,size:u,end:d,key:e,lane:f}}return this.measurementsCache=s,s},{key:!1,debug:()=>this.options.debug}),this.calculateRange=lu(()=>[this.getMeasurements(),this.getSize(),this.getScrollOffset(),this.options.lanes],(e,t,n,r)=>this.range=e.length>0&&t>0?wu({measurements:e,outerSize:t,scrollOffset:n,lanes:r}):null,{key:!1,debug:()=>this.options.debug}),this.getVirtualIndexes=lu(()=>{let e=null,t=null,n=this.calculateRange();return n&&(e=n.startIndex,t=n.endIndex),this.maybeNotify.updateDeps([this.isScrolling,e,t]),[this.options.rangeExtractor,this.options.overscan,this.options.count,e,t]},(e,t,n,r,i)=>r===null||i===null?[]:e({startIndex:r,endIndex:i,overscan:t,count:n}),{key:!1,debug:()=>this.options.debug}),this.indexFromElement=e=>{let t=this.options.indexAttribute,n=e.getAttribute(t);return n?parseInt(n,10):(console.warn(`Missing attribute name '${t}={index}' on measured element.`),-1)},this._measureElement=(e,t)=>{let n=this.indexFromElement(e),r=this.measurementsCache[n];if(!r)return;let i=r.key,a=this.elementsCache.get(i);a!==e&&(a&&this.observer.unobserve(a),this.observer.observe(e),this.elementsCache.set(i,e)),e.isConnected&&this.resizeItem(n,this.options.measureElement(e,t,this))},this.resizeItem=(e,t)=>{let n=this.measurementsCache[e];if(!n)return;let r=this.itemSizeCache.get(n.key)??n.size,i=t-r;i!==0&&((this.shouldAdjustScrollPositionOnItemSizeChange===void 0?n.start<this.getScrollOffset()+this.scrollAdjustments:this.shouldAdjustScrollPositionOnItemSizeChange(n,i,this))&&this._scrollToOffset(this.getScrollOffset(),{adjustments:this.scrollAdjustments+=i,behavior:void 0}),this.pendingMeasuredCacheIndexes.push(n.index),this.itemSizeCache=new Map(this.itemSizeCache.set(n.key,t)),this.notify(!1))},this.measureElement=e=>{if(!e){this.elementsCache.forEach((e,t)=>{e.isConnected||(this.observer.unobserve(e),this.elementsCache.delete(t))});return}this._measureElement(e,void 0)},this.getVirtualItems=lu(()=>[this.getVirtualIndexes(),this.getMeasurements()],(e,t)=>{let n=[];for(let r=0,i=e.length;r<i;r++){let i=e[r],a=t[i];n.push(a)}return n},{key:!1,debug:()=>this.options.debug}),this.getVirtualItemForOffset=e=>{let t=this.getMeasurements();if(t.length!==0)return uu(t[Cu(0,t.length-1,e=>uu(t[e]).start,e)])},this.getOffsetForAlignment=(e,t,n=0)=>{let r=this.getSize(),i=this.getScrollOffset();t===`auto`&&(t=e>=i+r?`end`:`start`),t===`center`?e+=(n-r)/2:t===`end`&&(e-=r);let a=this.getTotalSize()+this.options.scrollMargin-r;return Math.max(Math.min(a,e),0)},this.getOffsetForIndex=(e,t=`auto`)=>{e=Math.max(0,Math.min(e,this.options.count-1));let n=this.measurementsCache[e];if(!n)return;let r=this.getSize(),i=this.getScrollOffset();if(t===`auto`)if(n.end>=i+r-this.options.scrollPaddingEnd)t=`end`;else if(n.start<=i+this.options.scrollPaddingStart)t=`start`;else return[i,t];let a=t===`end`?n.end+this.options.scrollPaddingEnd:n.start-this.options.scrollPaddingStart;return[this.getOffsetForAlignment(a,t,n.size),t]},this.isDynamicMode=()=>this.elementsCache.size>0,this.scrollToOffset=(e,{align:t=`start`,behavior:n}={})=>{n===`smooth`&&this.isDynamicMode()&&console.warn("The `smooth` scroll behavior is not fully supported with dynamic size."),this._scrollToOffset(this.getOffsetForAlignment(e,t),{adjustments:void 0,behavior:n})},this.scrollToIndex=(e,{align:t=`auto`,behavior:n}={})=>{n===`smooth`&&this.isDynamicMode()&&console.warn("The `smooth` scroll behavior is not fully supported with dynamic size."),e=Math.max(0,Math.min(e,this.options.count-1));let r=0,i=t=>{if(!this.targetWindow)return;let r=this.getOffsetForIndex(e,t);if(!r){console.warn(`Failed to get offset for index:`,e);return}let[i,o]=r;this._scrollToOffset(i,{adjustments:void 0,behavior:n}),this.targetWindow.requestAnimationFrame(()=>{let t=this.getScrollOffset(),n=this.getOffsetForIndex(e,o);if(!n){console.warn(`Failed to get offset for index:`,e);return}du(n[0],t)||a(o)})},a=t=>{this.targetWindow&&(r++,r<10?this.targetWindow.requestAnimationFrame(()=>i(t)):console.warn(`Failed to scroll to index ${e} after 10 attempts.`))};i(t)},this.scrollBy=(e,{behavior:t}={})=>{t===`smooth`&&this.isDynamicMode()&&console.warn("The `smooth` scroll behavior is not fully supported with dynamic size."),this._scrollToOffset(this.getScrollOffset()+e,{adjustments:void 0,behavior:t})},this.getTotalSize=()=>{let e=this.getMeasurements(),t;if(e.length===0)t=this.options.paddingStart;else if(this.options.lanes===1)t=e[e.length-1]?.end??0;else{let n=Array(this.options.lanes).fill(null),r=e.length-1;for(;r>=0&&n.some(e=>e===null);){let t=e[r];n[t.lane]===null&&(n[t.lane]=t.end),r--}t=Math.max(...n.filter(e=>e!==null))}return Math.max(t-this.options.scrollMargin+this.options.paddingEnd,0)},this._scrollToOffset=(e,{adjustments:t,behavior:n})=>{this.options.scrollToFn(e,{behavior:n,adjustments:t},this)},this.measure=()=>{this.itemSizeCache=new Map,this.notify(!1)},this.setOptions(e)}},Cu=(e,t,n,r)=>{for(;e<=t;){let i=(e+t)/2|0,a=n(i);if(a<r)e=i+1;else if(a>r)t=i-1;else return i}return e>0?e-1:0};function wu({measurements:e,outerSize:t,scrollOffset:n,lanes:r}){let i=e.length-1,a=t=>e[t].start;if(e.length<=r)return{startIndex:0,endIndex:i};let o=Cu(0,i,a,n),s=o;if(r===1)for(;s<i&&e[s].end<n+t;)s++;else if(r>1){let a=Array(r).fill(0);for(;s<i&&a.some(e=>e<n+t);){let t=e[s];a[t.lane]=t.end,s++}let c=Array(r).fill(n+t);for(;o>=0&&c.some(e=>e>=n);){let t=e[o];c[t.lane]=t.start,o--}o=Math.max(0,o-o%r),s=Math.min(i,s+(r-1-s%r))}return{startIndex:o,endIndex:s}}var Tu=l(h()),Eu=typeof document<`u`?j.useLayoutEffect:j.useEffect;function Du(e){let t=j.useReducer(()=>({}),{})[1],n={...e,onChange:(n,r)=>{var i;r?(0,Tu.flushSync)(t):t(),(i=e.onChange)==null||i.call(e,n,r)}},[r]=j.useState(()=>new Su(n));return r.setOptions(n),Eu(()=>r._didMount(),[]),Eu(()=>r._willUpdate()),r}function Ou(e){return Du({observeElementRect:gu,observeElementOffset:yu,scrollToFn:xu,...e})}var ku=B.div`
   overflow: hidden;
   border-radius: ${({theme:e})=>e.borderRadius.xl};
-  background: ${({theme:e})=>e.colors.surface};
-  backdrop-filter: blur(10px);
+  background: ${({theme:e})=>e.gradients.glass};
+  backdrop-filter: ${({theme:e})=>e.blur.md};
   border: 1px solid ${({theme:e})=>e.colors.borderLight};
   margin-top: ${({theme:e})=>e.spacing[6]};
   height: ${({$height:e})=>e||`calc(100dvh - 380px)`};
@@ -1055,23 +1091,24 @@ Error generating stack: `+e.message+`
     box-shadow:
       0 12px 40px rgba(38, 161, 223, 0.12),
       0 0 0 1px rgba(38, 161, 223, 0.1);
+    border-color: ${({theme:e})=>e.colors.border};
   }
-`,ju=B.div`
+`,Au=B.div`
   width: 100%;
   background-color: transparent;
   display: flex;
   flex-direction: column;
   flex: 1;
   min-height: 0;
-`,Mu=B.div`
+`,ju=B.div`
   display: flex;
-  background: ${({theme:e})=>e.isDark?`rgba(39, 39, 42, 0.6)`:`rgba(255, 255, 255, 0.6)`};
+  background: ${({theme:e})=>e.isDark?`rgba(39, 39, 42, 0.6)`:`rgba(255, 255, 255, 0.1)`};
   backdrop-filter: blur(8px);
   border-bottom: 2px solid ${({theme:e})=>e.colors.borderLight};
   position: sticky;
   top: 0;
   z-index: 2;
-`;const Nu=B.div`
+`;const Mu=B.div`
   padding: ${({theme:e})=>e.spacing[4]} ${({theme:e})=>e.spacing[6]};
   font-weight: 700;
   font-size: 0.75rem;
@@ -1085,13 +1122,13 @@ Error generating stack: `+e.message+`
   &:last-child {
     text-align: center;
   }
-`;var Pu=B.div`
+`;var Nu=B.div`
   position: relative;
   width: 100%;
   flex: 1;
   overflow: auto;
   min-height: 0;
-`;const Fu=B.div`
+`;const Pu=B.div`
   display: flex;
   border-bottom: 1px solid ${({theme:e})=>e.colors.borderLight};
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1119,7 +1156,7 @@ Error generating stack: `+e.message+`
       width: 4px;
     }
   }
-`,Iu=B.div`
+`,Fu=B.div`
   padding: ${({theme:e})=>e.spacing[4]} ${({theme:e})=>e.spacing[6]};
   font-size: 0.875rem;
   color: ${({theme:e})=>e.colors.text};
@@ -1130,7 +1167,7 @@ Error generating stack: `+e.message+`
   &:last-child {
     justify-content: center;
   }
-`;var Lu=B.div`
+`;var Iu=B.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1139,11 +1176,11 @@ Error generating stack: `+e.message+`
   color: ${({theme:e})=>e.colors.textSecondary};
   font-size: 0.875rem;
   gap: ${({theme:e})=>e.spacing[4]};
-`,Ru=B.div`
+`,Lu=B.div`
   font-size: 1rem;
   font-weight: 500;
   color: ${({theme:e})=>e.colors.gray[500]};
-`,zu=B.div`
+`,Ru=B.div`
   text-align: center;
   color: ${({theme:e})=>e.colors.textSecondary};
   font-style: italic;
@@ -1153,51 +1190,206 @@ Error generating stack: `+e.message+`
   justify-content: center;
   height: 100%;
 
-  animation: ${Sl} 1.5s ease-in-out infinite;
-`;function Bu({data:e,columns:t,renderRow:n,rowHeight:r=56,overscan:i=5,height:a,isLoading:o=!1,loadingText:s=`Loading...`,emptyText:c=`No data`,getRowKey:l}){let u=(0,j.useRef)(null),d=ku({count:e.length,getScrollElement:()=>u.current,estimateSize:()=>r,overscan:i});return(0,A.jsx)(Au,{$height:a,children:(0,A.jsxs)(ju,{children:[(0,A.jsx)(Mu,{children:t.map(e=>(0,A.jsx)(Nu,{width:e.width,children:e.label},e.key))}),o?(0,A.jsx)(Pu,{children:(0,A.jsx)(zu,{children:s})}):e.length>0?(0,A.jsx)(Pu,{ref:u,children:(0,A.jsx)(`div`,{style:{height:`${d.getTotalSize()}px`,position:`relative`},children:d.getVirtualItems().map(t=>{let r=e[t.index];return(0,A.jsx)(`div`,{style:{position:`absolute`,top:0,left:0,width:`100%`,transform:`translateY(${t.start}px)`,height:`${t.size}px`},children:n(r,t)},l(r))})})}):(0,A.jsx)(Lu,{children:(0,A.jsx)(Ru,{children:c})})]})})}var Vu=B.header`
+  animation: ${xl} 1.5s ease-in-out infinite;
+`;function zu({data:e,columns:t,renderRow:n,rowHeight:r=56,overscan:i=5,height:a,isLoading:o=!1,loadingText:s=`Loading...`,emptyText:c=`No data`,getRowKey:l}){let u=(0,j.useRef)(null),d=Ou({count:e.length,getScrollElement:()=>u.current,estimateSize:()=>r,overscan:i});return(0,A.jsx)(ku,{$height:a,children:(0,A.jsxs)(Au,{children:[(0,A.jsx)(ju,{children:t.map(e=>(0,A.jsx)(Mu,{width:e.width,children:e.label},e.key))}),o?(0,A.jsx)(Nu,{children:(0,A.jsx)(Ru,{children:s})}):e.length>0?(0,A.jsx)(Nu,{ref:u,children:(0,A.jsx)(`div`,{style:{height:`${d.getTotalSize()}px`,position:`relative`},children:d.getVirtualItems().map(t=>{let r=e[t.index];return(0,A.jsx)(`div`,{style:{position:`absolute`,top:0,left:0,width:`100%`,transform:`translateY(${t.start}px)`,height:`${t.size}px`},children:n(r,t)},l(r))})})}):(0,A.jsx)(Iu,{children:(0,A.jsx)(Lu,{children:c})})]})})}const Bu=(e,t,n=600)=>e>=51?t.colors.success[n]:e>=40?t.colors.warning[n]:t.colors.error[n],Vu=B.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: ${({theme:e})=>e.spacing[4]};
+  margin-top: ${({theme:e})=>e.spacing[6]};
+  animation: ${yl} 0.6s ease-out;
+`,Hu=B.div`
+  background: ${({theme:e})=>e.gradients.glass};
+  backdrop-filter: ${({theme:e})=>e.blur.md};
+  border-radius: ${({theme:e})=>e.borderRadius.lg};
+  padding: ${({theme:e})=>e.spacing[6]};
+  border: 1px solid ${({theme:e})=>e.colors.borderLight};
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 8px 24px rgba(38, 161, 223, 0.15),
+      0 0 0 1px rgba(38, 161, 223, 0.1);
+    border-color: ${({theme:e})=>e.colors.border};
+  }
+`,Uu=B.div`
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: ${({theme:e})=>e.colors.textSecondary};
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: ${({theme:e})=>e.spacing[2]};
+`,Wu=B.div`
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-bottom: ${({theme:e})=>e.spacing[1]};
+
+  ${({theme:e,$type:t,$winRate:n})=>t===`win`?`color: ${e.colors.win[400]};`:t===`defeat`?`color: ${e.colors.defeat[400]};`:t===`winRate`&&n!==void 0?`color: ${Bu(n,e,400)};`:`
+      background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    `}
+`,Gu=B.div`
+  font-size: 0.875rem;
+  color: ${({theme:e})=>e.colors.textSecondary};
+`;var Ku={danger:ko`
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: ${({theme:e})=>e.colors.error[500]};
+
+    &:hover:not(:disabled) {
+      border-color: ${({theme:e})=>e.colors.error[500]};
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+    }
+  `,default:ko`
+    border: 1px solid ${({theme:e})=>e.colors.borderLight};
+    color: ${({theme:e})=>e.colors.primary[500]};
+
+    &:hover:not(:disabled) {
+      border-color: ${({theme:e})=>e.colors.primary[500]};
+      box-shadow: 0 4px 12px rgba(38, 161, 223, 0.3);
+    }
+  `},qu=B(zo)`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: ${({theme:e})=>e.borderRadius.lg};
+  text-decoration: none;
+  transition: all ${({theme:e})=>e.transitions.base};
+  background: ${({theme:e})=>e.gradients.glass};
+  backdrop-filter: ${({theme:e})=>e.blur.sm};
+  padding: 0;
+
+  &:hover:not(:disabled) {
+    transform: scale(1.05);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  ${({$type:e})=>Ku[e||`default`]}
+`;const Ju=(0,j.memo)(({icon:e,children:t,...n})=>(0,A.jsx)(qu,{variant:`outline`,...n,children:e||t}));Ju.displayName=`IconicButton`;var Yu=B.div`
+  padding: ${({theme:e})=>e.spacing[3]} ${({theme:e})=>e.spacing[4]};
+  border-radius: ${({theme:e})=>e.borderRadius.md};
+  font-size: 0.875rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: ${({theme:e})=>e.spacing[3]};
+  margin-bottom: ${({theme:e})=>e.spacing[6]};
+
+  ${({theme:e,$type:t})=>{let n=e.isDark;switch(t){case`error`:return`
+          background-color: ${n?`rgba(239, 68, 68, 0.15)`:`${e.colors.error[500]}20`};
+          border: 1px solid ${n?`rgba(239, 68, 68, 0.3)`:`${e.colors.error[500]}40`};
+          color: ${n?`#fca5a5`:e.colors.error[500]};
+        `;case`success`:return`
+          background-color: ${n?`rgba(34, 197, 94, 0.15)`:`${e.colors.success[500]}20`};
+          border: 1px solid ${n?`rgba(34, 197, 94, 0.3)`:`${e.colors.success[500]}40`};
+          color: ${n?`#86efac`:e.colors.success[500]};
+        `;case`warning`:return`
+          background-color: ${n?`rgba(234, 179, 8, 0.15)`:`rgba(234, 179, 8, 0.1)`};
+          border: 1px solid rgba(234, 179, 8, 0.3);
+          color: ${n?`#fde047`:`#a16207`};
+        `;case`info`:return`
+          background-color: ${n?`rgba(38, 161, 223, 0.15)`:`rgba(38, 161, 223, 0.1)`};
+          border: 1px solid rgba(38, 161, 223, 0.3);
+          color: ${n?`#7dd3fc`:`#0369a1`};
+        `;default:return``}}}
+`,Xu=B.div`
+  flex: 1;
+`,Zu=B.button`
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.6;
+  transition: opacity ${({theme:e})=>e.transitions.base};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+
+  /* クリック領域を拡張 */
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 32px;
+    height: 32px;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+`;const Qu=(0,j.memo)(({type:e=`info`,children:t,onClose:n})=>(0,A.jsxs)(Yu,{$type:e,children:[(0,A.jsx)(Xu,{children:t}),n&&(0,A.jsx)(Zu,{onClick:n,type:`button`,"aria-label":`Close`,children:(0,A.jsx)(ls,{name:`close`,size:16})})]}));Qu.displayName=`Flush`;var $u=B.header`
   position: sticky;
   top: 0;
   z-index: 20;
-  background-color: ${({theme:e})=>e.colors.surface};
-  border-bottom: 1px solid ${({theme:e})=>e.colors.border};
+  background: ${({theme:e})=>e.gradients.glass};
+  backdrop-filter: ${({theme:e})=>e.blur.md};
+  border-bottom: 1px solid ${({theme:e})=>e.colors.borderLight};
   padding: ${({theme:e})=>e.spacing[4]};
   transition:
-    background-color 0.3s ease,
+    background 0.3s ease,
     border-color 0.3s ease;
 
   @media (min-width: ${({theme:e})=>e.breakpoints.lg}) {
     display: none;
   }
-`,Hu=B.div`
+`,ed=B.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: ${({theme:e})=>e.spacing[2]};
-`,Uu=B.div`
+`,td=B.div`
   display: flex;
   align-items: center;
   gap: ${({theme:e})=>e.spacing[2]};
-`,Wu=B.div`
+`,nd=B.div`
   display: flex;
   align-items: center;
   gap: ${({theme:e})=>e.spacing[2]};
-`,Gu=B.img`
+`,rd=B.img`
   width: 3rem;
   height: 2rem;
   object-fit: contain;
-`,Ku=B.h1`
+`,Z=B.h1`
   font-size: 1.125rem;
   font-weight: bold;
   color: ${({theme:e})=>e.colors.text};
-`;const qu=({onMenuClick:e})=>{let{t}=ml();return(0,A.jsx)(Vu,{children:(0,A.jsxs)(Hu,{children:[(0,A.jsxs)(Wu,{children:[(0,A.jsx)(Gu,{src:`/cc-war-record/img/cc.webp`,alt:`CC`}),(0,A.jsx)(Ku,{children:t(`common.appName`)})]}),(0,A.jsxs)(Uu,{children:[(0,A.jsx)(lu,{}),(0,A.jsx)(ls,{name:`hamburger`,size:24,onClick:e})]})]})})},Ju=[{labelKey:`navigation.home`,path:`/`,icon:`home`},{labelKey:`navigation.graphs`,path:`/graphs`,icon:`chart`},{labelKey:`navigation.histories`,path:`/histories`,icon:`history`},{labelKey:`navigation.faq`,path:`/faq`,icon:`detail`}];var Yu=B.aside`
+`;const id=({onMenuClick:e})=>{let{t}=ml();return(0,A.jsx)($u,{children:(0,A.jsxs)(ed,{children:[(0,A.jsxs)(nd,{children:[(0,A.jsx)(rd,{src:`/cc-war-record/img/cc.webp`,alt:`CC`}),(0,A.jsx)(Z,{children:t(`common.appName`)})]}),(0,A.jsxs)(td,{children:[(0,A.jsx)(cu,{}),(0,A.jsx)(ls,{name:`hamburger`,size:24,onClick:e})]})]})})},ad=[{labelKey:`navigation.home`,path:`/`,icon:`home`},{labelKey:`navigation.graphs`,path:`/graphs`,icon:`chart`},{labelKey:`navigation.histories`,path:`/histories`,icon:`history`},{labelKey:`navigation.faq`,path:`/faq`,icon:`detail`}];var od=B.aside`
   position: fixed;
   left: 0;
   top: 0;
   height: 100vh;
   width: 260px;
-  background: ${({theme:e})=>e.colors.surface};
+  background: ${({theme:e})=>e.gradients.glass};
   backdrop-filter: ${({theme:e})=>e.blur.lg};
-  border-right: 1px solid ${({theme:e})=>e.colors.border};
+  border-right: 1px solid ${({theme:e})=>e.colors.borderLight};
   box-shadow: ${({theme:e})=>e.shadows.xl};
   z-index: 10;
   padding: ${({theme:e})=>e.spacing[6]} ${({theme:e})=>e.spacing[4]};
@@ -1213,24 +1405,24 @@ Error generating stack: `+e.message+`
     position: fixed;
     flex-shrink: 0;
   }
-`,Xu=B.div`
+`,sd=B.div`
   display: flex;
   align-items: center;
   gap: ${({theme:e})=>e.spacing[2]};
   margin-bottom: ${({theme:e})=>e.spacing[8]};
-`,Zu=B.img`
+`,cd=B.img`
   width: 3rem;
   height: 3rem;
   object-fit: contain;
-`,Qu=B.h1`
+`,ld=B.h1`
   font-size: 1.25rem;
   font-weight: bold;
   color: ${({theme:e})=>e.colors.text};
-`,$u=B.nav`
+`,ud=B.nav`
   display: flex;
   flex-direction: column;
   gap: ${({theme:e})=>e.spacing[2]};
-`,ed=B(or)`
+`,dd=B(or)`
   display: flex;
   align-items: center;
   gap: ${({theme:e})=>e.spacing[3]};
@@ -1263,14 +1455,14 @@ Error generating stack: `+e.message+`
       opacity: 1;
     }
   }
-`,td=B.div`
+`,fd=B.div`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 20px;
   height: 20px;
   color: inherit;
-`,nd=B.div`
+`,pd=B.div`
   position: absolute;
   top: ${({theme:e})=>e.spacing[4]};
   right: ${({theme:e})=>e.spacing[4]};
@@ -1280,7 +1472,7 @@ Error generating stack: `+e.message+`
   @media (min-width: ${({theme:e})=>e.breakpoints.lg}) {
     display: none;
   }
-`;const rd=({isOpen:e,isActivePath:t,onClose:n})=>{let{t:r}=ml();return(0,A.jsxs)(Yu,{$isOpen:e,children:[(0,A.jsx)(nd,{children:(0,A.jsx)(ls,{name:`close`,size:24,onClick:n})}),(0,A.jsxs)(Xu,{children:[(0,A.jsx)(Zu,{src:`/cc-war-record/img/cc.webp`,alt:`CC`}),(0,A.jsx)(Qu,{children:r(`common.appName`)})]}),(0,A.jsx)($u,{children:Ju.map(e=>(0,A.jsxs)(ed,{to:e.path,$isActive:t(e.path),onClick:n,children:[(0,A.jsx)(td,{$isActive:t(e.path),children:(0,A.jsx)(ls,{name:e.icon,size:20})}),r(e.labelKey)]},e.path))}),(0,A.jsx)(`div`,{style:{marginTop:`auto`,paddingTop:`24px`},children:(0,A.jsx)(au,{direction:`up`,fullWidth:!0})})]})};var Z=B.div`
+`;const md=({isOpen:e,isActivePath:t,onClose:n})=>{let{t:r}=ml();return(0,A.jsxs)(od,{$isOpen:e,children:[(0,A.jsx)(pd,{children:(0,A.jsx)(ls,{name:`close`,size:24,onClick:n})}),(0,A.jsxs)(sd,{children:[(0,A.jsx)(cd,{src:`/cc-war-record/img/cc.webp`,alt:`CC`}),(0,A.jsx)(ld,{children:r(`common.appName`)})]}),(0,A.jsx)(ud,{children:ad.map(e=>(0,A.jsxs)(dd,{to:e.path,$isActive:t(e.path),onClick:n,children:[(0,A.jsx)(fd,{$isActive:t(e.path),children:(0,A.jsx)(ls,{name:e.icon,size:20})}),r(e.labelKey)]},e.path))}),(0,A.jsx)(`div`,{style:{marginTop:`auto`,paddingTop:`24px`},children:(0,A.jsx)(iu,{direction:`up`,fullWidth:!0})})]})};var hd=B.div`
   position: fixed;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.5);
@@ -1292,27 +1484,27 @@ Error generating stack: `+e.message+`
   @media (min-width: ${({theme:e})=>e.breakpoints.lg}) {
     display: none;
   }
-`,id=B.main`
+`,gd=B.main`
   display: flex;
   flex: 1;
   min-height: 100vh;
   overflow: hidden;
+
+  @media (min-width: ${({theme:e})=>e.breakpoints.lg}) {
+    margin-left: 260px;
+  }
+`,_d=B.div`
+  display: flex;
+  min-height: 100vh;
   background-image: url("${`/cc-war-record/`}img/${({theme:e})=>e.isDark?`bgn.webp`:`bg.webp`}");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
 
-  @media (min-width: ${({theme:e})=>e.breakpoints.lg}) {
-    margin-left: 260px;
-  }
-`,ad=B.div`
-  display: flex;
-  min-height: 100vh;
-
   @media (max-width: ${({theme:e})=>e.breakpoints.lg}) {
     flex-direction: column;
   }
-`;const od=({children:e})=>{let[t,n]=(0,j.useState)(!1),r=Pr(),i=()=>{n(!t)},a=()=>{n(!1)};return(0,A.jsxs)(ad,{children:[(0,A.jsx)(qu,{onMenuClick:i}),(0,A.jsx)(rd,{isOpen:t,isActivePath:e=>e===`/`?r.pathname===`/`:r.pathname.startsWith(e),onClose:a}),(0,A.jsx)(Z,{$isOpen:t,onClick:a}),(0,A.jsx)(id,{children:e})]})};var sd=B.div`
+`;const vd=({children:e})=>{let[t,n]=(0,j.useState)(!1),r=Pr(),i=()=>{n(!t)},a=()=>{n(!1)};return(0,A.jsxs)(_d,{children:[(0,A.jsx)(id,{onMenuClick:i}),(0,A.jsx)(md,{isOpen:t,isActivePath:e=>e===`/`?r.pathname===`/`:r.pathname.startsWith(e),onClose:a}),(0,A.jsx)(hd,{$isOpen:t,onClick:a}),(0,A.jsx)(gd,{children:e})]})};var yd=B.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1320,14 +1512,14 @@ Error generating stack: `+e.message+`
   gap: 1.5rem;
   min-height: 400px;
   text-align: center;
-`,cd=B.div`
+`,bd=B.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-`,ld=B.div`
+`,xd=B.div`
   display: flex;
   gap: 1rem;
-`,ud=B.h1`
+`,Sd=B.h1`
   font-size: 4rem;
   font-weight: bold;
   color: ${({theme:e})=>e.colors.textSecondary};
@@ -1336,7 +1528,7 @@ Error generating stack: `+e.message+`
   @media (min-width: 768px) {
     font-size: 6rem;
   }
-`,dd=B.h2`
+`,Cd=B.h2`
   font-size: 1.5rem;
   font-weight: 600;
   color: ${({theme:e})=>e.colors.text};
@@ -1345,40 +1537,41 @@ Error generating stack: `+e.message+`
   @media (min-width: 768px) {
     font-size: 2rem;
   }
-`,fd=B.p`
+`,wd=B.p`
   color: ${({theme:e})=>e.colors.textSecondary};
   max-width: 28rem;
   margin: 0.5rem auto;
   line-height: 1.6;
-`;const pd=()=>(0,A.jsx)(Xl,{children:(0,A.jsxs)(sd,{children:[(0,A.jsxs)(cd,{children:[(0,A.jsx)(ud,{children:`404`}),(0,A.jsx)(dd,{children:`ページが見つかりません`}),(0,A.jsx)(fd,{children:`お探しのページは削除されたか、URLが間違っている可能性があります。`})]}),(0,A.jsx)(ld,{children:(0,A.jsx)(or,{to:`/`,children:(0,A.jsx)(zo,{children:`ホームに戻る`})})})]})});var md=V`
+`;const Td=()=>(0,A.jsx)(Yl,{children:(0,A.jsxs)(yd,{children:[(0,A.jsxs)(bd,{children:[(0,A.jsx)(Sd,{children:`404`}),(0,A.jsx)(Cd,{children:`ページが見つかりません`}),(0,A.jsx)(wd,{children:`お探しのページは削除されたか、URLが間違っている可能性があります。`})]}),(0,A.jsx)(xd,{children:(0,A.jsx)(or,{to:`/`,children:(0,A.jsx)(zo,{children:`ホームに戻る`})})})]})});var Ed=V`
   0%, 100% {
     transform: translateY(0);
   }
   50% {
     transform: translateY(-10px);
   }
-`,hd=V`
+`,Dd=V`
   0%, 100% {
     opacity: 1;
   }
   50% {
     opacity: 0.5;
   }
-`,gd=B.div`
+`,Od=B.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: ${({theme:e})=>e.spacing[16]} ${({theme:e})=>e.spacing[6]};
   text-align: center;
-  background: ${({theme:e})=>e.colors.surface};
-  backdrop-filter: blur(12px);
+  background: ${({theme:e})=>e.gradients.glass};
+  backdrop-filter: ${({theme:e})=>e.blur.md};
   border-radius: ${({theme:e})=>e.borderRadius.xl};
-  border: 1px solid ${({theme:e})=>e.colors.border};
+  border: 1px solid ${({theme:e})=>e.colors.borderLight};
   box-shadow: ${({theme:e})=>e.shadows[`2xl`]};
   position: relative;
   overflow: hidden;
   animation: ${yl} 0.8s ease-out;
+  transition: all ${({theme:e})=>e.transitions.base};
 
   &::before {
     content: "";
@@ -1399,9 +1592,13 @@ Error generating stack: `+e.message+`
     width: 200%;
     height: 200%;
     background: radial-gradient(circle, rgba(38, 161, 223, 0.03) 0%, transparent 70%);
-    animation: ${hd} 3s ease-in-out infinite;
+    animation: ${Dd} 3s ease-in-out infinite;
   }
-`,_d=B.div`
+
+  &:hover {
+    border-color: ${({theme:e})=>e.colors.border};
+  }
+`,kd=B.div`
   width: 100px;
   height: 100px;
   background: linear-gradient(135deg, rgba(38, 161, 223, 0.1) 0%, rgba(243, 99, 70, 0.1) 100%);
@@ -1412,7 +1609,7 @@ Error generating stack: `+e.message+`
   margin-bottom: ${({theme:e})=>e.spacing[6]};
   position: relative;
   z-index: 1;
-  animation: ${md} 3s ease-in-out infinite;
+  animation: ${Ed} 3s ease-in-out infinite;
   box-shadow: 0 8px 24px rgba(38, 161, 223, 0.15);
   border: 2px solid rgba(38, 161, 223, 0.2);
 
@@ -1430,7 +1627,7 @@ Error generating stack: `+e.message+`
   &:hover::before {
     opacity: 0.2;
   }
-`,vd=B.h2`
+`,Ad=B.h2`
   font-size: 1.75rem;
   font-weight: 700;
   background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
@@ -1441,7 +1638,7 @@ Error generating stack: `+e.message+`
   position: relative;
   z-index: 1;
   animation: ${yl} 0.8s ease-out 0.2s backwards;
-`,yd=B.p`
+`,jd=B.p`
   font-size: 1rem;
   color: ${({theme:e})=>e.colors.textSecondary};
   margin-bottom: ${({theme:e})=>e.spacing[8]};
@@ -1451,7 +1648,7 @@ Error generating stack: `+e.message+`
   position: relative;
   z-index: 1;
   animation: ${yl} 0.8s ease-out 0.4s backwards;
-`,bd=B(zo)`
+`,Md=B(zo)`
   display: inline-flex;
   align-items: center;
   gap: ${({theme:e})=>e.spacing[2]};
@@ -1471,13 +1668,13 @@ Error generating stack: `+e.message+`
   &:active {
     transform: translateY(-1px) scale(1);
   }
-`;const xd=(0,j.memo)(({onCreateSeason:e})=>{let{t}=ml();return(0,A.jsxs)(gd,{children:[(0,A.jsx)(_d,{children:(0,A.jsx)(ls,{name:`home`,size:32})}),(0,A.jsx)(vd,{children:t(`pages.home.noSeason`)}),(0,A.jsx)(yd,{children:t(`pages.home.createFirstSeason`)}),(0,A.jsxs)(bd,{onClick:e,children:[(0,A.jsx)(ls,{name:`add`,size:20,color:`white`}),t(`pages.home.createSeason`)]})]})});xd.displayName=`EmptyState`;var Sd=B.div`
+`;const Nd=(0,j.memo)(({icon:e=`home`})=>{let{t}=ml(),n=Gn();return(0,A.jsxs)(Od,{children:[(0,A.jsx)(kd,{children:(0,A.jsx)(ls,{name:e,size:32})}),(0,A.jsx)(Ad,{children:t(`pages.home.noSeason`)}),(0,A.jsx)(jd,{children:t(`pages.home.createFirstSeason`)}),(0,A.jsxs)(Md,{onClick:()=>{n({to:`/new`})},children:[(0,A.jsx)(ls,{name:`add`,size:20,color:`white`}),t(`pages.home.createSeason`)]})]})});Nd.displayName=`EmptyState`;var Pd=B.div`
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 60vh;
   padding: ${({theme:e})=>e.spacing[8]};
-`,Cd=B.div`
+`,Q=B.div`
   width: 48px;
   height: 48px;
   border: 4px solid ${({theme:e})=>e.colors.gray[200]};
@@ -1490,13 +1687,36 @@ Error generating stack: `+e.message+`
       transform: rotate(360deg);
     }
   }
-`,wd=B.p`
+`,Fd=B.p`
   margin-top: ${({theme:e})=>e.spacing[4]};
   color: ${({theme:e})=>e.colors.textSecondary};
   font-size: 0.875rem;
-`;const Td=()=>(0,A.jsx)(Sd,{children:(0,A.jsxs)(`div`,{children:[(0,A.jsx)(Cd,{}),(0,A.jsx)(wd,{children:`Loading...`})]})});var Ed=o((e=>{Object.defineProperty(e,`__esModule`,{value:!0}),e.default=function(){var e=[...arguments];if(typeof window<`u`){var t;window.gtag===void 0&&(window.dataLayer=window.dataLayer||[],window.gtag=function(){window.dataLayer.push(arguments)}),(t=window).gtag.apply(t,e)}}})),Dd=o((e=>{Object.defineProperty(e,`__esModule`,{value:!0}),e.default=o;var t=/^(a|an|and|as|at|but|by|en|for|if|in|nor|of|on|or|per|the|to|vs?\.?|via)$/i;function n(e){return e.toString().trim().replace(/[A-Za-z0-9\u00C0-\u00FF]+[^\s-]*/g,function(e,n,r){return n>0&&n+e.length!==r.length&&e.search(t)>-1&&r.charAt(n-2)!==`:`&&(r.charAt(n+e.length)!==`-`||r.charAt(n-1)===`-`)&&r.charAt(n-1).search(/[^\s-]/)<0?e.toLowerCase():e.substr(1).search(/[A-Z]|\../)>-1?e:e.charAt(0).toUpperCase()+e.substr(1)})}function r(e){return typeof e==`string`&&e.indexOf(`@`)!==-1}var i=`REDACTED (Potential Email Address)`;function a(e){return r(e)?(console.warn(`This arg looks like an email address, redacting.`),i):e}function o(){var e=arguments.length>0&&arguments[0]!==void 0?arguments[0]:``,t=arguments.length>1&&arguments[1]!==void 0?arguments[1]:!0,r=arguments.length>2&&arguments[2]!==void 0?arguments[2]:!0,i=e||``;return t&&(i=n(e)),r&&(i=a(i)),i}})),Od=o((e=>{Object.defineProperty(e,`__esModule`,{value:!0});var t=o(Ed()),n=o(Dd()),r=[`eventCategory`,`eventAction`,`eventLabel`,`eventValue`,`hitType`],i=[`title`,`location`],a=[`page`,`hitType`];function o(e){return e&&e.__esModule?e:{default:e}}function s(e,t){if(e==null)return{};var n=c(e,t),r,i;if(Object.getOwnPropertySymbols){var a=Object.getOwnPropertySymbols(e);for(i=0;i<a.length;i++)r=a[i],!(t.indexOf(r)>=0)&&Object.prototype.propertyIsEnumerable.call(e,r)&&(n[r]=e[r])}return n}function c(e,t){if(e==null)return{};var n={},r=Object.keys(e),i,a;for(a=0;a<r.length;a++)i=r[a],!(t.indexOf(i)>=0)&&(n[i]=e[i]);return n}function l(e){"@babel/helpers - typeof";return l=typeof Symbol==`function`&&typeof Symbol.iterator==`symbol`?function(e){return typeof e}:function(e){return e&&typeof Symbol==`function`&&e.constructor===Symbol&&e!==Symbol.prototype?`symbol`:typeof e},l(e)}function u(e){return p(e)||f(e)||v(e)||d()}function d(){throw TypeError(`Invalid attempt to spread non-iterable instance.
+`;const Id=()=>(0,A.jsx)(Pd,{children:(0,A.jsxs)(`div`,{children:[(0,A.jsx)(Q,{}),(0,A.jsx)(Fd,{children:`Loading...`})]})}),Ld=B.form`
+  background: ${({theme:e})=>e.gradients.glass};
+  backdrop-filter: ${({theme:e})=>e.blur.md};
+  padding: ${({theme:e})=>e.spacing[8]};
+  border-radius: ${({theme:e})=>e.borderRadius.lg};
+  border: 1px solid ${({theme:e})=>e.colors.borderLight};
+  box-shadow: ${({theme:e})=>e.shadows.xl};
+  transition: all ${({theme:e})=>e.transitions.base};
+
+  &:hover {
+    box-shadow: ${({theme:e})=>e.shadows[`2xl`]};
+    border-color: ${({theme:e})=>e.colors.border};
+  }
+`,Rd=B.div`
+  margin-bottom: ${({theme:e})=>e.spacing[6]};
+`,zd=B.div`
+  display: flex;
+  gap: ${({theme:e})=>e.spacing[4]};
+  justify-content: flex-end;
+
+  @media (max-width: ${({theme:e})=>e.breakpoints.sm}) {
+    flex-direction: column-reverse;
+  }
+`;var Bd=o((e=>{Object.defineProperty(e,`__esModule`,{value:!0}),e.default=function(){var e=[...arguments];if(typeof window<`u`){var t;window.gtag===void 0&&(window.dataLayer=window.dataLayer||[],window.gtag=function(){window.dataLayer.push(arguments)}),(t=window).gtag.apply(t,e)}}})),Vd=o((e=>{Object.defineProperty(e,`__esModule`,{value:!0}),e.default=o;var t=/^(a|an|and|as|at|but|by|en|for|if|in|nor|of|on|or|per|the|to|vs?\.?|via)$/i;function n(e){return e.toString().trim().replace(/[A-Za-z0-9\u00C0-\u00FF]+[^\s-]*/g,function(e,n,r){return n>0&&n+e.length!==r.length&&e.search(t)>-1&&r.charAt(n-2)!==`:`&&(r.charAt(n+e.length)!==`-`||r.charAt(n-1)===`-`)&&r.charAt(n-1).search(/[^\s-]/)<0?e.toLowerCase():e.substr(1).search(/[A-Z]|\../)>-1?e:e.charAt(0).toUpperCase()+e.substr(1)})}function r(e){return typeof e==`string`&&e.indexOf(`@`)!==-1}var i=`REDACTED (Potential Email Address)`;function a(e){return r(e)?(console.warn(`This arg looks like an email address, redacting.`),i):e}function o(){var e=arguments.length>0&&arguments[0]!==void 0?arguments[0]:``,t=arguments.length>1&&arguments[1]!==void 0?arguments[1]:!0,r=arguments.length>2&&arguments[2]!==void 0?arguments[2]:!0,i=e||``;return t&&(i=n(e)),r&&(i=a(i)),i}})),Hd=o((e=>{Object.defineProperty(e,`__esModule`,{value:!0});var t=o(Bd()),n=o(Vd()),r=[`eventCategory`,`eventAction`,`eventLabel`,`eventValue`,`hitType`],i=[`title`,`location`],a=[`page`,`hitType`];function o(e){return e&&e.__esModule?e:{default:e}}function s(e,t){if(e==null)return{};var n=c(e,t),r,i;if(Object.getOwnPropertySymbols){var a=Object.getOwnPropertySymbols(e);for(i=0;i<a.length;i++)r=a[i],!(t.indexOf(r)>=0)&&Object.prototype.propertyIsEnumerable.call(e,r)&&(n[r]=e[r])}return n}function c(e,t){if(e==null)return{};var n={},r=Object.keys(e),i,a;for(a=0;a<r.length;a++)i=r[a],!(t.indexOf(i)>=0)&&(n[i]=e[i]);return n}function l(e){"@babel/helpers - typeof";return l=typeof Symbol==`function`&&typeof Symbol.iterator==`symbol`?function(e){return typeof e}:function(e){return e&&typeof Symbol==`function`&&e.constructor===Symbol&&e!==Symbol.prototype?`symbol`:typeof e},l(e)}function u(e){return p(e)||f(e)||v(e)||d()}function d(){throw TypeError(`Invalid attempt to spread non-iterable instance.
 In order to be iterable, non-array objects must have a [Symbol.iterator]() method.`)}function f(e){if(typeof Symbol<`u`&&e[Symbol.iterator]!=null||e[`@@iterator`]!=null)return Array.from(e)}function p(e){if(Array.isArray(e))return y(e)}function m(e,t){var n=Object.keys(e);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(e);t&&(r=r.filter(function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable})),n.push.apply(n,r)}return n}function h(e){for(var t=1;t<arguments.length;t++){var n=arguments[t]==null?{}:arguments[t];t%2?m(Object(n),!0).forEach(function(t){T(e,t,n[t])}):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(n)):m(Object(n)).forEach(function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(n,t))})}return e}function g(e,t){return x(e)||b(e,t)||v(e,t)||_()}function _(){throw TypeError(`Invalid attempt to destructure non-iterable instance.
-In order to be iterable, non-array objects must have a [Symbol.iterator]() method.`)}function v(e,t){if(e){if(typeof e==`string`)return y(e,t);var n=Object.prototype.toString.call(e).slice(8,-1);if(n===`Object`&&e.constructor&&(n=e.constructor.name),n===`Map`||n===`Set`)return Array.from(e);if(n===`Arguments`||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))return y(e,t)}}function y(e,t){(t==null||t>e.length)&&(t=e.length);for(var n=0,r=Array(t);n<t;n++)r[n]=e[n];return r}function b(e,t){var n=e==null?null:typeof Symbol<`u`&&e[Symbol.iterator]||e[`@@iterator`];if(n!=null){var r,i,a,o,s=[],c=!0,l=!1;try{if(a=(n=n.call(e)).next,t===0){if(Object(n)!==n)return;c=!1}else for(;!(c=(r=a.call(n)).done)&&(s.push(r.value),s.length!==t);c=!0);}catch(e){l=!0,i=e}finally{try{if(!c&&n.return!=null&&(o=n.return(),Object(o)!==o))return}finally{if(l)throw i}}return s}}function x(e){if(Array.isArray(e))return e}function S(e,t){if(!(e instanceof t))throw TypeError(`Cannot call a class as a function`)}function C(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,`value`in r&&(r.writable=!0),Object.defineProperty(e,ee(r.key),r)}}function w(e,t,n){return t&&C(e.prototype,t),n&&C(e,n),Object.defineProperty(e,`prototype`,{writable:!1}),e}function T(e,t,n){return t=ee(t),t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}function ee(e){var t=te(e,`string`);return l(t)===`symbol`?t:String(t)}function te(e,t){if(l(e)!==`object`||e===null)return e;var n=e[Symbol.toPrimitive];if(n!==void 0){var r=n.call(e,t||`default`);if(l(r)!==`object`)return r;throw TypeError(`@@toPrimitive must return a primitive value.`)}return(t===`string`?String:Number)(e)}var ne=function(){function e(){var o=this;S(this,e),T(this,`reset`,function(){o.isInitialized=!1,o._testMode=!1,o._currentMeasurementId,o._hasLoadedGA=!1,o._isQueuing=!1,o._queueGtag=[]}),T(this,`_gtag`,function(){var e=[...arguments];o._testMode||o._isQueuing?o._queueGtag.push(e):t.default.apply(void 0,e)}),T(this,`_loadGA`,function(e,t){var n=arguments.length>2&&arguments[2]!==void 0?arguments[2]:`https://www.googletagmanager.com/gtag/js`;if(!(typeof window>`u`||typeof document>`u`)&&!o._hasLoadedGA){var r=document.createElement(`script`);r.async=!0,r.src=`${n}?id=${e}`,t&&r.setAttribute(`nonce`,t),document.body.appendChild(r),window.dataLayer=window.dataLayer||[],window.gtag=function(){window.dataLayer.push(arguments)},o._hasLoadedGA=!0}}),T(this,`_toGtagOptions`,function(e){if(e){var t={cookieUpdate:`cookie_update`,cookieExpires:`cookie_expires`,cookieDomain:`cookie_domain`,cookieFlags:`cookie_flags`,userId:`user_id`,clientId:`client_id`,anonymizeIp:`anonymize_ip`,contentGroup1:`content_group1`,contentGroup2:`content_group2`,contentGroup3:`content_group3`,contentGroup4:`content_group4`,contentGroup5:`content_group5`,allowAdFeatures:`allow_google_signals`,allowAdPersonalizationSignals:`allow_ad_personalization_signals`,nonInteraction:`non_interaction`,page:`page_path`,hitCallback:`event_callback`};return Object.entries(e).reduce(function(e,n){var r=g(n,2),i=r[0],a=r[1];return t[i]?e[t[i]]=a:e[i]=a,e},{})}}),T(this,`initialize`,function(e){var t=arguments.length>1&&arguments[1]!==void 0?arguments[1]:{};if(!e)throw Error(`Require GA_MEASUREMENT_ID`);var n=typeof e==`string`?[{trackingId:e}]:e;o._currentMeasurementId=n[0].trackingId;var r=t.gaOptions,i=t.gtagOptions,a=t.nonce,s=t.testMode,c=s===void 0?!1:s,l=t.gtagUrl;if(o._testMode=c,c||o._loadGA(o._currentMeasurementId,a,l),o.isInitialized||(o._gtag(`js`,new Date),n.forEach(function(e){var t=h(h(h({},o._toGtagOptions(h(h({},r),e.gaOptions))),i),e.gtagOptions);Object.keys(t).length?o._gtag(`config`,e.trackingId,t):o._gtag(`config`,e.trackingId)})),o.isInitialized=!0,!c){var d=u(o._queueGtag);for(o._queueGtag=[],o._isQueuing=!1;d.length;){var f=d.shift();o._gtag.apply(o,u(f)),f[0]===`get`&&(o._isQueuing=!0)}}}),T(this,`set`,function(e){if(!e){console.warn("`fieldsObject` is required in .set()");return}if(l(e)!==`object`){console.warn("Expected `fieldsObject` arg to be an Object");return}Object.keys(e).length===0&&console.warn("empty `fieldsObject` given to .set()"),o._gaCommand(`set`,e)}),T(this,`_gaCommandSendEvent`,function(e,t,n,r,i){o._gtag(`event`,t,h(h({event_category:e,event_label:n,value:r},i&&{non_interaction:i.nonInteraction}),o._toGtagOptions(i)))}),T(this,`_gaCommandSendEventParameters`,function(){var e=[...arguments];if(typeof e[0]==`string`)o._gaCommandSendEvent.apply(o,u(e.slice(1)));else{var t=e[0],n=t.eventCategory,i=t.eventAction,a=t.eventLabel,c=t.eventValue;t.hitType;var l=s(t,r);o._gaCommandSendEvent(n,i,a,c,l)}}),T(this,`_gaCommandSendTiming`,function(e,t,n,r){o._gtag(`event`,`timing_complete`,{name:t,value:n,event_category:e,event_label:r})}),T(this,`_gaCommandSendPageview`,function(e,t){if(t&&Object.keys(t).length){var n=o._toGtagOptions(t),r=n.title,a=n.location,c=s(n,i);o._gtag(`event`,`page_view`,h(h(h(h({},e&&{page_path:e}),r&&{page_title:r}),a&&{page_location:a}),c))}else e?o._gtag(`event`,`page_view`,{page_path:e}):o._gtag(`event`,`page_view`)}),T(this,`_gaCommandSendPageviewParameters`,function(){var e=[...arguments];if(typeof e[0]==`string`)o._gaCommandSendPageview.apply(o,u(e.slice(1)));else{var t=e[0],n=t.page;t.hitType;var r=s(t,a);o._gaCommandSendPageview(n,r)}}),T(this,`_gaCommandSend`,function(){var e=[...arguments],t=typeof e[0]==`string`?e[0]:e[0].hitType;switch(t){case`event`:o._gaCommandSendEventParameters.apply(o,e);break;case`pageview`:o._gaCommandSendPageviewParameters.apply(o,e);break;case`timing`:o._gaCommandSendTiming.apply(o,u(e.slice(1)));break;case`screenview`:case`transaction`:case`item`:case`social`:case`exception`:console.warn(`Unsupported send command: ${t}`);break;default:console.warn(`Send command doesn't exist: ${t}`)}}),T(this,`_gaCommandSet`,function(){var e=[...arguments];typeof e[0]==`string`&&(e[0]=T({},e[0],e[1])),o._gtag(`set`,o._toGtagOptions(e[0]))}),T(this,`_gaCommand`,function(e){var t=[...arguments].slice(1);switch(e){case`send`:o._gaCommandSend.apply(o,t);break;case`set`:o._gaCommandSet.apply(o,t);break;default:console.warn(`Command doesn't exist: ${e}`)}}),T(this,`ga`,function(){var e=[...arguments];if(typeof e[0]==`string`)o._gaCommand.apply(o,e);else{var t=e[0];o._gtag(`get`,o._currentMeasurementId,`client_id`,function(e){o._isQueuing=!1;var n=o._queueGtag;for(t({get:function(t){return t===`clientId`?e:t===`trackingId`?o._currentMeasurementId:t===`apiVersion`?`1`:void 0}});n.length;){var r=n.shift();o._gtag.apply(o,u(r))}}),o._isQueuing=!0}return o.ga}),T(this,`event`,function(e,t){if(typeof e==`string`)o._gtag(`event`,e,o._toGtagOptions(t));else{var r=e.action,i=e.category,a=e.label,s=e.value,c=e.nonInteraction,l=e.transport;if(!i||!r){console.warn(`args.category AND args.action are required in event()`);return}var u={hitType:`event`,eventCategory:(0,n.default)(i),eventAction:(0,n.default)(r)};a&&(u.eventLabel=(0,n.default)(a)),s!==void 0&&(typeof s==`number`?u.eventValue=s:console.warn("Expected `args.value` arg to be a Number.")),c!==void 0&&(typeof c==`boolean`?u.nonInteraction=c:console.warn("`args.nonInteraction` must be a boolean.")),l!==void 0&&(typeof l==`string`?([`beacon`,`xhr`,`image`].indexOf(l)===-1&&console.warn("`args.transport` must be either one of these values: `beacon`, `xhr` or `image`"),u.transport=l):console.warn("`args.transport` must be a string.")),o._gaCommand(`send`,u)}}),T(this,`send`,function(e){o._gaCommand(`send`,e)}),this.reset()}return w(e,[{key:`gtag`,value:function(){this._gtag.apply(this,arguments)}}]),e}();e.GA4=ne,e.default=new ne})),kd=l(o((e=>{function t(e){"@babel/helpers - typeof";return t=typeof Symbol==`function`&&typeof Symbol.iterator==`symbol`?function(e){return typeof e}:function(e){return e&&typeof Symbol==`function`&&e.constructor===Symbol&&e!==Symbol.prototype?`symbol`:typeof e},t(e)}Object.defineProperty(e,`__esModule`,{value:!0});var n=i(Od());function r(e){if(typeof WeakMap!=`function`)return null;var t=new WeakMap,n=new WeakMap;return(r=function(e){return e?n:t})(e)}function i(e,n){if(!n&&e&&e.__esModule)return e;if(e===null||t(e)!==`object`&&typeof e!=`function`)return{default:e};var i=r(n);if(i&&i.has(e))return i.get(e);var a={},o=Object.defineProperty&&Object.getOwnPropertyDescriptor;for(var s in e)if(s!==`default`&&Object.prototype.hasOwnProperty.call(e,s)){var c=o?Object.getOwnPropertyDescriptor(e,s):null;c&&(c.get||c.set)?Object.defineProperty(a,s,c):a[s]=e[s]}return a.default=e,i&&i.set(e,a),a}e.ReactGAImplementation=n.GA4,e.default=n.default}))()),Ad=`G-8MW9KTB7Q5`;const jd=()=>{kd.default.initialize(Ad,{gaOptions:{siteSpeedSampleRate:100}})},Md=(e,t)=>{kd.default.send({hitType:`pageview`,page:e,title:t})},Nd=(e,t,n,r)=>{kd.default.event({category:e,action:t,label:n,value:r})},Pd=dr({component:Q,notFoundComponent:Fd});function Q(){let e=Ln();return(0,j.useEffect)(()=>{window.scrollTo(0,0),Md(e.location.pathname)},[e.location.pathname]),(0,A.jsx)(od,{children:(0,A.jsx)(j.Suspense,{fallback:(0,A.jsx)(Td,{}),children:(0,A.jsx)(Dr,{})})})}function Fd(){return(0,A.jsx)(pd,{})}const Id=fr(`/new`)({component:gr(()=>zr(()=>import(`./new-CcMos6bI.js`),[]),`component`)}),Ld=fr(`/graphs`)({component:gr(()=>zr(()=>import(`./graphs-DGG_vABw.js`),[]),`component`),staleTime:1e3*60*5,gcTime:1e3*60*10}),Rd=fr(`/faq`)({component:gr(()=>zr(()=>import(`./faq-BTI26nfI.js`),[]),`component`)}),zd=fr(`/`)({component:gr(()=>zr(()=>import(`./routes-CDxoobAD.js`),[]),`component`)}),Bd=fr(`/histories/`)({component:gr(()=>zr(()=>import(`./histories-C_6pTWfL.js`),[]),`component`)}),Vd=fr(`/histories/$id`)({component:gr(()=>zr(()=>import(`./_id-DNTGf_x4.js`),[]),`component`)});var Hd=Id.update({id:`/new`,path:`/new`,getParentRoute:()=>Pd}),Ud=Ld.update({id:`/graphs`,path:`/graphs`,getParentRoute:()=>Pd}),Wd=Rd.update({id:`/faq`,path:`/faq`,getParentRoute:()=>Pd}),Gd=zd.update({id:`/`,path:`/`,getParentRoute:()=>Pd}),Kd=Bd.update({id:`/histories/`,path:`/histories/`,getParentRoute:()=>Pd}),qd=Vd.update({id:`/histories/$id`,path:`/histories/$id`,getParentRoute:()=>Pd}),$={IndexRoute:Gd,FaqRoute:Wd,GraphsRoute:Ud,NewRoute:Hd,HistoriesIdRoute:qd,HistoriesIndexRoute:Kd};const Jd=Pd._addFileChildren($)._addFileTypes();var Yd=Ar({routeTree:Jd,basepath:`/cc-war-record`,defaultViewTransition:!0});const Xd=()=>(0,A.jsxs)(A.Fragment,{children:[(0,A.jsx)(Nr,{router:Yd}),!1]});function Zd(e){var t=Object.create(null);return function(n){return t[n]===void 0&&(t[n]=e(n)),t[n]}}var Qd=/^((children|dangerouslySetInnerHTML|key|ref|autoFocus|defaultValue|defaultChecked|innerHTML|suppressContentEditableWarning|suppressHydrationWarning|valueLink|abbr|accept|acceptCharset|accessKey|action|allow|allowUserMedia|allowPaymentRequest|allowFullScreen|allowTransparency|alt|async|autoComplete|autoPlay|capture|cellPadding|cellSpacing|challenge|charSet|checked|cite|classID|className|cols|colSpan|content|contentEditable|contextMenu|controls|controlsList|coords|crossOrigin|data|dateTime|decoding|default|defer|dir|disabled|disablePictureInPicture|disableRemotePlayback|download|draggable|encType|enterKeyHint|fetchpriority|fetchPriority|form|formAction|formEncType|formMethod|formNoValidate|formTarget|frameBorder|headers|height|hidden|high|href|hrefLang|htmlFor|httpEquiv|id|inputMode|integrity|is|keyParams|keyType|kind|label|lang|list|loading|loop|low|marginHeight|marginWidth|max|maxLength|media|mediaGroup|method|min|minLength|multiple|muted|name|nonce|noValidate|open|optimum|pattern|placeholder|playsInline|popover|popoverTarget|popoverTargetAction|poster|preload|profile|radioGroup|readOnly|referrerPolicy|rel|required|reversed|role|rows|rowSpan|sandbox|scope|scoped|scrolling|seamless|selected|shape|size|sizes|slot|span|spellCheck|src|srcDoc|srcLang|srcSet|start|step|style|summary|tabIndex|target|title|translate|type|useMap|value|width|wmode|wrap|about|datatype|inlist|prefix|property|resource|typeof|vocab|autoCapitalize|autoCorrect|autoSave|color|incremental|fallback|inert|itemProp|itemScope|itemType|itemID|itemRef|on|option|results|security|unselectable|accentHeight|accumulate|additive|alignmentBaseline|allowReorder|alphabetic|amplitude|arabicForm|ascent|attributeName|attributeType|autoReverse|azimuth|baseFrequency|baselineShift|baseProfile|bbox|begin|bias|by|calcMode|capHeight|clip|clipPathUnits|clipPath|clipRule|colorInterpolation|colorInterpolationFilters|colorProfile|colorRendering|contentScriptType|contentStyleType|cursor|cx|cy|d|decelerate|descent|diffuseConstant|direction|display|divisor|dominantBaseline|dur|dx|dy|edgeMode|elevation|enableBackground|end|exponent|externalResourcesRequired|fill|fillOpacity|fillRule|filter|filterRes|filterUnits|floodColor|floodOpacity|focusable|fontFamily|fontSize|fontSizeAdjust|fontStretch|fontStyle|fontVariant|fontWeight|format|from|fr|fx|fy|g1|g2|glyphName|glyphOrientationHorizontal|glyphOrientationVertical|glyphRef|gradientTransform|gradientUnits|hanging|horizAdvX|horizOriginX|ideographic|imageRendering|in|in2|intercept|k|k1|k2|k3|k4|kernelMatrix|kernelUnitLength|kerning|keyPoints|keySplines|keyTimes|lengthAdjust|letterSpacing|lightingColor|limitingConeAngle|local|markerEnd|markerMid|markerStart|markerHeight|markerUnits|markerWidth|mask|maskContentUnits|maskUnits|mathematical|mode|numOctaves|offset|opacity|operator|order|orient|orientation|origin|overflow|overlinePosition|overlineThickness|panose1|paintOrder|pathLength|patternContentUnits|patternTransform|patternUnits|pointerEvents|points|pointsAtX|pointsAtY|pointsAtZ|preserveAlpha|preserveAspectRatio|primitiveUnits|r|radius|refX|refY|renderingIntent|repeatCount|repeatDur|requiredExtensions|requiredFeatures|restart|result|rotate|rx|ry|scale|seed|shapeRendering|slope|spacing|specularConstant|specularExponent|speed|spreadMethod|startOffset|stdDeviation|stemh|stemv|stitchTiles|stopColor|stopOpacity|strikethroughPosition|strikethroughThickness|string|stroke|strokeDasharray|strokeDashoffset|strokeLinecap|strokeLinejoin|strokeMiterlimit|strokeOpacity|strokeWidth|surfaceScale|systemLanguage|tableValues|targetX|targetY|textAnchor|textDecoration|textRendering|textLength|to|transform|u1|u2|underlinePosition|underlineThickness|unicode|unicodeBidi|unicodeRange|unitsPerEm|vAlphabetic|vHanging|vIdeographic|vMathematical|values|vectorEffect|version|vertAdvY|vertOriginX|vertOriginY|viewBox|viewTarget|visibility|widths|wordSpacing|writingMode|x|xHeight|x1|x2|xChannelSelector|xlinkActuate|xlinkArcrole|xlinkHref|xlinkRole|xlinkShow|xlinkTitle|xlinkType|xmlBase|xmlns|xmlnsXlink|xmlLang|xmlSpace|y|y1|y2|yChannelSelector|z|zoomAndPan|for|class|autofocus)|(([Dd][Aa][Tt][Aa]|[Aa][Rr][Ii][Aa]|x)-.*))$/,$d=Zd(function(e){return Qd.test(e)||e.charCodeAt(0)===111&&e.charCodeAt(1)===110&&e.charCodeAt(2)<91});const ef=No`
+In order to be iterable, non-array objects must have a [Symbol.iterator]() method.`)}function v(e,t){if(e){if(typeof e==`string`)return y(e,t);var n=Object.prototype.toString.call(e).slice(8,-1);if(n===`Object`&&e.constructor&&(n=e.constructor.name),n===`Map`||n===`Set`)return Array.from(e);if(n===`Arguments`||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))return y(e,t)}}function y(e,t){(t==null||t>e.length)&&(t=e.length);for(var n=0,r=Array(t);n<t;n++)r[n]=e[n];return r}function b(e,t){var n=e==null?null:typeof Symbol<`u`&&e[Symbol.iterator]||e[`@@iterator`];if(n!=null){var r,i,a,o,s=[],c=!0,l=!1;try{if(a=(n=n.call(e)).next,t===0){if(Object(n)!==n)return;c=!1}else for(;!(c=(r=a.call(n)).done)&&(s.push(r.value),s.length!==t);c=!0);}catch(e){l=!0,i=e}finally{try{if(!c&&n.return!=null&&(o=n.return(),Object(o)!==o))return}finally{if(l)throw i}}return s}}function x(e){if(Array.isArray(e))return e}function S(e,t){if(!(e instanceof t))throw TypeError(`Cannot call a class as a function`)}function C(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,`value`in r&&(r.writable=!0),Object.defineProperty(e,ee(r.key),r)}}function w(e,t,n){return t&&C(e.prototype,t),n&&C(e,n),Object.defineProperty(e,`prototype`,{writable:!1}),e}function T(e,t,n){return t=ee(t),t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}function ee(e){var t=te(e,`string`);return l(t)===`symbol`?t:String(t)}function te(e,t){if(l(e)!==`object`||e===null)return e;var n=e[Symbol.toPrimitive];if(n!==void 0){var r=n.call(e,t||`default`);if(l(r)!==`object`)return r;throw TypeError(`@@toPrimitive must return a primitive value.`)}return(t===`string`?String:Number)(e)}var ne=function(){function e(){var o=this;S(this,e),T(this,`reset`,function(){o.isInitialized=!1,o._testMode=!1,o._currentMeasurementId,o._hasLoadedGA=!1,o._isQueuing=!1,o._queueGtag=[]}),T(this,`_gtag`,function(){var e=[...arguments];o._testMode||o._isQueuing?o._queueGtag.push(e):t.default.apply(void 0,e)}),T(this,`_loadGA`,function(e,t){var n=arguments.length>2&&arguments[2]!==void 0?arguments[2]:`https://www.googletagmanager.com/gtag/js`;if(!(typeof window>`u`||typeof document>`u`)&&!o._hasLoadedGA){var r=document.createElement(`script`);r.async=!0,r.src=`${n}?id=${e}`,t&&r.setAttribute(`nonce`,t),document.body.appendChild(r),window.dataLayer=window.dataLayer||[],window.gtag=function(){window.dataLayer.push(arguments)},o._hasLoadedGA=!0}}),T(this,`_toGtagOptions`,function(e){if(e){var t={cookieUpdate:`cookie_update`,cookieExpires:`cookie_expires`,cookieDomain:`cookie_domain`,cookieFlags:`cookie_flags`,userId:`user_id`,clientId:`client_id`,anonymizeIp:`anonymize_ip`,contentGroup1:`content_group1`,contentGroup2:`content_group2`,contentGroup3:`content_group3`,contentGroup4:`content_group4`,contentGroup5:`content_group5`,allowAdFeatures:`allow_google_signals`,allowAdPersonalizationSignals:`allow_ad_personalization_signals`,nonInteraction:`non_interaction`,page:`page_path`,hitCallback:`event_callback`};return Object.entries(e).reduce(function(e,n){var r=g(n,2),i=r[0],a=r[1];return t[i]?e[t[i]]=a:e[i]=a,e},{})}}),T(this,`initialize`,function(e){var t=arguments.length>1&&arguments[1]!==void 0?arguments[1]:{};if(!e)throw Error(`Require GA_MEASUREMENT_ID`);var n=typeof e==`string`?[{trackingId:e}]:e;o._currentMeasurementId=n[0].trackingId;var r=t.gaOptions,i=t.gtagOptions,a=t.nonce,s=t.testMode,c=s===void 0?!1:s,l=t.gtagUrl;if(o._testMode=c,c||o._loadGA(o._currentMeasurementId,a,l),o.isInitialized||(o._gtag(`js`,new Date),n.forEach(function(e){var t=h(h(h({},o._toGtagOptions(h(h({},r),e.gaOptions))),i),e.gtagOptions);Object.keys(t).length?o._gtag(`config`,e.trackingId,t):o._gtag(`config`,e.trackingId)})),o.isInitialized=!0,!c){var d=u(o._queueGtag);for(o._queueGtag=[],o._isQueuing=!1;d.length;){var f=d.shift();o._gtag.apply(o,u(f)),f[0]===`get`&&(o._isQueuing=!0)}}}),T(this,`set`,function(e){if(!e){console.warn("`fieldsObject` is required in .set()");return}if(l(e)!==`object`){console.warn("Expected `fieldsObject` arg to be an Object");return}Object.keys(e).length===0&&console.warn("empty `fieldsObject` given to .set()"),o._gaCommand(`set`,e)}),T(this,`_gaCommandSendEvent`,function(e,t,n,r,i){o._gtag(`event`,t,h(h({event_category:e,event_label:n,value:r},i&&{non_interaction:i.nonInteraction}),o._toGtagOptions(i)))}),T(this,`_gaCommandSendEventParameters`,function(){var e=[...arguments];if(typeof e[0]==`string`)o._gaCommandSendEvent.apply(o,u(e.slice(1)));else{var t=e[0],n=t.eventCategory,i=t.eventAction,a=t.eventLabel,c=t.eventValue;t.hitType;var l=s(t,r);o._gaCommandSendEvent(n,i,a,c,l)}}),T(this,`_gaCommandSendTiming`,function(e,t,n,r){o._gtag(`event`,`timing_complete`,{name:t,value:n,event_category:e,event_label:r})}),T(this,`_gaCommandSendPageview`,function(e,t){if(t&&Object.keys(t).length){var n=o._toGtagOptions(t),r=n.title,a=n.location,c=s(n,i);o._gtag(`event`,`page_view`,h(h(h(h({},e&&{page_path:e}),r&&{page_title:r}),a&&{page_location:a}),c))}else e?o._gtag(`event`,`page_view`,{page_path:e}):o._gtag(`event`,`page_view`)}),T(this,`_gaCommandSendPageviewParameters`,function(){var e=[...arguments];if(typeof e[0]==`string`)o._gaCommandSendPageview.apply(o,u(e.slice(1)));else{var t=e[0],n=t.page;t.hitType;var r=s(t,a);o._gaCommandSendPageview(n,r)}}),T(this,`_gaCommandSend`,function(){var e=[...arguments],t=typeof e[0]==`string`?e[0]:e[0].hitType;switch(t){case`event`:o._gaCommandSendEventParameters.apply(o,e);break;case`pageview`:o._gaCommandSendPageviewParameters.apply(o,e);break;case`timing`:o._gaCommandSendTiming.apply(o,u(e.slice(1)));break;case`screenview`:case`transaction`:case`item`:case`social`:case`exception`:console.warn(`Unsupported send command: ${t}`);break;default:console.warn(`Send command doesn't exist: ${t}`)}}),T(this,`_gaCommandSet`,function(){var e=[...arguments];typeof e[0]==`string`&&(e[0]=T({},e[0],e[1])),o._gtag(`set`,o._toGtagOptions(e[0]))}),T(this,`_gaCommand`,function(e){var t=[...arguments].slice(1);switch(e){case`send`:o._gaCommandSend.apply(o,t);break;case`set`:o._gaCommandSet.apply(o,t);break;default:console.warn(`Command doesn't exist: ${e}`)}}),T(this,`ga`,function(){var e=[...arguments];if(typeof e[0]==`string`)o._gaCommand.apply(o,e);else{var t=e[0];o._gtag(`get`,o._currentMeasurementId,`client_id`,function(e){o._isQueuing=!1;var n=o._queueGtag;for(t({get:function(t){return t===`clientId`?e:t===`trackingId`?o._currentMeasurementId:t===`apiVersion`?`1`:void 0}});n.length;){var r=n.shift();o._gtag.apply(o,u(r))}}),o._isQueuing=!0}return o.ga}),T(this,`event`,function(e,t){if(typeof e==`string`)o._gtag(`event`,e,o._toGtagOptions(t));else{var r=e.action,i=e.category,a=e.label,s=e.value,c=e.nonInteraction,l=e.transport;if(!i||!r){console.warn(`args.category AND args.action are required in event()`);return}var u={hitType:`event`,eventCategory:(0,n.default)(i),eventAction:(0,n.default)(r)};a&&(u.eventLabel=(0,n.default)(a)),s!==void 0&&(typeof s==`number`?u.eventValue=s:console.warn("Expected `args.value` arg to be a Number.")),c!==void 0&&(typeof c==`boolean`?u.nonInteraction=c:console.warn("`args.nonInteraction` must be a boolean.")),l!==void 0&&(typeof l==`string`?([`beacon`,`xhr`,`image`].indexOf(l)===-1&&console.warn("`args.transport` must be either one of these values: `beacon`, `xhr` or `image`"),u.transport=l):console.warn("`args.transport` must be a string.")),o._gaCommand(`send`,u)}}),T(this,`send`,function(e){o._gaCommand(`send`,e)}),this.reset()}return w(e,[{key:`gtag`,value:function(){this._gtag.apply(this,arguments)}}]),e}();e.GA4=ne,e.default=new ne})),Ud=l(o((e=>{function t(e){"@babel/helpers - typeof";return t=typeof Symbol==`function`&&typeof Symbol.iterator==`symbol`?function(e){return typeof e}:function(e){return e&&typeof Symbol==`function`&&e.constructor===Symbol&&e!==Symbol.prototype?`symbol`:typeof e},t(e)}Object.defineProperty(e,`__esModule`,{value:!0});var n=i(Hd());function r(e){if(typeof WeakMap!=`function`)return null;var t=new WeakMap,n=new WeakMap;return(r=function(e){return e?n:t})(e)}function i(e,n){if(!n&&e&&e.__esModule)return e;if(e===null||t(e)!==`object`&&typeof e!=`function`)return{default:e};var i=r(n);if(i&&i.has(e))return i.get(e);var a={},o=Object.defineProperty&&Object.getOwnPropertyDescriptor;for(var s in e)if(s!==`default`&&Object.prototype.hasOwnProperty.call(e,s)){var c=o?Object.getOwnPropertyDescriptor(e,s):null;c&&(c.get||c.set)?Object.defineProperty(a,s,c):a[s]=e[s]}return a.default=e,i&&i.set(e,a),a}e.ReactGAImplementation=n.GA4,e.default=n.default}))()),Wd=`G-8MW9KTB7Q5`;const Gd=()=>{Ud.default.initialize(Wd,{gaOptions:{siteSpeedSampleRate:100}})},Kd=(e,t)=>{Ud.default.send({hitType:`pageview`,page:e,title:t})},qd=(e,t,n,r)=>{Ud.default.event({category:e,action:t,label:n,value:r})},$=dr({component:Jd,notFoundComponent:Yd});function Jd(){let e=Ln();return(0,j.useEffect)(()=>{window.scrollTo(0,0),Kd(e.location.pathname)},[e.location.pathname]),(0,A.jsx)(vd,{children:(0,A.jsx)(j.Suspense,{fallback:(0,A.jsx)(Id,{}),children:(0,A.jsx)(Dr,{})})})}function Yd(){return(0,A.jsx)(Td,{})}const Xd=fr(`/new`)({component:gr(()=>zr(()=>import(`./new-C5FteR7r.js`),[]),`component`)}),Zd=fr(`/graphs`)({component:gr(()=>zr(()=>import(`./graphs-T3XWk9nX.js`),[]),`component`),staleTime:1e3*60*5,gcTime:1e3*60*10}),Qd=fr(`/faq`)({component:gr(()=>zr(()=>import(`./faq-CDeHnBfI.js`),[]),`component`)}),$d=fr(`/`)({component:gr(()=>zr(()=>import(`./routes-Bodjd8QO.js`),[]),`component`)}),ef=fr(`/histories/`)({component:gr(()=>zr(()=>import(`./histories-BLN05suU.js`),[]),`component`)}),tf=fr(`/histories/$id`)({component:gr(()=>zr(()=>import(`./_id-cXKtfnev.js`),[]),`component`)});var nf=Xd.update({id:`/new`,path:`/new`,getParentRoute:()=>$}),rf=Zd.update({id:`/graphs`,path:`/graphs`,getParentRoute:()=>$}),af=Qd.update({id:`/faq`,path:`/faq`,getParentRoute:()=>$}),sf=$d.update({id:`/`,path:`/`,getParentRoute:()=>$}),cf=ef.update({id:`/histories/`,path:`/histories/`,getParentRoute:()=>$}),lf=tf.update({id:`/histories/$id`,path:`/histories/$id`,getParentRoute:()=>$}),uf={IndexRoute:sf,FaqRoute:af,GraphsRoute:rf,NewRoute:nf,HistoriesIdRoute:lf,HistoriesIndexRoute:cf};const df=$._addFileChildren(uf)._addFileTypes();var ff=Ar({routeTree:df,basepath:`/cc-war-record`,defaultViewTransition:!0});const pf=()=>(0,A.jsxs)(A.Fragment,{children:[(0,A.jsx)(Nr,{router:ff}),!1]});function mf(e){var t=Object.create(null);return function(n){return t[n]===void 0&&(t[n]=e(n)),t[n]}}var hf=/^((children|dangerouslySetInnerHTML|key|ref|autoFocus|defaultValue|defaultChecked|innerHTML|suppressContentEditableWarning|suppressHydrationWarning|valueLink|abbr|accept|acceptCharset|accessKey|action|allow|allowUserMedia|allowPaymentRequest|allowFullScreen|allowTransparency|alt|async|autoComplete|autoPlay|capture|cellPadding|cellSpacing|challenge|charSet|checked|cite|classID|className|cols|colSpan|content|contentEditable|contextMenu|controls|controlsList|coords|crossOrigin|data|dateTime|decoding|default|defer|dir|disabled|disablePictureInPicture|disableRemotePlayback|download|draggable|encType|enterKeyHint|fetchpriority|fetchPriority|form|formAction|formEncType|formMethod|formNoValidate|formTarget|frameBorder|headers|height|hidden|high|href|hrefLang|htmlFor|httpEquiv|id|inputMode|integrity|is|keyParams|keyType|kind|label|lang|list|loading|loop|low|marginHeight|marginWidth|max|maxLength|media|mediaGroup|method|min|minLength|multiple|muted|name|nonce|noValidate|open|optimum|pattern|placeholder|playsInline|popover|popoverTarget|popoverTargetAction|poster|preload|profile|radioGroup|readOnly|referrerPolicy|rel|required|reversed|role|rows|rowSpan|sandbox|scope|scoped|scrolling|seamless|selected|shape|size|sizes|slot|span|spellCheck|src|srcDoc|srcLang|srcSet|start|step|style|summary|tabIndex|target|title|translate|type|useMap|value|width|wmode|wrap|about|datatype|inlist|prefix|property|resource|typeof|vocab|autoCapitalize|autoCorrect|autoSave|color|incremental|fallback|inert|itemProp|itemScope|itemType|itemID|itemRef|on|option|results|security|unselectable|accentHeight|accumulate|additive|alignmentBaseline|allowReorder|alphabetic|amplitude|arabicForm|ascent|attributeName|attributeType|autoReverse|azimuth|baseFrequency|baselineShift|baseProfile|bbox|begin|bias|by|calcMode|capHeight|clip|clipPathUnits|clipPath|clipRule|colorInterpolation|colorInterpolationFilters|colorProfile|colorRendering|contentScriptType|contentStyleType|cursor|cx|cy|d|decelerate|descent|diffuseConstant|direction|display|divisor|dominantBaseline|dur|dx|dy|edgeMode|elevation|enableBackground|end|exponent|externalResourcesRequired|fill|fillOpacity|fillRule|filter|filterRes|filterUnits|floodColor|floodOpacity|focusable|fontFamily|fontSize|fontSizeAdjust|fontStretch|fontStyle|fontVariant|fontWeight|format|from|fr|fx|fy|g1|g2|glyphName|glyphOrientationHorizontal|glyphOrientationVertical|glyphRef|gradientTransform|gradientUnits|hanging|horizAdvX|horizOriginX|ideographic|imageRendering|in|in2|intercept|k|k1|k2|k3|k4|kernelMatrix|kernelUnitLength|kerning|keyPoints|keySplines|keyTimes|lengthAdjust|letterSpacing|lightingColor|limitingConeAngle|local|markerEnd|markerMid|markerStart|markerHeight|markerUnits|markerWidth|mask|maskContentUnits|maskUnits|mathematical|mode|numOctaves|offset|opacity|operator|order|orient|orientation|origin|overflow|overlinePosition|overlineThickness|panose1|paintOrder|pathLength|patternContentUnits|patternTransform|patternUnits|pointerEvents|points|pointsAtX|pointsAtY|pointsAtZ|preserveAlpha|preserveAspectRatio|primitiveUnits|r|radius|refX|refY|renderingIntent|repeatCount|repeatDur|requiredExtensions|requiredFeatures|restart|result|rotate|rx|ry|scale|seed|shapeRendering|slope|spacing|specularConstant|specularExponent|speed|spreadMethod|startOffset|stdDeviation|stemh|stemv|stitchTiles|stopColor|stopOpacity|strikethroughPosition|strikethroughThickness|string|stroke|strokeDasharray|strokeDashoffset|strokeLinecap|strokeLinejoin|strokeMiterlimit|strokeOpacity|strokeWidth|surfaceScale|systemLanguage|tableValues|targetX|targetY|textAnchor|textDecoration|textRendering|textLength|to|transform|u1|u2|underlinePosition|underlineThickness|unicode|unicodeBidi|unicodeRange|unitsPerEm|vAlphabetic|vHanging|vIdeographic|vMathematical|values|vectorEffect|version|vertAdvY|vertOriginX|vertOriginY|viewBox|viewTarget|visibility|widths|wordSpacing|writingMode|x|xHeight|x1|x2|xChannelSelector|xlinkActuate|xlinkArcrole|xlinkHref|xlinkRole|xlinkShow|xlinkTitle|xlinkType|xmlBase|xmlns|xmlnsXlink|xmlLang|xmlSpace|y|y1|y2|yChannelSelector|z|zoomAndPan|for|class|autofocus)|(([Dd][Aa][Tt][Aa]|[Aa][Rr][Ii][Aa]|x)-.*))$/,gf=mf(function(e){return hf.test(e)||e.charCodeAt(0)===111&&e.charCodeAt(1)===110&&e.charCodeAt(2)<91});const _f=No`
   * {
     margin: 0;
     padding: 0;
@@ -1529,13 +1749,12 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
     background-attachment: fixed;
     overflow-y: scroll;
     scrollbar-width: thin;
-    scrollbar-color: ${({theme:e})=>e.colors.primary[300]} ${({theme:e})=>e.colors.gray[100]};
     transition: background 0.3s ease, color 0.3s ease;
   }
 
   /* カスタムスクロールバー (Webkit) */
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 10px;
   }
 
   ::-webkit-scrollbar-track {
@@ -1543,11 +1762,19 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
   }
 
   ::-webkit-scrollbar-thumb {
-    background: ${({theme:e})=>e.colors.primary[300]};
+    background: ${({theme:e})=>e.isDark?`linear-gradient(135deg, rgba(38, 161, 223, 0.6) 0%, rgba(243, 99, 70, 0.6) 100%)`:`linear-gradient(135deg, rgba(38, 161, 223, 0.5) 0%, rgba(243, 99, 70, 0.5) 100%)`};
+    backdrop-filter: ${({theme:e})=>e.blur.sm};
     border-radius: ${({theme:e})=>e.borderRadius.full};
+    border: 1px solid ${({theme:e})=>e.colors.borderLight};
+    transition: all 0.2s ease;
     
     &:hover {
-      background: ${({theme:e})=>e.colors.primary[400]};
+      background: ${({theme:e})=>e.isDark?`linear-gradient(135deg, rgba(38, 161, 223, 0.8) 0%, rgba(243, 99, 70, 0.8) 100%)`:`linear-gradient(135deg, rgba(38, 161, 223, 0.7) 0%, rgba(243, 99, 70, 0.7) 100%)`};
+      border-color: ${({theme:e})=>e.colors.border};
+    }
+
+    &:active {
+      background: ${({theme:e})=>e.isDark?`linear-gradient(135deg, rgba(38, 161, 223, 1) 0%, rgba(243, 99, 70, 1) 100%)`:`linear-gradient(135deg, rgba(38, 161, 223, 0.9) 0%, rgba(243, 99, 70, 0.9) 100%)`};
     }
   }
 
@@ -1582,13 +1809,13 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
   input, textarea, select {
     font: inherit;
   }
-`;var tf={isLight:!1,isDark:!1,breakpoints:{sm:`640px`,md:`768px`,lg:`1024px`,xl:`1280px`,"2xl":`1536px`},spacing:{0:`0`,1:`0.25rem`,2:`0.5rem`,3:`0.75rem`,4:`1rem`,5:`1.25rem`,6:`1.5rem`,8:`2rem`,10:`2.5rem`,12:`3rem`,16:`4rem`,20:`5rem`,24:`6rem`},borderRadius:{none:`0`,sm:`0.125rem`,default:`0.25rem`,md:`0.375rem`,lg:`0.5rem`,xl:`0.75rem`,"2xl":`1rem`,"3xl":`1.5rem`,full:`9999px`},transitions:{fast:`150ms cubic-bezier(0.4, 0, 0.2, 1)`,base:`200ms cubic-bezier(0.4, 0, 0.2, 1)`,slow:`300ms cubic-bezier(0.4, 0, 0.2, 1)`,bounce:`400ms cubic-bezier(0.68, -0.55, 0.265, 1.55)`},blur:{sm:`blur(4px)`,md:`blur(8px)`,lg:`blur(12px)`,xl:`blur(16px)`}};const nf={...tf,isLight:!0,colors:{primary:{50:`#f0f9ff`,100:`#e0f2fe`,200:`#bae6fd`,300:`#7dd3fc`,400:`#38bdf8`,500:`#26A1DF`,600:`#0284c7`,700:`#0369a1`,800:`#075985`,900:`#0c4a6e`},win:{50:`#f0fdf4`,100:`#dcfce7`,200:`#bbf7d0`,300:`#86efac`,400:`#4ade80`,500:`#10b981`,600:`#059669`,700:`#047857`,800:`#065f46`,900:`#064e3b`},defeat:{50:`#fef2f2`,100:`#fee2e2`,200:`#fecaca`,300:`#fca5a5`,400:`#f87171`,500:`#ef4444`,600:`#dc2626`,700:`#b91c1c`,800:`#991b1b`,900:`#7f1d1d`},error:{50:`#fef2f2`,100:`#fee2e2`,200:`#fecaca`,300:`#fca5a5`,400:`#f87171`,500:`#ef4444`,600:`#dc2626`,700:`#b91c1c`,800:`#991b1b`,900:`#7f1d1d`},success:{50:`#f0fdf4`,100:`#dcfce7`,200:`#bbf7d0`,300:`#86efac`,400:`#4ade80`,500:`#10b981`,600:`#059669`,700:`#047857`,800:`#065f46`,900:`#064e3b`},warning:{50:`#fffbeb`,100:`#fef3c7`,200:`#fde68a`,300:`#fcd34d`,400:`#fbbf24`,500:`#f59e0b`,600:`#d97706`,700:`#b45309`,800:`#92400e`,900:`#78350f`},gray:{50:`#f9fafb`,100:`#f3f4f6`,200:`#e5e7eb`,300:`#d1d5db`,400:`#9ca3af`,500:`#6b7280`,600:`#4b5563`,700:`#374151`,800:`#1f2937`,900:`#111827`},white:`#ffffff`,black:`#000000`,background:`#ffffff`,backgroundSecondary:`#f9fafb`,surface:`rgba(255, 255, 255, 0.95)`,surfaceHover:`rgba(255, 255, 255, 0.98)`,border:`rgba(38, 161, 223, 0.2)`,borderLight:`rgba(38, 161, 223, 0.15)`,text:`#111827`,textSecondary:`#6b7280`,textTertiary:`#9ca3af`,info:`#3b82f6`},gradients:{primary:`linear-gradient(135deg, #26A1DF 0%, #F36346 100%)`,success:`linear-gradient(135deg, #10b981 0%, #059669 100%)`,danger:`linear-gradient(135deg, #ef4444 0%, #dc2626 100%)`,warning:`linear-gradient(135deg, #f59e0b 0%, #d97706 100%)`,glass:`linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)`,shimmer:`linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent)`},shadows:{xs:`0 1px 2px 0 rgba(0, 0, 0, 0.05)`,sm:`0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)`,md:`0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)`,lg:`0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)`,xl:`0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)`,"2xl":`0 25px 50px -12px rgba(0, 0, 0, 0.25)`,inner:`inset 0 2px 4px 0 rgba(0, 0, 0, 0.05)`,none:`none`,glow:`0 0 20px rgba(38, 161, 223, 0.4)`,glowLg:`0 0 40px rgba(38, 161, 223, 0.6)`}},rf={...tf,isDark:!0,colors:{primary:{50:`#f0f9ff`,100:`#e0f2fe`,200:`#bae6fd`,300:`#7dd3fc`,400:`#38bdf8`,500:`#26A1DF`,600:`#0284c7`,700:`#0369a1`,800:`#075985`,900:`#0c4a6e`},win:{50:`#f0fdf4`,100:`#dcfce7`,200:`#bbf7d0`,300:`#86efac`,400:`#4ade80`,500:`#10b981`,600:`#059669`,700:`#047857`,800:`#065f46`,900:`#064e3b`},defeat:{50:`#fef2f2`,100:`#fee2e2`,200:`#fecaca`,300:`#fca5a5`,400:`#f87171`,500:`#ef4444`,600:`#dc2626`,700:`#b91c1c`,800:`#991b1b`,900:`#7f1d1d`},error:{50:`#fef2f2`,100:`#fee2e2`,200:`#fecaca`,300:`#fca5a5`,400:`#f87171`,500:`#ef4444`,600:`#dc2626`,700:`#b91c1c`,800:`#991b1b`,900:`#7f1d1d`},success:{50:`#f0fdf4`,100:`#dcfce7`,200:`#bbf7d0`,300:`#86efac`,400:`#4ade80`,500:`#10b981`,600:`#059669`,700:`#047857`,800:`#065f46`,900:`#064e3b`},warning:{50:`#fffbeb`,100:`#fef3c7`,200:`#fde68a`,300:`#fcd34d`,400:`#fbbf24`,500:`#f59e0b`,600:`#d97706`,700:`#b45309`,800:`#92400e`,900:`#78350f`},gray:{50:`#18181b`,100:`#27272a`,200:`#3f3f46`,300:`#52525b`,400:`#71717a`,500:`#a1a1aa`,600:`#d4d4d8`,700:`#e4e4e7`,800:`#f4f4f5`,900:`#fafafa`},white:`#000000`,black:`#ffffff`,background:`#0a0a0b`,backgroundSecondary:`#18181b`,surface:`rgba(24, 24, 27, 0.95)`,surfaceHover:`rgba(39, 39, 42, 0.98)`,border:`rgba(38, 161, 223, 0.3)`,borderLight:`rgba(38, 161, 223, 0.2)`,text:`#fafafa`,textSecondary:`#a1a1aa`,textTertiary:`#71717a`,info:`#60a5fa`},gradients:{primary:`linear-gradient(135deg, #26A1DF 0%, #F36346 100%)`,success:`linear-gradient(135deg, #10b981 0%, #059669 100%)`,danger:`linear-gradient(135deg, #ef4444 0%, #dc2626 100%)`,warning:`linear-gradient(135deg, #f59e0b 0%, #d97706 100%)`,glass:`linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%)`,shimmer:`linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent)`},shadows:{xs:`0 1px 2px 0 rgba(0, 0, 0, 0.3)`,sm:`0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px -1px rgba(0, 0, 0, 0.4)`,md:`0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.4)`,lg:`0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.4)`,xl:`0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.4)`,"2xl":`0 25px 50px -12px rgba(0, 0, 0, 0.6)`,inner:`inset 0 2px 4px 0 rgba(0, 0, 0, 0.3)`,none:`none`,glow:`0 0 20px rgba(38, 161, 223, 0.5)`,glowLg:`0 0 40px rgba(38, 161, 223, 0.7)`}};var af=`cc-war-record-theme`,sf=(e,t)=>typeof t==`string`?$d(e):!0;const cf=({children:e})=>{let[t,n]=(0,j.useState)(()=>{let e=localStorage.getItem(af);return e===`dark`||e===`light`?e:`light`});(0,j.useEffect)(()=>{localStorage.setItem(af,t)},[t]);let r=(0,j.useMemo)(()=>({mode:t,toggleMode:()=>n(e=>e===`light`?`dark`:`light`),setMode:e=>n(e)}),[t]),i=t===`dark`?rf:nf;return(0,A.jsx)(mo,{shouldForwardProp:sf,children:(0,A.jsx)(_l.Provider,{value:r,children:(0,A.jsxs)(Eo,{theme:i,children:[(0,A.jsx)(ef,{}),e,(0,A.jsx)(lu,{})]})})})},lf=()=>{if(`serviceWorker`in navigator){let e=`/cc-war-record`,t=e.endsWith(`/`)?e:`${e}/`,n=`${t}sw.js`;window.addEventListener(`load`,()=>{navigator.serviceWorker.register(n,{scope:t}).then(e=>{console.log(`ServiceWorker registered:`,e.scope)}).catch(e=>{console.error(`ServiceWorker registration failed:`,e)})})}};var{slice:uf,forEach:df}=[];function ff(e){return df.call(uf.call(arguments,1),t=>{if(t)for(let n in t)e[n]===void 0&&(e[n]=t[n])}),e}function pf(e){return typeof e==`string`?[/<\s*script.*?>/i,/<\s*\/\s*script\s*>/i,/<\s*img.*?on\w+\s*=/i,/<\s*\w+\s*on\w+\s*=.*?>/i,/javascript\s*:/i,/vbscript\s*:/i,/expression\s*\(/i,/eval\s*\(/i,/alert\s*\(/i,/document\.cookie/i,/document\.write\s*\(/i,/window\.location/i,/innerHTML/i].some(t=>t.test(e)):!1}var mf=/^[\u0009\u0020-\u007e\u0080-\u00ff]+$/,hf=function(e,t){let n=arguments.length>2&&arguments[2]!==void 0?arguments[2]:{path:`/`},r=`${e}=${encodeURIComponent(t)}`;if(n.maxAge>0){let e=n.maxAge-0;if(Number.isNaN(e))throw Error(`maxAge should be a Number`);r+=`; Max-Age=${Math.floor(e)}`}if(n.domain){if(!mf.test(n.domain))throw TypeError(`option domain is invalid`);r+=`; Domain=${n.domain}`}if(n.path){if(!mf.test(n.path))throw TypeError(`option path is invalid`);r+=`; Path=${n.path}`}if(n.expires){if(typeof n.expires.toUTCString!=`function`)throw TypeError(`option expires is invalid`);r+=`; Expires=${n.expires.toUTCString()}`}if(n.httpOnly&&(r+=`; HttpOnly`),n.secure&&(r+=`; Secure`),n.sameSite)switch(typeof n.sameSite==`string`?n.sameSite.toLowerCase():n.sameSite){case!0:r+=`; SameSite=Strict`;break;case`lax`:r+=`; SameSite=Lax`;break;case`strict`:r+=`; SameSite=Strict`;break;case`none`:r+=`; SameSite=None`;break;default:throw TypeError(`option sameSite is invalid`)}return n.partitioned&&(r+=`; Partitioned`),r},gf={create(e,t,n,r){let i=arguments.length>4&&arguments[4]!==void 0?arguments[4]:{path:`/`,sameSite:`strict`};n&&(i.expires=new Date,i.expires.setTime(i.expires.getTime()+n*60*1e3)),r&&(i.domain=r),document.cookie=hf(e,t,i)},read(e){let t=`${e}=`,n=document.cookie.split(`;`);for(let e=0;e<n.length;e++){let r=n[e];for(;r.charAt(0)===` `;)r=r.substring(1,r.length);if(r.indexOf(t)===0)return r.substring(t.length,r.length)}return null},remove(e,t){this.create(e,``,-1,t)}},_f={name:`cookie`,lookup(e){let{lookupCookie:t}=e;if(t&&typeof document<`u`)return gf.read(t)||void 0},cacheUserLanguage(e,t){let{lookupCookie:n,cookieMinutes:r,cookieDomain:i,cookieOptions:a}=t;n&&typeof document<`u`&&gf.create(n,e,r,i,a)}},vf={name:`querystring`,lookup(e){let{lookupQuerystring:t}=e,n;if(typeof window<`u`){let{search:e}=window.location;!window.location.search&&window.location.hash?.indexOf(`?`)>-1&&(e=window.location.hash.substring(window.location.hash.indexOf(`?`)));let r=e.substring(1).split(`&`);for(let e=0;e<r.length;e++){let i=r[e].indexOf(`=`);i>0&&r[e].substring(0,i)===t&&(n=r[e].substring(i+1))}}return n}},yf={name:`hash`,lookup(e){let{lookupHash:t,lookupFromHashIndex:n}=e,r;if(typeof window<`u`){let{hash:e}=window.location;if(e&&e.length>2){let i=e.substring(1);if(t){let e=i.split(`&`);for(let n=0;n<e.length;n++){let i=e[n].indexOf(`=`);i>0&&e[n].substring(0,i)===t&&(r=e[n].substring(i+1))}}if(r)return r;if(!r&&n>-1){let t=e.match(/\/([a-zA-Z-]*)/g);return Array.isArray(t)?t[typeof n==`number`?n:0]?.replace(`/`,``):void 0}}}return r}},bf=null,xf=()=>{if(bf!==null)return bf;try{if(bf=typeof window<`u`&&window.localStorage!==null,!bf)return!1;let e=`i18next.translate.boo`;window.localStorage.setItem(e,`foo`),window.localStorage.removeItem(e)}catch{bf=!1}return bf},Sf={name:`localStorage`,lookup(e){let{lookupLocalStorage:t}=e;if(t&&xf())return window.localStorage.getItem(t)||void 0},cacheUserLanguage(e,t){let{lookupLocalStorage:n}=t;n&&xf()&&window.localStorage.setItem(n,e)}},Cf=null,wf=()=>{if(Cf!==null)return Cf;try{if(Cf=typeof window<`u`&&window.sessionStorage!==null,!Cf)return!1;let e=`i18next.translate.boo`;window.sessionStorage.setItem(e,`foo`),window.sessionStorage.removeItem(e)}catch{Cf=!1}return Cf},Tf={name:`sessionStorage`,lookup(e){let{lookupSessionStorage:t}=e;if(t&&wf())return window.sessionStorage.getItem(t)||void 0},cacheUserLanguage(e,t){let{lookupSessionStorage:n}=t;n&&wf()&&window.sessionStorage.setItem(n,e)}},Ef={name:`navigator`,lookup(e){let t=[];if(typeof navigator<`u`){let{languages:e,userLanguage:n,language:r}=navigator;if(e)for(let n=0;n<e.length;n++)t.push(e[n]);n&&t.push(n),r&&t.push(r)}return t.length>0?t:void 0}},Df={name:`htmlTag`,lookup(e){let{htmlTag:t}=e,n,r=t||(typeof document<`u`?document.documentElement:null);return r&&typeof r.getAttribute==`function`&&(n=r.getAttribute(`lang`)),n}},Of={name:`path`,lookup(e){let{lookupFromPathIndex:t}=e;if(typeof window>`u`)return;let n=window.location.pathname.match(/\/([a-zA-Z-]*)/g);if(Array.isArray(n))return n[typeof t==`number`?t:0]?.replace(`/`,``)}},kf={name:`subdomain`,lookup(e){let{lookupFromSubdomainIndex:t}=e,n=typeof t==`number`?t+1:1,r=typeof window<`u`&&window.location?.hostname?.match(/^(\w{2,5})\.(([a-z0-9-]{1,63}\.[a-z]{2,6})|localhost)/i);if(r)return r[n]}},Af=!1;try{document.cookie,Af=!0}catch{}var jf=[`querystring`,`cookie`,`localStorage`,`sessionStorage`,`navigator`,`htmlTag`];Af||jf.splice(1,1);var Mf=()=>({order:jf,lookupQuerystring:`lng`,lookupCookie:`i18next`,lookupLocalStorage:`i18nextLng`,lookupSessionStorage:`i18nextLng`,caches:[`localStorage`],excludeCacheFor:[`cimode`],convertDetectedLanguage:e=>e}),Nf=class{constructor(e){let t=arguments.length>1&&arguments[1]!==void 0?arguments[1]:{};this.type=`languageDetector`,this.detectors={},this.init(e,t)}init(){let e=arguments.length>0&&arguments[0]!==void 0?arguments[0]:{languageUtils:{}},t=arguments.length>1&&arguments[1]!==void 0?arguments[1]:{},n=arguments.length>2&&arguments[2]!==void 0?arguments[2]:{};this.services=e,this.options=ff(t,this.options||{},Mf()),typeof this.options.convertDetectedLanguage==`string`&&this.options.convertDetectedLanguage.indexOf(`15897`)>-1&&(this.options.convertDetectedLanguage=e=>e.replace(`-`,`_`)),this.options.lookupFromUrlIndex&&(this.options.lookupFromPathIndex=this.options.lookupFromUrlIndex),this.i18nOptions=n,this.addDetector(_f),this.addDetector(vf),this.addDetector(Sf),this.addDetector(Tf),this.addDetector(Ef),this.addDetector(Df),this.addDetector(Of),this.addDetector(kf),this.addDetector(yf)}addDetector(e){return this.detectors[e.name]=e,this}detect(){let e=arguments.length>0&&arguments[0]!==void 0?arguments[0]:this.options.order,t=[];return e.forEach(e=>{if(this.detectors[e]){let n=this.detectors[e].lookup(this.options);n&&typeof n==`string`&&(n=[n]),n&&(t=t.concat(n))}}),t=t.filter(e=>e!=null&&!pf(e)).map(e=>this.options.convertDetectedLanguage(e)),this.services&&this.services.languageUtils&&this.services.languageUtils.getBestMatchFromCodes?t:t.length>0?t[0]:null}cacheUserLanguage(e){let t=arguments.length>1&&arguments[1]!==void 0?arguments[1]:this.options.caches;t&&(this.options.excludeCacheFor&&this.options.excludeCacheFor.indexOf(e)>-1||t.forEach(t=>{this.detectors[t]&&this.detectors[t].cacheUserLanguage(e,this.options)}))}};Nf.type=`languageDetector`,Hc.use(Nf).use(sl).init({resources:{ja:{translation:{common:{appName:`クリコン戦績記録`,confirm:`確認`,cancel:`キャンセル`,delete:`削除`,edit:`編集`,save:`保存`,close:`閉じる`,add:`追加`,back:`戻る`,loading:`読み込み中...`,processing:`処理中...`,closeDialog:`ダイアログを閉じる`,error:`エラーが発生しました`,noData:`データがありません`,success:`成功しました`,warning:`警告`,info:`情報`,toggleTheme:`テーマを切り替え`,switchToDarkMode:`ダークモードに切り替え`,switchToLightMode:`ライトモードに切り替え`},navigation:{home:`ホーム`,graphs:`グラフ`,histories:`履歴`,faq:`FAQ`},pages:{home:{title:`{{seasonName}} の戦績`,description:`戦績と統計情報を入力します。`,createSeason:`新しいシーズンを作成`,noSeason:`シーズンが作成されていません`,createFirstSeason:`最初のシーズンを作成してください`,errorOccurred:`エラーが発生しました`},graphs:{title:`戦績グラフ`,description:`現シーズンの戦績をグラフ形式で可視化します。`,descriptionWithSeason:`{{seasonName}} の戦績をグラフ形式で可視化します。`,daily:`日別勝敗数`,hourly:`時間別勝率`,weekly:`曜日別勝率`,jobWinRate:`ジョブ別勝率`,jobUsage:`ジョブ使用率`,filters:{character:`キャラクター`,job:`ジョブ`,map:`マップ`,all:`すべて`}},histories:{title:`履歴一覧`,description:`過去のシーズンの一覧を表示・管理します。各シーズンの詳細は詳細ボタンから確認できます。`,totalSeasons:`総シーズン数: {{count}}件`,totalMatches:`総試合数: {{count}}`,latestCreated:`最新作成`,detail:`詳細`,delete:`削除`,confirmDelete:`シーズンの削除`,deleteDescription:`「{{seasonName}}」を削除してもよろしいですか？
+`;var vf={isLight:!1,isDark:!1,breakpoints:{sm:`640px`,md:`768px`,lg:`1024px`,xl:`1280px`,"2xl":`1536px`},spacing:{0:`0`,1:`0.25rem`,2:`0.5rem`,3:`0.75rem`,4:`1rem`,5:`1.25rem`,6:`1.5rem`,8:`2rem`,10:`2.5rem`,12:`3rem`,16:`4rem`,20:`5rem`,24:`6rem`},borderRadius:{none:`0`,sm:`0.125rem`,default:`0.25rem`,md:`0.375rem`,lg:`0.5rem`,xl:`0.75rem`,"2xl":`1rem`,"3xl":`1.5rem`,full:`9999px`},transitions:{fast:`150ms cubic-bezier(0.4, 0, 0.2, 1)`,base:`200ms cubic-bezier(0.4, 0, 0.2, 1)`,slow:`300ms cubic-bezier(0.4, 0, 0.2, 1)`,bounce:`400ms cubic-bezier(0.68, -0.55, 0.265, 1.55)`},blur:{sm:`blur(4px)`,md:`blur(8px)`,lg:`blur(12px)`,xl:`blur(16px)`}};const yf={...vf,isLight:!0,colors:{primary:{50:`#f0f9ff`,100:`#e0f2fe`,200:`#bae6fd`,300:`#7dd3fc`,400:`#38bdf8`,500:`#26A1DF`,600:`#0284c7`,700:`#0369a1`,800:`#075985`,900:`#0c4a6e`},win:{50:`#f0fdf4`,100:`#dcfce7`,200:`#bbf7d0`,300:`#86efac`,400:`#4ade80`,500:`#10b981`,600:`#059669`,700:`#047857`,800:`#065f46`,900:`#064e3b`},defeat:{50:`#fef2f2`,100:`#fee2e2`,200:`#fecaca`,300:`#fca5a5`,400:`#f87171`,500:`#ef4444`,600:`#dc2626`,700:`#b91c1c`,800:`#991b1b`,900:`#7f1d1d`},error:{50:`#fef2f2`,100:`#fee2e2`,200:`#fecaca`,300:`#fca5a5`,400:`#f87171`,500:`#ef4444`,600:`#dc2626`,700:`#b91c1c`,800:`#991b1b`,900:`#7f1d1d`},success:{50:`#f0fdf4`,100:`#dcfce7`,200:`#bbf7d0`,300:`#86efac`,400:`#4ade80`,500:`#10b981`,600:`#059669`,700:`#047857`,800:`#065f46`,900:`#064e3b`},warning:{50:`#fffbeb`,100:`#fef3c7`,200:`#fde68a`,300:`#fcd34d`,400:`#fbbf24`,500:`#f59e0b`,600:`#d97706`,700:`#b45309`,800:`#92400e`,900:`#78350f`},gray:{50:`#f9fafb`,100:`#f3f4f6`,200:`#e5e7eb`,300:`#d1d5db`,400:`#9ca3af`,500:`#6b7280`,600:`#4b5563`,700:`#374151`,800:`#1f2937`,900:`#111827`},white:`#ffffff`,black:`#000000`,background:`#ffffff`,backgroundSecondary:`#f9fafb`,surface:`rgba(255, 255, 255, 0.95)`,surfaceHover:`rgba(255, 255, 255, 0.98)`,border:`rgba(38, 161, 223, 0.2)`,borderLight:`rgba(38, 161, 223, 0.15)`,text:`#111827`,textSecondary:`#6b7280`,textTertiary:`#9ca3af`,info:`#3b82f6`,transparent:`transparent`},gradients:{primary:`linear-gradient(135deg, #26A1DF 0%, #F36346 100%)`,success:`linear-gradient(135deg, #10b981 0%, #059669 100%)`,danger:`linear-gradient(135deg, #ef4444 0%, #dc2626 100%)`,warning:`linear-gradient(135deg, #f59e0b 0%, #d97706 100%)`,glass:`linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)`,shimmer:`linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent)`},shadows:{xs:`0 1px 2px 0 rgba(0, 0, 0, 0.05)`,sm:`0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)`,md:`0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)`,lg:`0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)`,xl:`0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)`,"2xl":`0 25px 50px -12px rgba(0, 0, 0, 0.25)`,inner:`inset 0 2px 4px 0 rgba(0, 0, 0, 0.05)`,none:`none`,glow:`0 0 20px rgba(38, 161, 223, 0.4)`,glowLg:`0 0 40px rgba(38, 161, 223, 0.6)`}},bf={...vf,isDark:!0,colors:{primary:{50:`#f0f9ff`,100:`#e0f2fe`,200:`#bae6fd`,300:`#7dd3fc`,400:`#38bdf8`,500:`#26A1DF`,600:`#0284c7`,700:`#0369a1`,800:`#075985`,900:`#0c4a6e`},win:{50:`#f0fdf4`,100:`#dcfce7`,200:`#bbf7d0`,300:`#86efac`,400:`#4ade80`,500:`#10b981`,600:`#059669`,700:`#047857`,800:`#065f46`,900:`#064e3b`},defeat:{50:`#fef2f2`,100:`#fee2e2`,200:`#fecaca`,300:`#fca5a5`,400:`#f87171`,500:`#ef4444`,600:`#dc2626`,700:`#b91c1c`,800:`#991b1b`,900:`#7f1d1d`},error:{50:`#fef2f2`,100:`#fee2e2`,200:`#fecaca`,300:`#fca5a5`,400:`#f87171`,500:`#ef4444`,600:`#dc2626`,700:`#b91c1c`,800:`#991b1b`,900:`#7f1d1d`},success:{50:`#f0fdf4`,100:`#dcfce7`,200:`#bbf7d0`,300:`#86efac`,400:`#4ade80`,500:`#10b981`,600:`#059669`,700:`#047857`,800:`#065f46`,900:`#064e3b`},warning:{50:`#fffbeb`,100:`#fef3c7`,200:`#fde68a`,300:`#fcd34d`,400:`#fbbf24`,500:`#f59e0b`,600:`#d97706`,700:`#b45309`,800:`#92400e`,900:`#78350f`},gray:{50:`#18181b`,100:`#27272a`,200:`#3f3f46`,300:`#52525b`,400:`#71717a`,500:`#a1a1aa`,600:`#d4d4d8`,700:`#e4e4e7`,800:`#f4f4f5`,900:`#fafafa`},white:`#000000`,black:`#ffffff`,background:`#0a0a0b`,backgroundSecondary:`#18181b`,surface:`rgba(24, 24, 27, 0.95)`,surfaceHover:`rgba(39, 39, 42, 0.98)`,border:`rgba(38, 161, 223, 0.3)`,borderLight:`rgba(38, 161, 223, 0.2)`,text:`#fafafa`,textSecondary:`#a1a1aa`,textTertiary:`#71717a`,info:`#60a5fa`},gradients:{primary:`linear-gradient(135deg, #26A1DF 0%, #F36346 100%)`,success:`linear-gradient(135deg, #10b981 0%, #059669 100%)`,danger:`linear-gradient(135deg, #ef4444 0%, #dc2626 100%)`,warning:`linear-gradient(135deg, #f59e0b 0%, #d97706 100%)`,glass:`linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%)`,shimmer:`linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent)`},shadows:{xs:`0 1px 2px 0 rgba(0, 0, 0, 0.3)`,sm:`0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px -1px rgba(0, 0, 0, 0.4)`,md:`0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.4)`,lg:`0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.4)`,xl:`0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.4)`,"2xl":`0 25px 50px -12px rgba(0, 0, 0, 0.6)`,inner:`inset 0 2px 4px 0 rgba(0, 0, 0, 0.3)`,none:`none`,glow:`0 0 20px rgba(38, 161, 223, 0.5)`,glowLg:`0 0 40px rgba(38, 161, 223, 0.7)`}};var xf=`cc-war-record-theme`,Sf=(e,t)=>typeof t==`string`?gf(e):!0;const Cf=({children:e})=>{let[t,n]=(0,j.useState)(()=>{let e=localStorage.getItem(xf);return e===`dark`||e===`light`?e:`light`});(0,j.useEffect)(()=>{localStorage.setItem(xf,t)},[t]);let r=(0,j.useMemo)(()=>({mode:t,toggleMode:()=>n(e=>e===`light`?`dark`:`light`),setMode:e=>n(e)}),[t]),i=t===`dark`?bf:yf;return(0,A.jsx)(mo,{shouldForwardProp:Sf,children:(0,A.jsx)(_l.Provider,{value:r,children:(0,A.jsxs)(Eo,{theme:i,children:[(0,A.jsx)(_f,{}),e,(0,A.jsx)(cu,{})]})})})},wf=()=>{if(`serviceWorker`in navigator){let e=`/cc-war-record`,t=e.endsWith(`/`)?e:`${e}/`,n=`${t}sw.js`;window.addEventListener(`load`,()=>{navigator.serviceWorker.register(n,{scope:t}).then(e=>{console.log(`ServiceWorker registered:`,e.scope)}).catch(e=>{console.error(`ServiceWorker registration failed:`,e)})})}};var{slice:Tf,forEach:Ef}=[];function Df(e){return Ef.call(Tf.call(arguments,1),t=>{if(t)for(let n in t)e[n]===void 0&&(e[n]=t[n])}),e}function Of(e){return typeof e==`string`?[/<\s*script.*?>/i,/<\s*\/\s*script\s*>/i,/<\s*img.*?on\w+\s*=/i,/<\s*\w+\s*on\w+\s*=.*?>/i,/javascript\s*:/i,/vbscript\s*:/i,/expression\s*\(/i,/eval\s*\(/i,/alert\s*\(/i,/document\.cookie/i,/document\.write\s*\(/i,/window\.location/i,/innerHTML/i].some(t=>t.test(e)):!1}var kf=/^[\u0009\u0020-\u007e\u0080-\u00ff]+$/,Af=function(e,t){let n=arguments.length>2&&arguments[2]!==void 0?arguments[2]:{path:`/`},r=`${e}=${encodeURIComponent(t)}`;if(n.maxAge>0){let e=n.maxAge-0;if(Number.isNaN(e))throw Error(`maxAge should be a Number`);r+=`; Max-Age=${Math.floor(e)}`}if(n.domain){if(!kf.test(n.domain))throw TypeError(`option domain is invalid`);r+=`; Domain=${n.domain}`}if(n.path){if(!kf.test(n.path))throw TypeError(`option path is invalid`);r+=`; Path=${n.path}`}if(n.expires){if(typeof n.expires.toUTCString!=`function`)throw TypeError(`option expires is invalid`);r+=`; Expires=${n.expires.toUTCString()}`}if(n.httpOnly&&(r+=`; HttpOnly`),n.secure&&(r+=`; Secure`),n.sameSite)switch(typeof n.sameSite==`string`?n.sameSite.toLowerCase():n.sameSite){case!0:r+=`; SameSite=Strict`;break;case`lax`:r+=`; SameSite=Lax`;break;case`strict`:r+=`; SameSite=Strict`;break;case`none`:r+=`; SameSite=None`;break;default:throw TypeError(`option sameSite is invalid`)}return n.partitioned&&(r+=`; Partitioned`),r},jf={create(e,t,n,r){let i=arguments.length>4&&arguments[4]!==void 0?arguments[4]:{path:`/`,sameSite:`strict`};n&&(i.expires=new Date,i.expires.setTime(i.expires.getTime()+n*60*1e3)),r&&(i.domain=r),document.cookie=Af(e,t,i)},read(e){let t=`${e}=`,n=document.cookie.split(`;`);for(let e=0;e<n.length;e++){let r=n[e];for(;r.charAt(0)===` `;)r=r.substring(1,r.length);if(r.indexOf(t)===0)return r.substring(t.length,r.length)}return null},remove(e,t){this.create(e,``,-1,t)}},Mf={name:`cookie`,lookup(e){let{lookupCookie:t}=e;if(t&&typeof document<`u`)return jf.read(t)||void 0},cacheUserLanguage(e,t){let{lookupCookie:n,cookieMinutes:r,cookieDomain:i,cookieOptions:a}=t;n&&typeof document<`u`&&jf.create(n,e,r,i,a)}},Nf={name:`querystring`,lookup(e){let{lookupQuerystring:t}=e,n;if(typeof window<`u`){let{search:e}=window.location;!window.location.search&&window.location.hash?.indexOf(`?`)>-1&&(e=window.location.hash.substring(window.location.hash.indexOf(`?`)));let r=e.substring(1).split(`&`);for(let e=0;e<r.length;e++){let i=r[e].indexOf(`=`);i>0&&r[e].substring(0,i)===t&&(n=r[e].substring(i+1))}}return n}},Pf={name:`hash`,lookup(e){let{lookupHash:t,lookupFromHashIndex:n}=e,r;if(typeof window<`u`){let{hash:e}=window.location;if(e&&e.length>2){let i=e.substring(1);if(t){let e=i.split(`&`);for(let n=0;n<e.length;n++){let i=e[n].indexOf(`=`);i>0&&e[n].substring(0,i)===t&&(r=e[n].substring(i+1))}}if(r)return r;if(!r&&n>-1){let t=e.match(/\/([a-zA-Z-]*)/g);return Array.isArray(t)?t[typeof n==`number`?n:0]?.replace(`/`,``):void 0}}}return r}},Ff=null,If=()=>{if(Ff!==null)return Ff;try{if(Ff=typeof window<`u`&&window.localStorage!==null,!Ff)return!1;let e=`i18next.translate.boo`;window.localStorage.setItem(e,`foo`),window.localStorage.removeItem(e)}catch{Ff=!1}return Ff},Lf={name:`localStorage`,lookup(e){let{lookupLocalStorage:t}=e;if(t&&If())return window.localStorage.getItem(t)||void 0},cacheUserLanguage(e,t){let{lookupLocalStorage:n}=t;n&&If()&&window.localStorage.setItem(n,e)}},Rf=null,zf=()=>{if(Rf!==null)return Rf;try{if(Rf=typeof window<`u`&&window.sessionStorage!==null,!Rf)return!1;let e=`i18next.translate.boo`;window.sessionStorage.setItem(e,`foo`),window.sessionStorage.removeItem(e)}catch{Rf=!1}return Rf},Bf={name:`sessionStorage`,lookup(e){let{lookupSessionStorage:t}=e;if(t&&zf())return window.sessionStorage.getItem(t)||void 0},cacheUserLanguage(e,t){let{lookupSessionStorage:n}=t;n&&zf()&&window.sessionStorage.setItem(n,e)}},Vf={name:`navigator`,lookup(e){let t=[];if(typeof navigator<`u`){let{languages:e,userLanguage:n,language:r}=navigator;if(e)for(let n=0;n<e.length;n++)t.push(e[n]);n&&t.push(n),r&&t.push(r)}return t.length>0?t:void 0}},Hf={name:`htmlTag`,lookup(e){let{htmlTag:t}=e,n,r=t||(typeof document<`u`?document.documentElement:null);return r&&typeof r.getAttribute==`function`&&(n=r.getAttribute(`lang`)),n}},Uf={name:`path`,lookup(e){let{lookupFromPathIndex:t}=e;if(typeof window>`u`)return;let n=window.location.pathname.match(/\/([a-zA-Z-]*)/g);if(Array.isArray(n))return n[typeof t==`number`?t:0]?.replace(`/`,``)}},Wf={name:`subdomain`,lookup(e){let{lookupFromSubdomainIndex:t}=e,n=typeof t==`number`?t+1:1,r=typeof window<`u`&&window.location?.hostname?.match(/^(\w{2,5})\.(([a-z0-9-]{1,63}\.[a-z]{2,6})|localhost)/i);if(r)return r[n]}},Gf=!1;try{document.cookie,Gf=!0}catch{}var Kf=[`querystring`,`cookie`,`localStorage`,`sessionStorage`,`navigator`,`htmlTag`];Gf||Kf.splice(1,1);var qf=()=>({order:Kf,lookupQuerystring:`lng`,lookupCookie:`i18next`,lookupLocalStorage:`i18nextLng`,lookupSessionStorage:`i18nextLng`,caches:[`localStorage`],excludeCacheFor:[`cimode`],convertDetectedLanguage:e=>e}),Jf=class{constructor(e){let t=arguments.length>1&&arguments[1]!==void 0?arguments[1]:{};this.type=`languageDetector`,this.detectors={},this.init(e,t)}init(){let e=arguments.length>0&&arguments[0]!==void 0?arguments[0]:{languageUtils:{}},t=arguments.length>1&&arguments[1]!==void 0?arguments[1]:{},n=arguments.length>2&&arguments[2]!==void 0?arguments[2]:{};this.services=e,this.options=Df(t,this.options||{},qf()),typeof this.options.convertDetectedLanguage==`string`&&this.options.convertDetectedLanguage.indexOf(`15897`)>-1&&(this.options.convertDetectedLanguage=e=>e.replace(`-`,`_`)),this.options.lookupFromUrlIndex&&(this.options.lookupFromPathIndex=this.options.lookupFromUrlIndex),this.i18nOptions=n,this.addDetector(Mf),this.addDetector(Nf),this.addDetector(Lf),this.addDetector(Bf),this.addDetector(Vf),this.addDetector(Hf),this.addDetector(Uf),this.addDetector(Wf),this.addDetector(Pf)}addDetector(e){return this.detectors[e.name]=e,this}detect(){let e=arguments.length>0&&arguments[0]!==void 0?arguments[0]:this.options.order,t=[];return e.forEach(e=>{if(this.detectors[e]){let n=this.detectors[e].lookup(this.options);n&&typeof n==`string`&&(n=[n]),n&&(t=t.concat(n))}}),t=t.filter(e=>e!=null&&!Of(e)).map(e=>this.options.convertDetectedLanguage(e)),this.services&&this.services.languageUtils&&this.services.languageUtils.getBestMatchFromCodes?t:t.length>0?t[0]:null}cacheUserLanguage(e){let t=arguments.length>1&&arguments[1]!==void 0?arguments[1]:this.options.caches;t&&(this.options.excludeCacheFor&&this.options.excludeCacheFor.indexOf(e)>-1||t.forEach(t=>{this.detectors[t]&&this.detectors[t].cacheUserLanguage(e,this.options)}))}};Jf.type=`languageDetector`,Hc.use(Jf).use(sl).init({resources:{ja:{translation:{common:{appName:`クリコン戦績記録`,confirm:`確認`,cancel:`キャンセル`,delete:`削除`,edit:`編集`,save:`保存`,close:`閉じる`,add:`追加`,back:`戻る`,loading:`読み込み中...`,processing:`処理中...`,closeDialog:`ダイアログを閉じる`,error:`エラーが発生しました`,noData:`データがありません`,success:`成功しました`,warning:`警告`,info:`情報`,toggleTheme:`テーマを切り替え`,switchToDarkMode:`ダークモードに切り替え`,switchToLightMode:`ライトモードに切り替え`},navigation:{home:`ホーム`,graphs:`グラフ`,histories:`履歴`,faq:`FAQ`},pages:{home:{title:`{{seasonName}} の戦績`,description:`戦績と統計情報を入力します。`,createSeason:`新しいシーズンを作成`,noSeason:`シーズンが作成されていません`,createFirstSeason:`最初のシーズンを作成してください`,errorOccurred:`エラーが発生しました`},graphs:{title:`戦績グラフ`,description:`現シーズンの戦績をグラフ形式で可視化します。`,descriptionWithSeason:`{{seasonName}} の戦績をグラフ形式で可視化します。`,daily:`日別勝敗数`,hourly:`時間別勝率`,weekly:`曜日別勝率`,jobWinRate:`ジョブ別勝率`,jobUsage:`ジョブ使用率`,filters:{character:`キャラクター`,job:`ジョブ`,map:`マップ`,all:`すべて`}},histories:{title:`履歴一覧`,description:`過去のシーズンの一覧を表示・管理します。各シーズンの詳細は詳細ボタンから確認できます。`,totalSeasons:`総シーズン数: {{count}}件`,totalMatches:`総試合数: {{count}}`,latestCreated:`最新作成`,detail:`詳細`,delete:`削除`,confirmDelete:`シーズンの削除`,deleteDescription:`「{{seasonName}}」を削除してもよろしいですか？
 この操作は取り消すことができません。`,emptyState:`履歴がありません`,createFirstSeason:`シーズンの履歴がまだ作成されていません。
-新しいシーズンを作成してください。`,stats:`シーズン数`,errors:{loadFailed:`履歴の読み込みに失敗しました`,alreadyExists:`シーズン「{{seasonName}}」は既に存在します`,notFound:`指定された履歴が見つかりません`,characterNotFound:`指定されたキャラクターが見つかりません`,deleteMatchRecordsFailed:`シーズン {{uuid}} のマッチレコード削除中にエラーが発生しました`,loadMatchRecordsFailed:`シーズン {{seasonUuid}} のマッチレコード読み込み中にエラーが発生しました`}},historyDetail:{title:`{{seasonName}} の詳細`,description:`シーズンの全戦績を表示しています。`,backToList:`履歴一覧に戻る`,totalMatches:`{{count}}試合の戦績`,matchesCount:`試合数`,winRate:`勝率`,overall:`全体`,createdDate:`作成日`,notFound:`履歴が見つかりません`,columns:{season:`シーズン名`,character:`キャラクター名`,job:`使用ジョブ`,map:`マップ`,result:`勝敗`,date:`作成日時`},results:{win:`Win`,defeat:`Defeat`},emptyState:`戦績が記録されていません`},newSeason:{title:`新しいシーズンを作成`,description:`新しいシーズンを作成します。シーズン名を入力してください。`,seasonName:`シーズン名`,seasonNamePlaceholder:`例: シーズン1`,create:`作成する`,creating:`作成中...`,cancel:`キャンセル`,confirmTitle:`シーズン作成の確認`,confirmDescription:`新しいシーズンを作成すると「{{seasonName}}」の戦績データは過去のシーズンとしてアーカイブされ、新しい戦績の入力が開始されます。よろしいでしょうか?`,validationRequired:`シーズン名を入力してください`,validationMaxLength:`シーズン名は50文字以内で入力してください`,successMessage:`シーズン「{{seasonName}}」を作成しました`},faq:{title:`よくある質問 (FAQ)`,description:`CC戦績記録について、よくお寄せいただく質問とその回答をまとめました。`,privacy:{title:`プライバシー・データについて`,dataStorage:{question:`戦績データはどこに保存されますか？`,answer:{intro:`戦績データはすべてお使いのブラウザのローカルストレージに保存されます。`,description:`当アプリケーションでは、以下の方針でデータを扱っています：`,points:[`戦績データや個人情報は一切サーバーに送信されません`,`すべてのデータはブラウザ内のみで管理されます`,`アプリケーション開発者がユーザーの戦績データにアクセスすることはありません`,`データの削除はブラウザの設定から行えます`]}},analytics:{question:`Google Analyticsで何が収集されますか？`,answer:{intro:`当サイトでは、サービス改善のためにGoogle Analyticsを使用しています。`,collected:`収集される情報：`,collectedPoints:[`アクセス統計：ページビュー数、セッション数、平均滞在時間など`,`技術情報：ブラウザの種類、OS、画面サイズなど`,`地域情報：国や地域レベルの大まかな位置情報（詳細な住所等は含まれません）`],notCollected:`収集されない情報：`,notCollectedPoints:[`戦績データや個人の成績情報`,`キャラクター名やその他の個人情報`,`詳細な位置情報や住所`],anonymous:`これらの統計情報は匿名化されており、個人を特定することはできません。`}},dataDeletion:{question:`データの削除方法を教えてください`,answer:{intro:`保存されているデータを削除したい場合は、以下の方法で行えます：`,methods:[`個別削除：各ページで「削除」ボタンを使用`,`完全削除：ブラウザの設定からサイトデータを削除`],browserMethods:`ブラウザからのデータ削除方法：`,browserSteps:[`Chrome: 設定 → プライバシーとセキュリティ → サイトデータ`,`Firefox: 設定 → プライバシーとセキュリティ → Cookieとサイトデータ`,`Safari: 環境設定 → プライバシー → Webサイトデータを管理`]}}},usage:{title:`アプリケーションの使い方`,dataDefeat:{question:`データが消えてしまうことはありますか？`,answer:{intro:`ローカルストレージに保存されたデータは、以下の場合に削除される可能性があります：`,causes:[`ブラウザのキャッシュクリア時`,`ブラウザの設定でサイトデータを削除した場合`,`プライベートブラウジングモード使用時`,`デバイスの容量不足時（ブラウザが自動削除する場合）`],recommendation:`重要なデータは定期的にバックアップを取ることをお勧めします。`}},dataSyncing:{question:`複数のブラウザでデータを共有できますか？`,answer:{limitation:`申し訳ございませんが、現在のところブラウザ間でのデータ同期機能は提供していません。`,explanation:`各ブラウザのローカルストレージは独立しているため、データは使用したブラウザでのみ利用可能です。`}}},copyright:{disclaimer:`このアプリケーションはファンメイドの非公式ツールであり、株式会社スクウェア・エニックスとは一切関係がありません。`}},notFound:{title:`ページが見つかりません`,description:`お探しのページは存在しないか、削除された可能性があります。`,backToHome:`ホームに戻る`}},character:{name:`キャラクター名`,create:`キャラクターを作成`,edit:`キャラクター名を編集`,delete:`キャラクターを削除`,confirmDelete:`削除する`,deleteDescription:`キャラクター「{{name}}」を削除しますか？<br/><span style='color: #dc2626; margin-top: 12px; font-size: 0.875rem; display: block;'>⚠️ 関連する戦績記録もすべて削除されます。この操作は取り消せません。</span>`,namePlaceholder:`キャラクター名を入力`,validationRequired:`キャラクター名を入力してください`,emptyState:`キャラクターがありません`,createFirst:`最初のキャラクターを作成してください`,errors:{alreadyExists:`キャラクター「{{name}}」は既に存在します`,notFound:`キャラクターが見つかりません`,loadFailed:`データの読み込みに失敗しました`,matchRecordNotFound:`戦績記録が見つかりません`},stats:{matches:`{{count}}試合`,totalMatches:`{{count}}試合`,winRate:`勝率{{rate}}%`,noWinRate:`勝率--%`,wins:`{{count}}勝`,defeats:`{{count}}敗`},actions:{addJob:`ジョブの追加`,editName:`名前を編集`,deleteName:`キャラクターの削除`}},match:{record:`戦績を記録`,job:`ジョブ`,map:`マップ`,result:`結果`,win:`勝利数`,defeat:`敗北数`,memo:`メモ`,memoPlaceholder:`メモを入力（任意）`,selectJob:`ジョブを選択してください`,selectMap:`マップを選択してください`,recorded:`戦績を記録しました`,totalMatches:`試合数`,winRate:`勝率`,allStagesTotal:`全ステージ合計`,actions:`操作`,pleaseRegisterJob:`ジョブを登録してください`,recentMatches:`最近の戦績`,deleteMatch:`戦績を削除`,confirmDelete:`戦績の削除`,confirmDeleteButton:`削除する`,deleteConfirmation:`{{characterName}} の {{date}} の戦績を削除してもよろしいですか？
+新しいシーズンを作成してください。`,stats:`シーズン数`,errors:{loadFailed:`履歴の読み込みに失敗しました`,alreadyExists:`シーズン「{{seasonName}}」は既に存在します`,notFound:`指定された履歴が見つかりません`,characterNotFound:`指定されたキャラクターが見つかりません`,deleteMatchRecordsFailed:`シーズン {{uuid}} のマッチレコード削除中にエラーが発生しました`,loadMatchRecordsFailed:`シーズン {{seasonUuid}} のマッチレコード読み込み中にエラーが発生しました`}},historyDetail:{title:`{{seasonName}} の詳細`,description:`シーズンの全戦績を表示しています。`,backToList:`履歴一覧に戻る`,totalMatches:`{{count}}試合の戦績`,matchesCount:`試合数`,winRate:`勝率`,overall:`全体`,createdDate:`作成日`,notFound:`履歴が見つかりません`,columns:{season:`シーズン名`,character:`キャラクター名`,job:`使用ジョブ`,map:`マップ`,result:`勝敗`,date:`作成日時`},results:{win:`Win`,defeat:`Defeat`},emptyState:`戦績が記録されていません`},newSeason:{title:`新しいシーズンを作成`,description:`新しいシーズンを作成します。シーズン名を入力してください。`,seasonName:`シーズン名`,seasonNamePlaceholder:`例: シーズン1`,create:`作成する`,creating:`作成中...`,cancel:`キャンセル`,confirmTitle:`シーズン作成の確認`,confirmDescription:`新しいシーズンを作成すると「{{seasonName}}」の戦績データは過去のシーズンとしてアーカイブされ、新しい戦績の入力が開始されます。よろしいでしょうか?`,validationRequired:`シーズン名を入力してください`,validationMaxLength:`シーズン名は{{length}}文字以内で入力してください`,successMessage:`シーズン「{{seasonName}}」を作成しました`},faq:{title:`よくある質問 (FAQ)`,description:`CC戦績記録について、よくお寄せいただく質問とその回答をまとめました。`,privacy:{title:`プライバシー・データについて`,dataStorage:{question:`戦績データはどこに保存されますか？`,answer:{intro:`戦績データはすべてお使いのブラウザのローカルストレージに保存されます。`,description:`当アプリケーションでは、以下の方針でデータを扱っています：`,points:[`戦績データや個人情報は一切サーバーに送信されません`,`すべてのデータはブラウザ内のみで管理されます`,`アプリケーション開発者がユーザーの戦績データにアクセスすることはありません`,`データの削除はブラウザの設定から行えます`]}},analytics:{question:`Google Analyticsで何が収集されますか？`,answer:{intro:`当サイトでは、サービス改善のためにGoogle Analyticsを使用しています。`,collected:`収集される情報：`,collectedPoints:[`アクセス統計：ページビュー数、セッション数、平均滞在時間など`,`技術情報：ブラウザの種類、OS、画面サイズなど`,`地域情報：国や地域レベルの大まかな位置情報（詳細な住所等は含まれません）`],notCollected:`収集されない情報：`,notCollectedPoints:[`戦績データや個人の成績情報`,`キャラクター名やその他の個人情報`,`詳細な位置情報や住所`],anonymous:`これらの統計情報は匿名化されており、個人を特定することはできません。`}},dataDeletion:{question:`データの削除方法を教えてください`,answer:{intro:`保存されているデータを削除したい場合は、以下の方法で行えます：`,methods:[`個別削除：各ページで「削除」ボタンを使用`,`完全削除：ブラウザの設定からサイトデータを削除`],browserMethods:`ブラウザからのデータ削除方法：`,browserSteps:[`Chrome: 設定 → プライバシーとセキュリティ → サイトデータ`,`Firefox: 設定 → プライバシーとセキュリティ → Cookieとサイトデータ`,`Safari: 環境設定 → プライバシー → Webサイトデータを管理`]}}},usage:{title:`アプリケーションの使い方`,dataDefeat:{question:`データが消えてしまうことはありますか？`,answer:{intro:`ローカルストレージに保存されたデータは、以下の場合に削除される可能性があります：`,causes:[`ブラウザのキャッシュクリア時`,`ブラウザの設定でサイトデータを削除した場合`,`プライベートブラウジングモード使用時`,`デバイスの容量不足時（ブラウザが自動削除する場合）`],recommendation:`重要なデータは定期的にバックアップを取ることをお勧めします。`}},dataSyncing:{question:`複数のブラウザでデータを共有できますか？`,answer:{limitation:`申し訳ございませんが、現在のところブラウザ間でのデータ同期機能は提供していません。`,explanation:`各ブラウザのローカルストレージは独立しているため、データは使用したブラウザでのみ利用可能です。`}}},copyright:{disclaimer:`このアプリケーションはファンメイドの非公式ツールであり、株式会社スクウェア・エニックスとは一切関係がありません。`}},notFound:{title:`ページが見つかりません`,description:`お探しのページは存在しないか、削除された可能性があります。`,backToHome:`ホームに戻る`}},character:{name:`キャラクター名`,create:`キャラクターを作成`,createSuccess:`キャラクター「{{name}}」を作成しました`,edit:`キャラクター名を編集`,delete:`キャラクターを削除`,confirmDelete:`削除する`,deleteDescription:`キャラクター「{{name}}」を削除しますか？<br/><span style='color: #dc2626; margin-top: 12px; font-size: 0.875rem; display: block;'>⚠️ 関連する戦績記録もすべて削除されます。この操作は取り消せません。</span>`,namePlaceholder:`キャラクター名を入力`,validationRequired:`キャラクター名を入力してください`,emptyState:`キャラクターがありません`,createFirst:`最初のキャラクターを作成してください`,errors:{alreadyExists:`キャラクター「{{name}}」は既に存在します`,notFound:`キャラクターが見つかりません`,loadFailed:`データの読み込みに失敗しました`,matchRecordNotFound:`戦績記録が見つかりません`},stats:{matches:`{{count}}試合`,totalMatches:`{{count}}試合`,winRate:`勝率{{rate}}%`,noWinRate:`勝率--%`,wins:`{{count}}勝`,defeats:`{{count}}敗`},actions:{addJob:`ジョブの追加`,editName:`名前を編集`,deleteName:`キャラクターの削除`}},match:{record:`戦績を記録`,job:`ジョブ`,map:`マップ`,result:`結果`,win:`勝利数`,defeat:`敗北数`,memo:`メモ`,memoPlaceholder:`メモを入力（任意）`,selectJob:`ジョブを選択してください`,selectMap:`マップを選択してください`,recorded:`戦績を記録しました`,totalMatches:`試合数`,winRate:`勝率`,allStagesTotal:`全ステージ合計`,actions:`操作`,pleaseRegisterJob:`ジョブを登録してください`,recentMatches:`最近の戦績`,deleteMatch:`戦績を削除`,confirmDelete:`戦績の削除`,confirmDeleteButton:`削除する`,deleteConfirmation:`{{characterName}} の {{date}} の戦績を削除してもよろしいですか？
 この操作は取り消すことができません。`,addWin:`勝利を記録`,addDefeat:`敗北を記録`,rollback:`直前の記録を取り消し`},job:{select:`ジョブ選択`,selectJob:`使用ジョブを選択`,selectJobDescription:`ジョブを選択してください`,tank:`タンク`,healer:`ヒーラー`,meleeDps:`近接DPS`,melee_dps:`近接DPS`,physicalRangedDps:`物理遠隔DPS`,physical_ranged_dps:`物理遠隔DPS`,magicalRangedDps:`魔法遠隔DPS`,magical_ranged_dps:`魔法遠隔DPS`,PLD:`ナイト`,WAR:`戦士`,DRK:`暗黒騎士`,GNB:`ガンブレイカー`,WHM:`白魔道士`,SCH:`学者`,AST:`占星術師`,SGE:`賢者`,MNK:`モンク`,DRG:`竜騎士`,NIN:`忍者`,SAM:`侍`,RPR:`リーパー`,VPR:`ヴァイパー`,BRD:`吟遊詩人`,MCH:`機工士`,DNC:`踊り子`,BLM:`黒魔道士`,SMN:`召喚士`,RDM:`赤魔道士`,PCT:`ピクトマンサー`},maps:{THE_PALAISTRA:`パライストラ`,VOLCANIC_HEART:`ヴォルカニックハート`,CLOUD_NINE:`クラウドナイン`,TOUHOU_KARAKURI_GOTEN:`東方絡繰御殿`,RED_SANDS:`レッドサンズ`,BAYSIDE_BATTLEGROUND:`ベイサイドバトルグラウンド`},chart:{winRate:`勝率`,winCount:`勝利数`,defeatCount:`敗北数`,usageRate:`使用率`,matches:`試合`,noData:`データがありません`,noMatchData:`試合データがありません`,selectJobs:`ジョブを選択（最大5個）`,hour:`{{hour}}時`,day:{sunday:`日`,monday:`月`,tuesday:`火`,wednesday:`水`,thursday:`木`,friday:`金`,saturday:`土`},labels:{character:`キャラクター`,job:`ジョブ`,map:`マップ`,allCharacters:`すべてのキャラクター`,allJobs:`すべてのジョブ`,allMaps:`すべてのマップ`,jobSelection:`ジョブ選択（最大5つ）`,selectJob:`ジョブを選択`},titles:{dailyWinDefeat:`日別勝敗数と勝率推移`,weeklyWinRate:`曜日別勝率比較`,hourlyWinRate:`時間帯別勝率分析`,jobUsageRate:`ジョブ使用率`,jobWinRateByMap:`マップ別ジョブ勝率比較`},axes:{matchCount:`対戦回数`,winRatePercent:`勝率 (%)`,date:`日付`,weekday:`曜日`,hour:`時間帯`},legend:{win:`Win`,lose:`Defeat`,winRate:`WinRate`,defeatRate:`DefeatRate`},tooltip:{usageCount:`使用回数`,usageRatePercent:`使用率`,win:`Win`,lose:`Defeat`,total:`合計`,matches:`試合`,noMatchData:`試合データなし`},weekdays:{sunday:`日曜日`,monday:`月曜日`,tuesday:`火曜日`,wednesday:`水曜日`,thursday:`木曜日`,friday:`金曜日`,saturday:`土曜日`}},language:{current:`日本語`,japanese:`日本語`,english:`English`,korean:`한국어`,switch:`言語を切り替え`}}},en:{translation:{common:{appName:`CC War Record`,confirm:`Confirm`,cancel:`Cancel`,delete:`Delete`,edit:`Edit`,save:`Save`,close:`Close`,add:`Add`,back:`Back`,loading:`Loading...`,processing:`Processing...`,closeDialog:`Close dialog`,error:`An error occurred`,noData:`No data available`,success:`Success`,warning:`Warning`,info:`Information`,toggleTheme:`Toggle theme`,switchToDarkMode:`Switch to dark mode`,switchToLightMode:`Switch to light mode`},navigation:{home:`Home`,graphs:`Graphs`,histories:`Histories`,faq:`FAQ`},pages:{home:{title:`{{seasonName}} Records`,description:`Enter your match records and view statistics.`,createSeason:`Create New Season`,noSeason:`No season has been created`,createFirstSeason:`Please create your first season`,errorOccurred:`An error occurred`},graphs:{title:`Match Statistics`,description:`Visualize current season match statistics in graph format.`,descriptionWithSeason:`Visualize {{seasonName}} match statistics in graph format.`,daily:`Daily Win/Defeat`,hourly:`Hourly Win Rate`,weekly:`Weekly Win Rate`,jobWinRate:`Job Win Rate`,jobUsage:`Job Usage Rate`,filters:{character:`Character`,job:`Job`,map:`Map`,all:`All`}},histories:{title:`History List`,description:`View and manage past seasons. You can check the details of each season by clicking the detail button.`,totalSeasons:`Total Seasons: {{count}}`,totalMatches:`Total Matches: {{count}}`,latestCreated:`Latest Created`,detail:`Details`,delete:`Delete`,confirmDelete:`Delete Season`,deleteDescription:`Are you sure you want to delete "{{seasonName}}"?
 This action cannot be undone.`,emptyState:`No history available`,createFirstSeason:`No season history has been created yet.
-Please create a new season.`,stats:`Seasons`,errors:{loadFailed:`Failed to load history`,alreadyExists:`Season "{{seasonName}}" already exists`,notFound:`The specified history was not found`,characterNotFound:`The specified character was not found`,deleteMatchRecordsFailed:`Error deleting match records for season {{uuid}}`,loadMatchRecordsFailed:`Error loading match records for season {{seasonUuid}}`}},historyDetail:{title:`{{seasonName}} Details`,description:`Displaying all matches for this season.`,backToList:`Back to History`,totalMatches:`{{count}} matches`,matchesCount:`Matches`,winRate:`Win Rate`,overall:`Overall`,createdDate:`Created`,notFound:`History not found`,columns:{season:`Season Name`,character:`Character Name`,job:`Job Used`,map:`Map`,result:`Result`,date:`Date`},results:{win:`Win`,defeat:`Defeat`},emptyState:`No matches recorded`},newSeason:{title:`Create New Season`,description:`Create a new season. Please enter a season name.`,seasonName:`Season Name`,seasonNamePlaceholder:`e.g. Season 1`,create:`Create`,creating:`Creating...`,cancel:`Cancel`,confirmTitle:`Confirm Season Creation`,confirmDescription:`Creating a new season will archive the match data for "{{seasonName}}" and start recording new matches. Continue?`,validationRequired:`Please enter a season name`,validationMaxLength:`Season name must be 50 characters or less`,successMessage:`Season "{{seasonName}}" created successfully`},faq:{title:`Frequently Asked Questions (FAQ)`,description:`Common questions and answers about CC War Record.`,privacy:{title:`Privacy & Data`,dataStorage:{question:`Where is my match data stored?`,answer:{intro:`All match data is stored in your browser's local storage only.`,description:`Our application handles data with the following policy:`,points:[`Match data and personal information are never sent to servers`,`All data is managed within your browser only`,`Application developers cannot access your match data`,`Data can be deleted through browser settings`]}},analytics:{question:`What does Google Analytics collect?`,answer:{intro:`We use Google Analytics to improve our service.`,collected:`Information collected:`,collectedPoints:[`Access statistics: page views, sessions, average session duration, etc.`,`Technical information: browser type, OS, screen size, etc.`,`Regional information: general location at country/region level (no detailed addresses)`],notCollected:`Information NOT collected:`,notCollectedPoints:[`Match data or personal performance information`,`Character names or other personal information`,`Detailed location information or addresses`],anonymous:`All statistical information is anonymized and cannot identify individuals.`}},dataDeletion:{question:`How can I delete my data?`,answer:{intro:`To delete stored data, you can use the following methods:`,methods:[`Individual deletion: Use the "Delete" button on each page`,`Complete deletion: Delete site data through browser settings`],browserMethods:`Browser data deletion methods:`,browserSteps:[`Chrome: Settings → Privacy and security → Site data`,`Firefox: Settings → Privacy & Security → Cookies and Site Data`,`Safari: Preferences → Privacy → Manage Website Data`]}}},usage:{title:`Application Usage`,dataDefeat:{question:`Can my data be lost?`,answer:{intro:`Data stored in local storage may be deleted in the following cases:`,causes:[`When browser cache is cleared`,`When site data is deleted through browser settings`,`When using private browsing mode`,`When device storage is low (browser may auto-delete)`],recommendation:`We recommend regularly backing up important data.`}},dataSyncing:{question:`Can I share data between multiple browsers?`,answer:{limitation:`Unfortunately, we do not currently provide data synchronization between browsers.`,explanation:`Each browser's local storage is independent, so data is only available in the browser where it was created.`}}},copyright:{disclaimer:`This application is a fan-made unofficial tool and is not affiliated with Square Enix Co., Ltd. in any way.`}},notFound:{title:`Page Not Found`,description:`The page you're looking for doesn't exist or may have been deleted.`,backToHome:`Back to Home`}},character:{name:`Character Name`,create:`Create Character`,edit:`Edit Character Name`,delete:`Delete Character`,confirmDelete:`Delete`,deleteDescription:`Are you sure you want to delete character "{{name}}"?<br/><span style='color: #dc2626; margin-top: 12px; font-size: 0.875rem; display: block;'>⚠️ All associated match records will also be deleted. This action cannot be undone.</span>`,namePlaceholder:`Enter character name`,validationRequired:`Please enter a character name`,emptyState:`No characters`,createFirst:`Create your first character`,errors:{alreadyExists:`Character "{{name}}" already exists`,notFound:`Character not found`,loadFailed:`Failed to load data`,matchRecordNotFound:`Match record not found`},stats:{matches:`{{count}} matches`,totalMatches:`{{count}} matches`,winRate:`{{rate}}% win rate`,noWinRate:`-- % win rate`,wins:`{{count}} wins`,defeats:`{{count}} defeats`},actions:{addJob:`Add Job`,editName:`Edit Name`,deleteName:`Delete Character`}},match:{record:`Record Match`,job:`Job`,map:`Map`,result:`Result`,win:`Wins`,defeat:`Defeats`,memo:`Memo`,memoPlaceholder:`Enter memo (optional)`,selectJob:`Please select a job`,selectMap:`Please select a map`,recorded:`Match recorded successfully`,totalMatches:`Matches`,winRate:`Win Rate`,allStagesTotal:`All Stages Total`,actions:`Actions`,pleaseRegisterJob:`Please register a job`,recentMatches:`Recent Matches`,deleteMatch:`Delete Match`,confirmDelete:`Delete Match Record`,confirmDeleteButton:`Delete`,deleteConfirmation:`Are you sure you want to delete the match record for {{characterName}} on {{date}}?
+Please create a new season.`,stats:`Seasons`,errors:{loadFailed:`Failed to load history`,alreadyExists:`Season "{{seasonName}}" already exists`,notFound:`The specified history was not found`,characterNotFound:`The specified character was not found`,deleteMatchRecordsFailed:`Error deleting match records for season {{uuid}}`,loadMatchRecordsFailed:`Error loading match records for season {{seasonUuid}}`}},historyDetail:{title:`{{seasonName}} Details`,description:`Displaying all matches for this season.`,backToList:`Back to History`,totalMatches:`{{count}} matches`,matchesCount:`Matches`,winRate:`Win Rate`,overall:`Overall`,createdDate:`Created`,notFound:`History not found`,columns:{season:`Season Name`,character:`Character Name`,job:`Job Used`,map:`Map`,result:`Result`,date:`Date`},results:{win:`Win`,defeat:`Defeat`},emptyState:`No matches recorded`},newSeason:{title:`Create New Season`,description:`Create a new season. Please enter a season name.`,seasonName:`Season Name`,seasonNamePlaceholder:`e.g. Season 1`,create:`Create`,creating:`Creating...`,cancel:`Cancel`,confirmTitle:`Confirm Season Creation`,confirmDescription:`Creating a new season will archive the match data for "{{seasonName}}" and start recording new matches. Continue?`,validationRequired:`Please enter a season name`,validationMaxLength:`Season name must be {{length}} characters or less`,successMessage:`Season "{{seasonName}}" created successfully`},faq:{title:`Frequently Asked Questions (FAQ)`,description:`Common questions and answers about CC War Record.`,privacy:{title:`Privacy & Data`,dataStorage:{question:`Where is my match data stored?`,answer:{intro:`All match data is stored in your browser's local storage only.`,description:`Our application handles data with the following policy:`,points:[`Match data and personal information are never sent to servers`,`All data is managed within your browser only`,`Application developers cannot access your match data`,`Data can be deleted through browser settings`]}},analytics:{question:`What does Google Analytics collect?`,answer:{intro:`We use Google Analytics to improve our service.`,collected:`Information collected:`,collectedPoints:[`Access statistics: page views, sessions, average session duration, etc.`,`Technical information: browser type, OS, screen size, etc.`,`Regional information: general location at country/region level (no detailed addresses)`],notCollected:`Information NOT collected:`,notCollectedPoints:[`Match data or personal performance information`,`Character names or other personal information`,`Detailed location information or addresses`],anonymous:`All statistical information is anonymized and cannot identify individuals.`}},dataDeletion:{question:`How can I delete my data?`,answer:{intro:`To delete stored data, you can use the following methods:`,methods:[`Individual deletion: Use the "Delete" button on each page`,`Complete deletion: Delete site data through browser settings`],browserMethods:`Browser data deletion methods:`,browserSteps:[`Chrome: Settings → Privacy and security → Site data`,`Firefox: Settings → Privacy & Security → Cookies and Site Data`,`Safari: Preferences → Privacy → Manage Website Data`]}}},usage:{title:`Application Usage`,dataDefeat:{question:`Can my data be lost?`,answer:{intro:`Data stored in local storage may be deleted in the following cases:`,causes:[`When browser cache is cleared`,`When site data is deleted through browser settings`,`When using private browsing mode`,`When device storage is low (browser may auto-delete)`],recommendation:`We recommend regularly backing up important data.`}},dataSyncing:{question:`Can I share data between multiple browsers?`,answer:{limitation:`Unfortunately, we do not currently provide data synchronization between browsers.`,explanation:`Each browser's local storage is independent, so data is only available in the browser where it was created.`}}},copyright:{disclaimer:`This application is a fan-made unofficial tool and is not affiliated with Square Enix Co., Ltd. in any way.`}},notFound:{title:`Page Not Found`,description:`The page you're looking for doesn't exist or may have been deleted.`,backToHome:`Back to Home`}},character:{name:`Character Name`,create:`Create Character`,createSuccess:`Character "{{name}}" created successfully`,edit:`Edit Character Name`,delete:`Delete Character`,confirmDelete:`Delete`,deleteDescription:`Are you sure you want to delete character "{{name}}"?<br/><span style='color: #dc2626; margin-top: 12px; font-size: 0.875rem; display: block;'>⚠️ All associated match records will also be deleted. This action cannot be undone.</span>`,namePlaceholder:`Enter character name`,validationRequired:`Please enter a character name`,emptyState:`No characters`,createFirst:`Create your first character`,errors:{alreadyExists:`Character "{{name}}" already exists`,notFound:`Character not found`,loadFailed:`Failed to load data`,matchRecordNotFound:`Match record not found`},stats:{matches:`{{count}} matches`,totalMatches:`{{count}} matches`,winRate:`{{rate}}% win rate`,noWinRate:`-- % win rate`,wins:`{{count}} wins`,defeats:`{{count}} defeats`},actions:{addJob:`Add Job`,editName:`Edit Name`,deleteName:`Delete Character`}},match:{record:`Record Match`,job:`Job`,map:`Map`,result:`Result`,win:`Wins`,defeat:`Defeats`,memo:`Memo`,memoPlaceholder:`Enter memo (optional)`,selectJob:`Please select a job`,selectMap:`Please select a map`,recorded:`Match recorded successfully`,totalMatches:`Matches`,winRate:`Win Rate`,allStagesTotal:`All Stages Total`,actions:`Actions`,pleaseRegisterJob:`Please register a job`,recentMatches:`Recent Matches`,deleteMatch:`Delete Match`,confirmDelete:`Delete Match Record`,confirmDeleteButton:`Delete`,deleteConfirmation:`Are you sure you want to delete the match record for {{characterName}} on {{date}}?
 This action cannot be undone.`,addWin:`Record Win`,addDefeat:`Record Defeat`,rollback:`Undo Last Record`},job:{select:`Select Job`,selectJob:`Select Job to Use`,selectJobDescription:`Please select a job`,tank:`Tank`,healer:`Healer`,meleeDps:`Melee DPS`,melee_dps:`Melee DPS`,physicalRangedDps:`Physical Ranged DPS`,physical_ranged_dps:`Physical Ranged DPS`,magicalRangedDps:`Magical Ranged DPS`,magical_ranged_dps:`Magical Ranged DPS`,PLD:`Paladin`,WAR:`Warrior`,DRK:`Dark Knight`,GNB:`Gunbreaker`,WHM:`White Mage`,SCH:`Scholar`,AST:`Astrologian`,SGE:`Sage`,MNK:`Monk`,DRG:`Dragoon`,NIN:`Ninja`,SAM:`Samurai`,RPR:`Reaper`,VPR:`Viper`,BRD:`Bard`,MCH:`Machinist`,DNC:`Dancer`,BLM:`Black Mage`,SMN:`Summoner`,RDM:`Red Mage`,PCT:`Pictomancer`},maps:{THE_PALAISTRA:`The Palaistra`,VOLCANIC_HEART:`The Volcanic Heart`,CLOUD_NINE:`Cloud Nine`,TOUHOU_KARAKURI_GOTEN:`The Clockwork Castletown`,RED_SANDS:`The Red Sands`,BAYSIDE_BATTLEGROUND:`The Bayside Battleground`},chart:{winRate:`Win Rate`,winCount:`Wins`,defeatCount:`Defeats`,usageRate:`Usage Rate`,matches:`Matches`,noData:`No data available`,noMatchData:`No match data available`,selectJobs:`Select jobs (max 5)`,hour:`{{hour}}:00`,day:{sunday:`Sun`,monday:`Mon`,tuesday:`Tue`,wednesday:`Wed`,thursday:`Thu`,friday:`Fri`,saturday:`Sat`},labels:{character:`Character`,job:`Job`,map:`Map`,allCharacters:`All Characters`,allJobs:`All Jobs`,allMaps:`All Maps`,jobSelection:`Job Selection (Max 5)`,selectJob:`Select Job`},titles:{dailyWinDefeat:`Daily Win/Defeat and Win Rate Trend`,weeklyWinRate:`Win Rate Comparison by Day of Week`,hourlyWinRate:`Win Rate Analysis by Time of Day`,jobUsageRate:`Job Usage Rate`,jobWinRateByMap:`Job Win Rate Comparison by Map`},axes:{matchCount:`Match Count`,winRatePercent:`Win Rate (%)`,date:`Date`,weekday:`Day of Week`,hour:`Time of Day`},legend:{win:`Win`,lose:`Defeat`,winRate:`WinRate`,defeatRate:`DefeatRate`},tooltip:{usageCount:`Usage Count`,usageRatePercent:`Usage Rate`,win:`Win`,lose:`Defeat`,total:`Total`,matches:`Matches`,noMatchData:`No match data`},weekdays:{sunday:`Sunday`,monday:`Monday`,tuesday:`Tuesday`,wednesday:`Wednesday`,thursday:`Thursday`,friday:`Friday`,saturday:`Saturday`}},language:{current:`English`,japanese:`日本語`,english:`English`,korean:`한국어`,switch:`Switch Language`}}},ko:{translation:{common:{appName:`크리스탈 컨플릭트 전적 기록`,confirm:`확인`,cancel:`취소`,delete:`삭제`,edit:`편집`,save:`저장`,close:`닫기`,add:`추가`,back:`뒤로`,loading:`로딩 중...`,processing:`처리 중...`,closeDialog:`대화상자 닫기`,error:`오류가 발생했습니다`,noData:`데이터가 없습니다`,success:`성공`,warning:`경고`,info:`정보`,toggleTheme:`테마 전환`,switchToDarkMode:`다크 모드로 전환`,switchToLightMode:`라이트 모드로 전환`},navigation:{home:`홈`,graphs:`그래프`,histories:`기록`,faq:`FAQ`},pages:{home:{title:`{{seasonName}} 전적`,description:`전적과 통계 정보를 입력합니다.`,createSeason:`새 시즌 만들기`,noSeason:`시즌이 생성되지 않았습니다`,createFirstSeason:`첫 번째 시즌을 만들어주세요`,errorOccurred:`오류가 발생했습니다`},graphs:{title:`전적 그래프`,description:`현재 시즌 전적을 그래프 형식으로 시각화합니다.`,descriptionWithSeason:`{{seasonName}} 전적을 그래프 형식으로 시각화합니다.`,daily:`일별 승부`,hourly:`시간별 승률`,weekly:`요일별 승률`,jobWinRate:`잡별 승률`,jobUsage:`잡 사용률`,filters:{character:`캐릭터`,job:`잡`,map:`맵`,all:`전체`}},histories:{title:`히스토리 목록`,description:`과거 시즌 목록을 표시하고 관리합니다. 각 시즌의 세부정보는 상세 버튼에서 확인할 수 있습니다.`,totalSeasons:`총 시즌 수: {{count}}개`,totalMatches:`총 경기 수: {{count}}`,latestCreated:`최근 생성`,detail:`상세`,delete:`삭제`,confirmDelete:`시즌 삭제`,deleteDescription:`"{{seasonName}}"을(를) 삭제하시겠습니까?
 이 작업은 취소할 수 없습니다.`,emptyState:`히스토리가 없습니다`,createFirstSeason:`시즌 히스토리가 아직 생성되지 않았습니다.
-새 시즌을 생성해주세요.`,stats:`시즌`,errors:{loadFailed:`히스토리 로드에 실패했습니다`,alreadyExists:`시즌 "{{seasonName}}"은(는) 이미 존재합니다`,notFound:`지정된 히스토리를 찾을 수 없습니다`,characterNotFound:`지정된 캐릭터를 찾을 수 없습니다`,deleteMatchRecordsFailed:`시즌 {{uuid}}의 매치 기록 삭제 중 오류가 발생했습니다`,loadMatchRecordsFailed:`시즌 {{seasonUuid}}의 매치 기록 로드 중 오류가 발생했습니다`}},historyDetail:{title:`{{seasonName}} 상세`,description:`시즌의 모든 전적을 표시하고 있습니다.`,backToList:`기록 목록으로 돌아가기`,totalMatches:`{{count}}경기 전적`,matchesCount:`경기 수`,winRate:`승률`,overall:`전체`,createdDate:`생성일`,notFound:`기록을 찾을 수 없습니다`,columns:{season:`시즌명`,character:`캐릭터명`,job:`사용 잡`,map:`맵`,result:`결과`,date:`생성일시`},results:{win:`Win`,defeat:`Defeat`},emptyState:`전적이 기록되지 않았습니다`},newSeason:{title:`새 시즌 만들기`,description:`새 시즌을 만듭니다. 시즌명을 입력해주세요.`,seasonName:`시즌명`,seasonNamePlaceholder:`예: 시즌 1`,create:`만들기`,creating:`만드는 중...`,cancel:`취소`,confirmTitle:`시즌 생성 확인`,confirmDescription:`새 시즌을 만들면 "{{seasonName}}"의 전적 데이터가 과거 시즌으로 아카이브되고 새로운 전적 입력이 시작됩니다. 계속하시겠습니까?`,validationRequired:`시즌명을 입력해주세요`,validationMaxLength:`시즌명은 50자 이내로 입력해주세요`,successMessage:`시즌 "{{seasonName}}"을 만들었습니다`},faq:{title:`자주 묻는 질문 (FAQ)`,description:`크리스탈 컨플릭트 전적 기록에 대한 자주 묻는 질문과 답변입니다.`,privacy:{title:`개인정보 및 데이터`,dataStorage:{question:`전적 데이터는 어디에 저장되나요?`,answer:{intro:`모든 전적 데이터는 사용자의 브라우저 로컬 스토리지에만 저장됩니다.`,description:`본 애플리케이션은 다음 방침으로 데이터를 다룹니다:`,points:[`전적 데이터나 개인정보는 일체 서버로 전송되지 않습니다`,`모든 데이터는 브라우저 내에서만 관리됩니다`,`애플리케이션 개발자가 사용자의 전적 데이터에 접근할 수 없습니다`,`데이터 삭제는 브라우저 설정에서 할 수 있습니다`]}},analytics:{question:`Google Analytics에서 무엇을 수집하나요?`,answer:{intro:`본 사이트는 서비스 개선을 위해 Google Analytics를 사용합니다.`,collected:`수집되는 정보:`,collectedPoints:[`접속 통계: 페이지뷰 수, 세션 수, 평균 체류시간 등`,`기술 정보: 브라우저 종류, OS, 화면 크기 등`,`지역 정보: 국가나 지역 수준의 대략적인 위치 정보 (상세 주소 등은 포함되지 않음)`],notCollected:`수집되지 않는 정보:`,notCollectedPoints:[`전적 데이터나 개인 성적 정보`,`캐릭터명이나 기타 개인정보`,`상세한 위치 정보나 주소`],anonymous:`이러한 통계 정보는 익명화되어 있으며, 개인을 특정할 수 없습니다.`}},dataDeletion:{question:`데이터 삭제 방법을 알려주세요`,answer:{intro:`저장된 데이터를 삭제하고 싶은 경우 다음 방법으로 할 수 있습니다:`,methods:[`개별 삭제: 각 페이지에서 "삭제" 버튼 사용`,`완전 삭제: 브라우저 설정에서 사이트 데이터 삭제`],browserMethods:`브라우저에서 데이터 삭제 방법:`,browserSteps:[`Chrome: 설정 → 개인정보 및 보안 → 사이트 데이터`,`Firefox: 설정 → 개인정보 및 보안 → 쿠키 및 사이트 데이터`,`Safari: 환경설정 → 개인정보 보호 → 웹사이트 데이터 관리`]}}},usage:{title:`애플리케이션 사용법`,dataDefeat:{question:`데이터가 사라질 수 있나요?`,answer:{intro:`로컬 스토리지에 저장된 데이터는 다음의 경우 삭제될 수 있습니다:`,causes:[`브라우저 캐시 삭제 시`,`브라우저 설정에서 사이트 데이터를 삭제한 경우`,`프라이빗 브라우징 모드 사용 시`,`디바이스 용량 부족 시 (브라우저가 자동 삭제하는 경우)`],recommendation:`중요한 데이터는 정기적으로 백업을 받는 것을 권장합니다.`}},dataSyncing:{question:`여러 브라우저에서 데이터를 공유할 수 있나요?`,answer:{limitation:`죄송하지만 현재로서는 브라우저 간 데이터 동기화 기능을 제공하지 않습니다.`,explanation:`각 브라우저의 로컬 스토리지는 독립적이므로, 데이터는 사용한 브라우저에서만 이용 가능합니다.`}}},copyright:{disclaimer:`이 애플리케이션은 팬이 만든 비공식 도구이며, 주식회사 스퀘어 에닉스와는 일체 관계가 없습니다.`}},notFound:{title:`페이지를 찾을 수 없음`,description:`찾으시는 페이지가 존재하지 않거나 삭제되었을 수 있습니다.`,backToHome:`홈으로 돌아가기`}},character:{name:`캐릭터 이름`,create:`캐릭터 생성`,edit:`캐릭터 이름 편집`,delete:`캐릭터 삭제`,confirmDelete:`삭제`,deleteDescription:`캐릭터 "{{name}}"을(를) 삭제하시겠습니까?<br/><span style='color: #dc2626; margin-top: 12px; font-size: 0.875rem; display: block;'>⚠️ 관련된 모든 전적 기록도 삭제됩니다. 이 작업은 취소할 수 없습니다.</span>`,namePlaceholder:`캐릭터 이름 입력`,validationRequired:`캐릭터 이름을 입력해주세요`,emptyState:`캐릭터가 없습니다`,createFirst:`첫 번째 캐릭터를 생성하세요`,errors:{alreadyExists:`캐릭터 "{{name}}"은(는) 이미 존재합니다`,notFound:`캐릭터를 찾을 수 없습니다`,loadFailed:`데이터 로드에 실패했습니다`,matchRecordNotFound:`전적 기록을 찾을 수 없습니다`},stats:{matches:`{{count}}경기`,totalMatches:`{{count}}경기`,winRate:`승률{{rate}}%`,noWinRate:`승률--%`,wins:`{{count}}승`,defeats:`{{count}}패`},actions:{addJob:`잡 추가`,editName:`이름 편집`,deleteName:`캐릭터 삭제`}},match:{record:`전적 기록`,job:`잡`,map:`맵`,result:`결과`,win:`승리 수`,defeat:`패배 수`,memo:`메모`,memoPlaceholder:`메모를 입력하세요 (선택사항)`,selectJob:`잡을 선택해주세요`,selectMap:`맵을 선택해주세요`,recorded:`전적이 기록되었습니다`,totalMatches:`경기 수`,winRate:`승률`,allStagesTotal:`전체 스테이지 합계`,actions:`작업`,pleaseRegisterJob:`잡을 등록해주세요`,recentMatches:`최근 전적`,deleteMatch:`전적 삭제`,confirmDelete:`전적 삭제`,confirmDeleteButton:`삭제`,deleteConfirmation:`{{characterName}}의 {{date}} 전적을 삭제하시겠습니까?
-이 작업은 취소할 수 없습니다.`,addWin:`승리 기록`,addDefeat:`패배 기록`,rollback:`마지막 기록 취소`},job:{select:`잡 선택`,selectJob:`사용할 잡 선택`,selectJobDescription:`잡을 선택해주세요`,tank:`탱커`,healer:`힐러`,meleeDps:`근접 DPS`,melee_dps:`근접 DPS`,physicalRangedDps:`물리 원거리 DPS`,physical_ranged_dps:`물리 원거리 DPS`,magicalRangedDps:`마법 원거리 DPS`,magical_ranged_dps:`마법 원거리 DPS`,PLD:`나이트`,WAR:`전사`,DRK:`암흑기사`,GNB:`건브레이커`,WHM:`백마도사`,SCH:`학자`,AST:`점성술사`,SGE:`현자`,MNK:`몽크`,DRG:`용기사`,NIN:`닌자`,SAM:`사무라이`,RPR:`리퍼`,VPR:`바이퍼`,BRD:`음유시인`,MCH:`기공사`,DNC:`무도가`,BLM:`흑마도사`,SMN:`소환사`,RDM:`적마도사`,PCT:`픽토맨서`},maps:{THE_PALAISTRA:`팔라이스트라`,VOLCANIC_HEART:`화산의 심장부`,CLOUD_NINE:`클라우드 나인`,TOUHOU_KARAKURI_GOTEN:`동방 기믹 저택`,RED_SANDS:`붉은 사막 지대`,BAYSIDE_BATTLEGROUND:`베이사이드 배틀그라운드`},chart:{winRate:`승률`,winCount:`승리 수`,defeatCount:`패배 수`,usageRate:`사용률`,matches:`경기 수`,noData:`데이터가 없습니다`,noMatchData:`경기 데이터가 없습니다`,selectJobs:`잡 선택 (최대 5개)`,hour:`{{hour}}시`,day:{sunday:`일`,monday:`월`,tuesday:`화`,wednesday:`수`,thursday:`목`,friday:`금`,saturday:`토`},labels:{character:`캐릭터`,job:`잡`,map:`맵`,allCharacters:`모든 캐릭터`,allJobs:`모든 잡`,allMaps:`모든 맵`,jobSelection:`잡 선택 (최대 5개)`,selectJob:`잡 선택`},titles:{dailyWinDefeat:`일별 승패 및 승률 추이`,weeklyWinRate:`요일별 승률 비교`,hourlyWinRate:`시간대별 승률 분석`,jobUsageRate:`잡 사용률`,jobWinRateByMap:`맵별 잡 승률 비교`},axes:{matchCount:`대전 횟수`,winRatePercent:`승률 (%)`,date:`날짜`,weekday:`요일`,hour:`시간대`},legend:{win:`Win`,lose:`Defeat`,winRate:`WinRate`,defeatRate:`DefeatRate`},tooltip:{usageCount:`사용 횟수`,usageRatePercent:`사용률`,win:`Win`,lose:`Defeat`,total:`합계`,matches:`경기`,noMatchData:`경기 데이터 없음`},weekdays:{sunday:`일요일`,monday:`월요일`,tuesday:`화요일`,wednesday:`수요일`,thursday:`목요일`,friday:`금요일`,saturday:`토요일`}},language:{current:`한국어`,japanese:`日本語`,english:`English`,korean:`한국어`,switch:`언어 변경`}}}},fallbackLng:`en`,debug:!1,detection:{order:[`localStorage`,`navigator`,`htmlTag`],caches:[`localStorage`]},interpolation:{escapeValue:!1},defaultNS:`translation`,ns:[`translation`]}),Hc.on(`languageChanged`,e=>{document.documentElement.lang=e}),jd(),lf(),(0,Fr.createRoot)(document.getElementById(`root`)).render((0,A.jsx)(j.StrictMode,{children:(0,A.jsx)(cf,{children:(0,A.jsx)(Xd,{})})}));export{bs as A,gr as B,Ds as C,U as D,Es as E,Lo as F,gn as G,Un as H,B as I,d as J,Ee as K,V as L,ls as M,Wo as N,xs as O,zo as P,To as R,ks as S,Os as T,In as U,Gn as V,kn as W,s as X,o as Y,l as Z,Hc as _,Bu as a,Rs as b,K as c,Nl as d,yl as f,ml as g,hl as h,Fu as i,ys as j,H as k,Zl as l,bl as m,xd as n,Xl as o,xl as p,h as q,Iu as r,q as s,Nd as t,Gl as u,Ks as v,Ts as w,Fs as x,zs as y,zr as z};
+새 시즌을 생성해주세요.`,stats:`시즌`,errors:{loadFailed:`히스토리 로드에 실패했습니다`,alreadyExists:`시즌 "{{seasonName}}"은(는) 이미 존재합니다`,notFound:`지정된 히스토리를 찾을 수 없습니다`,characterNotFound:`지정된 캐릭터를 찾을 수 없습니다`,deleteMatchRecordsFailed:`시즌 {{uuid}}의 매치 기록 삭제 중 오류가 발생했습니다`,loadMatchRecordsFailed:`시즌 {{seasonUuid}}의 매치 기록 로드 중 오류가 발생했습니다`}},historyDetail:{title:`{{seasonName}} 상세`,description:`시즌의 모든 전적을 표시하고 있습니다.`,backToList:`기록 목록으로 돌아가기`,totalMatches:`{{count}}경기 전적`,matchesCount:`경기 수`,winRate:`승률`,overall:`전체`,createdDate:`생성일`,notFound:`기록을 찾을 수 없습니다`,columns:{season:`시즌명`,character:`캐릭터명`,job:`사용 잡`,map:`맵`,result:`결과`,date:`생성일시`},results:{win:`Win`,defeat:`Defeat`},emptyState:`전적이 기록되지 않았습니다`},newSeason:{title:`새 시즌 만들기`,description:`새 시즌을 만듭니다. 시즌명을 입력해주세요.`,seasonName:`시즌명`,seasonNamePlaceholder:`예: 시즌 1`,create:`만들기`,creating:`만드는 중...`,cancel:`취소`,confirmTitle:`시즌 생성 확인`,confirmDescription:`새 시즌을 만들면 "{{seasonName}}"의 전적 데이터가 과거 시즌으로 아카이브되고 새로운 전적 입력이 시작됩니다. 계속하시겠습니까?`,validationRequired:`시즌명을 입력해주세요`,validationMaxLength:`시즌명은 {{length}}자 이내로 입력해주세요`,successMessage:`시즌 "{{seasonName}}"을 만들었습니다`},faq:{title:`자주 묻는 질문 (FAQ)`,description:`크리스탈 컨플릭트 전적 기록에 대한 자주 묻는 질문과 답변입니다.`,privacy:{title:`개인정보 및 데이터`,dataStorage:{question:`전적 데이터는 어디에 저장되나요?`,answer:{intro:`모든 전적 데이터는 사용자의 브라우저 로컬 스토리지에만 저장됩니다.`,description:`본 애플리케이션은 다음 방침으로 데이터를 다룹니다:`,points:[`전적 데이터나 개인정보는 일체 서버로 전송되지 않습니다`,`모든 데이터는 브라우저 내에서만 관리됩니다`,`애플리케이션 개발자가 사용자의 전적 데이터에 접근할 수 없습니다`,`데이터 삭제는 브라우저 설정에서 할 수 있습니다`]}},analytics:{question:`Google Analytics에서 무엇을 수집하나요?`,answer:{intro:`본 사이트는 서비스 개선을 위해 Google Analytics를 사용합니다.`,collected:`수집되는 정보:`,collectedPoints:[`접속 통계: 페이지뷰 수, 세션 수, 평균 체류시간 등`,`기술 정보: 브라우저 종류, OS, 화면 크기 등`,`지역 정보: 국가나 지역 수준의 대략적인 위치 정보 (상세 주소 등은 포함되지 않음)`],notCollected:`수집되지 않는 정보:`,notCollectedPoints:[`전적 데이터나 개인 성적 정보`,`캐릭터명이나 기타 개인정보`,`상세한 위치 정보나 주소`],anonymous:`이러한 통계 정보는 익명화되어 있으며, 개인을 특정할 수 없습니다.`}},dataDeletion:{question:`데이터 삭제 방법을 알려주세요`,answer:{intro:`저장된 데이터를 삭제하고 싶은 경우 다음 방법으로 할 수 있습니다:`,methods:[`개별 삭제: 각 페이지에서 "삭제" 버튼 사용`,`완전 삭제: 브라우저 설정에서 사이트 데이터 삭제`],browserMethods:`브라우저에서 데이터 삭제 방법:`,browserSteps:[`Chrome: 설정 → 개인정보 및 보안 → 사이트 데이터`,`Firefox: 설정 → 개인정보 및 보안 → 쿠키 및 사이트 데이터`,`Safari: 환경설정 → 개인정보 보호 → 웹사이트 데이터 관리`]}}},usage:{title:`애플리케이션 사용법`,dataDefeat:{question:`데이터가 사라질 수 있나요?`,answer:{intro:`로컬 스토리지에 저장된 데이터는 다음의 경우 삭제될 수 있습니다:`,causes:[`브라우저 캐시 삭제 시`,`브라우저 설정에서 사이트 데이터를 삭제한 경우`,`프라이빗 브라우징 모드 사용 시`,`디바이스 용량 부족 시 (브라우저가 자동 삭제하는 경우)`],recommendation:`중요한 데이터는 정기적으로 백업을 받는 것을 권장합니다.`}},dataSyncing:{question:`여러 브라우저에서 데이터를 공유할 수 있나요?`,answer:{limitation:`죄송하지만 현재로서는 브라우저 간 데이터 동기화 기능을 제공하지 않습니다.`,explanation:`각 브라우저의 로컬 스토리지는 독립적이므로, 데이터는 사용한 브라우저에서만 이용 가능합니다.`}}},copyright:{disclaimer:`이 애플리케이션은 팬이 만든 비공식 도구이며, 주식회사 스퀘어 에닉스와는 일체 관계가 없습니다.`}},notFound:{title:`페이지를 찾을 수 없음`,description:`찾으시는 페이지가 존재하지 않거나 삭제되었을 수 있습니다.`,backToHome:`홈으로 돌아가기`}},character:{name:`캐릭터 이름`,create:`캐릭터 생성`,createSuccess:`캐릭터 "{{name}}"을(를) 생성했습니다`,edit:`캐릭터 이름 편집`,delete:`캐릭터 삭제`,confirmDelete:`삭제`,deleteDescription:`캐릭터 "{{name}}"을(를) 삭제하시겠습니까?<br/><span style='color: #dc2626; margin-top: 12px; font-size: 0.875rem; display: block;'>⚠️ 관련된 모든 전적 기록도 삭제됩니다. 이 작업은 취소할 수 없습니다.</span>`,namePlaceholder:`캐릭터 이름 입력`,validationRequired:`캐릭터 이름을 입력해주세요`,emptyState:`캐릭터가 없습니다`,createFirst:`첫 번째 캐릭터를 생성하세요`,errors:{alreadyExists:`캐릭터 "{{name}}"은(는) 이미 존재합니다`,notFound:`캐릭터를 찾을 수 없습니다`,loadFailed:`데이터 로드에 실패했습니다`,matchRecordNotFound:`전적 기록을 찾을 수 없습니다`},stats:{matches:`{{count}}경기`,totalMatches:`{{count}}경기`,winRate:`승률{{rate}}%`,noWinRate:`승률--%`,wins:`{{count}}승`,defeats:`{{count}}패`},actions:{addJob:`잡 추가`,editName:`이름 편집`,deleteName:`캐릭터 삭제`}},match:{record:`전적 기록`,job:`잡`,map:`맵`,result:`결과`,win:`승리 수`,defeat:`패배 수`,memo:`메모`,memoPlaceholder:`메모를 입력하세요 (선택사항)`,selectJob:`잡을 선택해주세요`,selectMap:`맵을 선택해주세요`,recorded:`전적이 기록되었습니다`,totalMatches:`경기 수`,winRate:`승률`,allStagesTotal:`전체 스테이지 합계`,actions:`작업`,pleaseRegisterJob:`잡을 등록해주세요`,recentMatches:`최근 전적`,deleteMatch:`전적 삭제`,confirmDelete:`전적 삭제`,confirmDeleteButton:`삭제`,deleteConfirmation:`{{characterName}}의 {{date}} 전적을 삭제하시겠습니까?
+이 작업은 취소할 수 없습니다.`,addWin:`승리 기록`,addDefeat:`패배 기록`,rollback:`마지막 기록 취소`},job:{select:`잡 선택`,selectJob:`사용할 잡 선택`,selectJobDescription:`잡을 선택해주세요`,tank:`탱커`,healer:`힐러`,meleeDps:`근접 DPS`,melee_dps:`근접 DPS`,physicalRangedDps:`물리 원거리 DPS`,physical_ranged_dps:`물리 원거리 DPS`,magicalRangedDps:`마법 원거리 DPS`,magical_ranged_dps:`마법 원거리 DPS`,PLD:`나이트`,WAR:`전사`,DRK:`암흑기사`,GNB:`건브레이커`,WHM:`백마도사`,SCH:`학자`,AST:`점성술사`,SGE:`현자`,MNK:`몽크`,DRG:`용기사`,NIN:`닌자`,SAM:`사무라이`,RPR:`리퍼`,VPR:`바이퍼`,BRD:`음유시인`,MCH:`기공사`,DNC:`무도가`,BLM:`흑마도사`,SMN:`소환사`,RDM:`적마도사`,PCT:`픽토맨서`},maps:{THE_PALAISTRA:`팔라이스트라`,VOLCANIC_HEART:`화산의 심장부`,CLOUD_NINE:`클라우드 나인`,TOUHOU_KARAKURI_GOTEN:`동방 기믹 저택`,RED_SANDS:`붉은 사막 지대`,BAYSIDE_BATTLEGROUND:`베이사이드 배틀그라운드`},chart:{winRate:`승률`,winCount:`승리 수`,defeatCount:`패배 수`,usageRate:`사용률`,matches:`경기 수`,noData:`데이터가 없습니다`,noMatchData:`경기 데이터가 없습니다`,selectJobs:`잡 선택 (최대 5개)`,hour:`{{hour}}시`,day:{sunday:`일`,monday:`월`,tuesday:`화`,wednesday:`수`,thursday:`목`,friday:`금`,saturday:`토`},labels:{character:`캐릭터`,job:`잡`,map:`맵`,allCharacters:`모든 캐릭터`,allJobs:`모든 잡`,allMaps:`모든 맵`,jobSelection:`잡 선택 (최대 5개)`,selectJob:`잡 선택`},titles:{dailyWinDefeat:`일별 승패 및 승률 추이`,weeklyWinRate:`요일별 승률 비교`,hourlyWinRate:`시간대별 승률 분석`,jobUsageRate:`잡 사용률`,jobWinRateByMap:`맵별 잡 승률 비교`},axes:{matchCount:`대전 횟수`,winRatePercent:`승률 (%)`,date:`날짜`,weekday:`요일`,hour:`시간대`},legend:{win:`Win`,lose:`Defeat`,winRate:`WinRate`,defeatRate:`DefeatRate`},tooltip:{usageCount:`사용 횟수`,usageRatePercent:`사용률`,win:`Win`,lose:`Defeat`,total:`합계`,matches:`경기`,noMatchData:`경기 데이터 없음`},weekdays:{sunday:`일요일`,monday:`월요일`,tuesday:`화요일`,wednesday:`수요일`,thursday:`목요일`,friday:`금요일`,saturday:`토요일`}},language:{current:`한국어`,japanese:`日本語`,english:`English`,korean:`한국어`,switch:`언어 변경`}}}},fallbackLng:`en`,debug:!1,detection:{order:[`localStorage`,`navigator`,`htmlTag`],caches:[`localStorage`]},interpolation:{escapeValue:!1},defaultNS:`translation`,ns:[`translation`]}),Hc.on(`languageChanged`,e=>{document.documentElement.lang=e}),Gd(),wf(),(0,Fr.createRoot)(document.getElementById(`root`)).render((0,A.jsx)(j.StrictMode,{children:(0,A.jsx)(Cf,{children:(0,A.jsx)(pf,{})})}));export{In as $,Rs as A,bs as B,yl as C,Hc as D,ml as E,Os as F,Lo as G,ls as H,Es as I,To as J,B as K,U as L,ks as M,Ds as N,Ks as O,Ts as P,Un as Q,xs as R,Ml as S,hl as T,Wo as U,ys as V,zo as W,gr as X,zr as Y,Gn as Z,Yl as _,Nd as a,o as at,Xl as b,Hu as c,Wu as d,kn as et,Vu as f,zu as g,Pu as h,Rd as i,d as it,Fs as j,zs as k,Gu as l,Fu as m,Ld as n,Ee as nt,Qu as o,s as ot,Bu as p,V as q,zd as r,h as rt,Ju as s,l as st,qd as t,gn as tt,Uu as u,K as v,bl as w,Wl as x,Zl as y,H as z};
