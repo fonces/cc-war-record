@@ -73,6 +73,18 @@ const StyledCloseButton = styled.button`
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  position: relative;
+
+  /* クリック領域を拡張 */
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 32px;
+    height: 32px;
+  }
 
   &:hover {
     opacity: 1;
