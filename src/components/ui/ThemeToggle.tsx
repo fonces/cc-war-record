@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { createPortal } from "react-dom";
 import styled, { keyframes } from "styled-components";
-import { useThemeMode } from "@/hooks";
+import { useThemeMode, useTranslation } from "@/hooks";
 
 const rotate = keyframes`
   from {
@@ -78,10 +78,11 @@ const StyledToggleButton = styled.button`
 
 const ThemeToggleComponent = () => {
   const { mode, toggleMode } = useThemeMode();
+  const { t } = useTranslation();
 
   const toggleButton = (
     <StyledToggleContainer>
-      <StyledToggleButton onClick={toggleMode} aria-label="Toggle theme" title={mode === "light" ? "ダークモードに切り替え" : "ライトモードに切り替え"}>
+      <StyledToggleButton onClick={toggleMode} aria-label={t("common.toggleTheme")} title={mode === "light" ? t("common.switchToDarkMode") : t("common.switchToLightMode")}>
         {mode === "light" ? (
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
             <path

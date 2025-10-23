@@ -16,7 +16,10 @@
     "noData": "데이터가 없습니다",
     "success": "성공",
     "warning": "경고",
-    "info": "정보"
+    "info": "정보",
+    "toggleTheme": "테마 전환",
+    "switchToDarkMode": "다크 모드로 전환",
+    "switchToLightMode": "라이트 모드로 전환"
   },
   "navigation": {
     "home": "홈",

@@ -16,7 +16,10 @@
     "noData": "No data available",
     "success": "Success",
     "warning": "Warning",
-    "info": "Information"
+    "info": "Information",
+    "toggleTheme": "Toggle theme",
+    "switchToDarkMode": "Switch to dark mode",
+    "switchToLightMode": "Switch to light mode"
   },
   "navigation": {
     "home": "Home",

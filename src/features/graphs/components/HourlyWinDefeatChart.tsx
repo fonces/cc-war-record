@@ -56,6 +56,12 @@ const StyledTooltip = styled.div`
   }
 `;
 
+const StyledChartWrapper = styled.div`
+  .recharts-tooltip-cursor {
+    fill: ${({ theme }) => (theme.isDark ? "rgba(255, 255, 255, 0.05)" : "rgba(0, 0, 0, 0.05)")};
+  }
+`;
+
 type HourlyWinDefeatChartProps = {
   history: History;
   matchRecords: MatchRecord[];
@@ -166,37 +172,39 @@ const HourlyWinDefeatChartComponent = ({ history, matchRecords, characters }: Ho
           />
         </StyledFiltersWrapper>
       </StyledChartHeader>
-      <ResponsiveContainer width="100%" height={400}>
-        <BarChart
-          data={chartData}
-          margin={{
-            top: 20,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <defs>
-            <linearGradient id="colorHourlyWin" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#10b981" stopOpacity={0.8} />
-              <stop offset="95%" stopColor="#10b981" stopOpacity={0.3} />
-            </linearGradient>
-          </defs>
-          <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.05)" />
-          <XAxis dataKey="hour" tick={{ fontSize: 12, fill: theme.colors.gray[600] }} />
-          <YAxis
-            label={{ value: t("chart.axes.winRatePercent"), angle: -90, position: "insideLeft", fill: theme.colors.gray[700] }}
-            domain={[0, 100]}
-            tick={{ fontSize: 12, fill: theme.colors.gray[600] }}
-          />
-          <Tooltip content={<CustomTooltip />} />
-          <Bar dataKey="winRate" name="WinRate" radius={[8, 8, 0, 0]} isAnimationActive={false}>
-            {chartData.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={getWinRateColor(entry.winRate, theme, 400)} opacity={0.8} />
-            ))}
-          </Bar>
-        </BarChart>
-      </ResponsiveContainer>
+      <StyledChartWrapper>
+        <ResponsiveContainer width="100%" height={400}>
+          <BarChart
+            data={chartData}
+            margin={{
+              top: 20,
+              right: 30,
+              left: 20,
+              bottom: 5,
+            }}
+          >
+            <defs>
+              <linearGradient id="colorHourlyWin" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#10b981" stopOpacity={0.8} />
+                <stop offset="95%" stopColor="#10b981" stopOpacity={0.3} />
+              </linearGradient>
+            </defs>
+            <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.05)" />
+            <XAxis dataKey="hour" tick={{ fontSize: 12, fill: theme.colors.gray[600] }} />
+            <YAxis
+              label={{ value: t("chart.axes.winRatePercent"), angle: -90, position: "insideLeft", fill: theme.colors.gray[700] }}
+              domain={[0, 100]}
+              tick={{ fontSize: 12, fill: theme.colors.gray[600] }}
+            />
+            <Tooltip content={<CustomTooltip />} />
+            <Bar dataKey="winRate" name="WinRate" radius={[8, 8, 0, 0]} isAnimationActive={false}>
+              {chartData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={getWinRateColor(entry.winRate, theme, 400)} opacity={0.8} />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      </StyledChartWrapper>
     </StyledChartContainer>
   );
 };

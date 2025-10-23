@@ -16,7 +16,10 @@
     "noData": "データがありません",
     "success": "成功しました",
     "warning": "警告",
-    "info": "情報"
+    "info": "情報",
+    "toggleTheme": "テーマを切り替え",
+    "switchToDarkMode": "ダークモードに切り替え",
+    "switchToLightMode": "ライトモードに切り替え"
   },
   "navigation": {
     "home": "ホーム",
