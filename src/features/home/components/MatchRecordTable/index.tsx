@@ -68,11 +68,18 @@ const StyledMapTitleLeft = styled.div`
 `;
 
 const StyledMapSummary = styled.div`
+  align-items: center;
   display: flex;
   gap: ${({ theme }) => theme.spacing[4]};
   font-size: 0.875rem;
   font-weight: 500;
+  justify-content: flex-end;
   color: ${({ theme }) => theme.colors.textSecondary};
+  padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
+  background: ${({ theme }) => theme.gradients.glass};
+  backdrop-filter: ${({ theme }) => theme.blur.sm};
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
+  min-width: 260px;
 `;
 
 const StyledMapWinRate = styled.span<{ winRate: number }>`

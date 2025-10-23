@@ -47,8 +47,8 @@ const SectionTitle = styled.h2`
 
 const FaqItem = styled.div<{ $isOpen: boolean }>`
   margin-bottom: ${({ theme }) => theme.spacing[4]};
-  background: ${({ theme }) => theme.colors.surface};
-  backdrop-filter: blur(10px);
+  background: ${({ theme }) => theme.gradients.glass};
+  backdrop-filter: ${({ theme }) => theme.blur.md};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   border: 1px solid ${({ theme }) => theme.colors.borderLight};
   overflow: hidden;
@@ -188,8 +188,8 @@ const Answer = styled.div<{ $isOpen: boolean }>`
 const Copyright = styled.div`
   margin-top: ${({ theme }) => theme.spacing[12]};
   padding: ${({ theme }) => theme.spacing[8]};
-  background: ${({ theme }) => theme.colors.surface};
-  backdrop-filter: blur(10px);
+  background: ${({ theme }) => theme.gradients.glass};
+  backdrop-filter: ${({ theme }) => theme.blur.md};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   border: 1px solid ${({ theme }) => theme.colors.borderLight};
   text-align: center;
@@ -198,6 +198,11 @@ const Copyright = styled.div`
   position: relative;
   overflow: hidden;
   animation: ${fadeIn} 0.6s ease-out 0.3s backwards;
+  transition: all ${({ theme }) => theme.transitions.base};
+
+  &:hover {
+    border-color: ${({ theme }) => theme.colors.border};
+  }
 
   &::before {
     content: "";

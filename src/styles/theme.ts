@@ -149,6 +149,7 @@ export const lightTheme = {
     textSecondary: "#6b7280",
     textTertiary: "#9ca3af",
     info: "#3b82f6",
+    transparent: "transparent",
   },
   gradients: {
     primary: "linear-gradient(135deg, #26A1DF 0%, #F36346 100%)",

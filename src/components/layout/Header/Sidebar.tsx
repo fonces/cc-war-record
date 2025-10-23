@@ -11,9 +11,9 @@ const StyledSidebar = styled.aside<{ $isOpen: boolean }>`
   top: 0;
   height: 100vh;
   width: 260px;
-  background: ${({ theme }) => theme.colors.surface};
+  background: ${({ theme }) => theme.gradients.glass};
   backdrop-filter: ${({ theme }) => theme.blur.lg};
-  border-right: 1px solid ${({ theme }) => theme.colors.border};
+  border-right: 1px solid ${({ theme }) => theme.colors.borderLight};
   box-shadow: ${({ theme }) => theme.shadows.xl};
   z-index: 10;
   padding: ${({ theme }) => theme.spacing[6]} ${({ theme }) => theme.spacing[4]};

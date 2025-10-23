@@ -5,9 +5,9 @@ import { fadeIn } from "@/styles/animation";
  * グラフコンテナの共通スタイル
  */
 export const StyledChartContainer = styled.div`
-  background: ${({ theme }) => theme.colors.surface};
+  background: ${({ theme }) => theme.gradients.glass};
   backdrop-filter: ${({ theme }) => theme.blur.md};
-  border: 1px solid ${({ theme }) => theme.colors.border};
+  border: 1px solid ${({ theme }) => theme.colors.borderLight};
   border-radius: ${({ theme }) => theme.borderRadius.xl};
   padding: ${({ theme }) => theme.spacing[6]};
   margin-top: ${({ theme }) => theme.spacing[6]};
@@ -29,6 +29,7 @@ export const StyledChartContainer = styled.div`
 
   &:hover {
     box-shadow: ${({ theme }) => theme.shadows["2xl"]}, ${({ theme }) => theme.shadows.glow};
+    border-color: ${({ theme }) => theme.colors.border};
   }
 
   /* Recharts要素のフォーカスoutlineを打ち消し */

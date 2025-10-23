@@ -4,16 +4,17 @@ import { Button, Icon, Input } from "@/components/ui";
 import { useTranslation } from "@/hooks";
 
 const StyledCharacterCard = styled.div`
-  background: ${({ theme }) => theme.colors.surface};
+  background: ${({ theme }) => theme.gradients.glass};
   backdrop-filter: ${({ theme }) => theme.blur.md};
   border-radius: ${({ theme }) => theme.borderRadius.xl};
-  border: 1px solid ${({ theme }) => theme.colors.border};
+  border: 1px solid ${({ theme }) => theme.colors.borderLight};
   overflow: hidden;
   box-shadow: ${({ theme }) => theme.shadows.xl};
   transition: all ${({ theme }) => theme.transitions.base};
 
   &:hover {
     box-shadow: ${({ theme }) => theme.shadows["2xl"]}, ${({ theme }) => theme.shadows.glow};
+    border-color: ${({ theme }) => theme.colors.border};
   }
 `;
 
@@ -25,6 +26,7 @@ const StyledCharacterHeader = styled.div`
   cursor: pointer;
   user-select: none;
   display: flex;
+  height: 85px;
   justify-content: space-between;
   align-items: center;
   transition: all ${({ theme }) => theme.transitions.base};

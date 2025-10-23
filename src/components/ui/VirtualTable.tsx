@@ -7,8 +7,8 @@ import { fadeIn, shimmer } from "@/styles/animation";
 const StyledTableContainer = styled.div<{ $height?: string }>`
   overflow: hidden;
   border-radius: ${({ theme }) => theme.borderRadius.xl};
-  background: ${({ theme }) => theme.colors.surface};
-  backdrop-filter: blur(10px);
+  background: ${({ theme }) => theme.gradients.glass};
+  backdrop-filter: ${({ theme }) => theme.blur.md};
   border: 1px solid ${({ theme }) => theme.colors.borderLight};
   margin-top: ${({ theme }) => theme.spacing[6]};
   height: ${({ $height }) => $height || "calc(100dvh - 380px)"};
@@ -33,6 +33,7 @@ const StyledTableContainer = styled.div<{ $height?: string }>`
     box-shadow:
       0 12px 40px rgba(38, 161, 223, 0.12),
       0 0 0 1px rgba(38, 161, 223, 0.1);
+    border-color: ${({ theme }) => theme.colors.border};
   }
 `;
 
@@ -49,7 +50,7 @@ const StyledTable = styled.div`
 // テーブルヘッダー
 const StyledTableHeader = styled.div`
   display: flex;
-  background: ${({ theme }) => (theme.isDark ? "rgba(39, 39, 42, 0.6)" : "rgba(255, 255, 255, 0.6)")};
+  background: ${({ theme }) => (theme.isDark ? "rgba(39, 39, 42, 0.6)" : "rgba(255, 255, 255, 0.1)")};
   backdrop-filter: blur(8px);
   border-bottom: 2px solid ${({ theme }) => theme.colors.borderLight};
   position: sticky;

@@ -50,8 +50,9 @@ const StyledDetailButton = styled(Button)`
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   text-decoration: none;
   transition: all ${({ theme }) => theme.transitions.base};
-  background: ${({ theme }) => theme.colors.surface};
+  background: ${({ theme }) => theme.gradients.glass};
   backdrop-filter: ${({ theme }) => theme.blur.sm};
+  border: 1px solid ${({ theme }) => theme.colors.borderLight};
 
   &:hover {
     background: ${({ theme }) => theme.colors.primary[500]};
@@ -72,8 +73,8 @@ const StyledDeleteButton = styled(Button)`
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   text-decoration: none;
   transition: all ${({ theme }) => theme.transitions.base};
-  border-color: rgba(239, 68, 68, 0.3);
-  background: ${({ theme }) => theme.colors.surface};
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  background: ${({ theme }) => theme.gradients.glass};
   backdrop-filter: ${({ theme }) => theme.blur.sm};
 
   &:hover:not(:disabled) {
@@ -124,13 +125,14 @@ const StyledEmptyState = styled.div`
   justify-content: center;
   padding: ${({ theme }) => theme.spacing[16]} ${({ theme }) => theme.spacing[6]};
   text-align: center;
-  background: ${({ theme }) => theme.colors.surface};
+  background: ${({ theme }) => theme.gradients.glass};
   backdrop-filter: ${({ theme }) => theme.blur.md};
   border-radius: ${({ theme }) => theme.borderRadius.xl};
-  border: 1px solid ${({ theme }) => theme.colors.border};
+  border: 1px solid ${({ theme }) => theme.colors.borderLight};
   box-shadow: ${({ theme }) => theme.shadows.xl};
   position: relative;
   overflow: hidden;
+  transition: all ${({ theme }) => theme.transitions.base};
 
   &::before {
     content: "";
@@ -140,6 +142,10 @@ const StyledEmptyState = styled.div`
     right: 0;
     height: 4px;
     background: ${({ theme }) => theme.gradients.primary};
+  }
+
+  &:hover {
+    border-color: ${({ theme }) => theme.colors.border};
   }
 
   animation: ${fadeIn} 0.5s ease-out;

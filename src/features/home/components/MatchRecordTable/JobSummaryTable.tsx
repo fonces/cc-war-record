@@ -7,9 +7,9 @@ import type { Job, CrystalConflictMap } from "@/types";
 
 const StyledTableContainer = styled.div`
   overflow: hidden;
-  background: ${({ theme }) => theme.colors.surface};
-  backdrop-filter: blur(10px);
-  border: 1px solid ${({ theme }) => theme.colors.border};
+  background: ${({ theme }) => theme.colors.transparent};
+  backdrop-filter: ${({ theme }) => theme.blur.md};
+  /* border: 1px solid ${({ theme }) => theme.colors.borderLight}; */
   border-radius: 0 0 ${({ theme }) => theme.borderRadius.md} ${({ theme }) => theme.borderRadius.md};
   box-shadow: ${({ theme }) => theme.shadows.xl};
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -19,6 +19,7 @@ const StyledTableContainer = styled.div`
     box-shadow:
       ${({ theme }) => theme.shadows["2xl"]},
       0 0 0 1px rgba(38, 161, 223, 0.1);
+    border-color: ${({ theme }) => theme.colors.border};
   }
 `;
 

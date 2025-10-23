@@ -20,11 +20,18 @@ const StyledHeader = styled.div`
 `;
 
 const StyledForm = styled.form`
-  background-color: ${({ theme }) => theme.colors.surface};
+  background: ${({ theme }) => theme.gradients.glass};
+  backdrop-filter: ${({ theme }) => theme.blur.md};
   padding: ${({ theme }) => theme.spacing[8]};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  border: 1px solid ${({ theme }) => theme.colors.borderLight};
+  box-shadow: ${({ theme }) => theme.shadows.xl};
+  transition: all ${({ theme }) => theme.transitions.base};
+
+  &:hover {
+    box-shadow: ${({ theme }) => theme.shadows["2xl"]};
+    border-color: ${({ theme }) => theme.colors.border};
+  }
 `;
 
 const StyledFormGroup = styled.div`

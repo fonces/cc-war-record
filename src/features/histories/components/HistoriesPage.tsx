@@ -16,9 +16,9 @@ const StyledStatsGrid = styled.div`
 `;
 
 const StyledStatCard = styled.div`
-  background: ${({ theme }) => theme.colors.surface};
+  background: ${({ theme }) => theme.gradients.glass};
   backdrop-filter: ${({ theme }) => theme.blur.md};
-  border: 1px solid ${({ theme }) => theme.colors.border};
+  border: 1px solid ${({ theme }) => theme.colors.borderLight};
   border-radius: ${({ theme }) => theme.borderRadius.xl};
   padding: ${({ theme }) => theme.spacing[5]};
   box-shadow: ${({ theme }) => theme.shadows.md};
@@ -39,6 +39,7 @@ const StyledStatCard = styled.div`
   &:hover {
     transform: translateY(-2px);
     box-shadow: ${({ theme }) => theme.shadows.xl}, ${({ theme }) => theme.shadows.glow};
+    border-color: ${({ theme }) => theme.colors.border};
   }
 `;
 
@@ -95,10 +96,6 @@ const StyledErrorMessage = styled.div`
       color: ${({ theme }) => theme.colors.error[900]};
     }
   }
-`;
-
-const StyledTableWrapper = styled.div`
-  animation: ${fadeIn} 0.5s ease-out 0.1s both;
 `;
 
 /**
@@ -173,9 +170,7 @@ export const HistoriesPage = () => {
       )}
 
       {/* 履歴テーブル */}
-      <StyledTableWrapper>
-        <HistoryTable histories={sortedHistories} isLoading={isLoading} onDelete={handleDelete} />
-      </StyledTableWrapper>
+      <HistoryTable histories={sortedHistories} isLoading={isLoading} onDelete={handleDelete} />
     </PageContainer>
   );
 };

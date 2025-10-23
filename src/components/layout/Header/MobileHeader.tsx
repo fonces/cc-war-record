@@ -6,11 +6,12 @@ const StyledMobileHeader = styled.header`
   position: sticky;
   top: 0;
   z-index: 20;
-  background-color: ${({ theme }) => theme.colors.surface};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+  background: ${({ theme }) => theme.gradients.glass};
+  backdrop-filter: ${({ theme }) => theme.blur.md};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.borderLight};
   padding: ${({ theme }) => theme.spacing[4]};
   transition:
-    background-color 0.3s ease,
+    background 0.3s ease,
     border-color 0.3s ease;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {

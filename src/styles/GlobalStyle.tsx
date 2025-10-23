@@ -34,13 +34,12 @@ export const GlobalStyle = createGlobalStyle`
     background-attachment: fixed;
     overflow-y: scroll;
     scrollbar-width: thin;
-    scrollbar-color: ${({ theme }) => theme.colors.primary[300]} ${({ theme }) => theme.colors.gray[100]};
     transition: background 0.3s ease, color 0.3s ease;
   }
 
   /* カスタムスクロールバー (Webkit) */
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 10px;
   }
 
   ::-webkit-scrollbar-track {
@@ -48,11 +47,28 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   ::-webkit-scrollbar-thumb {
-    background: ${({ theme }) => theme.colors.primary[300]};
+    background: ${({ theme }) =>
+      theme.isDark
+        ? "linear-gradient(135deg, rgba(38, 161, 223, 0.6) 0%, rgba(243, 99, 70, 0.6) 100%)"
+        : "linear-gradient(135deg, rgba(38, 161, 223, 0.5) 0%, rgba(243, 99, 70, 0.5) 100%)"};
+    backdrop-filter: ${({ theme }) => theme.blur.sm};
     border-radius: ${({ theme }) => theme.borderRadius.full};
+    border: 1px solid ${({ theme }) => theme.colors.borderLight};
+    transition: all 0.2s ease;
     
     &:hover {
-      background: ${({ theme }) => theme.colors.primary[400]};
+      background: ${({ theme }) =>
+        theme.isDark
+          ? "linear-gradient(135deg, rgba(38, 161, 223, 0.8) 0%, rgba(243, 99, 70, 0.8) 100%)"
+          : "linear-gradient(135deg, rgba(38, 161, 223, 0.7) 0%, rgba(243, 99, 70, 0.7) 100%)"};
+      border-color: ${({ theme }) => theme.colors.border};
+    }
+
+    &:active {
+      background: ${({ theme }) =>
+        theme.isDark
+          ? "linear-gradient(135deg, rgba(38, 161, 223, 1) 0%, rgba(243, 99, 70, 1) 100%)"
+          : "linear-gradient(135deg, rgba(38, 161, 223, 0.9) 0%, rgba(243, 99, 70, 0.9) 100%)"};
     }
   }
 

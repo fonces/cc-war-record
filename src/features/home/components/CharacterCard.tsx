@@ -7,16 +7,17 @@ import { MatchRecordTable } from "./MatchRecordTable";
 import type { CharacterStats, Job, CrystalConflictMap } from "@/types";
 
 const StyledCharacterCard = styled.div`
-  background: ${({ theme }) => theme.colors.surface};
+  background: ${({ theme }) => theme.gradients.glass};
   backdrop-filter: ${({ theme }) => theme.blur.md};
   border-radius: ${({ theme }) => theme.borderRadius.xl};
-  border: 1px solid ${({ theme }) => theme.colors.border};
+  border: 1px solid ${({ theme }) => theme.colors.borderLight};
   overflow: hidden;
   box-shadow: ${({ theme }) => theme.shadows.xl};
   transition: all ${({ theme }) => theme.transitions.base};
 
   &:hover {
     box-shadow: ${({ theme }) => theme.shadows["2xl"]}, ${({ theme }) => theme.shadows.glow};
+    border-color: ${({ theme }) => theme.colors.border};
   }
 `;
 
@@ -31,6 +32,7 @@ const StyledCharacterHeader = styled.div`
   align-items: center;
   transition: all ${({ theme }) => theme.transitions.base};
   cursor: pointer;
+  height: 85px;
 
   &:hover {
     background: ${({ theme }) =>
@@ -52,7 +54,12 @@ const StyledCharacterStatsContainer = styled.div`
   gap: ${({ theme }) => theme.spacing[4]};
   align-items: center;
   font-size: 0.875rem;
+  justify-content: flex-end;
   color: ${({ theme }) => theme.colors.textSecondary};
+  padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
+  background: ${({ theme }) => theme.gradients.glass};
+  backdrop-filter: ${({ theme }) => theme.blur.sm};
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
 `;
 
 const StyledWinRate = styled.span<{ winRate: number }>`

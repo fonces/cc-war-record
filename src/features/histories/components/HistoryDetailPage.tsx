@@ -35,8 +35,8 @@ const StyledStatsGrid = styled.div`
 
 // 統計カード
 const StyledStatCard = styled.div`
-  background: ${({ theme }) => theme.colors.surface};
-  backdrop-filter: blur(10px);
+  background: ${({ theme }) => theme.gradients.glass};
+  backdrop-filter: ${({ theme }) => theme.blur.md};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   padding: ${({ theme }) => theme.spacing[6]};
   border: 1px solid ${({ theme }) => theme.colors.borderLight};
@@ -59,6 +59,7 @@ const StyledStatCard = styled.div`
     box-shadow:
       0 8px 24px rgba(38, 161, 223, 0.15),
       0 0 0 1px rgba(38, 161, 223, 0.1);
+    border-color: ${({ theme }) => theme.colors.border};
   }
 `;
 

@@ -29,14 +29,15 @@ const StyledEmptyState = styled.div`
   justify-content: center;
   padding: ${({ theme }) => theme.spacing[16]} ${({ theme }) => theme.spacing[6]};
   text-align: center;
-  background: ${({ theme }) => theme.colors.surface};
-  backdrop-filter: blur(12px);
+  background: ${({ theme }) => theme.gradients.glass};
+  backdrop-filter: ${({ theme }) => theme.blur.md};
   border-radius: ${({ theme }) => theme.borderRadius.xl};
-  border: 1px solid ${({ theme }) => theme.colors.border};
+  border: 1px solid ${({ theme }) => theme.colors.borderLight};
   box-shadow: ${({ theme }) => theme.shadows["2xl"]};
   position: relative;
   overflow: hidden;
   animation: ${fadeIn} 0.8s ease-out;
+  transition: all ${({ theme }) => theme.transitions.base};
 
   &::before {
     content: "";
@@ -58,6 +59,10 @@ const StyledEmptyState = styled.div`
     height: 200%;
     background: radial-gradient(circle, rgba(38, 161, 223, 0.03) 0%, transparent 70%);
     animation: ${pulse} 3s ease-in-out infinite;
+  }
+
+  &:hover {
+    border-color: ${({ theme }) => theme.colors.border};
   }
 `;
 

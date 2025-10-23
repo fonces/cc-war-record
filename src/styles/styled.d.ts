@@ -36,6 +36,7 @@ type ThemeColors = {
   textSecondary: string;
   textTertiary: string;
   info: string;
+  transparent: string;
 };
 
 declare module "styled-components" {
