@@ -155,6 +155,7 @@ applyTo: "src/**"
 
 - スタイルコンポーネントは同じファイル内で定義、またはコンポーネントと同じディレクトリに`styles.ts`を作成
 - スタイルコンポーネント名は`Styled`プレフィックスを付ける（例: `StyledButton`, `StyledContainer`）
+- **エクスポートするコンポーネントには`Styled`プレフィックスを付けない**（例: `export const Button`, `export const TableRow`）
 - テーマは`theme`オブジェクトで管理し、`ThemeProvider`で提供
 - メディアクエリはテーマの`breakpoints`を使用
 - CSS-in-JSの利点を活かし、propsベースの動的スタイリングを活用

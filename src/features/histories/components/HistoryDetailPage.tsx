@@ -11,8 +11,13 @@ import {
   JobIcon,
   Dialog,
   VirtualTable,
-  StyledTableRow,
-  StyledTableCell,
+  TableRow,
+  TableCell,
+  StatsGrid,
+  StatCard,
+  StatLabel,
+  StatValue,
+  StatDescription,
   type VirtualTableColumn,
 } from "@/components/ui";
 import { useTranslation } from "@/hooks";
@@ -20,109 +25,31 @@ import { usePageTitle } from "@/hooks/usePageTitle";
 import { useHistoryStore, useCharacterStore } from "@/stores";
 import { fadeIn } from "@/styles/animation";
 import { JOB_INFO } from "@/types/jobs";
-import { getScrollbarWidth, getWinRateColor } from "@/utils";
+import { getScrollbarWidth } from "@/utils";
 import { formatDateTable } from "@/utils/uuid";
 import type { MatchRecord } from "@/types";
 
-// 統計グリッド
-const StyledStatsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: ${({ theme }) => theme.spacing[4]};
-  margin-top: ${({ theme }) => theme.spacing[6]};
-  animation: ${fadeIn} 0.6s ease-out;
-`;
-
-// 統計カード
-const StyledStatCard = styled.div`
-  background: ${({ theme }) => theme.gradients.glass};
-  backdrop-filter: ${({ theme }) => theme.blur.md};
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
-  padding: ${({ theme }) => theme.spacing[6]};
-  border: 1px solid ${({ theme }) => theme.colors.borderLight};
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
-  }
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow:
-      0 8px 24px rgba(38, 161, 223, 0.15),
-      0 0 0 1px rgba(38, 161, 223, 0.1);
-    border-color: ${({ theme }) => theme.colors.border};
-  }
-`;
-
-const StyledStatLabel = styled.div`
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: ${({ theme }) => theme.colors.textSecondary};
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: ${({ theme }) => theme.spacing[2]};
-`;
-
-const StyledStatValue = styled.div<{ $type?: "default" | "win" | "defeat" | "winRate"; $winRate?: number }>`
-  font-size: 1.875rem;
-  font-weight: 700;
-  margin-bottom: ${({ theme }) => theme.spacing[1]};
-
-  ${({ theme, $type, $winRate }) => {
-    if ($type === "win") {
-      return `color: ${theme.colors.win[400]};`;
-    }
-    if ($type === "defeat") {
-      return `color: ${theme.colors.defeat[400]};`;
-    }
-    if ($type === "winRate" && $winRate !== undefined) {
-      return `color: ${getWinRateColor($winRate, theme, 400)};`;
-    }
-    // デフォルトはグラデーション
-    return `
-      background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    `;
-  }}
-`;
-
-const StyledStatDescription = styled.div`
-  font-size: 0.875rem;
-  color: ${({ theme }) => theme.colors.textSecondary};
-`;
-
 // キャラクター名セル
-const StyledCharacterNameCell = styled(StyledTableCell)`
+const StyledCharacterNameCell = styled(TableCell)`
   font-weight: 600;
   color: ${({ theme }) => theme.colors.text};
   position: relative;
   padding-left: calc(${({ theme }) => theme.spacing[6]} + 8px);
 
-  ${StyledTableRow}:hover & {
+  ${TableRow}:hover & {
     color: #26a1df;
   }
 `;
 
 // 作成日時セル
-const StyledDateCell = styled(StyledTableCell)`
+const StyledDateCell = styled(TableCell)`
   color: ${({ theme }) => theme.colors.textSecondary};
   font-size: 0.8125rem;
   white-space: nowrap;
 `;
 
 // ジョブセル
-const StyledJobCell = styled(StyledTableCell)`
+const StyledJobCell = styled(TableCell)`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing[2]};
@@ -156,7 +83,7 @@ const StyledWinBadge = styled.span<{ $isWin: boolean }>`
   color: ${({ theme, $isWin }) => ($isWin ? theme.colors.win[700] : theme.colors.defeat[700])};
   border: 1px solid ${({ $isWin }) => ($isWin ? "rgba(34, 197, 94, 0.2)" : "rgba(239, 68, 68, 0.2)")};
 
-  ${StyledTableRow}:hover & {
+  ${TableRow}:hover & {
     box-shadow: ${({ $isWin }) => ($isWin ? "0 4px 12px rgba(34, 197, 94, 0.2)" : "0 4px 12px rgba(239, 68, 68, 0.2)")};
   }
 `;
@@ -379,34 +306,34 @@ export const HistoryDetailPage = () => {
       </PageDescription>
 
       {/* 統計カード */}
-      <StyledStatsGrid>
-        <StyledStatCard>
-          <StyledStatLabel>{t("pages.historyDetail.matchesCount")}</StyledStatLabel>
-          <StyledStatValue>{stats.totalMatches}</StyledStatValue>
-          <StyledStatDescription>{t("pages.historyDetail.totalMatches", { count: stats.totalMatches })}</StyledStatDescription>
-        </StyledStatCard>
-        <StyledStatCard>
-          <StyledStatLabel>{t("pages.historyDetail.results.win")}</StyledStatLabel>
-          <StyledStatValue $type="win">{stats.wins}</StyledStatValue>
-          <StyledStatDescription>{stats.totalMatches > 0 ? `${((stats.wins / stats.totalMatches) * 100).toFixed(1)}%` : "0%"}</StyledStatDescription>
-        </StyledStatCard>
-        <StyledStatCard>
-          <StyledStatLabel>{t("pages.historyDetail.results.defeat")}</StyledStatLabel>
-          <StyledStatValue $type="defeat">{stats.defeats}</StyledStatValue>
-          <StyledStatDescription>{stats.totalMatches > 0 ? `${((stats.defeats / stats.totalMatches) * 100).toFixed(1)}%` : "0%"}</StyledStatDescription>
-        </StyledStatCard>
-        <StyledStatCard>
-          <StyledStatLabel>{t("pages.historyDetail.winRate")}</StyledStatLabel>
+      <StatsGrid>
+        <StatCard>
+          <StatLabel>{t("pages.historyDetail.matchesCount")}</StatLabel>
+          <StatValue>{stats.totalMatches}</StatValue>
+          <StatDescription>{t("pages.historyDetail.totalMatches", { count: stats.totalMatches })}</StatDescription>
+        </StatCard>
+        <StatCard>
+          <StatLabel>{t("pages.historyDetail.results.win")}</StatLabel>
+          <StatValue $type="win">{stats.wins}</StatValue>
+          <StatDescription>{stats.totalMatches > 0 ? `${((stats.wins / stats.totalMatches) * 100).toFixed(1)}%` : "0%"}</StatDescription>
+        </StatCard>
+        <StatCard>
+          <StatLabel>{t("pages.historyDetail.results.defeat")}</StatLabel>
+          <StatValue $type="defeat">{stats.defeats}</StatValue>
+          <StatDescription>{stats.totalMatches > 0 ? `${((stats.defeats / stats.totalMatches) * 100).toFixed(1)}%` : "0%"}</StatDescription>
+        </StatCard>
+        <StatCard>
+          <StatLabel>{t("pages.historyDetail.winRate")}</StatLabel>
           {0 < stats.totalMatches ? (
-            <StyledStatValue $type="winRate" $winRate={stats.winRate}>
+            <StatValue $type="winRate" $winRate={stats.winRate}>
               {stats.winRate.toFixed(1)}%
-            </StyledStatValue>
+            </StatValue>
           ) : (
-            <StyledStatValue>--%</StyledStatValue>
+            <StatValue>--%</StatValue>
           )}
-          <StyledStatDescription>{t("pages.historyDetail.overall")}</StyledStatDescription>
-        </StyledStatCard>
-      </StyledStatsGrid>
+          <StatDescription>{t("pages.historyDetail.overall")}</StatDescription>
+        </StatCard>
+      </StatsGrid>
 
       {/* テーブル */}
       <VirtualTable
@@ -418,27 +345,27 @@ export const HistoryDetailPage = () => {
         emptyText={t("pages.historyDetail.emptyState")}
         getRowKey={(match: MatchRecord & { characterName: string }) => match.uuid}
         renderRow={(match: MatchRecord & { characterName: string }) => (
-          <StyledTableRow>
+          <TableRow>
             <StyledCharacterNameCell width={columnWidths.character}>{match.characterName}</StyledCharacterNameCell>
             <StyledJobCell width={columnWidths.job}>
               <JobIcon job={match.job} size={24} />
               <StyledJobShortName>{JOB_INFO[match.job].shortName}</StyledJobShortName>
             </StyledJobCell>
             <StyledDateCell width={columnWidths.date}>{formatDateTable(match.recordedAt)}</StyledDateCell>
-            <StyledTableCell width={columnWidths.result}>
+            <TableCell width={columnWidths.result}>
               <StyledWinBadge $isWin={match.isWin}>{match.isWin ? t("pages.historyDetail.results.win") : t("pages.historyDetail.results.defeat")}</StyledWinBadge>
-            </StyledTableCell>
+            </TableCell>
             {isCurrent && (
-              <StyledTableCell width={columnWidths.actions}>
+              <TableCell width={columnWidths.actions}>
                 <StyledDeleteButton
                   variant="outline"
                   icon={<Icon name="delete" size={16} />}
                   onClick={() => handleOpenDeleteDialog(match.uuid, match.characterName, formatDateTable(match.recordedAt))}
                   title={t("match.deleteMatch")}
                 />
-              </StyledTableCell>
+              </TableCell>
             )}
-          </StyledTableRow>
+          </TableRow>
         )}
       />
 

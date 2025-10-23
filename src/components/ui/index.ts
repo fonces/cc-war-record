@@ -11,4 +11,5 @@ export { Checkbox } from "./Checkbox";
 export { PageContainer, PageTitleContainer, PageTitle, PageDescription } from "./PageLayout";
 export { LanguageSelector } from "./LanguageSelector";
 export { ThemeToggle } from "./ThemeToggle";
-export { VirtualTable, StyledTableRow, StyledTableCell, StyledHeaderCell, type VirtualTableColumn, type VirtualTableProps } from "./VirtualTable";
+export { VirtualTable, TableRow, TableCell, TableHeaderCell, type VirtualTableColumn, type VirtualTableProps } from "./VirtualTable";
+export { StatsGrid, StatCard, StatLabel, StatValue, StatDescription } from "./StatCard";

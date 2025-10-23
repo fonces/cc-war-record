@@ -1,7 +1,7 @@
 import { useNavigate } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import styled from "styled-components";
-import { Button, Icon, Dialog, VirtualTable, StyledTableRow, StyledTableCell, type VirtualTableColumn } from "@/components/ui";
+import { Button, Icon, Dialog, VirtualTable, TableRow, TableCell, type VirtualTableColumn } from "@/components/ui";
 import { useTranslation } from "@/hooks";
 import { fadeIn } from "@/styles/animation";
 import { getScrollbarWidth } from "@/utils";
@@ -18,23 +18,23 @@ type HistoryTableProps = {
 };
 
 // シーズン名セル
-const StyledSeasonNameCell = styled(StyledTableCell)`
+const StyledSeasonNameCell = styled(TableCell)`
   font-weight: 600;
   color: ${({ theme }) => theme.colors.text};
   position: relative;
   padding-left: calc(${({ theme }) => theme.spacing[6]} + 8px);
 
-  ${StyledTableRow}:hover &::before {
+  ${TableRow}:hover &::before {
     opacity: 1;
   }
 
-  ${StyledTableRow}:hover & {
+  ${TableRow}:hover & {
     color: #26a1df;
   }
 `;
 
 // 作成日時セル
-const StyledDateCell = styled(StyledTableCell)`
+const StyledDateCell = styled(TableCell)`
   color: ${({ theme }) => theme.colors.textSecondary};
   font-size: 0.8125rem;
   white-space: nowrap;
@@ -272,10 +272,10 @@ export const HistoryTable = ({ histories, isLoading = false, onDelete }: History
           const isLatestHistory = history.uuid === histories[0]?.uuid;
 
           return (
-            <StyledTableRow>
+            <TableRow>
               <StyledSeasonNameCell width={columnWidths.seasonName}>{history.seasonName}</StyledSeasonNameCell>
               <StyledDateCell width={columnWidths.date}>{formatDateTable(history.createdAt)}</StyledDateCell>
-              <StyledTableCell width={columnWidths.actions}>
+              <TableCell width={columnWidths.actions}>
                 <StyledButtonGroup>
                   <StyledDetailButton
                     variant="outline"
@@ -291,8 +291,8 @@ export const HistoryTable = ({ histories, isLoading = false, onDelete }: History
                     disabled={isLatestHistory}
                   />
                 </StyledButtonGroup>
-              </StyledTableCell>
-            </StyledTableRow>
+              </TableCell>
+            </TableRow>
           );
         }}
       />

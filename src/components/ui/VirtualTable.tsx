@@ -58,7 +58,7 @@ const StyledTableHeader = styled.div`
   z-index: 2;
 `;
 
-export const StyledHeaderCell = styled.div<{ width?: string }>`
+export const TableHeaderCell = styled.div<{ width?: string }>`
   padding: ${({ theme }) => theme.spacing[4]} ${({ theme }) => theme.spacing[6]};
   font-weight: 700;
   font-size: 0.75rem;
@@ -84,7 +84,7 @@ const StyledVirtualContainer = styled.div`
 `;
 
 // テーブル行
-export const StyledTableRow = styled.div`
+export const TableRow = styled.div`
   display: flex;
   border-bottom: 1px solid ${({ theme }) => theme.colors.borderLight};
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -114,7 +114,7 @@ export const StyledTableRow = styled.div`
   }
 `;
 
-export const StyledTableCell = styled.div<{ width?: string }>`
+export const TableCell = styled.div<{ width?: string }>`
   padding: ${({ theme }) => theme.spacing[4]} ${({ theme }) => theme.spacing[6]};
   font-size: 0.875rem;
   color: ${({ theme }) => theme.colors.text};
@@ -219,9 +219,9 @@ export function VirtualTable<T>({
         {/* ヘッダー */}
         <StyledTableHeader>
           {columns.map((column) => (
-            <StyledHeaderCell key={column.key} width={column.width}>
+            <TableHeaderCell key={column.key} width={column.width}>
               {column.label}
-            </StyledHeaderCell>
+            </TableHeaderCell>
           ))}
         </StyledTableHeader>
 
