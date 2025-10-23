@@ -2,7 +2,7 @@ import { useRouter } from "@tanstack/react-router";
 import { useState } from "react";
 import styled from "styled-components";
 import { EmptyState } from "@/components/layout";
-import { Button, PageContainer, PageTitleContainer, PageTitle, PageDescription, Icon } from "@/components/ui";
+import { Button, PageContainer, PageTitleContainer, PageTitle, PageDescription, Icon, Flush } from "@/components/ui";
 import { usePageTitle, useTranslation } from "@/hooks";
 import { sendEvent } from "@/lib/analytics";
 import { useHistoryStore, useCharacterStore } from "@/stores";
@@ -19,31 +19,6 @@ const StyledCharacterList = styled.div`
   gap: ${({ theme }) => theme.spacing[4]};
   margin-top: ${({ theme }) => theme.spacing[6]};
   animation: ${fadeIn} 0.5s ease-out;
-`;
-
-const StyledErrorMessage = styled.div`
-  padding: ${({ theme }) => theme.spacing[3]};
-  margin-bottom: ${({ theme }) => theme.spacing[6]};
-  background-color: ${({ theme }) => (theme.isDark ? "rgba(239, 68, 68, 0.15)" : "#fef2f2")};
-  border: 1px solid #fecaca;
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  color: ${({ theme }) => theme.colors.error[600]};
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const StyledErrorCloseButton = styled.button`
-  margin-left: ${({ theme }) => theme.spacing[2]};
-  color: ${({ theme }) => theme.colors.error[600]};
-  text-decoration: underline;
-  background: none;
-  border: none;
-  cursor: pointer;
-
-  &:hover {
-    text-decoration: none;
-  }
 `;
 
 /**
@@ -301,10 +276,9 @@ export const HomePage = () => {
       <PageDescription>{t("pages.home.description")}</PageDescription>
 
       {characterError && (
-        <StyledErrorMessage>
-          <span>{characterError}</span>
-          <StyledErrorCloseButton onClick={clearError}>{t("common.close")}</StyledErrorCloseButton>
-        </StyledErrorMessage>
+        <Flush type="error" onClose={clearError}>
+          {characterError}
+        </Flush>
       )}
 
       <StyledCharacterList>

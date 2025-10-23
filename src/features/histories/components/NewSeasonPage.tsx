@@ -128,7 +128,17 @@ export const NewSeasonPage = () => {
 
         <Form onSubmit={handleSubmit}>
           {/* エラーメッセージ */}
-          {(error || validationError) && <Flush type="error">{validationError || error}</Flush>}
+          {(error || validationError) && (
+            <Flush
+              type="error"
+              onClose={() => {
+                setValidationError("");
+                clearError();
+              }}
+            >
+              {validationError || error}
+            </Flush>
+          )}
 
           {/* 成功メッセージ */}
           {successMessage && <Flush type="success">{successMessage}</Flush>}

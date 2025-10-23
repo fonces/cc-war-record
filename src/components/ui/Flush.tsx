@@ -9,8 +9,6 @@ type FlushProps = {
   type?: FlushType;
   /** メッセージ内容 */
   children: React.ReactNode;
-  /** 閉じるボタンを表示するか */
-  closable?: boolean;
   /** 閉じるボタンのクリックハンドラー */
   onClose?: () => void;
 };
@@ -89,11 +87,11 @@ const StyledCloseButton = styled.button`
  * フラッシュメッセージコンポーネント
  * エラー、成功、警告、情報メッセージを表示
  */
-export const Flush = memo(({ type = "info", children, closable = false, onClose }: FlushProps) => {
+export const Flush = memo(({ type = "info", children, onClose }: FlushProps) => {
   return (
     <StyledFlush $type={type}>
       <StyledContent>{children}</StyledContent>
-      {closable && onClose && (
+      {onClose && (
         <StyledCloseButton onClick={onClose} type="button" aria-label="Close">
           <Icon name="close" size={16} />
         </StyledCloseButton>
