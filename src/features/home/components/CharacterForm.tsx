@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Button, Icon, Input } from "@/components/ui";
+import { Button, Icon, Input, Flush } from "@/components/ui";
 import { useTranslation } from "@/hooks";
 
 const StyledCharacterCard = styled.div`
@@ -104,12 +104,16 @@ type CharacterFormProps = {
   isOpen: boolean;
   /** キャラクター作成ハンドラー */
   onCreateCharacter: (name: string) => void;
+  /** エラーメッセージ */
+  error?: string | null;
+  /** エラークリアハンドラー */
+  onClearError?: () => void;
 };
 
 /**
  * キャラクター作成フォームコンポーネント
  */
-export const CharacterForm = ({ isOpen: isOpenProp, onCreateCharacter }: CharacterFormProps) => {
+export const CharacterForm = ({ isOpen: isOpenProp, onCreateCharacter, error, onClearError }: CharacterFormProps) => {
   const { t } = useTranslation();
   const [newCharacterName, setNewCharacterName] = useState("");
   const [isOpen, setIsOpen] = useState(isOpenProp);
@@ -140,6 +144,11 @@ export const CharacterForm = ({ isOpen: isOpenProp, onCreateCharacter }: Charact
 
       <StyledCharacterContent isOpen={isOpen}>
         <StyledCharacterBody>
+          {error && onClearError && (
+            <Flush type="error" onClose={onClearError}>
+              {error}
+            </Flush>
+          )}
           <StyledCharacterFormContent>
             <StyledFormGroup>
               <StyledLabel htmlFor="character-name">{t("character.name")}</StyledLabel>

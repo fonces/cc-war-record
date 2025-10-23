@@ -2,7 +2,7 @@ import { useRouter } from "@tanstack/react-router";
 import { useState } from "react";
 import styled from "styled-components";
 import { EmptyState } from "@/components/layout";
-import { Button, PageContainer, PageTitleContainer, PageTitle, PageDescription, Icon, Flush } from "@/components/ui";
+import { Button, PageContainer, PageTitleContainer, PageTitle, PageDescription, Icon } from "@/components/ui";
 import { usePageTitle, useTranslation } from "@/hooks";
 import { sendEvent } from "@/lib/analytics";
 import { useHistoryStore, useCharacterStore } from "@/stores";
@@ -275,12 +275,6 @@ export const HomePage = () => {
       </PageTitleContainer>
       <PageDescription>{t("pages.home.description")}</PageDescription>
 
-      {characterError && (
-        <Flush type="error" onClose={clearError}>
-          {characterError}
-        </Flush>
-      )}
-
       <StyledCharacterList>
         {characterStats.map((stats) => (
           <CharacterCard
@@ -301,7 +295,7 @@ export const HomePage = () => {
             onCancelEdit={handleCancelEditing}
           />
         ))}
-        <CharacterForm isOpen={characterStats.length === 0} onCreateCharacter={handleCreateCharacter} />
+        <CharacterForm isOpen={characterStats.length === 0} onCreateCharacter={handleCreateCharacter} error={characterError} onClearError={clearError} />
       </StyledCharacterList>
 
       <DeleteCharacterDialog isOpen={deleteDialogOpen} character={characterToDelete} onClose={handleCancelDelete} onConfirm={handleConfirmDelete} />
