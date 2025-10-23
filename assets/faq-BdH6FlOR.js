@@ -1,0 +1,2 @@
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/faq-S26UHWLr.js","assets/index-CUg7Bi74.js"])))=>i.map(i=>d[i]);
+import{F as e,I as t}from"./index-CUg7Bi74.js";var n=t(()=>e(()=>import(`./faq-S26UHWLr.js`),__vite__mapDeps([0,1])).then(e=>({default:e.FaqPage})));export{n as component};
