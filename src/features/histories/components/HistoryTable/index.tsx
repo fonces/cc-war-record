@@ -3,7 +3,6 @@ import { useMemo, useState } from "react";
 import styled from "styled-components";
 import { Button, IconicButton, Icon, Dialog, VirtualTable, TableRow, TableCell, type VirtualTableColumn } from "@/components/ui";
 import { useTranslation } from "@/hooks";
-import { fadeIn } from "@/styles/animation";
 import { getScrollbarWidth } from "@/utils";
 import { formatDateTable } from "@/utils/uuid";
 import type { History } from "@/types";
@@ -66,72 +65,6 @@ const StyledDialogActions = styled.div`
   justify-content: flex-end;
 `;
 
-// 空状態表示
-const StyledEmptyState = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: ${({ theme }) => theme.spacing[16]} ${({ theme }) => theme.spacing[6]};
-  text-align: center;
-  background: ${({ theme }) => theme.gradients.glass};
-  backdrop-filter: ${({ theme }) => theme.blur.md};
-  border-radius: ${({ theme }) => theme.borderRadius.xl};
-  border: 1px solid ${({ theme }) => theme.colors.borderLight};
-  box-shadow: ${({ theme }) => theme.shadows.xl};
-  position: relative;
-  overflow: hidden;
-  transition: all ${({ theme }) => theme.transitions.base};
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: ${({ theme }) => theme.gradients.primary};
-  }
-
-  &:hover {
-    border-color: ${({ theme }) => theme.colors.border};
-  }
-
-  animation: ${fadeIn} 0.5s ease-out;
-`;
-
-const StyledEmptyIcon = styled.div`
-  width: 80px;
-  height: 80px;
-  background: ${({ theme }) => theme.gradients.primary};
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: ${({ theme }) => theme.spacing[5]};
-  box-shadow: 0 8px 24px rgba(38, 161, 223, 0.3);
-
-  svg {
-    color: ${({ theme }) => theme.colors.white};
-  }
-`;
-
-const StyledEmptyTitle = styled.h3`
-  font-size: 1.25rem;
-  font-weight: 700;
-  background: ${({ theme }) => theme.gradients.primary};
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: ${({ theme }) => theme.spacing[2]};
-`;
-
-const StyledEmptyDescription = styled.p`
-  font-size: 0.9375rem;
-  color: ${({ theme }) => theme.colors.textSecondary};
-  max-width: 400px;
-`;
-
 /**
  * 履歴テーブルコンポーネント
  * テーブル形式でシーズン履歴一覧を表示
@@ -190,19 +123,6 @@ export const HistoryTable = ({ histories, isLoading = false, onDelete }: History
       setHistoryToDelete(null);
     }
   };
-
-  // 履歴が0件の場合
-  if (!isLoading && histories.length === 0) {
-    return (
-      <StyledEmptyState>
-        <StyledEmptyIcon>
-          <Icon name="history" size={24} />
-        </StyledEmptyIcon>
-        <StyledEmptyTitle>{t("pages.histories.emptyState")}</StyledEmptyTitle>
-        <StyledEmptyDescription>{t("pages.histories.createFirstSeason")}</StyledEmptyDescription>
-      </StyledEmptyState>
-    );
-  }
 
   // 履歴テーブル表示
   return (

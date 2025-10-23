@@ -1,4 +1,3 @@
-import { useNavigate } from "@tanstack/react-router";
 import styled from "styled-components";
 import { EmptyState } from "@/components/layout";
 import { PageContainer, PageTitle, PageDescription, PageTitleContainer } from "@/components/ui";
@@ -25,15 +24,10 @@ const StyledGraphsGrid = styled.div`
 export const GraphsPage = () => {
   const { t } = useTranslation();
   usePageTitle(t("pages.graphs.title"));
-  const navigate = useNavigate();
   const { histories } = useHistoryStore();
   const { characters, matchRecords } = useCharacterStore();
 
   const latestHistory = histories.length > 0 ? histories[histories.length - 1] : null;
-
-  const handleCreateSeason = () => {
-    navigate({ to: "/new" });
-  };
 
   return (
     <PageContainer>
@@ -51,7 +45,7 @@ export const GraphsPage = () => {
           <JobWinRateRadarChart history={latestHistory} matchRecords={matchRecords} characters={characters} />
         </StyledGraphsGrid>
       ) : (
-        <EmptyState onCreateSeason={handleCreateSeason} />
+        <EmptyState icon="chart" />
       )}
     </PageContainer>
   );

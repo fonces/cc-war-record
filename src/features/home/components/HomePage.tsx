@@ -262,7 +262,7 @@ export const HomePage = () => {
           <PageTitle>{t("pages.home.noSeason")}</PageTitle>
         </PageTitleContainer>
         <PageDescription>{t("pages.home.createFirstSeason")}</PageDescription>
-        <EmptyState onCreateSeason={handleCreateSeason} />
+        <EmptyState />
       </PageContainer>
     );
   }

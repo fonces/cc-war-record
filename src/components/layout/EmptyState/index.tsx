@@ -1,8 +1,10 @@
+import { useNavigate } from "@tanstack/react-router";
 import { memo } from "react";
 import styled, { keyframes } from "styled-components";
 import { Button, Icon } from "@/components/ui";
 import { useTranslation } from "@/hooks";
 import { fadeIn } from "@/styles/animation";
+import type { IconName } from "@/components/ui/Icon/types";
 
 const float = keyframes`
   0%, 100% {
@@ -145,24 +147,29 @@ const StyledCreateButton = styled(Button)`
 `;
 
 type EmptyStateProps = {
-  /** 作成ボタンクリック時のハンドラー */
-  onCreateSeason: () => void;
+  /** 表示するアイコン名（デフォルト: "home"） */
+  icon?: IconName;
 };
 
 /**
  * シーズン未作成時の空状態表示コンポーネント
  */
-export const EmptyState = memo(({ onCreateSeason }: EmptyStateProps) => {
+export const EmptyState = memo(({ icon = "home" }: EmptyStateProps) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  const handleCreateSeason = () => {
+    navigate({ to: "/new" });
+  };
 
   return (
     <StyledEmptyState>
       <StyledEmptyIcon>
-        <Icon name="home" size={32} />
+        <Icon name={icon} size={32} />
       </StyledEmptyIcon>
       <StyledEmptyTitle>{t("pages.home.noSeason")}</StyledEmptyTitle>
       <StyledEmptyDescription>{t("pages.home.createFirstSeason")}</StyledEmptyDescription>
-      <StyledCreateButton onClick={onCreateSeason}>
+      <StyledCreateButton onClick={handleCreateSeason}>
         <Icon name="add" size={20} color="white" />
         {t("pages.home.createSeason")}
       </StyledCreateButton>

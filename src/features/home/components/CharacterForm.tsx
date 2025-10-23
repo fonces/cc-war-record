@@ -76,6 +76,11 @@ const StyledCharacterBody = styled.div`
 const StyledFlushWrapper = styled.div`
   padding: ${({ theme }) => theme.spacing[6]};
   padding-bottom: 0;
+
+  /* Flush内のmargin-bottomを打ち消す */
+  > * {
+    margin-bottom: 0;
+  }
 `;
 
 const StyledCharacterFormContent = styled.div`

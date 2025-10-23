@@ -21,6 +21,7 @@ const StyledFlush = styled.div<{ $type: FlushType }>`
   align-items: flex-start;
   justify-content: space-between;
   gap: ${({ theme }) => theme.spacing[3]};
+  margin-bottom: ${({ theme }) => theme.spacing[6]};
 
   ${({ theme, $type }) => {
     const isDark = theme.isDark;

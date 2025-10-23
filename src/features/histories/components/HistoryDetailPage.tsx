@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "@tanstack/react-router";
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import styled from "styled-components";
 import { PageContainer, PageTitleContainer, PageTitle, PageDescription, Button, Icon, StatsGrid, StatCard, StatLabel, StatValue, StatDescription } from "@/components/ui";
 import { useTranslation } from "@/hooks";
@@ -122,12 +122,15 @@ export const HistoryDetailPage = () => {
     }
   };
 
+  // 履歴が見つからない場合は履歴ページに遷移
+  useEffect(() => {
+    if (!history) {
+      navigate({ to: "/histories" });
+    }
+  }, [history, navigate]);
+
   if (!history) {
-    return (
-      <PageContainer>
-        <PageTitle>{t("pages.historyDetail.notFound")}</PageTitle>
-      </PageContainer>
-    );
+    return null;
   }
 
   return (
