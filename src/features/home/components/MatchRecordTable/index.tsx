@@ -79,7 +79,6 @@ const StyledMapSummary = styled.div`
   background: ${({ theme }) => theme.gradients.glass};
   backdrop-filter: ${({ theme }) => theme.blur.sm};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
-  min-width: 260px;
 `;
 
 const StyledMapWinRate = styled.span<{ winRate: number }>`

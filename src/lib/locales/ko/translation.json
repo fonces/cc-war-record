@@ -109,7 +109,7 @@
       "confirmTitle": "시즌 생성 확인",
       "confirmDescription": "새 시즌을 만들면 \"{{seasonName}}\"의 전적 데이터가 과거 시즌으로 아카이브되고 새로운 전적 입력이 시작됩니다. 계속하시겠습니까?",
       "validationRequired": "시즌명을 입력해주세요",
-      "validationMaxLength": "시즌명은 50자 이내로 입력해주세요",
+      "validationMaxLength": "시즌명은 {{length}}자 이내로 입력해주세요",
       "successMessage": "시즌 \"{{seasonName}}\"을 만들었습니다"
     },
     "faq": {

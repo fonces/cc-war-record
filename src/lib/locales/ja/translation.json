@@ -109,7 +109,7 @@
       "confirmTitle": "シーズン作成の確認",
       "confirmDescription": "新しいシーズンを作成すると「{{seasonName}}」の戦績データは過去のシーズンとしてアーカイブされ、新しい戦績の入力が開始されます。よろしいでしょうか?",
       "validationRequired": "シーズン名を入力してください",
-      "validationMaxLength": "シーズン名は50文字以内で入力してください",
+      "validationMaxLength": "シーズン名は{{length}}文字以内で入力してください",
       "successMessage": "シーズン「{{seasonName}}」を作成しました"
     },
     "faq": {

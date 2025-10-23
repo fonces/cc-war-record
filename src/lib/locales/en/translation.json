@@ -109,7 +109,7 @@
       "confirmTitle": "Confirm Season Creation",
       "confirmDescription": "Creating a new season will archive the match data for \"{{seasonName}}\" and start recording new matches. Continue?",
       "validationRequired": "Please enter a season name",
-      "validationMaxLength": "Season name must be 50 characters or less",
+      "validationMaxLength": "Season name must be {{length}} characters or less",
       "successMessage": "Season \"{{seasonName}}\" created successfully"
     },
     "faq": {

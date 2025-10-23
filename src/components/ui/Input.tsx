@@ -44,32 +44,32 @@ const StyledInput = styled.input<{ hasError?: boolean; inputSize?: "sm" | "md" |
     }
   }};
   line-height: 1;
-  border: 2px solid ${({ theme, hasError }) => (hasError ? theme.colors.error[500] : theme.colors.border)};
+  border: 1px solid ${({ theme, hasError }) => (hasError ? theme.colors.error[500] : theme.colors.borderLight)};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   outline: none;
   transition: all ${({ theme }) => theme.transitions.base};
-  background: ${({ theme }) => theme.colors.surface};
-  backdrop-filter: ${({ theme }) => theme.blur.sm};
+  background: ${({ theme }) => theme.gradients.glass};
+  backdrop-filter: ${({ theme }) => theme.blur.md};
   box-shadow: ${({ theme }) => theme.shadows.sm};
   color: ${({ theme }) => theme.colors.text};
 
   &:focus {
-    border-color: ${({ theme, hasError }) => (hasError ? theme.colors.error[500] : theme.colors.primary[500])};
-    box-shadow: ${({ theme, hasError }) => (hasError ? theme.shadows.md : `${theme.shadows.md}, ${theme.shadows.glow}`)};
+    border-color: ${({ theme, hasError }) => (hasError ? theme.colors.error[500] : theme.colors.border)};
+    box-shadow: ${({ theme, hasError }) => (hasError ? theme.shadows.md : `${theme.shadows.md}, 0 0 0 1px rgba(38, 161, 223, 0.1)`)};
     transform: translateY(-1px);
-    background: ${({ theme }) => (theme.isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(255, 255, 255, 0.95)")};
   }
 
   &:hover:not(:disabled) {
-    border-color: ${({ theme, hasError }) => (hasError ? theme.colors.error[600] : theme.colors.primary[400])};
+    border-color: ${({ theme, hasError }) => (hasError ? theme.colors.error[600] : theme.colors.border)};
   }
 
   &:disabled {
-    background-color: ${({ theme }) => (theme.isDark ? "rgba(51, 65, 85, 0.5)" : theme.colors.gray[100])};
-    color: ${({ theme }) => (theme.isDark ? "rgba(148, 163, 184, 0.6)" : theme.colors.gray[500])};
-    border-color: ${({ theme }) => (theme.isDark ? "rgba(71, 85, 105, 0.5)" : theme.colors.gray[300])};
+    background: ${({ theme }) => (theme.isDark ? "rgba(255, 255, 255, 0.03)" : "rgba(0, 0, 0, 0.03)")};
+    backdrop-filter: ${({ theme }) => theme.blur.sm};
+    color: ${({ theme }) => theme.colors.textSecondary};
+    border-color: ${({ theme }) => theme.colors.borderLight};
     cursor: not-allowed;
-    opacity: ${({ theme }) => (theme.isDark ? "1" : "0.6")};
+    opacity: 0.5;
   }
 
   &::placeholder {
