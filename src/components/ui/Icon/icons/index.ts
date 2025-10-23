@@ -12,3 +12,4 @@ export { RevertIcon } from "./RevertIcon";
 export { DetailIcon } from "./DetailIcon";
 export { BackIcon } from "./BackIcon";
 export { LanguageIcon } from "./LanguageIcon";
+export { ArrowDropDownIcon } from "./ArrowDropDownIcon";

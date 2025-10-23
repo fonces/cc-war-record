@@ -15,6 +15,7 @@ import {
   DetailIcon,
   BackIcon,
   LanguageIcon,
+  ArrowDropDownIcon,
 } from "./icons";
 import type { IconProps } from "./types";
 
@@ -74,6 +75,8 @@ export const Icon = memo(({ name, size = 24, color, onClick, className }: IconPr
         return <BackIcon />;
       case "language":
         return <LanguageIcon />;
+      case "arrowDropDown":
+        return <ArrowDropDownIcon />;
       default:
         return null;
     }

@@ -180,7 +180,7 @@ const StyledLanguageFlag = styled.span`
   background: rgba(0, 0, 0, 0.02);
 `;
 
-const StyledArrow = styled.span<{ isOpen: boolean; direction: "up" | "down" }>`
+const StyledArrowWrapper = styled.span<{ isOpen: boolean }>`
   display: flex;
   align-items: center;
   color: #26a1df;
@@ -237,9 +237,9 @@ export const LanguageSelector = memo(({ direction = "down", fullWidth = false }:
           <Icon name="language" size={18} />
           <span>{currentLanguageName}</span>
         </StyledIconWrapper>
-        <StyledArrow isOpen={isOpen} direction={direction}>
-          ▼
-        </StyledArrow>
+        <StyledArrowWrapper isOpen={isOpen}>
+          <Icon name="arrowDropDown" size={24} />
+        </StyledArrowWrapper>
       </StyledLanguageButton>
 
       <StyledLanguageDropdown isOpen={isOpen} direction={direction}>
