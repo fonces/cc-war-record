@@ -1,7 +1,7 @@
 import { useNavigate } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import styled from "styled-components";
-import { Button, Icon, Dialog, VirtualTable, TableRow, TableCell, type VirtualTableColumn } from "@/components/ui";
+import { Button, IconicButton, Icon, Dialog, VirtualTable, TableRow, TableCell, type VirtualTableColumn } from "@/components/ui";
 import { useTranslation } from "@/hooks";
 import { fadeIn } from "@/styles/animation";
 import { getScrollbarWidth } from "@/utils";
@@ -38,57 +38,6 @@ const StyledDateCell = styled(TableCell)`
   color: ${({ theme }) => theme.colors.textSecondary};
   font-size: 0.8125rem;
   white-space: nowrap;
-`;
-
-// 詳細ボタン
-const StyledDetailButton = styled(Button)`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
-  text-decoration: none;
-  transition: all ${({ theme }) => theme.transitions.base};
-  background: ${({ theme }) => theme.gradients.glass};
-  backdrop-filter: ${({ theme }) => theme.blur.sm};
-  border: 1px solid ${({ theme }) => theme.colors.borderLight};
-
-  &:hover {
-    background: ${({ theme }) => theme.colors.primary[500]};
-    border-color: ${({ theme }) => theme.colors.primary[500]};
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(38, 161, 223, 0.3);
-  }
-`;
-
-// 削除ボタン
-const StyledDeleteButton = styled(Button)`
-  display: inline-flex;
-  align-items: center;
-  color: ${({ theme }) => theme.colors.error[500]};
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
-  text-decoration: none;
-  transition: all ${({ theme }) => theme.transitions.base};
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  background: ${({ theme }) => theme.gradients.glass};
-  backdrop-filter: ${({ theme }) => theme.blur.sm};
-
-  &:hover:not(:disabled) {
-    background: ${({ theme }) => theme.colors.error[500]};
-    border-color: ${({ theme }) => theme.colors.error[500]};
-    color: white;
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
-  }
-
-  &:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-  }
 `;
 
 // ボタングループ
@@ -277,14 +226,13 @@ export const HistoryTable = ({ histories, isLoading = false, onDelete }: History
               <StyledDateCell width={columnWidths.date}>{formatDateTable(history.createdAt)}</StyledDateCell>
               <TableCell width={columnWidths.actions}>
                 <StyledButtonGroup>
-                  <StyledDetailButton
-                    variant="outline"
+                  <IconicButton
                     icon={<Icon name="detail" size={16} />}
                     onClick={() => handleNavigateToDetail(isLatestHistory ? "current" : history.uuid)}
                     title={t("pages.histories.detail")}
                   />
-                  <StyledDeleteButton
-                    variant="outline"
+                  <IconicButton
+                    $type="danger"
                     icon={<Icon name="delete" size={16} />}
                     onClick={() => handleOpenDeleteDialog(history.uuid, history.seasonName)}
                     title={t("pages.histories.delete")}

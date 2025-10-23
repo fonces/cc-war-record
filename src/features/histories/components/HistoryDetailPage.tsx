@@ -19,6 +19,7 @@ import {
   StatValue,
   StatDescription,
   type VirtualTableColumn,
+  IconicButton,
 } from "@/components/ui";
 import { useTranslation } from "@/hooks";
 import { usePageTitle } from "@/hooks/usePageTitle";
@@ -85,29 +86,6 @@ const StyledWinBadge = styled.span<{ $isWin: boolean }>`
 
   ${TableRow}:hover & {
     box-shadow: ${({ $isWin }) => ($isWin ? "0 4px 12px rgba(34, 197, 94, 0.2)" : "0 4px 12px rgba(239, 68, 68, 0.2)")};
-  }
-`;
-
-// 削除ボタン
-const StyledDeleteButton = styled(Button)`
-  display: inline-flex;
-  align-items: center;
-  color: ${({ theme }) => theme.colors.error[500]};
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  padding: 0;
-  background: ${({ theme }) => theme.colors.surface};
-  backdrop-filter: blur(8px);
-  border-color: rgba(239, 68, 68, 0.3);
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-
-  &:hover:not(:disabled) {
-    background: ${({ theme }) => theme.colors.error[500]};
-    border-color: ${({ theme }) => theme.colors.error[500]};
-    color: ${({ theme }) => theme.colors.white};
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
   }
 `;
 
@@ -357,8 +335,8 @@ export const HistoryDetailPage = () => {
             </TableCell>
             {isCurrent && (
               <TableCell width={columnWidths.actions}>
-                <StyledDeleteButton
-                  variant="outline"
+                <IconicButton
+                  $type="danger"
                   icon={<Icon name="delete" size={16} />}
                   onClick={() => handleOpenDeleteDialog(match.uuid, match.characterName, formatDateTable(match.recordedAt))}
                   title={t("match.deleteMatch")}
