@@ -1,0 +1,2 @@
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/faq-BBn573mw.js","assets/index-D5Ad4bRd.js"])))=>i.map(i=>d[i]);
+import{B as e,z as t}from"./index-D5Ad4bRd.js";var n=e(()=>t(()=>import(`./faq-BBn573mw.js`),__vite__mapDeps([0,1])).then(e=>({default:e.FaqPage})));export{n as component};
