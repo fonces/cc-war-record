@@ -139,6 +139,9 @@ export const MatchRecordTable = ({ usedJobs, matchRecords, onAddWin, onAddDefeat
   // 開閉状態を管理（デフォルトは現在のマップのみ開く）
   const [openMaps, setOpenMaps] = useState<Set<CrystalConflictMap>>(() => new Set([currentMap]));
 
+  // 全ステージ合計の開閉状態
+  const [isTotalOpen, setIsTotalOpen] = useState(false);
+
   // マップの開閉をトグル
   const toggleMap = (map: CrystalConflictMap) => {
     const newOpenMaps = new Set(openMaps);
@@ -199,8 +202,11 @@ export const MatchRecordTable = ({ usedJobs, matchRecords, onAddWin, onAddDefeat
 
       {/* 全ステージ合計 */}
       <StyledMapSection>
-        <StyledMapTitle style={{ cursor: "default" }}>
+        <StyledMapTitle onClick={() => setIsTotalOpen(!isTotalOpen)}>
           <StyledMapTitleLeft>
+            <StyledArrowWrapper isOpen={isTotalOpen}>
+              <Icon name="arrowDropDown" size={20} />
+            </StyledArrowWrapper>
             <span>{t("match.allStagesTotal")}</span>
           </StyledMapTitleLeft>
           <StyledMapSummary>
@@ -215,7 +221,9 @@ export const MatchRecordTable = ({ usedJobs, matchRecords, onAddWin, onAddDefeat
             )}
           </StyledMapSummary>
         </StyledMapTitle>
-        <JobSummaryTable usedJobs={usedJobs} jobSummaries={totalSummaries} />
+        <StyledMapContent isOpen={isTotalOpen}>
+          <JobSummaryTable usedJobs={usedJobs} jobSummaries={totalSummaries} />
+        </StyledMapContent>
       </StyledMapSection>
     </StyledMapTablesContainer>
   );
