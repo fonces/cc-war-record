@@ -43,17 +43,17 @@ const Label = styled.label`
 
 const SelectButton = styled.button<{ isOpen: boolean; hasError?: boolean }>`
   padding: 0.5rem 2.5rem 0.5rem 1rem;
-  border: 2px solid ${({ isOpen, hasError, theme }) => (hasError ? theme.colors.error[500] : isOpen ? theme.colors.primary[400] : theme.colors.border)};
+  border: 1px solid ${({ isOpen, hasError, theme }) => (hasError ? theme.colors.error[500] : isOpen ? theme.colors.border : theme.colors.borderLight)};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
-  background: ${({ theme }) => theme.colors.surface};
-  backdrop-filter: ${({ theme }) => theme.blur.sm};
+  background: ${({ theme }) => theme.gradients.glass};
+  backdrop-filter: ${({ theme }) => theme.blur.md};
   color: ${({ theme }) => theme.colors.text};
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
   text-align: left;
   transition: all ${({ theme }) => theme.transitions.base};
-  box-shadow: ${({ theme, isOpen }) => (isOpen ? `${theme.shadows.md}, ${theme.shadows.glow}` : theme.shadows.sm)};
+  box-shadow: ${({ theme, isOpen }) => (isOpen ? `${theme.shadows.md}, 0 0 0 1px rgba(38, 161, 223, 0.1)` : theme.shadows.sm)};
   position: relative;
   white-space: nowrap;
   overflow: hidden;
@@ -61,24 +61,24 @@ const SelectButton = styled.button<{ isOpen: boolean; hasError?: boolean }>`
   width: 100%;
 
   &:hover:not(:disabled) {
-    border-color: ${({ theme }) => theme.colors.primary[400]};
+    border-color: ${({ theme }) => theme.colors.border};
     box-shadow: ${({ theme }) => theme.shadows.md};
     transform: translateY(-1px);
   }
 
   &:focus {
     outline: none;
-    border-color: ${({ theme, hasError }) => (hasError ? theme.colors.error[500] : theme.colors.primary[500])};
-    box-shadow: ${({ theme }) => `${theme.shadows.md}, ${theme.shadows.glow}`};
-    background: ${({ theme }) => (theme.isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(255, 255, 255, 0.95)")};
+    border-color: ${({ theme, hasError }) => (hasError ? theme.colors.error[500] : theme.colors.border)};
+    box-shadow: ${({ theme }) => `${theme.shadows.md}, 0 0 0 1px rgba(38, 161, 223, 0.1)`};
   }
 
   &:disabled {
-    background-color: ${({ theme }) => (theme.isDark ? "rgba(51, 65, 85, 0.5)" : theme.colors.gray[100])};
-    color: ${({ theme }) => (theme.isDark ? "rgba(148, 163, 184, 0.6)" : theme.colors.gray[500])};
-    border-color: ${({ theme }) => (theme.isDark ? "rgba(71, 85, 105, 0.5)" : theme.colors.gray[300])};
+    background: ${({ theme }) => (theme.isDark ? "rgba(255, 255, 255, 0.03)" : "rgba(0, 0, 0, 0.03)")};
+    backdrop-filter: ${({ theme }) => theme.blur.sm};
+    color: ${({ theme }) => theme.colors.textSecondary};
+    border-color: ${({ theme }) => theme.colors.borderLight};
     cursor: not-allowed;
-    opacity: ${({ theme }) => (theme.isDark ? "1" : "0.6")};
+    opacity: 0.5;
   }
 `;
 
@@ -100,11 +100,11 @@ const DropdownContainer = styled.div<{ isOpen: boolean }>`
   top: calc(100% + 0.5rem);
   left: 0;
   right: 0;
-  background: ${({ theme }) => theme.colors.surface};
-  backdrop-filter: ${({ theme }) => theme.blur.md};
-  border: 2px solid ${({ theme }) => theme.colors.border};
+  background: ${({ theme }) => theme.gradients.glass};
+  backdrop-filter: ${({ theme }) => `${theme.blur.md} brightness(${theme.isDark ? "0%" : "100%"})`};
+  border: 1px solid ${({ theme }) => theme.colors.borderLight};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
-  box-shadow: ${({ theme }) => `${theme.shadows.xl}, ${theme.shadows.glow}`};
+  box-shadow: ${({ theme }) => `${theme.shadows.xl}, 0 0 0 1px rgba(38, 161, 223, 0.1)`};
   max-height: 300px;
   overflow-y: auto;
   z-index: 50;
@@ -119,6 +119,7 @@ const DropdownContainer = styled.div<{ isOpen: boolean }>`
     right: 0;
     height: 3px;
     background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
+    border-radius: ${({ theme }) => theme.borderRadius.lg} ${({ theme }) => theme.borderRadius.lg} 0 0;
   }
 `;
 

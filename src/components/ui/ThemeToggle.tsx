@@ -20,9 +20,9 @@ const StyledToggleButton = styled.button`
   width: 56px;
   height: 56px;
   border-radius: ${({ theme }) => theme.borderRadius.full};
-  background: ${({ theme }) => theme.colors.surface};
+  background: ${({ theme }) => theme.gradients.glass};
   backdrop-filter: ${({ theme }) => theme.blur.md};
-  border: 2px solid ${({ theme }) => theme.colors.border};
+  border: 1px solid ${({ theme }) => theme.colors.borderLight};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,10 +32,31 @@ const StyledToggleButton = styled.button`
   position: relative;
   overflow: hidden;
 
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: ${({ theme }) => theme.borderRadius.full};
+    padding: 2px;
+    background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
   &:hover {
     transform: translateY(-4px) scale(1.1);
-    box-shadow: ${({ theme }) => theme.shadows["2xl"]}, ${({ theme }) => theme.shadows.glow};
-    border-color: ${({ theme }) => theme.colors.primary[400]};
+    box-shadow:
+      ${({ theme }) => theme.shadows["2xl"]},
+      0 8px 24px rgba(38, 161, 223, 0.2);
+    border-color: ${({ theme }) => theme.colors.border};
 
     &::before {
       opacity: 1;

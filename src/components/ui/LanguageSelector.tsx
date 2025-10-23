@@ -34,9 +34,9 @@ const StyledLanguageSelector = styled.div<{ $fullWidth?: boolean }>`
 
 const StyledLanguageButton = styled.button<{ $fullWidth?: boolean }>`
   padding: 0.625rem 1rem;
-  background: ${({ theme }) => theme.colors.surface};
-  backdrop-filter: blur(10px);
-  border: 1px solid ${({ theme }) => theme.colors.border};
+  background: ${({ theme }) => theme.gradients.glass};
+  backdrop-filter: ${({ theme }) => theme.blur.md};
+  border: 1px solid ${({ theme }) => theme.colors.borderLight};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   color: ${({ theme }) => theme.colors.text};
   cursor: pointer;
@@ -49,9 +49,7 @@ const StyledLanguageButton = styled.button<{ $fullWidth?: boolean }>`
   width: ${({ $fullWidth }) => ($fullWidth ? "100%" : "auto")};
   justify-content: space-between;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.05),
-    0 0 0 1px rgba(38, 161, 223, 0.05);
+  box-shadow: ${({ theme }) => theme.shadows.sm};
   position: relative;
   overflow: hidden;
 
@@ -68,11 +66,11 @@ const StyledLanguageButton = styled.button<{ $fullWidth?: boolean }>`
   }
 
   &:hover {
-    border-color: rgba(38, 161, 223, 0.4);
+    border-color: ${({ theme }) => theme.colors.border};
     box-shadow:
-      0 4px 12px rgba(38, 161, 223, 0.15),
+      ${({ theme }) => theme.shadows.md},
       0 0 0 1px rgba(38, 161, 223, 0.1);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
 
     &::before {
       opacity: 1;
@@ -81,10 +79,10 @@ const StyledLanguageButton = styled.button<{ $fullWidth?: boolean }>`
 
   &:focus {
     outline: none;
-    border-color: rgba(38, 161, 223, 0.5);
+    border-color: ${({ theme }) => theme.colors.border};
     box-shadow:
-      0 0 0 3px rgba(38, 161, 223, 0.1),
-      0 4px 12px rgba(38, 161, 223, 0.2);
+      ${({ theme }) => theme.shadows.md},
+      0 0 0 1px rgba(38, 161, 223, 0.1);
   }
 
   &:active {
@@ -109,13 +107,13 @@ const StyledLanguageDropdown = styled.div<{ isOpen: boolean; direction: "up" | "
   ${({ direction }) => (direction === "up" ? "bottom: calc(100% + 8px);" : "top: calc(100% + 8px);")}
   left: 0;
   right: 0;
-  background: ${({ theme }) => theme.colors.surface};
-  backdrop-filter: blur(20px);
-  border: 1px solid ${({ theme }) => theme.colors.border};
+  background: ${({ theme }) => theme.gradients.glass};
+  backdrop-filter: ${({ theme }) => theme.blur.md} brightness(0%);
+  border: 1px solid ${({ theme }) => theme.colors.borderLight};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   box-shadow:
-    0 10px 40px rgba(38, 161, 223, 0.15),
-    0 0 0 1px rgba(38, 161, 223, 0.05);
+    ${({ theme }) => theme.shadows.xl},
+    0 0 0 1px rgba(38, 161, 223, 0.1);
   overflow: hidden;
   z-index: 50;
   display: ${({ isOpen }) => (isOpen ? "block" : "none")};
@@ -129,6 +127,7 @@ const StyledLanguageDropdown = styled.div<{ isOpen: boolean; direction: "up" | "
     right: 0;
     height: 3px;
     background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
+    border-radius: ${({ theme }) => theme.borderRadius.lg} ${({ theme }) => theme.borderRadius.lg} 0 0;
   }
 `;
 

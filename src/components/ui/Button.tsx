@@ -92,43 +92,35 @@ const StyledButton = styled.button<ButtonProps>`
         `;
       case "secondary":
         return `
-          background-color: ${
-            theme.isDark
-              ? "rgba(100, 116, 139, 0.9)" // ダークモード: slate-500相当の透明度付き
-              : theme.colors.gray[600]
-          };
-          color: white;
-          border: none;
+          background: ${theme.gradients.glass};
+          backdrop-filter: ${theme.blur.md};
+          color: ${theme.colors.text};
+          border: 1px solid ${theme.colors.borderLight};
+          box-shadow: ${theme.shadows.sm};
 
           &:hover:not(:disabled) {
-            background-color: ${
-              theme.isDark
-                ? "rgba(148, 163, 184, 1)" // ダークモード: slate-400相当
-                : theme.colors.gray[700]
-            };
+            border-color: ${theme.colors.border};
+            transform: translateY(-2px);
+            box-shadow: ${theme.shadows.md};
           }
 
           &:active:not(:disabled) {
-            background-color: ${
-              theme.isDark
-                ? "rgba(71, 85, 105, 1)" // ダークモード: slate-600相当
-                : theme.colors.gray[800]
-            };
+            transform: translateY(0);
+            box-shadow: ${theme.shadows.sm};
           }
         `;
       case "outline":
         return `
-          background-color: transparent;
+          background: ${theme.gradients.glass};
+          backdrop-filter: ${theme.blur.md};
           color: ${theme.colors.primary[600]};
-          border: 1px solid ${theme.colors.primary[400]};
+          border: 1px solid ${theme.colors.borderLight};
           box-shadow: ${theme.shadows.sm};
 
           &:hover:not(:disabled) {
-            background: ${theme.gradients.glass};
-            backdrop-filter: ${theme.blur.sm};
-            border-color: ${theme.colors.primary[600]};
-            transform: translateY(-1px);
-            box-shadow: ${theme.shadows.md};
+            border-color: ${theme.colors.border};
+            transform: translateY(-2px);
+            box-shadow: ${theme.shadows.md}, 0 0 0 1px rgba(38, 161, 223, 0.1);
           }
 
           &:active:not(:disabled) {
@@ -143,41 +135,52 @@ const StyledButton = styled.button<ButtonProps>`
           border: none;
 
           &:hover:not(:disabled) {
-            background-color: ${theme.isDark ? "rgba(255, 255, 255, 0.05)" : theme.colors.gray[100]};
+            background: ${theme.gradients.glass};
+            backdrop-filter: ${theme.blur.sm};
           }
 
           &:active:not(:disabled) {
-            background-color: ${theme.isDark ? "rgba(255, 255, 255, 0.1)" : theme.colors.gray[200]};
+            background: ${theme.isDark ? "rgba(255, 255, 255, 0.1)" : theme.colors.gray[200]};
           }
         `;
       case "win":
         return `
-          background-color: ${theme.isDark ? "rgba(34, 197, 94, 0.15)" : theme.colors.win[200]};
-          color: ${theme.isDark ? "rgba(134, 239, 172, 1)" : theme.colors.win[700]};
-          border: ${theme.isDark ? "1px solid rgba(34, 197, 94, 0.3)" : "none"};
+          background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(34, 197, 94, 0.15) 100%);
+          backdrop-filter: ${theme.blur.md};
+          color: ${theme.colors.win[700]};
+          border: 1px solid rgba(34, 197, 94, 0.2);
+          box-shadow: ${theme.shadows.sm};
 
           &:hover:not(:disabled) {
-            background-color: ${theme.isDark ? "rgba(34, 197, 94, 0.25)" : theme.colors.win[300]};
-            border-color: ${theme.isDark ? "rgba(34, 197, 94, 0.5)" : "transparent"};
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(34, 197, 94, 0.2) 100%);
+            border-color: rgba(34, 197, 94, 0.3);
+            transform: translateY(-2px);
+            box-shadow: ${theme.shadows.md}, 0 4px 12px rgba(34, 197, 94, 0.2);
           }
 
           &:active:not(:disabled) {
-            background-color: ${theme.isDark ? "rgba(34, 197, 94, 0.35)" : theme.colors.win[800]};
+            transform: translateY(0);
+            box-shadow: ${theme.shadows.sm};
           }
         `;
       case "defeat":
         return `
-          background-color: ${theme.isDark ? "rgba(239, 68, 68, 0.15)" : theme.colors.defeat[200]};
-          color: ${theme.isDark ? "rgba(252, 165, 165, 1)" : theme.colors.defeat[700]};
-          border: ${theme.isDark ? "1px solid rgba(239, 68, 68, 0.3)" : "none"};
+          background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.15) 100%);
+          backdrop-filter: ${theme.blur.md};
+          color: ${theme.colors.defeat[700]};
+          border: 1px solid rgba(239, 68, 68, 0.2);
+          box-shadow: ${theme.shadows.sm};
 
           &:hover:not(:disabled) {
-            background-color: ${theme.isDark ? "rgba(239, 68, 68, 0.25)" : theme.colors.defeat[300]};
-            border-color: ${theme.isDark ? "rgba(239, 68, 68, 0.5)" : "transparent"};
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(239, 68, 68, 0.2) 100%);
+            border-color: rgba(239, 68, 68, 0.3);
+            transform: translateY(-2px);
+            box-shadow: ${theme.shadows.md}, 0 4px 12px rgba(239, 68, 68, 0.2);
           }
 
           &:active:not(:disabled) {
-            background-color: ${theme.isDark ? "rgba(239, 68, 68, 0.35)" : theme.colors.defeat[800]};
+            transform: translateY(0);
+            box-shadow: ${theme.shadows.sm};
           }
         `;
     }

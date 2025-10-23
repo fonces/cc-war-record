@@ -56,33 +56,32 @@ const Label = styled.label`
 
 const SelectButton = styled.button<{ isOpen: boolean }>`
   padding: 0.5rem 2.5rem 0.5rem 1rem;
-  border: 2px solid ${({ isOpen, theme }) => (isOpen ? theme.colors.primary[400] : theme.colors.border)};
+  border: 1px solid ${({ isOpen, theme }) => (isOpen ? theme.colors.border : theme.colors.borderLight)};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
-  background: ${({ theme }) => theme.colors.surface};
-  backdrop-filter: ${({ theme }) => theme.blur.sm};
+  background: ${({ theme }) => theme.gradients.glass};
+  backdrop-filter: ${({ theme }) => theme.blur.md};
   color: ${({ theme }) => theme.colors.text};
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
   text-align: left;
   transition: all ${({ theme }) => theme.transitions.base};
-  box-shadow: ${({ theme, isOpen }) => (isOpen ? `${theme.shadows.md}, ${theme.shadows.glow}` : theme.shadows.sm)};
+  box-shadow: ${({ theme, isOpen }) => (isOpen ? `${theme.shadows.md}, 0 0 0 1px rgba(38, 161, 223, 0.1)` : theme.shadows.sm)};
   position: relative;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 
   &:hover {
-    border-color: ${({ theme }) => theme.colors.primary[400]};
+    border-color: ${({ theme }) => theme.colors.border};
     box-shadow: ${({ theme }) => theme.shadows.md};
     transform: translateY(-1px);
   }
 
   &:focus {
     outline: none;
-    border-color: ${({ theme }) => theme.colors.primary[500]};
-    box-shadow: ${({ theme }) => `${theme.shadows.md}, ${theme.shadows.glow}`};
-    background: ${({ theme }) => (theme.isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(255, 255, 255, 0.95)")};
+    border-color: ${({ theme }) => theme.colors.border};
+    box-shadow: ${({ theme }) => `${theme.shadows.md}, 0 0 0 1px rgba(38, 161, 223, 0.1)`};
   }
 `;
 
@@ -104,11 +103,11 @@ const DropdownContainer = styled.div<{ isOpen: boolean }>`
   top: calc(100% + 0.5rem);
   left: 0;
   right: 0;
-  background: ${({ theme }) => theme.colors.surface};
-  backdrop-filter: ${({ theme }) => theme.blur.md};
-  border: 2px solid ${({ theme }) => theme.colors.border};
+  background: ${({ theme }) => theme.gradients.glass};
+  backdrop-filter: ${({ theme }) => theme.blur.md} brightness(0%);
+  border: 1px solid ${({ theme }) => theme.colors.borderLight};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
-  box-shadow: ${({ theme }) => `${theme.shadows.xl}, ${theme.shadows.glow}`};
+  box-shadow: ${({ theme }) => `${theme.shadows.xl}, 0 0 0 1px rgba(38, 161, 223, 0.1)`};
   max-height: 300px;
   overflow-y: auto;
   z-index: 50;
@@ -123,6 +122,7 @@ const DropdownContainer = styled.div<{ isOpen: boolean }>`
     right: 0;
     height: 3px;
     background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
+    border-radius: ${({ theme }) => theme.borderRadius.lg} ${({ theme }) => theme.borderRadius.lg} 0 0;
   }
 `;
 

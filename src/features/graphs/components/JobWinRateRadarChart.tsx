@@ -10,12 +10,14 @@ import { StyledChartContainer, StyledChartHeader, StyledChartTitle, StyledFilter
 import type { History, MatchRecord, Job, Character } from "@/types";
 
 const StyledTooltip = styled.div`
-  background: ${({ theme }) => theme.colors.surface};
-  backdrop-filter: ${({ theme }) => theme.blur.md};
-  border: 1px solid ${({ theme }) => theme.colors.border};
+  background: ${({ theme }) => theme.gradients.glass};
+  backdrop-filter: ${({ theme }) => `${theme.blur.md} brightness(${theme.isDark ? "0%" : "100%"})`};
+  border: 1px solid ${({ theme }) => theme.colors.borderLight};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   padding: ${({ theme }) => theme.spacing[3]};
-  box-shadow: ${({ theme }) => theme.shadows.xl};
+  box-shadow:
+    ${({ theme }) => theme.shadows.xl},
+    0 0 0 1px rgba(38, 161, 223, 0.1);
 
   .label {
     font-weight: 600;
