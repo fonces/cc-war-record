@@ -1,5 +1,6 @@
 import { memo } from "react";
 import styled from "styled-components";
+import { fadeIn } from "@/styles/animation";
 
 const StyledPageContainer = styled.div`
   padding: ${({ theme }) => theme.spacing[6]};
@@ -31,7 +32,7 @@ const StyledPageTitle = styled.h1`
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: fadeIn 0.5s ease-out;
+  animation: ${fadeIn} 0.5s ease-out;
 `;
 
 const StyledPageDescription = styled.p`

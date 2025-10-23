@@ -1,6 +1,7 @@
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { useRef, type ReactNode } from "react";
 import styled from "styled-components";
+import { fadeIn, shimmer } from "@/styles/animation";
 
 // テーブルコンテナ
 const StyledTableContainer = styled.div<{ $height?: string }>`
@@ -16,18 +17,7 @@ const StyledTableContainer = styled.div<{ $height?: string }>`
   position: relative;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  animation: fadeIn 0.6s ease-out 0.1s backwards;
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+  animation: ${fadeIn} 0.6s ease-out 0.1s backwards;
 
   &::before {
     content: "";
@@ -165,19 +155,7 @@ const StyledLoadingCell = styled.div`
   justify-content: center;
   height: 100%;
 
-  @keyframes shimmer {
-    0% {
-      opacity: 0.5;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0.5;
-    }
-  }
-
-  animation: shimmer 1.5s ease-in-out infinite;
+  animation: ${shimmer} 1.5s ease-in-out infinite;
 `;
 
 export interface VirtualTableColumn {

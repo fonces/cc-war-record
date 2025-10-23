@@ -4,6 +4,7 @@ import { useTranslation } from "@/hooks";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { sendEvent } from "@/lib/analytics";
 import { useHistoryStore, useCharacterStore } from "@/stores";
+import { fadeIn, slideDown } from "@/styles/animation";
 import { HistoryTable } from "./HistoryTable";
 
 const StyledStatsGrid = styled.div`
@@ -11,7 +12,7 @@ const StyledStatsGrid = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: ${({ theme }) => theme.spacing[4]};
   margin-bottom: ${({ theme }) => theme.spacing[6]};
-  animation: fadeIn 0.5s ease-out;
+  animation: ${fadeIn} 0.5s ease-out;
 `;
 
 const StyledStatCard = styled.div`
@@ -77,18 +78,7 @@ const StyledErrorMessage = styled.div`
   margin-bottom: ${({ theme }) => theme.spacing[6]};
   font-size: 0.875rem;
   box-shadow: ${({ theme }) => theme.shadows.md};
-  animation: slideDown 0.3s ease-out;
-
-  @keyframes slideDown {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+  animation: ${slideDown} 0.3s ease-out;
 
   button {
     margin-top: ${({ theme }) => theme.spacing[2]};
@@ -108,7 +98,7 @@ const StyledErrorMessage = styled.div`
 `;
 
 const StyledTableWrapper = styled.div`
-  animation: fadeIn 0.5s ease-out 0.1s both;
+  animation: ${fadeIn} 0.5s ease-out 0.1s both;
 `;
 
 /**

@@ -1,18 +1,5 @@
-import styled, { keyframes } from "styled-components";
-
-/**
- * フェードインアニメーション
- */
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`;
+import styled from "styled-components";
+import { fadeIn } from "@/styles/animation";
 
 /**
  * グラフコンテナの共通スタイル
@@ -45,6 +32,8 @@ export const StyledChartContainer = styled.div`
   }
 
   /* Recharts要素のフォーカスoutlineを打ち消し */
+  .recharts-layer:focus,
+  .recharts-layer path:focus,
   .recharts-surface:focus {
     outline: none;
   }
@@ -78,7 +67,7 @@ export const StyledChartTitle = styled.h2`
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: fadeIn 0.5s ease-out;
+  animation: ${fadeIn} 0.5s ease-out;
   position: relative;
 
   &::after {

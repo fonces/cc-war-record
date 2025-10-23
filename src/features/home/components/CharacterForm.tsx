@@ -56,13 +56,19 @@ const StyledCharacterStats = styled.div`
 `;
 
 const StyledCharacterContent = styled.div<{ isOpen: boolean }>`
-  max-height: ${({ isOpen }) => (isOpen ? "1000px" : "0")};
+  display: grid;
+  grid-template-rows: ${({ isOpen }) => (isOpen ? "1fr" : "0fr")};
+  transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
-  transition: max-height 0.3s ease-in-out;
 `;
 
 const StyledCharacterBody = styled.div`
-  padding: ${({ theme }) => theme.spacing[6]};
+  min-height: 0;
+  overflow: hidden;
+
+  > * {
+    padding: ${({ theme }) => theme.spacing[6]};
+  }
 `;
 
 const StyledCharacterFormContent = styled.div`

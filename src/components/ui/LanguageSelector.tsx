@@ -4,14 +4,25 @@ import { useTranslation } from "@/hooks";
 import { Icon } from "./Icon";
 
 // アニメーション
-const fadeIn = keyframes`
+const fadeInUp = keyframes`
   from {
     opacity: 0;
-    transform: translateY(-8px) scale(0.95);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
+  }
+`;
+
+const fadeInDown = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 `;
 
@@ -108,7 +119,7 @@ const StyledLanguageDropdown = styled.div<{ isOpen: boolean; direction: "up" | "
   overflow: hidden;
   z-index: 50;
   display: ${({ isOpen }) => (isOpen ? "block" : "none")};
-  animation: ${fadeIn} 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: ${({ direction }) => (direction === "up" ? fadeInUp : fadeInDown)} 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
   &::before {
     content: "";

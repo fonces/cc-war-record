@@ -2,6 +2,7 @@ import { memo } from "react";
 import styled from "styled-components";
 import { Button, Icon } from "@/components/ui";
 import { useScrollLock, useTranslation } from "@/hooks";
+import { dialogSlideIn, fadeIn } from "@/styles/animation";
 import type { ReactNode } from "react";
 
 type DialogProps = {
@@ -38,7 +39,7 @@ const StyledOverlay = styled.div<{ isOpen: boolean }>`
   justify-content: center;
   z-index: 1000;
   padding: ${({ theme }) => theme.spacing[4]};
-  animation: fadeIn ${({ theme }) => theme.transitions.base};
+  animation: ${fadeIn} ${({ theme }) => theme.transitions.base};
 `;
 
 const StyledDialog = styled.div`
@@ -52,18 +53,7 @@ const StyledDialog = styled.div`
   max-height: 90vh;
   display: flex;
   flex-direction: column;
-  animation: dialogSlideIn ${({ theme }) => theme.transitions.bounce};
-
-  @keyframes dialogSlideIn {
-    from {
-      opacity: 0;
-      transform: scale(0.9) translateY(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1) translateY(0);
-    }
-  }
+  animation: ${dialogSlideIn} ${({ theme }) => theme.transitions.bounce};
 `;
 
 const StyledHeader = styled.div`

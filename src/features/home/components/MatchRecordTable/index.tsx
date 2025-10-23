@@ -81,9 +81,21 @@ const StyledMapWinRate = styled.span<{ winRate: number }>`
 `;
 
 const StyledMapContent = styled.div<{ isOpen: boolean }>`
-  max-height: ${({ isOpen }) => (isOpen ? "10000px" : "0")};
+  display: grid;
+  grid-template-rows: ${({ isOpen }) => (isOpen ? "1fr" : "0fr")};
+  transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
-  transition: max-height 0.3s ease-in-out;
+
+  > * {
+    min-height: 0;
+  }
+`;
+
+const StyledArrowWrapper = styled.span<{ isOpen: boolean }>`
+  display: flex;
+  align-items: center;
+  transform: ${({ isOpen }) => (isOpen ? "rotate(180deg)" : "rotate(0deg)")};
+  transition: transform 0.3s ease;
 `;
 
 type MatchRecordTableProps = {
@@ -141,7 +153,9 @@ export const MatchRecordTable = ({ usedJobs, matchRecords, onAddWin, onAddDefeat
           <StyledMapSection key={mapData.map}>
             <StyledMapTitle onClick={() => toggleMap(mapData.map)} isCurrentMap={isCurrentMap}>
               <StyledMapTitleLeft>
-                <Icon name={openMaps.has(mapData.map) ? "minus" : "add"} size={16} />
+                <StyledArrowWrapper isOpen={openMaps.has(mapData.map)}>
+                  <Icon name="arrowDropDown" size={20} />
+                </StyledArrowWrapper>
                 <span>{getMapName(mapData.map, t)}</span>
                 {isCurrentMap && (
                   <StyledCurrentMapBadge>

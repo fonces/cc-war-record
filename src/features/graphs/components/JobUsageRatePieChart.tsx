@@ -163,7 +163,7 @@ const JobUsageRatePieChartComponent = ({ history, matchRecords, characters }: Jo
           <PieChart>
             <Pie data={chartData} cx="50%" cy="50%" labelLine={false} label={renderCustomizedLabel} outerRadius={150} fill="#8884d8" dataKey="value" isAnimationActive={false}>
               {chartData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={JOB_INFO[entry.job].color} />
+                <Cell key={`cell-${index}`} fill={JOB_INFO[entry.job].color} fillOpacity={theme.isDark ? 0.6 : 0.8} />
               ))}
             </Pie>
             <Tooltip content={<CustomTooltip />} />

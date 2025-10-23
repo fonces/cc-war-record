@@ -5,11 +5,13 @@ import { Button, Input, Dialog, PageTitle, PageDescription } from "@/components/
 import { useTranslation } from "@/hooks";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { useHistoryStore } from "@/stores";
+import { fadeIn } from "@/styles/animation";
 
 const StyledContainer = styled.div`
   max-width: 600px;
   margin: 0 auto;
   padding: ${({ theme }) => theme.spacing[6]};
+  animation: ${fadeIn} 0.6s ease-out;
 `;
 
 const StyledHeader = styled.div`

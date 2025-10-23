@@ -6,6 +6,7 @@ import { Button, PageContainer, PageTitleContainer, PageTitle, PageDescription, 
 import { usePageTitle, useTranslation } from "@/hooks";
 import { sendEvent } from "@/lib/analytics";
 import { useHistoryStore, useCharacterStore } from "@/stores";
+import { fadeIn } from "@/styles/animation";
 import { CharacterCard } from "./CharacterCard";
 import { CharacterForm } from "./CharacterForm";
 import { DeleteCharacterDialog } from "./DeleteCharacterDialog";
@@ -17,6 +18,7 @@ const StyledCharacterList = styled.div`
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing[4]};
   margin-top: ${({ theme }) => theme.spacing[6]};
+  animation: ${fadeIn} 0.5s ease-out;
 `;
 
 const StyledErrorMessage = styled.div`

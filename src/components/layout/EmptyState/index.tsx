@@ -2,18 +2,7 @@ import { memo } from "react";
 import styled, { keyframes } from "styled-components";
 import { Button, Icon } from "@/components/ui";
 import { useTranslation } from "@/hooks";
-
-// アニメーション
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`;
+import { fadeIn } from "@/styles/animation";
 
 const float = keyframes`
   0%, 100% {

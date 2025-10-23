@@ -77,45 +77,6 @@ export const GlobalStyle = createGlobalStyle`
     color: ${({ theme }) => theme.colors.primary[900]};
   }
 
-  /* グローバルアニメーション */
-  @keyframes shimmer {
-    0% {
-      transform: translateX(-100%);
-    }
-    100% {
-      transform: translateX(100%);
-    }
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes pulse {
-    0%, 100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.8;
-    }
-  }
-
-  @keyframes glow {
-    0%, 100% {
-      box-shadow: 0 0 20px rgba(38, 161, 223, 0.4);
-    }
-    50% {
-      box-shadow: 0 0 40px rgba(38, 161, 223, 0.6);
-    }
-  }
-
   button {
     cursor: pointer;
     border: none;

@@ -1,16 +1,8 @@
 import { memo } from "react";
 import { createPortal } from "react-dom";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { useThemeMode, useTranslation } from "@/hooks";
-
-const rotate = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-`;
+import { rotate } from "@/styles/animation";
 
 const StyledToggleContainer = styled.div`
   position: fixed;

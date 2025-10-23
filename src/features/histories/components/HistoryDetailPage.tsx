@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import {
   PageContainer,
   PageTitleContainer,
@@ -18,16 +18,11 @@ import {
 import { useTranslation } from "@/hooks";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { useHistoryStore, useCharacterStore } from "@/stores";
+import { fadeIn } from "@/styles/animation";
 import { JOB_INFO } from "@/types/jobs";
 import { getScrollbarWidth, getWinRateColor } from "@/utils";
 import { formatDateTable } from "@/utils/uuid";
 import type { MatchRecord } from "@/types";
-
-// アニメーション
-const fadeIn = keyframes`
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-`;
 
 // 統計グリッド
 const StyledStatsGrid = styled.div`

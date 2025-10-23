@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import styled from "styled-components";
 import { Button, Icon, Dialog, VirtualTable, StyledTableRow, StyledTableCell, type VirtualTableColumn } from "@/components/ui";
 import { useTranslation } from "@/hooks";
+import { fadeIn } from "@/styles/animation";
 import { getScrollbarWidth } from "@/utils";
 import { formatDateTable } from "@/utils/uuid";
 import type { History } from "@/types";
@@ -141,7 +142,7 @@ const StyledEmptyState = styled.div`
     background: ${({ theme }) => theme.gradients.primary};
   }
 
-  animation: fadeIn 0.5s ease-out;
+  animation: ${fadeIn} 0.5s ease-out;
 `;
 
 const StyledEmptyIcon = styled.div`
@@ -154,20 +155,9 @@ const StyledEmptyIcon = styled.div`
   justify-content: center;
   margin-bottom: ${({ theme }) => theme.spacing[5]};
   box-shadow: 0 8px 24px rgba(38, 161, 223, 0.3);
-  animation: pulse 2s ease-in-out infinite;
 
   svg {
-    color: white;
-  }
-
-  @keyframes pulse {
-    0%,
-    100% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.05);
-    }
+    color: ${({ theme }) => theme.colors.white};
   }
 `;
 

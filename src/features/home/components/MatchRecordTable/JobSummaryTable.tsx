@@ -1,20 +1,9 @@
-import styled, { keyframes } from "styled-components";
-import { Button, JobIcon, Icon } from "@/components/ui";
+import styled from "styled-components";
+import { Button, JobIcon, Icon, AnimatedNumber } from "@/components/ui";
 import { useTranslation } from "@/hooks";
+import { fadeIn } from "@/styles/animation";
 import { getWinRateColor } from "@/utils/colors";
 import type { Job, CrystalConflictMap } from "@/types";
-
-// アニメーション
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`;
 
 const StyledTableContainer = styled.div`
   overflow: hidden;
@@ -25,7 +14,6 @@ const StyledTableContainer = styled.div`
   box-shadow: ${({ theme }) => theme.shadows.xl};
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
-  animation: ${fadeIn} 0.6s ease-out;
 
   &:hover {
     box-shadow:
@@ -276,11 +264,23 @@ export const JobSummaryTable = ({ usedJobs, jobSummaries, onAddWin, onAddDefeat,
                       {summary.job}
                     </div>
                   </StyledJobCell>
-                  <StyledTableCell>{summary.totalMatches}</StyledTableCell>
-                  <StyledTableCell>{summary.wins}</StyledTableCell>
-                  <StyledTableCell>{summary.defeats}</StyledTableCell>
                   <StyledTableCell>
-                    {0 < summary.totalMatches ? <StyledWinRateText winRate={summary.winRate}>{summary.winRate}%</StyledWinRateText> : <span>--%</span>}
+                    <AnimatedNumber>{summary.totalMatches}</AnimatedNumber>
+                  </StyledTableCell>
+                  <StyledTableCell>
+                    <AnimatedNumber>{summary.wins}</AnimatedNumber>
+                  </StyledTableCell>
+                  <StyledTableCell>
+                    <AnimatedNumber>{summary.defeats}</AnimatedNumber>
+                  </StyledTableCell>
+                  <StyledTableCell>
+                    {0 < summary.totalMatches ? (
+                      <StyledWinRateText winRate={summary.winRate}>
+                        <AnimatedNumber suffix="%">{summary.winRate}</AnimatedNumber>
+                      </StyledWinRateText>
+                    ) : (
+                      <span>--%</span>
+                    )}
                   </StyledTableCell>
                   <StyledTableCell>
                     {map ? (

@@ -5,6 +5,7 @@ import { PageContainer, PageTitle, PageDescription, PageTitleContainer } from "@
 import { useTranslation } from "@/hooks";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { useHistoryStore, useCharacterStore } from "@/stores";
+import { fadeIn } from "@/styles/animation";
 import { DailyWinDefeatChart } from "./DailyWinDefeatChart";
 import { HourlyWinDefeatChart } from "./HourlyWinDefeatChart";
 import { JobUsageRatePieChart } from "./JobUsageRatePieChart";
@@ -14,7 +15,7 @@ import { WeeklyWinDefeatChart } from "./WeeklyWinDefeatChart";
 const StyledGraphsGrid = styled.div`
   display: grid;
   gap: ${({ theme }) => theme.spacing[6]};
-  animation: fadeIn 0.5s ease-out;
+  animation: ${fadeIn} 0.5s ease-out;
 `;
 
 /**

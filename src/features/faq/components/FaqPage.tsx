@@ -2,12 +2,7 @@ import { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { PageContainer, PageTitleContainer, PageTitle, PageDescription } from "@/components/ui";
 import { usePageTitle, useTranslation } from "@/hooks";
-
-// アニメーション
-const fadeIn = keyframes`
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-`;
+import { fadeIn } from "@/styles/animation";
 
 const shine = keyframes`
   0% { background-position: -200% center; }
@@ -144,7 +139,7 @@ const ExpandIcon = styled.div<{ $isOpen: boolean }>`
 `;
 
 const Answer = styled.div<{ $isOpen: boolean }>`
-  padding: ${({ $isOpen, theme }) => ($isOpen ? `0 ${theme.spacing[6]} ${theme.spacing[5]}` : "0")};
+  padding: ${({ $isOpen, theme }) => ($isOpen ? `${theme.spacing[2]} 0 ${theme.spacing[6]} ${theme.spacing[5]}` : "0")};
   color: ${({ theme }) => theme.colors.textSecondary};
   line-height: 1.7;
   max-height: ${({ $isOpen }) => ($isOpen ? "1000px" : "0")};
