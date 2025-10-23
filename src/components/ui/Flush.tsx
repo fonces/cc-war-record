@@ -1,5 +1,6 @@
 import { memo } from "react";
 import styled from "styled-components";
+import { Icon } from "./Icon";
 
 type FlushType = "error" | "success" | "warning" | "info";
 
@@ -8,6 +9,10 @@ type FlushProps = {
   type?: FlushType;
   /** メッセージ内容 */
   children: React.ReactNode;
+  /** 閉じるボタンを表示するか */
+  closable?: boolean;
+  /** 閉じるボタンのクリックハンドラー */
+  onClose?: () => void;
 };
 
 const StyledFlush = styled.div<{ $type: FlushType }>`
@@ -15,6 +20,10 @@ const StyledFlush = styled.div<{ $type: FlushType }>`
   border-radius: ${({ theme }) => theme.borderRadius.md};
   margin-bottom: ${({ theme }) => theme.spacing[4]};
   font-size: 0.875rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: ${({ theme }) => theme.spacing[3]};
 
   ${({ theme, $type }) => {
     const isDark = theme.isDark;
@@ -50,12 +59,47 @@ const StyledFlush = styled.div<{ $type: FlushType }>`
   }}
 `;
 
+const StyledContent = styled.div`
+  flex: 1;
+`;
+
+const StyledCloseButton = styled.button`
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.6;
+  transition: opacity ${({ theme }) => theme.transitions.base};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+`;
+
 /**
  * フラッシュメッセージコンポーネント
  * エラー、成功、警告、情報メッセージを表示
  */
-export const Flush = memo(({ type = "info", children }: FlushProps) => {
-  return <StyledFlush $type={type}>{children}</StyledFlush>;
+export const Flush = memo(({ type = "info", children, closable = false, onClose }: FlushProps) => {
+  return (
+    <StyledFlush $type={type}>
+      <StyledContent>{children}</StyledContent>
+      {closable && onClose && (
+        <StyledCloseButton onClick={onClose} type="button" aria-label="Close">
+          <Icon name="close" size={16} />
+        </StyledCloseButton>
+      )}
+    </StyledFlush>
+  );
 });
 
 Flush.displayName = "Flush";
