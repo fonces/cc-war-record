@@ -73,6 +73,11 @@ const StyledCharacterBody = styled.div`
   }
 `;
 
+const StyledFlushWrapper = styled.div`
+  padding: ${({ theme }) => theme.spacing[6]};
+  padding-bottom: 0;
+`;
+
 const StyledCharacterFormContent = styled.div`
   display: flex;
   gap: ${({ theme }) => theme.spacing[3]};
@@ -144,11 +149,13 @@ export const CharacterForm = ({ isOpen: isOpenProp, onCreateCharacter, error, on
 
       <StyledCharacterContent isOpen={isOpen}>
         <StyledCharacterBody>
-          {error && onClearError && (
-            <Flush type="error" onClose={onClearError}>
-              {error}
-            </Flush>
-          )}
+          <StyledFlushWrapper>
+            {error && onClearError && (
+              <Flush type="error" onClose={onClearError}>
+                {error}
+              </Flush>
+            )}
+          </StyledFlushWrapper>
           <StyledCharacterFormContent>
             <StyledFormGroup>
               <StyledLabel htmlFor="character-name">{t("character.name")}</StyledLabel>
