@@ -65,6 +65,7 @@ export const HomePage = () => {
   } | null>(null);
   const [jobRegistrationDialogOpen, setJobRegistrationDialogOpen] = useState(false);
   const [characterForJobRegistration, setCharacterForJobRegistration] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   // シーズンを作成するボタンのクリックハンドラー
   const handleCreateSeason = () => {
@@ -75,6 +76,9 @@ export const HomePage = () => {
   const handleCreateCharacter = (name: string) => {
     try {
       createCharacter({ name });
+      setSuccessMessage(t("character.createSuccess", { name }));
+      // 3秒後に成功メッセージを自動的にクリア
+      setTimeout(() => setSuccessMessage(null), 3000);
     } catch {
       // エラーは characterError で表示される
     }
@@ -295,7 +299,14 @@ export const HomePage = () => {
             onCancelEdit={handleCancelEditing}
           />
         ))}
-        <CharacterForm isOpen={characterStats.length === 0} onCreateCharacter={handleCreateCharacter} error={characterError} onClearError={clearError} />
+        <CharacterForm
+          isOpen={characterStats.length === 0}
+          onCreateCharacter={handleCreateCharacter}
+          error={characterError}
+          onClearError={clearError}
+          success={successMessage}
+          onClearSuccess={() => setSuccessMessage(null)}
+        />
       </StyledCharacterList>
 
       <DeleteCharacterDialog isOpen={deleteDialogOpen} character={characterToDelete} onClose={handleCancelDelete} onConfirm={handleConfirmDelete} />

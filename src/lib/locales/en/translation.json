@@ -202,6 +202,7 @@
   "character": {
     "name": "Character Name",
     "create": "Create Character",
+    "createSuccess": "Character \"{{name}}\" created successfully",
     "edit": "Edit Character Name",
     "delete": "Delete Character",
     "confirmDelete": "Delete",

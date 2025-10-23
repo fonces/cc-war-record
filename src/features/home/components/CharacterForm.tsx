@@ -94,6 +94,7 @@ const StyledFormGroup = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
+  gap: ${({ theme }) => theme.spacing[4]};
   min-width: 200px;
 `;
 
@@ -101,7 +102,6 @@ const StyledLabel = styled.label`
   font-size: 0.875rem;
   font-weight: 500;
   color: ${({ theme }) => theme.colors.text};
-  margin-bottom: ${({ theme }) => theme.spacing[2]};
 `;
 
 type CharacterFormProps = {
@@ -113,12 +113,16 @@ type CharacterFormProps = {
   error?: string | null;
   /** エラークリアハンドラー */
   onClearError?: () => void;
+  /** 成功メッセージ */
+  success?: string | null;
+  /** 成功メッセージクリアハンドラー */
+  onClearSuccess?: () => void;
 };
 
 /**
  * キャラクター作成フォームコンポーネント
  */
-export const CharacterForm = ({ isOpen: isOpenProp, onCreateCharacter, error, onClearError }: CharacterFormProps) => {
+export const CharacterForm = ({ isOpen: isOpenProp, onCreateCharacter, error, onClearError, success, onClearSuccess }: CharacterFormProps) => {
   const { t } = useTranslation();
   const [newCharacterName, setNewCharacterName] = useState("");
   const [isOpen, setIsOpen] = useState(isOpenProp);
@@ -149,13 +153,20 @@ export const CharacterForm = ({ isOpen: isOpenProp, onCreateCharacter, error, on
 
       <StyledCharacterContent isOpen={isOpen}>
         <StyledCharacterBody>
-          <StyledFlushWrapper>
-            {error && onClearError && (
-              <Flush type="error" onClose={onClearError}>
-                {error}
-              </Flush>
-            )}
-          </StyledFlushWrapper>
+          {(success || error) && (
+            <StyledFlushWrapper>
+              {success && onClearSuccess && (
+                <Flush type="success" onClose={onClearSuccess}>
+                  {success}
+                </Flush>
+              )}
+              {error && onClearError && (
+                <Flush type="error" onClose={onClearError}>
+                  {error}
+                </Flush>
+              )}
+            </StyledFlushWrapper>
+          )}
           <StyledCharacterFormContent>
             <StyledFormGroup>
               <StyledLabel htmlFor="character-name">{t("character.name")}</StyledLabel>

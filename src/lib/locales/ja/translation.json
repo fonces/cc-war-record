@@ -202,6 +202,7 @@
   "character": {
     "name": "キャラクター名",
     "create": "キャラクターを作成",
+    "createSuccess": "キャラクター「{{name}}」を作成しました",
     "edit": "キャラクター名を編集",
     "delete": "キャラクターを削除",
     "confirmDelete": "削除する",

@@ -16,7 +16,6 @@ type FlushProps = {
 const StyledFlush = styled.div<{ $type: FlushType }>`
   padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
   border-radius: ${({ theme }) => theme.borderRadius.md};
-  margin-bottom: ${({ theme }) => theme.spacing[4]};
   font-size: 0.875rem;
   display: flex;
   align-items: flex-start;
