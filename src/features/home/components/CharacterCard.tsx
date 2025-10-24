@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import { Button, Icon, IconicButton, Input } from "@/components/ui";
 import { useTranslation } from "@/hooks";
-import { getTotalMatches, getWins, getDefeats, getWinRate } from "@/types/history";
-import { getWinRateColor } from "@/utils/colors";
+import { getTotalMatches, getWins, getDefeats, getWinRate, getWinRateColor } from "@/utils";
 import { MatchRecordTable } from "./MatchRecordTable";
 import type { CharacterStats, Job, CrystalConflictMap, UUIDv4 } from "@/types";
 
