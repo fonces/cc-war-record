@@ -1,17 +1,17 @@
-import{C as e,E as t,K as n,T as r,_ as i,b as a,it as o,q as s,st as c,tt as l,v as u,y as d}from"./index-BERaIJaj.js";var f=c(o()),p=c(l()),m=s`
+import{S as e,T as t,_ as n,_t as r,dt as i,g as a,mt as o,nt as s,rt as c,v as l,w as u,y as d}from"./index-BBYhvlPi.js";var f=r(o()),p=r(i()),m=c`
   0% { background-position: -200% center; }
   100% { background-position: 200% center; }
-`,h=n.div`
+`,h=s.div`
   margin-top: ${({theme:e})=>e.spacing[6]};
   animation: ${e} 0.6s ease-out;
-`,g=n.div`
+`,g=s.div`
   margin-bottom: ${({theme:e})=>e.spacing[8]};
   animation: ${e} 0.6s ease-out;
 
   &:nth-child(2) {
     animation-delay: 0.1s;
   }
-`,_=n.h2`
+`,_=s.h2`
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: ${({theme:e})=>e.spacing[6]};
@@ -31,7 +31,7 @@ import{C as e,E as t,K as n,T as r,_ as i,b as a,it as o,q as s,st as c,tt as l,
     background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
     border-radius: 2px;
   }
-`,v=n.div`
+`,v=s.div`
   margin-bottom: ${({theme:e})=>e.spacing[4]};
   background: ${({theme:e})=>e.gradients.glass};
   backdrop-filter: ${({theme:e})=>e.blur.md};
@@ -58,7 +58,7 @@ import{C as e,E as t,K as n,T as r,_ as i,b as a,it as o,q as s,st as c,tt as l,
     box-shadow: 0 8px 24px rgba(38, 161, 223, 0.12);
     border-color: ${({theme:e})=>e.colors.border};
   }
-`,y=n.button`
+`,y=s.button`
   width: 100%;
   padding: ${({theme:e})=>e.spacing[5]} ${({theme:e})=>e.spacing[6]};
   background: transparent;
@@ -74,12 +74,12 @@ import{C as e,E as t,K as n,T as r,_ as i,b as a,it as o,q as s,st as c,tt as l,
   &:hover {
     background: ${({theme:e})=>e.isDark?`rgba(38, 161, 223, 0.08)`:`rgba(38, 161, 223, 0.03)`};
   }
-`,b=n.div`
+`,b=s.div`
   display: flex;
   align-items: center;
   gap: ${({theme:e})=>e.spacing[3]};
   flex: 1;
-`,x=n.div`
+`,x=s.div`
   width: 32px;
   height: 32px;
   border-radius: ${({theme:e})=>e.borderRadius.full};
@@ -91,13 +91,13 @@ import{C as e,E as t,K as n,T as r,_ as i,b as a,it as o,q as s,st as c,tt as l,
   font-weight: 700;
   font-size: 0.875rem;
   flex-shrink: 0;
-`,S=n.h3`
+`,S=s.h3`
   font-size: 1rem;
   font-weight: 600;
   color: ${({theme:e})=>e.colors.text};
   margin: 0;
   flex: 1;
-`,C=n.div`
+`,C=s.div`
   width: 24px;
   height: 24px;
   display: flex;
@@ -112,7 +112,7 @@ import{C as e,E as t,K as n,T as r,_ as i,b as a,it as o,q as s,st as c,tt as l,
     height: 20px;
     fill: currentColor;
   }
-`,w=n.div`
+`,w=s.div`
   padding: ${({$isOpen:e,theme:t})=>e?`${t.spacing[2]} 0 ${t.spacing[6]} ${t.spacing[5]}`:`0`};
   color: ${({theme:e})=>e.colors.textSecondary};
   line-height: 1.7;
@@ -156,7 +156,7 @@ import{C as e,E as t,K as n,T as r,_ as i,b as a,it as o,q as s,st as c,tt as l,
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-`,T=n.div`
+`,T=s.div`
   margin-top: ${({theme:e})=>e.spacing[12]};
   padding: ${({theme:e})=>e.spacing[8]};
   background: ${({theme:e})=>e.gradients.glass};
@@ -204,4 +204,4 @@ import{C as e,E as t,K as n,T as r,_ as i,b as a,it as o,q as s,st as c,tt as l,
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-`,E=({question:e,children:t,defaultOpen:n=!1})=>{let[r,i]=(0,f.useState)(n);return(0,p.jsxs)(v,{$isOpen:r,children:[(0,p.jsxs)(y,{$isOpen:r,onClick:()=>i(!r),children:[(0,p.jsxs)(b,{children:[(0,p.jsx)(x,{children:`Q`}),(0,p.jsx)(S,{children:e})]}),(0,p.jsx)(C,{$isOpen:r,children:(0,p.jsx)(`svg`,{viewBox:`0 0 24 24`,xmlns:`http://www.w3.org/2000/svg`,children:(0,p.jsx)(`path`,{d:`M7 10l5 5 5-5z`})})})]}),(0,p.jsx)(w,{$isOpen:r,children:t})]})};const D=()=>{let{t:e}=t();return r(e(`pages.faq.title`)),(0,p.jsxs)(i,{children:[(0,p.jsx)(a,{children:(0,p.jsx)(d,{children:e(`pages.faq.title`)})}),(0,p.jsx)(u,{children:e(`pages.faq.description`)}),(0,p.jsxs)(h,{children:[(0,p.jsxs)(g,{children:[(0,p.jsx)(_,{children:e(`pages.faq.privacy.title`)}),(0,p.jsxs)(E,{question:e(`pages.faq.privacy.dataStorage.question`),defaultOpen:!0,children:[(0,p.jsx)(`p`,{children:(0,p.jsx)(`strong`,{children:e(`pages.faq.privacy.dataStorage.answer.intro`)})}),(0,p.jsx)(`p`,{children:e(`pages.faq.privacy.dataStorage.answer.description`)}),(0,p.jsxs)(`ul`,{children:[(0,p.jsx)(`li`,{children:e(`pages.faq.privacy.dataStorage.answer.points.0`)}),(0,p.jsx)(`li`,{children:e(`pages.faq.privacy.dataStorage.answer.points.1`)}),(0,p.jsx)(`li`,{children:e(`pages.faq.privacy.dataStorage.answer.points.2`)}),(0,p.jsx)(`li`,{children:e(`pages.faq.privacy.dataStorage.answer.points.3`)})]})]}),(0,p.jsxs)(E,{question:e(`pages.faq.privacy.analytics.question`),children:[(0,p.jsx)(`p`,{children:e(`pages.faq.privacy.analytics.answer.intro`)}),(0,p.jsx)(`p`,{children:e(`pages.faq.privacy.analytics.answer.collected`)}),(0,p.jsxs)(`ul`,{children:[(0,p.jsx)(`li`,{children:e(`pages.faq.privacy.analytics.answer.collectedPoints.0`)}),(0,p.jsx)(`li`,{children:e(`pages.faq.privacy.analytics.answer.collectedPoints.1`)}),(0,p.jsx)(`li`,{children:e(`pages.faq.privacy.analytics.answer.collectedPoints.2`)})]}),(0,p.jsx)(`p`,{children:(0,p.jsx)(`strong`,{children:e(`pages.faq.privacy.analytics.answer.notCollected`)})}),(0,p.jsxs)(`ul`,{children:[(0,p.jsx)(`li`,{children:e(`pages.faq.privacy.analytics.answer.notCollectedPoints.0`)}),(0,p.jsx)(`li`,{children:e(`pages.faq.privacy.analytics.answer.notCollectedPoints.1`)}),(0,p.jsx)(`li`,{children:e(`pages.faq.privacy.analytics.answer.notCollectedPoints.2`)})]}),(0,p.jsx)(`p`,{children:e(`pages.faq.privacy.analytics.answer.anonymous`)})]}),(0,p.jsxs)(E,{question:e(`pages.faq.privacy.dataDeletion.question`),children:[(0,p.jsx)(`p`,{children:e(`pages.faq.privacy.dataDeletion.answer.intro`)}),(0,p.jsxs)(`ul`,{children:[(0,p.jsx)(`li`,{children:e(`pages.faq.privacy.dataDeletion.answer.methods.0`)}),(0,p.jsx)(`li`,{children:e(`pages.faq.privacy.dataDeletion.answer.methods.1`)})]}),(0,p.jsx)(`p`,{children:e(`pages.faq.privacy.dataDeletion.answer.browserMethods`)}),(0,p.jsxs)(`ul`,{children:[(0,p.jsx)(`li`,{children:e(`pages.faq.privacy.dataDeletion.answer.browserSteps.0`)}),(0,p.jsx)(`li`,{children:e(`pages.faq.privacy.dataDeletion.answer.browserSteps.1`)}),(0,p.jsx)(`li`,{children:e(`pages.faq.privacy.dataDeletion.answer.browserSteps.2`)})]})]})]}),(0,p.jsxs)(g,{children:[(0,p.jsx)(_,{children:e(`pages.faq.usage.title`)}),(0,p.jsxs)(E,{question:e(`pages.faq.usage.dataDefeat.question`),children:[(0,p.jsx)(`p`,{children:e(`pages.faq.usage.dataDefeat.answer.intro`)}),(0,p.jsxs)(`ul`,{children:[(0,p.jsx)(`li`,{children:e(`pages.faq.usage.dataDefeat.answer.causes.0`)}),(0,p.jsx)(`li`,{children:e(`pages.faq.usage.dataDefeat.answer.causes.1`)}),(0,p.jsx)(`li`,{children:e(`pages.faq.usage.dataDefeat.answer.causes.2`)}),(0,p.jsx)(`li`,{children:e(`pages.faq.usage.dataDefeat.answer.causes.3`)})]}),(0,p.jsx)(`p`,{children:(0,p.jsx)(`strong`,{children:e(`pages.faq.usage.dataDefeat.answer.recommendation`)})})]}),(0,p.jsxs)(E,{question:e(`pages.faq.usage.dataSyncing.question`),children:[(0,p.jsx)(`p`,{children:e(`pages.faq.usage.dataSyncing.answer.limitation`)}),(0,p.jsx)(`p`,{children:e(`pages.faq.usage.dataSyncing.answer.explanation`)})]})]})]}),(0,p.jsxs)(T,{children:[(0,p.jsx)(`p`,{children:`FINAL FANTASY is a registered trademark of Square Enix Holdings Co., Ltd.`}),(0,p.jsx)(`p`,{children:(0,p.jsx)(`strong`,{children:`© SQUARE ENIX CO., LTD. All Rights Reserved.`})}),(0,p.jsx)(`p`,{children:e(`pages.faq.copyright.disclaimer`)})]})]})};export{D as FaqPage};
+`,E=({question:e,children:t,defaultOpen:n=!1})=>{let[r,i]=(0,f.useState)(n);return(0,p.jsxs)(v,{$isOpen:r,children:[(0,p.jsxs)(y,{$isOpen:r,onClick:()=>i(!r),children:[(0,p.jsxs)(b,{children:[(0,p.jsx)(x,{children:`Q`}),(0,p.jsx)(S,{children:e})]}),(0,p.jsx)(C,{$isOpen:r,children:(0,p.jsx)(`svg`,{viewBox:`0 0 24 24`,xmlns:`http://www.w3.org/2000/svg`,children:(0,p.jsx)(`path`,{d:`M7 10l5 5 5-5z`})})})]}),(0,p.jsx)(w,{$isOpen:r,children:t})]})};const D=()=>{let{t:e}=t();return u(e(`pages.faq.title`)),(0,p.jsxs)(a,{children:[(0,p.jsx)(d,{children:(0,p.jsx)(l,{children:e(`pages.faq.title`)})}),(0,p.jsx)(n,{children:e(`pages.faq.description`)}),(0,p.jsxs)(h,{children:[(0,p.jsxs)(g,{children:[(0,p.jsx)(_,{children:e(`pages.faq.privacy.title`)}),(0,p.jsxs)(E,{question:e(`pages.faq.privacy.dataStorage.question`),defaultOpen:!0,children:[(0,p.jsx)(`p`,{children:(0,p.jsx)(`strong`,{children:e(`pages.faq.privacy.dataStorage.answer.intro`)})}),(0,p.jsx)(`p`,{children:e(`pages.faq.privacy.dataStorage.answer.description`)}),(0,p.jsxs)(`ul`,{children:[(0,p.jsx)(`li`,{children:e(`pages.faq.privacy.dataStorage.answer.points.0`)}),(0,p.jsx)(`li`,{children:e(`pages.faq.privacy.dataStorage.answer.points.1`)}),(0,p.jsx)(`li`,{children:e(`pages.faq.privacy.dataStorage.answer.points.2`)}),(0,p.jsx)(`li`,{children:e(`pages.faq.privacy.dataStorage.answer.points.3`)})]})]}),(0,p.jsxs)(E,{question:e(`pages.faq.privacy.analytics.question`),children:[(0,p.jsx)(`p`,{children:e(`pages.faq.privacy.analytics.answer.intro`)}),(0,p.jsx)(`p`,{children:e(`pages.faq.privacy.analytics.answer.collected`)}),(0,p.jsxs)(`ul`,{children:[(0,p.jsx)(`li`,{children:e(`pages.faq.privacy.analytics.answer.collectedPoints.0`)}),(0,p.jsx)(`li`,{children:e(`pages.faq.privacy.analytics.answer.collectedPoints.1`)}),(0,p.jsx)(`li`,{children:e(`pages.faq.privacy.analytics.answer.collectedPoints.2`)})]}),(0,p.jsx)(`p`,{children:(0,p.jsx)(`strong`,{children:e(`pages.faq.privacy.analytics.answer.notCollected`)})}),(0,p.jsxs)(`ul`,{children:[(0,p.jsx)(`li`,{children:e(`pages.faq.privacy.analytics.answer.notCollectedPoints.0`)}),(0,p.jsx)(`li`,{children:e(`pages.faq.privacy.analytics.answer.notCollectedPoints.1`)}),(0,p.jsx)(`li`,{children:e(`pages.faq.privacy.analytics.answer.notCollectedPoints.2`)})]}),(0,p.jsx)(`p`,{children:e(`pages.faq.privacy.analytics.answer.anonymous`)})]}),(0,p.jsxs)(E,{question:e(`pages.faq.privacy.dataDeletion.question`),children:[(0,p.jsx)(`p`,{children:e(`pages.faq.privacy.dataDeletion.answer.intro`)}),(0,p.jsxs)(`ul`,{children:[(0,p.jsx)(`li`,{children:e(`pages.faq.privacy.dataDeletion.answer.methods.0`)}),(0,p.jsx)(`li`,{children:e(`pages.faq.privacy.dataDeletion.answer.methods.1`)})]}),(0,p.jsx)(`p`,{children:e(`pages.faq.privacy.dataDeletion.answer.browserMethods`)}),(0,p.jsxs)(`ul`,{children:[(0,p.jsx)(`li`,{children:e(`pages.faq.privacy.dataDeletion.answer.browserSteps.0`)}),(0,p.jsx)(`li`,{children:e(`pages.faq.privacy.dataDeletion.answer.browserSteps.1`)}),(0,p.jsx)(`li`,{children:e(`pages.faq.privacy.dataDeletion.answer.browserSteps.2`)})]})]})]}),(0,p.jsxs)(g,{children:[(0,p.jsx)(_,{children:e(`pages.faq.usage.title`)}),(0,p.jsxs)(E,{question:e(`pages.faq.usage.dataDefeat.question`),children:[(0,p.jsx)(`p`,{children:e(`pages.faq.usage.dataDefeat.answer.intro`)}),(0,p.jsxs)(`ul`,{children:[(0,p.jsx)(`li`,{children:e(`pages.faq.usage.dataDefeat.answer.causes.0`)}),(0,p.jsx)(`li`,{children:e(`pages.faq.usage.dataDefeat.answer.causes.1`)}),(0,p.jsx)(`li`,{children:e(`pages.faq.usage.dataDefeat.answer.causes.2`)}),(0,p.jsx)(`li`,{children:e(`pages.faq.usage.dataDefeat.answer.causes.3`)})]}),(0,p.jsx)(`p`,{children:(0,p.jsx)(`strong`,{children:e(`pages.faq.usage.dataDefeat.answer.recommendation`)})})]}),(0,p.jsxs)(E,{question:e(`pages.faq.usage.dataSyncing.question`),children:[(0,p.jsx)(`p`,{children:e(`pages.faq.usage.dataSyncing.answer.limitation`)}),(0,p.jsx)(`p`,{children:e(`pages.faq.usage.dataSyncing.answer.explanation`)})]})]})]}),(0,p.jsxs)(T,{children:[(0,p.jsx)(`p`,{children:`FINAL FANTASY is a registered trademark of Square Enix Holdings Co., Ltd.`}),(0,p.jsx)(`p`,{children:(0,p.jsx)(`strong`,{children:`© SQUARE ENIX CO., LTD. All Rights Reserved.`})}),(0,p.jsx)(`p`,{children:e(`pages.faq.copyright.disclaimer`)})]})]})};export{D as FaqPage};

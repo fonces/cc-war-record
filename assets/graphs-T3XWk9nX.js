@@ -1,2 +1,0 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/graphs-BJ7hKSfw.js","assets/index-BERaIJaj.js","assets/stores-DsdzEjKc.js","assets/utils-ahtYqTut.js"])))=>i.map(i=>d[i]);
-import{X as e,Y as t}from"./index-BERaIJaj.js";var n=e(()=>t(()=>import(`./graphs-BJ7hKSfw.js`),__vite__mapDeps([0,1,2,3])).then(e=>({default:e.GraphsPage})));export{n as component};
