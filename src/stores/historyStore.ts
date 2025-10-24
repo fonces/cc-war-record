@@ -1,7 +1,8 @@
 import i18next from "i18next";
 import { create } from "zustand";
+import { getCurrentISOString } from "@/utils";
 import { getFromLocalStorage, removeFromLocalStorage, saveToLocalStorage, STORAGE_KEYS } from "@/utils/localStorage";
-import { generateUUID, getCurrentISOString } from "@/utils/uuid";
+import { generateUUID } from "@/utils/uuid";
 import { useCharacterStore } from "./characterStore";
 import type { History, CreateHistoryInput, UpdateHistoryInput, CharacterStats, Character, AddUsedJobInput, MatchRecord } from "@/types";
 

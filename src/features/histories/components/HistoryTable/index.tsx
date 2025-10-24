@@ -3,8 +3,7 @@ import { useMemo, useState } from "react";
 import styled from "styled-components";
 import { Button, IconicButton, Icon, Dialog, VirtualTable, TableRow, TableCell, type VirtualTableColumn } from "@/components/ui";
 import { useTranslation } from "@/hooks";
-import { getScrollbarWidth } from "@/utils";
-import { formatDateTable } from "@/utils/uuid";
+import { getScrollbarWidth, formatDateTable } from "@/utils";
 import type { History } from "@/types";
 
 type HistoryTableProps = {

@@ -3,8 +3,7 @@ import styled from "styled-components";
 import { VirtualTable, TableRow, TableCell, Icon, JobIcon, IconicButton, Dialog, type VirtualTableColumn } from "@/components/ui";
 import { useTranslation } from "@/hooks";
 import { JOB_INFO } from "@/types/jobs";
-import { getScrollbarWidth } from "@/utils";
-import { formatDateTable } from "@/utils/uuid";
+import { getScrollbarWidth, formatDateTable } from "@/utils";
 import type { MatchRecord } from "@/types";
 
 // キャラクター名セル

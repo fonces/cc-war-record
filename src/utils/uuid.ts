@@ -15,27 +15,3 @@ export const generateUUID = (): UUIDv4 => {
     return v.toString(16);
   }) as UUIDv4;
 };
-
-/**
- * 現在のISO日時文字列を取得
- * @returns ISO日時文字列
- */
-export const getCurrentISOString = (): string => {
-  return new Date().toISOString();
-};
-
-/**
- * 日付文字列をyyyy-MM-dd HH:mm形式でフォーマット
- * @param isoString ISO日時文字列
- * @returns yyyy-MM-dd HH:mm形式の日付文字列
- */
-export const formatDateTable = (isoString: string): string => {
-  const date = new Date(isoString);
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  const hours = String(date.getHours()).padStart(2, "0");
-  const minutes = String(date.getMinutes()).padStart(2, "0");
-
-  return `${year}-${month}-${day} ${hours}:${minutes}`;
-};
