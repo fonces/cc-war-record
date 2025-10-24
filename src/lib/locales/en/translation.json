@@ -53,17 +53,16 @@
       }
     },
     "histories": {
-      "title": "History List",
-      "description": "View and manage past seasons. You can check the details of each season by clicking the detail button.",
+      "title": "History",
+      "description": "View and manage past seasons. Click the detail button to see more information about each season.",
       "totalSeasons": "Total Seasons: {{count}}",
       "totalMatches": "Total Matches: {{count}}",
-      "latestCreated": "Latest Created",
+      "latestCreated": "Latest",
       "detail": "Details",
       "delete": "Delete",
       "confirmDelete": "Delete Season",
       "deleteDescription": "Are you sure you want to delete \"{{seasonName}}\"?\nThis action cannot be undone.",
       "emptyState": "No history available",
-      "createFirstSeason": "No season history has been created yet.\nPlease create a new season.",
       "stats": "Seasons",
       "errors": {
         "loadFailed": "Failed to load history",
@@ -83,7 +82,6 @@
       "winRate": "Win Rate",
       "overall": "Overall",
       "createdDate": "Created",
-      "notFound": "History not found",
       "columns": {
         "season": "Season Name",
         "character": "Character Name",

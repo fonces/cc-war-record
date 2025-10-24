@@ -63,7 +63,6 @@
       "confirmDelete": "シーズンの削除",
       "deleteDescription": "「{{seasonName}}」を削除してもよろしいですか？\nこの操作は取り消すことができません。",
       "emptyState": "履歴がありません",
-      "createFirstSeason": "シーズンの履歴がまだ作成されていません。\n新しいシーズンを作成してください。",
       "stats": "シーズン数",
       "errors": {
         "loadFailed": "履歴の読み込みに失敗しました",
@@ -83,7 +82,6 @@
       "winRate": "勝率",
       "overall": "全体",
       "createdDate": "作成日",
-      "notFound": "履歴が見つかりません",
       "columns": {
         "season": "シーズン名",
         "character": "キャラクター名",
