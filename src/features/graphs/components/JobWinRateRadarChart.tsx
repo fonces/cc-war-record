@@ -5,7 +5,7 @@ import { Select, MultiSelect } from "@/components/ui";
 import { aggregateJobWinRateByMap } from "@/features/graphs/utils/aggregate";
 import { useTranslation } from "@/hooks";
 import { JOB_INFO, JOBS } from "@/types/jobs";
-import { getRadarChartJobs, saveRadarChartJobs } from "@/utils/localStorage";
+import { STORAGE_KEYS, getFromLocalStorage, saveToLocalStorage } from "@/utils/localStorage";
 import { StyledChartContainer, StyledChartHeader, StyledChartTitle, StyledFiltersWrapper } from "./ChartContainer";
 import type { History, MatchRecord, Job, Character } from "@/types";
 
@@ -85,13 +85,13 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
 const JobWinRateRadarChartComponent = ({ history, matchRecords, characters }: JobWinRateRadarChartProps) => {
   const { t } = useTranslation();
   const [selectedCharacterUuid, setSelectedCharacterUuid] = useState<string | null>(null);
-  const [selectedJobs, setSelectedJobs] = useState<Job[]>(() => getRadarChartJobs());
+  const [selectedJobs, setSelectedJobs] = useState<Job[]>(() => getFromLocalStorage(STORAGE_KEYS.RADAR_CHART_JOBS, [JOBS.PALADIN, JOBS.WHITE_MAGE]));
 
   // ジョブ選択変更ハンドラー
   const handleJobsChange = (jobs: string[]) => {
     const jobList = jobs as Job[];
     setSelectedJobs(jobList);
-    saveRadarChartJobs(jobList);
+    saveToLocalStorage(STORAGE_KEYS.RADAR_CHART_JOBS, jobList);
   };
 
   const radarData = aggregateJobWinRateByMap(history, matchRecords, selectedCharacterUuid, selectedJobs, t);

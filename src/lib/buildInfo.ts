@@ -18,7 +18,7 @@ export const checkBuildUpdate = async (): Promise<boolean> => {
   // 初回アクセスの場合はタイムスタンプを保存して終了
   if (!storedTimestamp) {
     saveToLocalStorage(STORAGE_KEYS.BUILD_TIMESTAMP, timestamp.toString());
-    console.log("First access: build timestamp saved");
+    console.info("First access: build timestamp saved");
     return false;
   }
 
@@ -26,7 +26,7 @@ export const checkBuildUpdate = async (): Promise<boolean> => {
   const isUpdated = Number(storedTimestamp) !== timestamp;
 
   if (isUpdated) {
-    console.log("Build updated detected:", {
+    console.info("Build updated detected:", {
       old: new Date(Number(storedTimestamp)).toISOString(),
       new: buildInfo.buildTime,
     });
@@ -39,19 +39,17 @@ export const checkBuildUpdate = async (): Promise<boolean> => {
       try {
         const registration = await navigator.serviceWorker.ready;
         await registration.unregister();
-        console.log("ServiceWorker unregistered");
+        console.info("ServiceWorker unregistered");
 
         // キャッシュストレージをクリア
         if ("caches" in window) {
           const cacheNames = await caches.keys();
           await Promise.all(cacheNames.map((name) => caches.delete(name)));
-          console.log("Cache storage cleared");
+          console.info("Cache storage cleared");
         }
-
-        // ページをリロード
-        window.location.reload();
       } catch (error) {
         console.error("Error clearing ServiceWorker cache:", error);
+        return false;
       }
     }
 

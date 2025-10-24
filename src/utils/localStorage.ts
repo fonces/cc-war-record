@@ -2,7 +2,6 @@
  * localStorage ユーティリティ
  */
 
-import { JOBS } from "@/types/jobs";
 import type { Job, Character, MatchRecord, History } from "@/types";
 
 /**
@@ -107,18 +106,4 @@ export const removeFromLocalStorage = (key: StorageKey): void => {
   } catch (error) {
     console.error(`Error removing from localStorage (key: ${key}):`, error);
   }
-};
-
-/**
- * レーダーチャート用の選択ジョブリストを取得
- */
-export const getRadarChartJobs = (): Job[] => {
-  return getFromLocalStorage(STORAGE_KEYS.RADAR_CHART_JOBS, [JOBS.PALADIN, JOBS.WHITE_MAGE]);
-};
-
-/**
- * レーダーチャート用の選択ジョブリストを保存
- */
-export const saveRadarChartJobs = (jobs: Job[]): void => {
-  saveToLocalStorage(STORAGE_KEYS.RADAR_CHART_JOBS, jobs);
 };
