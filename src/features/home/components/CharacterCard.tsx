@@ -4,7 +4,7 @@ import { useTranslation } from "@/hooks";
 import { getTotalMatches, getWins, getDefeats, getWinRate } from "@/types/history";
 import { getWinRateColor } from "@/utils/colors";
 import { MatchRecordTable } from "./MatchRecordTable";
-import type { CharacterStats, Job, CrystalConflictMap } from "@/types";
+import type { CharacterStats, Job, CrystalConflictMap, UUIDv4 } from "@/types";
 
 const StyledCharacterCard = styled.div`
   background: ${({ theme }) => theme.gradients.glass};
@@ -122,17 +122,17 @@ type CharacterCardProps = {
   /** アコーディオントグル */
   onToggle: () => void;
   /** 編集開始 */
-  onStartEdit: (uuid: string, name: string) => void;
+  onStartEdit: (uuid: UUIDv4, name: string) => void;
   /** 削除 */
-  onDelete: (uuid: string, name: string) => void;
+  onDelete: (uuid: UUIDv4, name: string) => void;
   /** ジョブ登録ダイアログを開く */
-  onOpenJobRegistration: (uuid: string) => void;
+  onOpenJobRegistration: (uuid: UUIDv4) => void;
   /** 勝利記録を追加（ジョブとマップ指定） */
-  onAddWin?: (characterUuid: string, job: Job, map: CrystalConflictMap) => void;
+  onAddWin?: (characterUuid: UUIDv4, job: Job, map: CrystalConflictMap) => void;
   /** 敗北記録を追加（ジョブとマップ指定） */
-  onAddDefeat?: (characterUuid: string, job: Job, map: CrystalConflictMap) => void;
+  onAddDefeat?: (characterUuid: UUIDv4, job: Job, map: CrystalConflictMap) => void;
   /** 直近の記録を取り消し（ジョブとマップ指定） */
-  onRevertLast?: (characterUuid: string, job: Job, map: CrystalConflictMap) => void;
+  onRevertLast?: (characterUuid: UUIDv4, job: Job, map: CrystalConflictMap) => void;
   /** 編集中かどうか */
   isEditing: boolean;
   /** 編集中の名前 */

@@ -1,13 +1,9 @@
 import i18next from "i18next";
 import { create } from "zustand";
-import { getFromLocalStorage, saveToLocalStorage } from "@/utils/localStorage";
+import { getFromLocalStorage, saveToLocalStorage, STORAGE_KEYS } from "@/utils/localStorage";
 import { generateUUID, getCurrentISOString } from "@/utils/uuid";
 import { useHistoryStore } from "./historyStore";
 import type { Character, MatchRecord, CharacterStats, CreateCharacterInput, CreateMatchRecordInput } from "@/types";
-
-// localStorageのキー
-const CHARACTERS_STORAGE_KEY = "cc-war-record-characters";
-const MATCH_RECORDS_STORAGE_KEY = "cc-war-record-match-records";
 
 /**
  * キャラクター・戦績ストアの状態型
@@ -64,8 +60,8 @@ export const useCharacterStore = create<CharacterState & CharacterActions>((set,
     set({ isLoading: true, error: null });
 
     try {
-      const characters = getFromLocalStorage<Character[]>(CHARACTERS_STORAGE_KEY, []);
-      const matchRecords = getFromLocalStorage<MatchRecord[]>(MATCH_RECORDS_STORAGE_KEY, []);
+      const characters = getFromLocalStorage(STORAGE_KEYS.CHARACTERS, []);
+      const matchRecords = getFromLocalStorage(STORAGE_KEYS.MATCH_RECORDS, []);
       set({ characters, matchRecords, isLoading: false });
     } catch (error) {
       set({
@@ -98,7 +94,7 @@ export const useCharacterStore = create<CharacterState & CharacterActions>((set,
     const updatedCharacters = [...characters, newCharacter];
 
     // localStorageに保存
-    saveToLocalStorage(CHARACTERS_STORAGE_KEY, updatedCharacters);
+    saveToLocalStorage(STORAGE_KEYS.CHARACTERS, updatedCharacters);
 
     set({
       characters: updatedCharacters,
@@ -129,7 +125,7 @@ export const useCharacterStore = create<CharacterState & CharacterActions>((set,
     const updatedCharacters = characters.map((character) => (character.uuid === uuid ? { ...character, name: name.trim(), updatedAt: now } : character));
 
     // localStorageに保存
-    saveToLocalStorage(CHARACTERS_STORAGE_KEY, updatedCharacters);
+    saveToLocalStorage(STORAGE_KEYS.CHARACTERS, updatedCharacters);
 
     set({
       characters: updatedCharacters,
@@ -154,8 +150,8 @@ export const useCharacterStore = create<CharacterState & CharacterActions>((set,
     const updatedMatchRecords = matchRecords.filter((m) => m.characterUuid !== uuid);
 
     // localStorageに保存
-    saveToLocalStorage(CHARACTERS_STORAGE_KEY, updatedCharacters);
-    saveToLocalStorage(MATCH_RECORDS_STORAGE_KEY, updatedMatchRecords);
+    saveToLocalStorage(STORAGE_KEYS.CHARACTERS, updatedCharacters);
+    saveToLocalStorage(STORAGE_KEYS.MATCH_RECORDS, updatedMatchRecords);
 
     set({
       characters: updatedCharacters,
@@ -186,7 +182,7 @@ export const useCharacterStore = create<CharacterState & CharacterActions>((set,
     const updatedMatchRecords = [...matchRecords, newMatchRecord];
 
     // localStorageに保存
-    saveToLocalStorage(MATCH_RECORDS_STORAGE_KEY, updatedMatchRecords);
+    saveToLocalStorage(STORAGE_KEYS.MATCH_RECORDS, updatedMatchRecords);
 
     set({
       matchRecords: updatedMatchRecords,
@@ -209,7 +205,7 @@ export const useCharacterStore = create<CharacterState & CharacterActions>((set,
     const updatedMatchRecords = matchRecords.filter((m) => m.uuid !== uuid);
 
     // localStorageに保存
-    saveToLocalStorage(MATCH_RECORDS_STORAGE_KEY, updatedMatchRecords);
+    saveToLocalStorage(STORAGE_KEYS.MATCH_RECORDS, updatedMatchRecords);
 
     set({
       matchRecords: updatedMatchRecords,
@@ -222,7 +218,7 @@ export const useCharacterStore = create<CharacterState & CharacterActions>((set,
   // 戦績記録をクリア
   clearMatchRecords: () => {
     // localStorageから削除
-    saveToLocalStorage(MATCH_RECORDS_STORAGE_KEY, []);
+    saveToLocalStorage(STORAGE_KEYS.MATCH_RECORDS, []);
 
     set({
       matchRecords: [],

@@ -6,3 +6,6 @@ export * from "./history";
 
 // FF14 クリスタルコンフリクト マップ関連の型定義をエクスポート
 export * from "./maps";
+
+// 文字列関連の型定義をエクスポート
+export * from "./string";

@@ -4,13 +4,14 @@
 
 import type { Job } from "./jobs";
 import type { CrystalConflictMap } from "./maps";
+import type { UUIDv4 } from "./string";
 
 /**
  * キャラクター情報の型
  */
 export type Character = {
   /** 一意識別子 */
-  uuid: string;
+  uuid: UUIDv4;
   /** キャラクター名 */
   name: string;
   /** 作成日時（ISO文字列） */
@@ -24,11 +25,11 @@ export type Character = {
  */
 export type MatchRecord = {
   /** 一意識別子 */
-  uuid: string;
+  uuid: UUIDv4;
   /** キャラクターUUID */
-  characterUuid: string;
+  characterUuid: UUIDv4;
   /** シーズンUUID */
-  seasonUuid: string;
+  seasonUuid: UUIDv4;
   /** 使用ジョブ */
   job: Job;
   /** マップ */
@@ -62,7 +63,7 @@ export type CharacterStats = {
  */
 export type History = {
   /** 一意識別子 */
-  uuid: string;
+  uuid: UUIDv4;
   /** シーズン名 */
   seasonName: string;
   /** キャラクター戦績統計の配列 */
@@ -102,9 +103,9 @@ export type CreateCharacterInput = {
  */
 export type AddUsedJobInput = {
   /** キャラクターUUID */
-  characterUuid: string;
+  characterUuid: UUIDv4;
   /** シーズンUUID */
-  seasonUuid: string;
+  seasonUuid: UUIDv4;
   /** 使用ジョブ */
   job: Job;
 };
@@ -114,9 +115,9 @@ export type AddUsedJobInput = {
  */
 export type CreateMatchRecordInput = {
   /** キャラクターUUID */
-  characterUuid: string;
+  characterUuid: UUIDv4;
   /** シーズンUUID */
-  seasonUuid: string;
+  seasonUuid: UUIDv4;
   /** 使用ジョブ */
   job: Job;
   /** マップ */

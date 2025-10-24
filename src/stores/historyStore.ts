@@ -1,12 +1,9 @@
 import i18next from "i18next";
 import { create } from "zustand";
-import { getFromLocalStorage, removeFromLocalStorage, saveToLocalStorage } from "@/utils/localStorage";
+import { getFromLocalStorage, removeFromLocalStorage, saveToLocalStorage, STORAGE_KEYS } from "@/utils/localStorage";
 import { generateUUID, getCurrentISOString } from "@/utils/uuid";
 import { useCharacterStore } from "./characterStore";
 import type { History, CreateHistoryInput, UpdateHistoryInput, CharacterStats, Character, AddUsedJobInput, MatchRecord } from "@/types";
-
-// localStorageのキー
-const STORAGE_KEY = "cc-war-record-histories";
 
 /**
  * 履歴ストアの状態型
@@ -60,7 +57,7 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
     set({ isLoading: true, error: null });
 
     try {
-      const histories = getFromLocalStorage<History[]>(STORAGE_KEY, []);
+      const histories = getFromLocalStorage(STORAGE_KEYS.HISTORIES, []);
       set({ histories, isLoading: false });
     } catch (error) {
       set({
@@ -118,7 +115,7 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
     const updatedHistories = [...histories, newHistory];
 
     // localStorageに保存
-    saveToLocalStorage(STORAGE_KEY, updatedHistories);
+    saveToLocalStorage(STORAGE_KEYS.HISTORIES, updatedHistories);
 
     set({
       histories: updatedHistories,
@@ -157,7 +154,7 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
     updatedHistories[historyIndex] = updatedHistory;
 
     // localStorageに保存
-    saveToLocalStorage(STORAGE_KEY, updatedHistories);
+    saveToLocalStorage(STORAGE_KEYS.HISTORIES, updatedHistories);
 
     set({
       histories: updatedHistories,
@@ -187,7 +184,7 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
     const updatedHistories = histories.filter((h) => h.uuid !== uuid);
 
     // localStorageに保存
-    saveToLocalStorage(STORAGE_KEY, updatedHistories);
+    saveToLocalStorage(STORAGE_KEYS.HISTORIES, updatedHistories);
 
     set({
       histories: updatedHistories,
@@ -247,7 +244,7 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
     updatedHistories[historyIndex] = updatedHistory;
 
     // localStorageに保存
-    saveToLocalStorage(STORAGE_KEY, updatedHistories);
+    saveToLocalStorage(STORAGE_KEYS.HISTORIES, updatedHistories);
 
     set({
       histories: updatedHistories,
@@ -305,7 +302,7 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
     updatedHistories[historyIndex] = updatedHistory;
 
     // localStorageに保存
-    saveToLocalStorage(STORAGE_KEY, updatedHistories);
+    saveToLocalStorage(STORAGE_KEYS.HISTORIES, updatedHistories);
 
     set({
       histories: updatedHistories,
@@ -318,7 +315,7 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
   // 指定したシーズンのマッチレコードを取得
   getMatchRecordsForSeason: (seasonUuid: string) => {
     try {
-      const matchRecords = getFromLocalStorage<MatchRecord[]>(`histories-${seasonUuid}`, []);
+      const matchRecords = getFromLocalStorage(`histories-${seasonUuid}`, []);
       return matchRecords;
     } catch (error) {
       console.error(i18next.t("pages.histories.errors.loadMatchRecordsFailed", { seasonUuid }), error);

@@ -11,7 +11,7 @@ import { CharacterCard } from "./CharacterCard";
 import { CharacterForm } from "./CharacterForm";
 import { DeleteCharacterDialog } from "./DeleteCharacterDialog";
 import { JobRegistrationDialog } from "./JobRegistrationDialog";
-import type { Job, CrystalConflictMap } from "@/types";
+import type { Job, CrystalConflictMap, UUIDv4 } from "@/types";
 
 const StyledCharacterList = styled.div`
   display: flex;
@@ -64,7 +64,7 @@ export const HomePage = () => {
     name: string;
   } | null>(null);
   const [jobRegistrationDialogOpen, setJobRegistrationDialogOpen] = useState(false);
-  const [characterForJobRegistration, setCharacterForJobRegistration] = useState<string | null>(null);
+  const [characterForJobRegistration, setCharacterForJobRegistration] = useState<UUIDv4 | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   // シーズンを作成するボタンのクリックハンドラー
@@ -148,7 +148,7 @@ export const HomePage = () => {
   };
 
   // ジョブ登録ダイアログを開く
-  const handleOpenJobRegistration = (characterUuid: string) => {
+  const handleOpenJobRegistration = (characterUuid: UUIDv4) => {
     setCharacterForJobRegistration(characterUuid);
     setJobRegistrationDialogOpen(true);
   };
@@ -177,7 +177,7 @@ export const HomePage = () => {
   };
 
   // 勝利記録を追加
-  const handleAddWin = (characterUuid: string, job: Job, map: CrystalConflictMap) => {
+  const handleAddWin = (characterUuid: UUIDv4, job: Job, map: CrystalConflictMap) => {
     if (!latestSeason) return;
 
     try {
@@ -197,7 +197,7 @@ export const HomePage = () => {
   };
 
   // 敗北記録を追加
-  const handleAddDefeat = (characterUuid: string, job: Job, map: CrystalConflictMap) => {
+  const handleAddDefeat = (characterUuid: UUIDv4, job: Job, map: CrystalConflictMap) => {
     if (!latestSeason) return;
 
     try {
