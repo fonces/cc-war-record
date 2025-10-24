@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import styled from "styled-components";
 import { Button, IconicButton, Icon, Dialog, VirtualTable, TableRow, TableCell, type VirtualTableColumn } from "@/components/ui";
 import { useTranslation } from "@/hooks";
-import { getScrollbarWidth, formatDateTable } from "@/utils";
+import { getScrollbarWidth, formatDate } from "@/utils";
 import type { History } from "@/types";
 
 type HistoryTableProps = {
@@ -142,7 +142,7 @@ export const HistoryTable = ({ histories, isLoading = false, onDelete }: History
           return (
             <TableRow>
               <StyledSeasonNameCell width={columnWidths.seasonName}>{history.seasonName}</StyledSeasonNameCell>
-              <StyledDateCell width={columnWidths.date}>{formatDateTable(history.createdAt)}</StyledDateCell>
+              <StyledDateCell width={columnWidths.date}>{formatDate(history.createdAt)}</StyledDateCell>
               <TableCell width={columnWidths.actions}>
                 <StyledButtonGroup>
                   <IconicButton

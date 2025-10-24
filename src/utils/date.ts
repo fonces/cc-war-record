@@ -11,19 +11,28 @@ export const getCurrentISOString = (): string => {
 };
 
 /**
- * 日付文字列をyyyy-MM-dd HH:mm形式でフォーマット
- * @param isoString ISO日時文字列
- * @returns yyyy-MM-dd HH:mm形式の日付文字列
+ * 日付を指定した形式でフォーマット
+ * ロケールとオプションが指定されていない場合は、yyyy-MM-dd HH:mm形式でフォーマット
+ * @param date - フォーマットする日付
+ * @param locale - ロケール（例: "ja-JP", "en-US", "ko-KR"）
+ * @param options - Intl.DateTimeFormatのオプション
+ * @returns フォーマットされた日付文字列
  */
-export const formatDateTable = (isoString: string): string => {
-  const date = new Date(isoString);
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  const hours = String(date.getHours()).padStart(2, "0");
-  const minutes = String(date.getMinutes()).padStart(2, "0");
+export const formatDate = (date: Date | string | number, locale?: string, options?: Intl.DateTimeFormatOptions): string => {
+  const dateObj = new Date(date);
 
-  return `${year}-${month}-${day} ${hours}:${minutes}`;
+  // ロケールが指定されていない場合は、yyyy-MM-dd HH:mm形式でフォーマット
+  if (!locale) {
+    const year = dateObj.getFullYear();
+    const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+    const day = String(dateObj.getDate()).padStart(2, "0");
+    const hours = String(dateObj.getHours()).padStart(2, "0");
+    const minutes = String(dateObj.getMinutes()).padStart(2, "0");
+
+    return `${year}-${month}-${day} ${hours}:${minutes}`;
+  }
+
+  return dateObj.toLocaleDateString(locale, options);
 };
 
 /**
@@ -46,16 +55,4 @@ export const formatShortDate = (date: Date | string | number, locale: string): s
 export const formatLongDate = (date: Date | string | number, locale: string): string => {
   const dateObj = new Date(date);
   return dateObj.toLocaleDateString(locale, { year: "numeric", month: "long", day: "numeric" });
-};
-
-/**
- * 日付を指定したオプションでフォーマット
- * @param date - フォーマットする日付
- * @param locale - ロケール（例: "ja-JP", "en-US", "ko-KR"）
- * @param options - Intl.DateTimeFormatのオプション
- * @returns フォーマットされた日付文字列
- */
-export const formatDate = (date: Date | string | number, locale: string, options?: Intl.DateTimeFormatOptions): string => {
-  const dateObj = new Date(date);
-  return dateObj.toLocaleDateString(locale, options);
 };

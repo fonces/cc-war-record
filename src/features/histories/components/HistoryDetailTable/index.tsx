@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { VirtualTable, TableRow, TableCell, Icon, JobIcon, IconicButton, Dialog, type VirtualTableColumn } from "@/components/ui";
 import { useTranslation } from "@/hooks";
 import { JOB_INFO } from "@/types/jobs";
-import { getScrollbarWidth, formatDateTable } from "@/utils";
+import { getScrollbarWidth, formatDate } from "@/utils";
 import type { MatchRecord } from "@/types";
 
 // キャラクター名セル
@@ -156,7 +156,7 @@ export const HistoryDetailTable = ({ matches, isCurrent, onDeleteMatch }: Histor
               <JobIcon job={match.job} size={24} />
               <StyledJobShortName>{JOB_INFO[match.job].shortName}</StyledJobShortName>
             </StyledJobCell>
-            <StyledDateCell width={columnWidths.date}>{formatDateTable(match.recordedAt)}</StyledDateCell>
+            <StyledDateCell width={columnWidths.date}>{formatDate(match.recordedAt)}</StyledDateCell>
             <TableCell width={columnWidths.result}>
               <StyledWinBadge $isWin={match.isWin}>{match.isWin ? t("pages.historyDetail.results.win") : t("pages.historyDetail.results.defeat")}</StyledWinBadge>
             </TableCell>
@@ -165,7 +165,7 @@ export const HistoryDetailTable = ({ matches, isCurrent, onDeleteMatch }: Histor
                 <IconicButton
                   $type="danger"
                   icon={<Icon name="delete" size={16} />}
-                  onClick={() => handleOpenDeleteDialog(match.uuid, match.characterName, formatDateTable(match.recordedAt))}
+                  onClick={() => handleOpenDeleteDialog(match.uuid, match.characterName, formatDate(match.recordedAt))}
                   title={t("match.deleteMatch")}
                 />
               </TableCell>
