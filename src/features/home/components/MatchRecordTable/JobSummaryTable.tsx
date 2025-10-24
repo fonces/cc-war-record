@@ -1,11 +1,26 @@
 import styled from "styled-components";
-import { Button, JobIcon, Icon } from "@/components/ui";
+import { Button, JobIcon, Icon, AnimatedNumber } from "@/components/ui";
 import { useTranslation } from "@/hooks";
+import { fadeIn } from "@/styles/animation";
 import { getWinRateColor } from "@/utils/colors";
 import type { Job, CrystalConflictMap } from "@/types";
 
 const StyledTableContainer = styled.div`
-  overflow-x: auto;
+  overflow: hidden;
+  background: ${({ theme }) => theme.colors.transparent};
+  backdrop-filter: ${({ theme }) => theme.blur.md};
+  /* border: 1px solid ${({ theme }) => theme.colors.borderLight}; */
+  border-radius: 0 0 ${({ theme }) => theme.borderRadius.md} ${({ theme }) => theme.borderRadius.md};
+  box-shadow: ${({ theme }) => theme.shadows.xl};
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+
+  &:hover {
+    box-shadow:
+      ${({ theme }) => theme.shadows["2xl"]},
+      0 0 0 1px rgba(38, 161, 223, 0.1);
+    border-color: ${({ theme }) => theme.colors.border};
+  }
 `;
 
 const StyledTable = styled.table`
@@ -16,8 +31,9 @@ const StyledTable = styled.table`
 `;
 
 const StyledTableHead = styled.thead`
-  background-color: ${({ theme }) => theme.colors.gray[50]};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray[200]};
+  background: linear-gradient(135deg, rgba(38, 161, 223, 0.08) 0%, rgba(243, 99, 70, 0.08) 100%);
+  border-bottom: 2px solid rgba(38, 161, 223, 0.15);
+  position: relative;
 `;
 
 const tableCellStyles = `
@@ -50,36 +66,47 @@ const tableCellStyles = `
 `;
 
 const StyledTableHeader = styled.th`
-  padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
+  padding: ${({ theme }) => theme.spacing[4]} ${({ theme }) => theme.spacing[4]};
   text-align: center;
-  font-weight: 600;
-  color: ${({ theme }) => theme.colors.text};
+  font-weight: 700;
+  font-size: 0.75rem;
+  color: ${({ theme }) => theme.colors.gray[700]};
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   white-space: nowrap;
   box-sizing: border-box;
+  position: relative;
   ${tableCellStyles}
 `;
 
 const StyledTableBody = styled.tbody``;
 
 const StyledTableRow = styled.tr`
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray[200]};
-  transition: background-color 0.15s;
-  height: 58px;
+  border-bottom: 1px solid rgba(38, 161, 223, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 64px;
+  position: relative;
 
   &:last-child {
     border-bottom: none;
   }
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.gray[50]};
+    background: linear-gradient(90deg, rgba(38, 161, 223, 0.03) 0%, rgba(243, 99, 70, 0.03) 100%);
+
+    &::before {
+      width: 4px;
+    }
   }
 `;
 
 const StyledTableCell = styled.td`
-  padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
-  color: ${({ theme }) => theme.colors.textSecondary};
+  padding: ${({ theme }) => theme.spacing[4]} ${({ theme }) => theme.spacing[4]};
+  color: ${({ theme }) => theme.colors.gray[700]};
+  font-weight: 500;
   text-align: center;
   box-sizing: border-box;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   ${tableCellStyles}
 `;
 
@@ -87,38 +114,88 @@ const StyledJobCell = styled(StyledTableCell)`
   & > div {
     display: flex;
     align-items: center;
-    gap: ${({ theme }) => theme.spacing[2]};
+    gap: ${({ theme }) => theme.spacing[3]};
+    font-weight: 600;
+    color: ${({ theme }) => theme.colors.text};
+    position: relative;
+    padding-left: ${({ theme }) => theme.spacing[2]};
   }
 `;
 
 const StyledWinRateText = styled.span<{ winRate: number }>`
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 1rem;
   color: ${({ winRate, theme }) => getWinRateColor(winRate, theme)};
+  position: relative;
+  display: inline-block;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: ${({ winRate, theme }) => getWinRateColor(winRate, theme)};
+    opacity: 0;
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  ${StyledTableRow}:hover & {
+    &::after {
+      opacity: 0.3;
+    }
+  }
 `;
 
 const StyledActionButtons = styled.div`
   display: flex;
   gap: ${({ theme }) => theme.spacing[2]};
-  justify-content: flex-end;
+  justify-content: flex-start;
+  align-items: center;
 `;
 
 const StyledActionButton = styled(Button)`
-  width: 32px;
-  height: 32px;
-  min-width: 32px;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
   padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 700;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(38, 161, 223, 0.2);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(-2px);
+  }
 `;
 
 const StyledEmptyMapState = styled.div`
   text-align: center;
-  padding: ${({ theme }) => theme.spacing[4]} ${({ theme }) => theme.spacing[6]};
-  color: ${({ theme }) => theme.colors.textSecondary};
+  padding: ${({ theme }) => theme.spacing[12]} ${({ theme }) => theme.spacing[6]};
+  color: ${({ theme }) => theme.colors.gray[500]};
   font-size: 0.875rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing[3]};
+  animation: ${fadeIn} 0.5s ease-out;
+
+  &::before {
+    content: "📊";
+    font-size: 3rem;
+    opacity: 0.5;
+  }
 `;
 
 type JobSummary = {
@@ -188,11 +265,23 @@ export const JobSummaryTable = ({ usedJobs, jobSummaries, onAddWin, onAddDefeat,
                       {summary.job}
                     </div>
                   </StyledJobCell>
-                  <StyledTableCell>{summary.totalMatches}</StyledTableCell>
-                  <StyledTableCell>{summary.wins}</StyledTableCell>
-                  <StyledTableCell>{summary.defeats}</StyledTableCell>
                   <StyledTableCell>
-                    {0 < summary.totalMatches ? <StyledWinRateText winRate={summary.winRate}>{summary.winRate}%</StyledWinRateText> : <span>--%</span>}
+                    <AnimatedNumber>{summary.totalMatches}</AnimatedNumber>
+                  </StyledTableCell>
+                  <StyledTableCell>
+                    <AnimatedNumber>{summary.wins}</AnimatedNumber>
+                  </StyledTableCell>
+                  <StyledTableCell>
+                    <AnimatedNumber>{summary.defeats}</AnimatedNumber>
+                  </StyledTableCell>
+                  <StyledTableCell>
+                    {0 < summary.totalMatches ? (
+                      <StyledWinRateText winRate={summary.winRate}>
+                        <AnimatedNumber suffix="%">{summary.winRate}</AnimatedNumber>
+                      </StyledWinRateText>
+                    ) : (
+                      <span>--%</span>
+                    )}
                   </StyledTableCell>
                   <StyledTableCell>
                     {map ? (

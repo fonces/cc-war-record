@@ -2,13 +2,54 @@
  * localStorage ユーティリティ
  */
 
-import { JOBS } from "@/types/jobs";
-import type { Job } from "@/types";
+import type { Job, Character, MatchRecord, History } from "@/types";
 
-// ジョブフィルター用のキー定数
+/**
+ * localStorageで使用するキー定数
+ */
 export const STORAGE_KEYS = {
+  /** ビルドタイムスタンプ */
+  BUILD_TIMESTAMP: "app-build-timestamp",
+  /** テーマ設定（light/dark） */
+  THEME: "cc-war-record-theme",
+  /** キャラクター一覧 */
+  CHARACTERS: "cc-war-record-characters",
+  /** 戦績記録一覧 */
+  MATCH_RECORDS: "cc-war-record-match-records",
+  /** シーズン履歴一覧 */
+  HISTORIES: "cc-war-record-histories",
+  /** 個別履歴データ */
+  HISTORY: `histories-\${uuid}`,
+  /** レーダーチャート用の選択ジョブリスト */
   RADAR_CHART_JOBS: "cc-war-record:radar-chart-jobs",
 } as const;
+
+/**
+ * StorageKeyから対応するデータ型のマッピング
+ **/
+type IgnoreVariableKeys = Omit<typeof STORAGE_KEYS, "HISTORY">;
+
+/**
+ * StorageKey型
+ */
+type StorageKey = IgnoreVariableKeys[keyof IgnoreVariableKeys] | `histories-${string}`; // 個別履歴データ用キーを追加
+
+/**
+ * StorageKeyから対応する型を取得
+ */
+type StorageValueMap = {
+  [STORAGE_KEYS.BUILD_TIMESTAMP]: string;
+  [STORAGE_KEYS.THEME]: "light" | "dark";
+  [STORAGE_KEYS.CHARACTERS]: Character[];
+  [STORAGE_KEYS.MATCH_RECORDS]: MatchRecord[];
+  [STORAGE_KEYS.HISTORIES]: History[];
+  [STORAGE_KEYS.RADAR_CHART_JOBS]: Job[];
+};
+
+/**
+ * StorageKeyから対応する型を取得
+ */
+type StorageValue<K extends StorageKey> = K extends keyof StorageValueMap ? StorageValueMap[K] : K extends `histories-${string}` ? MatchRecord[] : unknown;
 
 /**
  * localStorageからデータを取得
@@ -16,7 +57,7 @@ export const STORAGE_KEYS = {
  * @param defaultValue デフォルト値
  * @returns 取得したデータまたはデフォルト値
  */
-export const getFromLocalStorage = <T>(key: string, defaultValue: T): T => {
+export const getFromLocalStorage = <K extends StorageKey>(key: K, defaultValue: StorageValue<K>): StorageValue<K> => {
   try {
     if (typeof window === "undefined") {
       return defaultValue;
@@ -39,7 +80,7 @@ export const getFromLocalStorage = <T>(key: string, defaultValue: T): T => {
  * @param key キー
  * @param value 保存する値
  */
-export const saveToLocalStorage = <T>(key: string, value: T): void => {
+export const saveToLocalStorage = <K extends StorageKey>(key: K, value: StorageValue<K>): void => {
   try {
     if (typeof window === "undefined") {
       return;
@@ -55,7 +96,7 @@ export const saveToLocalStorage = <T>(key: string, value: T): void => {
  * localStorageからキーを削除
  * @param key キー
  */
-export const removeFromLocalStorage = (key: string): void => {
+export const removeFromLocalStorage = (key: StorageKey): void => {
   try {
     if (typeof window === "undefined") {
       return;
@@ -65,18 +106,4 @@ export const removeFromLocalStorage = (key: string): void => {
   } catch (error) {
     console.error(`Error removing from localStorage (key: ${key}):`, error);
   }
-};
-
-/**
- * レーダーチャート用の選択ジョブリストを取得
- */
-export const getRadarChartJobs = (): Job[] => {
-  return getFromLocalStorage(STORAGE_KEYS.RADAR_CHART_JOBS, [JOBS.PALADIN, JOBS.WHITE_MAGE]);
-};
-
-/**
- * レーダーチャート用の選択ジョブリストを保存
- */
-export const saveRadarChartJobs = (jobs: Job[]): void => {
-  saveToLocalStorage(STORAGE_KEYS.RADAR_CHART_JOBS, jobs);
 };

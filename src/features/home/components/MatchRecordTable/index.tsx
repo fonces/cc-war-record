@@ -16,7 +16,7 @@ const StyledMapTablesContainer = styled.div`
 `;
 
 const StyledMapSection = styled.div`
-  border: 1px solid ${({ theme }) => theme.colors.gray[200]};
+  border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.md};
   overflow: hidden;
 `;
@@ -24,8 +24,14 @@ const StyledMapSection = styled.div`
 const StyledMapTitle = styled.h4<{ isCurrentMap?: boolean }>`
   margin: 0;
   padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
-  background-color: ${({ isCurrentMap, theme }) => (isCurrentMap ? theme.colors.primary[50] : theme.colors.gray[100])};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray[200]};
+  background-color: ${({ isCurrentMap, theme }) => {
+    const isDark = theme.isDark;
+    if (isCurrentMap) {
+      return isDark ? "rgba(38, 161, 223, 0.15)" : "rgba(38, 161, 223, 0.08)";
+    }
+    return isDark ? "rgba(255, 255, 255, 0.03)" : "rgba(0, 0, 0, 0.02)";
+  }};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
   font-size: 1rem;
   font-weight: 600;
   color: ${({ theme }) => theme.colors.text};
@@ -45,7 +51,13 @@ const StyledMapTitle = styled.h4<{ isCurrentMap?: boolean }>`
   `}
 
   &:hover {
-    background-color: ${({ isCurrentMap, theme }) => (isCurrentMap ? theme.colors.primary[100] : theme.colors.gray[200])};
+    background-color: ${({ isCurrentMap, theme }) => {
+      const isDark = theme.isDark;
+      if (isCurrentMap) {
+        return isDark ? "rgba(38, 161, 223, 0.22)" : "rgba(38, 161, 223, 0.12)";
+      }
+      return isDark ? "rgba(255, 255, 255, 0.05)" : "rgba(0, 0, 0, 0.04)";
+    }};
   }
 `;
 
@@ -56,11 +68,17 @@ const StyledMapTitleLeft = styled.div`
 `;
 
 const StyledMapSummary = styled.div`
+  align-items: center;
   display: flex;
   gap: ${({ theme }) => theme.spacing[4]};
   font-size: 0.875rem;
   font-weight: 500;
+  justify-content: flex-end;
   color: ${({ theme }) => theme.colors.textSecondary};
+  padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
+  background: ${({ theme }) => theme.gradients.glass};
+  backdrop-filter: ${({ theme }) => theme.blur.sm};
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
 `;
 
 const StyledMapWinRate = styled.span<{ winRate: number }>`
@@ -69,9 +87,21 @@ const StyledMapWinRate = styled.span<{ winRate: number }>`
 `;
 
 const StyledMapContent = styled.div<{ isOpen: boolean }>`
-  max-height: ${({ isOpen }) => (isOpen ? "10000px" : "0")};
+  display: grid;
+  grid-template-rows: ${({ isOpen }) => (isOpen ? "1fr" : "0fr")};
+  transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
-  transition: max-height 0.3s ease-in-out;
+
+  > * {
+    min-height: 0;
+  }
+`;
+
+const StyledArrowWrapper = styled.span<{ isOpen: boolean }>`
+  display: flex;
+  align-items: center;
+  transform: ${({ isOpen }) => (isOpen ? "rotate(180deg)" : "rotate(0deg)")};
+  transition: transform 0.3s ease;
 `;
 
 type MatchRecordTableProps = {
@@ -109,6 +139,9 @@ export const MatchRecordTable = ({ usedJobs, matchRecords, onAddWin, onAddDefeat
   // 開閉状態を管理（デフォルトは現在のマップのみ開く）
   const [openMaps, setOpenMaps] = useState<Set<CrystalConflictMap>>(() => new Set([currentMap]));
 
+  // 全ステージ合計の開閉状態
+  const [isTotalOpen, setIsTotalOpen] = useState(false);
+
   // マップの開閉をトグル
   const toggleMap = (map: CrystalConflictMap) => {
     const newOpenMaps = new Set(openMaps);
@@ -129,7 +162,9 @@ export const MatchRecordTable = ({ usedJobs, matchRecords, onAddWin, onAddDefeat
           <StyledMapSection key={mapData.map}>
             <StyledMapTitle onClick={() => toggleMap(mapData.map)} isCurrentMap={isCurrentMap}>
               <StyledMapTitleLeft>
-                <Icon name={openMaps.has(mapData.map) ? "minus" : "add"} size={16} />
+                <StyledArrowWrapper isOpen={openMaps.has(mapData.map)}>
+                  <Icon name="arrowDropDown" size={20} />
+                </StyledArrowWrapper>
                 <span>{getMapName(mapData.map, t)}</span>
                 {isCurrentMap && (
                   <StyledCurrentMapBadge>
@@ -167,8 +202,11 @@ export const MatchRecordTable = ({ usedJobs, matchRecords, onAddWin, onAddDefeat
 
       {/* 全ステージ合計 */}
       <StyledMapSection>
-        <StyledMapTitle style={{ cursor: "default" }}>
+        <StyledMapTitle onClick={() => setIsTotalOpen(!isTotalOpen)}>
           <StyledMapTitleLeft>
+            <StyledArrowWrapper isOpen={isTotalOpen}>
+              <Icon name="arrowDropDown" size={20} />
+            </StyledArrowWrapper>
             <span>{t("match.allStagesTotal")}</span>
           </StyledMapTitleLeft>
           <StyledMapSummary>
@@ -183,7 +221,9 @@ export const MatchRecordTable = ({ usedJobs, matchRecords, onAddWin, onAddDefeat
             )}
           </StyledMapSummary>
         </StyledMapTitle>
-        <JobSummaryTable usedJobs={usedJobs} jobSummaries={totalSummaries} />
+        <StyledMapContent isOpen={isTotalOpen}>
+          <JobSummaryTable usedJobs={usedJobs} jobSummaries={totalSummaries} />
+        </StyledMapContent>
       </StyledMapSection>
     </StyledMapTablesContainer>
   );

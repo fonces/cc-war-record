@@ -1,5 +1,5 @@
-import { MAPS } from "@/types/maps";
-import type { CrystalConflictMap } from "@/types";
+import { MAPS, MAP_INFO } from "@/types/maps";
+import type { CrystalConflictMap, MapInfo, MapTheme, MapSize, MapFeature } from "@/types";
 import type { TFunction } from "i18next";
 
 /**
@@ -105,4 +105,69 @@ export const getNextMapChangeTime = (currentDate: Date = new Date()): Date => {
 
   // 次の切り替え時刻
   return new Date(currentDate.getTime() + remainingMs);
+};
+
+/**
+ * マップコードからマップ情報を取得
+ */
+export const getMapInfo = (mapCode: CrystalConflictMap): MapInfo | undefined => {
+  return MAP_INFO[mapCode];
+};
+
+/**
+ * すべてのマップを配列で取得
+ */
+export const getAllMaps = (): MapInfo[] => {
+  return Object.values(MAP_INFO);
+};
+
+/**
+ * テーマ別のマップ取得
+ */
+export const getMapsByTheme = (theme: MapTheme): MapInfo[] => {
+  return Object.values(MAP_INFO).filter((map) => map.theme === theme);
+};
+
+/**
+ * サイズ別のマップ取得
+ */
+export const getMapsBySize = (size: MapSize): MapInfo[] => {
+  return Object.values(MAP_INFO).filter((map) => map.size === size);
+};
+
+/**
+ * 特徴でマップを検索
+ */
+export const getMapsByFeature = (feature: MapFeature): MapInfo[] => {
+  return Object.values(MAP_INFO).filter((map) => map.features.includes(feature));
+};
+
+/**
+ * シーズン別のマップ取得
+ */
+export const getMapsBySeason = (season: string): MapInfo[] => {
+  return Object.values(MAP_INFO).filter((map) => map.implementedSeason === season);
+};
+
+/**
+ * マップ名での検索（日本語・英語両対応）
+ */
+export const searchMapsByName = (query: string): MapInfo[] => {
+  const lowerQuery = query.toLowerCase();
+  return Object.values(MAP_INFO).filter((map) => map.name.toLowerCase().includes(lowerQuery) || map.nameEn.toLowerCase().includes(lowerQuery));
+};
+
+/**
+ * マップの実装順序でソート
+ */
+export const getSortedMapsByImplementation = (): MapInfo[] => {
+  return Object.values(MAP_INFO).sort((a, b) => {
+    // シーズン番号での比較（6.1 < 6.2 < 6.25 < 6.3 など）
+    const parseVersion = (version: string) => {
+      const parts = version.split(".");
+      return parseFloat(parts[0]) * 100 + parseFloat(parts[1] || "0");
+    };
+
+    return parseVersion(a.implementedSeason) - parseVersion(b.implementedSeason);
+  });
 };

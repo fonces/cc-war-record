@@ -1,4 +1,19 @@
-export type IconName = "hamburger" | "close" | "home" | "history" | "chart" | "edit" | "accept" | "add" | "delete" | "minus" | "revert" | "detail" | "back" | "language";
+export type IconName =
+  | "hamburger"
+  | "close"
+  | "home"
+  | "history"
+  | "chart"
+  | "edit"
+  | "accept"
+  | "add"
+  | "delete"
+  | "minus"
+  | "revert"
+  | "detail"
+  | "back"
+  | "language"
+  | "arrowDropDown";
 
 export type IconProps = {
   /** アイコンの種類 */

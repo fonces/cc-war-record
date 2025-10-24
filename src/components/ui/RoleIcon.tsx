@@ -1,6 +1,7 @@
 import { memo } from "react";
 import styled from "styled-components";
-import { getRoleIconUrl, ROLE_INFO } from "@/types";
+import { ROLE_INFO } from "@/types";
+import { getRoleIconUrl } from "@/utils";
 import type { Role } from "@/types";
 
 type RoleIconProps = {

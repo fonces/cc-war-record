@@ -1,30 +1,43 @@
 import styled from "styled-components";
-import { Button, Icon, Input } from "@/components/ui";
+import { Button, Icon, IconicButton, Input } from "@/components/ui";
 import { useTranslation } from "@/hooks";
-import { getTotalMatches, getWins, getDefeats, getWinRate } from "@/types/history";
-import { getWinRateColor } from "@/utils/colors";
+import { getTotalMatches, getWins, getDefeats, getWinRate, getWinRateColor } from "@/utils";
 import { MatchRecordTable } from "./MatchRecordTable";
-import type { CharacterStats, Job, CrystalConflictMap } from "@/types";
+import type { CharacterStats, Job, CrystalConflictMap, UUIDv4 } from "@/types";
 
 const StyledCharacterCard = styled.div`
-  background-color: white;
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
-  border: 1px solid ${({ theme }) => theme.colors.gray[200]};
+  background: ${({ theme }) => theme.gradients.glass};
+  backdrop-filter: ${({ theme }) => theme.blur.md};
+  border-radius: ${({ theme }) => theme.borderRadius.xl};
+  border: 1px solid ${({ theme }) => theme.colors.borderLight};
   overflow: hidden;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: ${({ theme }) => theme.shadows.xl};
+  transition: all ${({ theme }) => theme.transitions.base};
+
+  &:hover {
+    box-shadow: ${({ theme }) => theme.shadows["2xl"]}, ${({ theme }) => theme.shadows.glow};
+    border-color: ${({ theme }) => theme.colors.border};
+  }
 `;
 
 const StyledCharacterHeader = styled.div`
   padding: ${({ theme }) => theme.spacing[4]} ${({ theme }) => theme.spacing[6]};
-  background-color: ${({ theme }) => theme.colors.gray[50]};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray[200]};
+  background: ${({ theme }) => theme.gradients.glass};
+  backdrop-filter: ${({ theme }) => theme.blur.sm};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.borderLight};
   user-select: none;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: all ${({ theme }) => theme.transitions.base};
+  cursor: pointer;
+  height: 85px;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.gray[100]};
+    background: ${({ theme }) =>
+      theme.isDark
+        ? "linear-gradient(135deg, rgba(38, 161, 223, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%)"
+        : "linear-gradient(135deg, rgba(38, 161, 223, 0.1) 0%, rgba(255, 255, 255, 0.1) 100%)"};
   }
 `;
 
@@ -40,7 +53,12 @@ const StyledCharacterStatsContainer = styled.div`
   gap: ${({ theme }) => theme.spacing[4]};
   align-items: center;
   font-size: 0.875rem;
+  justify-content: flex-end;
   color: ${({ theme }) => theme.colors.textSecondary};
+  padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
+  background: ${({ theme }) => theme.gradients.glass};
+  backdrop-filter: ${({ theme }) => theme.blur.sm};
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
 `;
 
 const StyledWinRate = styled.span<{ winRate: number }>`
@@ -49,13 +67,19 @@ const StyledWinRate = styled.span<{ winRate: number }>`
 `;
 
 const StyledCharacterContent = styled.div<{ isOpen: boolean }>`
-  max-height: ${({ isOpen }) => (isOpen ? "10000px" : "0")};
+  display: grid;
+  grid-template-rows: ${({ isOpen }) => (isOpen ? "1fr" : "0fr")};
+  transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
-  transition: max-height 0.5s ease-in-out;
 `;
 
 const StyledCharacterBody = styled.div`
-  padding: ${({ theme }) => theme.spacing[6]};
+  min-height: 0;
+  overflow: hidden;
+
+  > * {
+    padding: ${({ theme }) => theme.spacing[6]};
+  }
 `;
 
 const StyledEmptyStats = styled.div`
@@ -89,23 +113,6 @@ const StyledEditInput = styled(Input)`
   font-weight: 600;
 `;
 
-const StyledActionButton = styled(Button)`
-  padding: ${({ theme }) => theme.spacing[1]};
-  min-width: auto;
-
-  &.delete:hover {
-    background-color: ${({ theme }) => theme.colors.error[50]};
-    border-color: ${({ theme }) => theme.colors.error[600]};
-    color: ${({ theme }) => theme.colors.error[600]};
-  }
-
-  &.save:hover {
-    background-color: ${({ theme }) => theme.colors.success[50]};
-    border-color: ${({ theme }) => theme.colors.success[600]};
-    color: ${({ theme }) => theme.colors.success[600]};
-  }
-`;
-
 type CharacterCardProps = {
   /** キャラクター戦績統計 */
   stats: CharacterStats;
@@ -114,17 +121,17 @@ type CharacterCardProps = {
   /** アコーディオントグル */
   onToggle: () => void;
   /** 編集開始 */
-  onStartEdit: (uuid: string, name: string) => void;
+  onStartEdit: (uuid: UUIDv4, name: string) => void;
   /** 削除 */
-  onDelete: (uuid: string, name: string) => void;
+  onDelete: (uuid: UUIDv4, name: string) => void;
   /** ジョブ登録ダイアログを開く */
-  onOpenJobRegistration: (uuid: string) => void;
+  onOpenJobRegistration: (uuid: UUIDv4) => void;
   /** 勝利記録を追加（ジョブとマップ指定） */
-  onAddWin?: (characterUuid: string, job: Job, map: CrystalConflictMap) => void;
+  onAddWin?: (characterUuid: UUIDv4, job: Job, map: CrystalConflictMap) => void;
   /** 敗北記録を追加（ジョブとマップ指定） */
-  onAddDefeat?: (characterUuid: string, job: Job, map: CrystalConflictMap) => void;
+  onAddDefeat?: (characterUuid: UUIDv4, job: Job, map: CrystalConflictMap) => void;
   /** 直近の記録を取り消し（ジョブとマップ指定） */
-  onRevertLast?: (characterUuid: string, job: Job, map: CrystalConflictMap) => void;
+  onRevertLast?: (characterUuid: UUIDv4, job: Job, map: CrystalConflictMap) => void;
   /** 編集中かどうか */
   isEditing: boolean;
   /** 編集中の名前 */
@@ -181,8 +188,7 @@ export const CharacterCard = ({
               autoFocus
             />
             <StyledCharacterActions>
-              <StyledActionButton
-                variant="outline"
+              <IconicButton
                 icon={<Icon name="accept" size={16} />}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -190,8 +196,7 @@ export const CharacterCard = ({
                 }}
                 title={t("common.save")}
               />
-              <StyledActionButton
-                variant="outline"
+              <IconicButton
                 icon={<Icon name="close" size={16} />}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -215,8 +220,7 @@ export const CharacterCard = ({
                 <span>{t("character.stats.noWinRate")}</span>
               )}
               <StyledCharacterActions>
-                <StyledActionButton
-                  variant="outline"
+                <IconicButton
                   icon={<Icon name="add" size={16} />}
                   onClick={(e) => {
                     e.stopPropagation();
@@ -224,8 +228,7 @@ export const CharacterCard = ({
                   }}
                   title={t("character.actions.addJob")}
                 />
-                <StyledActionButton
-                  variant="outline"
+                <IconicButton
                   icon={<Icon name="edit" size={16} />}
                   onClick={(e) => {
                     e.stopPropagation();
@@ -233,8 +236,7 @@ export const CharacterCard = ({
                   }}
                   title={t("character.actions.editName")}
                 />
-                <StyledActionButton
-                  variant="outline"
+                <IconicButton
                   icon={<Icon name="delete" size={16} />}
                   onClick={(e) => {
                     e.stopPropagation();

@@ -69,6 +69,7 @@
     "nojekyll",
     "notfound",
     "ORION",
+    "overscan",
     "PALAISTRA",
     "Pictomancer",
     "piechart",
@@ -110,6 +111,7 @@
     "winrate",
     "xaxis",
     "yaxis",
+    "yxxx",
     "zustand"
   ],
   "ignoreWords": [],

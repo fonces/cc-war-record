@@ -1,7 +1,30 @@
 import { useState, useEffect, useRef, memo } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useTranslation } from "@/hooks";
 import { Icon } from "./Icon";
+
+// アニメーション
+const fadeInUp = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+const fadeInDown = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
 
 const StyledLanguageSelector = styled.div<{ $fullWidth?: boolean }>`
   position: relative;
@@ -10,32 +33,60 @@ const StyledLanguageSelector = styled.div<{ $fullWidth?: boolean }>`
 `;
 
 const StyledLanguageButton = styled.button<{ $fullWidth?: boolean }>`
-  padding: 0.5rem 1rem 0.5rem 1rem;
-  background-color: white;
-  border: 1px solid ${({ theme }) => theme.colors.gray[300]};
-  border-radius: 8px;
+  padding: 0.625rem 1rem;
+  background: ${({ theme }) => theme.gradients.glass};
+  backdrop-filter: ${({ theme }) => theme.blur.md};
+  border: 1px solid ${({ theme }) => theme.colors.borderLight};
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
   color: ${({ theme }) => theme.colors.text};
   cursor: pointer;
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 600;
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing[2]};
-  min-width: ${({ $fullWidth }) => ($fullWidth ? "auto" : "120px")};
+  min-width: ${({ $fullWidth }) => ($fullWidth ? "auto" : "140px")};
   width: ${({ $fullWidth }) => ($fullWidth ? "100%" : "auto")};
   justify-content: space-between;
-  transition: all 0.2s ease;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: ${({ theme }) => theme.shadows.sm};
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
 
   &:hover {
-    border-color: ${({ theme }) => theme.colors.gray[400]};
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    border-color: ${({ theme }) => theme.colors.border};
+    box-shadow:
+      ${({ theme }) => theme.shadows.md},
+      0 0 0 1px rgba(38, 161, 223, 0.1);
+    transform: translateY(-2px);
+
+    &::before {
+      opacity: 1;
+    }
   }
 
   &:focus {
     outline: none;
-    border-color: ${({ theme }) => theme.colors.primary[500]};
-    box-shadow: 0 0 0 3px ${({ theme }) => theme.colors.primary[100]};
+    border-color: ${({ theme }) => theme.colors.border};
+    box-shadow:
+      ${({ theme }) => theme.shadows.md},
+      0 0 0 1px rgba(38, 161, 223, 0.1);
+  }
+
+  &:active {
+    transform: translateY(0);
   }
 `;
 
@@ -43,58 +94,114 @@ const StyledIconWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing[2]};
+  color: #26a1df;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  span {
+    color: ${({ theme }) => theme.colors.text};
+  }
 `;
 
 const StyledLanguageDropdown = styled.div<{ isOpen: boolean; direction: "up" | "down" }>`
   position: absolute;
-  ${({ direction }) => (direction === "up" ? "bottom: calc(100% + 4px);" : "top: calc(100% + 4px);")}
+  ${({ direction }) => (direction === "up" ? "bottom: calc(100% + 8px);" : "top: calc(100% + 8px);")}
   left: 0;
   right: 0;
-  background-color: white;
-  border: 1px solid ${({ theme }) => theme.colors.gray[300]};
-  border-radius: 8px;
+  background: ${({ theme }) => theme.gradients.glass};
+  backdrop-filter: ${({ theme }) => theme.blur.md} brightness(0%);
+  border: 1px solid ${({ theme }) => theme.colors.borderLight};
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
   box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    ${({ theme }) => theme.shadows.xl},
+    0 0 0 1px rgba(38, 161, 223, 0.1);
   overflow: hidden;
   z-index: 50;
   display: ${({ isOpen }) => (isOpen ? "block" : "none")};
+  animation: ${({ direction }) => (direction === "up" ? fadeInUp : fadeInDown)} 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
+    border-radius: ${({ theme }) => theme.borderRadius.lg} ${({ theme }) => theme.borderRadius.lg} 0 0;
+  }
 `;
 
 const StyledLanguageOption = styled.button<{ isActive: boolean }>`
   width: 100%;
-  padding: ${({ theme }) => theme.spacing[2]} ${({ theme }) => theme.spacing[3]};
-  background-color: ${({ isActive, theme }) => (isActive ? theme.colors.primary[50] : "transparent")};
-  color: ${({ isActive, theme }) => (isActive ? theme.colors.primary[600] : theme.colors.text)};
+  padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
+  background-color: ${({ isActive }) => (isActive ? "rgba(38, 161, 223, 0.08)" : "transparent")};
+  color: ${({ theme }) => theme.colors.text};
   border: none;
   cursor: pointer;
   font-size: 0.875rem;
+  font-weight: ${({ isActive }) => (isActive ? "600" : "500")};
   text-align: left;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing[3]};
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
+    opacity: ${({ isActive }) => (isActive ? "1" : "0")};
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.gray[50]};
+    background-color: rgba(38, 161, 223, 0.05);
+    padding-left: ${({ theme }) => theme.spacing[5]};
+
+    &::before {
+      opacity: 0.5;
+    }
   }
 
   &:first-child {
-    border-top-left-radius: ${({ theme }) => theme.borderRadius.md};
-    border-top-right-radius: ${({ theme }) => theme.borderRadius.md};
+    padding-top: ${({ theme }) => theme.spacing[4]};
   }
 
   &:last-child {
-    border-bottom-left-radius: ${({ theme }) => theme.borderRadius.md};
-    border-bottom-right-radius: ${({ theme }) => theme.borderRadius.md};
+    padding-bottom: ${({ theme }) => theme.spacing[4]};
   }
 `;
 
-const StyledArrow = styled.span<{ isOpen: boolean; direction: "up" | "down" }>`
+const StyledLanguageFlag = styled.span`
+  font-size: 1.25rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: ${({ theme }) => theme.borderRadius.sm};
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.02);
+`;
+
+const StyledArrowWrapper = styled.span<{ isOpen: boolean }>`
+  display: flex;
+  align-items: center;
+  color: #26a1df;
   transform: ${({ isOpen }) => (isOpen ? "rotate(180deg)" : "rotate(0deg)")};
-  transition: transform 0.2s ease;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 `;
 
 const languages = [
-  { code: "ja", name: "日本語" },
-  { code: "en", name: "English" },
-  { code: "ko", name: "한국어" },
+  { code: "ja", name: "日本語", flag: "🇯🇵" },
+  { code: "en", name: "English", flag: "🇺🇸" },
+  { code: "ko", name: "한국어", flag: "🇰🇷" },
 ];
 
 type LanguageSelectorProps = {
@@ -140,15 +247,16 @@ export const LanguageSelector = memo(({ direction = "down", fullWidth = false }:
           <Icon name="language" size={18} />
           <span>{currentLanguageName}</span>
         </StyledIconWrapper>
-        <StyledArrow isOpen={isOpen} direction={direction}>
-          ▼
-        </StyledArrow>
+        <StyledArrowWrapper isOpen={isOpen}>
+          <Icon name="arrowDropDown" size={24} />
+        </StyledArrowWrapper>
       </StyledLanguageButton>
 
       <StyledLanguageDropdown isOpen={isOpen} direction={direction}>
         {languages.map((language) => (
           <StyledLanguageOption key={language.code} isActive={currentLanguage === language.code} onClick={() => handleLanguageChange(language.code)}>
-            {language.name}
+            <StyledLanguageFlag>{language.flag}</StyledLanguageFlag>
+            <span>{language.name}</span>
           </StyledLanguageOption>
         ))}
       </StyledLanguageDropdown>

@@ -15,6 +15,7 @@ import {
   DetailIcon,
   BackIcon,
   LanguageIcon,
+  ArrowDropDownIcon,
 } from "./icons";
 import type { IconProps } from "./types";
 
@@ -28,7 +29,7 @@ const StyledIcon = styled.div<Pick<IconProps, "size" | "color">>`
   padding: 0;
   width: ${({ size = 24 }) => size}px;
   height: ${({ size = 24 }) => size}px;
-  color: ${({ color, theme }) => color || theme.colors.gray[700]};
+  color: ${({ color }) => color || "inherit"};
 
   &:hover {
     opacity: 0.7;
@@ -74,6 +75,8 @@ export const Icon = memo(({ name, size = 24, color, onClick, className }: IconPr
         return <BackIcon />;
       case "language":
         return <LanguageIcon />;
+      case "arrowDropDown":
+        return <ArrowDropDownIcon />;
       default:
         return null;
     }

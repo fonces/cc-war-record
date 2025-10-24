@@ -1,63 +1,10 @@
 import { useRouter } from "@tanstack/react-router";
 import { useState } from "react";
-import styled from "styled-components";
-import { Button, Input, Dialog, PageTitle, PageDescription } from "@/components/ui";
+import { Form, FormGroup, FormActions } from "@/components/layout";
+import { Button, Input, Dialog, PageContainer, PageTitleContainer, PageTitle, PageDescription, Flush } from "@/components/ui";
 import { useTranslation } from "@/hooks";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { useHistoryStore } from "@/stores";
-
-const StyledContainer = styled.div`
-  max-width: 600px;
-  margin: 0 auto;
-  padding: ${({ theme }) => theme.spacing[6]};
-`;
-
-const StyledHeader = styled.div`
-  margin-bottom: ${({ theme }) => theme.spacing[8]};
-  text-align: center;
-`;
-
-const StyledForm = styled.form`
-  background-color: white;
-  padding: ${({ theme }) => theme.spacing[8]};
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
-  border: 1px solid ${({ theme }) => theme.colors.gray[200]};
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-`;
-
-const StyledFormGroup = styled.div`
-  margin-bottom: ${({ theme }) => theme.spacing[6]};
-`;
-
-const StyledActions = styled.div`
-  display: flex;
-  gap: ${({ theme }) => theme.spacing[4]};
-  justify-content: flex-end;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    flex-direction: column-reverse;
-  }
-`;
-
-const StyledErrorMessage = styled.div`
-  padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
-  background-color: ${({ theme }) => theme.colors.error[500]}20;
-  border: 1px solid ${({ theme }) => theme.colors.error[500]}40;
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  color: ${({ theme }) => theme.colors.error[500]};
-  margin-bottom: ${({ theme }) => theme.spacing[4]};
-  font-size: 0.875rem;
-`;
-
-const StyledSuccessMessage = styled.div`
-  padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
-  background-color: ${({ theme }) => theme.colors.success[500]}20;
-  border: 1px solid ${({ theme }) => theme.colors.success[500]}40;
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  color: ${({ theme }) => theme.colors.success[500]};
-  margin-bottom: ${({ theme }) => theme.spacing[4]};
-  font-size: 0.875rem;
-`;
 
 /**
  * 新規シーズン作成画面コンポーネント
@@ -86,8 +33,8 @@ export const NewSeasonPage = () => {
       return;
     }
 
-    if (trimmedSeasonName.length > 50) {
-      setValidationError(t("pages.newSeason.validationMaxLength"));
+    if (trimmedSeasonName.length > 20) {
+      setValidationError(t("pages.newSeason.validationMaxLength", { length: 20 }));
       return;
     }
 
@@ -173,21 +120,31 @@ export const NewSeasonPage = () => {
       </Dialog>
 
       {/* メインコンテンツ */}
-      <StyledContainer>
-        <StyledHeader>
+      <PageContainer>
+        <PageTitleContainer>
           <PageTitle>{t("pages.newSeason.title")}</PageTitle>
-          <PageDescription>{t("pages.newSeason.description")}</PageDescription>
-        </StyledHeader>
+        </PageTitleContainer>
+        <PageDescription>{t("pages.newSeason.description")}</PageDescription>
 
-        <StyledForm onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
           {/* エラーメッセージ */}
-          {(error || validationError) && <StyledErrorMessage>{validationError || error}</StyledErrorMessage>}
+          {(error || validationError) && (
+            <Flush
+              type="error"
+              onClose={() => {
+                setValidationError("");
+                clearError();
+              }}
+            >
+              {validationError || error}
+            </Flush>
+          )}
 
           {/* 成功メッセージ */}
-          {successMessage && <StyledSuccessMessage>{successMessage}</StyledSuccessMessage>}
+          {successMessage && <Flush type="success">{successMessage}</Flush>}
 
           {/* シーズン名入力 */}
-          <StyledFormGroup>
+          <FormGroup>
             <Input
               label={t("pages.newSeason.seasonName")}
               type="text"
@@ -198,19 +155,19 @@ export const NewSeasonPage = () => {
               fullWidth
               required
             />
-          </StyledFormGroup>
+          </FormGroup>
 
           {/* アクションボタン */}
-          <StyledActions>
+          <FormActions>
             <Button type="button" variant="outline" onClick={handleCancel} disabled={isSubmitting || !!successMessage}>
               {t("pages.newSeason.cancel")}
             </Button>
             <Button type="submit" disabled={isSubmitting || !!successMessage || !seasonName.trim()}>
               {isSubmitting ? t("pages.newSeason.creating") : t("pages.newSeason.create")}
             </Button>
-          </StyledActions>
-        </StyledForm>
-      </StyledContainer>
+          </FormActions>
+        </Form>
+      </PageContainer>
     </>
   );
 };

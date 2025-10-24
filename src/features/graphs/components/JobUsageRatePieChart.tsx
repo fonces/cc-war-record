@@ -1,6 +1,6 @@
 import { useState, memo } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recharts";
-import { useTheme } from "styled-components";
+import styled, { useTheme } from "styled-components";
 import { Select } from "@/components/ui";
 import { aggregateJobUsageRate } from "@/features/graphs/utils/aggregate";
 import { useTranslation } from "@/hooks";
@@ -9,6 +9,45 @@ import { MAPS } from "@/types/maps";
 import { getMapName } from "@/utils/maps";
 import { StyledChartContainer, StyledChartHeader, StyledChartTitle, StyledFiltersWrapper } from "./ChartContainer";
 import type { History, MatchRecord, Job, CrystalConflictMap, Character } from "@/types";
+
+const StyledTooltip = styled.div`
+  background: ${({ theme }) => theme.gradients.glass};
+  backdrop-filter: ${({ theme }) => `${theme.blur.md} brightness(${theme.isDark ? "0%" : "100%"})`};
+  border: 1px solid ${({ theme }) => theme.colors.borderLight};
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
+  padding: ${({ theme }) => theme.spacing[3]};
+  box-shadow:
+    ${({ theme }) => theme.shadows.xl},
+    0 0 0 1px rgba(38, 161, 223, 0.1);
+
+  .label {
+    font-weight: 600;
+    margin-bottom: ${({ theme }) => theme.spacing[2]};
+    color: ${({ theme }) => theme.colors.text};
+  }
+
+  .value {
+    font-size: 0.875rem;
+    margin: ${({ theme }) => theme.spacing[1]} 0;
+    display: flex;
+    align-items: center;
+    gap: ${({ theme }) => theme.spacing[2]};
+    color: ${({ theme }) => theme.colors.text};
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .dot-total {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: ${({ theme }) => theme.colors.gray[600]};
+  }
+`;
 
 type JobUsageRatePieChartProps = {
   history: History;
@@ -54,24 +93,22 @@ type TooltipProps = {
 };
 
 const CustomTooltip = ({ active, payload }: TooltipProps) => {
-  const theme = useTheme();
   const { t } = useTranslation();
   if (active && payload && payload.length) {
     const data = payload[0].payload;
+    const jobColor = JOB_INFO[data.job].color;
     return (
-      <div
-        style={{
-          backgroundColor: theme.colors.white,
-          border: `1px solid ${theme.colors.gray[300]}`,
-          borderRadius: "8px",
-          padding: "12px",
-          boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-        }}
-      >
-        <p style={{ margin: "0 0 8px 0", fontWeight: "bold", color: theme.colors.text }}>{`${data.name} (${data.job})`}</p>
-        <p style={{ margin: "4px 0", color: JOB_INFO[data.job].color }}>{`${t("chart.tooltip.usageCount")}: ${data.value}${t("chart.matches")}`}</p>
-        <p style={{ margin: "4px 0 0 0", fontWeight: "bold", color: theme.colors.text }}>{`${t("chart.tooltip.usageRatePercent")}: ${data.percentage}%`}</p>
-      </div>
+      <StyledTooltip>
+        <div className="label">{`${data.name} (${data.job})`}</div>
+        <div className="value">
+          <div className="dot" style={{ backgroundColor: jobColor }} />
+          <span>{`${t("chart.tooltip.usageCount")}: ${data.value} ${t("chart.matches")}`}</span>
+        </div>
+        <div className="value">
+          <div className="dot-total" />
+          <span>{`${t("chart.tooltip.usageRatePercent")}: ${data.percentage}%`}</span>
+        </div>
+      </StyledTooltip>
     );
   }
   return null;
@@ -128,7 +165,7 @@ const JobUsageRatePieChartComponent = ({ history, matchRecords, characters }: Jo
           <PieChart>
             <Pie data={chartData} cx="50%" cy="50%" labelLine={false} label={renderCustomizedLabel} outerRadius={150} fill="#8884d8" dataKey="value" isAnimationActive={false}>
               {chartData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={JOB_INFO[entry.job].color} />
+                <Cell key={`cell-${index}`} fill={JOB_INFO[entry.job].color} fillOpacity={theme.isDark ? 0.6 : 0.8} />
               ))}
             </Pie>
             <Tooltip content={<CustomTooltip />} />

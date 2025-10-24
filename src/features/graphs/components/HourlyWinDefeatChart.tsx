@@ -1,6 +1,6 @@
 import { useState, memo } from "react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from "recharts";
-import { useTheme } from "styled-components";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
+import styled, { useTheme } from "styled-components";
 import { Select } from "@/components/ui";
 import { aggregateHourlyWinDefeat } from "@/features/graphs/utils/aggregate";
 import { useTranslation } from "@/hooks";
@@ -10,6 +10,59 @@ import { getWinRateColor } from "@/utils";
 import { getMapName } from "@/utils/maps";
 import { StyledChartContainer, StyledChartHeader, StyledChartTitle, StyledFiltersWrapper } from "./ChartContainer";
 import type { History, MatchRecord, Job, CrystalConflictMap, Character } from "@/types";
+
+const StyledTooltip = styled.div`
+  background: ${({ theme }) => theme.gradients.glass};
+  backdrop-filter: ${({ theme }) => `${theme.blur.md} brightness(${theme.isDark ? "0%" : "100%"})`};
+  border: 1px solid ${({ theme }) => theme.colors.borderLight};
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
+  padding: ${({ theme }) => theme.spacing[3]};
+  box-shadow:
+    ${({ theme }) => theme.shadows.xl},
+    0 0 0 1px rgba(38, 161, 223, 0.1);
+
+  .label {
+    font-weight: 600;
+    margin-bottom: ${({ theme }) => theme.spacing[2]};
+    color: ${({ theme }) => theme.colors.text};
+  }
+
+  .value {
+    font-size: 0.875rem;
+    margin: ${({ theme }) => theme.spacing[1]} 0;
+    display: flex;
+    align-items: center;
+    gap: ${({ theme }) => theme.spacing[2]};
+    color: ${({ theme }) => theme.colors.text};
+  }
+
+  .dot-win {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: ${({ theme }) => theme.colors.win[400]};
+  }
+
+  .dot-defeat {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: ${({ theme }) => theme.colors.defeat[400]};
+  }
+
+  .dot-total {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: ${({ theme }) => theme.colors.gray[600]};
+  }
+`;
+
+const StyledChartWrapper = styled.div`
+  .recharts-tooltip-cursor {
+    fill: ${({ theme }) => (theme.isDark ? "rgba(255, 255, 255, 0.05)" : "rgba(0, 0, 0, 0.05)")};
+  }
+`;
 
 type HourlyWinDefeatChartProps = {
   history: History;
@@ -36,25 +89,25 @@ type TooltipProps = {
 };
 
 const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
-  const theme = useTheme();
   const { t } = useTranslation();
   if (active && payload && payload.length) {
     const data = payload[0].payload;
     return (
-      <div
-        style={{
-          backgroundColor: theme.colors.white,
-          border: `1px solid ${theme.colors.gray[300]}`,
-          borderRadius: "8px",
-          padding: "12px",
-          boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-        }}
-      >
-        <p style={{ margin: "0 0 8px 0", fontWeight: "bold", color: theme.colors.text }}>{`${label}`}</p>
-        <p style={{ margin: "4px 0", color: theme.colors.win[600] }}>{`${t("chart.tooltip.win")}: ${data.wins}${t("chart.tooltip.matches")} (${data.winRate}%)`}</p>
-        <p style={{ margin: "4px 0", color: theme.colors.defeat[600] }}>{`${t("chart.tooltip.lose")}: ${data.defeats}${t("chart.tooltip.matches")} (${data.defeatRate}%)`}</p>
-        <p style={{ margin: "4px 0 0 0", fontWeight: "bold", color: theme.colors.text }}>{`${t("chart.tooltip.total")}: ${data.total}${t("chart.tooltip.matches")}`}</p>
-      </div>
+      <StyledTooltip>
+        <div className="label">{label}</div>
+        <div className="value">
+          <div className="dot-win" />
+          <span>{`${t("chart.tooltip.win")}: ${data.wins} ${t("chart.tooltip.matches")} (${data.winRate}%)`}</span>
+        </div>
+        <div className="value">
+          <div className="dot-defeat" />
+          <span>{`${t("chart.tooltip.lose")}: ${data.defeats} ${t("chart.tooltip.matches")} (${data.defeatRate}%)`}</span>
+        </div>
+        <div className="value">
+          <div className="dot-total" />
+          <span>{`${t("chart.tooltip.total")}: ${data.total} ${t("chart.tooltip.matches")}`}</span>
+        </div>
+      </StyledTooltip>
     );
   }
   return null;
@@ -121,28 +174,39 @@ const HourlyWinDefeatChartComponent = ({ history, matchRecords, characters }: Ho
           />
         </StyledFiltersWrapper>
       </StyledChartHeader>
-      <ResponsiveContainer width="100%" height={400}>
-        <BarChart
-          data={chartData}
-          margin={{
-            top: 20,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="hour" tick={{ fontSize: 12 }} />
-          <YAxis label={{ value: t("chart.axes.winRatePercent"), angle: -90, position: "insideLeft" }} domain={[0, 100]} tick={{ fontSize: 12 }} />
-          <Tooltip content={<CustomTooltip />} />
-          <Legend />
-          <Bar dataKey="winRate" name="WinRate" fill={theme.colors.textSecondary} radius={[2, 2, 0, 0]} isAnimationActive={false}>
-            {chartData.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={getWinRateColor(entry.winRate, theme, 400)} />
-            ))}
-          </Bar>
-        </BarChart>
-      </ResponsiveContainer>
+      <StyledChartWrapper>
+        <ResponsiveContainer width="100%" height={400}>
+          <BarChart
+            data={chartData}
+            margin={{
+              top: 20,
+              right: 30,
+              left: 20,
+              bottom: 5,
+            }}
+          >
+            <defs>
+              <linearGradient id="colorHourlyWin" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#10b981" stopOpacity={0.8} />
+                <stop offset="95%" stopColor="#10b981" stopOpacity={0.3} />
+              </linearGradient>
+            </defs>
+            <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.05)" />
+            <XAxis dataKey="hour" tick={{ fontSize: 12, fill: theme.colors.gray[600] }} />
+            <YAxis
+              label={{ value: t("chart.axes.winRatePercent"), angle: -90, position: "insideLeft", fill: theme.colors.gray[700] }}
+              domain={[0, 100]}
+              tick={{ fontSize: 12, fill: theme.colors.gray[600] }}
+            />
+            <Tooltip content={<CustomTooltip />} />
+            <Bar dataKey="winRate" name="WinRate" radius={[8, 8, 0, 0]} isAnimationActive={false}>
+              {chartData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={getWinRateColor(entry.winRate, theme, 400)} opacity={0.8} />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      </StyledChartWrapper>
     </StyledChartContainer>
   );
 };

@@ -1,7 +1,7 @@
 import isPropValid from "@emotion/is-prop-valid";
-import { ThemeProvider, StyleSheetManager } from "styled-components";
+import { ThemeProvider as StyledThemeProvider, StyleSheetManager, type DefaultTheme } from "styled-components";
+import { ThemeProvider, useTheme } from "@/hooks";
 import { GlobalStyle } from "@/styles/GlobalStyle";
-import { theme } from "@/styles/theme";
 
 type AppProviderProps = {
   children: React.ReactNode;
@@ -20,13 +20,26 @@ const shouldForwardProp = (propName: string, target: unknown): boolean => {
   return true;
 };
 
-export const AppProvider = ({ children }: AppProviderProps) => {
+/**
+ * テーマを適用するコンポーネント（ThemeProvider内部で使用）
+ */
+const ThemedApp = ({ children }: AppProviderProps) => {
+  const { theme } = useTheme();
+
   return (
     <StyleSheetManager shouldForwardProp={shouldForwardProp}>
-      <ThemeProvider theme={theme}>
+      <StyledThemeProvider theme={theme as DefaultTheme}>
         <GlobalStyle />
         {children}
-      </ThemeProvider>
+      </StyledThemeProvider>
     </StyleSheetManager>
+  );
+};
+
+export const AppProvider = ({ children }: AppProviderProps) => {
+  return (
+    <ThemeProvider>
+      <ThemedApp>{children}</ThemedApp>
+    </ThemeProvider>
   );
 };

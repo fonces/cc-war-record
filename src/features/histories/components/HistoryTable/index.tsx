@@ -1,9 +1,9 @@
 import { useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import styled from "styled-components";
-import { Button, Icon, Dialog } from "@/components/ui";
+import { Button, IconicButton, Icon, Dialog, VirtualTable, TableRow, TableCell, type VirtualTableColumn } from "@/components/ui";
 import { useTranslation } from "@/hooks";
-import { formatDateTable } from "@/utils/uuid";
+import { getScrollbarWidth, formatDate } from "@/utils";
 import type { History } from "@/types";
 
 type HistoryTableProps = {
@@ -15,106 +15,27 @@ type HistoryTableProps = {
   onDelete: (historyUuid: string) => void;
 };
 
-// テーブルコンテナ
-const StyledTableContainer = styled.div`
-  overflow-x: auto;
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
-  border: 1px solid ${({ theme }) => theme.colors.gray[200]};
-  background-color: ${({ theme }) => theme.colors.gray[50]};
-`;
-
-// テーブル
-const StyledTable = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-  background-color: white;
-`;
-
-// テーブルヘッダー
-const StyledTableHeader = styled.thead`
-  background-color: ${({ theme }) => theme.colors.gray[50]};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray[200]};
-`;
-
-const StyledHeaderCell = styled.th`
-  padding: ${({ theme }) => theme.spacing[4]} ${({ theme }) => theme.spacing[6]};
-  text-align: left;
-  font-weight: 600;
-  font-size: 0.875rem;
-  color: ${({ theme }) => theme.colors.gray[700]};
-  white-space: nowrap;
-
-  &:last-child {
-    text-align: center;
-    width: 120px;
-  }
-`;
-
-// テーブルボディ
-const StyledTableBody = styled.tbody``;
-
-const StyledTableRow = styled.tr`
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray[100]};
-  transition: background-color 0.2s ease-in-out;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.gray[50]};
-  }
-
-  &:last-child {
-    border-bottom: none;
-  }
-`;
-
-const StyledTableCell = styled.td`
-  padding: ${({ theme }) => theme.spacing[4]} ${({ theme }) => theme.spacing[6]};
-  font-size: 0.875rem;
-  color: ${({ theme }) => theme.colors.gray[900]};
-
-  &:last-child {
-    text-align: center;
-  }
-`;
-
 // シーズン名セル
-const StyledSeasonNameCell = styled(StyledTableCell)`
-  font-weight: 500;
+const StyledSeasonNameCell = styled(TableCell)`
+  font-weight: 600;
   color: ${({ theme }) => theme.colors.text};
+  position: relative;
+  padding-left: calc(${({ theme }) => theme.spacing[6]} + 8px);
+
+  ${TableRow}:hover &::before {
+    opacity: 1;
+  }
+
+  ${TableRow}:hover & {
+    color: #26a1df;
+  }
 `;
 
 // 作成日時セル
-const StyledDateCell = styled(StyledTableCell)`
+const StyledDateCell = styled(TableCell)`
   color: ${({ theme }) => theme.colors.textSecondary};
-  font-family: "Courier New", monospace;
+  font-size: 0.8125rem;
   white-space: nowrap;
-`;
-
-// 詳細ボタン
-const StyledDetailButton = styled(Button)`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  text-decoration: none;
-  transition: all 0.2s ease-in-out;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.primary[600]};
-  }
-`;
-
-// 削除ボタン
-const StyledDeleteButton = styled(Button)`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  text-decoration: none;
-  transition: all 0.2s ease-in-out;
 `;
 
 // ボタングループ
@@ -122,6 +43,7 @@ const StyledButtonGroup = styled.div`
   display: flex;
   gap: ${({ theme }) => theme.spacing[2]};
   justify-content: center;
+  align-items: center;
 `;
 
 // モーダルコンテンツ
@@ -130,7 +52,7 @@ const StyledDialogContent = styled.div`
 `;
 
 const StyledDialogDescription = styled.p`
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   color: ${({ theme }) => theme.colors.textSecondary};
   margin-bottom: ${({ theme }) => theme.spacing[6]};
   line-height: 1.6;
@@ -140,55 +62,6 @@ const StyledDialogActions = styled.div`
   display: flex;
   gap: ${({ theme }) => theme.spacing[3]};
   justify-content: flex-end;
-`;
-
-// 空状態表示
-const StyledEmptyState = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: ${({ theme }) => theme.spacing[12]} ${({ theme }) => theme.spacing[6]};
-  text-align: center;
-  background-color: white;
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
-  border: 1px solid ${({ theme }) => theme.colors.gray[200]};
-`;
-
-const StyledEmptyIcon = styled.div`
-  width: 64px;
-  height: 64px;
-  background-color: ${({ theme }) => theme.colors.gray[100]};
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: ${({ theme }) => theme.spacing[4]};
-`;
-
-const StyledEmptyTitle = styled.h3`
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: ${({ theme }) => theme.colors.gray[900]};
-  margin-bottom: ${({ theme }) => theme.spacing[2]};
-`;
-
-const StyledEmptyDescription = styled.p`
-  font-size: 0.875rem;
-  color: ${({ theme }) => theme.colors.textSecondary};
-`;
-
-// ローディング状態
-const StyledLoadingRow = styled(StyledTableRow)`
-  &:hover {
-    background-color: transparent;
-  }
-`;
-
-const StyledLoadingCell = styled(StyledTableCell)`
-  text-align: center;
-  color: ${({ theme }) => theme.colors.textSecondary};
-  font-style: italic;
 `;
 
 /**
@@ -203,6 +76,26 @@ export const HistoryTable = ({ histories, isLoading = false, onDelete }: History
     uuid: string;
     seasonName: string;
   } | null>(null);
+
+  // カラム幅設定
+  const columnWidths = useMemo(
+    () => ({
+      seasonName: undefined, // flex: 1
+      date: "220px",
+      actions: "160px",
+    }),
+    [],
+  );
+
+  // テーブルカラム定義
+  const columns: VirtualTableColumn[] = useMemo(() => {
+    const scrollBarWidth = getScrollbarWidth();
+    return [
+      { key: "seasonName", label: t("pages.historyDetail.columns.season"), width: undefined },
+      { key: "date", label: t("pages.historyDetail.columns.date"), width: "220px" },
+      { key: "actions", label: t("match.actions"), width: `${160 + scrollBarWidth}px` },
+    ];
+  }, [t]);
 
   // 履歴詳細へ遷移
   const handleNavigateToDetail = (historyUuid: string) => {
@@ -230,82 +123,46 @@ export const HistoryTable = ({ histories, isLoading = false, onDelete }: History
     }
   };
 
-  // ローディング中の表示
-  if (isLoading) {
-    return (
-      <StyledTableContainer>
-        <StyledTable>
-          <StyledTableHeader>
-            <tr>
-              <StyledHeaderCell>{t("pages.historyDetail.columns.season")}</StyledHeaderCell>
-              <StyledHeaderCell>{t("pages.historyDetail.columns.date")}</StyledHeaderCell>
-              <StyledHeaderCell>{t("pages.histories.detail")}</StyledHeaderCell>
-            </tr>
-          </StyledTableHeader>
-          <StyledTableBody>
-            <StyledLoadingRow>
-              <StyledLoadingCell colSpan={3}>{t("common.loading")}</StyledLoadingCell>
-            </StyledLoadingRow>
-          </StyledTableBody>
-        </StyledTable>
-      </StyledTableContainer>
-    );
-  }
-
-  // 履歴が0件の場合
-  if (histories.length === 0) {
-    return (
-      <StyledEmptyState>
-        <StyledEmptyIcon>
-          <Icon name="history" size={24} />
-        </StyledEmptyIcon>
-        <StyledEmptyTitle>{t("pages.histories.emptyState")}</StyledEmptyTitle>
-        <StyledEmptyDescription>{t("pages.histories.createFirstSeason")}</StyledEmptyDescription>
-      </StyledEmptyState>
-    );
-  }
-
   // 履歴テーブル表示
   return (
-    <StyledTableContainer>
-      <StyledTable>
-        <StyledTableHeader>
-          <tr>
-            <StyledHeaderCell>{t("pages.historyDetail.columns.season")}</StyledHeaderCell>
-            <StyledHeaderCell>{t("pages.historyDetail.columns.date")}</StyledHeaderCell>
-            <StyledHeaderCell>{t("match.actions")}</StyledHeaderCell>
-          </tr>
-        </StyledTableHeader>
-        <StyledTableBody>
-          {histories.map((history) => {
-            const isLatestHistory = history.uuid === histories[0]?.uuid;
+    <>
+      <VirtualTable
+        data={histories}
+        columns={columns}
+        rowHeight={68}
+        overscan={5}
+        height="calc(100dvh - 320px)"
+        isLoading={isLoading}
+        loadingText={t("common.loading")}
+        emptyText={t("pages.histories.emptyState")}
+        getRowKey={(history: History) => history.uuid}
+        renderRow={(history: History) => {
+          const isLatestHistory = history.uuid === histories[0]?.uuid;
 
-            return (
-              <StyledTableRow key={history.uuid}>
-                <StyledSeasonNameCell>{history.seasonName}</StyledSeasonNameCell>
-                <StyledDateCell>{formatDateTable(history.createdAt)}</StyledDateCell>
-                <StyledTableCell>
-                  <StyledButtonGroup>
-                    <StyledDetailButton
-                      variant="outline"
-                      icon={<Icon name="detail" size={16} />}
-                      onClick={() => handleNavigateToDetail(isLatestHistory ? "current" : history.uuid)}
-                      title={t("pages.histories.detail")}
-                    />
-                    <StyledDeleteButton
-                      variant="outline"
-                      icon={<Icon name="delete" size={16} />}
-                      onClick={() => handleOpenDeleteDialog(history.uuid, history.seasonName)}
-                      title={t("pages.histories.delete")}
-                      disabled={isLatestHistory}
-                    />
-                  </StyledButtonGroup>
-                </StyledTableCell>
-              </StyledTableRow>
-            );
-          })}
-        </StyledTableBody>
-      </StyledTable>
+          return (
+            <TableRow>
+              <StyledSeasonNameCell width={columnWidths.seasonName}>{history.seasonName}</StyledSeasonNameCell>
+              <StyledDateCell width={columnWidths.date}>{formatDate(history.createdAt)}</StyledDateCell>
+              <TableCell width={columnWidths.actions}>
+                <StyledButtonGroup>
+                  <IconicButton
+                    icon={<Icon name="detail" size={16} />}
+                    onClick={() => handleNavigateToDetail(isLatestHistory ? "current" : history.uuid)}
+                    title={t("pages.histories.detail")}
+                  />
+                  <IconicButton
+                    $type="danger"
+                    icon={<Icon name="delete" size={16} />}
+                    onClick={() => handleOpenDeleteDialog(history.uuid, history.seasonName)}
+                    title={t("pages.histories.delete")}
+                    disabled={isLatestHistory}
+                  />
+                </StyledButtonGroup>
+              </TableCell>
+            </TableRow>
+          );
+        }}
+      />
 
       {/* 削除確認ダイアログ */}
       <Dialog isOpen={deleteDialogOpen} onClose={handleCancelDelete} title={t("pages.histories.confirmDelete")}>
@@ -321,6 +178,6 @@ export const HistoryTable = ({ histories, isLoading = false, onDelete }: History
           </StyledDialogActions>
         </StyledDialogContent>
       </Dialog>
-    </StyledTableContainer>
+    </>
   );
 };

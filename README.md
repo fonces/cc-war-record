@@ -28,26 +28,38 @@ FINAL FANTASY XIVのPvPコンテンツ「クリスタルコンフリクト」の
 - **TypeScript** v5.9.3 - 型安全性（type優先、interface禁止）
 - **Vite** v7.x (Rolldown) - `npm:rolldown-vite@7.1.14` 高速ビルドツール
 
-### 状態管理・データフェッチング
+### 状態管理
 
-- **Zustand** v4.x - クライアント状態管理
+- **Zustand** v5.x - 軽量クライアント状態管理
+  - characterStore - キャラクター・戦績管理
+  - historyStore - シーズン履歴管理
 
 ### ルーティング
 
 - **TanStack Router** v1.132+ - 型安全なルーティング（Devtools使用）
+  - 自動生成されたルート型定義（`routeTree.gen.ts`）
+  - lazyRouteComponentによるCode Splitting
 
 ### 国際化 (i18n)
 
 - **i18next** v25.6.0 - 国際化フレームワーク
-- **react-i18next** v14.x - React向け国際化ライブラリ
+- **react-i18next** v16.x - React向け国際化ライブラリ
 - **i18next-browser-languagedetector** v8.x - ブラウザ言語検出
+- **対応言語**: 日本語（ja）、English（en）、한국어（ko）
 
 ### UI/UX
 
-- **TanStack Virtual** v4.x - 仮想スクロール（大量データの効率的な表示）
+- **styled-components** v6.1.19 - CSS-in-JS
+  - テーマシステム（ライトモード/ダークモード）
+  - グラスモーフィズムデザイン
+  - レスポンシブデザイン対応
+- **TanStack Virtual** v3.x - 仮想スクロール（大量データの効率的な表示）
 - **View Transition API** - ネイティブブラウザAPIによるページ遷移アニメーション
 - **React Suspense** - 遅延読み込みコンポーネント用フォールバック
-- **Code Splitting** - lazyRouteComponentによるルートベースの動的インポート
+- **カスタムアニメーション**
+  - アコーディオン開閉（grid-template-rows トランジション）
+  - 数値変動アニメーション（AnimatedNumber）
+  - フェードイン・スライドダウン効果
 
 ### PWA機能
 
@@ -55,19 +67,17 @@ FINAL FANTASY XIVのPvPコンテンツ「クリスタルコンフリクト」の
 - **workbox-window** v7.x - ServiceWorkerによるオフラインキャッシュ
   - 画像アセット (`/img/*`) の自動キャッシュ（30日間有効）
   - CacheFirstストラテジーで高速表示
-
-### スタイリング
-
-- **styled-components** v6.x - CSS-in-JS
+  - オフラインでも動作可能
 
 ### データ可視化
 
-- **Recharts** v2.x - グラフ・チャート描画ライブラリ
+- **Recharts** v3.x - グラフ・チャート描画ライブラリ
   - ComposedChart - 複合チャート（日別勝敗数+勝率ライン）
   - BarChart - 棒グラフ（時間別勝率分析）
   - AreaChart - エリアチャート（曜日別勝率比較）
   - RadarChart - レーダーチャート（マップ別ジョブ勝率比較）
-  - PieChart - 円グラフ（ジョブ使用率）
+  - PieChart - 円グラフ（ジョブ使用率、透過度付き）
+  - カスタムツールチップ・レジェンド
 
 ### アナリティクス
 
@@ -78,16 +88,45 @@ FINAL FANTASY XIVのPvPコンテンツ「クリスタルコンフリクト」の
 
 ### Linter・Code Quality
 
-- **ESLint** - Flat Config形式
-- **eslint-plugin-import** - import順序管理
+- **ESLint** v9.x - Flat Config形式
+  - eslint-plugin-import - import順序管理
+  - eslint-plugin-react-hooks - Reactフック規約
+  - eslint-plugin-react-refresh - HMR対応
   - グループ順序: builtin → external → internal → parent → sibling → index → type
   - アルファベット順にソート（大文字小文字を区別しない）
   - `npm run lint -- --fix`で自動整形可能
 
-### ビルド分析
+### ビルド・デプロイ
 
 - **rollup-plugin-visualizer** v6.x - バンドルサイズ可視化ツール
   - ビルド時に `dist/stats.html` を生成してバンドル内容を分析可能
+- **gh-pages** v6.x - GitHub Pagesへの自動デプロイ
+
+### UIコンポーネント
+
+カスタム実装されたコンポーネント群：
+
+- **基本コンポーネント**
+  - Button - 複数バリアント（primary, outline, ghost, win, defeat）
+  - Input - フォーム入力
+  - Select - カスタムドロップダウン（MultiSelectと同様のリッチUI）
+  - MultiSelect - 複数選択ドロップダウン
+  - Checkbox - チェックボックス
+  - Dialog - モーダルダイアログ
+  - Icon - カスタムアイコンシステム（20種類以上）
+
+- **レイアウトコンポーネント**
+  - PageLayout - ページレイアウト
+  - Flex / Grid - フレックス・グリッドレイアウト
+  - Header - ヘッダーナビゲーション
+  - ThemeToggle - テーマ切り替えボタン（Portal配置）
+  - LanguageSelector - 言語切り替えセレクター
+
+- **データ表示コンポーネント**
+  - VirtualTable - 仮想スクロールテーブル
+  - AnimatedNumber - 数値変動アニメーション（増減で方向変化）
+  - JobIcon / RoleIcon - ジョブ・ロールアイコン
+  - EmptyState - 空状態表示
 
 ### アイコン・画像
 
@@ -96,6 +135,8 @@ FINAL FANTASY XIVのPvPコンテンツ「クリスタルコンフリクト」の
   - `/public/img/01_TANK/Job/` - タンクジョブアイコン
   - `/public/img/02_HEALER/Job/` - ヒーラージョブアイコン
   - `/public/img/03_DPS/Job/` - DPSジョブアイコン
+- **カスタムアイコン** - SVGベースのアイコンシステム
+  - hamburger, close, home, history, chart, edit, accept, add, delete, minus, revert, detail, back, language, arrowDropDown
 
 ## 環境変数
 

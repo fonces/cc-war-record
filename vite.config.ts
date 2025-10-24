@@ -15,6 +15,7 @@ const generateGitHubPagesFilesPlugin = () => {
       const indexPath = path.join(distPath, "index.html");
       const notFoundPath = path.join(distPath, "404.html");
       const nojekyllPath = path.join(distPath, ".nojekyll");
+      const buildInfoPath = path.join(distPath, "build-info.json");
 
       // 404.html生成
       if (fs.existsSync(indexPath)) {
@@ -25,6 +26,15 @@ const generateGitHubPagesFilesPlugin = () => {
       // .nojekyll生成
       fs.writeFileSync(nojekyllPath, "");
       console.log("✓ .nojekyll generated for GitHub Pages");
+
+      // ビルド情報JSON生成
+      const date = new Date();
+      const buildInfo = {
+        buildTime: date.toISOString(),
+        timestamp: date.getTime(),
+      };
+      fs.writeFileSync(buildInfoPath, JSON.stringify(buildInfo, null, 2));
+      console.log("✓ build-info.json generated with timestamp:", buildInfo.buildTime);
     },
   };
 };

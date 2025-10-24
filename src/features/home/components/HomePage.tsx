@@ -6,42 +6,19 @@ import { Button, PageContainer, PageTitleContainer, PageTitle, PageDescription, 
 import { usePageTitle, useTranslation } from "@/hooks";
 import { sendEvent } from "@/lib/analytics";
 import { useHistoryStore, useCharacterStore } from "@/stores";
+import { fadeIn } from "@/styles/animation";
 import { CharacterCard } from "./CharacterCard";
 import { CharacterForm } from "./CharacterForm";
 import { DeleteCharacterDialog } from "./DeleteCharacterDialog";
 import { JobRegistrationDialog } from "./JobRegistrationDialog";
-import type { Job, CrystalConflictMap } from "@/types";
+import type { Job, CrystalConflictMap, UUIDv4 } from "@/types";
 
 const StyledCharacterList = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing[4]};
   margin-top: ${({ theme }) => theme.spacing[6]};
-`;
-
-const StyledErrorMessage = styled.div`
-  padding: ${({ theme }) => theme.spacing[3]};
-  margin-bottom: ${({ theme }) => theme.spacing[6]};
-  background-color: #fef2f2;
-  border: 1px solid #fecaca;
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  color: #dc2626;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const StyledErrorCloseButton = styled.button`
-  margin-left: ${({ theme }) => theme.spacing[2]};
-  color: #dc2626;
-  text-decoration: underline;
-  background: none;
-  border: none;
-  cursor: pointer;
-
-  &:hover {
-    text-decoration: none;
-  }
+  animation: ${fadeIn} 0.5s ease-out;
 `;
 
 /**
@@ -87,7 +64,8 @@ export const HomePage = () => {
     name: string;
   } | null>(null);
   const [jobRegistrationDialogOpen, setJobRegistrationDialogOpen] = useState(false);
-  const [characterForJobRegistration, setCharacterForJobRegistration] = useState<string | null>(null);
+  const [characterForJobRegistration, setCharacterForJobRegistration] = useState<UUIDv4 | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   // シーズンを作成するボタンのクリックハンドラー
   const handleCreateSeason = () => {
@@ -98,6 +76,9 @@ export const HomePage = () => {
   const handleCreateCharacter = (name: string) => {
     try {
       createCharacter({ name });
+      setSuccessMessage(t("character.createSuccess", { name }));
+      // 3秒後に成功メッセージを自動的にクリア
+      setTimeout(() => setSuccessMessage(null), 3000);
     } catch {
       // エラーは characterError で表示される
     }
@@ -167,7 +148,7 @@ export const HomePage = () => {
   };
 
   // ジョブ登録ダイアログを開く
-  const handleOpenJobRegistration = (characterUuid: string) => {
+  const handleOpenJobRegistration = (characterUuid: UUIDv4) => {
     setCharacterForJobRegistration(characterUuid);
     setJobRegistrationDialogOpen(true);
   };
@@ -196,7 +177,7 @@ export const HomePage = () => {
   };
 
   // 勝利記録を追加
-  const handleAddWin = (characterUuid: string, job: Job, map: CrystalConflictMap) => {
+  const handleAddWin = (characterUuid: UUIDv4, job: Job, map: CrystalConflictMap) => {
     if (!latestSeason) return;
 
     try {
@@ -216,7 +197,7 @@ export const HomePage = () => {
   };
 
   // 敗北記録を追加
-  const handleAddDefeat = (characterUuid: string, job: Job, map: CrystalConflictMap) => {
+  const handleAddDefeat = (characterUuid: UUIDv4, job: Job, map: CrystalConflictMap) => {
     if (!latestSeason) return;
 
     try {
@@ -281,7 +262,7 @@ export const HomePage = () => {
           <PageTitle>{t("pages.home.noSeason")}</PageTitle>
         </PageTitleContainer>
         <PageDescription>{t("pages.home.createFirstSeason")}</PageDescription>
-        <EmptyState onCreateSeason={handleCreateSeason} />
+        <EmptyState />
       </PageContainer>
     );
   }
@@ -297,13 +278,6 @@ export const HomePage = () => {
         </Button>
       </PageTitleContainer>
       <PageDescription>{t("pages.home.description")}</PageDescription>
-
-      {characterError && (
-        <StyledErrorMessage>
-          <span>{characterError}</span>
-          <StyledErrorCloseButton onClick={clearError}>{t("common.close")}</StyledErrorCloseButton>
-        </StyledErrorMessage>
-      )}
 
       <StyledCharacterList>
         {characterStats.map((stats) => (
@@ -325,7 +299,14 @@ export const HomePage = () => {
             onCancelEdit={handleCancelEditing}
           />
         ))}
-        <CharacterForm isOpen={characterStats.length === 0} onCreateCharacter={handleCreateCharacter} />
+        <CharacterForm
+          isOpen={characterStats.length === 0}
+          onCreateCharacter={handleCreateCharacter}
+          error={characterError}
+          onClearError={clearError}
+          success={successMessage}
+          onClearSuccess={() => setSuccessMessage(null)}
+        />
       </StyledCharacterList>
 
       <DeleteCharacterDialog isOpen={deleteDialogOpen} character={characterToDelete} onClose={handleCancelDelete} onConfirm={handleConfirmDelete} />

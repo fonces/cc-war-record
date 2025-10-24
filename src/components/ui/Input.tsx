@@ -19,7 +19,7 @@ const Container = styled.div<{ fullWidth?: boolean }>`
 const Label = styled.label`
   font-size: 0.875rem;
   font-weight: 500;
-  color: ${({ theme }) => theme.colors.gray[700]};
+  color: ${({ theme }) => theme.colors.textSecondary};
 `;
 
 const StyledInput = styled.input<{ hasError?: boolean; inputSize?: "sm" | "md" | "lg" }>`
@@ -43,24 +43,46 @@ const StyledInput = styled.input<{ hasError?: boolean; inputSize?: "sm" | "md" |
         return "1rem";
     }
   }};
-  border: 2px solid ${({ theme, hasError }) => (hasError ? theme.colors.error[500] : theme.colors.gray[300])};
-  border-radius: ${({ theme }) => theme.borderRadius.md};
+  line-height: 1;
+  border: 1px solid ${({ theme, hasError }) => (hasError ? theme.colors.error[500] : theme.colors.borderLight)};
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
   outline: none;
-  transition: all 0.2s;
-  background-color: white;
+  transition: all ${({ theme }) => theme.transitions.base};
+  background: ${({ theme }) => theme.gradients.glass};
+  backdrop-filter: ${({ theme }) => theme.blur.md};
+  box-shadow: ${({ theme }) => theme.shadows.sm};
+  color: ${({ theme }) => theme.colors.text};
 
   &:focus {
-    border-color: ${({ theme, hasError }) => (hasError ? theme.colors.error[500] : theme.colors.primary[500])};
-    box-shadow: 0 0 0 3px ${({ theme, hasError }) => (hasError ? theme.colors.error[500] + "20" : theme.colors.primary[100])};
+    border-color: ${({ theme, hasError }) => (hasError ? theme.colors.error[500] : theme.colors.border)};
+    box-shadow: ${({ theme, hasError }) => (hasError ? theme.shadows.md : `${theme.shadows.md}, 0 0 0 1px rgba(38, 161, 223, 0.1)`)};
+    transform: translateY(-1px);
+  }
+
+  &:hover:not(:disabled) {
+    border-color: ${({ theme, hasError }) => (hasError ? theme.colors.error[600] : theme.colors.border)};
   }
 
   &:disabled {
-    background-color: ${({ theme }) => theme.colors.gray[100]};
+    background: ${({ theme }) => (theme.isDark ? "rgba(255, 255, 255, 0.03)" : "rgba(0, 0, 0, 0.03)")};
+    backdrop-filter: ${({ theme }) => theme.blur.sm};
+    color: ${({ theme }) => theme.colors.textSecondary};
+    border-color: ${({ theme }) => theme.colors.borderLight};
     cursor: not-allowed;
+    opacity: 0.5;
   }
 
   &::placeholder {
-    color: ${({ theme }) => theme.colors.gray[400]};
+    color: ${({ theme }) => theme.colors.textTertiary};
+  }
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px ${({ theme }) => (theme.isDark ? "rgba(26, 32, 44, 1)" : "rgba(255, 255, 255, 1)")} inset !important;
+    -webkit-text-fill-color: ${({ theme }) => theme.colors.text} !important;
+    transition: background-color 5000s ease-in-out 0s;
   }
 `;
 

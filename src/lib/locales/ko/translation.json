@@ -16,7 +16,14 @@
     "noData": "데이터가 없습니다",
     "success": "성공",
     "warning": "경고",
-    "info": "정보"
+    "info": "정보",
+    "toggleTheme": "테마 전환",
+    "switchToDarkMode": "다크 모드로 전환",
+    "switchToLightMode": "라이트 모드로 전환",
+    "buildUpdate": {
+      "message": "새 버전을 사용할 수 있습니다",
+      "reload": "새로고침"
+    }
   },
   "navigation": {
     "home": "홈",
@@ -60,12 +67,14 @@
       "confirmDelete": "시즌 삭제",
       "deleteDescription": "\"{{seasonName}}\"을(를) 삭제하시겠습니까?\n이 작업은 취소할 수 없습니다.",
       "emptyState": "히스토리가 없습니다",
-      "createFirstSeason": "시즌 히스토리가 아직 생성되지 않았습니다.\n새 시즌을 생성해주세요.",
+      "stats": "시즌",
       "errors": {
         "loadFailed": "히스토리 로드에 실패했습니다",
         "alreadyExists": "시즌 \"{{seasonName}}\"은(는) 이미 존재합니다",
         "notFound": "지정된 히스토리를 찾을 수 없습니다",
-        "characterNotFound": "지정된 캐릭터를 찾을 수 없습니다"
+        "characterNotFound": "지정된 캐릭터를 찾을 수 없습니다",
+        "deleteMatchRecordsFailed": "시즌 {{uuid}}의 매치 기록 삭제 중 오류가 발생했습니다",
+        "loadMatchRecordsFailed": "시즌 {{seasonUuid}}의 매치 기록 로드 중 오류가 발생했습니다"
       }
     },
     "historyDetail": {
@@ -73,8 +82,10 @@
       "description": "시즌의 모든 전적을 표시하고 있습니다.",
       "backToList": "기록 목록으로 돌아가기",
       "totalMatches": "{{count}}경기 전적",
+      "matchesCount": "경기 수",
+      "winRate": "승률",
+      "overall": "전체",
       "createdDate": "생성일",
-      "notFound": "기록을 찾을 수 없습니다",
       "columns": {
         "season": "시즌명",
         "character": "캐릭터명",
@@ -100,7 +111,7 @@
       "confirmTitle": "시즌 생성 확인",
       "confirmDescription": "새 시즌을 만들면 \"{{seasonName}}\"의 전적 데이터가 과거 시즌으로 아카이브되고 새로운 전적 입력이 시작됩니다. 계속하시겠습니까?",
       "validationRequired": "시즌명을 입력해주세요",
-      "validationMaxLength": "시즌명은 50자 이내로 입력해주세요",
+      "validationMaxLength": "시즌명은 {{length}}자 이내로 입력해주세요",
       "successMessage": "시즌 \"{{seasonName}}\"을 만들었습니다"
     },
     "faq": {
@@ -193,6 +204,7 @@
   "character": {
     "name": "캐릭터 이름",
     "create": "캐릭터 생성",
+    "createSuccess": "캐릭터 \"{{name}}\"을(를) 생성했습니다",
     "edit": "캐릭터 이름 편집",
     "delete": "캐릭터 삭제",
     "confirmDelete": "삭제",

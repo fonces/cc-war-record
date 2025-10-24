@@ -1,61 +1,18 @@
-import styled from "styled-components";
-import { PageContainer, PageTitle, PageDescription, PageTitleContainer } from "@/components/ui";
+import { EmptyState } from "@/components/layout";
+import { PageContainer, PageTitle, PageDescription, PageTitleContainer, StatsGrid, StatCard, StatLabel, StatValue, StatDescription, Flush } from "@/components/ui";
 import { useTranslation } from "@/hooks";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { sendEvent } from "@/lib/analytics";
 import { useHistoryStore, useCharacterStore } from "@/stores";
+import { formatShortDate, formatLongDate } from "@/utils";
 import { HistoryTable } from "./HistoryTable";
-
-const StyledActions = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: ${({ theme }) => theme.spacing[6]};
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    flex-direction: column;
-    align-items: stretch;
-    gap: ${({ theme }) => theme.spacing[4]};
-  }
-`;
-
-const StyledStats = styled.div`
-  display: flex;
-  gap: ${({ theme }) => theme.spacing[6]};
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    flex-direction: column;
-    gap: ${({ theme }) => theme.spacing[2]};
-  }
-`;
-
-const StyledStatItem = styled.div`
-  font-size: 0.875rem;
-  color: ${({ theme }) => theme.colors.textSecondary};
-`;
-
-const StyledStatValue = styled.span`
-  font-weight: 600;
-  color: ${({ theme }) => theme.colors.text};
-`;
-
-// エラー表示
-const StyledErrorMessage = styled.div`
-  padding: ${({ theme }) => theme.spacing[4]} ${({ theme }) => theme.spacing[6]};
-  background-color: ${({ theme }) => theme.colors.error[500]}20;
-  border: 1px solid ${({ theme }) => theme.colors.error[500]}40;
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  color: ${({ theme }) => theme.colors.error[500]};
-  margin-bottom: ${({ theme }) => theme.spacing[6]};
-  font-size: 0.875rem;
-`;
 
 /**
  * シーズン履歴一覧画面コンポーネント
  * シーズンの履歴一覧をテーブル形式で表示
  */
 export const HistoriesPage = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   usePageTitle(t("pages.histories.title"));
   const { histories, isLoading, error, getSortedHistories, deleteHistory, clearError } = useHistoryStore();
 
@@ -63,6 +20,9 @@ export const HistoriesPage = () => {
 
   // 日付順（新しい順）にソートされた履歴を取得
   const sortedHistories = getSortedHistories();
+
+  // 現在の言語に応じたロケールを取得
+  const locale = i18n.language === "ja" ? "ja-JP" : i18n.language === "ko" ? "ko-KR" : "en-US";
 
   /**
    * 履歴削除ハンドラー
@@ -94,30 +54,33 @@ export const HistoriesPage = () => {
 
       {/* エラー表示 */}
       {error && (
-        <StyledErrorMessage>
-          <div>
-            {t("common.error")}: {error}
-          </div>
-          <button onClick={clearError} style={{ marginTop: "8px", textDecoration: "underline" }}>
-            {t("common.close")}
-          </button>
-        </StyledErrorMessage>
+        <Flush type="error" onClose={clearError}>
+          {error}
+        </Flush>
       )}
 
-      {/* 統計情報 */}
-      <StyledActions>
-        <StyledStats>
-          <StyledStatItem>{t("pages.histories.totalSeasons", { count: histories.length })}</StyledStatItem>
-          {histories.length > 0 && (
-            <StyledStatItem>
-              {t("pages.histories.latestCreated")}: <StyledStatValue>{new Date(sortedHistories[0]?.createdAt).toLocaleDateString("ja-JP")}</StyledStatValue>
-            </StyledStatItem>
-          )}
-        </StyledStats>
-      </StyledActions>
+      {/* 統計情報カード */}
+      {0 < histories.length ? (
+        <>
+          <StatsGrid>
+            <StatCard>
+              <StatLabel>{t("pages.histories.stats")}</StatLabel>
+              <StatValue>{histories.length}</StatValue>
+              <StatDescription>{t("pages.histories.totalSeasons", { count: histories.length })}</StatDescription>
+            </StatCard>
+            <StatCard>
+              <StatLabel>{t("pages.histories.latestCreated")}</StatLabel>
+              <StatValue>{formatShortDate(sortedHistories[0]?.createdAt, locale)}</StatValue>
+              <StatDescription>{formatLongDate(sortedHistories[0]?.createdAt, locale)}</StatDescription>
+            </StatCard>
+          </StatsGrid>
 
-      {/* 履歴テーブル */}
-      <HistoryTable histories={sortedHistories} isLoading={isLoading} onDelete={handleDelete} />
+          {/* 履歴テーブル */}
+          <HistoryTable histories={sortedHistories} isLoading={isLoading} onDelete={handleDelete} />
+        </>
+      ) : (
+        <EmptyState icon="history" />
+      )}
     </PageContainer>
   );
 };

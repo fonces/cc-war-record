@@ -66,16 +66,28 @@ const StyledJobCard = styled.button<{
   align-items: center;
   gap: ${({ theme }) => theme.spacing[2]};
   padding: ${({ theme }) => theme.spacing[3]};
-  border: 2px solid ${({ isSelected, isDisabled, theme }) => (isDisabled ? theme.colors.gray[200] : isSelected ? theme.colors.primary[500] : theme.colors.gray[200])};
+  border: 2px solid
+    ${({ isSelected, isDisabled, theme }) =>
+      isDisabled ? (theme.isDark ? "rgba(71, 85, 105, 0.5)" : theme.colors.gray[300]) : isSelected ? theme.colors.primary[500] : theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.md};
-  background-color: ${({ isSelected, isDisabled, theme }) => (isDisabled ? theme.colors.gray[100] : isSelected ? theme.colors.primary[50] : "white")};
+  background-color: ${({ isSelected, isDisabled, theme }) =>
+    isDisabled
+      ? theme.isDark
+        ? "rgba(51, 65, 85, 0.3)"
+        : theme.colors.gray[50]
+      : isSelected
+        ? theme.isDark
+          ? "rgba(38, 161, 223, 0.2)"
+          : theme.colors.primary[50]
+        : theme.colors.surface};
   cursor: ${({ isDisabled }) => (isDisabled ? "not-allowed" : "pointer")};
-  opacity: ${({ isDisabled }) => (isDisabled ? 0.5 : 1)};
+  opacity: ${({ isDisabled, theme }) => (isDisabled ? (theme.isDark ? "1" : "0.6") : "1")};
   transition: all 0.2s ease;
 
   &:hover {
-    border-color: ${({ isDisabled, theme }) => (isDisabled ? theme.colors.gray[200] : theme.colors.primary[300])};
-    background-color: ${({ isDisabled, theme }) => (isDisabled ? theme.colors.gray[100] : theme.colors.primary[50])};
+    border-color: ${({ isDisabled, theme }) => (isDisabled ? (theme.isDark ? "rgba(71, 85, 105, 0.5)" : theme.colors.gray[300]) : theme.colors.primary[300])};
+    background-color: ${({ isDisabled, theme }) =>
+      isDisabled ? (theme.isDark ? "rgba(51, 65, 85, 0.3)" : theme.colors.gray[50]) : theme.isDark ? "rgba(38, 161, 223, 0.15)" : theme.colors.primary[50]};
   }
 `;
 

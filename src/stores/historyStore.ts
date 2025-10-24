@@ -1,12 +1,10 @@
 import i18next from "i18next";
 import { create } from "zustand";
-import { getFromLocalStorage, removeFromLocalStorage, saveToLocalStorage } from "@/utils/localStorage";
-import { generateUUID, getCurrentISOString } from "@/utils/uuid";
+import { getCurrentISOString } from "@/utils";
+import { getFromLocalStorage, removeFromLocalStorage, saveToLocalStorage, STORAGE_KEYS } from "@/utils/localStorage";
+import { generateUUID } from "@/utils/uuid";
 import { useCharacterStore } from "./characterStore";
 import type { History, CreateHistoryInput, UpdateHistoryInput, CharacterStats, Character, AddUsedJobInput, MatchRecord } from "@/types";
-
-// localStorageのキー
-const STORAGE_KEY = "cc-war-record-histories";
 
 /**
  * 履歴ストアの状態型
@@ -60,12 +58,12 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
     set({ isLoading: true, error: null });
 
     try {
-      const histories = getFromLocalStorage<History[]>(STORAGE_KEY, []);
+      const histories = getFromLocalStorage(STORAGE_KEYS.HISTORIES, []);
       set({ histories, isLoading: false });
     } catch (error) {
       set({
         isLoading: false,
-        error: error instanceof Error ? error.message : i18next.t("histories.errors.loadFailed"),
+        error: error instanceof Error ? error.message : i18next.t("pages.histories.errors.loadFailed"),
       });
     }
   },
@@ -77,7 +75,7 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
     // 重複チェック（シーズン名）
     const existingHistory = histories.find((h) => h.seasonName === input.seasonName);
     if (existingHistory) {
-      const errorMsg = i18next.t("histories.errors.alreadyExists", { seasonName: input.seasonName });
+      const errorMsg = i18next.t("pages.histories.errors.alreadyExists", { seasonName: input.seasonName });
       set({ error: errorMsg });
       throw new Error(errorMsg);
     }
@@ -118,7 +116,7 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
     const updatedHistories = [...histories, newHistory];
 
     // localStorageに保存
-    saveToLocalStorage(STORAGE_KEY, updatedHistories);
+    saveToLocalStorage(STORAGE_KEYS.HISTORIES, updatedHistories);
 
     set({
       histories: updatedHistories,
@@ -134,7 +132,7 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
 
     const historyIndex = histories.findIndex((h) => h.uuid === uuid);
     if (historyIndex === -1) {
-      set({ error: i18next.t("histories.errors.notFound") });
+      set({ error: i18next.t("pages.histories.errors.notFound") });
       return false;
     }
 
@@ -142,7 +140,7 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
     if (input.seasonName) {
       const existingHistory = histories.find((h) => h.uuid !== uuid && h.seasonName === input.seasonName);
       if (existingHistory) {
-        set({ error: i18next.t("histories.errors.alreadyExists", { seasonName: input.seasonName }) });
+        set({ error: i18next.t("pages.histories.errors.alreadyExists", { seasonName: input.seasonName }) });
         return false;
       }
     }
@@ -157,7 +155,7 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
     updatedHistories[historyIndex] = updatedHistory;
 
     // localStorageに保存
-    saveToLocalStorage(STORAGE_KEY, updatedHistories);
+    saveToLocalStorage(STORAGE_KEYS.HISTORIES, updatedHistories);
 
     set({
       histories: updatedHistories,
@@ -173,21 +171,21 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
 
     const historyIndex = histories.findIndex((h) => h.uuid === uuid);
     if (historyIndex === -1) {
-      set({ error: i18next.t("histories.errors.notFound") });
+      set({ error: i18next.t("pages.histories.errors.notFound") });
       return false;
     }
 
     try {
       removeFromLocalStorage(`histories-${uuid}`);
     } catch (error) {
-      console.error(`Error deleting match records for season ${uuid}:`, error);
+      console.error(i18next.t("pages.histories.errors.deleteMatchRecordsFailed", { uuid }), error);
       return false;
     }
 
     const updatedHistories = histories.filter((h) => h.uuid !== uuid);
 
     // localStorageに保存
-    saveToLocalStorage(STORAGE_KEY, updatedHistories);
+    saveToLocalStorage(STORAGE_KEYS.HISTORIES, updatedHistories);
 
     set({
       histories: updatedHistories,
@@ -215,7 +213,7 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
 
     const historyIndex = histories.findIndex((h) => h.uuid === historyUuid);
     if (historyIndex === -1) {
-      set({ error: i18next.t("histories.errors.notFound") });
+      set({ error: i18next.t("pages.histories.errors.notFound") });
       return null;
     }
 
@@ -247,7 +245,7 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
     updatedHistories[historyIndex] = updatedHistory;
 
     // localStorageに保存
-    saveToLocalStorage(STORAGE_KEY, updatedHistories);
+    saveToLocalStorage(STORAGE_KEYS.HISTORIES, updatedHistories);
 
     set({
       histories: updatedHistories,
@@ -263,7 +261,7 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
 
     const historyIndex = histories.findIndex((h) => h.uuid === input.seasonUuid);
     if (historyIndex === -1) {
-      set({ error: i18next.t("histories.errors.notFound") });
+      set({ error: i18next.t("pages.histories.errors.notFound") });
       return false;
     }
 
@@ -273,7 +271,7 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
     const characterStatsIndex = history.characterStats.findIndex((cs) => cs.character.uuid === input.characterUuid);
 
     if (characterStatsIndex === -1) {
-      set({ error: i18next.t("histories.errors.characterNotFound") });
+      set({ error: i18next.t("pages.histories.errors.characterNotFound") });
       return false;
     }
 
@@ -305,7 +303,7 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
     updatedHistories[historyIndex] = updatedHistory;
 
     // localStorageに保存
-    saveToLocalStorage(STORAGE_KEY, updatedHistories);
+    saveToLocalStorage(STORAGE_KEYS.HISTORIES, updatedHistories);
 
     set({
       histories: updatedHistories,
@@ -318,10 +316,10 @@ export const useHistoryStore = create<HistoryState & HistoryActions>((set, get) 
   // 指定したシーズンのマッチレコードを取得
   getMatchRecordsForSeason: (seasonUuid: string) => {
     try {
-      const matchRecords = getFromLocalStorage<MatchRecord[]>(`histories-${seasonUuid}`, []);
+      const matchRecords = getFromLocalStorage(`histories-${seasonUuid}`, []);
       return matchRecords;
     } catch (error) {
-      console.error(`Error loading match records for season ${seasonUuid}:`, error);
+      console.error(i18next.t("pages.histories.errors.loadMatchRecordsFailed", { seasonUuid }), error);
       return [];
     }
   },

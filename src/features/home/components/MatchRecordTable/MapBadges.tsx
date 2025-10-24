@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { pulse } from "@/styles/animation";
 
 export const StyledCurrentMapBadge = styled.span`
   display: inline-flex;
@@ -33,19 +34,7 @@ export const StyledNextMapBadge = styled.span`
 export const StyledPulsingDot = styled.span`
   width: 6px;
   height: 6px;
-  background-color: white;
+  background-color: ${({ theme }) => (theme.isDark ? "rgba(255, 255, 255, 0.9)" : theme.colors.white)};
   border-radius: 50%;
-  animation: pulse 2s ease-in-out infinite;
-
-  @keyframes pulse {
-    0%,
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 0.5;
-      transform: scale(0.8);
-    }
-  }
+  animation: ${pulse} 2s ease-in-out infinite;
 `;

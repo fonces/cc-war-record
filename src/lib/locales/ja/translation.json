@@ -16,7 +16,14 @@
     "noData": "データがありません",
     "success": "成功しました",
     "warning": "警告",
-    "info": "情報"
+    "info": "情報",
+    "toggleTheme": "テーマを切り替え",
+    "switchToDarkMode": "ダークモードに切り替え",
+    "switchToLightMode": "ライトモードに切り替え",
+    "buildUpdate": {
+      "message": "新しいバージョンが利用可能です",
+      "reload": "更新"
+    }
   },
   "navigation": {
     "home": "ホーム",
@@ -60,12 +67,14 @@
       "confirmDelete": "シーズンの削除",
       "deleteDescription": "「{{seasonName}}」を削除してもよろしいですか？\nこの操作は取り消すことができません。",
       "emptyState": "履歴がありません",
-      "createFirstSeason": "シーズンの履歴がまだ作成されていません。\n新しいシーズンを作成してください。",
+      "stats": "シーズン数",
       "errors": {
         "loadFailed": "履歴の読み込みに失敗しました",
         "alreadyExists": "シーズン「{{seasonName}}」は既に存在します",
         "notFound": "指定された履歴が見つかりません",
-        "characterNotFound": "指定されたキャラクターが見つかりません"
+        "characterNotFound": "指定されたキャラクターが見つかりません",
+        "deleteMatchRecordsFailed": "シーズン {{uuid}} のマッチレコード削除中にエラーが発生しました",
+        "loadMatchRecordsFailed": "シーズン {{seasonUuid}} のマッチレコード読み込み中にエラーが発生しました"
       }
     },
     "historyDetail": {
@@ -73,8 +82,10 @@
       "description": "シーズンの全戦績を表示しています。",
       "backToList": "履歴一覧に戻る",
       "totalMatches": "{{count}}試合の戦績",
+      "matchesCount": "試合数",
+      "winRate": "勝率",
+      "overall": "全体",
       "createdDate": "作成日",
-      "notFound": "履歴が見つかりません",
       "columns": {
         "season": "シーズン名",
         "character": "キャラクター名",
@@ -100,7 +111,7 @@
       "confirmTitle": "シーズン作成の確認",
       "confirmDescription": "新しいシーズンを作成すると「{{seasonName}}」の戦績データは過去のシーズンとしてアーカイブされ、新しい戦績の入力が開始されます。よろしいでしょうか?",
       "validationRequired": "シーズン名を入力してください",
-      "validationMaxLength": "シーズン名は50文字以内で入力してください",
+      "validationMaxLength": "シーズン名は{{length}}文字以内で入力してください",
       "successMessage": "シーズン「{{seasonName}}」を作成しました"
     },
     "faq": {
@@ -193,6 +204,7 @@
   "character": {
     "name": "キャラクター名",
     "create": "キャラクターを作成",
+    "createSuccess": "キャラクター「{{name}}」を作成しました",
     "edit": "キャラクター名を編集",
     "delete": "キャラクターを削除",
     "confirmDelete": "削除する",
@@ -294,7 +306,7 @@
     "winCount": "勝利数",
     "defeatCount": "敗北数",
     "usageRate": "使用率",
-    "matches": "試合数",
+    "matches": "試合",
     "noData": "データがありません",
     "noMatchData": "試合データがありません",
     "selectJobs": "ジョブを選択（最大5個）",

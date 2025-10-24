@@ -1,0 +1,1 @@
+export { NewSeasonPage } from "./NewSeasonPage";
