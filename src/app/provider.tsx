@@ -1,11 +1,8 @@
 import isPropValid from "@emotion/is-prop-valid";
-import { useState, useEffect, useMemo } from "react";
-import { ThemeProvider, StyleSheetManager } from "styled-components";
+import { ThemeProvider as StyledThemeProvider, StyleSheetManager, type DefaultTheme } from "styled-components";
 import { ThemeToggle } from "@/components/ui";
-import { ThemeModeContext, type ThemeMode } from "@/hooks";
+import { ThemeProvider, useTheme } from "@/hooks";
 import { GlobalStyle } from "@/styles/GlobalStyle";
-import { lightTheme, darkTheme } from "@/styles/theme";
-import { STORAGE_KEYS, getFromLocalStorage, saveToLocalStorage } from "@/utils/localStorage";
 
 type AppProviderProps = {
   children: React.ReactNode;
@@ -24,38 +21,27 @@ const shouldForwardProp = (propName: string, target: unknown): boolean => {
   return true;
 };
 
-export const AppProvider = ({ children }: AppProviderProps) => {
-  // LocalStorageから初期値を取得、デフォルトはライトモード
-  const [mode, setModeState] = useState<ThemeMode>(() => {
-    return getFromLocalStorage(STORAGE_KEYS.THEME, "light");
-  });
-
-  // モード変更時にLocalStorageに保存
-  useEffect(() => {
-    saveToLocalStorage(STORAGE_KEYS.THEME, mode);
-  }, [mode]);
-
-  const contextValue = useMemo(
-    () => ({
-      mode,
-      toggleMode: () => setModeState((prev) => (prev === "light" ? "dark" : "light")),
-      setMode: (newMode: ThemeMode) => setModeState(newMode),
-    }),
-    [mode],
-  );
-
-  const currentTheme = mode === "dark" ? darkTheme : lightTheme;
+/**
+ * テーマを適用するコンポーネント（ThemeProvider内部で使用）
+ */
+const ThemedApp = ({ children }: AppProviderProps) => {
+  const { theme } = useTheme();
 
   return (
     <StyleSheetManager shouldForwardProp={shouldForwardProp}>
-      <ThemeModeContext.Provider value={contextValue}>
-        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-        <ThemeProvider theme={currentTheme as any}>
-          <GlobalStyle />
-          {children}
-          <ThemeToggle />
-        </ThemeProvider>
-      </ThemeModeContext.Provider>
+      <StyledThemeProvider theme={theme as DefaultTheme}>
+        <GlobalStyle />
+        {children}
+        <ThemeToggle />
+      </StyledThemeProvider>
     </StyleSheetManager>
+  );
+};
+
+export const AppProvider = ({ children }: AppProviderProps) => {
+  return (
+    <ThemeProvider>
+      <ThemedApp>{children}</ThemedApp>
+    </ThemeProvider>
   );
 };

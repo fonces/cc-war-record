@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { createPortal } from "react-dom";
 import styled from "styled-components";
-import { useThemeMode, useTranslation } from "@/hooks";
+import { useTheme, useTranslation } from "@/hooks";
 import { rotate } from "@/styles/animation";
 
 const StyledToggleContainer = styled.div`
@@ -90,7 +90,7 @@ const StyledToggleButton = styled.button`
 `;
 
 const ThemeToggleComponent = () => {
-  const { mode, toggleMode } = useThemeMode();
+  const { mode, toggleMode } = useTheme();
   const { t } = useTranslation();
 
   const toggleButton = (
