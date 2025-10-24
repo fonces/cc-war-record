@@ -2,10 +2,12 @@ import { memo, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import styled, { keyframes } from "styled-components";
 import { useTranslation } from "@/hooks";
+import { Button } from "./Button";
+import { CloseIcon } from "./Icon/icons";
 
 const slideIn = keyframes`
   from {
-    transform: translateY(100%);
+    transform: translateY(-100%);
     opacity: 0;
   }
   to {
@@ -20,7 +22,7 @@ const slideOut = keyframes`
     opacity: 1;
   }
   to {
-    transform: translateY(100%);
+    transform: translateY(-100%);
     opacity: 0;
   }
 `;
@@ -31,17 +33,19 @@ type StyledSnackbarContainerProps = {
 
 const StyledSnackbarContainer = styled.div<StyledSnackbarContainerProps>`
   position: fixed;
-  bottom: ${({ theme }) => theme.spacing[6]};
+  top: ${({ theme }) => theme.spacing[6]};
   left: 50%;
-  transform: translateX(-50%);
   z-index: 1000;
+  transform: translate(-50%, -100%);
+  opacity: 0;
+  visibility: ${({ $isVisible }) => ($isVisible ? "visible" : "hidden")};
   animation: ${({ $isVisible }) => ($isVisible ? slideIn : slideOut)} 0.3s ease-out forwards;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    bottom: ${({ theme }) => theme.spacing[4]};
+    top: ${({ theme }) => theme.spacing[4]};
     left: ${({ theme }) => theme.spacing[4]};
     right: ${({ theme }) => theme.spacing[4]};
-    transform: none;
+    transform: translateY(-100%);
   }
 `;
 
@@ -50,11 +54,11 @@ const StyledSnackbar = styled.div`
   backdrop-filter: ${({ theme }) => theme.blur.md};
   border: 1px solid ${({ theme }) => theme.colors.borderLight};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
-  padding: ${({ theme }) => `${theme.spacing[4]} ${theme.spacing[6]}`};
+  padding: ${({ theme }) => `${theme.spacing[2]} ${theme.spacing[3]}`};
   box-shadow: ${({ theme }) => theme.shadows["2xl"]};
   display: flex;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing[4]};
+  gap: ${({ theme }) => theme.spacing[2]};
   min-width: 320px;
   max-width: 500px;
 
@@ -69,28 +73,7 @@ const StyledMessage = styled.div`
   color: ${({ theme }) => theme.colors.text};
   font-size: 0.875rem;
   line-height: 1.5;
-`;
-
-const StyledButton = styled.button`
-  background: ${({ theme }) => theme.colors.primary[500]};
-  color: ${({ theme }) => theme.colors.white};
-  border: none;
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  padding: ${({ theme }) => `${theme.spacing[2]} ${theme.spacing[4]}`};
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all ${({ theme }) => theme.transitions.base};
-  white-space: nowrap;
-
-  &:hover {
-    background: ${({ theme }) => theme.colors.primary[600]};
-    transform: translateY(-1px);
-  }
-
-  &:active {
-    transform: translateY(0);
-  }
+  margin-right: 1rem;
 `;
 
 const StyledCloseButton = styled.button`
@@ -131,22 +114,30 @@ type SnackbarProps = {
 
 const SnackbarComponent = ({ open, message, actionLabel, onAction, onClose, autoHideDuration }: SnackbarProps) => {
   const { t } = useTranslation();
-  const [isVisible, setIsVisible] = useState(open);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     if (open) {
-      setIsVisible(true);
+      // 少し遅延させてからアニメーションを開始
+      const showTimer = setTimeout(() => {
+        setIsVisible(true);
+      }, 10);
 
       if (autoHideDuration) {
-        const timer = setTimeout(() => {
+        const hideTimer = setTimeout(() => {
           setIsVisible(false);
           setTimeout(() => {
             onClose?.();
           }, 300); // アニメーション完了後に閉じる
         }, autoHideDuration);
 
-        return () => clearTimeout(timer);
+        return () => {
+          clearTimeout(showTimer);
+          clearTimeout(hideTimer);
+        };
       }
+
+      return () => clearTimeout(showTimer);
     } else {
       setIsVisible(false);
     }
@@ -165,11 +156,13 @@ const SnackbarComponent = ({ open, message, actionLabel, onAction, onClose, auto
     <StyledSnackbarContainer $isVisible={isVisible}>
       <StyledSnackbar>
         <StyledMessage>{message}</StyledMessage>
-        {actionLabel && onAction && <StyledButton onClick={onAction}>{actionLabel}</StyledButton>}
+        {actionLabel && onAction && (
+          <Button variant="outline" size="sm" onClick={onAction}>
+            {actionLabel}
+          </Button>
+        )}
         <StyledCloseButton onClick={handleClose} aria-label={t("common.close")}>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
+          <CloseIcon />
         </StyledCloseButton>
       </StyledSnackbar>
     </StyledSnackbarContainer>

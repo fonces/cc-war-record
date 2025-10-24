@@ -1,5 +1,5 @@
 import { createRootRoute, Outlet, useRouterState } from "@tanstack/react-router";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { Header, NotFoundPage, LoadingFallback } from "@/components/layout";
 import { Snackbar } from "@/components/ui";
 import { useTranslation } from "@/hooks";
@@ -18,17 +18,27 @@ export const Route = createRootRoute({
 function RootComponent() {
   const router = useRouterState();
   const { t } = useTranslation();
+  const shouldCheckUpdateRef = useRef(false);
   const [showUpdateSnackbar, setShowUpdateSnackbar] = useState(false);
 
   // ページ遷移時にスクロールを一番上に戻す & GA4にページビュー送信
   useEffect(() => {
     window.scrollTo(0, 0);
     sendPageView(router.location.pathname);
-    checkBuildUpdate().then((updated) => {
-      if (updated) {
-        setShowUpdateSnackbar(true);
-      }
-    });
+  }, [router.location.pathname]);
+
+  // ビルド更新のチェック
+  useEffect(() => {
+    if (!showUpdateSnackbar && !shouldCheckUpdateRef.current) {
+      setTimeout(() => {
+        checkBuildUpdate().then((updated) => {
+          if (updated) {
+            setShowUpdateSnackbar(true);
+          }
+        });
+      }, 1000);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.location.pathname]);
 
   const handleReload = () => {
@@ -37,6 +47,7 @@ function RootComponent() {
 
   const handleCloseSnackbar = () => {
     setShowUpdateSnackbar(false);
+    shouldCheckUpdateRef.current = true;
   };
 
   return (

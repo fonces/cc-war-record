@@ -47,13 +47,12 @@ export const checkBuildUpdate = async (): Promise<boolean> => {
           await Promise.all(cacheNames.map((name) => caches.delete(name)));
           console.info("Cache storage cleared");
         }
+
+        return true;
       } catch (error) {
         console.error("Error clearing ServiceWorker cache:", error);
-        return false;
       }
     }
-
-    return true;
   }
 
   return false;
