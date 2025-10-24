@@ -5,7 +5,7 @@ import { ThemeToggle } from "@/components/ui";
 import { ThemeModeContext, type ThemeMode } from "@/hooks";
 import { GlobalStyle } from "@/styles/GlobalStyle";
 import { lightTheme, darkTheme } from "@/styles/theme";
-import { STORAGE_KEYS } from "@/utils/localStorage";
+import { STORAGE_KEYS, getFromLocalStorage, saveToLocalStorage } from "@/utils/localStorage";
 
 type AppProviderProps = {
   children: React.ReactNode;
@@ -27,13 +27,12 @@ const shouldForwardProp = (propName: string, target: unknown): boolean => {
 export const AppProvider = ({ children }: AppProviderProps) => {
   // LocalStorageから初期値を取得、デフォルトはライトモード
   const [mode, setModeState] = useState<ThemeMode>(() => {
-    const stored = localStorage.getItem(STORAGE_KEYS.THEME);
-    return stored === "dark" || stored === "light" ? stored : "light";
+    return getFromLocalStorage(STORAGE_KEYS.THEME, "light");
   });
 
   // モード変更時にLocalStorageに保存
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.THEME, mode);
+    saveToLocalStorage(STORAGE_KEYS.THEME, mode);
   }, [mode]);
 
   const contextValue = useMemo(

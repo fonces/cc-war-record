@@ -1,5 +1,5 @@
 import { fetchBuildInfo } from "@/features/api/buildInfo";
-import { STORAGE_KEYS } from "@/utils/localStorage";
+import { STORAGE_KEYS, getFromLocalStorage, saveToLocalStorage } from "@/utils/localStorage";
 
 /**
  * ビルド情報をチェックし、更新があればServiceWorkerのキャッシュをクリアする
@@ -13,11 +13,11 @@ export const checkBuildUpdate = async (): Promise<boolean> => {
   }
 
   const { timestamp } = buildInfo;
-  const storedTimestamp = localStorage.getItem(STORAGE_KEYS.BUILD_TIMESTAMP);
+  const storedTimestamp = getFromLocalStorage(STORAGE_KEYS.BUILD_TIMESTAMP, "");
 
   // 初回アクセスの場合はタイムスタンプを保存して終了
   if (!storedTimestamp) {
-    localStorage.setItem(STORAGE_KEYS.BUILD_TIMESTAMP, timestamp.toString());
+    saveToLocalStorage(STORAGE_KEYS.BUILD_TIMESTAMP, timestamp.toString());
     console.log("First access: build timestamp saved");
     return false;
   }
@@ -32,7 +32,7 @@ export const checkBuildUpdate = async (): Promise<boolean> => {
     });
 
     // 新しいタイムスタンプを保存
-    localStorage.setItem(STORAGE_KEYS.BUILD_TIMESTAMP, timestamp.toString());
+    saveToLocalStorage(STORAGE_KEYS.BUILD_TIMESTAMP, timestamp.toString());
 
     // ServiceWorkerのキャッシュをクリア
     if ("serviceWorker" in navigator && navigator.serviceWorker.controller) {
