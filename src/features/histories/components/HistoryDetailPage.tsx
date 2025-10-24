@@ -6,6 +6,7 @@ import { useTranslation } from "@/hooks";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { useHistoryStore, useCharacterStore } from "@/stores";
 import { fadeIn } from "@/styles/animation";
+import { formatLongDate } from "@/utils";
 import { HistoryDetailTable } from "./HistoryDetailTable";
 import type { MatchRecord } from "@/types";
 
@@ -139,7 +140,7 @@ export const HistoryDetailPage = () => {
         <PageTitle>{history.seasonName}</PageTitle>
       </PageTitleContainer>
       <PageDescription>
-        {t("pages.historyDetail.createdDate")}: {new Date(history.createdAt).toLocaleDateString(locale, { year: "numeric", month: "long", day: "numeric" })}
+        {t("pages.historyDetail.createdDate")}: {formatLongDate(history.createdAt, locale)}
       </PageDescription>
 
       {/* 統計カード */}

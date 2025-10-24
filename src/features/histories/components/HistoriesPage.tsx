@@ -4,6 +4,7 @@ import { useTranslation } from "@/hooks";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { sendEvent } from "@/lib/analytics";
 import { useHistoryStore, useCharacterStore } from "@/stores";
+import { formatShortDate, formatLongDate } from "@/utils";
 import { HistoryTable } from "./HistoryTable";
 
 /**
@@ -69,8 +70,8 @@ export const HistoriesPage = () => {
             </StatCard>
             <StatCard>
               <StatLabel>{t("pages.histories.latestCreated")}</StatLabel>
-              <StatValue>{new Date(sortedHistories[0]?.createdAt).toLocaleDateString(locale, { month: "numeric", day: "numeric" })}</StatValue>
-              <StatDescription>{new Date(sortedHistories[0]?.createdAt).toLocaleDateString(locale, { year: "numeric", month: "long", day: "numeric" })}</StatDescription>
+              <StatValue>{formatShortDate(sortedHistories[0]?.createdAt, locale)}</StatValue>
+              <StatDescription>{formatLongDate(sortedHistories[0]?.createdAt, locale)}</StatDescription>
             </StatCard>
           </StatsGrid>
 
