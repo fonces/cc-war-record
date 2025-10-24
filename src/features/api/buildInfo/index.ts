@@ -16,7 +16,7 @@ export type BuildInfo = {
  * @returns ビルド情報、取得失敗時はnull
  */
 export const fetchBuildInfo = async (): ApiResponse<BuildInfo> => {
-  if (!import.meta.env.DEV) {
+  if (import.meta.env.DEV) {
     const now = new Date();
 
     return {

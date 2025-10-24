@@ -19,7 +19,11 @@
     "info": "Information",
     "toggleTheme": "Toggle theme",
     "switchToDarkMode": "Switch to dark mode",
-    "switchToLightMode": "Switch to light mode"
+    "switchToLightMode": "Switch to light mode",
+    "buildUpdate": {
+      "message": "A new version is available",
+      "reload": "Reload"
+    }
   },
   "navigation": {
     "home": "Home",

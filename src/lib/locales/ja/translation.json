@@ -19,7 +19,11 @@
     "info": "情報",
     "toggleTheme": "テーマを切り替え",
     "switchToDarkMode": "ダークモードに切り替え",
-    "switchToLightMode": "ライトモードに切り替え"
+    "switchToLightMode": "ライトモードに切り替え",
+    "buildUpdate": {
+      "message": "新しいバージョンが利用可能です",
+      "reload": "更新"
+    }
   },
   "navigation": {
     "home": "ホーム",

@@ -15,3 +15,4 @@ export { VirtualTable, TableRow, TableCell, TableHeaderCell, type VirtualTableCo
 export { StatsGrid, StatCard, StatLabel, StatValue, StatDescription } from "./StatCard";
 export { IconicButton } from "./IconicButton";
 export { Flush } from "./Flush";
+export { Snackbar } from "./Snackbar";
