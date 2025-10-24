@@ -1,4 +1,4 @@
-import { useState, memo } from "react";
+import { useState, memo, useMemo } from "react";
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Legend, ResponsiveContainer, Tooltip } from "recharts";
 import styled from "styled-components";
 import { Select, MultiSelect } from "@/components/ui";
@@ -94,7 +94,10 @@ const JobWinRateRadarChartComponent = ({ history, matchRecords, characters }: Jo
     saveToLocalStorage(STORAGE_KEYS.RADAR_CHART_JOBS, jobList);
   };
 
-  const radarData = aggregateJobWinRateByMap(history, matchRecords, selectedCharacterUuid, selectedJobs, t);
+  const radarData = useMemo(
+    () => aggregateJobWinRateByMap(history, matchRecords, selectedCharacterUuid, selectedJobs, t),
+    [history, matchRecords, selectedCharacterUuid, selectedJobs, t],
+  );
 
   return (
     <StyledChartContainer>

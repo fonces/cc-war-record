@@ -1,4 +1,4 @@
-import { useState, memo } from "react";
+import { useState, memo, useMemo } from "react";
 import { ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import styled, { useTheme } from "styled-components";
 import { Select } from "@/components/ui";
@@ -102,7 +102,10 @@ const DailyWinDefeatChartComponent = ({ history, matchRecords, characters }: Dai
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const [selectedMap, setSelectedMap] = useState<CrystalConflictMap | null>(null);
 
-  const dailyData = aggregateDailyWinDefeat(history, matchRecords, selectedCharacterUuid, selectedJob, selectedMap);
+  const dailyData = useMemo(
+    () => aggregateDailyWinDefeat(history, matchRecords, selectedCharacterUuid, selectedJob, selectedMap),
+    [history, matchRecords, selectedCharacterUuid, selectedJob, selectedMap],
+  );
 
   return (
     <StyledChartContainer>

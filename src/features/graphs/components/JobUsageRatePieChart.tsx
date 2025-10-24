@@ -1,4 +1,4 @@
-import { useState, memo } from "react";
+import { useState, memo, useMemo } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recharts";
 import styled, { useTheme } from "styled-components";
 import { Select } from "@/components/ui";
@@ -123,7 +123,10 @@ const JobUsageRatePieChartComponent = ({ history, matchRecords, characters }: Jo
   const [selectedCharacterUuid, setSelectedCharacterUuid] = useState<string | null>(null);
   const [selectedMap, setSelectedMap] = useState<CrystalConflictMap | null>(null);
 
-  const chartData = aggregateJobUsageRate(history, matchRecords, selectedCharacterUuid, selectedMap, t);
+  const chartData = useMemo(
+    () => aggregateJobUsageRate(history, matchRecords, selectedCharacterUuid, selectedMap, t),
+    [history, matchRecords, selectedCharacterUuid, selectedMap, t],
+  );
 
   return (
     <StyledChartContainer>
