@@ -2,7 +2,7 @@
 export * from "./jobs";
 
 // 履歴関連の型定義をエクスポート
-export * from "./history";
+export * from "./stores";
 
 // FF14 クリスタルコンフリクト マップ関連の型定義をエクスポート
 export * from "./maps";
