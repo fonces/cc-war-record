@@ -1,6 +1,5 @@
 import isPropValid from "@emotion/is-prop-valid";
 import { ThemeProvider as StyledThemeProvider, StyleSheetManager, type DefaultTheme } from "styled-components";
-import { ThemeToggle } from "@/components/ui";
 import { ThemeProvider, useTheme } from "@/hooks";
 import { GlobalStyle } from "@/styles/GlobalStyle";
 
@@ -32,7 +31,6 @@ const ThemedApp = ({ children }: AppProviderProps) => {
       <StyledThemeProvider theme={theme as DefaultTheme}>
         <GlobalStyle />
         {children}
-        <ThemeToggle />
       </StyledThemeProvider>
     </StyleSheetManager>
   );

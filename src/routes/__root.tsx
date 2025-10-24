@@ -29,7 +29,7 @@ function RootComponent() {
 
   // ビルド更新のチェック
   useEffect(() => {
-    if (!showUpdateSnackbar && !shouldCheckUpdateRef.current) {
+    if (import.meta.env.PROD && !showUpdateSnackbar && !shouldCheckUpdateRef.current) {
       setTimeout(() => {
         checkBuildUpdate().then((updated) => {
           if (updated) {

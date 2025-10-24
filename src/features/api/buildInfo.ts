@@ -13,14 +13,6 @@ export type BuildInfo = {
  * @returns ビルド情報、取得失敗時はnull
  */
 export const fetchBuildInfo = async (): Promise<BuildInfo | null> => {
-  if (import.meta.env.DEV) {
-    const now = new Date();
-    return {
-      buildTime: now.toISOString(),
-      timestamp: now.getTime(),
-    };
-  }
-
   try {
     const response = await fetch(`${import.meta.env.VITE_BASEPATH}/build-info.json`, {
       cache: "no-cache",
