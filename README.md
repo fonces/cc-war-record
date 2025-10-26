@@ -7,6 +7,18 @@
 FINAL FANTASY XIVのPvPコンテンツ「クリスタルコンフリクト」の戦績を記録・管理するWebアプリケーションです。
 シーズンごとの勝敗記録を管理し、ジョブ別・全体の統計を可視化できます。
 
+**主な機能**
+
+- キャラクター・ジョブ別の戦績記録
+- マップ・時間帯別の詳細統計
+- シーズン履歴のアーカイブ管理
+- データのバックアップ・復元（ZIP形式）
+- 戦績の検索・フィルタリング機能
+- リアルタイムのマップローテーション表示
+- 多言語対応（日本語・英語・韓国語）
+- ダークモード対応
+- PWA対応（オフライン動作可能）
+
 **プライバシー・データ安全性**
 
 - 戦績データはすべてブラウザのローカルストレージに保存
@@ -61,6 +73,13 @@ FINAL FANTASY XIVのPvPコンテンツ「クリスタルコンフリクト」の
   - 数値変動アニメーション（AnimatedNumber）
   - フェードイン・スライドダウン効果
 
+### データ管理・バックアップ
+
+- **JSZip** v3.x - ZIP形式でのバックアップ・復元機能
+  - 全データのエクスポート（キャラクター、戦績、履歴）
+  - トランザクション処理による安全なインポート
+  - バリデーション機能（ファイル形式・JSON妥当性チェック）
+
 ### PWA機能
 
 - **vite-plugin-pwa** v1.x - Progressive Web App対応
@@ -99,21 +118,29 @@ FINAL FANTASY XIVのPvPコンテンツ「クリスタルコンフリクト」の
 ### ビルド・デプロイ
 
 - **rollup-plugin-visualizer** v6.x - バンドルサイズ可視化ツール
-  - ビルド時に `dist/stats.html` を生成してバンドル内容を分析可能
+  - ビルド時に `analyze/stats.html` を生成してバンドル内容を分析可能
 - **gh-pages** v6.x - GitHub Pagesへの自動デプロイ
+- **最適化されたチャンク分割**
+  - recharts: 363kB（グラフライブラリ）
+  - react-vendor: 295kB（React本体）
+  - jszip: 96kB（バックアップ機能）
+  - i18n: 48kB（多言語対応）
+  - styled: 28kB（スタイリング）
+  - メインチャンク: 131kB（78%削減達成）
 
 ### UIコンポーネント
 
-カスタム実装されたコンポーネント群：
+カスタム実装されたコンポーネント群（全てReact.memoでメモ化済み）：
 
 - **基本コンポーネント**
-  - Button - 複数バリアント（primary, outline, ghost, win, defeat）
-  - Input - フォーム入力
+  - Button - 複数バリアント（primary, outline, ghost, win, defeat）+ fitプロパティ
+  - Input - フォーム入力 + アイコン表示対応
   - Select - カスタムドロップダウン（MultiSelectと同様のリッチUI）
   - MultiSelect - 複数選択ドロップダウン
   - Checkbox - チェックボックス
-  - Dialog - モーダルダイアログ
-  - Icon - カスタムアイコンシステム（20種類以上）
+  - Dialog - モーダルダイアログ（警告タイプ、確認テキスト入力対応）
+  - Icon - カスタムアイコンシステム（25種類以上）
+  - Progress - プログレスバー（アニメーション対応）
 
 - **レイアウトコンポーネント**
   - PageLayout - ページレイアウト
@@ -123,10 +150,13 @@ FINAL FANTASY XIVのPvPコンテンツ「クリスタルコンフリクト」の
   - LanguageSelector - 言語切り替えセレクター
 
 - **データ表示コンポーネント**
-  - VirtualTable - 仮想スクロールテーブル
+  - VirtualTable - 仮想スクロールテーブル（TanStack Virtual使用）
   - AnimatedNumber - 数値変動アニメーション（増減で方向変化）
   - JobIcon / RoleIcon - ジョブ・ロールアイコン
   - EmptyState - 空状態表示
+  - JobSummaryTable - ジョブ統計テーブル（メモ化最適化済み）
+  - JobSummaryRow - ジョブ統計行（totalMatches比較でメモ化）
+  - MapSection - マップセクション（totalMatches比較でメモ化）
 
 ### アイコン・画像
 
@@ -136,7 +166,31 @@ FINAL FANTASY XIVのPvPコンテンツ「クリスタルコンフリクト」の
   - `/public/img/02_HEALER/Job/` - ヒーラージョブアイコン
   - `/public/img/03_DPS/Job/` - DPSジョブアイコン
 - **カスタムアイコン** - SVGベースのアイコンシステム
-  - hamburger, close, home, history, chart, edit, accept, add, delete, minus, revert, detail, back, language, arrowDropDown
+  - hamburger, close, home, history, chart, edit, accept, add, delete, minus, revert, detail, back, language, arrowDropDown, search, download, upload, etc.
+
+## パフォーマンス最適化
+
+### コンポーネントメモ化
+
+- **React.memo**で全UIコンポーネントをメモ化
+  - JobSummaryRow: `totalMatches`比較
+  - JobSummaryTable: `usedJobs`, `jobSummaries`, `map`の浅い比較
+  - MapSection: `totalMatches`比較
+- **useMemo/useCallback**で計算結果・関数をメモ化
+- 不要な再レンダリングを最小化
+
+### コード分割・チャンク最適化
+
+- TanStack Routerの`autoCodeSplitting`でルートごとに自動分割
+- manualChunksでライブラリを適切に分割
+  - 500kB超えチャンク警告を完全解消
+  - メインチャンクを601kB→131kBに削減（78%削減）
+- 初回ロード時間の大幅な短縮
+
+### 仮想スクロール
+
+- TanStack Virtualで大量データを効率的に表示
+- 履歴詳細ページで数百件のレコードもスムーズに表示
 
 ## 環境変数
 
@@ -280,6 +334,17 @@ type History = {
 - アプリケーション起動時に各ストアが自動的にデータを読み込み
 - シーズン作成時に前シーズンのデータを自動的にアーカイブ
 
+### バックアップ・復元機能
+
+- **JSZip**を使用したZIP形式のバックアップ
+  - すべてのデータ（キャラクター、戦績、履歴）を一括エクスポート
+  - ファイル名: `cc-war-record-backup-YYYYMMDD-HHMMSS.zip`
+- **安全なインポート**
+  - トランザクション処理（ロールバック機構）
+  - バリデーション（ファイル形式、JSON妥当性チェック）
+  - 警告ダイアログによる上書き確認
+- 履歴ページからワンクリックでバックアップ・復元可能
+
 ## プロジェクト構造
 
 ```
@@ -317,6 +382,10 @@ src/
 │   │   │   ├── DeleteCharacterDialog.tsx
 │   │   │   ├── JobRegistrationDialog.tsx
 │   │   │   └── MatchRecordTable/
+│   │   │       ├── index.tsx              # メインテーブルコンポーネント
+│   │   │       ├── JobSummaryTable.tsx    # ジョブサマリーテーブル（メモ化）
+│   │   │       ├── JobSummaryRow.tsx      # ジョブサマリー行（メモ化）
+│   │   │       └── MapSection.tsx         # マップセクション（メモ化）
 │   │   ├── utils/
 │   │   │   └── calculate.ts
 │   │   └── index.ts           # 公開API
@@ -334,14 +403,14 @@ src/
 │   │   └── index.ts           # 公開API
 │   ├── histories/   # 履歴詳細表示
 │   │   ├── components/
-│   │   │   ├── HistoriesPage.tsx
-│   │   │   ├── HistoryDetailPage.tsx
-│   │   │   ├── NewSeasonPage.tsx
-│   │   │   └── HistoryTable/
+│   │   │   ├── HistoriesPage.tsx      # 履歴一覧（バックアップ機能付き）
+│   │   │   ├── HistoryDetailPage.tsx  # 履歴詳細（検索機能付き）
+│   │   │   ├── HistoryDetailTable/    # 履歴詳細テーブル（仮想スクロール）
+│   │   │   └── NewSeasonPage.tsx
 │   │   └── index.ts           # 公開API
 │   └── faq/         # よくある質問ページ
 │       ├── components/
-│       │   └── FaqPage.tsx
+│       │   └── FaqPage.tsx    # バックアップ手順を含む
 │       └── index.ts           # 公開API
 ├── hooks/           # 共有カスタムフック
 │   ├── useMapRotation.ts  # マップローテーション取得（未使用関数削除済み）
