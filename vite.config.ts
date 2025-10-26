@@ -92,7 +92,32 @@ export default defineConfig({
     sourcemap: false,
     rollupOptions: {
       output: {
-        manualChunks: undefined,
+        manualChunks: (id) => {
+          // recharts関連を別チャンクに
+          if (id.includes("recharts")) {
+            return "recharts";
+          }
+          // React関連のコアライブラリ
+          if (id.includes("react") || id.includes("react-dom")) {
+            return "react-vendor";
+          }
+          // styled-components
+          if (id.includes("styled-components")) {
+            return "styled";
+          }
+          // i18next関連
+          if (id.includes("i18next")) {
+            return "i18n";
+          }
+          // jszip（バックアップ機能）
+          if (id.includes("jszip")) {
+            return "jszip";
+          }
+          // その他のnode_modules
+          if (id.includes("node_modules")) {
+            return "vendor";
+          }
+        },
       },
     },
   },
