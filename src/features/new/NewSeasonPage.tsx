@@ -1,7 +1,7 @@
 import { useRouter } from "@tanstack/react-router";
 import { useState } from "react";
 import { Form, FormGroup, FormActions } from "@/components/layout";
-import { Button, Input, Dialog, PageContainer, PageTitleContainer, PageTitle, PageDescription, Flush } from "@/components/ui";
+import { Button, Input, Dialog, Page, PageTitleContainer, PageTitle, PageDescription, Flush } from "@/components/ui";
 import { useTranslation } from "@/hooks";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { useHistoryStore } from "@/stores";
@@ -120,7 +120,7 @@ export const NewSeasonPage = () => {
       </Dialog>
 
       {/* メインコンテンツ */}
-      <PageContainer>
+      <Page>
         <PageTitleContainer>
           <PageTitle>{t("pages.newSeason.title")}</PageTitle>
         </PageTitleContainer>
@@ -167,7 +167,7 @@ export const NewSeasonPage = () => {
             </Button>
           </FormActions>
         </Form>
-      </PageContainer>
+      </Page>
     </>
   );
 };

@@ -1,21 +1,13 @@
-import styled from "styled-components";
 import { EmptyState } from "@/components/layout";
-import { PageContainer, PageTitle, PageDescription, PageTitleContainer } from "@/components/ui";
+import { Page, PageTitle, PageDescription, PageTitleContainer, PageContainer } from "@/components/ui";
 import { useTranslation } from "@/hooks";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { useHistoryStore, useCharacterStore } from "@/stores";
-import { fadeIn } from "@/styles/animation";
 import { DailyWinDefeatChart } from "./DailyWinDefeatChart";
 import { HourlyWinDefeatChart } from "./HourlyWinDefeatChart";
 import { JobUsageRatePieChart } from "./JobUsageRatePieChart";
 import { JobWinRateRadarChart } from "./JobWinRateRadarChart";
 import { WeeklyWinDefeatChart } from "./WeeklyWinDefeatChart";
-
-const StyledGraphsGrid = styled.div`
-  display: grid;
-  gap: ${({ theme }) => theme.spacing[6]};
-  animation: ${fadeIn} 0.5s ease-out;
-`;
 
 /**
  * グラフ画面コンポーネント
@@ -30,23 +22,23 @@ export const GraphsPage = () => {
   const latestHistory = histories.length > 0 ? histories[histories.length - 1] : null;
 
   return (
-    <PageContainer>
+    <Page>
       <PageTitleContainer>
         <PageTitle>{t("pages.graphs.title")}</PageTitle>
       </PageTitleContainer>
       <PageDescription>{latestHistory ? t("pages.graphs.descriptionWithSeason", { seasonName: latestHistory.seasonName }) : t("pages.graphs.description")}</PageDescription>
 
       {latestHistory ? (
-        <StyledGraphsGrid>
+        <PageContainer>
           <DailyWinDefeatChart history={latestHistory} matchRecords={matchRecords} characters={characters} />
           <HourlyWinDefeatChart history={latestHistory} matchRecords={matchRecords} characters={characters} />
           <WeeklyWinDefeatChart history={latestHistory} matchRecords={matchRecords} characters={characters} />
           <JobUsageRatePieChart history={latestHistory} matchRecords={matchRecords} characters={characters} />
           <JobWinRateRadarChart history={latestHistory} matchRecords={matchRecords} characters={characters} />
-        </StyledGraphsGrid>
+        </PageContainer>
       ) : (
         <EmptyState icon="chart" />
       )}
-    </PageContainer>
+    </Page>
   );
 };

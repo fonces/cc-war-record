@@ -10,7 +10,6 @@ export const StyledChartContainer = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.borderLight};
   border-radius: ${({ theme }) => theme.borderRadius.xl};
   padding: ${({ theme }) => theme.spacing[6]};
-  margin-top: ${({ theme }) => theme.spacing[6]};
   box-shadow: ${({ theme }) => theme.shadows.xl};
   transition: all ${({ theme }) => theme.transitions.base};
   position: relative;

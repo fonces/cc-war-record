@@ -96,6 +96,7 @@
       "winRate": "Win Rate",
       "overall": "Overall",
       "createdDate": "Created",
+      "searchPlaceholder": "Search by character, job, date...",
       "columns": {
         "season": "Season Name",
         "character": "Character Name",

@@ -96,6 +96,7 @@
       "winRate": "승률",
       "overall": "전체",
       "createdDate": "생성일",
+      "searchPlaceholder": "캐릭터명, 잡, 날짜로 검색...",
       "columns": {
         "season": "시즌명",
         "character": "캐릭터명",

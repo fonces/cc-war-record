@@ -9,6 +9,7 @@ export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: ButtonVariant;
   size?: ButtonSize;
   fullWidth?: boolean;
+  fit?: boolean;
   icon?: ReactNode;
 };
 
@@ -187,6 +188,7 @@ const StyledButton = styled.button<ButtonProps>`
   }}
 
   ${({ fullWidth }) => fullWidth && "width: 100%;"}
+  ${({ fit }) => fit && "width: fit-content;"}
 
   &:disabled {
     opacity: 0.5;

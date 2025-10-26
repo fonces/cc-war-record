@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled, { keyframes } from "styled-components";
-import { PageContainer, PageTitleContainer, PageTitle, PageDescription } from "@/components/ui";
+import { Page, PageTitleContainer, PageTitle, PageDescription } from "@/components/ui";
 import { usePageTitle, useTranslation } from "@/hooks";
 import { fadeIn } from "@/styles/animation";
 
@@ -269,7 +269,7 @@ export const FaqPage = () => {
   usePageTitle(t("pages.faq.title"));
 
   return (
-    <PageContainer>
+    <Page>
       <PageTitleContainer>
         <PageTitle>{t("pages.faq.title")}</PageTitle>
       </PageTitleContainer>
@@ -389,6 +389,6 @@ export const FaqPage = () => {
         </p>
         <p>{t("pages.faq.copyright.disclaimer")}</p>
       </Copyright>
-    </PageContainer>
+    </Page>
   );
 };

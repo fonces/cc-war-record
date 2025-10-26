@@ -146,7 +146,7 @@ export const HistoryDetailTable = ({ matches, isCurrent, onDeleteMatch }: Histor
         columns={columns}
         rowHeight={66}
         overscan={5}
-        height="calc(100dvh - 380px)"
+        height="calc(100dvh - 436px)"
         emptyText={t("pages.historyDetail.emptyState")}
         getRowKey={(match: MatchRecord & { characterName: string }) => match.uuid}
         renderRow={(match: MatchRecord & { characterName: string }) => (

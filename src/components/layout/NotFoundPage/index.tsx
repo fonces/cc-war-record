@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import styled from "styled-components";
-import { PageContainer, Button } from "@/components/ui";
+import { Page, Button } from "@/components/ui";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -58,7 +58,7 @@ const StyledDescription = styled.p`
  */
 export const NotFoundPage = () => {
   return (
-    <PageContainer>
+    <Page>
       <StyledContainer>
         <StyledContentWrapper>
           <StyledErrorCode>404</StyledErrorCode>
@@ -72,6 +72,6 @@ export const NotFoundPage = () => {
           </Link>
         </StyledButtonWrapper>
       </StyledContainer>
-    </PageContainer>
+    </Page>
   );
 };

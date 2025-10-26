@@ -10,7 +10,6 @@ const StyledTableContainer = styled.div<{ $height?: string }>`
   background: ${({ theme }) => theme.gradients.glass};
   backdrop-filter: ${({ theme }) => theme.blur.md};
   border: 1px solid ${({ theme }) => theme.colors.borderLight};
-  margin-top: ${({ theme }) => theme.spacing[6]};
   height: ${({ $height }) => $height || "calc(100dvh - 380px)"};
   display: flex;
   flex-direction: column;

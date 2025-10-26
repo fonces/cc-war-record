@@ -1,19 +1,21 @@
 import { forwardRef, memo } from "react";
 import styled from "styled-components";
-import type { InputHTMLAttributes } from "react";
+import type { InputHTMLAttributes, ReactNode } from "react";
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   label?: string;
   error?: string;
   fullWidth?: boolean;
   inputSize?: "sm" | "md" | "lg";
+  icon?: ReactNode;
 };
 
-const Container = styled.div<{ fullWidth?: boolean }>`
+const Container = styled.div<{ fullWidth?: boolean; fit?: boolean }>`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing[2]};
   ${({ fullWidth }) => fullWidth && "width: 100%;"}
+  ${({ fit }) => fit && "width: fit-content;"}
 `;
 
 const Label = styled.label`
@@ -22,7 +24,27 @@ const Label = styled.label`
   color: ${({ theme }) => theme.colors.textSecondary};
 `;
 
-const StyledInput = styled.input<{ hasError?: boolean; inputSize?: "sm" | "md" | "lg" }>`
+const InputWrapper = styled.div`
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+`;
+
+const IconWrapper = styled.div`
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  color: ${({ theme }) => theme.colors.gray[500]};
+  z-index: 1;
+`;
+
+const StyledInput = styled.input<{ hasError?: boolean; inputSize?: "sm" | "md" | "lg"; hasIcon?: boolean }>`
+  display: block;
   padding: ${({ theme, inputSize = "md" }) => {
     switch (inputSize) {
       case "sm":
@@ -31,6 +53,17 @@ const StyledInput = styled.input<{ hasError?: boolean; inputSize?: "sm" | "md" |
         return `${theme.spacing[4]} ${theme.spacing[5]}`;
       default:
         return `${theme.spacing[3]} ${theme.spacing[4]}`;
+    }
+  }};
+  padding-right: ${({ hasIcon, inputSize = "md" }) => {
+    if (!hasIcon) return undefined;
+    switch (inputSize) {
+      case "sm":
+        return "2.5rem";
+      case "lg":
+        return "3rem";
+      default:
+        return "2.75rem";
     }
   }};
   font-size: ${({ size = "md" }) => {
@@ -52,6 +85,7 @@ const StyledInput = styled.input<{ hasError?: boolean; inputSize?: "sm" | "md" |
   backdrop-filter: ${({ theme }) => theme.blur.md};
   box-shadow: ${({ theme }) => theme.shadows.sm};
   color: ${({ theme }) => theme.colors.text};
+  width: 100%;
 
   &:focus {
     border-color: ${({ theme, hasError }) => (hasError ? theme.colors.error[500] : theme.colors.border)};
@@ -92,11 +126,14 @@ const ErrorMessage = styled.span`
 `;
 
 export const Input = memo(
-  forwardRef<HTMLInputElement, InputProps>(({ label, error, fullWidth, inputSize = "md", ...props }, ref) => {
+  forwardRef<HTMLInputElement, InputProps>(({ label, error, fullWidth, inputSize = "md", icon, ...props }, ref) => {
     return (
-      <Container fullWidth={fullWidth}>
+      <Container fit={!!icon} fullWidth={fullWidth}>
         {label && <Label>{label}</Label>}
-        <StyledInput ref={ref} hasError={!!error} inputSize={inputSize} {...props} />
+        <InputWrapper>
+          <StyledInput ref={ref} hasError={!!error} inputSize={inputSize} hasIcon={!!icon} {...props} />
+          {icon && <IconWrapper>{icon}</IconWrapper>}
+        </InputWrapper>
         {error && <ErrorMessage>{error}</ErrorMessage>}
       </Container>
     );

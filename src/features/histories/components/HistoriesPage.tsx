@@ -1,7 +1,8 @@
 import { useState } from "react";
+import styled from "styled-components";
 import { EmptyState } from "@/components/layout";
 import {
-  PageContainer,
+  Page,
   PageTitle,
   PageDescription,
   PageTitleContainer,
@@ -22,6 +23,11 @@ import { sendEvent } from "@/lib/analytics";
 import { useHistoryStore, useCharacterStore } from "@/stores";
 import { formatShortDate, formatLongDate, createBackup, restoreBackup } from "@/utils";
 import { HistoryTable } from "./HistoryTable";
+
+const StyledContentsContainer = styled.div`
+  display: grid;
+  gap: ${({ theme }) => theme.spacing[6]};
+`;
 
 /**
  * シーズン履歴一覧画面コンポーネント
@@ -130,7 +136,7 @@ export const HistoriesPage = () => {
   };
 
   return (
-    <PageContainer>
+    <Page>
       <PageTitleContainer>
         <PageTitle>{t("pages.histories.title")}</PageTitle>
         <PageTitleActions>
@@ -163,7 +169,7 @@ export const HistoriesPage = () => {
 
       {/* 統計情報カード */}
       {0 < histories.length ? (
-        <>
+        <StyledContentsContainer>
           <StatsGrid>
             <StatCard>
               <StatLabel>{t("pages.histories.stats")}</StatLabel>
@@ -179,7 +185,7 @@ export const HistoriesPage = () => {
 
           {/* 履歴テーブル */}
           <HistoryTable histories={sortedHistories} isLoading={isLoading} onDelete={handleDelete} />
-        </>
+        </StyledContentsContainer>
       ) : (
         <EmptyState icon="history" />
       )}
@@ -196,6 +202,6 @@ export const HistoriesPage = () => {
       >
         <p>{t("pages.histories.importBackupWarningMessage")}</p>
       </Dialog>
-    </PageContainer>
+    </Page>
   );
 };

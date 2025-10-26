@@ -9,7 +9,6 @@ export const StatsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: ${({ theme }) => theme.spacing[4]};
-  margin-top: ${({ theme }) => theme.spacing[6]};
   animation: ${fadeIn} 0.6s ease-out;
 `;
 

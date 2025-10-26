@@ -96,6 +96,7 @@
       "winRate": "勝率",
       "overall": "全体",
       "createdDate": "作成日",
+      "searchPlaceholder": "キャラクター名、ジョブ、日時で検索...",
       "columns": {
         "season": "シーズン名",
         "character": "キャラクター名",

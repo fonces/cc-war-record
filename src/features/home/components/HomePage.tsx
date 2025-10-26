@@ -1,25 +1,15 @@
 import { useRouter } from "@tanstack/react-router";
 import { useState } from "react";
-import styled from "styled-components";
 import { EmptyState } from "@/components/layout";
-import { Button, PageContainer, PageTitleContainer, PageTitle, PageDescription, Icon } from "@/components/ui";
+import { Button, Page, PageTitleContainer, PageTitle, PageDescription, Icon, PageContainer } from "@/components/ui";
 import { usePageTitle, useTranslation } from "@/hooks";
 import { sendEvent } from "@/lib/analytics";
 import { useHistoryStore, useCharacterStore } from "@/stores";
-import { fadeIn } from "@/styles/animation";
 import { CharacterCard } from "./CharacterCard";
 import { CharacterForm } from "./CharacterForm";
 import { DeleteCharacterDialog } from "./DeleteCharacterDialog";
 import { JobRegistrationDialog } from "./JobRegistrationDialog";
 import type { Job, CrystalConflictMap, UUIDv4 } from "@/types";
-
-const StyledCharacterList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing[4]};
-  margin-top: ${({ theme }) => theme.spacing[6]};
-  animation: ${fadeIn} 0.5s ease-out;
-`;
 
 /**
  * ホーム画面コンポーネント
@@ -247,29 +237,29 @@ export const HomePage = () => {
   // ローディング中の表示
   if (isLoading) {
     return (
-      <PageContainer>
+      <Page>
         <PageTitle>{t("pages.home.title", { seasonName: "" })}</PageTitle>
         <PageDescription>{t("common.loading")}</PageDescription>
-      </PageContainer>
+      </Page>
     );
   }
 
   // シーズンが未登録の場合
   if (histories.length === 0) {
     return (
-      <PageContainer>
+      <Page>
         <PageTitleContainer>
           <PageTitle>{t("pages.home.noSeason")}</PageTitle>
         </PageTitleContainer>
         <PageDescription>{t("pages.home.createFirstSeason")}</PageDescription>
         <EmptyState />
-      </PageContainer>
+      </Page>
     );
   }
 
   // シーズンが存在する場合の表示
   return (
-    <PageContainer>
+    <Page>
       <PageTitleContainer>
         <PageTitle>{t("pages.home.title", { seasonName: latestSeason?.seasonName })}</PageTitle>
         <Button variant="outline" size="sm" onClick={handleCreateSeason}>
@@ -279,7 +269,7 @@ export const HomePage = () => {
       </PageTitleContainer>
       <PageDescription>{t("pages.home.description")}</PageDescription>
 
-      <StyledCharacterList>
+      <PageContainer>
         {characterStats.map((stats) => (
           <CharacterCard
             key={stats.character.uuid}
@@ -307,7 +297,7 @@ export const HomePage = () => {
           success={successMessage}
           onClearSuccess={() => setSuccessMessage(null)}
         />
-      </StyledCharacterList>
+      </PageContainer>
 
       <DeleteCharacterDialog isOpen={deleteDialogOpen} character={characterToDelete} onClose={handleCancelDelete} onConfirm={handleConfirmDelete} />
 
@@ -320,6 +310,6 @@ export const HomePage = () => {
           historyUuid={latestSeason.uuid}
         />
       )}
-    </PageContainer>
+    </Page>
   );
 };

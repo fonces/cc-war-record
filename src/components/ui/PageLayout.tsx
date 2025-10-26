@@ -2,7 +2,7 @@ import { memo } from "react";
 import styled from "styled-components";
 import { fadeIn } from "@/styles/animation";
 
-const StyledPageContainer = styled.div`
+const StyledPage = styled.div`
   padding: ${({ theme }) => theme.spacing[6]};
   max-width: 1200px;
   min-width: 800px;
@@ -52,7 +52,13 @@ const StyledPageTitleActions = styled.div`
   }
 `;
 
-type PageContainerProps = {
+const StyledPageContainer = styled.div<{ gap: string }>`
+  display: grid;
+  gap: ${({ gap }) => gap};
+  animation: ${fadeIn} 0.5s ease-out;
+`;
+
+type PageProps = {
   children: React.ReactNode;
 };
 
@@ -72,15 +78,19 @@ type PageTitleActionsProps = {
   children: React.ReactNode;
 };
 
+type PageContainerProps = {
+  children: React.ReactNode;
+  gap?: string;
+};
+
 /**
- * ページコンテナコンポーネント
- * ページ全体のコンテナとして使用
+ * ページコンポーネント
  */
-export const PageContainer = memo(({ children }: PageContainerProps) => {
-  return <StyledPageContainer>{children}</StyledPageContainer>;
+export const Page = memo(({ children }: PageProps) => {
+  return <StyledPage>{children}</StyledPage>;
 });
 
-PageContainer.displayName = "PageContainer";
+Page.displayName = "Page";
 
 /**
  * ページタイトルコンテナコンポーネント
@@ -121,3 +131,13 @@ export const PageTitleActions = memo(({ children }: PageTitleActionsProps) => {
 });
 
 PageTitleActions.displayName = "PageTitleActions";
+
+/**
+ * ページコンテナコンポーネント
+ * ページ全体のコンテナとして使用
+ */
+export const PageContainer = memo(({ children, gap = "1.5rem" }: PageContainerProps) => {
+  return <StyledPageContainer gap={gap}>{children}</StyledPageContainer>;
+});
+
+PageContainer.displayName = "PageContainer";

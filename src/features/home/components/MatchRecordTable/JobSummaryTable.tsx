@@ -1,7 +1,9 @@
+import { useMemo } from "react";
 import styled from "styled-components";
 import { Button, JobIcon, Icon, AnimatedNumber } from "@/components/ui";
 import { useTranslation } from "@/hooks";
 import { fadeIn } from "@/styles/animation";
+import { JOB_INFO } from "@/types/jobs";
 import { getWinRateColor } from "@/utils/colors";
 import type { Job, CrystalConflictMap } from "@/types";
 
@@ -222,11 +224,35 @@ type JobSummaryTableProps = {
 };
 
 /**
+ * ジョブをROLE_INFO順にソートする
+ */
+const sortJobsByRole = (jobs: Job[]): Job[] => {
+  const roleOrder = ["tank", "healer", "melee_dps", "physical_ranged_dps", "magical_ranged_dps"];
+
+  return [...jobs].sort((a, b) => {
+    const roleA = JOB_INFO[a].role;
+    const roleB = JOB_INFO[b].role;
+    const roleIndexA = roleOrder.indexOf(roleA);
+    const roleIndexB = roleOrder.indexOf(roleB);
+
+    // ロールが異なる場合はロール順
+    if (roleIndexA !== roleIndexB) {
+      return roleIndexA - roleIndexB;
+    }
+
+    // 同じロールの場合はジョブコードのアルファベット順
+    return a.localeCompare(b);
+  });
+};
+
+/**
  * ジョブサマリーテーブルコンポーネント
  */
 export const JobSummaryTable = ({ usedJobs, jobSummaries, onAddWin, onAddDefeat, onRevertLast, map }: JobSummaryTableProps) => {
   const { t } = useTranslation();
   const showActions = !!(onAddWin || onAddDefeat || onRevertLast);
+
+  const sortedJobs = useMemo(() => sortJobsByRole(usedJobs), [usedJobs]);
 
   return (
     <StyledTableContainer>
@@ -249,7 +275,7 @@ export const JobSummaryTable = ({ usedJobs, jobSummaries, onAddWin, onAddDefeat,
               </StyledTableCell>
             </StyledTableRow>
           ) : (
-            usedJobs.map((job) => {
+            sortedJobs.map((job) => {
               const summary = jobSummaries.find((s) => s.job === job) || {
                 job,
                 totalMatches: 0,

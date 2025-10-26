@@ -1,21 +1,32 @@
 import { useParams, useNavigate } from "@tanstack/react-router";
-import { useMemo, useEffect } from "react";
+import { useMemo, useEffect, useState, useDeferredValue } from "react";
 import styled from "styled-components";
-import { PageContainer, PageTitleContainer, PageTitle, PageDescription, Button, Icon, StatsGrid, StatCard, StatLabel, StatValue, StatDescription } from "@/components/ui";
+import {
+  Page,
+  PageTitleContainer,
+  PageTitle,
+  PageDescription,
+  PageContainer,
+  Button,
+  Icon,
+  Input,
+  StatsGrid,
+  StatCard,
+  StatLabel,
+  StatValue,
+  StatDescription,
+} from "@/components/ui";
 import { useTranslation } from "@/hooks";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { useHistoryStore, useCharacterStore } from "@/stores";
-import { fadeIn } from "@/styles/animation";
-import { formatLongDate } from "@/utils";
+import { JOB_INFO } from "@/types/jobs";
+import { formatLongDate, formatDate } from "@/utils";
 import { HistoryDetailTable } from "./HistoryDetailTable";
 import type { MatchRecord } from "@/types";
 
-// 戻るボタンコンテナ
-const StyledBackButtonContainer = styled.div`
-  margin-top: ${({ theme }) => theme.spacing[6]};
-  display: flex;
-  justify-content: space-between;
-  animation: ${fadeIn} 0.6s ease-out 0.2s backwards;
+const StyledTableAreaContainer = styled.div`
+  display: grid;
+  gap: ${({ theme }) => theme.spacing[3]};
 `;
 
 /**
@@ -29,6 +40,9 @@ export const HistoryDetailPage = () => {
   const navigate = useNavigate();
   const { getHistoryByUuid, getMatchRecordsForSeason, histories } = useHistoryStore();
   const { deleteMatchRecord } = useCharacterStore();
+
+  // 検索キーワード
+  const [searchKeyword, setSearchKeyword] = useState("");
 
   // 現在の言語に応じたロケールを取得
   const locale = i18n.language === "ja" ? "ja-JP" : i18n.language === "ko" ? "ko-KR" : "en-US";
@@ -106,15 +120,52 @@ export const HistoryDetailPage = () => {
     return matches.sort((a, b) => new Date(b.recordedAt).getTime() - new Date(a.recordedAt).getTime());
   }, [history, archivedMatchRecords, isCurrent]);
 
-  // 統計情報を計算
+  // 遅延された検索キーワード（UIの応答性を保つため）
+  const deferredSearchKeyword = useDeferredValue(searchKeyword);
+
+  // フィルタリングされたマッチ一覧
+  const filteredMatches = useMemo(() => {
+    if (!deferredSearchKeyword.trim()) {
+      return allMatches;
+    }
+
+    const keyword = deferredSearchKeyword.toLowerCase().trim();
+    return allMatches.filter((match) => {
+      // キャラクター名で検索
+      if (match.characterName.toLowerCase().includes(keyword)) {
+        return true;
+      }
+
+      // ジョブコードで検索（PLD, WHM, etc.）
+      if (match.job.toLowerCase().includes(keyword)) {
+        return true;
+      }
+
+      // ジョブ名で検索（日本語名、英語名）
+      const jobInfo = JOB_INFO[match.job];
+      if (jobInfo.name.toLowerCase().includes(keyword) || jobInfo.nameEn.toLowerCase().includes(keyword) || jobInfo.shortName.toLowerCase().includes(keyword)) {
+        return true;
+      }
+
+      // 作成日時で検索（フォーマット済みの日時文字列）
+      const formattedDate = formatDate(match.recordedAt).toLowerCase();
+      if (formattedDate.includes(keyword)) {
+        return true;
+      }
+
+      return false;
+    });
+  }, [allMatches, deferredSearchKeyword]);
+
+  // 統計情報を計算（フィルタリングされた結果から算出）
   const stats = useMemo(() => {
-    const totalMatches = allMatches.length;
-    const wins = allMatches.filter((m) => m.isWin).length;
+    const totalMatches = filteredMatches.length;
+    const wins = filteredMatches.filter((m) => m.isWin).length;
     const defeats = totalMatches - wins;
     const winRate = totalMatches > 0 ? (wins / totalMatches) * 100 : 0;
 
     return { totalMatches, wins, defeats, winRate };
-  }, [allMatches]);
+  }, [filteredMatches]);
 
   // マッチを削除
   const handleDeleteMatch = (matchUuid: string) => {
@@ -135,53 +186,64 @@ export const HistoryDetailPage = () => {
   }
 
   return (
-    <PageContainer>
+    <Page>
       <PageTitleContainer>
         <PageTitle>{history.seasonName}</PageTitle>
       </PageTitleContainer>
       <PageDescription>
         {t("pages.historyDetail.createdDate")}: {formatLongDate(history.createdAt, locale)}
       </PageDescription>
+      <PageContainer>
+        {/* 統計カード */}
+        <StatsGrid>
+          <StatCard>
+            <StatLabel>{t("pages.historyDetail.matchesCount")}</StatLabel>
+            <StatValue>{stats.totalMatches}</StatValue>
+            <StatDescription>{t("pages.historyDetail.totalMatches", { count: stats.totalMatches })}</StatDescription>
+          </StatCard>
+          <StatCard>
+            <StatLabel>{t("pages.historyDetail.results.win")}</StatLabel>
+            <StatValue $type="win">{stats.wins}</StatValue>
+            <StatDescription>{stats.totalMatches > 0 ? `${((stats.wins / stats.totalMatches) * 100).toFixed(1)}%` : "0%"}</StatDescription>
+          </StatCard>
+          <StatCard>
+            <StatLabel>{t("pages.historyDetail.results.defeat")}</StatLabel>
+            <StatValue $type="defeat">{stats.defeats}</StatValue>
+            <StatDescription>{stats.totalMatches > 0 ? `${((stats.defeats / stats.totalMatches) * 100).toFixed(1)}%` : "0%"}</StatDescription>
+          </StatCard>
+          <StatCard>
+            <StatLabel>{t("pages.historyDetail.winRate")}</StatLabel>
+            {0 < stats.totalMatches ? (
+              <StatValue $type="winRate" $winRate={stats.winRate}>
+                {stats.winRate.toFixed(1)}%
+              </StatValue>
+            ) : (
+              <StatValue>--%</StatValue>
+            )}
+            <StatDescription>{t("pages.historyDetail.overall")}</StatDescription>
+          </StatCard>
+        </StatsGrid>
 
-      {/* 統計カード */}
-      <StatsGrid>
-        <StatCard>
-          <StatLabel>{t("pages.historyDetail.matchesCount")}</StatLabel>
-          <StatValue>{stats.totalMatches}</StatValue>
-          <StatDescription>{t("pages.historyDetail.totalMatches", { count: stats.totalMatches })}</StatDescription>
-        </StatCard>
-        <StatCard>
-          <StatLabel>{t("pages.historyDetail.results.win")}</StatLabel>
-          <StatValue $type="win">{stats.wins}</StatValue>
-          <StatDescription>{stats.totalMatches > 0 ? `${((stats.wins / stats.totalMatches) * 100).toFixed(1)}%` : "0%"}</StatDescription>
-        </StatCard>
-        <StatCard>
-          <StatLabel>{t("pages.historyDetail.results.defeat")}</StatLabel>
-          <StatValue $type="defeat">{stats.defeats}</StatValue>
-          <StatDescription>{stats.totalMatches > 0 ? `${((stats.defeats / stats.totalMatches) * 100).toFixed(1)}%` : "0%"}</StatDescription>
-        </StatCard>
-        <StatCard>
-          <StatLabel>{t("pages.historyDetail.winRate")}</StatLabel>
-          {0 < stats.totalMatches ? (
-            <StatValue $type="winRate" $winRate={stats.winRate}>
-              {stats.winRate.toFixed(1)}%
-            </StatValue>
-          ) : (
-            <StatValue>--%</StatValue>
-          )}
-          <StatDescription>{t("pages.historyDetail.overall")}</StatDescription>
-        </StatCard>
-      </StatsGrid>
+        <StyledTableAreaContainer>
+          {/* 検索フィールド */}
+          <Input
+            type="text"
+            placeholder={t("pages.historyDetail.searchPlaceholder")}
+            value={searchKeyword}
+            onChange={(e) => setSearchKeyword(e.target.value)}
+            icon={<Icon name="search" size={16} />}
+            style={{ width: "400px" }}
+          />
 
-      {/* テーブル */}
-      <HistoryDetailTable matches={allMatches} isCurrent={isCurrent} onDeleteMatch={handleDeleteMatch} />
+          {/* テーブル */}
+          <HistoryDetailTable matches={filteredMatches} isCurrent={isCurrent} onDeleteMatch={handleDeleteMatch} />
+        </StyledTableAreaContainer>
 
-      <StyledBackButtonContainer>
-        <Button variant="outline" size="sm" onClick={() => navigate({ to: "/histories" })}>
+        <Button variant="outline" size="sm" fit onClick={() => navigate({ to: "/histories" })}>
           <Icon name="back" size={16} />
           {t("pages.historyDetail.backToList")}
         </Button>
-      </StyledBackButtonContainer>
-    </PageContainer>
+      </PageContainer>
+    </Page>
   );
 };

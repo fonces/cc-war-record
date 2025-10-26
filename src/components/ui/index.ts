@@ -9,7 +9,7 @@ export { RoleIcon } from "./RoleIcon";
 export { Dialog } from "./Dialog";
 export { MultiSelect } from "./MultiSelect";
 export { Checkbox } from "./Checkbox";
-export { PageContainer, PageTitleContainer, PageTitle, PageDescription, PageTitleActions } from "./PageLayout";
+export { Page, PageTitleContainer, PageTitle, PageDescription, PageTitleActions, PageContainer } from "./PageLayout";
 export { LanguageSelector } from "./LanguageSelector";
 export { ThemeToggle } from "./ThemeToggle";
 export { VirtualTable, TableRow, TableCell, TableHeaderCell, type VirtualTableColumn, type VirtualTableProps } from "./VirtualTable";

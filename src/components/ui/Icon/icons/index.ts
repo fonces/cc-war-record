@@ -15,3 +15,4 @@ export { LanguageIcon } from "./LanguageIcon";
 export { ArrowDropDownIcon } from "./ArrowDropDownIcon";
 export { DownloadIcon } from "./DownloadIcon";
 export { UploadIcon } from "./UploadIcon";
+export { SearchIcon } from "./SearchIcon";
