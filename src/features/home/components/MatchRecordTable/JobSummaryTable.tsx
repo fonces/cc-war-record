@@ -1,10 +1,9 @@
-import { useMemo } from "react";
+import { useMemo, memo } from "react";
 import styled from "styled-components";
-import { Button, JobIcon, Icon, AnimatedNumber } from "@/components/ui";
 import { useTranslation } from "@/hooks";
 import { fadeIn } from "@/styles/animation";
-import { JOB_INFO } from "@/types/jobs";
-import { getWinRateColor } from "@/utils/colors";
+import { sortJobs } from "@/utils";
+import { JobSummaryRow, type JobSummary } from "./JobSummaryRow";
 import type { Job, CrystalConflictMap } from "@/types";
 
 const StyledTableContainer = styled.div`
@@ -112,76 +111,6 @@ const StyledTableCell = styled.td`
   ${tableCellStyles}
 `;
 
-const StyledJobCell = styled(StyledTableCell)`
-  & > div {
-    display: flex;
-    align-items: center;
-    gap: ${({ theme }) => theme.spacing[3]};
-    font-weight: 600;
-    color: ${({ theme }) => theme.colors.text};
-    position: relative;
-    padding-left: ${({ theme }) => theme.spacing[2]};
-  }
-`;
-
-const StyledWinRateText = styled.span<{ winRate: number }>`
-  font-weight: 700;
-  font-size: 1rem;
-  color: ${({ winRate, theme }) => getWinRateColor(winRate, theme)};
-  position: relative;
-  display: inline-block;
-  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: ${({ winRate, theme }) => getWinRateColor(winRate, theme)};
-    opacity: 0;
-    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  ${StyledTableRow}:hover & {
-    &::after {
-      opacity: 0.3;
-    }
-  }
-`;
-
-const StyledActionButtons = styled.div`
-  display: flex;
-  gap: ${({ theme }) => theme.spacing[2]};
-  justify-content: flex-start;
-  align-items: center;
-`;
-
-const StyledActionButton = styled(Button)`
-  width: 36px;
-  height: 36px;
-  min-width: 36px;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.75rem;
-  font-weight: 700;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-
-  &:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 16px rgba(38, 161, 223, 0.2);
-  }
-
-  &:active:not(:disabled) {
-    transform: translateY(-2px);
-  }
-`;
-
 const StyledEmptyMapState = styled.div`
   text-align: center;
   padding: ${({ theme }) => theme.spacing[12]} ${({ theme }) => theme.spacing[6]};
@@ -200,14 +129,6 @@ const StyledEmptyMapState = styled.div`
   }
 `;
 
-type JobSummary = {
-  job: Job;
-  totalMatches: number;
-  wins: number;
-  defeats: number;
-  winRate: number;
-};
-
 type JobSummaryTableProps = {
   /** 使用ジョブ一覧 */
   usedJobs: Job[];
@@ -224,118 +145,60 @@ type JobSummaryTableProps = {
 };
 
 /**
- * ジョブをROLE_INFO順にソートする
- */
-const sortJobsByRole = (jobs: Job[]): Job[] => {
-  const roleOrder = ["tank", "healer", "melee_dps", "physical_ranged_dps", "magical_ranged_dps"];
-
-  return [...jobs].sort((a, b) => {
-    const roleA = JOB_INFO[a].role;
-    const roleB = JOB_INFO[b].role;
-    const roleIndexA = roleOrder.indexOf(roleA);
-    const roleIndexB = roleOrder.indexOf(roleB);
-
-    // ロールが異なる場合はロール順
-    if (roleIndexA !== roleIndexB) {
-      return roleIndexA - roleIndexB;
-    }
-
-    // 同じロールの場合はジョブコードのアルファベット順
-    return a.localeCompare(b);
-  });
-};
-
-/**
  * ジョブサマリーテーブルコンポーネント
  */
-export const JobSummaryTable = ({ usedJobs, jobSummaries, onAddWin, onAddDefeat, onRevertLast, map }: JobSummaryTableProps) => {
-  const { t } = useTranslation();
-  const showActions = !!(onAddWin || onAddDefeat || onRevertLast);
+export const JobSummaryTable = memo(
+  ({ usedJobs, jobSummaries, onAddWin, onAddDefeat, onRevertLast, map }: JobSummaryTableProps) => {
+    const { t } = useTranslation();
+    const showActions = !!(onAddWin || onAddDefeat || onRevertLast);
 
-  const sortedJobs = useMemo(() => sortJobsByRole(usedJobs), [usedJobs]);
+    const sortedJobs = useMemo(() => sortJobs(usedJobs), [usedJobs]);
 
-  return (
-    <StyledTableContainer>
-      <StyledTable>
-        <StyledTableHead>
-          <tr>
-            <StyledTableHeader>{t("match.job")}</StyledTableHeader>
-            <StyledTableHeader>{t("match.totalMatches")}</StyledTableHeader>
-            <StyledTableHeader>{t("match.win")}</StyledTableHeader>
-            <StyledTableHeader>{t("match.defeat")}</StyledTableHeader>
-            <StyledTableHeader>{t("match.winRate")}</StyledTableHeader>
-            {<StyledTableHeader>{showActions && map ? t("match.actions") : ""}</StyledTableHeader>}
-          </tr>
-        </StyledTableHead>
-        <StyledTableBody>
-          {usedJobs.length === 0 ? (
-            <StyledTableRow>
-              <StyledTableCell colSpan={showActions ? 6 : 5}>
-                <StyledEmptyMapState>{t("match.pleaseRegisterJob")}</StyledEmptyMapState>
-              </StyledTableCell>
-            </StyledTableRow>
-          ) : (
-            sortedJobs.map((job) => {
-              const summary = jobSummaries.find((s) => s.job === job) || {
-                job,
-                totalMatches: 0,
-                wins: 0,
-                defeats: 0,
-                winRate: 0,
-              };
-              return (
-                <StyledTableRow key={job}>
-                  <StyledJobCell>
-                    <div>
-                      <JobIcon job={summary.job} size={32} />
-                      {summary.job}
-                    </div>
-                  </StyledJobCell>
-                  <StyledTableCell>
-                    <AnimatedNumber>{summary.totalMatches}</AnimatedNumber>
-                  </StyledTableCell>
-                  <StyledTableCell>
-                    <AnimatedNumber>{summary.wins}</AnimatedNumber>
-                  </StyledTableCell>
-                  <StyledTableCell>
-                    <AnimatedNumber>{summary.defeats}</AnimatedNumber>
-                  </StyledTableCell>
-                  <StyledTableCell>
-                    {0 < summary.totalMatches ? (
-                      <StyledWinRateText winRate={summary.winRate}>
-                        <AnimatedNumber suffix="%">{summary.winRate}</AnimatedNumber>
-                      </StyledWinRateText>
-                    ) : (
-                      <span>--%</span>
-                    )}
-                  </StyledTableCell>
-                  <StyledTableCell>
-                    {map ? (
-                      <StyledActionButtons>
-                        {onAddWin && (
-                          <StyledActionButton variant="win" onClick={() => onAddWin(summary.job, map)} title={t("match.addWin")}>
-                            W
-                          </StyledActionButton>
-                        )}
-                        {onAddDefeat && (
-                          <StyledActionButton variant="defeat" onClick={() => onAddDefeat(summary.job, map)} title={t("match.addDefeat")}>
-                            D
-                          </StyledActionButton>
-                        )}
-                        {summary.totalMatches > 0 && onRevertLast ? (
-                          <StyledActionButton variant="ghost" icon={<Icon name="revert" size={16} />} onClick={() => onRevertLast(summary.job, map)} title={t("match.rollback")} />
-                        ) : (
-                          (onAddWin || onAddDefeat) && <div style={{ width: "32px" }} />
-                        )}
-                      </StyledActionButtons>
-                    ) : null}
-                  </StyledTableCell>
-                </StyledTableRow>
-              );
-            })
-          )}
-        </StyledTableBody>
-      </StyledTable>
-    </StyledTableContainer>
-  );
-};
+    return (
+      <StyledTableContainer>
+        <StyledTable>
+          <StyledTableHead>
+            <tr>
+              <StyledTableHeader>{t("match.job")}</StyledTableHeader>
+              <StyledTableHeader>{t("match.totalMatches")}</StyledTableHeader>
+              <StyledTableHeader>{t("match.win")}</StyledTableHeader>
+              <StyledTableHeader>{t("match.defeat")}</StyledTableHeader>
+              <StyledTableHeader>{t("match.winRate")}</StyledTableHeader>
+              {<StyledTableHeader>{showActions && map ? t("match.actions") : ""}</StyledTableHeader>}
+            </tr>
+          </StyledTableHead>
+          <StyledTableBody>
+            {usedJobs.length === 0 ? (
+              <StyledTableRow>
+                <StyledTableCell colSpan={showActions ? 6 : 5}>
+                  <StyledEmptyMapState>{t("match.pleaseRegisterJob")}</StyledEmptyMapState>
+                </StyledTableCell>
+              </StyledTableRow>
+            ) : (
+              sortedJobs.map((job) => {
+                const summary = jobSummaries.find((s) => s.job === job) || {
+                  job,
+                  totalMatches: 0,
+                  wins: 0,
+                  defeats: 0,
+                  winRate: 0,
+                };
+                return <JobSummaryRow key={job} summary={summary} map={map} onAddWin={onAddWin} onAddDefeat={onAddDefeat} onRevertLast={onRevertLast} />;
+              })
+            )}
+          </StyledTableBody>
+        </StyledTable>
+      </StyledTableContainer>
+    );
+  },
+  (prevProps, nextProps) => {
+    // usedJobs、jobSummaries、mapの浅い比較
+    return (
+      prevProps.usedJobs.length === nextProps.usedJobs.length &&
+      prevProps.jobSummaries.reduce((acc, s) => acc + (s.totalMatches || 0), 0) === nextProps.jobSummaries.reduce((acc, s) => acc + (s.totalMatches || 0), 0) &&
+      prevProps.map === nextProps.map
+    );
+  },
+);
+
+JobSummaryTable.displayName = "JobSummaryTable";

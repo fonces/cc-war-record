@@ -2,7 +2,7 @@
  * ジョブ関連のユーティリティ関数
  */
 
-import { ROLES, JOB_INFO } from "@/types/jobs";
+import { ROLES, JOB_INFO, JOBS } from "@/types/jobs";
 import type { Role, Job, JobInfo } from "@/types";
 
 // ロール別のジョブリスト取得ユーティリティ
@@ -81,3 +81,11 @@ export const ROLE_NAMES: Record<Role, string> = {
 
 // ロール表示順序
 export const ROLE_ORDER: Role[] = [ROLES.TANK, ROLES.HEALER, ROLES.MELEE_DPS, ROLES.PHYSICAL_RANGED_DPS, ROLES.MAGICAL_RANGED_DPS];
+
+/**
+ * Jobをソートする
+ */
+export const sortJobs = (jobs: Job[]): Job[] => {
+  const order = Object.values(JOBS);
+  return jobs.sort((a, b) => order.indexOf(a) - order.indexOf(b));
+};

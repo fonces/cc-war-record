@@ -1,107 +1,15 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { Icon } from "@/components/ui";
 import { calculateMapJobSummaries, calculateTotalSummary } from "@/features/home/utils/calculate";
 import { useTranslation, useMapRotation } from "@/hooks";
-import { getWinRateColor } from "@/utils/colors";
 import { getMapName } from "@/utils/maps";
-import { JobSummaryTable } from "./JobSummaryTable";
-import { StyledCurrentMapBadge, StyledNextMapBadge, StyledPulsingDot } from "./MapBadges";
+import { MapSection } from "./MapSection";
 import type { MatchRecord, Job, CrystalConflictMap } from "@/types";
 
 const StyledMapTablesContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing[6]};
-`;
-
-const StyledMapSection = styled.div`
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  overflow: hidden;
-`;
-
-const StyledMapTitle = styled.h4<{ isCurrentMap?: boolean }>`
-  margin: 0;
-  padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
-  background-color: ${({ isCurrentMap, theme }) => {
-    const isDark = theme.isDark;
-    if (isCurrentMap) {
-      return isDark ? "rgba(38, 161, 223, 0.15)" : "rgba(38, 161, 223, 0.08)";
-    }
-    return isDark ? "rgba(255, 255, 255, 0.03)" : "rgba(0, 0, 0, 0.02)";
-  }};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
-  font-size: 1rem;
-  font-weight: 600;
-  color: ${({ theme }) => theme.colors.text};
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  user-select: none;
-  position: relative;
-  transition: background-color 0.2s ease;
-
-  ${({ isCurrentMap, theme }) =>
-    isCurrentMap &&
-    `
-    border-left: 4px solid ${theme.colors.primary[500]};
-    padding-left: calc(${theme.spacing[4]} - 4px);
-  `}
-
-  &:hover {
-    background-color: ${({ isCurrentMap, theme }) => {
-      const isDark = theme.isDark;
-      if (isCurrentMap) {
-        return isDark ? "rgba(38, 161, 223, 0.22)" : "rgba(38, 161, 223, 0.12)";
-      }
-      return isDark ? "rgba(255, 255, 255, 0.05)" : "rgba(0, 0, 0, 0.04)";
-    }};
-  }
-`;
-
-const StyledMapTitleLeft = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing[2]};
-`;
-
-const StyledMapSummary = styled.div`
-  align-items: center;
-  display: flex;
-  gap: ${({ theme }) => theme.spacing[4]};
-  font-size: 0.875rem;
-  font-weight: 500;
-  justify-content: flex-end;
-  color: ${({ theme }) => theme.colors.textSecondary};
-  padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
-  background: ${({ theme }) => theme.gradients.glass};
-  backdrop-filter: ${({ theme }) => theme.blur.sm};
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
-`;
-
-const StyledMapWinRate = styled.span<{ winRate: number }>`
-  font-weight: 600;
-  color: ${({ winRate, theme }) => getWinRateColor(winRate, theme)};
-`;
-
-const StyledMapContent = styled.div<{ isOpen: boolean }>`
-  display: grid;
-  grid-template-rows: ${({ isOpen }) => (isOpen ? "1fr" : "0fr")};
-  transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow: hidden;
-
-  > * {
-    min-height: 0;
-  }
-`;
-
-const StyledArrowWrapper = styled.span<{ isOpen: boolean }>`
-  display: flex;
-  align-items: center;
-  transform: ${({ isOpen }) => (isOpen ? "rotate(180deg)" : "rotate(0deg)")};
-  transition: transform 0.3s ease;
 `;
 
 type MatchRecordTableProps = {
@@ -159,72 +67,39 @@ export const MatchRecordTable = ({ usedJobs, matchRecords, onAddWin, onAddDefeat
         const isCurrentMap = mapData.map === currentMap;
         const isNextMap = mapData.map === nextMap;
         return (
-          <StyledMapSection key={mapData.map}>
-            <StyledMapTitle onClick={() => toggleMap(mapData.map)} isCurrentMap={isCurrentMap}>
-              <StyledMapTitleLeft>
-                <StyledArrowWrapper isOpen={openMaps.has(mapData.map)}>
-                  <Icon name="arrowDropDown" size={20} />
-                </StyledArrowWrapper>
-                <span>{getMapName(mapData.map, t)}</span>
-                {isCurrentMap && (
-                  <StyledCurrentMapBadge>
-                    <StyledPulsingDot />
-                    Now
-                  </StyledCurrentMapBadge>
-                )}
-                {isNextMap && <StyledNextMapBadge>Next</StyledNextMapBadge>}
-              </StyledMapTitleLeft>
-              <StyledMapSummary>
-                <span>{t("character.stats.matches", { count: mapData.totalMatches })}</span>
-                <span>
-                  {t("character.stats.wins", { count: mapData.totalWins })} / {t("character.stats.defeats", { count: mapData.totalDefeats })}
-                </span>
-                {0 < mapData.totalMatches ? (
-                  <StyledMapWinRate winRate={mapData.mapWinRate}>{t("character.stats.winRate", { rate: mapData.mapWinRate })}</StyledMapWinRate>
-                ) : (
-                  <span>{t("character.stats.noWinRate")}</span>
-                )}
-              </StyledMapSummary>
-            </StyledMapTitle>
-            <StyledMapContent isOpen={openMaps.has(mapData.map)}>
-              <JobSummaryTable
-                usedJobs={usedJobs}
-                jobSummaries={mapData.jobSummaries}
-                onAddWin={onAddWin}
-                onAddDefeat={onAddDefeat}
-                onRevertLast={onRevertLast}
-                map={mapData.map}
-              />
-            </StyledMapContent>
-          </StyledMapSection>
+          <MapSection
+            key={mapData.map}
+            map={mapData.map}
+            title={getMapName(mapData.map, t)}
+            totalMatches={mapData.totalMatches}
+            totalWins={mapData.totalWins}
+            totalDefeats={mapData.totalDefeats}
+            winRate={mapData.mapWinRate}
+            isCurrentMap={isCurrentMap}
+            isNextMap={isNextMap}
+            isOpen={openMaps.has(mapData.map)}
+            onToggle={() => toggleMap(mapData.map)}
+            usedJobs={usedJobs}
+            jobSummaries={mapData.jobSummaries}
+            onAddWin={onAddWin}
+            onAddDefeat={onAddDefeat}
+            onRevertLast={onRevertLast}
+          />
         );
       })}
 
       {/* 全ステージ合計 */}
-      <StyledMapSection>
-        <StyledMapTitle onClick={() => setIsTotalOpen(!isTotalOpen)}>
-          <StyledMapTitleLeft>
-            <StyledArrowWrapper isOpen={isTotalOpen}>
-              <Icon name="arrowDropDown" size={20} />
-            </StyledArrowWrapper>
-            <span>{t("match.allStagesTotal")}</span>
-          </StyledMapTitleLeft>
-          <StyledMapSummary>
-            <span>{t("character.stats.matches", { count: totalMatches })}</span>
-            <span>
-              {t("character.stats.wins", { count: totalWins })} / {t("character.stats.defeats", { count: totalDefeats })}
-            </span>
-            {0 < totalMatches ? (
-              <StyledMapWinRate winRate={totalWinRate}>{t("character.stats.winRate", { rate: totalWinRate })}</StyledMapWinRate>
-            ) : (
-              <span>{t("character.stats.noWinRate")}</span>
-            )}
-          </StyledMapSummary>
-        </StyledMapTitle>
-        <StyledMapContent isOpen={isTotalOpen}>
-          <JobSummaryTable usedJobs={usedJobs} jobSummaries={totalSummaries} />
-        </StyledMapContent>
-      </StyledMapSection>
+      <MapSection
+        title={t("match.allStagesTotal")}
+        totalMatches={totalMatches}
+        totalWins={totalWins}
+        totalDefeats={totalDefeats}
+        winRate={totalWinRate}
+        isOpen={isTotalOpen}
+        onToggle={() => setIsTotalOpen(!isTotalOpen)}
+        usedJobs={usedJobs}
+        jobSummaries={totalSummaries}
+      />
     </StyledMapTablesContainer>
   );
 };
