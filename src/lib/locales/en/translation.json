@@ -2,6 +2,7 @@
   "common": {
     "appName": "CC War Record",
     "confirm": "Confirm",
+    "upload": "Upload",
     "cancel": "Cancel",
     "delete": "Delete",
     "edit": "Edit",
@@ -68,13 +69,22 @@
       "deleteDescription": "Are you sure you want to delete \"{{seasonName}}\"?\nThis action cannot be undone.",
       "emptyState": "No history available",
       "stats": "Seasons",
+      "createBackup": "Create Backup",
+      "importBackup": "Import Backup",
+      "importBackupWarningTitle": "Import Backup",
+      "importBackupWarningMessage": "Current data will be overwritten with the backup data. This action cannot be undone. Do you want to continue?",
+      "backupCreated": "Backup created successfully",
+      "backupRestored": "Backup restored successfully",
       "errors": {
         "loadFailed": "Failed to load history",
         "alreadyExists": "Season \"{{seasonName}}\" already exists",
         "notFound": "The specified history was not found",
         "characterNotFound": "The specified character was not found",
         "deleteMatchRecordsFailed": "Error deleting match records for season {{uuid}}",
-        "loadMatchRecordsFailed": "Error loading match records for season {{seasonUuid}}"
+        "loadMatchRecordsFailed": "Error loading match records for season {{seasonUuid}}",
+        "backupCreateFailed": "Failed to create backup",
+        "backupRestoreFailed": "Failed to restore backup",
+        "backupFileCorrupted": "Backup file is corrupted"
       }
     },
     "historyDetail": {
@@ -170,6 +180,32 @@
       },
       "usage": {
         "title": "Application Usage",
+        "backup": {
+          "question": "How do I backup my data?",
+          "answer": {
+            "intro": "You can backup and restore your data from the History page:",
+            "backup": "Creating a backup:",
+            "backupSteps": [
+              "Click the \"Create Backup\" button in the top right of the History page",
+              "A ZIP file will be automatically downloaded",
+              "The file is saved as \"cc-war-record-backup-timestamp.zip\""
+            ],
+            "restore": "Restoring from backup:",
+            "restoreSteps": [
+              "Click the \"Restore from Backup\" button in the top right of the History page",
+              "Select your saved ZIP file",
+              "Data will be restored and the page will automatically reload"
+            ],
+            "includes": "Data included in backup:",
+            "includesItems": [
+              "Character information",
+              "Match records (all seasons)",
+              "Season history",
+              "Radar chart settings"
+            ],
+            "note": "※ Please keep your backup file in a safe place"
+          }
+        },
         "dataDefeat": {
           "question": "Can my data be lost?",
           "answer": {
@@ -187,7 +223,8 @@
           "question": "Can I share data between multiple browsers?",
           "answer": {
             "limitation": "Unfortunately, we do not currently provide data synchronization between browsers.",
-            "explanation": "Each browser's local storage is independent, so data is only available in the browser where it was created."
+            "explanation": "Each browser's local storage is independent, so data is only available in the browser where it was created.",
+            "workaround": "However, you can use the backup feature to transfer data to another browser or device."
           }
         }
       },

@@ -13,7 +13,9 @@ export type IconName =
   | "detail"
   | "back"
   | "language"
-  | "arrowDropDown";
+  | "arrowDropDown"
+  | "download"
+  | "upload";
 
 export type IconProps = {
   /** アイコンの種類 */

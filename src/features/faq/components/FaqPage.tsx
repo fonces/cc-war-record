@@ -329,6 +329,36 @@ export const FaqPage = () => {
         <FaqSection>
           <SectionTitle>{t("pages.faq.usage.title")}</SectionTitle>
 
+          <FaqItemComponent question={t("pages.faq.usage.backup.question")}>
+            <p>{t("pages.faq.usage.backup.answer.intro")}</p>
+            <p>
+              <strong>{t("pages.faq.usage.backup.answer.backup")}</strong>
+            </p>
+            <ul>
+              <li>{t("pages.faq.usage.backup.answer.backupSteps.0")}</li>
+              <li>{t("pages.faq.usage.backup.answer.backupSteps.1")}</li>
+              <li>{t("pages.faq.usage.backup.answer.backupSteps.2")}</li>
+            </ul>
+            <p>
+              <strong>{t("pages.faq.usage.backup.answer.restore")}</strong>
+            </p>
+            <ul>
+              <li>{t("pages.faq.usage.backup.answer.restoreSteps.0")}</li>
+              <li>{t("pages.faq.usage.backup.answer.restoreSteps.1")}</li>
+              <li>{t("pages.faq.usage.backup.answer.restoreSteps.2")}</li>
+            </ul>
+            <p>
+              <strong>{t("pages.faq.usage.backup.answer.includes")}</strong>
+            </p>
+            <ul>
+              <li>{t("pages.faq.usage.backup.answer.includesItems.0")}</li>
+              <li>{t("pages.faq.usage.backup.answer.includesItems.1")}</li>
+              <li>{t("pages.faq.usage.backup.answer.includesItems.2")}</li>
+              <li>{t("pages.faq.usage.backup.answer.includesItems.3")}</li>
+            </ul>
+            <p>{t("pages.faq.usage.backup.answer.note")}</p>
+          </FaqItemComponent>
+
           <FaqItemComponent question={t("pages.faq.usage.dataDefeat.question")}>
             <p>{t("pages.faq.usage.dataDefeat.answer.intro")}</p>
             <ul>
@@ -345,6 +375,9 @@ export const FaqPage = () => {
           <FaqItemComponent question={t("pages.faq.usage.dataSyncing.question")}>
             <p>{t("pages.faq.usage.dataSyncing.answer.limitation")}</p>
             <p>{t("pages.faq.usage.dataSyncing.answer.explanation")}</p>
+            <p>
+              <strong>{t("pages.faq.usage.dataSyncing.answer.workaround")}</strong>
+            </p>
           </FaqItemComponent>
         </FaqSection>
       </FaqContainer>

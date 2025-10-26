@@ -27,11 +27,29 @@ export const aggregateDailyWinDefeat = (
   // シーズン作成日を取得
   const seasonStartDate = new Date(history.createdAt);
 
-  // シーズン作成日から2ヶ月後の日付を計算
-  const endDate = new Date(seasonStartDate);
-  endDate.setMonth(endDate.getMonth() + 2);
+  // 該当シーズンの全試合データを集計（フィルタ適用）
+  const seasonMatches = matchRecords.filter((match) => {
+    if (match.seasonUuid !== history.uuid) return false;
+    if (selectedCharacterUuid && match.characterUuid !== selectedCharacterUuid) return false;
+    if (selectedJob && match.job !== selectedJob) return false;
+    if (selectedMap && match.map !== selectedMap) return false;
+    return true;
+  });
 
-  // 日付の範囲を生成（シーズン開始日から2ヶ月間）
+  // 最小表示期間: シーズン作成日から2ヶ月後
+  const minEndDate = new Date(seasonStartDate);
+  minEndDate.setMonth(minEndDate.getMonth() + 2);
+
+  // 最大表示期間: MatchRecord.recordedAtの最大値
+  const maxRecordedDate = seasonMatches.reduce((max, match) => {
+    const matchDate = new Date(match.recordedAt);
+    return matchDate > max ? matchDate : max;
+  }, new Date(seasonStartDate));
+
+  // 最終的な表示期間の終了日を決定（最小表示期間と最大記録日の大きい方）
+  const endDate = maxRecordedDate > minEndDate ? maxRecordedDate : minEndDate;
+
+  // 日付の範囲を生成（シーズン開始日から終了日まで）
   const dateRange: string[] = [];
   const currentDate = new Date(seasonStartDate);
 
@@ -45,15 +63,6 @@ export const aggregateDailyWinDefeat = (
 
   dateRange.forEach((date) => {
     dailyStats.set(date, { wins: 0, defeats: 0 });
-  });
-
-  // 該当シーズンの全試合データを集計（フィルタ適用）
-  const seasonMatches = matchRecords.filter((match) => {
-    if (match.seasonUuid !== history.uuid) return false;
-    if (selectedCharacterUuid && match.characterUuid !== selectedCharacterUuid) return false;
-    if (selectedJob && match.job !== selectedJob) return false;
-    if (selectedMap && match.map !== selectedMap) return false;
-    return true;
   });
 
   seasonMatches.forEach((match: MatchRecord) => {

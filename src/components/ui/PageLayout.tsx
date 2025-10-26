@@ -41,6 +41,17 @@ const StyledPageDescription = styled.p`
   margin-bottom: ${({ theme }) => theme.spacing[6]};
 `;
 
+const StyledPageTitleActions = styled.div`
+  display: flex;
+  gap: ${({ theme }) => theme.spacing[2]};
+  align-items: center;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    flex-direction: column;
+  }
+`;
+
 type PageContainerProps = {
   children: React.ReactNode;
 };
@@ -56,6 +67,11 @@ type PageTitleProps = {
 type PageDescriptionProps = {
   children: React.ReactNode;
 };
+
+type PageTitleActionsProps = {
+  children: React.ReactNode;
+};
+
 /**
  * ページコンテナコンポーネント
  * ページ全体のコンテナとして使用
@@ -95,3 +111,13 @@ export const PageDescription = memo(({ children }: PageDescriptionProps) => {
 });
 
 PageDescription.displayName = "PageDescription";
+
+/**
+ * ページタイトルアクションコンテナコンポーネント
+ * タイトル右側のアクションボタンを配置
+ */
+export const PageTitleActions = memo(({ children }: PageTitleActionsProps) => {
+  return <StyledPageTitleActions>{children}</StyledPageTitleActions>;
+});
+
+PageTitleActions.displayName = "PageTitleActions";

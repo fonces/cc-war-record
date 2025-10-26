@@ -2,6 +2,7 @@
   "common": {
     "appName": "クリコン戦績記録",
     "confirm": "確認",
+    "upload": "アップロード",
     "cancel": "キャンセル",
     "delete": "削除",
     "edit": "編集",
@@ -68,13 +69,22 @@
       "deleteDescription": "「{{seasonName}}」を削除してもよろしいですか？\nこの操作は取り消すことができません。",
       "emptyState": "履歴がありません",
       "stats": "シーズン数",
+      "createBackup": "バックアップを作成",
+            "importBackup": "バックアップ取り込み",
+      "importBackupWarningTitle": "バックアップの取り込み",
+      "importBackupWarningMessage": "現在のデータはバックアップのデータで上書きされます。この操作は取り消せません。続行しますか？",
+      "backupCreated": "バックアップを作成しました",
+      "backupRestored": "バックアップを復元しました",
       "errors": {
         "loadFailed": "履歴の読み込みに失敗しました",
         "alreadyExists": "シーズン「{{seasonName}}」は既に存在します",
         "notFound": "指定された履歴が見つかりません",
         "characterNotFound": "指定されたキャラクターが見つかりません",
         "deleteMatchRecordsFailed": "シーズン {{uuid}} のマッチレコード削除中にエラーが発生しました",
-        "loadMatchRecordsFailed": "シーズン {{seasonUuid}} のマッチレコード読み込み中にエラーが発生しました"
+        "loadMatchRecordsFailed": "シーズン {{seasonUuid}} のマッチレコード読み込み中にエラーが発生しました",
+        "backupCreateFailed": "バックアップの作成に失敗しました",
+        "backupRestoreFailed": "バックアップの復元に失敗しました",
+        "backupFileCorrupted": "バックアップファイルが破損しています"
       }
     },
     "historyDetail": {
@@ -170,6 +180,32 @@
       },
       "usage": {
         "title": "アプリケーションの使い方",
+        "backup": {
+          "question": "データのバックアップ方法を教えてください",
+          "answer": {
+            "intro": "履歴ページからデータのバックアップと復元ができます：",
+            "backup": "バックアップの作成：",
+            "backupSteps": [
+              "履歴ページの右上にある「バックアップを作成」ボタンをクリック",
+              "自動的にZIPファイルがダウンロードされます",
+              "ファイル名は「cc-war-record-backup-日時.zip」形式で保存されます"
+            ],
+            "restore": "バックアップの復元：",
+            "restoreSteps": [
+              "履歴ページの右上にある「バックアップから復元」ボタンをクリック",
+              "保存したZIPファイルを選択",
+              "データが復元され、ページが自動的にリロードされます"
+            ],
+            "includes": "バックアップに含まれるデータ：",
+            "includesItems": [
+              "キャラクター情報",
+              "試合記録（全シーズン）",
+              "シーズン履歴",
+              "レーダーチャート設定"
+            ],
+            "note": "※ バックアップファイルは安全な場所に保管してください"
+          }
+        },
         "dataDefeat": {
           "question": "データが消えてしまうことはありますか？",
           "answer": {
@@ -187,7 +223,8 @@
           "question": "複数のブラウザでデータを共有できますか？",
           "answer": {
             "limitation": "申し訳ございませんが、現在のところブラウザ間でのデータ同期機能は提供していません。",
-            "explanation": "各ブラウザのローカルストレージは独立しているため、データは使用したブラウザでのみ利用可能です。"
+            "explanation": "各ブラウザのローカルストレージは独立しているため、データは使用したブラウザでのみ利用可能です。",
+            "workaround": "ただし、バックアップ機能を使えば、別のブラウザやデバイスにデータを移行することができます。"
           }
         }
       },

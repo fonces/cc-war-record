@@ -16,6 +16,8 @@ import {
   BackIcon,
   LanguageIcon,
   ArrowDropDownIcon,
+  DownloadIcon,
+  UploadIcon,
 } from "./icons";
 import type { IconProps } from "./types";
 
@@ -77,6 +79,10 @@ export const Icon = memo(({ name, size = 24, color, onClick, className }: IconPr
         return <LanguageIcon />;
       case "arrowDropDown":
         return <ArrowDropDownIcon />;
+      case "download":
+        return <DownloadIcon />;
+      case "upload":
+        return <UploadIcon />;
       default:
         return null;
     }

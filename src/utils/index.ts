@@ -6,3 +6,4 @@ export * from "./localStorage";
 export * from "./maps";
 export * from "./uuid";
 export * from "./scrollbar";
+export * from "./backup";
