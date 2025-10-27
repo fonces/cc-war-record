@@ -246,6 +246,8 @@
     "edit": "キャラクター名を編集",
     "delete": "キャラクターを削除",
     "confirmDelete": "削除する",
+    "moveUp": "1つ上に",
+    "moveDown": "1つ下に",
     "deleteDescription": "キャラクター「{{name}}」を削除しますか？<br/><span style='color: #dc2626; margin-top: 12px; font-size: 0.875rem; display: block;'>⚠️ 関連する戦績記録もすべて削除されます。この操作は取り消せません。</span>",
     "namePlaceholder": "キャラクター名を入力",
     "validationRequired": "キャラクター名を入力してください",

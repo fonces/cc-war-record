@@ -13,6 +13,8 @@ export { DetailIcon } from "./DetailIcon";
 export { BackIcon } from "./BackIcon";
 export { LanguageIcon } from "./LanguageIcon";
 export { ArrowDropDownIcon } from "./ArrowDropDownIcon";
+export { ArrowUpIcon } from "./ArrowUpIcon";
+export { ArrowDownIcon } from "./ArrowDownIcon";
 export { DownloadIcon } from "./DownloadIcon";
 export { UploadIcon } from "./UploadIcon";
 export { SearchIcon } from "./SearchIcon";

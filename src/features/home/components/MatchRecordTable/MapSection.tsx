@@ -137,7 +137,6 @@ export const MapSection = memo(
     onRevertLast,
   }: MapSectionProps) => {
     const { t } = useTranslation();
-    console.log("update mapsection");
 
     return (
       <StyledMapSection>

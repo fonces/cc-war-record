@@ -30,6 +30,8 @@ type CharacterActions = {
   createCharacter: (input: CreateCharacterInput) => Character;
   /** キャラクターを更新 */
   updateCharacter: (uuid: string, name: string) => boolean;
+  /** キャラクターの並び順を更新 */
+  updateCharacterOrder: (characterUuids: string[]) => void;
   /** キャラクターを削除 */
   deleteCharacter: (uuid: string) => boolean;
   /** 新しい戦績記録を作成 */
@@ -61,8 +63,20 @@ export const useCharacterStore = create<CharacterState & CharacterActions>((set,
     set({ isLoading: true, error: null });
 
     try {
-      const characters = getFromLocalStorage(STORAGE_KEYS.CHARACTERS, []);
+      const rawCharacters = getFromLocalStorage(STORAGE_KEYS.CHARACTERS, []);
       const matchRecords = getFromLocalStorage(STORAGE_KEYS.MATCH_RECORDS, []);
+
+      // 既存のキャラクターにorderプロパティがない場合は追加
+      const characters = rawCharacters.map((character: Character, index: number) => ({
+        ...character,
+        order: character.order !== undefined ? character.order : index,
+      }));
+
+      // orderプロパティが追加された場合はlocalStorageに保存
+      if (characters.some((_, i: number) => rawCharacters[i].order === undefined)) {
+        saveToLocalStorage(STORAGE_KEYS.CHARACTERS, characters);
+      }
+
       set({ characters, matchRecords, isLoading: false });
     } catch (error) {
       set({
@@ -88,6 +102,7 @@ export const useCharacterStore = create<CharacterState & CharacterActions>((set,
     const newCharacter: Character = {
       uuid: generateUUID(),
       name: input.name,
+      order: characters.length, // 新しいキャラクターは最後に配置
       createdAt: now,
       updatedAt: now,
     };
@@ -136,6 +151,25 @@ export const useCharacterStore = create<CharacterState & CharacterActions>((set,
     return true;
   },
 
+  // キャラクターの並び順を更新
+  updateCharacterOrder: (characterUuids: string[]) => {
+    const { characters } = get();
+
+    const now = getCurrentISOString();
+    const updatedCharacters = characters.map((character) => {
+      const newOrder = characterUuids.indexOf(character.uuid);
+      return newOrder >= 0 ? { ...character, order: newOrder, updatedAt: now } : character;
+    });
+
+    // localStorageに保存
+    saveToLocalStorage(STORAGE_KEYS.CHARACTERS, updatedCharacters);
+
+    set({
+      characters: updatedCharacters,
+      error: null,
+    });
+  },
+
   // キャラクターを削除
   deleteCharacter: (uuid: string) => {
     const { characters, matchRecords } = get();
@@ -147,8 +181,12 @@ export const useCharacterStore = create<CharacterState & CharacterActions>((set,
     }
 
     // 関連する戦績記録も削除
-    const updatedCharacters = characters.filter((c) => c.uuid !== uuid);
+    const filteredCharacters = characters.filter((c) => c.uuid !== uuid);
     const updatedMatchRecords = matchRecords.filter((m) => m.characterUuid !== uuid);
+
+    // 削除後のキャラクターの順序を再調整（orderプロパティを連番にする）
+    const now = getCurrentISOString();
+    const updatedCharacters = filteredCharacters.sort((a, b) => a.order - b.order).map((character, index) => ({ ...character, order: index, updatedAt: now }));
 
     // localStorageに保存
     saveToLocalStorage(STORAGE_KEYS.CHARACTERS, updatedCharacters);
@@ -250,7 +288,7 @@ export const useCharacterStore = create<CharacterState & CharacterActions>((set,
           recentMatches,
         };
       })
-      .sort((a, b) => new Date(b.character.createdAt).getTime() - new Date(a.character.createdAt).getTime());
+      .sort((a, b) => a.character.order - b.character.order);
   },
 
   // 特定のキャラクターの戦績記録を取得

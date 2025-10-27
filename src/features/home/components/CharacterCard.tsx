@@ -104,6 +104,7 @@ const StyledEditForm = styled.div`
   display: flex;
   gap: ${({ theme }) => theme.spacing[2]};
   align-items: center;
+  justify-content: space-between;
   flex: 1;
 `;
 
@@ -138,6 +139,8 @@ type CharacterCardProps = {
   editingName: string;
   /** 編集中の名前変更 */
   onEditingNameChange: (name: string) => void;
+  /** ソート順変更 */
+  onSortChange: (direction: "up" | "down") => void;
   /** 編集保存 */
   onSaveEdit: () => void;
   /** 編集キャンセル */
@@ -160,6 +163,7 @@ export const CharacterCard = ({
   isEditing,
   editingName,
   onEditingNameChange,
+  onSortChange,
   onSaveEdit,
   onCancelEdit,
 }: CharacterCardProps) => {
@@ -188,6 +192,22 @@ export const CharacterCard = ({
               autoFocus
             />
             <StyledCharacterActions>
+              <IconicButton
+                icon={<Icon name="arrowUp" size={16} />}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onSortChange("up");
+                }}
+                title={t("character.moveUp")}
+              />
+              <IconicButton
+                icon={<Icon name="arrowDown" size={16} />}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onSortChange("down");
+                }}
+                title={t("character.moveDown")}
+              />
               <IconicButton
                 icon={<Icon name="accept" size={16} />}
                 onClick={(e) => {

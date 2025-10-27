@@ -14,6 +14,8 @@ export type IconName =
   | "back"
   | "language"
   | "arrowDropDown"
+  | "arrowUp"
+  | "arrowDown"
   | "download"
   | "upload"
   | "search";

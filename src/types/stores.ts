@@ -14,6 +14,8 @@ export type Character = {
   uuid: UUIDv4;
   /** キャラクター名 */
   name: string;
+  /** 表示順序（小さい値が上位） */
+  order: number;
   /** 作成日時（ISO文字列） */
   createdAt: string;
   /** 更新日時（ISO文字列） */

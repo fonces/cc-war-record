@@ -23,6 +23,7 @@ export const HomePage = () => {
   const {
     createCharacter,
     updateCharacter,
+    updateCharacterOrder,
     deleteCharacter,
     createMatchRecord,
     deleteMatchRecord,
@@ -83,6 +84,26 @@ export const HomePage = () => {
       newOpenUuids.add(characterUuid);
     }
     setOpenCharacterUuids(newOpenUuids);
+  };
+
+  // キャラクターの並び替えハンドラー
+  const handleSortChange = (direction: "up" | "down") => {
+    if (!editingCharacterUuid) return;
+
+    const index = characterStats.findIndex((stats) => stats.character.uuid === editingCharacterUuid);
+    if (index === -1) return;
+
+    const newIndex = direction === "up" ? index - 1 : index + 1;
+    if (newIndex < 0 || newIndex >= characterStats.length) return;
+
+    // 新しい順序でキャラクターUUIDの配列を作成
+    const reorderedStats = [...characterStats];
+    const [movedStats] = reorderedStats.splice(index, 1);
+    reorderedStats.splice(newIndex, 0, movedStats);
+
+    // キャラクターの順序を更新
+    const newCharacterOrder = reorderedStats.map((stats) => stats.character.uuid);
+    updateCharacterOrder(newCharacterOrder);
   };
 
   // キャラクター編集開始のハンドラー
@@ -285,6 +306,7 @@ export const HomePage = () => {
             isEditing={editingCharacterUuid === stats.character.uuid}
             editingName={editingCharacterName}
             onEditingNameChange={setEditingCharacterName}
+            onSortChange={handleSortChange}
             onSaveEdit={handleSaveEditing}
             onCancelEdit={handleCancelEditing}
           />
