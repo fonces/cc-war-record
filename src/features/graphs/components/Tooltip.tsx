@@ -56,6 +56,12 @@ export const StyledTooltipValue = styled.div`
   gap: ${({ theme }) => theme.spacing[2]};
   color: ${({ theme }) => theme.colors.text};
 
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
   .dot-win {
     width: 8px;
     height: 8px;
