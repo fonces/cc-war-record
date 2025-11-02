@@ -366,6 +366,7 @@
       "character": "Character",
       "job": "Job",
       "map": "Map",
+      "date": "Date",
       "allCharacters": "All Characters",
       "allJobs": "All Jobs",
       "allMaps": "All Maps",

@@ -45,7 +45,7 @@ export const StyledChartContainer = styled.div`
 export const StyledChartHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   margin-bottom: ${({ theme }) => theme.spacing[6]};
   gap: ${({ theme }) => theme.spacing[4]};
   flex-wrap: wrap;
@@ -94,7 +94,6 @@ export const StyledFiltersWrapper = styled.div`
 
   @media (max-width: 768px) {
     width: 100%;
-    flex-direction: column;
     align-items: stretch;
   }
 `;

@@ -320,25 +320,25 @@ export const aggregateTodayWinDefeatTrend = (
   selectedCharacterUuid: string | null,
   selectedJob: Job | null,
   selectedMap: CrystalConflictMap | null,
+  selectedDate: string | null,
 ) => {
-  // 今日の日付を取得（ローカルタイムゾーン）
-  const today = new Date();
-  const todayDateString = today.toISOString().split("T")[0];
+  // 選択された日付、またはデフォルトで今日の日付を取得
+  const targetDate = selectedDate || new Date().toISOString().split("T")[0];
 
-  // 該当シーズンの今日の試合データをフィルタ
-  const todayMatches = matchRecords.filter((match) => {
+  // 該当シーズンの指定日の試合データをフィルタ
+  const targetDateMatches = matchRecords.filter((match) => {
     if (match.seasonUuid !== history.uuid) return false;
     if (selectedCharacterUuid && match.characterUuid !== selectedCharacterUuid) return false;
     if (selectedJob && match.job !== selectedJob) return false;
     if (selectedMap && match.map !== selectedMap) return false;
 
-    // 今日の試合のみ抽出
+    // 指定日の試合のみ抽出
     const matchDate = match.recordedAt.split("T")[0];
-    return matchDate === todayDateString;
+    return matchDate === targetDate;
   });
 
   // 時系列でソート（古い順）
-  const sortedMatches = [...todayMatches].sort((a, b) => {
+  const sortedMatches = [...targetDateMatches].sort((a, b) => {
     return new Date(a.recordedAt).getTime() - new Date(b.recordedAt).getTime();
   });
 
@@ -376,4 +376,34 @@ export const aggregateTodayWinDefeatTrend = (
       map: match.map,
     };
   });
+};
+
+/**
+ * データが存在する日付のリストを取得する関数
+ */
+export const getAvailableDates = (
+  history: History,
+  matchRecords: MatchRecord[],
+  selectedCharacterUuid: string | null,
+  selectedJob: Job | null,
+  selectedMap: CrystalConflictMap | null,
+) => {
+  // 該当シーズンの試合データをフィルタ
+  const filteredMatches = matchRecords.filter((match) => {
+    if (match.seasonUuid !== history.uuid) return false;
+    if (selectedCharacterUuid && match.characterUuid !== selectedCharacterUuid) return false;
+    if (selectedJob && match.job !== selectedJob) return false;
+    if (selectedMap && match.map !== selectedMap) return false;
+    return true;
+  });
+
+  // 日付ごとにグループ化
+  const dateSet = new Set<string>();
+  filteredMatches.forEach((match) => {
+    const matchDate = match.recordedAt.split("T")[0];
+    dateSet.add(matchDate);
+  });
+
+  // 日付の配列に変換してソート（新しい順）
+  return Array.from(dateSet).sort((a, b) => b.localeCompare(a));
 };

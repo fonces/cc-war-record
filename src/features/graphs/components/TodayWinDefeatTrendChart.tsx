@@ -2,7 +2,7 @@ import { useState, memo, useMemo } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import styled, { useTheme } from "styled-components";
 import { Select } from "@/components/ui";
-import { aggregateTodayWinDefeatTrend } from "@/features/graphs/utils/aggregate";
+import { aggregateTodayWinDefeatTrend, getAvailableDates } from "@/features/graphs/utils/aggregate";
 import { useTranslation } from "@/hooks";
 import { JOBS } from "@/types/jobs";
 import { MAPS } from "@/types/maps";
@@ -133,11 +133,29 @@ const TodayWinDefeatTrendChartComponent = ({ history, matchRecords, characters }
   const [selectedCharacterUuid, setSelectedCharacterUuid] = useState<string | null>(null);
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const [selectedMap, setSelectedMap] = useState<CrystalConflictMap | null>(null);
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
-  const todayData = useMemo(
-    () => aggregateTodayWinDefeatTrend(history, matchRecords, selectedCharacterUuid, selectedJob, selectedMap),
+  // 利用可能な日付リストを取得
+  const availableDates = useMemo(
+    () => getAvailableDates(history, matchRecords, selectedCharacterUuid, selectedJob, selectedMap),
     [history, matchRecords, selectedCharacterUuid, selectedJob, selectedMap],
   );
+
+  // デフォルトで今日の日付を設定（利用可能な場合）
+  const todayDateString = new Date().toISOString().split("T")[0];
+  const defaultDate = availableDates.includes(todayDateString) ? todayDateString : availableDates[0] || null;
+  const effectiveDate = selectedDate || defaultDate;
+
+  const todayData = useMemo(
+    () => aggregateTodayWinDefeatTrend(history, matchRecords, selectedCharacterUuid, selectedJob, selectedMap, effectiveDate),
+    [history, matchRecords, selectedCharacterUuid, selectedJob, selectedMap, effectiveDate],
+  );
+
+  // 日付をM/D形式にフォーマット
+  const formatDate = (dateString: string) => {
+    const [, month, day] = dateString.split("-");
+    return `${parseInt(month)}/${parseInt(day)}`;
+  };
 
   // カスタムドットコンポーネント
   const CustomDot = (props: { cx?: number; cy?: number; payload?: { isWin: boolean } }) => {
@@ -152,6 +170,18 @@ const TodayWinDefeatTrendChartComponent = ({ history, matchRecords, characters }
       <StyledChartHeader>
         <StyledChartTitle>{t("chart.titles.todayWinDefeatTrend")}</StyledChartTitle>
         <StyledFiltersWrapper>
+          <Select
+            label={t("chart.labels.date")}
+            id="today-date-filter"
+            value={effectiveDate || ""}
+            onChange={(e) => setSelectedDate(e.target.value || null)}
+            options={availableDates.map((date) => ({
+              value: date,
+              label: formatDate(date),
+            }))}
+            width="200px"
+            disabled={availableDates.length === 0}
+          />
           <Select
             label={t("chart.labels.character")}
             id="today-character-filter"
