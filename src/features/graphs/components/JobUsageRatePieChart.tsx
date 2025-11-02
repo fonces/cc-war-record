@@ -8,7 +8,7 @@ import { JOB_INFO } from "@/types/jobs";
 import { MAPS } from "@/types/maps";
 import { getMapName } from "@/utils/maps";
 import { StyledChartContainer, StyledChartHeader, StyledChartTitle, StyledFiltersWrapper } from "./ChartContainer";
-import { StyledChartTooltip, StyledTooltipValue } from "./Tooltip";
+import { StyledChartTooltip, StyledTooltipValue, Dot } from "./Tooltip";
 import type { History, MatchRecord, Job, CrystalConflictMap, Character } from "@/types";
 
 type JobUsageRatePieChartProps = {
@@ -63,11 +63,11 @@ const CustomTooltip = ({ active, payload }: TooltipProps) => {
       <StyledChartTooltip>
         <div className="label">{`${data.name} (${data.job})`}</div>
         <StyledTooltipValue>
-          <div className="dot" style={{ backgroundColor: jobColor }} />
+          <Dot type="win" color={jobColor} />
           <span>{`${t("chart.tooltip.usageCount")}: ${data.value} ${t("chart.matches")}`}</span>
         </StyledTooltipValue>
         <StyledTooltipValue>
-          <div className="dot-total" />
+          <Dot type="total" />
           <span>{`${t("chart.tooltip.usageRatePercent")}: ${data.percentage}%`}</span>
         </StyledTooltipValue>
       </StyledChartTooltip>

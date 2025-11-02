@@ -8,7 +8,7 @@ import { JOBS } from "@/types/jobs";
 import { MAPS } from "@/types/maps";
 import { getMapName } from "@/utils/maps";
 import { StyledChartContainer, StyledChartHeader, StyledChartTitle, StyledFiltersWrapper } from "./ChartContainer";
-import { StyledChartTooltip, StyledTooltipValue } from "./Tooltip";
+import { StyledChartTooltip, StyledTooltipValue, Dot } from "./Tooltip";
 import type { History, MatchRecord, Job, CrystalConflictMap, Character } from "@/types";
 
 type WeeklyWinDefeatChartProps = {
@@ -52,7 +52,7 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
         <StyledChartTooltip>
           <div className="label">{`${weekdayName} (${label})`}</div>
           <StyledTooltipValue>
-            <div className="dot-nodata" />
+            <Dot type="nodata" />
             <span>{t("chart.tooltip.noMatchData")}</span>
           </StyledTooltipValue>
         </StyledChartTooltip>
@@ -63,15 +63,15 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
       <StyledChartTooltip>
         <div className="label">{`${weekdayName} (${label})`}</div>
         <StyledTooltipValue>
-          <div className="dot-win" />
+          <Dot type="win" />
           <span>{`${t("chart.tooltip.win")}: ${data.wins} ${t("chart.tooltip.matches")} (${data.winRate || 0}%)`}</span>
         </StyledTooltipValue>
         <StyledTooltipValue>
-          <div className="dot-defeat" />
+          <Dot type="defeat" />
           <span>{`${t("chart.tooltip.lose")}: ${data.defeats} ${t("chart.tooltip.matches")} (${data.defeatRate || 0}%)`}</span>
         </StyledTooltipValue>
         <StyledTooltipValue>
-          <div className="dot-total" />
+          <Dot type="total" />
           <span>{`${t("chart.tooltip.total")}: ${data.total} ${t("chart.tooltip.matches")}`}</span>
         </StyledTooltipValue>
       </StyledChartTooltip>

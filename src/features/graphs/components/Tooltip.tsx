@@ -1,4 +1,38 @@
+import { memo } from "react";
 import styled from "styled-components";
+
+/**
+ * Dotマーカーの種類
+ */
+export type DotType = "win" | "defeat" | "gradient" | "total" | "nodata";
+
+type DotProps = {
+  /** Dotの種類 */
+  type: DotType;
+  /** カスタム背景色（typeを指定しない場合に使用） */
+  color?: string;
+};
+
+const StyledDot = styled.div<{ $color?: string }>`
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+
+  ${({ $color }) => $color && `background-color: ${$color};`}
+`;
+
+/**
+ * Tooltipで使用するDotマーカーコンポーネント
+ */
+export const Dot = memo(({ type, color }: DotProps) => {
+  if (color) {
+    return <StyledDot $color={color} />;
+  }
+  return <StyledDot className={`dot-${type}`} />;
+});
+
+Dot.displayName = "Dot";
 
 /**
  * チャート用の共通スタイル化Tooltipコンテナ
@@ -56,44 +90,29 @@ export const StyledTooltipValue = styled.div`
   gap: ${({ theme }) => theme.spacing[2]};
   color: ${({ theme }) => theme.colors.text};
 
-  .dot {
+  [class^="dot-"] {
     width: 8px;
     height: 8px;
     border-radius: 50%;
   }
 
   .dot-win {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
     background-color: ${({ theme }) => theme.colors.win[400]};
   }
 
   .dot-defeat {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
     background-color: ${({ theme }) => theme.colors.defeat[400]};
   }
 
   .dot-gradient {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
     background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
   }
 
   .dot-total {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
     background-color: ${({ theme }) => theme.colors.gray[600]};
   }
 
   .dot-nodata {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
     background-color: ${({ theme }) => theme.colors.gray[400]};
   }
 `;

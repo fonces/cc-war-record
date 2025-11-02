@@ -8,7 +8,7 @@ import { JOBS } from "@/types/jobs";
 import { MAPS } from "@/types/maps";
 import { getMapName } from "@/utils/maps";
 import { StyledChartContainer, StyledChartHeader, StyledChartTitle, StyledFiltersWrapper } from "./ChartContainer";
-import { StyledChartTooltip, StyledTooltipValue } from "./Tooltip";
+import { StyledChartTooltip, StyledTooltipValue, Dot } from "./Tooltip";
 import type { History, MatchRecord, Job, CrystalConflictMap, Character } from "@/types";
 
 type CustomTooltipProps = {
@@ -27,9 +27,10 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
     <StyledChartTooltip>
       <div className="label">{label}</div>
       {payload.map((entry, index) => {
+        const dotType = entry.name === "Win" ? "win" : entry.name === "Defeat" ? "defeat" : entry.name === "WinRate" ? "gradient" : "total";
         return (
           <StyledTooltipValue key={index}>
-            <div className={entry.name === "Win" ? "dot-win" : entry.name === "Defeat" ? "dot-defeat" : entry.name === "WinRate" ? "dot-gradient" : ""} />
+            <Dot type={dotType as "win" | "defeat" | "gradient" | "total"} />
             <span>
               {entry.name}: {typeof entry.value === "number" && entry.name === "WinRate" ? `${entry.value.toFixed(1)}%` : entry.value}
             </span>

@@ -6,7 +6,7 @@ import { useTranslation } from "@/hooks";
 import { JOB_INFO, JOBS } from "@/types/jobs";
 import { STORAGE_KEYS, getFromLocalStorage, saveToLocalStorage } from "@/utils/localStorage";
 import { StyledChartContainer, StyledChartHeader, StyledChartTitle, StyledFiltersWrapper } from "./ChartContainer";
-import { StyledChartTooltip, StyledTooltipValue } from "./Tooltip";
+import { StyledChartTooltip, StyledTooltipValue, Dot } from "./Tooltip";
 import type { History, MatchRecord, Job, Character } from "@/types";
 
 type JobWinRateRadarChartProps = {
@@ -37,7 +37,7 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
         <div className="label">{label}</div>
         {payload.map((entry, index) => (
           <StyledTooltipValue key={index}>
-            <div className="dot" style={{ backgroundColor: entry.stroke }} />
+            <Dot type="win" color={entry.stroke} />
             <span>{`${entry.name}: ${entry.value}%`}</span>
           </StyledTooltipValue>
         ))}

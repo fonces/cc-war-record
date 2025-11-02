@@ -9,7 +9,7 @@ import { MAPS } from "@/types/maps";
 import { getWinRateColor } from "@/utils";
 import { getMapName } from "@/utils/maps";
 import { StyledChartContainer, StyledChartHeader, StyledChartTitle, StyledFiltersWrapper } from "./ChartContainer";
-import { StyledChartTooltip, StyledTooltipValue } from "./Tooltip";
+import { StyledChartTooltip, StyledTooltipValue, Dot } from "./Tooltip";
 import type { History, MatchRecord, Job, CrystalConflictMap, Character } from "@/types";
 
 const StyledChartWrapper = styled.div`
@@ -50,15 +50,15 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
       <StyledChartTooltip>
         <div className="label">{label}</div>
         <StyledTooltipValue>
-          <div className="dot-win" />
+          <Dot type="win" />
           <span>{`${t("chart.tooltip.win")}: ${data.wins} ${t("chart.tooltip.matches")} (${data.winRate}%)`}</span>
         </StyledTooltipValue>
         <StyledTooltipValue>
-          <div className="dot-defeat" />
+          <Dot type="defeat" />
           <span>{`${t("chart.tooltip.lose")}: ${data.defeats} ${t("chart.tooltip.matches")} (${data.defeatRate}%)`}</span>
         </StyledTooltipValue>
         <StyledTooltipValue>
-          <div className="dot-total" />
+          <Dot type="total" />
           <span>{`${t("chart.tooltip.total")}: ${data.total} ${t("chart.tooltip.matches")}`}</span>
         </StyledTooltipValue>
       </StyledChartTooltip>
