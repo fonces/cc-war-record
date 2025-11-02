@@ -4,11 +4,11 @@ import styled, { useTheme } from "styled-components";
 import { Select } from "@/components/ui";
 import { aggregateTodayWinDefeatTrend, getAvailableDates } from "@/features/graphs/utils/aggregate";
 import { useTranslation } from "@/hooks";
-import { JOBS } from "@/types/jobs";
+import { JOB_INFO, JOBS } from "@/types/jobs";
 import { MAPS } from "@/types/maps";
 import { getMapName } from "@/utils/maps";
 import { ChartContainer, ChartHeader, ChartTitle, FiltersWrapper } from "./ChartContainer";
-import { ChartTooltip, TooltipLabel } from "./Tooltip";
+import { ChartTooltip, TooltipLabel, Dot, TooltipValue } from "./Tooltip";
 import type { History, MatchRecord, Job, CrystalConflictMap, Character } from "@/types";
 
 const EmptyStateContainer = styled.div`
@@ -58,21 +58,22 @@ const CustomTooltip = ({ active, payload }: CustomTooltipProps) => {
         {t("chart.todayTrend.match", { number: data.matchNumber })} ({data.time})
         <span className={`result-badge ${data.isWin ? "win" : "defeat"}`}>{data.isWin ? t("common.win") : t("common.defeat")}</span>
       </TooltipLabel>
-      <div className="value">
+      <TooltipValue>
         {t("chart.todayTrend.winDifference")}: {data.wins}
-      </div>
-      <div className="value">
+      </TooltipValue>
+      <TooltipValue>
         {t("chart.todayTrend.record")}: {data.actualWins}
         {t("common.win")} {data.defeats}
         {t("common.defeat")} ({data.total}
         {t("chart.todayTrend.matches")})
-      </div>
-      <div className="value">
-        {t("chart.labels.job")}: {t(`job.${data.job}`)}
-      </div>
-      <div className="value">
+      </TooltipValue>
+      <TooltipValue>
+        {t("chart.labels.job")}: <Dot type="win" color={JOB_INFO[data.job].color} />
+        {t(`job.${data.job}`)}
+      </TooltipValue>
+      <TooltipValue>
         {t("chart.labels.map")}: {getMapName(data.map, t)}
-      </div>
+      </TooltipValue>
     </ChartTooltip>
   );
 };
@@ -187,7 +188,6 @@ const TodayWinDefeatTrendChartComponent = ({ history, matchRecords, characters }
       </ChartHeader>
       {todayData.length === 0 ? (
         <EmptyStateContainer>
-          <div className="icon">📊</div>
           <div>{t("chart.todayTrend.noData")}</div>
         </EmptyStateContainer>
       ) : (

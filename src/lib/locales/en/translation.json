@@ -376,7 +376,7 @@
     "titles": {
       "dailyWinDefeat": "Daily Win/Defeat and Win Rate Trend",
       "weeklyWinRate": "Win Rate Comparison by Day of Week",
-      "hourlyWinRate": "Win Rate Analysis by Time of Day",
+      "hourlyWinDefeat": "Win Rate Analysis by Time of Day",
       "jobUsageRate": "Job Usage Rate",
       "jobWinRateByMap": "Job Win Rate Comparison by Map",
       "todayWinDefeatTrend": "Today's Win/Defeat Trend"

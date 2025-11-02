@@ -13,49 +13,39 @@ type DotProps = {
   color?: string;
 };
 
-const StyledDot = styled.div<{ $color?: string }>`
+const StyledDot = styled.div<{ $color?: string; $type?: DotType }>`
   width: 8px;
   height: 8px;
   border-radius: 50%;
   flex-shrink: 0;
 
-  ${({ $color }) => $color && `background-color: ${$color};`}
+  ${({ $color, $type, theme }) => {
+    if ($color) {
+      return `background-color: ${$color};`;
+    }
 
-  [class^="dot-"] {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-  }
-
-  .dot-win {
-    background: ${({ theme }) => theme.colors.win[400]};
-  }
-
-  .dot-defeat {
-    background: ${({ theme }) => theme.colors.defeat[400]};
-  }
-
-  .dot-gradient {
-    background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
-  }
-
-  .dot-total {
-    background: ${({ theme }) => theme.colors.gray[600]};
-  }
-
-  .dot-nodata {
-    background: ${({ theme }) => theme.colors.gray[400]};
-  }
+    switch ($type) {
+      case "win":
+        return `background: ${theme.colors.win[400]};`;
+      case "defeat":
+        return `background: ${theme.colors.defeat[400]};`;
+      case "gradient":
+        return `background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);`;
+      case "total":
+        return `background: ${theme.colors.gray[600]};`;
+      case "nodata":
+        return `background: ${theme.colors.gray[400]};`;
+      default:
+        return "";
+    }
+  }}
 `;
 
 /**
  * Tooltipで使用するDotマーカーコンポーネント
  */
 export const Dot = memo(({ type, color }: DotProps) => {
-  if (color) {
-    return <StyledDot $color={color} />;
-  }
-  return <StyledDot className={`dot-${type}`} />;
+  return <StyledDot $color={color} $type={type} />;
 });
 
 Dot.displayName = "Dot";

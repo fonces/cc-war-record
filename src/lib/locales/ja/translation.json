@@ -376,7 +376,7 @@
     "titles": {
       "dailyWinDefeat": "日別勝敗数と勝率推移",
       "weeklyWinRate": "曜日別勝率比較",
-      "hourlyWinRate": "時間帯別勝率分析",
+      "hourlyWinDefeat": "時間帯別勝率分析",
       "jobUsageRate": "ジョブ使用率",
       "jobWinRateByMap": "マップ別ジョブ勝率比較",
       "todayWinDefeatTrend": "その日の勝敗推移"

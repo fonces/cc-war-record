@@ -373,7 +373,7 @@
     "titles": {
       "dailyWinDefeat": "일별 승패 및 승률 추이",
       "weeklyWinRate": "요일별 승률 비교",
-      "hourlyWinRate": "시간대별 승률 분석",
+      "hourlyWinDefeat": "시간대별 승률 분석",
       "jobUsageRate": "잡 사용률",
       "jobWinRateByMap": "맵별 잡 승률 비교"
     },
