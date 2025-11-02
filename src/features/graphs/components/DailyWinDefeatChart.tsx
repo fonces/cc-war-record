@@ -1,6 +1,6 @@
 import { useState, memo, useMemo } from "react";
 import { ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
-import styled, { useTheme } from "styled-components";
+import { useTheme } from "styled-components";
 import { Select } from "@/components/ui";
 import { aggregateDailyWinDefeat } from "@/features/graphs/utils/aggregate";
 import { useTranslation } from "@/hooks";
@@ -8,54 +8,8 @@ import { JOBS } from "@/types/jobs";
 import { MAPS } from "@/types/maps";
 import { getMapName } from "@/utils/maps";
 import { StyledChartContainer, StyledChartHeader, StyledChartTitle, StyledFiltersWrapper } from "./ChartContainer";
+import { StyledChartTooltip, StyledTooltipValue } from "./Tooltip";
 import type { History, MatchRecord, Job, CrystalConflictMap, Character } from "@/types";
-
-const StyledTooltip = styled.div`
-  background: ${({ theme }) => theme.gradients.glass};
-  backdrop-filter: ${({ theme }) => `${theme.blur.md} brightness(${theme.isDark ? "0%" : "100%"})`};
-  border: 1px solid ${({ theme }) => theme.colors.borderLight};
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
-  padding: ${({ theme }) => theme.spacing[3]};
-  box-shadow:
-    ${({ theme }) => theme.shadows.xl},
-    0 0 0 1px rgba(38, 161, 223, 0.1);
-
-  .label {
-    font-weight: 600;
-    margin-bottom: ${({ theme }) => theme.spacing[2]};
-    color: ${({ theme }) => theme.colors.text};
-  }
-
-  .value {
-    font-size: 0.875rem;
-    margin: ${({ theme }) => theme.spacing[1]} 0;
-    display: flex;
-    align-items: center;
-    gap: ${({ theme }) => theme.spacing[2]};
-    color: ${({ theme }) => theme.colors.text};
-  }
-
-  .dot-win {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: ${({ theme }) => theme.colors.win[400]};
-  }
-
-  .dot-defeat {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: ${({ theme }) => theme.colors.defeat[400]};
-  }
-
-  .dot-gradient {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
-  }
-`;
 
 type CustomTooltipProps = {
   active?: boolean;
@@ -70,19 +24,19 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
   if (!active || !payload) return null;
 
   return (
-    <StyledTooltip>
+    <StyledChartTooltip>
       <div className="label">{label}</div>
       {payload.map((entry, index) => {
         return (
-          <div key={index} className="value">
+          <StyledTooltipValue key={index}>
             <div className={entry.name === "Win" ? "dot-win" : entry.name === "Defeat" ? "dot-defeat" : entry.name === "WinRate" ? "dot-gradient" : ""} />
             <span>
               {entry.name}: {typeof entry.value === "number" && entry.name === "WinRate" ? `${entry.value.toFixed(1)}%` : entry.value}
             </span>
-          </div>
+          </StyledTooltipValue>
         );
       })}
-    </StyledTooltip>
+    </StyledChartTooltip>
   );
 };
 

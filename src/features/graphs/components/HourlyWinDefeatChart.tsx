@@ -9,54 +9,8 @@ import { MAPS } from "@/types/maps";
 import { getWinRateColor } from "@/utils";
 import { getMapName } from "@/utils/maps";
 import { StyledChartContainer, StyledChartHeader, StyledChartTitle, StyledFiltersWrapper } from "./ChartContainer";
+import { StyledChartTooltip, StyledTooltipValue } from "./Tooltip";
 import type { History, MatchRecord, Job, CrystalConflictMap, Character } from "@/types";
-
-const StyledTooltip = styled.div`
-  background: ${({ theme }) => theme.gradients.glass};
-  backdrop-filter: ${({ theme }) => `${theme.blur.md} brightness(${theme.isDark ? "0%" : "100%"})`};
-  border: 1px solid ${({ theme }) => theme.colors.borderLight};
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
-  padding: ${({ theme }) => theme.spacing[3]};
-  box-shadow:
-    ${({ theme }) => theme.shadows.xl},
-    0 0 0 1px rgba(38, 161, 223, 0.1);
-
-  .label {
-    font-weight: 600;
-    margin-bottom: ${({ theme }) => theme.spacing[2]};
-    color: ${({ theme }) => theme.colors.text};
-  }
-
-  .value {
-    font-size: 0.875rem;
-    margin: ${({ theme }) => theme.spacing[1]} 0;
-    display: flex;
-    align-items: center;
-    gap: ${({ theme }) => theme.spacing[2]};
-    color: ${({ theme }) => theme.colors.text};
-  }
-
-  .dot-win {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: ${({ theme }) => theme.colors.win[400]};
-  }
-
-  .dot-defeat {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: ${({ theme }) => theme.colors.defeat[400]};
-  }
-
-  .dot-total {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: ${({ theme }) => theme.colors.gray[600]};
-  }
-`;
 
 const StyledChartWrapper = styled.div`
   .recharts-tooltip-cursor {
@@ -93,21 +47,21 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
   if (active && payload && payload.length) {
     const data = payload[0].payload;
     return (
-      <StyledTooltip>
+      <StyledChartTooltip>
         <div className="label">{label}</div>
-        <div className="value">
+        <StyledTooltipValue>
           <div className="dot-win" />
           <span>{`${t("chart.tooltip.win")}: ${data.wins} ${t("chart.tooltip.matches")} (${data.winRate}%)`}</span>
-        </div>
-        <div className="value">
+        </StyledTooltipValue>
+        <StyledTooltipValue>
           <div className="dot-defeat" />
           <span>{`${t("chart.tooltip.lose")}: ${data.defeats} ${t("chart.tooltip.matches")} (${data.defeatRate}%)`}</span>
-        </div>
-        <div className="value">
+        </StyledTooltipValue>
+        <StyledTooltipValue>
           <div className="dot-total" />
           <span>{`${t("chart.tooltip.total")}: ${data.total} ${t("chart.tooltip.matches")}`}</span>
-        </div>
-      </StyledTooltip>
+        </StyledTooltipValue>
+      </StyledChartTooltip>
     );
   }
   return null;
