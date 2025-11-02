@@ -5,8 +5,8 @@ import { aggregateJobWinRateByMap } from "@/features/graphs/utils/aggregate";
 import { useTranslation } from "@/hooks";
 import { JOB_INFO, JOBS } from "@/types/jobs";
 import { STORAGE_KEYS, getFromLocalStorage, saveToLocalStorage } from "@/utils/localStorage";
-import { StyledChartContainer, StyledChartHeader, StyledChartTitle, StyledFiltersWrapper } from "./ChartContainer";
-import { StyledChartTooltip, StyledTooltipValue, Dot } from "./Tooltip";
+import { ChartContainer, ChartHeader, ChartTitle, FiltersWrapper } from "./ChartContainer";
+import { ChartTooltip, TooltipValue, Dot, TooltipLabel, TooltipText } from "./Tooltip";
 import type { History, MatchRecord, Job, Character } from "@/types";
 
 type JobWinRateRadarChartProps = {
@@ -33,15 +33,15 @@ type TooltipProps = {
 const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
   if (active && payload && payload.length) {
     return (
-      <StyledChartTooltip>
-        <div className="label">{label}</div>
+      <ChartTooltip>
+        <TooltipLabel>{label}</TooltipLabel>
         {payload.map((entry, index) => (
-          <StyledTooltipValue key={index}>
+          <TooltipValue key={index}>
             <Dot type="win" color={entry.stroke} />
-            <span>{`${entry.name}: ${entry.value}%`}</span>
-          </StyledTooltipValue>
+            <TooltipText>{`${entry.name}: ${entry.value}%`}</TooltipText>
+          </TooltipValue>
         ))}
-      </StyledChartTooltip>
+      </ChartTooltip>
     );
   }
   return null;
@@ -68,10 +68,10 @@ const JobWinRateRadarChartComponent = ({ history, matchRecords, characters }: Jo
   );
 
   return (
-    <StyledChartContainer>
-      <StyledChartHeader>
-        <StyledChartTitle>{t("chart.titles.jobWinRateByMap")}</StyledChartTitle>
-        <StyledFiltersWrapper>
+    <ChartContainer>
+      <ChartHeader>
+        <ChartTitle>{t("chart.titles.jobWinRateByMap")}</ChartTitle>
+        <FiltersWrapper>
           <Select
             label={t("chart.labels.character")}
             id="character-filter-radar"
@@ -98,8 +98,8 @@ const JobWinRateRadarChartComponent = ({ history, matchRecords, characters }: Jo
             maxSelections={5}
             width="200px"
           />
-        </StyledFiltersWrapper>
-      </StyledChartHeader>
+        </FiltersWrapper>
+      </ChartHeader>
       <ResponsiveContainer width="100%" height={500}>
         <RadarChart data={radarData}>
           <PolarGrid />
@@ -120,7 +120,7 @@ const JobWinRateRadarChartComponent = ({ history, matchRecords, characters }: Jo
           <Tooltip content={<CustomTooltip />} />
         </RadarChart>
       </ResponsiveContainer>
-    </StyledChartContainer>
+    </ChartContainer>
   );
 };
 

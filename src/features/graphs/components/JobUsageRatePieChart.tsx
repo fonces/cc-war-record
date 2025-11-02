@@ -7,8 +7,8 @@ import { useTranslation } from "@/hooks";
 import { JOB_INFO } from "@/types/jobs";
 import { MAPS } from "@/types/maps";
 import { getMapName } from "@/utils/maps";
-import { StyledChartContainer, StyledChartHeader, StyledChartTitle, StyledFiltersWrapper } from "./ChartContainer";
-import { StyledChartTooltip, StyledTooltipValue, Dot } from "./Tooltip";
+import { ChartContainer, ChartHeader, ChartTitle, FiltersWrapper } from "./ChartContainer";
+import { ChartTooltip, TooltipValue, Dot, TooltipLabel, TooltipText } from "./Tooltip";
 import type { History, MatchRecord, Job, CrystalConflictMap, Character } from "@/types";
 
 type JobUsageRatePieChartProps = {
@@ -60,17 +60,17 @@ const CustomTooltip = ({ active, payload }: TooltipProps) => {
     const data = payload[0].payload;
     const jobColor = JOB_INFO[data.job].color;
     return (
-      <StyledChartTooltip>
-        <div className="label">{`${data.name} (${data.job})`}</div>
-        <StyledTooltipValue>
+      <ChartTooltip>
+        <TooltipLabel>{`${data.name} (${data.job})`}</TooltipLabel>
+        <TooltipValue>
           <Dot type="win" color={jobColor} />
-          <span>{`${t("chart.tooltip.usageCount")}: ${data.value} ${t("chart.matches")}`}</span>
-        </StyledTooltipValue>
-        <StyledTooltipValue>
+          <TooltipText>{`${t("chart.tooltip.usageCount")}: ${data.value} ${t("chart.matches")}`}</TooltipText>
+        </TooltipValue>
+        <TooltipValue>
           <Dot type="total" />
-          <span>{`${t("chart.tooltip.usageRatePercent")}: ${data.percentage}%`}</span>
-        </StyledTooltipValue>
-      </StyledChartTooltip>
+          <TooltipText>{`${t("chart.tooltip.usageRatePercent")}: ${data.percentage}%`}</TooltipText>
+        </TooltipValue>
+      </ChartTooltip>
     );
   }
   return null;
@@ -91,10 +91,10 @@ const JobUsageRatePieChartComponent = ({ history, matchRecords, characters }: Jo
   );
 
   return (
-    <StyledChartContainer>
-      <StyledChartHeader>
-        <StyledChartTitle>{t("chart.titles.jobUsageRate")}</StyledChartTitle>
-        <StyledFiltersWrapper>
+    <ChartContainer>
+      <ChartHeader>
+        <ChartTitle>{t("chart.titles.jobUsageRate")}</ChartTitle>
+        <FiltersWrapper>
           <Select
             label={t("chart.labels.character")}
             id="character-filter-job-usage"
@@ -123,8 +123,8 @@ const JobUsageRatePieChartComponent = ({ history, matchRecords, characters }: Jo
             ]}
             width="200px"
           />
-        </StyledFiltersWrapper>
-      </StyledChartHeader>
+        </FiltersWrapper>
+      </ChartHeader>
       {chartData.length > 0 ? (
         <ResponsiveContainer width="100%" height={400}>
           <PieChart>
@@ -140,7 +140,7 @@ const JobUsageRatePieChartComponent = ({ history, matchRecords, characters }: Jo
       ) : (
         <div style={{ textAlign: "center", padding: "3rem", color: theme.colors.textSecondary }}>{t("chart.noMatchData")}</div>
       )}
-    </StyledChartContainer>
+    </ChartContainer>
   );
 };
 

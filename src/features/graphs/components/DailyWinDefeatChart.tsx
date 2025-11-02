@@ -7,8 +7,8 @@ import { useTranslation } from "@/hooks";
 import { JOBS } from "@/types/jobs";
 import { MAPS } from "@/types/maps";
 import { getMapName } from "@/utils/maps";
-import { StyledChartContainer, StyledChartHeader, StyledChartTitle, StyledFiltersWrapper } from "./ChartContainer";
-import { StyledChartTooltip, StyledTooltipValue, Dot } from "./Tooltip";
+import { ChartContainer, ChartHeader, ChartTitle, FiltersWrapper } from "./ChartContainer";
+import { ChartTooltip, TooltipValue, Dot, TooltipLabel, TooltipText } from "./Tooltip";
 import type { History, MatchRecord, Job, CrystalConflictMap, Character } from "@/types";
 
 type CustomTooltipProps = {
@@ -24,20 +24,20 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
   if (!active || !payload) return null;
 
   return (
-    <StyledChartTooltip>
-      <div className="label">{label}</div>
+    <ChartTooltip>
+      <TooltipLabel>{label}</TooltipLabel>
       {payload.map((entry, index) => {
         const dotType = entry.name === "Win" ? "win" : entry.name === "Defeat" ? "defeat" : entry.name === "WinRate" ? "gradient" : "total";
         return (
-          <StyledTooltipValue key={index}>
+          <TooltipValue key={index}>
             <Dot type={dotType as "win" | "defeat" | "gradient" | "total"} />
-            <span>
+            <TooltipText>
               {entry.name}: {typeof entry.value === "number" && entry.name === "WinRate" ? `${entry.value.toFixed(1)}%` : entry.value}
-            </span>
-          </StyledTooltipValue>
+            </TooltipText>
+          </TooltipValue>
         );
       })}
-    </StyledChartTooltip>
+    </ChartTooltip>
   );
 };
 
@@ -63,10 +63,10 @@ const DailyWinDefeatChartComponent = ({ history, matchRecords, characters }: Dai
   );
 
   return (
-    <StyledChartContainer>
-      <StyledChartHeader>
-        <StyledChartTitle>{t("chart.titles.dailyWinDefeat")}</StyledChartTitle>
-        <StyledFiltersWrapper>
+    <ChartContainer>
+      <ChartHeader>
+        <ChartTitle>{t("chart.titles.dailyWinDefeat")}</ChartTitle>
+        <FiltersWrapper>
           <Select
             label={t("chart.labels.character")}
             id="character-filter"
@@ -109,8 +109,8 @@ const DailyWinDefeatChartComponent = ({ history, matchRecords, characters }: Dai
             ]}
             width="200px"
           />
-        </StyledFiltersWrapper>
-      </StyledChartHeader>
+        </FiltersWrapper>
+      </ChartHeader>
       <ResponsiveContainer width="100%" height={400}>
         <ComposedChart data={dailyData} margin={{ top: 20, right: 20, left: 20, bottom: -28 }}>
           <defs>
@@ -157,7 +157,7 @@ const DailyWinDefeatChartComponent = ({ history, matchRecords, characters }: Dai
           />
         </ComposedChart>
       </ResponsiveContainer>
-    </StyledChartContainer>
+    </ChartContainer>
   );
 };
 

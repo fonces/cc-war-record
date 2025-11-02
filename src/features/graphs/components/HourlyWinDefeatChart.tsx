@@ -8,8 +8,8 @@ import { JOBS } from "@/types/jobs";
 import { MAPS } from "@/types/maps";
 import { getWinRateColor } from "@/utils";
 import { getMapName } from "@/utils/maps";
-import { StyledChartContainer, StyledChartHeader, StyledChartTitle, StyledFiltersWrapper } from "./ChartContainer";
-import { StyledChartTooltip, StyledTooltipValue, Dot } from "./Tooltip";
+import { ChartContainer, ChartHeader, ChartTitle, FiltersWrapper } from "./ChartContainer";
+import { ChartTooltip, TooltipValue, Dot, TooltipLabel, TooltipText } from "./Tooltip";
 import type { History, MatchRecord, Job, CrystalConflictMap, Character } from "@/types";
 
 const StyledChartWrapper = styled.div`
@@ -47,21 +47,21 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
   if (active && payload && payload.length) {
     const data = payload[0].payload;
     return (
-      <StyledChartTooltip>
-        <div className="label">{label}</div>
-        <StyledTooltipValue>
+      <ChartTooltip>
+        <TooltipLabel>{label}</TooltipLabel>
+        <TooltipValue>
           <Dot type="win" />
-          <span>{`${t("chart.tooltip.win")}: ${data.wins} ${t("chart.tooltip.matches")} (${data.winRate}%)`}</span>
-        </StyledTooltipValue>
-        <StyledTooltipValue>
+          <TooltipText>{`${t("chart.tooltip.win")}: ${data.wins} ${t("chart.tooltip.matches")} (${data.winRate}%)`}</TooltipText>
+        </TooltipValue>
+        <TooltipValue>
           <Dot type="defeat" />
-          <span>{`${t("chart.tooltip.lose")}: ${data.defeats} ${t("chart.tooltip.matches")} (${data.defeatRate}%)`}</span>
-        </StyledTooltipValue>
-        <StyledTooltipValue>
+          <TooltipText>{`${t("chart.tooltip.lose")}: ${data.defeats} ${t("chart.tooltip.matches")} (${data.defeatRate}%)`}</TooltipText>
+        </TooltipValue>
+        <TooltipValue>
           <Dot type="total" />
-          <span>{`${t("chart.tooltip.total")}: ${data.total} ${t("chart.tooltip.matches")}`}</span>
-        </StyledTooltipValue>
-      </StyledChartTooltip>
+          <TooltipText>{`${t("chart.tooltip.total")}: ${data.total} ${t("chart.tooltip.matches")}`}</TooltipText>
+        </TooltipValue>
+      </ChartTooltip>
     );
   }
   return null;
@@ -83,10 +83,10 @@ const HourlyWinDefeatChartComponent = ({ history, matchRecords, characters }: Ho
   );
 
   return (
-    <StyledChartContainer>
-      <StyledChartHeader>
-        <StyledChartTitle>{t("chart.titles.hourlyWinRate")}</StyledChartTitle>
-        <StyledFiltersWrapper>
+    <ChartContainer>
+      <ChartHeader>
+        <ChartTitle>{t("chart.titles.hourlyWinDefeat")}</ChartTitle>
+        <FiltersWrapper>
           <Select
             label={t("chart.labels.character")}
             id="character-filter-hourly"
@@ -129,8 +129,8 @@ const HourlyWinDefeatChartComponent = ({ history, matchRecords, characters }: Ho
             ]}
             width="200px"
           />
-        </StyledFiltersWrapper>
-      </StyledChartHeader>
+        </FiltersWrapper>
+      </ChartHeader>
       <StyledChartWrapper>
         <ResponsiveContainer width="100%" height={400}>
           <BarChart
@@ -164,7 +164,7 @@ const HourlyWinDefeatChartComponent = ({ history, matchRecords, characters }: Ho
           </BarChart>
         </ResponsiveContainer>
       </StyledChartWrapper>
-    </StyledChartContainer>
+    </ChartContainer>
   );
 };
 

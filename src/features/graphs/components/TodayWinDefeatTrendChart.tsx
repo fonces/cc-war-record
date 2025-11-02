@@ -7,8 +7,8 @@ import { useTranslation } from "@/hooks";
 import { JOBS } from "@/types/jobs";
 import { MAPS } from "@/types/maps";
 import { getMapName } from "@/utils/maps";
-import { StyledChartContainer, StyledChartHeader, StyledChartTitle, StyledFiltersWrapper } from "./ChartContainer";
-import { StyledChartTooltip } from "./Tooltip";
+import { ChartContainer, ChartHeader, ChartTitle, FiltersWrapper } from "./ChartContainer";
+import { ChartTooltip, TooltipLabel } from "./Tooltip";
 import type { History, MatchRecord, Job, CrystalConflictMap, Character } from "@/types";
 
 const EmptyStateContainer = styled.div`
@@ -53,11 +53,11 @@ const CustomTooltip = ({ active, payload }: CustomTooltipProps) => {
   const data = payload[0].payload;
 
   return (
-    <StyledChartTooltip>
-      <div className="label">
+    <ChartTooltip>
+      <TooltipLabel>
         {t("chart.todayTrend.match", { number: data.matchNumber })} ({data.time})
         <span className={`result-badge ${data.isWin ? "win" : "defeat"}`}>{data.isWin ? t("common.win") : t("common.defeat")}</span>
-      </div>
+      </TooltipLabel>
       <div className="value">
         {t("chart.todayTrend.winDifference")}: {data.wins}
       </div>
@@ -73,7 +73,7 @@ const CustomTooltip = ({ active, payload }: CustomTooltipProps) => {
       <div className="value">
         {t("chart.labels.map")}: {getMapName(data.map, t)}
       </div>
-    </StyledChartTooltip>
+    </ChartTooltip>
   );
 };
 
@@ -125,10 +125,10 @@ const TodayWinDefeatTrendChartComponent = ({ history, matchRecords, characters }
   };
 
   return (
-    <StyledChartContainer>
-      <StyledChartHeader>
-        <StyledChartTitle>{t("chart.titles.todayWinDefeatTrend")}</StyledChartTitle>
-        <StyledFiltersWrapper>
+    <ChartContainer>
+      <ChartHeader>
+        <ChartTitle>{t("chart.titles.todayWinDefeatTrend")}</ChartTitle>
+        <FiltersWrapper>
           <Select
             label={t("chart.labels.date")}
             id="today-date-filter"
@@ -183,8 +183,8 @@ const TodayWinDefeatTrendChartComponent = ({ history, matchRecords, characters }
             ]}
             width="200px"
           />
-        </StyledFiltersWrapper>
-      </StyledChartHeader>
+        </FiltersWrapper>
+      </ChartHeader>
       {todayData.length === 0 ? (
         <EmptyStateContainer>
           <div className="icon">📊</div>
@@ -207,11 +207,13 @@ const TodayWinDefeatTrendChartComponent = ({ history, matchRecords, characters }
               tick={{ fill: theme.colors.gray[600] }}
             />
             <Tooltip content={<CustomTooltip />} />
+            {/* 0の基準線 */}
+            <Line type="monotone" dataKey={() => 0} stroke={theme.colors.gray[400]} strokeWidth={2} strokeDasharray="5 5" dot={false} isAnimationActive={false} />
             <Line type="monotone" dataKey="wins" stroke="url(#colorTodayWins)" strokeWidth={3} dot={<CustomDot />} isAnimationActive={false} />
           </LineChart>
         </ResponsiveContainer>
       )}
-    </StyledChartContainer>
+    </ChartContainer>
   );
 };
 

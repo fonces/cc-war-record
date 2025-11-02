@@ -20,6 +20,32 @@ const StyledDot = styled.div<{ $color?: string }>`
   flex-shrink: 0;
 
   ${({ $color }) => $color && `background-color: ${$color};`}
+
+  [class^="dot-"] {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .dot-win {
+    background: ${({ theme }) => theme.colors.win[400]};
+  }
+
+  .dot-defeat {
+    background: ${({ theme }) => theme.colors.defeat[400]};
+  }
+
+  .dot-gradient {
+    background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
+  }
+
+  .dot-total {
+    background: ${({ theme }) => theme.colors.gray[600]};
+  }
+
+  .dot-nodata {
+    background: ${({ theme }) => theme.colors.gray[400]};
+  }
 `;
 
 /**
@@ -37,7 +63,7 @@ Dot.displayName = "Dot";
 /**
  * チャート用の共通スタイル化Tooltipコンテナ
  */
-export const StyledChartTooltip = styled.div`
+export const ChartTooltip = styled.div`
   background: ${({ theme }) => theme.gradients.glass};
   backdrop-filter: ${({ theme }) => `${theme.blur.md} brightness(${theme.isDark ? "0%" : "100%"})`};
   border: 1px solid ${({ theme }) => theme.colors.borderLight};
@@ -82,37 +108,43 @@ export const StyledChartTooltip = styled.div`
 /**
  * 値表示用のスタイル（dotマーカー付き）
  */
-export const StyledTooltipValue = styled.div`
+export const TooltipValue = styled.div`
   font-size: 0.875rem;
   margin: ${({ theme }) => theme.spacing[1]} 0;
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing[2]};
   color: ${({ theme }) => theme.colors.text};
-
-  [class^="dot-"] {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-  }
-
-  .dot-win {
-    background-color: ${({ theme }) => theme.colors.win[400]};
-  }
-
-  .dot-defeat {
-    background-color: ${({ theme }) => theme.colors.defeat[400]};
-  }
-
-  .dot-gradient {
-    background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
-  }
-
-  .dot-total {
-    background-color: ${({ theme }) => theme.colors.gray[600]};
-  }
-
-  .dot-nodata {
-    background-color: ${({ theme }) => theme.colors.gray[400]};
-  }
 `;
+
+/**
+ * Tooltipのラベル（タイトル）コンポーネント
+ */
+const StyledTooltipLabel = styled.div`
+  font-weight: 600;
+  margin-bottom: ${({ theme }) => theme.spacing[2]};
+  color: ${({ theme }) => theme.colors.text};
+`;
+
+type TooltipLabelProps = {
+  children: React.ReactNode;
+};
+
+export const TooltipLabel = memo(({ children }: TooltipLabelProps) => {
+  return <StyledTooltipLabel>{children}</StyledTooltipLabel>;
+});
+
+TooltipLabel.displayName = "TooltipLabel";
+
+/**
+ * Tooltipのテキスト表示コンポーネント
+ */
+type TooltipTextProps = {
+  children: React.ReactNode;
+};
+
+export const TooltipText = memo(({ children }: TooltipTextProps) => {
+  return <span>{children}</span>;
+});
+
+TooltipText.displayName = "TooltipText";

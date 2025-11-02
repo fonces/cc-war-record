@@ -4,7 +4,7 @@ import { fadeIn } from "@/styles/animation";
 /**
  * グラフコンテナの共通スタイル
  */
-export const StyledChartContainer = styled.div`
+export const ChartContainer = styled.div`
   background: ${({ theme }) => theme.gradients.glass};
   backdrop-filter: ${({ theme }) => theme.blur.md};
   border: 1px solid ${({ theme }) => theme.colors.borderLight};
@@ -42,7 +42,7 @@ export const StyledChartContainer = styled.div`
 /**
  * グラフヘッダーの共通スタイル
  */
-export const StyledChartHeader = styled.div`
+export const ChartHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -59,7 +59,7 @@ export const StyledChartHeader = styled.div`
 /**
  * グラフタイトルの共通スタイル
  */
-export const StyledChartTitle = styled.h2`
+export const ChartTitle = styled.h2`
   font-size: 1.5rem;
   font-weight: 700;
   margin: 0;
@@ -86,7 +86,7 @@ export const StyledChartTitle = styled.h2`
 /**
  * フィルターラッパーの共通スタイル
  */
-export const StyledFiltersWrapper = styled.div`
+export const FiltersWrapper = styled.div`
   display: flex;
   gap: ${({ theme }) => theme.spacing[3]};
   flex-wrap: wrap;
