@@ -7,17 +7,31 @@
 ```
 graphs/
 ├── components/
-│   ├── GraphsPage.tsx              # グラフ画面メインコンポーネント
+│   ├── GraphsPage.tsx                # グラフ画面メインコンポーネント
+│   ├── TodayWinDefeatTrendChart.tsx  # その日の勝敗推移チャート
 │   ├── DailyWinDefeatChart.tsx       # 日別勝敗数チャート
 │   ├── HourlyWinDefeatChart.tsx      # 時間別勝率チャート
 │   ├── WeeklyWinDefeatChart.tsx      # 曜日別勝率チャート
-│   ├── JobUsageRatePieChart.tsx    # ジョブ使用率円グラフ
-│   └── JobWinRateRadarChart.tsx    # ジョブ別勝率レーダーチャート
-├── index.ts                         # 公開API
-└── README.md                        # このファイル
+│   ├── JobUsageRatePieChart.tsx      # ジョブ使用率円グラフ
+│   └── JobWinRateRadarChart.tsx      # ジョブ別勝率レーダーチャート
+├── index.ts                           # 公開API
+└── README.md                          # このファイル
 ```
 
 ## チャートコンポーネント詳細
+
+### TodayWinDefeatTrendChart - その日の勝敗推移チャート
+
+- **チャートタイプ**: LineChart
+- **表示期間**: 当日の全試合
+- **データ**: 試合ごとの累積勝率推移
+- **X軸**: 試合番号（1試合目、2試合目...）
+- **Y軸**: 勝率（0-100%）
+- **マーカー**: 勝利は青、敗北は赤で表示
+- **フィルター**: キャラクター・ジョブ・マップ
+- **特徴**: その日の勝敗の流れを時系列で可視化、50%基準線表示
+- **用途**: 1日の調子や勝敗パターンの分析
+- **型定義**: type Props（interface削除済み）
 
 ### DailyWinDefeatChart - 日別勝敗数チャート
 
@@ -73,6 +87,7 @@ graphs/
 
 ### aggregate.ts
 
+- `aggregateTodayWinDefeatTrend`: その日の勝敗推移集計
 - `aggregateDailyWinLoss`: 日別勝敗数集計
 - `aggregateHourlyWinRate`: 時間別勝率集計
 - `aggregateWeeklyWinRate`: 曜日別勝率集計

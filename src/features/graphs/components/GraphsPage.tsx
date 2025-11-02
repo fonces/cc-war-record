@@ -7,6 +7,7 @@ import { DailyWinDefeatChart } from "./DailyWinDefeatChart";
 import { HourlyWinDefeatChart } from "./HourlyWinDefeatChart";
 import { JobUsageRatePieChart } from "./JobUsageRatePieChart";
 import { JobWinRateRadarChart } from "./JobWinRateRadarChart";
+import { TodayWinDefeatTrendChart } from "./TodayWinDefeatTrendChart";
 import { WeeklyWinDefeatChart } from "./WeeklyWinDefeatChart";
 
 /**
@@ -30,6 +31,7 @@ export const GraphsPage = () => {
 
       {latestHistory ? (
         <PageContainer>
+          <TodayWinDefeatTrendChart history={latestHistory} matchRecords={matchRecords} characters={characters} />
           <DailyWinDefeatChart history={latestHistory} matchRecords={matchRecords} characters={characters} />
           <HourlyWinDefeatChart history={latestHistory} matchRecords={matchRecords} characters={characters} />
           <WeeklyWinDefeatChart history={latestHistory} matchRecords={matchRecords} characters={characters} />

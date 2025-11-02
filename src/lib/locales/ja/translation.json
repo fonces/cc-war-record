@@ -21,6 +21,8 @@
     "toggleTheme": "テーマを切り替え",
     "switchToDarkMode": "ダークモードに切り替え",
     "switchToLightMode": "ライトモードに切り替え",
+    "win": "勝",
+    "defeat": "敗",
     "buildUpdate": {
       "message": "新しいバージョンが利用可能です",
       "reload": "更新"
@@ -375,7 +377,8 @@
       "weeklyWinRate": "曜日別勝率比較",
       "hourlyWinRate": "時間帯別勝率分析",
       "jobUsageRate": "ジョブ使用率",
-      "jobWinRateByMap": "マップ別ジョブ勝率比較"
+      "jobWinRateByMap": "マップ別ジョブ勝率比較",
+      "todayWinDefeatTrend": "その日の勝敗推移"
     },
     "axes": {
       "matchCount": "対戦回数",
@@ -407,6 +410,16 @@
       "thursday": "木曜日",
       "friday": "金曜日",
       "saturday": "土曜日"
+    },
+    "todayTrend": {
+      "match": "第{{number}}試合",
+      "winRate": "勝率",
+      "winCount": "勝数",
+      "winDifference": "勝ち越し数",
+      "record": "戦績",
+      "matches": "試合",
+      "matchNumber": "試合数",
+      "noData": "今日の試合データがありません"
     }
   },
   "language": {

@@ -310,3 +310,70 @@ export const aggregateJobWinRateByMap = (history: History, matchRecords: MatchRe
     return mapData;
   });
 };
+
+/**
+ * その日の勝敗推移データを集計する関数
+ */
+export const aggregateTodayWinDefeatTrend = (
+  history: History,
+  matchRecords: MatchRecord[],
+  selectedCharacterUuid: string | null,
+  selectedJob: Job | null,
+  selectedMap: CrystalConflictMap | null,
+) => {
+  // 今日の日付を取得（ローカルタイムゾーン）
+  const today = new Date();
+  const todayDateString = today.toISOString().split("T")[0];
+
+  // 該当シーズンの今日の試合データをフィルタ
+  const todayMatches = matchRecords.filter((match) => {
+    if (match.seasonUuid !== history.uuid) return false;
+    if (selectedCharacterUuid && match.characterUuid !== selectedCharacterUuid) return false;
+    if (selectedJob && match.job !== selectedJob) return false;
+    if (selectedMap && match.map !== selectedMap) return false;
+
+    // 今日の試合のみ抽出
+    const matchDate = match.recordedAt.split("T")[0];
+    return matchDate === todayDateString;
+  });
+
+  // 時系列でソート（古い順）
+  const sortedMatches = [...todayMatches].sort((a, b) => {
+    return new Date(a.recordedAt).getTime() - new Date(b.recordedAt).getTime();
+  });
+
+  // 累積勝率を計算
+  let cumulativeWinDifference = 0;
+  let cumulativeTotal = 0;
+  let actualWins = 0;
+  let actualDefeats = 0;
+
+  return sortedMatches.map((match, index) => {
+    cumulativeTotal++;
+    if (match.isWin) {
+      cumulativeWinDifference++;
+      actualWins++;
+    } else {
+      cumulativeWinDifference--;
+      actualDefeats++;
+    }
+
+    const winRate = Math.round((cumulativeWinDifference / cumulativeTotal) * 100);
+    const time = new Date(match.recordedAt);
+    const timeString = `${String(time.getHours()).padStart(2, "0")}:${String(time.getMinutes()).padStart(2, "0")}`;
+
+    return {
+      matchNumber: index + 1,
+      time: timeString,
+      fullTime: match.recordedAt,
+      isWin: match.isWin,
+      winRate,
+      wins: cumulativeWinDifference,
+      actualWins: actualWins,
+      defeats: actualDefeats,
+      total: cumulativeTotal,
+      job: match.job,
+      map: match.map,
+    };
+  });
+};

@@ -21,6 +21,8 @@
     "toggleTheme": "Toggle theme",
     "switchToDarkMode": "Switch to dark mode",
     "switchToLightMode": "Switch to light mode",
+    "win": "Win",
+    "defeat": "Defeat",
     "buildUpdate": {
       "message": "A new version is available",
       "reload": "Reload"
@@ -375,7 +377,8 @@
       "weeklyWinRate": "Win Rate Comparison by Day of Week",
       "hourlyWinRate": "Win Rate Analysis by Time of Day",
       "jobUsageRate": "Job Usage Rate",
-      "jobWinRateByMap": "Job Win Rate Comparison by Map"
+      "jobWinRateByMap": "Job Win Rate Comparison by Map",
+      "todayWinDefeatTrend": "Today's Win/Defeat Trend"
     },
     "axes": {
       "matchCount": "Match Count",
@@ -407,6 +410,16 @@
       "thursday": "Thursday",
       "friday": "Friday",
       "saturday": "Saturday"
+    },
+    "todayTrend": {
+      "match": "Match #{{number}}",
+      "winRate": "Win Rate",
+      "winCount": "Wins",
+      "winDifference": "Win Difference",
+      "record": "Record",
+      "matches": "matches",
+      "matchNumber": "Matches",
+      "noData": "No match data available for today"
     }
   },
   "language": {
