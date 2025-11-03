@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import styled from "styled-components";
 import { calculateMapJobSummaries, calculateTotalSummary } from "@/features/home/utils/calculate";
 import { useTranslation, useMapRotation } from "@/hooks";
+import { type MatchRecord, type Job, type CrystalConflictMap } from "@/types";
 import { getMapName } from "@/utils/maps";
 import { MapSection } from "./MapSection";
-import type { MatchRecord, Job, CrystalConflictMap } from "@/types";
 
 const StyledMapTablesContainer = styled.div`
   display: flex;
@@ -51,15 +51,18 @@ export const MatchRecordTable = ({ usedJobs, matchRecords, onAddWin, onAddDefeat
   const [isTotalOpen, setIsTotalOpen] = useState(false);
 
   // マップの開閉をトグル
-  const toggleMap = (map: CrystalConflictMap) => {
-    const newOpenMaps = new Set(openMaps);
-    if (newOpenMaps.has(map)) {
-      newOpenMaps.delete(map);
-    } else {
-      newOpenMaps.add(map);
-    }
-    setOpenMaps(newOpenMaps);
-  };
+  const toggleMap = useCallback(
+    (map: CrystalConflictMap) => {
+      const newOpenMaps = new Set(openMaps);
+      if (newOpenMaps.has(map)) {
+        newOpenMaps.delete(map);
+      } else {
+        newOpenMaps.add(map);
+      }
+      setOpenMaps(newOpenMaps);
+    },
+    [openMaps],
+  );
 
   return (
     <StyledMapTablesContainer>
@@ -78,7 +81,7 @@ export const MatchRecordTable = ({ usedJobs, matchRecords, onAddWin, onAddDefeat
             isCurrentMap={isCurrentMap}
             isNextMap={isNextMap}
             isOpen={openMaps.has(mapData.map)}
-            onToggle={() => toggleMap(mapData.map)}
+            onToggle={toggleMap}
             usedJobs={usedJobs}
             jobSummaries={mapData.jobSummaries}
             onAddWin={onAddWin}

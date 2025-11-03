@@ -107,7 +107,7 @@ type MapSectionProps = {
   isCurrentMap?: boolean;
   isNextMap?: boolean;
   isOpen: boolean;
-  onToggle: () => void;
+  onToggle: (map: CrystalConflictMap) => void | (() => void);
   usedJobs: Job[];
   jobSummaries: JobSummary[];
   onAddWin?: (job: Job, map: CrystalConflictMap) => void;
@@ -140,7 +140,7 @@ export const MapSection = memo(
 
     return (
       <StyledMapSection>
-        <StyledMapTitle onClick={onToggle} isCurrentMap={isCurrentMap}>
+        <StyledMapTitle onClick={() => onToggle(map!)} isCurrentMap={isCurrentMap}>
           <StyledMapTitleLeft>
             <StyledArrowWrapper isOpen={isOpen}>
               <Icon name="arrowDropDown" size={20} />
@@ -178,7 +178,8 @@ export const MapSection = memo(
       prevProps.totalMatches === nextProps.totalMatches &&
       prevProps.isCurrentMap === nextProps.isCurrentMap &&
       prevProps.isNextMap === nextProps.isNextMap &&
-      prevProps.isOpen === nextProps.isOpen
+      prevProps.isOpen === nextProps.isOpen &&
+      prevProps.onToggle === nextProps.onToggle
     );
   },
 );
