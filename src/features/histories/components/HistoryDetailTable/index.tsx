@@ -40,6 +40,13 @@ const StyledJobShortName = styled.span`
   letter-spacing: 0.05em;
 `;
 
+// マップセル
+const StyledMapCell = styled(TableCell)`
+  color: ${({ theme }) => theme.colors.text};
+  font-size: 0.875rem;
+  white-space: nowrap;
+`;
+
 // 勝敗バッジ
 const StyledWinBadge = styled.span<{ $isWin: boolean }>`
   display: inline-flex;
@@ -115,6 +122,7 @@ export const HistoryDetailTable = ({ matches, isCurrent, onDeleteMatch }: Histor
     () => ({
       character: undefined, // flex: 1
       job: "120px",
+      map: "232px",
       date: "180px",
       result: "108px",
       actions: "84px",
@@ -128,6 +136,7 @@ export const HistoryDetailTable = ({ matches, isCurrent, onDeleteMatch }: Histor
     const baseColumns: VirtualTableColumn[] = [
       { key: "character", label: t("pages.historyDetail.columns.character"), width: undefined },
       { key: "job", label: t("pages.historyDetail.columns.job"), width: "120px" },
+      { key: "map", label: t("pages.historyDetail.columns.map"), width: "232px" },
       { key: "date", label: t("pages.historyDetail.columns.date"), width: "180px" },
       { key: "result", label: t("pages.historyDetail.columns.result"), width: !isCurrent ? `${108 + scrollbarWidth}px` : "108px" },
     ];
@@ -156,6 +165,7 @@ export const HistoryDetailTable = ({ matches, isCurrent, onDeleteMatch }: Histor
               <JobIcon job={match.job} size={24} />
               <StyledJobShortName>{JOB_INFO[match.job].shortName}</StyledJobShortName>
             </StyledJobCell>
+            <StyledMapCell width={columnWidths.map}>{t(`maps.${match.map}`)}</StyledMapCell>
             <StyledDateCell width={columnWidths.date}>{formatDate(match.recordedAt)}</StyledDateCell>
             <TableCell width={columnWidths.result}>
               <StyledWinBadge $isWin={match.isWin}>{match.isWin ? t("pages.historyDetail.results.win") : t("pages.historyDetail.results.defeat")}</StyledWinBadge>
