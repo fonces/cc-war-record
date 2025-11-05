@@ -9,6 +9,7 @@ const StyledMobileHeader = styled.header`
   background: ${({ theme }) => theme.gradients.glass};
   backdrop-filter: ${({ theme }) => theme.blur.md};
   border-bottom: 1px solid ${({ theme }) => theme.colors.borderLight};
+  height: 70px;
   padding: ${({ theme }) => theme.spacing[4]};
   transition:
     background 0.3s ease,

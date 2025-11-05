@@ -23,11 +23,12 @@ const StyledOverlay = styled.div<{ $isOpen: boolean }>`
 const StyledMainContent = styled.main`
   display: flex;
   flex: 1;
-  min-height: 100dvh;
+  min-height: calc(100dvh - 70px);
   overflow: hidden;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
     margin-left: 260px;
+    min-height: 100dvh;
   }
 `;
 
