@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "deploy": "gh-pages -d dist --dotfiles",
+    "deploy": "npm run build && gh-pages -d dist --dotfiles",
     "gen:route": "tsr generate",
     "gen:matches": "tsx scripts/cc-war-record-match-records.ts"
   },
