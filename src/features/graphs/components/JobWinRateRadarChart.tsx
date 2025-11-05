@@ -1,23 +1,13 @@
 import { useState, memo, useMemo } from "react";
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Legend, ResponsiveContainer, Tooltip } from "recharts";
-import styled from "styled-components";
 import { Select, MultiSelect } from "@/components/ui";
 import { aggregateJobWinRateByMap } from "@/features/graphs/utils/aggregate";
 import { useIsMobile, useTranslation } from "@/hooks";
-import { media } from "@/styles/breakpoints";
 import { JOB_INFO, JOBS } from "@/types/jobs";
 import { STORAGE_KEYS, getFromLocalStorage, saveToLocalStorage } from "@/utils/localStorage";
 import { ChartContainer, ChartHeader, ChartTitle, FiltersWrapper } from "./ChartContainer";
 import { ChartTooltip, TooltipValue, Dot, TooltipLabel, TooltipText } from "./Tooltip";
 import type { History, MatchRecord, Job, Character } from "@/types";
-
-const StyledResponsiveContainer = styled(ResponsiveContainer)`
-  margin-top: -32px;
-
-  ${media.mobile} {
-    margin-top: -72px;
-  }
-`;
 
 type JobWinRateRadarChartProps = {
   history: History;
@@ -109,7 +99,7 @@ const JobWinRateRadarChartComponent = ({ history, matchRecords, characters }: Jo
           />
         </FiltersWrapper>
       </ChartHeader>
-      <StyledResponsiveContainer width="100%" height={isMobile ? 460 : 500}>
+      <ResponsiveContainer width="100%" height={isMobile ? 460 : 500}>
         <RadarChart data={radarData}>
           <PolarGrid />
           <PolarAngleAxis dataKey="map" />
@@ -128,7 +118,7 @@ const JobWinRateRadarChartComponent = ({ history, matchRecords, characters }: Jo
           <Legend />
           <Tooltip content={<CustomTooltip />} />
         </RadarChart>
-      </StyledResponsiveContainer>
+      </ResponsiveContainer>
     </ChartContainer>
   );
 };

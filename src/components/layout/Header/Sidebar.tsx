@@ -10,7 +10,7 @@ const StyledSidebar = styled.aside<{ $isOpen: boolean }>`
   position: fixed;
   left: 0;
   top: 0;
-  height: 100vh;
+  height: 100dvh;
   width: 260px;
   background: ${({ theme }) => theme.gradients.glass};
   backdrop-filter: ${({ theme }) => theme.blur.lg};

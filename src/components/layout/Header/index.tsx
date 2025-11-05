@@ -23,7 +23,7 @@ const StyledOverlay = styled.div<{ $isOpen: boolean }>`
 const StyledMainContent = styled.main`
   display: flex;
   flex: 1;
-  min-height: 100vh;
+  min-height: 100dvh;
   overflow: hidden;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
@@ -33,7 +33,7 @@ const StyledMainContent = styled.main`
 
 const StyledContainer = styled.div`
   display: flex;
-  min-height: 100vh;
+  min-height: 100dvh;
   background-image: url("${import.meta.env.BASE_URL}img/${({ theme }) => (theme.isDark ? "bgn.webp" : "bg.webp")}");
   background-size: cover;
   background-position: center;

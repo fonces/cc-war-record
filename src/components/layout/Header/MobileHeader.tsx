@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Icon, ThemeToggle } from "@/components/ui";
+import { Icon, ThemeToggle, IconicButton } from "@/components/ui";
 import { useTranslation } from "@/hooks";
 
 const StyledMobileHeader = styled.header`
@@ -71,7 +71,7 @@ export const MobileHeader = ({ onMenuClick }: MobileHeaderProps) => {
         </StyledMobileTitleWrapper>
         <StyledMobileHeaderActions>
           <ThemeToggle />
-          <Icon name="hamburger" size={24} onClick={onMenuClick} />
+          <IconicButton $type="secondary" $borderless icon={<Icon name="hamburger" size={24} />} onClick={onMenuClick} title={t("common.menu")} />
         </StyledMobileHeaderActions>
       </StyledMobileHeaderContent>
     </StyledMobileHeader>

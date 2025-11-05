@@ -2,9 +2,12 @@ import { memo } from "react";
 import styled, { css } from "styled-components";
 import { Button, type ButtonProps } from "./Button";
 
-type ButtonType = "danger" | "default";
+type ButtonType = "danger" | "default" | "secondary";
 
-type AppendedProps = { $type?: ButtonType };
+type AppendedProps = {
+  $type?: ButtonType;
+  $borderless?: boolean;
+};
 
 type IconicButtonProps = Omit<ButtonProps, "variant"> & AppendedProps;
 
@@ -27,6 +30,16 @@ const buttonStyles = {
       box-shadow: 0 4px 12px rgba(38, 161, 223, 0.3);
     }
   `,
+  secondary: css`
+    border: 1px solid ${({ theme }) => theme.colors.borderLight};
+    color: ${({ theme }) => theme.colors.textSecondary};
+
+    &:hover:not(:disabled) {
+      border-color: ${({ theme }) => theme.colors.border};
+      color: ${({ theme }) => theme.colors.text};
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+  `,
 } satisfies Record<ButtonType, ReturnType<typeof css>>;
 
 const StyledButton = styled(Button)<AppendedProps>`
@@ -38,8 +51,8 @@ const StyledButton = styled(Button)<AppendedProps>`
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   text-decoration: none;
   transition: all ${({ theme }) => theme.transitions.base};
-  background: ${({ theme }) => theme.gradients.glass};
-  backdrop-filter: ${({ theme }) => theme.blur.sm};
+  background: ${({ theme, $borderless }) => ($borderless ? "transparent" : theme.gradients.glass)};
+  backdrop-filter: ${({ theme, $borderless }) => ($borderless ? "none" : theme.blur.sm)};
   padding: 0;
 
   &:hover:not(:disabled) {
@@ -51,7 +64,8 @@ const StyledButton = styled(Button)<AppendedProps>`
     cursor: not-allowed;
   }
 
-  ${({ $type }) => buttonStyles[$type || "default"]}
+  ${({ $type = "default" }) => buttonStyles[$type]}
+  ${({ $borderless }) => $borderless && "border: none;"}
 `;
 
 export const IconicButton = memo(({ icon, children, ...props }: IconicButtonProps) => {
