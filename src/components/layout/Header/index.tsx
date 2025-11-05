@@ -35,10 +35,6 @@ const StyledMainContent = styled.main`
 const StyledContainer = styled.div`
   display: flex;
   min-height: 100dvh;
-  background-image: url("${import.meta.env.BASE_URL}img/${({ theme }) => (theme.isDark ? "bgn.webp" : "bg.webp")}");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
     flex-direction: column;
