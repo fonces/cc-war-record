@@ -122,6 +122,8 @@ export const HistoryTable = ({ histories, isLoading = false, onDelete }: History
   // コンテンツ幅計算（モバイル時のみ固定幅）
   const contentsWidth = useMemo(() => (isMobile ? `${Object.values(widths).reduce<number>((acc, val) => acc + (val || 0), 0)}px` : "100%"), [isMobile, widths]);
 
+  const tableHeight = useMemo(() => (isMobile ? "500px" : "calc(100dvh - 320px)"), [isMobile]);
+
   // 履歴詳細へ遷移
   const handleNavigateToDetail = (historyUuid: string) => {
     navigate({ to: `/histories/${historyUuid}` });
@@ -156,7 +158,7 @@ export const HistoryTable = ({ histories, isLoading = false, onDelete }: History
         columns={columns}
         rowHeight={68}
         overscan={5}
-        height="calc(100dvh - 320px)"
+        height={tableHeight}
         width={contentsWidth}
         isLoading={isLoading}
         loadingText={t("common.loading")}

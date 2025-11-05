@@ -183,6 +183,8 @@ export const HistoryDetailTable = ({ matches, isCurrent, onDeleteMatch }: Histor
 
   const contentsWidth = useMemo(() => (isMobile ? `${Object.values(widths).reduce<number>((acc, val) => acc + (val || 0), 0)}px` : "100%"), [isMobile, widths]);
 
+  const tableHeight = useMemo(() => (isMobile ? "500px" : "calc(100dvh - 436px)"), [isMobile]);
+
   return (
     <>
       <VirtualTable
@@ -190,7 +192,7 @@ export const HistoryDetailTable = ({ matches, isCurrent, onDeleteMatch }: Histor
         columns={columns}
         rowHeight={66}
         overscan={5}
-        height="calc(100dvh - 436px)"
+        height={tableHeight}
         width={contentsWidth}
         emptyText={t("pages.historyDetail.emptyState")}
         getRowKey={(match: MatchRecord & { characterName: string }) => match.uuid}

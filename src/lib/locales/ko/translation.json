@@ -18,6 +18,7 @@
     "success": "성공",
     "warning": "경고",
     "info": "정보",
+    "menu": "메뉴",
     "toggleTheme": "테마 전환",
     "switchToDarkMode": "다크 모드로 전환",
     "switchToLightMode": "라이트 모드로 전환",
@@ -270,7 +271,8 @@
     "actions": {
       "addJob": "잡 추가",
       "editName": "이름 편집",
-      "deleteName": "캐릭터 삭제"
+      "deleteName": "캐릭터 삭제",
+      "more": "더보기"
     }
   },
   "match": {

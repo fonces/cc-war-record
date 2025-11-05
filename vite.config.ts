@@ -5,6 +5,7 @@ import react from "@vitejs/plugin-react";
 import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
+import { qrcode } from "vite-plugin-qrcode";
 
 // GitHub Pages用ファイル生成プラグイン
 const generateGitHubPagesFilesPlugin = () => {
@@ -42,12 +43,17 @@ const generateGitHubPagesFilesPlugin = () => {
 // https://vite.dev/config/
 export default defineConfig({
   base: "/cc-war-record/",
+  server: {
+    host: true, // ローカルネットワーク内の別端末からアクセス可能に
+    port: 5173,
+  },
   plugins: [
     tanstackRouter({
       target: "react",
       autoCodeSplitting: true,
     }),
     react(),
+    qrcode(), // ローカルネットワークアドレスのQRコード表示
     VitePWA({
       registerType: "autoUpdate",
       includeAssets: ["img/**/*"],

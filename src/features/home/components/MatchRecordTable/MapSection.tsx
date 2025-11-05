@@ -205,6 +205,7 @@ export const MapSection = memo(
     // totalMatchesが変更されていない場合は再レンダリングしない
     return (
       prevProps.totalMatches === nextProps.totalMatches &&
+      prevProps.usedJobs.length === nextProps.usedJobs.length &&
       prevProps.isCurrentMap === nextProps.isCurrentMap &&
       prevProps.isNextMap === nextProps.isNextMap &&
       prevProps.isOpen === nextProps.isOpen &&

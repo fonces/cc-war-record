@@ -45,6 +45,20 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
     saveToLocalStorage(STORAGE_KEYS.THEME, mode);
   }, [mode]);
 
+  // モード変更時にtheme-colorメタタグを更新
+  useEffect(() => {
+    const themeColor = mode === "dark" ? "#0a0a0b" : "#ffffff";
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    if (metaThemeColor) {
+      metaThemeColor.setAttribute("content", themeColor);
+    } else {
+      const meta = document.createElement("meta");
+      meta.name = "theme-color";
+      meta.content = themeColor;
+      document.head.appendChild(meta);
+    }
+  }, [mode]);
+
   const contextValue = useMemo(
     () => ({
       mode,
