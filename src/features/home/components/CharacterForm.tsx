@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Button, Icon, Input, Flush } from "@/components/ui";
 import { useTranslation } from "@/hooks";
+import { media } from "@/styles/breakpoints";
 
 const StyledCharacterCard = styled.div`
   background: ${({ theme }) => theme.gradients.glass};
@@ -91,7 +92,19 @@ const StyledCharacterFormContent = styled.div`
 
   input,
   button {
-    height: 50px;
+    height: 48px;
+  }
+
+  ${media.mobile} {
+    flex-direction: column;
+    align-items: stretch;
+
+    button {
+      align-self: center;
+      width: auto;
+      height: 40px;
+      padding: 0 ${({ theme }) => theme.spacing[8]};
+    }
   }
 `;
 

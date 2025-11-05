@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import { media } from "./breakpoints";
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -40,6 +41,12 @@ export const GlobalStyle = createGlobalStyle`
   /* カスタムスクロールバー (Webkit) */
   ::-webkit-scrollbar {
     width: 10px;
+    height: 10px;
+
+    ${media.mobile} {
+      width: 4px;
+      height: 4px;
+    }
   }
 
   ::-webkit-scrollbar-track {

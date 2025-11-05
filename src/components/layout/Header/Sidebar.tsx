@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import styled from "styled-components";
 import { Icon, LanguageSelector } from "@/components/ui";
 import { useTranslation } from "@/hooks";
+import { media } from "@/styles/breakpoints";
 import { navigationItems } from "./types";
 import type { NavigationItem } from "./types";
 
@@ -36,6 +37,10 @@ const StyledSidebarTitleWrapper = styled.div`
   align-items: center;
   gap: ${({ theme }) => theme.spacing[2]};
   margin-bottom: ${({ theme }) => theme.spacing[8]};
+
+  ${media.mobile} {
+    display: none;
+  }
 `;
 
 const StyledLogoIcon = styled.img`
@@ -54,6 +59,10 @@ const StyledNavList = styled.nav`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing[2]};
+
+  ${media.mobile} {
+    margin-top: ${({ theme }) => theme.spacing[16]};
+  }
 `;
 
 const StyledNavLink = styled(Link)<{ $isActive: boolean }>`
@@ -100,18 +109,6 @@ const StyledNavIcon = styled.div<{ $isActive: boolean }>`
   color: inherit;
 `;
 
-const StyledCloseButton = styled.div`
-  position: absolute;
-  top: ${({ theme }) => theme.spacing[4]};
-  right: ${({ theme }) => theme.spacing[4]};
-  cursor: pointer;
-  padding: ${({ theme }) => theme.spacing[2]};
-
-  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
-    display: none;
-  }
-`;
-
 type SidebarProps = {
   /** サイドバーが開いているか */
   isOpen: boolean;
@@ -130,10 +127,6 @@ export const Sidebar = ({ isOpen, isActivePath, onClose }: SidebarProps) => {
 
   return (
     <StyledSidebar $isOpen={isOpen}>
-      <StyledCloseButton>
-        <Icon name="close" size={24} onClick={onClose} />
-      </StyledCloseButton>
-
       <StyledSidebarTitleWrapper>
         <StyledLogoIcon src={`${import.meta.env.VITE_BASEPATH}/img/cc.webp`} alt="CC" />
         <StyledSidebarTitle>{t("common.appName")}</StyledSidebarTitle>

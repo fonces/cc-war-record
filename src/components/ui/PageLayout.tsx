@@ -1,6 +1,7 @@
 import { memo } from "react";
 import styled from "styled-components";
 import { fadeIn } from "@/styles/animation";
+import { media } from "@/styles/breakpoints";
 
 const StyledPage = styled.div`
   padding: ${({ theme }) => theme.spacing[6]};
@@ -8,6 +9,12 @@ const StyledPage = styled.div`
   min-width: 800px;
   margin: 0 auto;
   width: 100%;
+
+  ${media.mobile} {
+    padding: ${({ theme }) => theme.spacing[4]};
+    min-width: unset;
+    max-width: 100%;
+  }
 `;
 
 const StyledPageTitleContainer = styled.div`
@@ -17,9 +24,7 @@ const StyledPageTitleContainer = styled.div`
   margin-bottom: ${({ theme }) => theme.spacing[3]};
   gap: ${({ theme }) => theme.spacing[4]};
 
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: flex-start;
+  ${media.mobile} {
     gap: ${({ theme }) => theme.spacing[2]};
   }
 `;
@@ -28,11 +33,19 @@ const StyledPageTitle = styled.h1`
   font-size: 2rem;
   font-weight: bold;
   margin: 0;
+  animation: ${fadeIn} 0.5s ease-out;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ${({ theme }) => theme.spacing[3]};
+`;
+
+const StyledPageTitleText = styled.span`
   background: ${({ theme }) => theme.gradients.primary};
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: ${fadeIn} 0.5s ease-out;
 `;
 
 const StyledPageDescription = styled.p`
@@ -46,7 +59,7 @@ const StyledPageTitleActions = styled.div`
   gap: ${({ theme }) => theme.spacing[2]};
   align-items: center;
 
-  @media (max-width: 768px) {
+  ${media.mobile} {
     width: 100%;
     flex-direction: column;
   }
@@ -68,6 +81,8 @@ type PageTitleContainerProps = {
 
 type PageTitleProps = {
   children: React.ReactNode;
+  /** タイトル右側に表示する要素（SP版用のボタンなど） */
+  action?: React.ReactNode;
 };
 
 type PageDescriptionProps = {
@@ -106,8 +121,13 @@ PageTitleContainer.displayName = "PageTitleContainer";
  * ページタイトルコンポーネント
  * 各ページのメインタイトル表示
  */
-export const PageTitle = memo(({ children }: PageTitleProps) => {
-  return <StyledPageTitle>{children}</StyledPageTitle>;
+export const PageTitle = memo(({ children, action }: PageTitleProps) => {
+  return (
+    <StyledPageTitle>
+      <StyledPageTitleText>{children}</StyledPageTitleText>
+      {action}
+    </StyledPageTitle>
+  );
 });
 
 PageTitle.displayName = "PageTitle";

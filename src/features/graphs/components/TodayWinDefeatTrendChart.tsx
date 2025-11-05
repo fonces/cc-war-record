@@ -3,7 +3,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import styled, { useTheme } from "styled-components";
 import { Select } from "@/components/ui";
 import { aggregateTodayWinDefeatTrend, getAvailableDates } from "@/features/graphs/utils/aggregate";
-import { useTranslation } from "@/hooks";
+import { useTranslation, useIsMobile } from "@/hooks";
 import { JOB_INFO, JOBS } from "@/types/jobs";
 import { MAPS } from "@/types/maps";
 import { getMapName } from "@/utils/maps";
@@ -90,6 +90,7 @@ type TodayWinDefeatTrendChartProps = {
 const TodayWinDefeatTrendChartComponent = ({ history, matchRecords, characters }: TodayWinDefeatTrendChartProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
+  const isMobile = useIsMobile();
   const [selectedCharacterUuid, setSelectedCharacterUuid] = useState<string | null>(null);
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const [selectedMap, setSelectedMap] = useState<CrystalConflictMap | null>(null);
@@ -139,7 +140,6 @@ const TodayWinDefeatTrendChartComponent = ({ history, matchRecords, characters }
               value: date,
               label: formatDate(date),
             }))}
-            width="200px"
             disabled={availableDates.length === 0}
           />
           <Select
@@ -154,7 +154,6 @@ const TodayWinDefeatTrendChartComponent = ({ history, matchRecords, characters }
                 label: character.name,
               })),
             ]}
-            width="200px"
           />
           <Select
             label={t("chart.labels.job")}
@@ -168,7 +167,6 @@ const TodayWinDefeatTrendChartComponent = ({ history, matchRecords, characters }
                 label: `${t(`job.${job}`)} (${job})`,
               })),
             ]}
-            width="200px"
           />
           <Select
             label={t("chart.labels.map")}
@@ -182,7 +180,6 @@ const TodayWinDefeatTrendChartComponent = ({ history, matchRecords, characters }
                 label: getMapName(map, t),
               })),
             ]}
-            width="200px"
           />
         </FiltersWrapper>
       </ChartHeader>
@@ -192,7 +189,7 @@ const TodayWinDefeatTrendChartComponent = ({ history, matchRecords, characters }
         </EmptyStateContainer>
       ) : (
         <ResponsiveContainer width="100%" height={400}>
-          <LineChart data={todayData} margin={{ top: 20, right: 20, left: 20, bottom: 20 }}>
+          <LineChart data={todayData} margin={isMobile ? { top: 0, right: 10, left: 0, bottom: 0 } : { top: 20, right: 20, left: 20, bottom: 20 }}>
             <defs>
               <linearGradient id="colorTodayWins" x1="0" y1="0" x2="1" y2="0">
                 <stop offset="0%" stopColor="#26A1DF" />
@@ -202,9 +199,10 @@ const TodayWinDefeatTrendChartComponent = ({ history, matchRecords, characters }
             <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.05)" />
             <XAxis dataKey="matchNumber" tick={{ fontSize: 12, fill: theme.colors.gray[600] }} />
             <YAxis
-              label={{ value: t("chart.todayTrend.winCount"), angle: -90, position: "insideLeft", fill: theme.colors.gray[700] }}
+              label={isMobile ? undefined : { value: t("chart.todayTrend.winCount"), angle: -90, position: "insideLeft", fill: theme.colors.gray[700] }}
               allowDecimals={false}
               tick={{ fill: theme.colors.gray[600] }}
+              width={isMobile ? 30 : 60}
             />
             <Tooltip content={<CustomTooltip />} />
             {/* 0の基準線 */}

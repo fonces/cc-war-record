@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { fadeIn } from "@/styles/animation";
+import { media } from "@/styles/breakpoints";
 
 /**
  * グラフコンテナの共通スタイル
@@ -15,6 +16,10 @@ export const ChartContainer = styled.div`
   position: relative;
   overflow: hidden;
   animation: ${fadeIn} 0.6s ease-out;
+
+  ${media.mobile} {
+    padding: ${({ theme }) => theme.spacing[4]};
+  }
 
   &::before {
     content: "";
@@ -50,7 +55,7 @@ export const ChartHeader = styled.div`
   gap: ${({ theme }) => theme.spacing[4]};
   flex-wrap: wrap;
 
-  @media (max-width: 768px) {
+  ${media.mobile} {
     flex-direction: column;
     gap: ${({ theme }) => theme.spacing[3]};
   }
@@ -92,8 +97,19 @@ export const FiltersWrapper = styled.div`
   flex-wrap: wrap;
   align-items: flex-end;
 
-  @media (max-width: 768px) {
+  & > * {
+    width: 200px;
+  }
+
+  ${media.mobile} {
     width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     align-items: stretch;
+
+    & > * {
+      width: auto;
+      min-width: 0;
+    }
   }
 `;

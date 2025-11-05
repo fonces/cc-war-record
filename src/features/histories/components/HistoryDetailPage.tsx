@@ -16,7 +16,7 @@ import {
   StatValue,
   StatDescription,
 } from "@/components/ui";
-import { useTranslation } from "@/hooks";
+import { useTranslation, useIsMobile } from "@/hooks";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { useHistoryStore, useCharacterStore } from "@/stores";
 import { JOB_INFO } from "@/types/jobs";
@@ -38,6 +38,7 @@ export const HistoryDetailPage = () => {
   const { t, i18n } = useTranslation();
   const { id } = useParams({ from: "/histories/$id" });
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
   const { getHistoryByUuid, getMatchRecordsForSeason, histories } = useHistoryStore();
   const { deleteMatchRecord } = useCharacterStore();
 
@@ -232,7 +233,7 @@ export const HistoryDetailPage = () => {
             value={searchKeyword}
             onChange={(e) => setSearchKeyword(e.target.value)}
             icon={<Icon name="search" size={16} />}
-            style={{ width: "400px" }}
+            style={{ width: isMobile ? "calc(100vw - 32px)" : "400px" }}
           />
 
           {/* テーブル */}

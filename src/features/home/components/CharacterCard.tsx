@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { Button, Icon, IconicButton, Input } from "@/components/ui";
+import { Button, Icon, IconicButton, Input, MobileMenu, type MobileMenuItem } from "@/components/ui";
 import { useTranslation } from "@/hooks";
+import { media } from "@/styles/breakpoints";
 import { getTotalMatches, getWins, getDefeats, getWinRate, getWinRateColor } from "@/utils";
 import { MatchRecordTable } from "./MatchRecordTable";
 import type { CharacterStats, Job, CrystalConflictMap, UUIDv4 } from "@/types";
@@ -39,6 +40,14 @@ const StyledCharacterHeader = styled.div`
         ? "linear-gradient(135deg, rgba(38, 161, 223, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%)"
         : "linear-gradient(135deg, rgba(38, 161, 223, 0.1) 0%, rgba(255, 255, 255, 0.1) 100%)"};
   }
+
+  ${media.mobile} {
+    flex-direction: column;
+    align-items: stretch;
+    height: auto;
+    gap: ${({ theme }) => theme.spacing[3]};
+    padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
+  }
 `;
 
 const StyledCharacterName = styled.h3`
@@ -46,6 +55,10 @@ const StyledCharacterName = styled.h3`
   font-weight: 600;
   color: ${({ theme }) => theme.colors.text};
   margin: 0;
+
+  ${media.mobile} {
+    font-size: 1rem;
+  }
 `;
 
 const StyledCharacterStatsContainer = styled.div`
@@ -59,6 +72,18 @@ const StyledCharacterStatsContainer = styled.div`
   background: ${({ theme }) => theme.gradients.glass};
   backdrop-filter: ${({ theme }) => theme.blur.sm};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
+
+  ${media.mobile} {
+    flex-wrap: wrap;
+    gap: ${({ theme }) => theme.spacing[2]};
+    font-size: 0.75rem;
+    padding: ${({ theme }) => theme.spacing[2]} ${({ theme }) => theme.spacing[3]};
+    justify-content: flex-start;
+
+    > span {
+      text-align: left;
+    }
+  }
 `;
 
 const StyledWinRate = styled.span<{ winRate: number }>`
@@ -80,12 +105,22 @@ const StyledCharacterBody = styled.div`
   > * {
     padding: ${({ theme }) => theme.spacing[6]};
   }
+
+  ${media.mobile} {
+    > * {
+      padding: ${({ theme }) => theme.spacing[4]};
+    }
+  }
 `;
 
 const StyledEmptyStats = styled.div`
   text-align: center;
   padding: ${({ theme }) => theme.spacing[8]};
   color: ${({ theme }) => theme.colors.textSecondary};
+
+  ${media.mobile} {
+    padding: ${({ theme }) => theme.spacing[6]};
+  }
 `;
 
 const StyledAddJobButton = styled(Button)`
@@ -98,20 +133,43 @@ const StyledCharacterActions = styled.div`
   display: flex;
   gap: ${({ theme }) => theme.spacing[2]};
   align-items: center;
+
+  ${media.mobile} {
+    margin-left: auto;
+  }
 `;
 
+const StyledDesktopActions = styled.div`
+  display: flex;
+  gap: ${({ theme }) => theme.spacing[2]};
+  align-items: center;
+
+  ${media.mobile} {
+    display: none;
+  }
+`;
 const StyledEditForm = styled.div`
   display: flex;
   gap: ${({ theme }) => theme.spacing[2]};
   align-items: center;
   justify-content: space-between;
   flex: 1;
+
+  ${media.mobile} {
+    flex-direction: column;
+    align-items: stretch;
+    gap: ${({ theme }) => theme.spacing[3]};
+  }
 `;
 
 const StyledEditInput = styled(Input)`
   flex: 1;
   font-size: 1.125rem;
   font-weight: 600;
+
+  ${media.mobile} {
+    font-size: 1rem;
+  }
 `;
 
 type CharacterCardProps = {
@@ -174,6 +232,25 @@ export const CharacterCard = ({
   const wins = getWins(stats.recentMatches);
   const defeats = getDefeats(stats.recentMatches);
   const winRate = getWinRate(stats.recentMatches);
+
+  // モバイルメニュー項目
+  const mobileMenuItems: MobileMenuItem[] = [
+    {
+      label: t("character.actions.addJob"),
+      icon: "add",
+      onClick: () => onOpenJobRegistration(stats.character.uuid),
+    },
+    {
+      label: t("character.actions.editName"),
+      icon: "edit",
+      onClick: () => onStartEdit(stats.character.uuid, stats.character.name),
+    },
+    {
+      label: t("character.actions.deleteName"),
+      icon: "delete",
+      onClick: () => onDelete(stats.character.uuid, stats.character.name),
+    },
+  ];
 
   return (
     <StyledCharacterCard>
@@ -240,30 +317,33 @@ export const CharacterCard = ({
                 <span>{t("character.stats.noWinRate")}</span>
               )}
               <StyledCharacterActions>
-                <IconicButton
-                  icon={<Icon name="add" size={16} />}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onOpenJobRegistration(stats.character.uuid);
-                  }}
-                  title={t("character.actions.addJob")}
-                />
-                <IconicButton
-                  icon={<Icon name="edit" size={16} />}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onStartEdit(stats.character.uuid, stats.character.name);
-                  }}
-                  title={t("character.actions.editName")}
-                />
-                <IconicButton
-                  icon={<Icon name="delete" size={16} />}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onDelete(stats.character.uuid, stats.character.name);
-                  }}
-                  title={t("character.actions.deleteName")}
-                />
+                <StyledDesktopActions>
+                  <IconicButton
+                    icon={<Icon name="add" size={16} />}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onOpenJobRegistration(stats.character.uuid);
+                    }}
+                    title={t("character.actions.addJob")}
+                  />
+                  <IconicButton
+                    icon={<Icon name="edit" size={16} />}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onStartEdit(stats.character.uuid, stats.character.name);
+                    }}
+                    title={t("character.actions.editName")}
+                  />
+                  <IconicButton
+                    icon={<Icon name="delete" size={16} />}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onDelete(stats.character.uuid, stats.character.name);
+                    }}
+                    title={t("character.actions.deleteName")}
+                  />
+                </StyledDesktopActions>
+                <MobileMenu items={mobileMenuItems} triggerTitle={t("character.actions.more")} />
               </StyledCharacterActions>
             </StyledCharacterStatsContainer>
           </>

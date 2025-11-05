@@ -3,7 +3,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recha
 import { useTheme } from "styled-components";
 import { Select } from "@/components/ui";
 import { aggregateJobUsageRate } from "@/features/graphs/utils/aggregate";
-import { useTranslation } from "@/hooks";
+import { useIsMobile, useTranslation } from "@/hooks";
 import { JOB_INFO } from "@/types/jobs";
 import { MAPS } from "@/types/maps";
 import { getMapName } from "@/utils/maps";
@@ -81,6 +81,7 @@ const CustomTooltip = ({ active, payload }: TooltipProps) => {
  */
 const JobUsageRatePieChartComponent = ({ history, matchRecords, characters }: JobUsageRatePieChartProps) => {
   const theme = useTheme();
+  const isMobile = useIsMobile();
   const { t } = useTranslation();
   const [selectedCharacterUuid, setSelectedCharacterUuid] = useState<string | null>(null);
   const [selectedMap, setSelectedMap] = useState<CrystalConflictMap | null>(null);
@@ -107,7 +108,6 @@ const JobUsageRatePieChartComponent = ({ history, matchRecords, characters }: Jo
                 label: character.name,
               })),
             ]}
-            width="200px"
           />
           <Select
             label={t("chart.labels.map")}
@@ -121,12 +121,11 @@ const JobUsageRatePieChartComponent = ({ history, matchRecords, characters }: Jo
                 label: getMapName(map, t),
               })),
             ]}
-            width="200px"
           />
         </FiltersWrapper>
       </ChartHeader>
       {chartData.length > 0 ? (
-        <ResponsiveContainer width="100%" height={400}>
+        <ResponsiveContainer width="100%" height={isMobile ? 372 : 400}>
           <PieChart>
             <Pie data={chartData} cx="50%" cy="50%" labelLine={false} label={renderCustomizedLabel} outerRadius={150} fill="#8884d8" dataKey="value" isAnimationActive={false}>
               {chartData.map((entry, index) => (

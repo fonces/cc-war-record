@@ -1,7 +1,8 @@
 import { useMemo, memo } from "react";
 import styled from "styled-components";
-import { useTranslation } from "@/hooks";
+import { useIsMobile, useTranslation } from "@/hooks";
 import { fadeIn } from "@/styles/animation";
+import { media } from "@/styles/breakpoints";
 import { sortJobs } from "@/utils";
 import { JobSummaryRow, type JobSummary } from "./JobSummaryRow";
 import type { Job, CrystalConflictMap } from "@/types";
@@ -22,6 +23,11 @@ const StyledTableContainer = styled.div`
       0 0 0 1px rgba(38, 161, 223, 0.1);
     border-color: ${({ theme }) => theme.colors.border};
   }
+
+  ${media.mobile} {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 `;
 
 const StyledTable = styled.table`
@@ -29,6 +35,10 @@ const StyledTable = styled.table`
   border-collapse: collapse;
   font-size: 0.875rem;
   table-layout: fixed;
+
+  ${media.mobile} {
+    min-width: 600px;
+  }
 `;
 
 const StyledTableHead = styled.thead`
@@ -78,6 +88,19 @@ const StyledTableHeader = styled.th`
   box-sizing: border-box;
   position: relative;
   ${tableCellStyles}
+
+  ${media.mobile} {
+    padding: ${({ theme }) => theme.spacing[2]} ${({ theme }) => theme.spacing[2]};
+    font-size: 0.625rem;
+
+    &:first-child {
+      padding-left: ${({ theme }) => theme.spacing[3]};
+    }
+
+    &:last-child {
+      padding-right: ${({ theme }) => theme.spacing[3]};
+    }
+  }
 `;
 
 const StyledTableBody = styled.tbody``;
@@ -99,6 +122,10 @@ const StyledTableRow = styled.tr`
       width: 4px;
     }
   }
+
+  ${media.mobile} {
+    height: 48px;
+  }
 `;
 
 const StyledTableCell = styled.td`
@@ -109,6 +136,18 @@ const StyledTableCell = styled.td`
   box-sizing: border-box;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   ${tableCellStyles}
+
+  ${media.mobile} {
+    padding: ${({ theme }) => theme.spacing[2]} ${({ theme }) => theme.spacing[2]};
+
+    &:first-child {
+      padding-left: ${({ theme }) => theme.spacing[3]};
+    }
+
+    &:last-child {
+      padding-right: ${({ theme }) => theme.spacing[3]};
+    }
+  }
 `;
 
 const StyledEmptyMapState = styled.div`
@@ -150,6 +189,7 @@ type JobSummaryTableProps = {
 export const JobSummaryTable = memo(
   ({ usedJobs, jobSummaries, onAddWin, onAddDefeat, onRevertLast, map }: JobSummaryTableProps) => {
     const { t } = useTranslation();
+    const isMobile = useIsMobile();
     const showActions = !!(onAddWin || onAddDefeat || onRevertLast);
 
     const sortedJobs = useMemo(() => sortJobs(usedJobs), [usedJobs]);
@@ -159,7 +199,7 @@ export const JobSummaryTable = memo(
         <StyledTable>
           <StyledTableHead>
             <tr>
-              <StyledTableHeader>{t("match.job")}</StyledTableHeader>
+              <StyledTableHeader colSpan={isMobile ? 2 : 1}>{t("match.job")}</StyledTableHeader>
               <StyledTableHeader>{t("match.totalMatches")}</StyledTableHeader>
               <StyledTableHeader>{t("match.win")}</StyledTableHeader>
               <StyledTableHeader>{t("match.defeat")}</StyledTableHeader>

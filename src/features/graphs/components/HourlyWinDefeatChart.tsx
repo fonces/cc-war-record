@@ -3,7 +3,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import styled, { useTheme } from "styled-components";
 import { Select } from "@/components/ui";
 import { aggregateHourlyWinDefeat } from "@/features/graphs/utils/aggregate";
-import { useTranslation } from "@/hooks";
+import { useTranslation, useIsMobile } from "@/hooks";
 import { JOBS } from "@/types/jobs";
 import { MAPS } from "@/types/maps";
 import { getWinRateColor } from "@/utils";
@@ -73,6 +73,7 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
 const HourlyWinDefeatChartComponent = ({ history, matchRecords, characters }: HourlyWinDefeatChartProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
+  const isMobile = useIsMobile();
   const [selectedCharacterUuid, setSelectedCharacterUuid] = useState<string | null>(null);
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const [selectedMap, setSelectedMap] = useState<CrystalConflictMap | null>(null);
@@ -99,7 +100,6 @@ const HourlyWinDefeatChartComponent = ({ history, matchRecords, characters }: Ho
                 label: character.name,
               })),
             ]}
-            width="200px"
           />
           <Select
             label={t("chart.labels.job")}
@@ -113,7 +113,6 @@ const HourlyWinDefeatChartComponent = ({ history, matchRecords, characters }: Ho
                 label: `${t(`job.${job}`)} (${job})`,
               })),
             ]}
-            width="200px"
           />
           <Select
             label={t("chart.labels.map")}
@@ -127,7 +126,6 @@ const HourlyWinDefeatChartComponent = ({ history, matchRecords, characters }: Ho
                 label: getMapName(map, t),
               })),
             ]}
-            width="200px"
           />
         </FiltersWrapper>
       </ChartHeader>
@@ -135,12 +133,21 @@ const HourlyWinDefeatChartComponent = ({ history, matchRecords, characters }: Ho
         <ResponsiveContainer width="100%" height={400}>
           <BarChart
             data={chartData}
-            margin={{
-              top: 20,
-              right: 30,
-              left: 20,
-              bottom: 5,
-            }}
+            margin={
+              isMobile
+                ? {
+                    top: 0,
+                    right: 10,
+                    left: 0,
+                    bottom: 5,
+                  }
+                : {
+                    top: 20,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                  }
+            }
           >
             <defs>
               <linearGradient id="colorHourlyWin" x1="0" y1="0" x2="0" y2="1">
@@ -151,9 +158,10 @@ const HourlyWinDefeatChartComponent = ({ history, matchRecords, characters }: Ho
             <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.05)" />
             <XAxis dataKey="hour" tick={{ fontSize: 12, fill: theme.colors.gray[600] }} />
             <YAxis
-              label={{ value: t("chart.axes.winRatePercent"), angle: -90, position: "insideLeft", fill: theme.colors.gray[700] }}
+              label={isMobile ? undefined : { value: t("chart.axes.winRatePercent"), angle: -90, position: "insideLeft", fill: theme.colors.gray[700] }}
               domain={[0, 100]}
               tick={{ fontSize: 12, fill: theme.colors.gray[600] }}
+              width={isMobile ? 30 : 60}
             />
             <Tooltip content={<CustomTooltip />} />
             <Bar dataKey="winRate" name="WinRate" radius={[8, 8, 0, 0]} isAnimationActive={false}>

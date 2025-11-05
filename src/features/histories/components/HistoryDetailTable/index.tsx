@@ -1,7 +1,8 @@
 import { useMemo, useState } from "react";
 import styled from "styled-components";
 import { VirtualTable, TableRow, TableCell, Icon, JobIcon, IconicButton, Dialog, type VirtualTableColumn } from "@/components/ui";
-import { useTranslation } from "@/hooks";
+import { useIsMobile, useTranslation } from "@/hooks";
+import { media } from "@/styles/breakpoints";
 import { JOB_INFO } from "@/types/jobs";
 import { getScrollbarWidth, formatDate } from "@/utils";
 import type { MatchRecord } from "@/types";
@@ -45,6 +46,12 @@ const StyledMapCell = styled(TableCell)`
   color: ${({ theme }) => theme.colors.text};
   font-size: 0.875rem;
   white-space: nowrap;
+
+  ${media.mobile} {
+    align-items: center;
+    font-size: 0.75rem;
+    white-space: normal;
+  }
 `;
 
 // 勝敗バッジ
@@ -86,6 +93,7 @@ type HistoryDetailTableProps = {
  * シーズンの詳細マッチ記録を表示
  */
 export const HistoryDetailTable = ({ matches, isCurrent, onDeleteMatch }: HistoryDetailTableProps) => {
+  const isMobile = useIsMobile();
   const { t } = useTranslation();
 
   // 削除ダイアログの状態管理
@@ -117,36 +125,63 @@ export const HistoryDetailTable = ({ matches, isCurrent, onDeleteMatch }: Histor
     }
   };
 
+  const widths = useMemo(() => {
+    return isMobile
+      ? {
+          character: 120,
+          job: 94,
+          map: 120,
+          date: 134,
+          result: 92,
+          actions: 68,
+        }
+      : {
+          character: undefined, // flex: 1
+          job: 120,
+          map: 232,
+          date: 180,
+          result: 108,
+          actions: 84,
+        };
+  }, [isMobile]);
+
   // ヘッダーセルの幅設定
   const columnWidths = useMemo(
     () => ({
-      character: undefined, // flex: 1
-      job: "120px",
-      map: "232px",
-      date: "180px",
-      result: "108px",
-      actions: "84px",
+      character: widths.character ? `${widths.character}px` : undefined,
+      job: `${widths.job}px`,
+      map: `${widths.map}px`,
+      date: `${widths.date}px`,
+      result: `${widths.result}px`,
+      actions: `${widths.actions}px`,
     }),
-    [],
+    [widths],
   );
 
   // テーブルカラム定義
   const columns: VirtualTableColumn[] = useMemo(() => {
     const scrollbarWidth = getScrollbarWidth();
+
     const baseColumns: VirtualTableColumn[] = [
-      { key: "character", label: t("pages.historyDetail.columns.character"), width: undefined },
-      { key: "job", label: t("pages.historyDetail.columns.job"), width: "120px" },
-      { key: "map", label: t("pages.historyDetail.columns.map"), width: "232px" },
-      { key: "date", label: t("pages.historyDetail.columns.date"), width: "180px" },
-      { key: "result", label: t("pages.historyDetail.columns.result"), width: !isCurrent ? `${108 + scrollbarWidth}px` : "108px" },
+      { key: "character", label: t("pages.historyDetail.columns.character"), width: widths.character ? `${widths.character}px` : undefined },
+      { key: "job", label: t("pages.historyDetail.columns.job"), width: `${widths.job}px` },
+      { key: "map", label: t("pages.historyDetail.columns.map"), width: `${widths.map}px` },
+      { key: "date", label: t("pages.historyDetail.columns.date"), width: `${widths.date}px` },
+      {
+        key: "result",
+        label: t("pages.historyDetail.columns.result"),
+        width: !isCurrent ? `${widths.result + scrollbarWidth}px` : `${widths.result}px`,
+      },
     ];
 
     if (isCurrent) {
-      baseColumns.push({ key: "actions", label: t("match.actions"), width: isCurrent ? `${84 + scrollbarWidth}px` : "84px" });
+      baseColumns.push({ key: "actions", label: t("match.actions"), width: `${widths.actions + scrollbarWidth}px` });
     }
 
     return baseColumns;
-  }, [t, isCurrent]);
+  }, [t, isCurrent, widths]);
+
+  const contentsWidth = useMemo(() => (isMobile ? `${Object.values(widths).reduce<number>((acc, val) => acc + (val || 0), 0)}px` : "100%"), [isMobile, widths]);
 
   return (
     <>
@@ -156,6 +191,7 @@ export const HistoryDetailTable = ({ matches, isCurrent, onDeleteMatch }: Histor
         rowHeight={66}
         overscan={5}
         height="calc(100dvh - 436px)"
+        width={contentsWidth}
         emptyText={t("pages.historyDetail.emptyState")}
         getRowKey={(match: MatchRecord & { characterName: string }) => match.uuid}
         renderRow={(match: MatchRecord & { characterName: string }) => (

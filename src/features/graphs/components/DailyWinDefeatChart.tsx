@@ -3,7 +3,7 @@ import { ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, Respons
 import { useTheme } from "styled-components";
 import { Select } from "@/components/ui";
 import { aggregateDailyWinDefeat } from "@/features/graphs/utils/aggregate";
-import { useTranslation } from "@/hooks";
+import { useTranslation, useIsMobile } from "@/hooks";
 import { JOBS } from "@/types/jobs";
 import { MAPS } from "@/types/maps";
 import { getMapName } from "@/utils/maps";
@@ -53,6 +53,7 @@ type DailyWinDefeatChartProps = {
 const DailyWinDefeatChartComponent = ({ history, matchRecords, characters }: DailyWinDefeatChartProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
+  const isMobile = useIsMobile();
   const [selectedCharacterUuid, setSelectedCharacterUuid] = useState<string | null>(null);
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const [selectedMap, setSelectedMap] = useState<CrystalConflictMap | null>(null);
@@ -79,7 +80,6 @@ const DailyWinDefeatChartComponent = ({ history, matchRecords, characters }: Dai
                 label: character.name,
               })),
             ]}
-            width="200px"
           />
           <Select
             label={t("chart.labels.job")}
@@ -93,7 +93,6 @@ const DailyWinDefeatChartComponent = ({ history, matchRecords, characters }: Dai
                 label: `${t(`job.${job}`)} (${job})`,
               })),
             ]}
-            width="200px"
           />
           <Select
             label={t("chart.labels.map")}
@@ -107,12 +106,11 @@ const DailyWinDefeatChartComponent = ({ history, matchRecords, characters }: Dai
                 label: getMapName(map, t),
               })),
             ]}
-            width="200px"
           />
         </FiltersWrapper>
       </ChartHeader>
       <ResponsiveContainer width="100%" height={400}>
-        <ComposedChart data={dailyData} margin={{ top: 20, right: 20, left: 20, bottom: -28 }}>
+        <ComposedChart data={dailyData} margin={isMobile ? { top: 0, right: 10, left: 0, bottom: -28 } : { top: 20, right: 20, left: 20, bottom: -28 }}>
           <defs>
             <linearGradient id="colorWin" x1="0" y1="0" x2="0" y2="1">
               <stop offset="5%" stopColor={theme.colors.win[400]} stopOpacity={0.8} />
@@ -131,16 +129,18 @@ const DailyWinDefeatChartComponent = ({ history, matchRecords, characters }: Dai
           <XAxis dataKey="date" tick={{ fontSize: 12, fill: theme.colors.gray[600] }} angle={-45} textAnchor="end" height={80} />
           <YAxis
             yAxisId="left"
-            label={{ value: t("chart.axes.matchCount"), angle: -90, position: "insideLeft", fill: theme.colors.gray[700] }}
+            label={isMobile ? undefined : { value: t("chart.axes.matchCount"), angle: -90, position: "insideLeft", fill: theme.colors.gray[700] }}
             allowDecimals={false}
             tick={{ fill: theme.colors.gray[600] }}
+            width={isMobile ? 30 : 60}
           />
           <YAxis
             yAxisId="right"
             orientation="right"
-            label={{ value: t("chart.axes.winRatePercent"), angle: 90, position: "insideRight", fill: theme.colors.gray[700] }}
+            label={isMobile ? undefined : { value: t("chart.axes.winRatePercent"), angle: 90, position: "insideRight", fill: theme.colors.gray[700] }}
             domain={[0, 100]}
             tick={{ fill: theme.colors.gray[600] }}
+            width={isMobile ? 30 : 60}
           />
           <Tooltip content={<CustomTooltip />} />
           <Bar yAxisId="left" dataKey="Win" fill="url(#colorWin)" stackId="a" isAnimationActive={false} radius={[4, 4, 0, 0]} />

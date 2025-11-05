@@ -1,7 +1,8 @@
 import { memo } from "react";
 import styled from "styled-components";
 import { Button, JobIcon, Icon, AnimatedNumber } from "@/components/ui";
-import { useTranslation } from "@/hooks";
+import { useIsMobile, useTranslation } from "@/hooks";
+import { media } from "@/styles/breakpoints";
 import { getWinRateColor } from "@/utils/colors";
 import type { Job, CrystalConflictMap } from "@/types";
 
@@ -51,6 +52,10 @@ const StyledTableRow = styled.tr`
       width: 4px;
     }
   }
+
+  ${media.mobile} {
+    height: 48px;
+  }
 `;
 
 const StyledTableCell = styled.td`
@@ -61,6 +66,18 @@ const StyledTableCell = styled.td`
   box-sizing: border-box;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   ${tableCellStyles}
+
+  ${media.mobile} {
+    padding: ${({ theme }) => theme.spacing[2]} ${({ theme }) => theme.spacing[2]};
+
+    &:first-child {
+      padding-left: ${({ theme }) => theme.spacing[3]};
+    }
+
+    &:last-child {
+      padding-right: ${({ theme }) => theme.spacing[3]};
+    }
+  }
 `;
 
 const StyledJobCell = styled(StyledTableCell)`
@@ -71,6 +88,40 @@ const StyledJobCell = styled(StyledTableCell)`
     font-weight: 600;
     color: ${({ theme }) => theme.colors.text};
     position: relative;
+    padding-left: ${({ theme }) => theme.spacing[2]};
+
+    ${media.mobile} {
+      gap: ${({ theme }) => theme.spacing[2]};
+      padding-left: 0;
+    }
+  }
+`;
+
+const StyledJobIconCell = styled(StyledTableCell)`
+  ${media.mobile} {
+    position: sticky;
+    left: 0;
+    width: 48px;
+    min-width: 48px;
+    max-width: 48px;
+    padding: ${({ theme }) => theme.spacing[2]};
+    z-index: 1;
+
+    img {
+      transform: translateY(3px);
+    }
+  }
+`;
+
+const StyledJobNameCell = styled(StyledTableCell)`
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.text};
+  text-align: left;
+
+  ${media.mobile} {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
     padding-left: ${({ theme }) => theme.spacing[2]};
   }
 `;
@@ -154,16 +205,26 @@ type JobSummaryRowProps = {
  */
 export const JobSummaryRow = memo(
   ({ summary, map, onAddWin, onAddDefeat, onRevertLast }: JobSummaryRowProps) => {
+    const isMobile = useIsMobile();
     const { t } = useTranslation();
 
     return (
       <StyledTableRow>
-        <StyledJobCell>
-          <div>
-            <JobIcon job={summary.job} size={32} />
-            {summary.job}
-          </div>
-        </StyledJobCell>
+        {isMobile ? (
+          <>
+            <StyledJobIconCell>
+              <JobIcon job={summary.job} size={32} />
+            </StyledJobIconCell>
+            <StyledJobNameCell>{summary.job}</StyledJobNameCell>
+          </>
+        ) : (
+          <StyledJobCell>
+            <div>
+              <JobIcon job={summary.job} size={32} />
+              {summary.job}
+            </div>
+          </StyledJobCell>
+        )}
         <StyledTableCell>
           <AnimatedNumber>{summary.totalMatches}</AnimatedNumber>
         </StyledTableCell>

@@ -17,3 +17,5 @@ export { StatsGrid, StatCard, StatLabel, StatValue, StatDescription } from "./St
 export { IconicButton } from "./IconicButton";
 export { Flush } from "./Flush";
 export { Snackbar } from "./Snackbar";
+export { MobileMenu } from "./MobileMenu";
+export type { MobileMenuItem } from "./MobileMenu";

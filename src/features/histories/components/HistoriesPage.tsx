@@ -16,13 +16,15 @@ import {
   IconicButton,
   Icon,
   Dialog,
+  MobileMenu,
 } from "@/components/ui";
-import { useTranslation } from "@/hooks";
+import { useTranslation, useIsMobile } from "@/hooks";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { sendEvent } from "@/lib/analytics";
 import { useHistoryStore, useCharacterStore } from "@/stores";
 import { formatShortDate, formatLongDate, createBackup, restoreBackup } from "@/utils";
 import { HistoryTable } from "./HistoryTable";
+import type { MobileMenuItem } from "@/components/ui";
 
 const StyledContentsContainer = styled.div`
   display: grid;
@@ -36,6 +38,7 @@ const StyledContentsContainer = styled.div`
 export const HistoriesPage = () => {
   const { t, i18n } = useTranslation();
   usePageTitle(t("pages.histories.title"));
+  const isMobile = useIsMobile();
   const { histories, isLoading, error, getSortedHistories, deleteHistory, clearError } = useHistoryStore();
 
   const { matchRecords } = useCharacterStore();
@@ -135,14 +138,32 @@ export const HistoriesPage = () => {
     input.click();
   };
 
+  // モバイルメニュー項目
+  const mobileMenuItems: MobileMenuItem[] = [
+    {
+      label: t("pages.histories.createBackup"),
+      icon: "download",
+      onClick: handleCreateBackup,
+    },
+    {
+      label: t("pages.histories.importBackup"),
+      icon: "upload",
+      onClick: handleImportBackup,
+    },
+  ];
+
   return (
     <Page>
       <PageTitleContainer>
-        <PageTitle>{t("pages.histories.title")}</PageTitle>
-        <PageTitleActions>
-          <IconicButton onClick={handleCreateBackup} icon={<Icon name="download" size={16} />} title={t("pages.histories.createBackup")} />
-          <IconicButton onClick={handleImportBackup} icon={<Icon name="upload" size={16} />} title={t("pages.histories.importBackup")} />
-        </PageTitleActions>
+        <PageTitle action={isMobile ? <MobileMenu items={mobileMenuItems} triggerTitle={t("common.menu")} stopPropagation={false} /> : undefined}>
+          {t("pages.histories.title")}
+        </PageTitle>
+        {!isMobile && (
+          <PageTitleActions>
+            <IconicButton onClick={handleCreateBackup} icon={<Icon name="download" size={16} />} title={t("pages.histories.createBackup")} />
+            <IconicButton onClick={handleImportBackup} icon={<Icon name="upload" size={16} />} title={t("pages.histories.importBackup")} />
+          </PageTitleActions>
+        )}
       </PageTitleContainer>
       <PageDescription>{t("pages.histories.description")}</PageDescription>
 

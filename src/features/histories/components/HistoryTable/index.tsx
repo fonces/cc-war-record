@@ -2,7 +2,8 @@ import { useNavigate } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import styled from "styled-components";
 import { Button, IconicButton, Icon, Dialog, VirtualTable, TableRow, TableCell, type VirtualTableColumn } from "@/components/ui";
-import { useTranslation } from "@/hooks";
+import { useTranslation, useIsMobile } from "@/hooks";
+import { media } from "@/styles/breakpoints";
 import { getScrollbarWidth, formatDate } from "@/utils";
 import type { History } from "@/types";
 
@@ -28,6 +29,11 @@ const StyledSeasonNameCell = styled(TableCell)`
 
   ${TableRow}:hover & {
     color: #26a1df;
+  }
+
+  ${media.mobile} {
+    font-size: 0.875rem;
+    padding-left: ${({ theme }) => theme.spacing[4]};
   }
 `;
 
@@ -71,31 +77,50 @@ const StyledDialogActions = styled.div`
 export const HistoryTable = ({ histories, isLoading = false, onDelete }: HistoryTableProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [historyToDelete, setHistoryToDelete] = useState<{
     uuid: string;
     seasonName: string;
   } | null>(null);
 
-  // カラム幅設定
+  // カラム幅設定（数値ベース）
+  const widths = useMemo(() => {
+    return isMobile
+      ? {
+          seasonName: undefined, // flex: 1
+          date: 140,
+          actions: 120,
+        }
+      : {
+          seasonName: undefined, // flex: 1
+          date: 220,
+          actions: 160,
+        };
+  }, [isMobile]);
+
+  // ヘッダーセルの幅設定
   const columnWidths = useMemo(
     () => ({
-      seasonName: undefined, // flex: 1
-      date: "220px",
-      actions: "160px",
+      seasonName: widths.seasonName ? `${widths.seasonName}px` : undefined,
+      date: `${widths.date}px`,
+      actions: `${widths.actions}px`,
     }),
-    [],
+    [widths],
   );
 
   // テーブルカラム定義
   const columns: VirtualTableColumn[] = useMemo(() => {
-    const scrollBarWidth = getScrollbarWidth();
+    const scrollbarWidth = getScrollbarWidth();
     return [
-      { key: "seasonName", label: t("pages.historyDetail.columns.season"), width: undefined },
-      { key: "date", label: t("pages.historyDetail.columns.date"), width: "220px" },
-      { key: "actions", label: t("match.actions"), width: `${160 + scrollBarWidth}px` },
+      { key: "seasonName", label: t("pages.historyDetail.columns.season"), width: widths.seasonName ? `${widths.seasonName}px` : undefined },
+      { key: "date", label: t("pages.historyDetail.columns.date"), width: `${widths.date}px` },
+      { key: "actions", label: t("match.actions"), width: `${widths.actions + scrollbarWidth}px` },
     ];
-  }, [t]);
+  }, [t, widths]);
+
+  // コンテンツ幅計算（モバイル時のみ固定幅）
+  const contentsWidth = useMemo(() => (isMobile ? `${Object.values(widths).reduce<number>((acc, val) => acc + (val || 0), 0)}px` : "100%"), [isMobile, widths]);
 
   // 履歴詳細へ遷移
   const handleNavigateToDetail = (historyUuid: string) => {
@@ -132,6 +157,7 @@ export const HistoryTable = ({ histories, isLoading = false, onDelete }: History
         rowHeight={68}
         overscan={5}
         height="calc(100dvh - 320px)"
+        width={contentsWidth}
         isLoading={isLoading}
         loadingText={t("common.loading")}
         emptyText={t("pages.histories.emptyState")}

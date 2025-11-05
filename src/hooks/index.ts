@@ -3,4 +3,5 @@ export { usePageTitle } from "./usePageTitle";
 export { useScrollLock } from "./useScrollLock";
 export { useTranslation } from "./useTranslation";
 export { useTheme, ThemeProvider } from "./useTheme";
+export { useMediaQuery, useIsMobile } from "./useMediaQuery";
 export type { ThemeMode, ThemeModeContextValue } from "./useTheme";

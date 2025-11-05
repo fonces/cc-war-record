@@ -2,6 +2,7 @@ import { memo } from "react";
 import styled from "styled-components";
 import { Icon } from "@/components/ui";
 import { useTranslation } from "@/hooks";
+import { media } from "@/styles/breakpoints";
 import { getWinRateColor } from "@/utils/colors";
 import { JobSummaryTable } from "./JobSummaryTable";
 import { StyledCurrentMapBadge, StyledNextMapBadge, StyledPulsingDot } from "./MapBadges";
@@ -52,12 +53,28 @@ const StyledMapTitle = styled.h4<{ isCurrentMap?: boolean }>`
       return isDark ? "rgba(255, 255, 255, 0.05)" : "rgba(0, 0, 0, 0.04)";
     }};
   }
+
+  ${media.mobile} {
+    flex-direction: column;
+    align-items: stretch;
+    gap: ${({ theme }) => theme.spacing[3]};
+    padding: ${({ theme }) => theme.spacing[3]};
+    ${({ isCurrentMap, theme }) =>
+      isCurrentMap &&
+      `
+      padding-left: calc(${theme.spacing[3]} - 4px);
+    `}
+  }
 `;
 
 const StyledMapTitleLeft = styled.div`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing[2]};
+
+  ${media.mobile} {
+    font-size: 0.9375rem;
+  }
 `;
 
 const StyledMapSummary = styled.div`
@@ -72,6 +89,18 @@ const StyledMapSummary = styled.div`
   background: ${({ theme }) => theme.gradients.glass};
   backdrop-filter: ${({ theme }) => theme.blur.sm};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
+
+  ${media.mobile} {
+    flex-wrap: wrap;
+    gap: ${({ theme }) => theme.spacing[2]};
+    font-size: 0.75rem;
+    padding: ${({ theme }) => theme.spacing[2]} ${({ theme }) => theme.spacing[3]};
+    justify-content: flex-start;
+
+    > span {
+      text-align: left;
+    }
+  }
 `;
 
 const StyledMapWinRate = styled.span<{ winRate: number }>`

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { fadeIn } from "@/styles/animation";
+import { media } from "@/styles/breakpoints";
 import { getWinRateColor } from "@/utils/colors";
 
 /**
@@ -10,6 +11,11 @@ export const StatsGrid = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: ${({ theme }) => theme.spacing[4]};
   animation: ${fadeIn} 0.6s ease-out;
+
+  ${media.mobile} {
+    grid-template-columns: repeat(2, 1fr);
+    gap: ${({ theme }) => theme.spacing[3]};
+  }
 `;
 
 /**
@@ -24,6 +30,10 @@ export const StatCard = styled.div`
   position: relative;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  ${media.mobile} {
+    padding: ${({ theme }) => theme.spacing[4]};
+  }
 
   &::before {
     content: "";

@@ -1,8 +1,8 @@
 import { useRouter } from "@tanstack/react-router";
 import { useState } from "react";
 import { EmptyState } from "@/components/layout";
-import { Button, Page, PageTitleContainer, PageTitle, PageDescription, Icon, PageContainer } from "@/components/ui";
-import { usePageTitle, useTranslation } from "@/hooks";
+import { Button, Page, PageTitleContainer, PageTitle, PageDescription, Icon, PageContainer, IconicButton } from "@/components/ui";
+import { usePageTitle, useTranslation, useIsMobile } from "@/hooks";
 import { sendEvent } from "@/lib/analytics";
 import { useHistoryStore, useCharacterStore } from "@/stores";
 import { CharacterCard } from "./CharacterCard";
@@ -19,6 +19,7 @@ export const HomePage = () => {
   const { t } = useTranslation();
   usePageTitle(t("navigation.home"));
   const router = useRouter();
+  const isMobile = useIsMobile();
   const { histories, isLoading, getSortedHistories, addUsedJob } = useHistoryStore();
   const {
     createCharacter,
@@ -282,11 +283,15 @@ export const HomePage = () => {
   return (
     <Page>
       <PageTitleContainer>
-        <PageTitle>{t("pages.home.title", { seasonName: latestSeason?.seasonName })}</PageTitle>
-        <Button variant="outline" size="sm" onClick={handleCreateSeason}>
-          <Icon name="add" size={16} />
-          {t("pages.home.createSeason")}
-        </Button>
+        <PageTitle action={isMobile ? <IconicButton icon={<Icon name="add" size={16} />} onClick={handleCreateSeason} aria-label={t("pages.home.createSeason")} /> : undefined}>
+          {t("pages.home.title", { seasonName: latestSeason?.seasonName })}
+        </PageTitle>
+        {!isMobile && (
+          <Button variant="outline" size="sm" onClick={handleCreateSeason}>
+            <Icon name="add" size={16} />
+            {t("pages.home.createSeason")}
+          </Button>
+        )}
       </PageTitleContainer>
       <PageDescription>{t("pages.home.description")}</PageDescription>
 
