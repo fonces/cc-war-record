@@ -108,6 +108,90 @@ export const getNextMapChangeTime = (currentDate: Date = new Date()): Date => {
 };
 
 /**
+ * 指定したマップの次の開催時間を取得する
+ * @param targetMap - 開催時間を取得したいマップ
+ * @param currentDate - 現在日時（省略時は現在時刻）
+ * @returns 指定したマップの次の開催時間
+ *
+ * @example
+ * const nextTime = getNextMapTime(MAPS.VOLCANIC_HEART);
+ * console.log(nextTime); // 次にVOLCANIC_HEARTが開催される時刻
+ */
+export const getNextMapTime = (targetMap: CrystalConflictMap, currentDate: Date = new Date()): Date => {
+  const currentMap = getCurrentMap(currentDate);
+
+  // 現在のマップなら次の切り替え時刻を返す
+  if (currentMap === targetMap) {
+    return getNextMapChangeTime(currentDate);
+  }
+
+  // 基準日時からの経過時間（ミリ秒）
+  const elapsedMs = currentDate.getTime() - BASE_DATE.getTime();
+
+  // 現在のローテーション位置を計算
+  const currentRotationIndex = Math.floor(elapsedMs / MAP_DURATION_MS) % MAP_ROTATION.length;
+
+  // ターゲットマップのインデックスを取得
+  const targetRotationIndex = MAP_ROTATION.indexOf(targetMap);
+
+  // 現在のマップからターゲットマップまでの差分を計算
+  let rotationDiff = targetRotationIndex - currentRotationIndex;
+  if (rotationDiff <= 0) {
+    rotationDiff += MAP_ROTATION.length;
+  }
+
+  // 現在のローテーション周期内での経過時間
+  const currentCycleMs = elapsedMs % MAP_DURATION_MS;
+
+  // 次の切り替えまでの残り時間
+  const remainingMs = MAP_DURATION_MS - currentCycleMs;
+
+  // ターゲットマップの開催時刻を計算
+  const targetTime = currentDate.getTime() + remainingMs + (rotationDiff - 1) * MAP_DURATION_MS;
+
+  return new Date(targetTime);
+};
+
+/**
+ * 指定したマップの次の開催期間（開始時刻と終了時刻）を取得する
+ * @param targetMap - 開催時間を取得したいマップ
+ * @param currentDate - 現在日時（省略時は現在時刻）
+ * @returns 指定したマップの次の開催期間 { startTime, endTime }
+ *
+ * @example
+ * const { startTime, endTime } = getNextMapTimeRange(MAPS.VOLCANIC_HEART);
+ * console.log(startTime, endTime); // 次の開催期間
+ */
+export const getNextMapTimeRange = (targetMap: CrystalConflictMap, currentDate: Date = new Date()): { startTime: Date; endTime: Date } => {
+  const currentMap = getCurrentMap(currentDate);
+
+  // 現在のマップの場合は、現在の開催期間を返す
+  if (currentMap === targetMap) {
+    // 基準日時からの経過時間（ミリ秒）
+    const elapsedMs = currentDate.getTime() - BASE_DATE.getTime();
+
+    // 現在のローテーション周期内での経過時間
+    const currentCycleMs = elapsedMs % MAP_DURATION_MS;
+
+    // 現在の開催開始時刻
+    const startTime = new Date(currentDate.getTime() - currentCycleMs);
+
+    // 現在の開催終了時刻
+    const endTime = new Date(startTime.getTime() + MAP_DURATION_MS);
+
+    return { startTime, endTime };
+  }
+
+  // 次の開催開始時刻を取得
+  const startTime = getNextMapTime(targetMap, currentDate);
+
+  // 終了時刻は開始時刻 + MAP_DURATION_MS
+  const endTime = new Date(startTime.getTime() + MAP_DURATION_MS);
+
+  return { startTime, endTime };
+};
+
+/**
  * マップコードからマップ情報を取得
  */
 export const getMapInfo = (mapCode: CrystalConflictMap): MapInfo | undefined => {

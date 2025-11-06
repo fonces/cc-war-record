@@ -4,6 +4,8 @@ import { Icon } from "@/components/ui";
 import { useTranslation } from "@/hooks";
 import { media } from "@/styles/breakpoints";
 import { getWinRateColor } from "@/utils/colors";
+import { formatTime } from "@/utils/date";
+import { getNextMapTimeRange } from "@/utils/maps";
 import { JobSummaryTable } from "./JobSummaryTable";
 import { StyledCurrentMapBadge, StyledNextMapBadge, StyledPulsingDot } from "./MapBadges";
 import type { JobSummary } from "./JobSummaryRow";
@@ -74,6 +76,18 @@ const StyledMapTitleLeft = styled.div`
 
   ${media.mobile} {
     font-size: 0.9375rem;
+  }
+`;
+
+const StyledMapTimeDisplay = styled.span`
+  align-self: flex-end;
+  font-size: 0.625rem;
+  color: ${({ theme }) => theme.colors.textSecondary};
+  font-weight: 400;
+  opacity: 0.8;
+
+  ${media.mobile} {
+    font-size: 0.5625rem;
   }
 `;
 
@@ -167,6 +181,10 @@ export const MapSection = memo(
   }: MapSectionProps) => {
     const { t } = useTranslation();
 
+    // 次の開催時間を計算（開始〜終了時刻を表示）
+    const timeRange = map ? getNextMapTimeRange(map) : null;
+    const timeDisplay = timeRange ? `${formatTime(timeRange.startTime)} ~ ${formatTime(timeRange.endTime)}` : null;
+
     return (
       <StyledMapSection>
         <StyledMapTitle onClick={() => onToggle(map!)} isCurrentMap={isCurrentMap}>
@@ -175,13 +193,14 @@ export const MapSection = memo(
               <Icon name="arrowDropDown" size={20} />
             </StyledArrowWrapper>
             <span>{title}</span>
+            {timeDisplay && <StyledMapTimeDisplay>{timeDisplay}</StyledMapTimeDisplay>}
             {isCurrentMap && (
               <StyledCurrentMapBadge>
                 <StyledPulsingDot />
                 Now
               </StyledCurrentMapBadge>
             )}
-            {isNextMap && <StyledNextMapBadge>Next</StyledNextMapBadge>}
+            {isNextMap && <StyledNextMapBadge>{isNextMap ? "Next " : ""}</StyledNextMapBadge>}
           </StyledMapTitleLeft>
           <StyledMapSummary>
             <span>{t("character.stats.matches", { count: totalMatches })}</span>
@@ -204,6 +223,7 @@ export const MapSection = memo(
   (prevProps, nextProps) => {
     // totalMatchesが変更されていない場合は再レンダリングしない
     return (
+      prevProps.title === nextProps.title &&
       prevProps.totalMatches === nextProps.totalMatches &&
       prevProps.usedJobs.length === nextProps.usedJobs.length &&
       prevProps.isCurrentMap === nextProps.isCurrentMap &&

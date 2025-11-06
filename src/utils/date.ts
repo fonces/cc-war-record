@@ -56,3 +56,15 @@ export const formatLongDate = (date: Date | string | number, locale: string): st
   const dateObj = new Date(date);
   return dateObj.toLocaleDateString(locale, { year: "numeric", month: "long", day: "numeric" });
 };
+
+/**
+ * 時間を HH:mm 形式でフォーマット
+ * @param date - フォーマットする日付
+ * @returns フォーマットされた時間文字列（例: "14:30"）
+ */
+export const formatTime = (date: Date | string | number): string => {
+  const dateObj = new Date(date);
+  const hours = String(dateObj.getHours()).padStart(2, "0");
+  const minutes = String(dateObj.getMinutes()).padStart(2, "0");
+  return `${hours}:${minutes}`;
+};
