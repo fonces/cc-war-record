@@ -17,7 +17,7 @@ const StyledMapSection = styled.div`
   overflow: hidden;
 `;
 
-const StyledMapTitle = styled.h4<{ isCurrentMap?: boolean }>`
+const StyledMapTitleWrapper = styled.div<{ isCurrentMap?: boolean }>`
   margin: 0;
   padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
   background-color: ${({ isCurrentMap, theme }) => {
@@ -79,16 +79,19 @@ const StyledMapTitleLeft = styled.div`
   }
 `;
 
+const StyledMapTitle = styled.span`
+  font-weight: 600;
+
+  ${media.mobile} {
+    font-size: 0.8125rem;
+  }
+`;
+
 const StyledMapTimeDisplay = styled.span`
-  align-self: flex-end;
   font-size: 0.625rem;
   color: ${({ theme }) => theme.colors.textSecondary};
   font-weight: 400;
   opacity: 0.8;
-
-  ${media.mobile} {
-    font-size: 0.5625rem;
-  }
 `;
 
 const StyledMapSummary = styled.div`
@@ -187,12 +190,12 @@ export const MapSection = memo(
 
     return (
       <StyledMapSection>
-        <StyledMapTitle onClick={() => onToggle(map!)} isCurrentMap={isCurrentMap}>
+        <StyledMapTitleWrapper onClick={() => onToggle(map!)} isCurrentMap={isCurrentMap}>
           <StyledMapTitleLeft>
             <StyledArrowWrapper isOpen={isOpen}>
               <Icon name="arrowDropDown" size={20} />
             </StyledArrowWrapper>
-            <span>{title}</span>
+            <StyledMapTitle>{title}</StyledMapTitle>
             {timeDisplay && <StyledMapTimeDisplay>{timeDisplay}</StyledMapTimeDisplay>}
             {isCurrentMap && (
               <StyledCurrentMapBadge>
@@ -200,7 +203,7 @@ export const MapSection = memo(
                 Now
               </StyledCurrentMapBadge>
             )}
-            {isNextMap && <StyledNextMapBadge>{isNextMap ? "Next " : ""}</StyledNextMapBadge>}
+            {isNextMap && <StyledNextMapBadge>Next</StyledNextMapBadge>}
           </StyledMapTitleLeft>
           <StyledMapSummary>
             <span>{t("character.stats.matches", { count: totalMatches })}</span>
@@ -213,7 +216,7 @@ export const MapSection = memo(
               <span>{t("character.stats.noWinRate")}</span>
             )}
           </StyledMapSummary>
-        </StyledMapTitle>
+        </StyledMapTitleWrapper>
         <StyledMapContent isOpen={isOpen}>
           <JobSummaryTable usedJobs={usedJobs} jobSummaries={jobSummaries} onAddWin={onAddWin} onAddDefeat={onAddDefeat} onRevertLast={onRevertLast} map={map} />
         </StyledMapContent>

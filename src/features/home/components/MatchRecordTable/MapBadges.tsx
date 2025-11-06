@@ -1,34 +1,25 @@
 import styled from "styled-components";
 import { pulse } from "@/styles/animation";
 
-export const StyledCurrentMapBadge = styled.span`
+const StyledMapBadgeBase = styled.span`
   display: inline-flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing[1]};
-  padding: 2px ${({ theme }) => theme.spacing[2]};
-  background-color: ${({ theme }) => theme.colors.primary[500]};
+  padding: 2px ${({ theme }) => theme.spacing[1]};
   color: white;
   font-size: 0.625rem;
   font-weight: 600;
   border-radius: ${({ theme }) => theme.borderRadius.sm};
   text-transform: uppercase;
   letter-spacing: 0.3px;
-  margin-left: ${({ theme }) => theme.spacing[2]};
 `;
 
-export const StyledNextMapBadge = styled.span`
-  display: inline-flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing[1]};
-  padding: 2px ${({ theme }) => theme.spacing[2]};
+export const StyledCurrentMapBadge = styled(StyledMapBadgeBase)`
+  background-color: ${({ theme }) => theme.colors.primary[500]};
+`;
+
+export const StyledNextMapBadge = styled(StyledMapBadgeBase)`
   background-color: ${({ theme }) => theme.colors.gray[400]};
-  color: white;
-  font-size: 0.625rem;
-  font-weight: 600;
-  border-radius: ${({ theme }) => theme.borderRadius.sm};
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-  margin-left: ${({ theme }) => theme.spacing[2]};
 `;
 
 export const StyledPulsingDot = styled.span`
