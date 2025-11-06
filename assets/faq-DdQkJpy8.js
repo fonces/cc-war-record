@@ -1,2 +1,0 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/faq-DqiPM7i2.js","assets/index-BFuuQ0uR.js","assets/vendor-DeEjTzyN.js","assets/styled-DX7-lrl4.js","assets/react-vendor-D1pS86Oe.js","assets/rolldown-runtime-CIDIeb-o.js","assets/i18n-THkEc1_o.js","assets/jszip-DU7jsDXX.js"])))=>i.map(i=>d[i]);
-import{f as e}from"./react-vendor-D1pS86Oe.js";import{dt as t}from"./index-BFuuQ0uR.js";var n=e(()=>t(()=>import(`./faq-DqiPM7i2.js`),__vite__mapDeps([0,1,2,3,4,5,6,7])).then(e=>({default:e.FaqPage})));export{n as component};

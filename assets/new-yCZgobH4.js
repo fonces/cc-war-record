@@ -1,0 +1,2 @@
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/new-Ds3IvVO2.js","assets/index-CReP5MNo.js","assets/vendor-DeEjTzyN.js","assets/styled-DX7-lrl4.js","assets/react-vendor-D1pS86Oe.js","assets/rolldown-runtime-CIDIeb-o.js","assets/i18n-THkEc1_o.js","assets/jszip-DU7jsDXX.js","assets/stores-CeLOu-Jq.js"])))=>i.map(i=>d[i]);
+import{f as e}from"./react-vendor-D1pS86Oe.js";import{dt as t}from"./index-CReP5MNo.js";var n=e(()=>t(()=>import(`./new-Ds3IvVO2.js`),__vite__mapDeps([0,1,2,3,4,5,6,7,8])).then(e=>({default:e.NewSeasonPage})));export{n as component};
