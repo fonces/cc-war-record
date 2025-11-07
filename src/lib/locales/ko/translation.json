@@ -366,6 +366,7 @@
       "character": "캐릭터",
       "job": "잡",
       "map": "맵",
+      "date": "날짜",
       "allCharacters": "모든 캐릭터",
       "allJobs": "모든 잡",
       "allMaps": "모든 맵",
@@ -377,7 +378,8 @@
       "weeklyWinRate": "요일별 승률 비교",
       "hourlyWinDefeat": "시간대별 승률 분석",
       "jobUsageRate": "잡 사용률",
-      "jobWinRateByMap": "맵별 잡 승률 비교"
+      "jobWinRateByMap": "맵별 잡 승률 비교",
+      "todayWinDefeatTrend": "그날의 승패 추이"
     },
     "axes": {
       "matchCount": "대전 횟수",
@@ -409,6 +411,16 @@
       "thursday": "목요일",
       "friday": "금요일",
       "saturday": "토요일"
+    },
+    "todayTrend": {
+      "match": "제{{number}}경기",
+      "winRate": "승률",
+      "winCount": "승수",
+      "winDifference": "승차",
+      "record": "전적",
+      "matches": "경기",
+      "matchNumber": "경기 수",
+      "noData": "오늘의 경기 데이터가 없습니다"
     }
   },
   "language": {
