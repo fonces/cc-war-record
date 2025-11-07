@@ -73,6 +73,12 @@ const tableCellStyles = `
     width: 160px;
     min-width: 160px;
     max-width: 160px;
+
+    ${media.mobile} {
+      width: 140px;
+      min-width: 140px;
+      max-width: 140px;
+    }
   }
 `;
 

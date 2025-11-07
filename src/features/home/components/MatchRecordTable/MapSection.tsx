@@ -87,11 +87,19 @@ const StyledMapTitle = styled.span`
   }
 `;
 
-const StyledMapTimeDisplay = styled.span`
+const StyledMapTimeDisplay = styled.span<{ isCurrentMap?: boolean; isNextMap?: boolean }>`
   font-size: 0.625rem;
   color: ${({ theme }) => theme.colors.textSecondary};
   font-weight: 400;
   opacity: 0.8;
+
+  ${({ isCurrentMap, isNextMap }) =>
+    (isCurrentMap || isNextMap) &&
+    `
+      ${media.mobile} {
+        display: none;
+      }
+    `}
 `;
 
 const StyledMapSummary = styled.div`
@@ -196,7 +204,11 @@ export const MapSection = memo(
               <Icon name="arrowDropDown" size={20} />
             </StyledArrowWrapper>
             <StyledMapTitle>{title}</StyledMapTitle>
-            {timeDisplay && <StyledMapTimeDisplay>{timeDisplay}</StyledMapTimeDisplay>}
+            {timeDisplay && (
+              <StyledMapTimeDisplay isCurrentMap={isCurrentMap} isNextMap={isNextMap}>
+                {timeDisplay}
+              </StyledMapTimeDisplay>
+            )}
             {isCurrentMap && (
               <StyledCurrentMapBadge>
                 <StyledPulsingDot />
