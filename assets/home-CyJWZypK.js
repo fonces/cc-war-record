@@ -1,4 +1,4 @@
-import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{T as t,x as n,y as r}from"./react-vendor-D1pS86Oe.js";import{n as i}from"./styled-DX7-lrl4.js";import"./jszip-DU7jsDXX.js";import"./i18n-THkEc1_o.js";import{$ as a,A as o,B as s,C as c,D as l,E as u,G as d,J as f,K as p,M as m,N as h,O as g,Q as _,R as v,S as y,T as b,X as x,Y as S,Z as C,_ as w,a as ee,at as T,b as E,c as D,ct as O,j as k,k as te,lt as A,o as j,q as M,rt as N,s as P,st as F,t as I,ut as L,v as ne,y as R,z as re}from"./index-2G8jYBXw.js";import{n as ie,t as z}from"./stores-D8NgR7KB.js";var B=e(t());const V=e=>{let t=Object.values(s),n=new Set;e.forEach(e=>{n.add(e.job)});let r=Array.from(n);return t.map(t=>{let n=e.filter(e=>e.map===t),i=n.length,a=n.filter(e=>e.isWin).length,o=i-a,s=i>0?Math.round(a/i*100):0,c=new Map;r.forEach(e=>{c.set(e,{job:e,totalMatches:0,wins:0,defeats:0,winRate:0})}),n.forEach(e=>{let t=c.get(e.job);t.totalMatches++,e.isWin?t.wins++:t.defeats++}),c.forEach(e=>{e.winRate=e.totalMatches>0?Math.round(e.wins/e.totalMatches*100):0});let l=Array.from(c.values()).sort((e,t)=>t.totalMatches===e.totalMatches?e.job.localeCompare(t.job):t.totalMatches-e.totalMatches);return{map:t,totalMatches:i,totalWins:a,totalDefeats:o,mapWinRate:s,jobSummaries:l}})},H=(e,t)=>{let n=new Map;return t.forEach(e=>{n.set(e,{job:e,totalMatches:0,wins:0,defeats:0,winRate:0})}),e.forEach(e=>{let t=n.get(e.job);t&&(t.totalMatches++,e.isWin?t.wins++:t.defeats++)}),n.forEach(e=>{e.winRate=e.totalMatches>0?Math.round(e.wins/e.totalMatches*100):0}),Array.from(n.values()).sort((e,t)=>t.totalMatches===e.totalMatches?e.job.localeCompare(t.job):t.totalMatches-e.totalMatches)};var U=e(n()),W=`
+import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{T as t,x as n,y as r}from"./react-vendor-D1pS86Oe.js";import{n as i}from"./styled-DX7-lrl4.js";import"./jszip-DU7jsDXX.js";import"./i18n-THkEc1_o.js";import{$ as a,A as o,B as s,C as c,D as l,E as u,G as d,J as f,K as p,M as m,N as h,O as g,Q as _,R as v,S as y,T as b,X as x,Y as S,Z as C,_ as w,a as ee,at as T,b as E,c as D,ct as O,j as k,k as te,lt as A,o as j,q as M,rt as N,s as P,st as F,t as I,ut as L,v as ne,y as R,z as re}from"./index-CWPkt5IO.js";import{n as ie,t as z}from"./stores-sUnX7_KI.js";var B=e(t());const V=e=>{let t=Object.values(s),n=new Set;e.forEach(e=>{n.add(e.job)});let r=Array.from(n);return t.map(t=>{let n=e.filter(e=>e.map===t),i=n.length,a=n.filter(e=>e.isWin).length,o=i-a,s=i>0?Math.round(a/i*100):0,c=new Map;r.forEach(e=>{c.set(e,{job:e,totalMatches:0,wins:0,defeats:0,winRate:0})}),n.forEach(e=>{let t=c.get(e.job);t.totalMatches++,e.isWin?t.wins++:t.defeats++}),c.forEach(e=>{e.winRate=e.totalMatches>0?Math.round(e.wins/e.totalMatches*100):0});let l=Array.from(c.values()).sort((e,t)=>t.totalMatches===e.totalMatches?e.job.localeCompare(t.job):t.totalMatches-e.totalMatches);return{map:t,totalMatches:i,totalWins:a,totalDefeats:o,mapWinRate:s,jobSummaries:l}})},H=(e,t)=>{let n=new Map;return t.forEach(e=>{n.set(e,{job:e,totalMatches:0,wins:0,defeats:0,winRate:0})}),e.forEach(e=>{let t=n.get(e.job);t&&(t.totalMatches++,e.isWin?t.wins++:t.defeats++)}),n.forEach(e=>{e.winRate=e.totalMatches>0?Math.round(e.wins/e.totalMatches*100):0}),Array.from(n.values()).sort((e,t)=>t.totalMatches===e.totalMatches?e.job.localeCompare(t.job):t.totalMatches-e.totalMatches)};var U=e(n()),W=`
   &:first-child {
     padding-left: 24px;
     text-align: left;
@@ -74,11 +74,9 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{T as t,x as n,y as r}f
     font-weight: 600;
     color: ${({theme:e})=>e.colors.text};
     position: relative;
-    padding-left: ${({theme:e})=>e.spacing[2]};
 
     ${c.mobile} {
       gap: ${({theme:e})=>e.spacing[2]};
-      padding-left: 0;
     }
   }
 `,ae=i(K)`
@@ -180,10 +178,11 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{T as t,x as n,y as r}f
     -webkit-overflow-scrolling: touch;
   }
 `,ue=i.table`
-  width: 100%;
   border-collapse: collapse;
+  border-top: 1px solid rgba(38, 161, 223, 0.3);
   font-size: 0.875rem;
   table-layout: fixed;
+  width: 100%;
 
   ${c.mobile} {
     min-width: 600px;
@@ -336,7 +335,6 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{T as t,x as n,y as r}f
   margin: 0;
   padding: ${({theme:e})=>e.spacing[3]} ${({theme:e})=>e.spacing[4]};
   background-color: ${({isCurrentMap:e,theme:t})=>{let n=t.isDark;return e?n?`rgba(38, 161, 223, 0.15)`:`rgba(38, 161, 223, 0.08)`:n?`rgba(255, 255, 255, 0.03)`:`rgba(0, 0, 0, 0.02)`}};
-  border-bottom: 1px solid ${({theme:e})=>e.colors.border};
   font-size: 1rem;
   font-weight: 600;
   color: ${({theme:e})=>e.colors.text};

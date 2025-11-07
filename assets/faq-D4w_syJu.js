@@ -1,4 +1,4 @@
-import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{T as t,x as n}from"./react-vendor-D1pS86Oe.js";import{a as r,n as i}from"./styled-DX7-lrl4.js";import"./jszip-DU7jsDXX.js";import{A as a,E as o,S as s,_ as c,b as l,k as u,y as d}from"./index-2G8jYBXw.js";var f=e(t()),p=e(n()),m=r`
+import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{T as t,x as n}from"./react-vendor-D1pS86Oe.js";import{a as r,n as i}from"./styled-DX7-lrl4.js";import"./jszip-DU7jsDXX.js";import{A as a,E as o,S as s,_ as c,b as l,k as u,y as d}from"./index-CWPkt5IO.js";var f=e(t()),p=e(n()),m=r`
   0% { background-position: -200% center; }
   100% { background-position: 200% center; }
 `,h=i.div`
@@ -113,7 +113,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{T as t,x as n}from"./r
     fill: currentColor;
   }
 `,w=i.div`
-  padding: ${({$isOpen:e,theme:t})=>e?`${t.spacing[2]} 0 ${t.spacing[6]} ${t.spacing[5]}`:`0`};
+  padding: ${({$isOpen:e,theme:t})=>e?`${t.spacing[2]} ${t.spacing[4]} ${t.spacing[4]} ${t.spacing[5]}`:`0`};
   color: ${({theme:e})=>e.colors.textSecondary};
   line-height: 1.7;
   max-height: ${({$isOpen:e})=>e?`1000px`:`0`};
