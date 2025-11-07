@@ -28,6 +28,47 @@ export const GlobalStyle = createGlobalStyle`
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
+    color-scheme: ${({ theme }) => (theme.isDark ? "dark" : "light")};
+  }
+
+  /* iOS 26 Safari ノッチ・Dynamic Island対応 - グラスモフィーな背景 */
+  @supports (padding-top: env(safe-area-inset-top)) {
+    html {
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
+
+    /* トップエリア（ノッチ・Dynamic Island） - 透過グラスモフィー */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: env(safe-area-inset-top);
+      background: transparent;
+      backdrop-filter: saturate(180%) ${({ theme }) => theme.blur.xl};
+      -webkit-backdrop-filter: saturate(180%) ${({ theme }) => theme.blur.xl};
+      z-index: 9999;
+      pointer-events: none;
+    }
+
+    /* ボトムエリア（ホームインジケーター） - 透過グラスモフィー */
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: env(safe-area-inset-bottom);
+      background: transparent;
+      backdrop-filter: saturate(180%) ${({ theme }) => theme.blur.xl};
+      -webkit-backdrop-filter: saturate(180%) ${({ theme }) => theme.blur.xl};
+      z-index: 9999;
+      pointer-events: none;
+    }
   }
 
   body {

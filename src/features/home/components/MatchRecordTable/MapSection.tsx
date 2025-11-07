@@ -27,7 +27,6 @@ const StyledMapTitleWrapper = styled.div<{ isCurrentMap?: boolean }>`
     }
     return isDark ? "rgba(255, 255, 255, 0.03)" : "rgba(0, 0, 0, 0.02)";
   }};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
   font-size: 1rem;
   font-weight: 600;
   color: ${({ theme }) => theme.colors.text};

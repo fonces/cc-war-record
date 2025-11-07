@@ -88,11 +88,9 @@ const StyledJobCell = styled(StyledTableCell)`
     font-weight: 600;
     color: ${({ theme }) => theme.colors.text};
     position: relative;
-    padding-left: ${({ theme }) => theme.spacing[2]};
 
     ${media.mobile} {
       gap: ${({ theme }) => theme.spacing[2]};
-      padding-left: 0;
     }
   }
 `;
