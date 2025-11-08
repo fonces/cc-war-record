@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/new-C7UZjEhb.js","assets/react-vendor-D1pS86Oe.js","assets/rolldown-runtime-CIDIeb-o.js","assets/graphs-B11Kq-ge.js","assets/faq-Ga4WusEJ.js","assets/routes-0ePrkrFF.js","assets/histories-D5yKW1rU.js","assets/_id-CYvM4wHE.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/new-CXMTId5Y.js","assets/react-vendor-D1pS86Oe.js","assets/rolldown-runtime-CIDIeb-o.js","assets/graphs-COqo9SdO.js","assets/faq-u_PR-tni.js","assets/routes-B99kkAH2.js","assets/histories-_RmMvS8b.js","assets/_id-DVMwLT1C.js"])))=>i.map(i=>d[i]);
 import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c as i,d as a,f as o,g as s,h as c,i as l,l as u,m as d,o as f,p,s as m,u as ee,v as h,w as g,x as te}from"./react-vendor-D1pS86Oe.js";import{a as _,i as v,n as y,r as ne,s as re,t as ie}from"./styled-DX7-lrl4.js";import{t as ae}from"./jszip-DU7jsDXX.js";import{n as oe,t as se}from"./i18n-THkEc1_o.js";import{t as ce}from"./vendor-DeEjTzyN.js";(function(){let e=document.createElement(`link`).relList;if(e&&e.supports&&e.supports(`modulepreload`))return;for(let e of document.querySelectorAll(`link[rel="modulepreload"]`))n(e);new MutationObserver(e=>{for(let t of e)if(t.type===`childList`)for(let e of t.addedNodes)e.tagName===`LINK`&&e.rel===`modulepreload`&&n(e)}).observe(document,{childList:!0,subtree:!0});function t(e){let t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),e.crossOrigin===`use-credentials`?t.credentials=`include`:e.crossOrigin===`anonymous`?t.credentials=`omit`:t.credentials=`same-origin`,t}function n(e){if(e.ep)return;e.ep=!0;let n=t(e);fetch(e.href,n)}})();var b=e(te()),le=e(t()),ue=e(g()),x=e(n()),de=`modulepreload`,fe=function(e){return`/cc-war-record/`+e},pe={};const S=function(e,t,n){let r=Promise.resolve();if(t&&t.length>0){let e=document.getElementsByTagName(`link`),i=document.querySelector(`meta[property=csp-nonce]`),a=i?.nonce||i?.getAttribute(`nonce`);function o(e){return Promise.all(e.map(e=>Promise.resolve(e).then(e=>({status:`fulfilled`,value:e}),e=>({status:`rejected`,reason:e}))))}r=o(t.map(t=>{if(t=fe(t,n),t in pe)return;pe[t]=!0;let r=t.endsWith(`.css`),i=r?`[rel="stylesheet"]`:``;if(n)for(let n=e.length-1;n>=0;n--){let i=e[n];if(i.href===t&&(!r||i.rel===`stylesheet`))return}else if(document.querySelector(`link[href="${t}"]${i}`))return;let o=document.createElement(`link`);if(o.rel=r?`stylesheet`:de,r||(o.as=`script`),o.crossOrigin=``,o.href=t,a&&o.setAttribute(`nonce`,a),document.head.appendChild(o),r)return new Promise((e,n)=>{o.addEventListener(`load`,e),o.addEventListener(`error`,()=>n(Error(`Unable to preload CSS for ${t}`)))})}))}function i(e){let t=new Event(`vite:preloadError`,{cancelable:!0});if(t.payload=e,window.dispatchEvent(t),!t.defaultPrevented)throw e}return r.then(t=>{for(let e of t||[])e.status===`rejected`&&i(e.reason);return e().catch(i)})};var me=_`
   0% {
     transform: translateY(50%);
@@ -268,7 +268,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
 `,we=y.span`
   font-size: 0.875rem;
   color: ${({theme:e})=>e.colors.error[500]};
-`;const w=(0,x.memo)((0,x.forwardRef)(({label:e,error:t,fullWidth:n,inputSize:r=`md`,icon:i,...a},o)=>(0,b.jsxs)(ye,{fit:!!i,fullWidth:n,children:[e&&(0,b.jsx)(be,{children:e}),(0,b.jsxs)(xe,{children:[(0,b.jsx)(Ce,{ref:o,hasError:!!t,inputSize:r,hasIcon:!!i,...a}),i&&(0,b.jsx)(Se,{children:i})]}),t&&(0,b.jsx)(we,{children:t})]})));w.displayName=`Input`;const Te=()=>(0,b.jsxs)(`svg`,{viewBox:`0 0 24 24`,fill:`none`,stroke:`currentColor`,strokeWidth:`2`,children:[(0,b.jsx)(`line`,{x1:`3`,y1:`6`,x2:`21`,y2:`6`}),(0,b.jsx)(`line`,{x1:`3`,y1:`12`,x2:`21`,y2:`12`}),(0,b.jsx)(`line`,{x1:`3`,y1:`18`,x2:`21`,y2:`18`})]}),T=()=>(0,b.jsxs)(`svg`,{viewBox:`0 0 24 24`,fill:`none`,stroke:`currentColor`,strokeWidth:`2`,children:[(0,b.jsx)(`line`,{x1:`18`,y1:`6`,x2:`6`,y2:`18`}),(0,b.jsx)(`line`,{x1:`6`,y1:`6`,x2:`18`,y2:`18`})]}),Ee=()=>(0,b.jsxs)(`svg`,{viewBox:`0 0 24 24`,fill:`none`,stroke:`currentColor`,strokeWidth:`2`,children:[(0,b.jsx)(`path`,{d:`m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z`}),(0,b.jsx)(`polyline`,{points:`9,22 9,12 15,12 15,22`})]}),De=()=>(0,b.jsxs)(`svg`,{viewBox:`0 0 24 24`,fill:`none`,stroke:`currentColor`,strokeWidth:`2`,children:[(0,b.jsx)(`circle`,{cx:`12`,cy:`12`,r:`10`}),(0,b.jsx)(`polyline`,{points:`12,6 12,12 16,14`})]}),Oe=()=>(0,b.jsxs)(`svg`,{viewBox:`0 0 24 24`,fill:`none`,stroke:`currentColor`,strokeWidth:`2`,children:[(0,b.jsx)(`line`,{x1:`18`,y1:`20`,x2:`18`,y2:`10`}),(0,b.jsx)(`line`,{x1:`12`,y1:`20`,x2:`12`,y2:`4`}),(0,b.jsx)(`line`,{x1:`6`,y1:`20`,x2:`6`,y2:`14`})]}),ke=()=>(0,b.jsxs)(`svg`,{viewBox:`0 0 24 24`,fill:`none`,stroke:`currentColor`,strokeWidth:`2`,children:[(0,b.jsx)(`path`,{d:`m18 2 4 4-18 18H0v-4L18 2z`}),(0,b.jsx)(`path`,{d:`m14.5 5.5 4 4`})]}),Ae=()=>(0,b.jsx)(`svg`,{viewBox:`0 0 24 24`,fill:`none`,stroke:`currentColor`,strokeWidth:`2`,children:(0,b.jsx)(`polyline`,{points:`20,6 9,17 4,12`})}),je=()=>(0,b.jsxs)(`svg`,{viewBox:`0 0 24 24`,fill:`none`,stroke:`currentColor`,strokeWidth:`2`,children:[(0,b.jsx)(`line`,{x1:`12`,y1:`5`,x2:`12`,y2:`19`}),(0,b.jsx)(`line`,{x1:`5`,y1:`12`,x2:`19`,y2:`12`})]}),Me=()=>(0,b.jsxs)(`svg`,{viewBox:`0 0 24 24`,fill:`none`,stroke:`currentColor`,strokeWidth:`2`,children:[(0,b.jsx)(`polyline`,{points:`3,6 5,6 21,6`}),(0,b.jsx)(`path`,{d:`M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2`}),(0,b.jsx)(`line`,{x1:`10`,y1:`11`,x2:`10`,y2:`17`}),(0,b.jsx)(`line`,{x1:`14`,y1:`11`,x2:`14`,y2:`17`})]}),Ne=()=>(0,b.jsx)(`svg`,{viewBox:`0 0 24 24`,fill:`none`,stroke:`currentColor`,strokeWidth:`2`,children:(0,b.jsx)(`line`,{x1:`5`,y1:`12`,x2:`19`,y2:`12`})}),Pe=()=>(0,b.jsxs)(`svg`,{viewBox:`0 0 24 24`,fill:`none`,stroke:`currentColor`,strokeWidth:`2`,children:[(0,b.jsx)(`polyline`,{points:`1,4 1,10 7,10`}),(0,b.jsx)(`path`,{d:`M3.51 15a9 9 0 1 0 2.13-9.36L1 10`})]}),Fe=()=>(0,b.jsxs)(`svg`,{viewBox:`0 0 24 24`,fill:`none`,stroke:`currentColor`,strokeWidth:`2`,children:[(0,b.jsx)(`path`,{d:`M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z`}),(0,b.jsx)(`polyline`,{points:`14,2 14,8 20,8`}),(0,b.jsx)(`line`,{x1:`16`,y1:`13`,x2:`8`,y2:`13`}),(0,b.jsx)(`line`,{x1:`16`,y1:`17`,x2:`8`,y2:`17`}),(0,b.jsx)(`polyline`,{points:`10,9 9,9 8,9`})]}),Ie=()=>(0,b.jsxs)(`svg`,{viewBox:`0 0 24 24`,fill:`none`,stroke:`currentColor`,strokeWidth:`2`,strokeLinecap:`round`,strokeLinejoin:`round`,children:[(0,b.jsx)(`line`,{x1:`19`,y1:`12`,x2:`5`,y2:`12`}),(0,b.jsx)(`polyline`,{points:`12,19 5,12 12,5`})]}),Le=()=>(0,b.jsxs)(`svg`,{viewBox:`0 0 24 24`,fill:`none`,stroke:`currentColor`,strokeWidth:`2`,strokeLinecap:`round`,strokeLinejoin:`round`,children:[(0,b.jsx)(`circle`,{cx:`12`,cy:`12`,r:`10`}),(0,b.jsx)(`line`,{x1:`2`,y1:`12`,x2:`22`,y2:`12`}),(0,b.jsx)(`path`,{d:`M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z`})]}),Re=()=>(0,b.jsx)(`svg`,{viewBox:`0 0 24 24`,fill:`currentColor`,children:(0,b.jsx)(`path`,{d:`M7 10l5 5 5-5z`})}),ze=()=>(0,b.jsx)(`svg`,{viewBox:`0 0 24 24`,fill:`none`,stroke:`currentColor`,strokeWidth:`2`,children:(0,b.jsx)(`path`,{d:`M12 19V5M5 12L12 5L19 12`,strokeLinecap:`round`,strokeLinejoin:`round`})}),Be=()=>(0,b.jsx)(`svg`,{viewBox:`0 0 24 24`,fill:`none`,stroke:`currentColor`,strokeWidth:`2`,children:(0,b.jsx)(`path`,{d:`M12 5V19M19 12L12 19L5 12`,strokeLinecap:`round`,strokeLinejoin:`round`})}),E=(0,x.memo)(({size:e=24,color:t=`currentColor`})=>(0,b.jsxs)(`svg`,{width:e,height:e,viewBox:`0 0 24 24`,fill:`none`,stroke:t,strokeWidth:`2`,strokeLinecap:`round`,strokeLinejoin:`round`,children:[(0,b.jsx)(`path`,{d:`M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4`}),(0,b.jsx)(`polyline`,{points:`7 10 12 15 17 10`}),(0,b.jsx)(`line`,{x1:`12`,y1:`15`,x2:`12`,y2:`3`})]}));E.displayName=`DownloadIcon`;const D=(0,x.memo)(({size:e=24,color:t=`currentColor`})=>(0,b.jsxs)(`svg`,{width:e,height:e,viewBox:`0 0 24 24`,fill:`none`,stroke:t,strokeWidth:`2`,strokeLinecap:`round`,strokeLinejoin:`round`,children:[(0,b.jsx)(`path`,{d:`M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4`}),(0,b.jsx)(`polyline`,{points:`17 8 12 3 7 8`}),(0,b.jsx)(`line`,{x1:`12`,y1:`3`,x2:`12`,y2:`15`})]}));D.displayName=`UploadIcon`;const O=(0,x.memo)(({size:e=24,color:t=`currentColor`})=>(0,b.jsxs)(`svg`,{width:e,height:e,viewBox:`0 0 24 24`,fill:`none`,xmlns:`http://www.w3.org/2000/svg`,children:[(0,b.jsx)(`path`,{d:`M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z`,stroke:t,strokeWidth:`2`,strokeLinecap:`round`,strokeLinejoin:`round`}),(0,b.jsx)(`path`,{d:`M21 21L16.65 16.65`,stroke:t,strokeWidth:`2`,strokeLinecap:`round`,strokeLinejoin:`round`})]}));O.displayName=`SearchIcon`;var Ve=y.div`
+`;const Te=(0,x.memo)((0,x.forwardRef)(({label:e,error:t,fullWidth:n,inputSize:r=`md`,icon:i,...a},o)=>(0,b.jsxs)(ye,{fit:!!i,fullWidth:n,children:[e&&(0,b.jsx)(be,{children:e}),(0,b.jsxs)(xe,{children:[(0,b.jsx)(Ce,{ref:o,hasError:!!t,inputSize:r,hasIcon:!!i,...a}),i&&(0,b.jsx)(Se,{children:i})]}),t&&(0,b.jsx)(we,{children:t})]})));Te.displayName=`Input`;const Ee=()=>(0,b.jsxs)(`svg`,{viewBox:`0 0 24 24`,fill:`none`,stroke:`currentColor`,strokeWidth:`2`,children:[(0,b.jsx)(`line`,{x1:`3`,y1:`6`,x2:`21`,y2:`6`}),(0,b.jsx)(`line`,{x1:`3`,y1:`12`,x2:`21`,y2:`12`}),(0,b.jsx)(`line`,{x1:`3`,y1:`18`,x2:`21`,y2:`18`})]}),w=()=>(0,b.jsxs)(`svg`,{viewBox:`0 0 24 24`,fill:`none`,stroke:`currentColor`,strokeWidth:`2`,children:[(0,b.jsx)(`line`,{x1:`18`,y1:`6`,x2:`6`,y2:`18`}),(0,b.jsx)(`line`,{x1:`6`,y1:`6`,x2:`18`,y2:`18`})]}),De=()=>(0,b.jsxs)(`svg`,{viewBox:`0 0 24 24`,fill:`none`,stroke:`currentColor`,strokeWidth:`2`,children:[(0,b.jsx)(`path`,{d:`m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z`}),(0,b.jsx)(`polyline`,{points:`9,22 9,12 15,12 15,22`})]}),Oe=()=>(0,b.jsxs)(`svg`,{viewBox:`0 0 24 24`,fill:`none`,stroke:`currentColor`,strokeWidth:`2`,children:[(0,b.jsx)(`circle`,{cx:`12`,cy:`12`,r:`10`}),(0,b.jsx)(`polyline`,{points:`12,6 12,12 16,14`})]}),ke=()=>(0,b.jsxs)(`svg`,{viewBox:`0 0 24 24`,fill:`none`,stroke:`currentColor`,strokeWidth:`2`,children:[(0,b.jsx)(`line`,{x1:`18`,y1:`20`,x2:`18`,y2:`10`}),(0,b.jsx)(`line`,{x1:`12`,y1:`20`,x2:`12`,y2:`4`}),(0,b.jsx)(`line`,{x1:`6`,y1:`20`,x2:`6`,y2:`14`})]}),Ae=()=>(0,b.jsxs)(`svg`,{viewBox:`0 0 24 24`,fill:`none`,stroke:`currentColor`,strokeWidth:`2`,children:[(0,b.jsx)(`path`,{d:`m18 2 4 4-18 18H0v-4L18 2z`}),(0,b.jsx)(`path`,{d:`m14.5 5.5 4 4`})]}),je=()=>(0,b.jsx)(`svg`,{viewBox:`0 0 24 24`,fill:`none`,stroke:`currentColor`,strokeWidth:`2`,children:(0,b.jsx)(`polyline`,{points:`20,6 9,17 4,12`})}),Me=()=>(0,b.jsxs)(`svg`,{viewBox:`0 0 24 24`,fill:`none`,stroke:`currentColor`,strokeWidth:`2`,children:[(0,b.jsx)(`line`,{x1:`12`,y1:`5`,x2:`12`,y2:`19`}),(0,b.jsx)(`line`,{x1:`5`,y1:`12`,x2:`19`,y2:`12`})]}),Ne=()=>(0,b.jsxs)(`svg`,{viewBox:`0 0 24 24`,fill:`none`,stroke:`currentColor`,strokeWidth:`2`,children:[(0,b.jsx)(`polyline`,{points:`3,6 5,6 21,6`}),(0,b.jsx)(`path`,{d:`M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2`}),(0,b.jsx)(`line`,{x1:`10`,y1:`11`,x2:`10`,y2:`17`}),(0,b.jsx)(`line`,{x1:`14`,y1:`11`,x2:`14`,y2:`17`})]}),Pe=()=>(0,b.jsx)(`svg`,{viewBox:`0 0 24 24`,fill:`none`,stroke:`currentColor`,strokeWidth:`2`,children:(0,b.jsx)(`line`,{x1:`5`,y1:`12`,x2:`19`,y2:`12`})}),Fe=()=>(0,b.jsxs)(`svg`,{viewBox:`0 0 24 24`,fill:`none`,stroke:`currentColor`,strokeWidth:`2`,children:[(0,b.jsx)(`polyline`,{points:`1,4 1,10 7,10`}),(0,b.jsx)(`path`,{d:`M3.51 15a9 9 0 1 0 2.13-9.36L1 10`})]}),Ie=()=>(0,b.jsxs)(`svg`,{viewBox:`0 0 24 24`,fill:`none`,stroke:`currentColor`,strokeWidth:`2`,children:[(0,b.jsx)(`path`,{d:`M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z`}),(0,b.jsx)(`polyline`,{points:`14,2 14,8 20,8`}),(0,b.jsx)(`line`,{x1:`16`,y1:`13`,x2:`8`,y2:`13`}),(0,b.jsx)(`line`,{x1:`16`,y1:`17`,x2:`8`,y2:`17`}),(0,b.jsx)(`polyline`,{points:`10,9 9,9 8,9`})]}),Le=()=>(0,b.jsxs)(`svg`,{viewBox:`0 0 24 24`,fill:`none`,stroke:`currentColor`,strokeWidth:`2`,strokeLinecap:`round`,strokeLinejoin:`round`,children:[(0,b.jsx)(`line`,{x1:`19`,y1:`12`,x2:`5`,y2:`12`}),(0,b.jsx)(`polyline`,{points:`12,19 5,12 12,5`})]}),Re=()=>(0,b.jsxs)(`svg`,{viewBox:`0 0 24 24`,fill:`none`,stroke:`currentColor`,strokeWidth:`2`,strokeLinecap:`round`,strokeLinejoin:`round`,children:[(0,b.jsx)(`circle`,{cx:`12`,cy:`12`,r:`10`}),(0,b.jsx)(`line`,{x1:`2`,y1:`12`,x2:`22`,y2:`12`}),(0,b.jsx)(`path`,{d:`M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z`})]}),ze=()=>(0,b.jsx)(`svg`,{viewBox:`0 0 24 24`,fill:`currentColor`,children:(0,b.jsx)(`path`,{d:`M7 10l5 5 5-5z`})}),Be=()=>(0,b.jsx)(`svg`,{viewBox:`0 0 24 24`,fill:`none`,stroke:`currentColor`,strokeWidth:`2`,children:(0,b.jsx)(`path`,{d:`M12 19V5M5 12L12 5L19 12`,strokeLinecap:`round`,strokeLinejoin:`round`})}),Ve=()=>(0,b.jsx)(`svg`,{viewBox:`0 0 24 24`,fill:`none`,stroke:`currentColor`,strokeWidth:`2`,children:(0,b.jsx)(`path`,{d:`M12 5V19M19 12L12 19L5 12`,strokeLinecap:`round`,strokeLinejoin:`round`})}),T=(0,x.memo)(({size:e=24,color:t=`currentColor`})=>(0,b.jsxs)(`svg`,{width:e,height:e,viewBox:`0 0 24 24`,fill:`none`,stroke:t,strokeWidth:`2`,strokeLinecap:`round`,strokeLinejoin:`round`,children:[(0,b.jsx)(`path`,{d:`M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4`}),(0,b.jsx)(`polyline`,{points:`7 10 12 15 17 10`}),(0,b.jsx)(`line`,{x1:`12`,y1:`15`,x2:`12`,y2:`3`})]}));T.displayName=`DownloadIcon`;const E=(0,x.memo)(({size:e=24,color:t=`currentColor`})=>(0,b.jsxs)(`svg`,{width:e,height:e,viewBox:`0 0 24 24`,fill:`none`,stroke:t,strokeWidth:`2`,strokeLinecap:`round`,strokeLinejoin:`round`,children:[(0,b.jsx)(`path`,{d:`M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4`}),(0,b.jsx)(`polyline`,{points:`17 8 12 3 7 8`}),(0,b.jsx)(`line`,{x1:`12`,y1:`3`,x2:`12`,y2:`15`})]}));E.displayName=`UploadIcon`;const D=(0,x.memo)(({size:e=24,color:t=`currentColor`})=>(0,b.jsxs)(`svg`,{width:e,height:e,viewBox:`0 0 24 24`,fill:`none`,xmlns:`http://www.w3.org/2000/svg`,children:[(0,b.jsx)(`path`,{d:`M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z`,stroke:t,strokeWidth:`2`,strokeLinecap:`round`,strokeLinejoin:`round`}),(0,b.jsx)(`path`,{d:`M21 21L16.65 16.65`,stroke:t,strokeWidth:`2`,strokeLinecap:`round`,strokeLinejoin:`round`})]}));D.displayName=`SearchIcon`;var He=y.div`
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -288,7 +288,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
     width: 100%;
     height: 100%;
   }
-`;const k=(0,x.memo)(({name:e,size:t=24,color:n,onClick:r,className:i})=>(0,b.jsx)(Ve,{size:t,color:n,onClick:r,className:i,children:(()=>{switch(e){case`hamburger`:return(0,b.jsx)(Te,{});case`close`:return(0,b.jsx)(T,{});case`home`:return(0,b.jsx)(Ee,{});case`history`:return(0,b.jsx)(De,{});case`chart`:return(0,b.jsx)(Oe,{});case`edit`:return(0,b.jsx)(ke,{});case`accept`:return(0,b.jsx)(Ae,{});case`add`:return(0,b.jsx)(je,{});case`delete`:return(0,b.jsx)(Me,{});case`minus`:return(0,b.jsx)(Ne,{});case`revert`:return(0,b.jsx)(Pe,{});case`detail`:return(0,b.jsx)(Fe,{});case`back`:return(0,b.jsx)(Ie,{});case`language`:return(0,b.jsx)(Le,{});case`arrowDropDown`:return(0,b.jsx)(Re,{});case`arrowUp`:return(0,b.jsx)(ze,{});case`arrowDown`:return(0,b.jsx)(Be,{});case`download`:return(0,b.jsx)(E,{});case`upload`:return(0,b.jsx)(D,{});case`search`:return(0,b.jsx)(O,{});default:return null}})()}));k.displayName=`Icon`;var He=_`
+`;const O=(0,x.memo)(({name:e,size:t=24,color:n,onClick:r,className:i})=>(0,b.jsx)(He,{size:t,color:n,onClick:r,className:i,children:(()=>{switch(e){case`hamburger`:return(0,b.jsx)(Ee,{});case`close`:return(0,b.jsx)(w,{});case`home`:return(0,b.jsx)(De,{});case`history`:return(0,b.jsx)(Oe,{});case`chart`:return(0,b.jsx)(ke,{});case`edit`:return(0,b.jsx)(Ae,{});case`accept`:return(0,b.jsx)(je,{});case`add`:return(0,b.jsx)(Me,{});case`delete`:return(0,b.jsx)(Ne,{});case`minus`:return(0,b.jsx)(Pe,{});case`revert`:return(0,b.jsx)(Fe,{});case`detail`:return(0,b.jsx)(Ie,{});case`back`:return(0,b.jsx)(Le,{});case`language`:return(0,b.jsx)(Re,{});case`arrowDropDown`:return(0,b.jsx)(ze,{});case`arrowUp`:return(0,b.jsx)(Be,{});case`arrowDown`:return(0,b.jsx)(Ve,{});case`download`:return(0,b.jsx)(T,{});case`upload`:return(0,b.jsx)(E,{});case`search`:return(0,b.jsx)(D,{});default:return null}})()}));O.displayName=`Icon`;var Ue=_`
   from {
     opacity: 0;
     transform: translateY(-8px);
@@ -297,18 +297,18 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
     opacity: 1;
     transform: translateY(0);
   }
-`,Ue=y.div`
+`,We=y.div`
   display: flex;
   flex-direction: column;
   gap: ${({theme:e})=>e.spacing[2]};
   position: relative;
   ${({fullWidth:e})=>e&&`width: 100%;`}
   ${({width:e})=>e&&`width: ${e};`}
-`,We=y.label`
+`,Ge=y.label`
   font-size: 0.75rem;
   font-weight: 500;
   color: ${({theme:e})=>e.colors.textSecondary};
-`,Ge=y.button`
+`,Ke=y.button`
   padding: 0.5rem 2.5rem 0.5rem 1rem;
   border: 1px solid ${({isOpen:e,hasError:t,theme:n})=>t?n.colors.error[500]:e?n.colors.border:n.colors.borderLight};
   border-radius: ${({theme:e})=>e.borderRadius.lg};
@@ -347,7 +347,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
     cursor: not-allowed;
     opacity: 0.5;
   }
-`,Ke=y.div`
+`,qe=y.div`
   position: absolute;
   right: 0.75rem;
   top: 50%;
@@ -358,7 +358,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   align-items: center;
   justify-content: center;
   color: #26a1df;
-`,qe=y.div`
+`,Je=y.div`
   position: absolute;
   top: calc(100% + 0.5rem);
   left: 0;
@@ -372,7 +372,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   overflow-y: auto;
   z-index: 50;
   display: ${({isOpen:e})=>e?`block`:`none`};
-  animation: ${He} 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: ${Ue} 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
   &::before {
     content: "";
@@ -384,7 +384,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
     background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
     border-radius: ${({theme:e})=>e.borderRadius.lg} ${({theme:e})=>e.borderRadius.lg} 0 0;
   }
-`,Je=y.div`
+`,Ye=y.div`
   padding: ${({theme:e})=>e.spacing[3]} ${({theme:e})=>e.spacing[4]};
   cursor: pointer;
   transition: all ${({theme:e})=>e.transitions.base};
@@ -421,22 +421,22 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   &:last-child {
     padding-bottom: ${({theme:e})=>e.spacing[4]};
   }
-`,Ye=y.span`
+`,Xe=y.span`
   font-size: 0.875rem;
   color: ${({theme:e})=>e.colors.error[500]};
-`,Xe=y.select`
+`,Ze=y.select`
   position: absolute;
   opacity: 0;
   pointer-events: none;
   width: 0;
   height: 0;
-`;const A=(0,x.memo)(({id:e,label:t,error:n,fullWidth:r,width:i,options:a,value:o,onChange:s,disabled:c})=>{let[l,u]=(0,x.useState)(!1),d=(0,x.useRef)(null);(0,x.useEffect)(()=>{let e=e=>{d.current&&!d.current.contains(e.target)&&u(!1)};return document.addEventListener(`mousedown`,e),()=>document.removeEventListener(`mousedown`,e)},[]);let f=e=>{c||(u(!1),s&&s({target:{value:e}}))},p=a.find(e=>e.value===o)?.label||a[0]?.label||``;return(0,b.jsxs)(Ue,{ref:d,fullWidth:r,width:i,children:[t&&(0,b.jsx)(We,{htmlFor:e,children:t}),(0,b.jsxs)(Ge,{type:`button`,onClick:()=>!c&&u(!l),isOpen:l,hasError:!!n,disabled:c,children:[p,(0,b.jsx)(Ke,{isOpen:l,children:(0,b.jsx)(k,{name:`arrowDropDown`,size:24})})]}),(0,b.jsx)(qe,{isOpen:l,children:a.map(e=>(0,b.jsx)(Je,{onClick:()=>f(e.value),isSelected:e.value===o,children:e.label},e.value))}),(0,b.jsx)(Xe,{id:e,value:o,onChange:s,disabled:c,tabIndex:-1,children:a.map(e=>(0,b.jsx)(`option`,{value:e.value,children:e.label},e.value))}),n&&(0,b.jsx)(Ye,{children:n})]})});A.displayName=`Select`;const j=(e,t,n=600)=>e>=51?t.colors.success[n]:e>=40?t.colors.warning[n]:t.colors.error[n],Ze=()=>new Date().toISOString(),Qe=(e,t,n)=>{let r=new Date(e);if(!t){let e=r.getFullYear(),t=String(r.getMonth()+1).padStart(2,`0`),n=String(r.getDate()).padStart(2,`0`),i=String(r.getHours()).padStart(2,`0`),a=String(r.getMinutes()).padStart(2,`0`);return`${e}-${t}-${n} ${i}:${a}`}return r.toLocaleDateString(t,n)},$e=(e,t)=>new Date(e).toLocaleDateString(t,{month:`numeric`,day:`numeric`}),et=(e,t)=>new Date(e).toLocaleDateString(t,{year:`numeric`,month:`long`,day:`numeric`}),tt=e=>{let t=new Date(e),n=String(t.getHours()).padStart(2,`0`),r=String(t.getMinutes()).padStart(2,`0`);return`${n}:${r}`},nt=e=>e.length,rt=e=>e.filter(e=>e.isWin).length,it=e=>e.filter(e=>!e.isWin).length,at=e=>{let t=nt(e);if(t===0)return 0;let n=rt(e);return Math.round(n/t*100)},M={TANK:`tank`,HEALER:`healer`,MELEE_DPS:`melee_dps`,PHYSICAL_RANGED_DPS:`physical_ranged_dps`,MAGICAL_RANGED_DPS:`magical_ranged_dps`},N={[M.TANK]:{code:M.TANK,name:`タンク`,nameEn:`Tank`,color:`#3b82f6`},[M.HEALER]:{code:M.HEALER,name:`ヒーラー`,nameEn:`Healer`,color:`#10b981`},[M.MELEE_DPS]:{code:M.MELEE_DPS,name:`近接DPS`,nameEn:`MeleeDPS`,color:`#f59e0b`},[M.PHYSICAL_RANGED_DPS]:{code:M.PHYSICAL_RANGED_DPS,name:`物理遠隔DPS`,nameEn:`PhysicalRangedDPS`,color:`#8b5cf6`},[M.MAGICAL_RANGED_DPS]:{code:M.MAGICAL_RANGED_DPS,name:`魔法遠隔DPS`,nameEn:`MagicalRangedDPS`,color:`#ef4444`}},P={PALADIN:`PLD`,WARRIOR:`WAR`,DARK_KNIGHT:`DRK`,GUNBREAKER:`GNB`,WHITE_MAGE:`WHM`,SCHOLAR:`SCH`,ASTROLOGIAN:`AST`,SAGE:`SGE`,MONK:`MNK`,DRAGOON:`DRG`,NINJA:`NIN`,SAMURAI:`SAM`,REAPER:`RPR`,VIPER:`VPR`,BARD:`BRD`,MACHINIST:`MCH`,DANCER:`DNC`,BLACK_MAGE:`BLM`,SUMMONER:`SMN`,RED_MAGE:`RDM`,PICTOMANCER:`PCT`},ot={[P.PALADIN]:{code:P.PALADIN,name:`ナイト`,nameEn:`Paladin`,shortName:`PLD`,role:M.TANK,iconId:19,color:`#5EADDC`},[P.WARRIOR]:{code:P.WARRIOR,name:`戦士`,nameEn:`Warrior`,shortName:`WAR`,role:M.TANK,iconId:21,color:`#CF2621`},[P.DARK_KNIGHT]:{code:P.DARK_KNIGHT,name:`暗黒騎士`,nameEn:`DarkKnight`,shortName:`DRK`,role:M.TANK,iconId:32,color:`#D126CC`},[P.GUNBREAKER]:{code:P.GUNBREAKER,name:`ガンブレイカー`,nameEn:`Gunbreaker`,shortName:`GNB`,role:M.TANK,iconId:37,color:`#9C8542`},[P.WHITE_MAGE]:{code:P.WHITE_MAGE,name:`白魔道士`,nameEn:`WhiteMage`,shortName:`WHM`,role:M.HEALER,iconId:24,color:`#E6D8BC`},[P.SCHOLAR]:{code:P.SCHOLAR,name:`学者`,nameEn:`Scholar`,shortName:`SCH`,role:M.HEALER,iconId:28,color:`#8657FF`},[P.ASTROLOGIAN]:{code:P.ASTROLOGIAN,name:`占星術師`,nameEn:`Astrologian`,shortName:`AST`,role:M.HEALER,iconId:33,color:`#E6C84A`},[P.SAGE]:{code:P.SAGE,name:`賢者`,nameEn:`Sage`,shortName:`SGE`,role:M.HEALER,iconId:40,color:`#8FD14F`},[P.MONK]:{code:P.MONK,name:`モンク`,nameEn:`Monk`,shortName:`MNK`,role:M.MELEE_DPS,iconId:20,color:`#D69C00`},[P.DRAGOON]:{code:P.DRAGOON,name:`竜騎士`,nameEn:`Dragoon`,shortName:`DRG`,role:M.MELEE_DPS,iconId:22,color:`#4164CD`},[P.NINJA]:{code:P.NINJA,name:`忍者`,nameEn:`Ninja`,shortName:`NIN`,role:M.MELEE_DPS,iconId:30,color:`#AF1964`},[P.SAMURAI]:{code:P.SAMURAI,name:`侍`,nameEn:`Samurai`,shortName:`SAM`,role:M.MELEE_DPS,iconId:34,color:`#E46D04`},[P.REAPER]:{code:P.REAPER,name:`リーパー`,nameEn:`Reaper`,shortName:`RPR`,role:M.MELEE_DPS,iconId:39,color:`#965A90`},[P.VIPER]:{code:P.VIPER,name:`ヴァイパー`,nameEn:`Viper`,shortName:`VPR`,role:M.MELEE_DPS,iconId:41,color:`#B07830`},[P.BARD]:{code:P.BARD,name:`吟遊詩人`,nameEn:`Bard`,shortName:`BRD`,role:M.PHYSICAL_RANGED_DPS,iconId:23,color:`#91BA5E`},[P.MACHINIST]:{code:P.MACHINIST,name:`機工士`,nameEn:`Machinist`,shortName:`MCH`,role:M.PHYSICAL_RANGED_DPS,iconId:31,color:`#6EE1D6`},[P.DANCER]:{code:P.DANCER,name:`踊り子`,nameEn:`Dancer`,shortName:`DNC`,role:M.PHYSICAL_RANGED_DPS,iconId:38,color:`#D98B8A`},[P.BLACK_MAGE]:{code:P.BLACK_MAGE,name:`黒魔道士`,nameEn:`BlackMage`,shortName:`BLM`,role:M.MAGICAL_RANGED_DPS,iconId:25,color:`#A579D6`},[P.SUMMONER]:{code:P.SUMMONER,name:`召喚士`,nameEn:`Summoner`,shortName:`SMN`,role:M.MAGICAL_RANGED_DPS,iconId:27,color:`#2D9B78`},[P.RED_MAGE]:{code:P.RED_MAGE,name:`赤魔道士`,nameEn:`RedMage`,shortName:`RDM`,role:M.MAGICAL_RANGED_DPS,iconId:35,color:`#E87B7B`},[P.PICTOMANCER]:{code:P.PICTOMANCER,name:`ピクトマンサー`,nameEn:`Pictomancer`,shortName:`PCT`,role:M.MAGICAL_RANGED_DPS,iconId:42,color:`#D4C05C`}},st=e=>ot[e],ct=e=>{let t=st(e);if(!t)return``;let n=``;switch(t.role){case M.TANK:n=`01_TANK`;break;case M.HEALER:n=`02_HEALER`;break;case M.MELEE_DPS:case M.PHYSICAL_RANGED_DPS:case M.MAGICAL_RANGED_DPS:n=`03_DPS`;break}return`/cc-war-record/img/${n}/Job/${t.nameEn}.png`},lt=e=>{let t=``;switch(e){case M.TANK:t=`TankRole`;break;case M.HEALER:t=`HealerRole`;break;case M.MELEE_DPS:t=`MeleeDPS`;break;case M.PHYSICAL_RANGED_DPS:t=`PhysicalRangedDPS`;break;case M.MAGICAL_RANGED_DPS:t=`MagicalRangedDPS`;break}return`/cc-war-record/img/00_ROLE/${t}.png`};M.TANK,M.HEALER,M.MELEE_DPS,M.PHYSICAL_RANGED_DPS,M.MAGICAL_RANGED_DPS,M.TANK,M.HEALER,M.MELEE_DPS,M.PHYSICAL_RANGED_DPS,M.MAGICAL_RANGED_DPS;const ut=e=>{let t=Object.values(P);return e.sort((e,n)=>t.indexOf(e)-t.indexOf(n))},F={BUILD_TIMESTAMP:`app-build-timestamp`,THEME:`cc-war-record-theme`,CHARACTERS:`cc-war-record-characters`,MATCH_RECORDS:`cc-war-record-match-records`,HISTORIES:`cc-war-record-histories`,HISTORY:"histories-${uuid}",RADAR_CHART_JOBS:`cc-war-record:radar-chart-jobs`},I=(e,t)=>{try{if(typeof window>`u`)return t;let n=window.localStorage.getItem(e);return n===null?t:JSON.parse(n)}catch(n){return console.error(`Error reading from localStorage (key: ${e}):`,n),t}},L=(e,t)=>{try{if(typeof window>`u`)return;window.localStorage.setItem(e,JSON.stringify(t))}catch(t){console.error(`Error writing to localStorage (key: ${e}):`,t)}},dt=e=>{try{if(typeof window>`u`)return;window.localStorage.removeItem(e)}catch(t){console.error(`Error removing from localStorage (key: ${e}):`,t)}},R={THE_PALAISTRA:`THE_PALAISTRA`,VOLCANIC_HEART:`VOLCANIC_HEART`,CLOUD_NINE:`CLOUD_NINE`,TOUHOU_KARAKURI_GOTEN:`TOUHOU_KARAKURI_GOTEN`,RED_SANDS:`RED_SANDS`,BAYSIDE_BATTLEGROUND:`BAYSIDE_BATTLEGROUND`},z={ARENA:`arena`,SKY:`sky`,VOLCANIC:`volcanic`,WATER:`water`,CASTLE:`castle`,URBAN:`urban`,DESERT:`desert`},B={SMALL:`small`,MEDIUM:`medium`,LARGE:`large`},V={CENTRAL_CRYSTAL:`central_crystal`,MULTI_LEVEL:`multi_level`,NARROW_PATHS:`narrow_paths`,OPEN_AREA:`open_area`,ENVIRONMENTAL_HAZARDS:`environmental_hazards`,VERTICAL_MOVEMENT:`vertical_movement`};R.THE_PALAISTRA,R.THE_PALAISTRA,z.ARENA,B.MEDIUM,V.CENTRAL_CRYSTAL,V.OPEN_AREA,R.VOLCANIC_HEART,R.VOLCANIC_HEART,z.VOLCANIC,B.MEDIUM,V.ENVIRONMENTAL_HAZARDS,V.CENTRAL_CRYSTAL,R.CLOUD_NINE,R.CLOUD_NINE,z.SKY,B.LARGE,V.MULTI_LEVEL,V.VERTICAL_MOVEMENT,R.TOUHOU_KARAKURI_GOTEN,R.TOUHOU_KARAKURI_GOTEN,z.CASTLE,B.MEDIUM,V.MULTI_LEVEL,V.NARROW_PATHS,V.ENVIRONMENTAL_HAZARDS,R.RED_SANDS,R.RED_SANDS,z.DESERT,B.LARGE,V.OPEN_AREA,V.ENVIRONMENTAL_HAZARDS,R.BAYSIDE_BATTLEGROUND,R.BAYSIDE_BATTLEGROUND,z.WATER,B.LARGE,V.OPEN_AREA,V.CENTRAL_CRYSTAL,V.ENVIRONMENTAL_HAZARDS;const ft=(e,t)=>t(`maps.${e}`);var H=[R.THE_PALAISTRA,R.VOLCANIC_HEART,R.TOUHOU_KARAKURI_GOTEN,R.BAYSIDE_BATTLEGROUND,R.CLOUD_NINE,R.RED_SANDS],U=new Date(`2022-01-01T00:00:00+09:00`),W=5400*1e3;const G=(e=new Date)=>{let t=e.getTime()-U.getTime(),n=Math.floor(t/W)%H.length;return H[n]},K=(e=new Date)=>{let t=e.getTime()-U.getTime(),n=(Math.floor(t/W)%H.length+1)%H.length;return H[n]},pt=(e=new Date)=>{let t=(e.getTime()-U.getTime())%W,n=W-t;return new Date(e.getTime()+n)},mt=(e,t=new Date)=>{if(G(t)===e)return pt(t);let n=t.getTime()-U.getTime(),r=Math.floor(n/W)%H.length,i=H.indexOf(e)-r;i<=0&&(i+=H.length);let a=n%W,o=W-a,s=t.getTime()+o+(i-1)*W;return new Date(s)},ht=(e,t=new Date)=>{if(G(t)===e){let e=(t.getTime()-U.getTime())%W,n=new Date(t.getTime()-e),r=new Date(n.getTime()+W);return{startTime:n,endTime:r}}let n=mt(e,t),r=new Date(n.getTime()+W);return{startTime:n,endTime:r}},gt=()=>`xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx`.replace(/[xy]/g,e=>{let t=Math.random()*16|0;return(e===`x`?t:t&3|8).toString(16)}),_t=()=>{if(typeof window>`u`)return 0;let e=document.createElement(`div`);e.style.visibility=`hidden`,e.style.overflow=`scroll`,e.style.width=`100px`,e.style.position=`absolute`,e.style.top=`-9999px`,document.body.appendChild(e);let t=document.createElement(`div`);t.style.width=`100%`,e.appendChild(t);let n=e.offsetWidth-t.offsetWidth;return document.body.removeChild(e),n};var vt=e(ae()),yt=[F.CHARACTERS,F.MATCH_RECORDS,F.HISTORIES,F.RADAR_CHART_JOBS];const bt=async()=>{let e=new vt.default;yt.forEach(t=>{let n=localStorage.getItem(t);if(n){let r=`${t.replace(/^cc-war-record[-:]?/,``)}.json`;e.file(r,n)}});let t=[];for(let e=0;e<localStorage.length;e++){let n=localStorage.key(e);n?.startsWith(`histories-`)&&t.push(n)}t.forEach(t=>{let n=localStorage.getItem(t);n&&e.file(`${t}.json`,n)});let n=await e.generateAsync({type:`blob`}),r=`cc-war-record-backup-${new Date().toISOString().replace(/[-:]/g,``).replace(/\.\d{3}Z$/,``).replace(`T`,`-`)}.zip`,i=URL.createObjectURL(n),a=document.createElement(`a`);a.href=i,a.download=r,document.body.appendChild(a),a.click(),document.body.removeChild(a),URL.revokeObjectURL(i)},xt=async e=>{let t=await new vt.default().loadAsync(e),n=new Set,r=[`characters`,`match-records`,`histories`,`radar-chart-jobs`],i=new Map,a=[];t.forEach((e,t)=>{if(t.dir)return;let o=e.replace(/\.json$/,``);if(!(o.startsWith(`histories-`)||r.some(e=>o===e)))throw Error(`BACKUP_FILE_CORRUPTED`);n.add(o),a.push((async()=>{let e=await t.async(`text`);try{JSON.parse(e)}catch{throw Error(`BACKUP_FILE_CORRUPTED`)}let n;n=o.startsWith(`histories-`)?o:o.includes(`:`)?`cc-war-record:${o}`:`cc-war-record-${o}`,i.set(n,localStorage.getItem(n)),localStorage.setItem(n,e)})())});try{await Promise.all(a)}catch(e){throw i.forEach((e,t)=>{e===null?localStorage.removeItem(t):localStorage.setItem(t,e)}),e}};var St=y.img`
+`;const k=(0,x.memo)(({id:e,label:t,error:n,fullWidth:r,width:i,options:a,value:o,onChange:s,disabled:c})=>{let[l,u]=(0,x.useState)(!1),d=(0,x.useRef)(null);(0,x.useEffect)(()=>{let e=e=>{d.current&&!d.current.contains(e.target)&&u(!1)};return document.addEventListener(`mousedown`,e),()=>document.removeEventListener(`mousedown`,e)},[]);let f=e=>{c||(u(!1),s&&s({target:{value:e}}))},p=a.find(e=>e.value===o)?.label||a[0]?.label||``;return(0,b.jsxs)(We,{ref:d,fullWidth:r,width:i,children:[t&&(0,b.jsx)(Ge,{htmlFor:e,children:t}),(0,b.jsxs)(Ke,{type:`button`,onClick:()=>!c&&u(!l),isOpen:l,hasError:!!n,disabled:c,children:[p,(0,b.jsx)(qe,{isOpen:l,children:(0,b.jsx)(O,{name:`arrowDropDown`,size:24})})]}),(0,b.jsx)(Je,{isOpen:l,children:a.map(e=>(0,b.jsx)(Ye,{onClick:()=>f(e.value),isSelected:e.value===o,children:e.label},e.value))}),(0,b.jsx)(Ze,{id:e,value:o,onChange:s,disabled:c,tabIndex:-1,children:a.map(e=>(0,b.jsx)(`option`,{value:e.value,children:e.label},e.value))}),n&&(0,b.jsx)(Xe,{children:n})]})});k.displayName=`Select`;const A=(e,t,n=600)=>e>=51?t.colors.success[n]:e>=40?t.colors.warning[n]:t.colors.error[n],Qe=()=>new Date().toISOString(),$e=(e,t,n)=>{let r=new Date(e);if(!t){let e=r.getFullYear(),t=String(r.getMonth()+1).padStart(2,`0`),n=String(r.getDate()).padStart(2,`0`),i=String(r.getHours()).padStart(2,`0`),a=String(r.getMinutes()).padStart(2,`0`);return`${e}-${t}-${n} ${i}:${a}`}return r.toLocaleDateString(t,n)},et=(e,t)=>new Date(e).toLocaleDateString(t,{month:`numeric`,day:`numeric`}),tt=(e,t)=>new Date(e).toLocaleDateString(t,{year:`numeric`,month:`long`,day:`numeric`}),nt=e=>{let t=new Date(e),n=String(t.getHours()).padStart(2,`0`),r=String(t.getMinutes()).padStart(2,`0`);return`${n}:${r}`},rt=e=>e.length,it=e=>e.filter(e=>e.isWin).length,at=e=>e.filter(e=>!e.isWin).length,ot=e=>{let t=rt(e);if(t===0)return 0;let n=it(e);return Math.round(n/t*100)},j={TANK:`tank`,HEALER:`healer`,MELEE_DPS:`melee_dps`,PHYSICAL_RANGED_DPS:`physical_ranged_dps`,MAGICAL_RANGED_DPS:`magical_ranged_dps`},M={[j.TANK]:{code:j.TANK,name:`タンク`,nameEn:`Tank`,color:`#3b82f6`},[j.HEALER]:{code:j.HEALER,name:`ヒーラー`,nameEn:`Healer`,color:`#10b981`},[j.MELEE_DPS]:{code:j.MELEE_DPS,name:`近接DPS`,nameEn:`MeleeDPS`,color:`#f59e0b`},[j.PHYSICAL_RANGED_DPS]:{code:j.PHYSICAL_RANGED_DPS,name:`物理遠隔DPS`,nameEn:`PhysicalRangedDPS`,color:`#8b5cf6`},[j.MAGICAL_RANGED_DPS]:{code:j.MAGICAL_RANGED_DPS,name:`魔法遠隔DPS`,nameEn:`MagicalRangedDPS`,color:`#ef4444`}},N={PALADIN:`PLD`,WARRIOR:`WAR`,DARK_KNIGHT:`DRK`,GUNBREAKER:`GNB`,WHITE_MAGE:`WHM`,SCHOLAR:`SCH`,ASTROLOGIAN:`AST`,SAGE:`SGE`,MONK:`MNK`,DRAGOON:`DRG`,NINJA:`NIN`,SAMURAI:`SAM`,REAPER:`RPR`,VIPER:`VPR`,BARD:`BRD`,MACHINIST:`MCH`,DANCER:`DNC`,BLACK_MAGE:`BLM`,SUMMONER:`SMN`,RED_MAGE:`RDM`,PICTOMANCER:`PCT`},st={[N.PALADIN]:{code:N.PALADIN,name:`ナイト`,nameEn:`Paladin`,shortName:`PLD`,role:j.TANK,iconId:19,color:`#5EADDC`},[N.WARRIOR]:{code:N.WARRIOR,name:`戦士`,nameEn:`Warrior`,shortName:`WAR`,role:j.TANK,iconId:21,color:`#CF2621`},[N.DARK_KNIGHT]:{code:N.DARK_KNIGHT,name:`暗黒騎士`,nameEn:`DarkKnight`,shortName:`DRK`,role:j.TANK,iconId:32,color:`#D126CC`},[N.GUNBREAKER]:{code:N.GUNBREAKER,name:`ガンブレイカー`,nameEn:`Gunbreaker`,shortName:`GNB`,role:j.TANK,iconId:37,color:`#9C8542`},[N.WHITE_MAGE]:{code:N.WHITE_MAGE,name:`白魔道士`,nameEn:`WhiteMage`,shortName:`WHM`,role:j.HEALER,iconId:24,color:`#E6D8BC`},[N.SCHOLAR]:{code:N.SCHOLAR,name:`学者`,nameEn:`Scholar`,shortName:`SCH`,role:j.HEALER,iconId:28,color:`#8657FF`},[N.ASTROLOGIAN]:{code:N.ASTROLOGIAN,name:`占星術師`,nameEn:`Astrologian`,shortName:`AST`,role:j.HEALER,iconId:33,color:`#E6C84A`},[N.SAGE]:{code:N.SAGE,name:`賢者`,nameEn:`Sage`,shortName:`SGE`,role:j.HEALER,iconId:40,color:`#8FD14F`},[N.MONK]:{code:N.MONK,name:`モンク`,nameEn:`Monk`,shortName:`MNK`,role:j.MELEE_DPS,iconId:20,color:`#D69C00`},[N.DRAGOON]:{code:N.DRAGOON,name:`竜騎士`,nameEn:`Dragoon`,shortName:`DRG`,role:j.MELEE_DPS,iconId:22,color:`#4164CD`},[N.NINJA]:{code:N.NINJA,name:`忍者`,nameEn:`Ninja`,shortName:`NIN`,role:j.MELEE_DPS,iconId:30,color:`#AF1964`},[N.SAMURAI]:{code:N.SAMURAI,name:`侍`,nameEn:`Samurai`,shortName:`SAM`,role:j.MELEE_DPS,iconId:34,color:`#E46D04`},[N.REAPER]:{code:N.REAPER,name:`リーパー`,nameEn:`Reaper`,shortName:`RPR`,role:j.MELEE_DPS,iconId:39,color:`#965A90`},[N.VIPER]:{code:N.VIPER,name:`ヴァイパー`,nameEn:`Viper`,shortName:`VPR`,role:j.MELEE_DPS,iconId:41,color:`#B07830`},[N.BARD]:{code:N.BARD,name:`吟遊詩人`,nameEn:`Bard`,shortName:`BRD`,role:j.PHYSICAL_RANGED_DPS,iconId:23,color:`#91BA5E`},[N.MACHINIST]:{code:N.MACHINIST,name:`機工士`,nameEn:`Machinist`,shortName:`MCH`,role:j.PHYSICAL_RANGED_DPS,iconId:31,color:`#6EE1D6`},[N.DANCER]:{code:N.DANCER,name:`踊り子`,nameEn:`Dancer`,shortName:`DNC`,role:j.PHYSICAL_RANGED_DPS,iconId:38,color:`#D98B8A`},[N.BLACK_MAGE]:{code:N.BLACK_MAGE,name:`黒魔道士`,nameEn:`BlackMage`,shortName:`BLM`,role:j.MAGICAL_RANGED_DPS,iconId:25,color:`#A579D6`},[N.SUMMONER]:{code:N.SUMMONER,name:`召喚士`,nameEn:`Summoner`,shortName:`SMN`,role:j.MAGICAL_RANGED_DPS,iconId:27,color:`#2D9B78`},[N.RED_MAGE]:{code:N.RED_MAGE,name:`赤魔道士`,nameEn:`RedMage`,shortName:`RDM`,role:j.MAGICAL_RANGED_DPS,iconId:35,color:`#E87B7B`},[N.PICTOMANCER]:{code:N.PICTOMANCER,name:`ピクトマンサー`,nameEn:`Pictomancer`,shortName:`PCT`,role:j.MAGICAL_RANGED_DPS,iconId:42,color:`#D4C05C`}},ct=e=>st[e],lt=e=>{let t=ct(e);if(!t)return``;let n=``;switch(t.role){case j.TANK:n=`01_TANK`;break;case j.HEALER:n=`02_HEALER`;break;case j.MELEE_DPS:case j.PHYSICAL_RANGED_DPS:case j.MAGICAL_RANGED_DPS:n=`03_DPS`;break}return`/cc-war-record/img/${n}/Job/${t.nameEn}.png`},ut=e=>{let t=``;switch(e){case j.TANK:t=`TankRole`;break;case j.HEALER:t=`HealerRole`;break;case j.MELEE_DPS:t=`MeleeDPS`;break;case j.PHYSICAL_RANGED_DPS:t=`PhysicalRangedDPS`;break;case j.MAGICAL_RANGED_DPS:t=`MagicalRangedDPS`;break}return`/cc-war-record/img/00_ROLE/${t}.png`};j.TANK,j.HEALER,j.MELEE_DPS,j.PHYSICAL_RANGED_DPS,j.MAGICAL_RANGED_DPS,j.TANK,j.HEALER,j.MELEE_DPS,j.PHYSICAL_RANGED_DPS,j.MAGICAL_RANGED_DPS;const dt=e=>{let t=Object.values(N);return e.sort((e,n)=>t.indexOf(e)-t.indexOf(n))},P={BUILD_TIMESTAMP:`app-build-timestamp`,THEME:`cc-war-record-theme`,CHARACTERS:`cc-war-record-characters`,MATCH_RECORDS:`cc-war-record-match-records`,HISTORIES:`cc-war-record-histories`,HISTORY:"histories-${uuid}",RADAR_CHART_JOBS:`cc-war-record:radar-chart-jobs`},F=(e,t)=>{try{if(typeof window>`u`)return t;let n=window.localStorage.getItem(e);return n===null?t:JSON.parse(n)}catch(n){return console.error(`Error reading from localStorage (key: ${e}):`,n),t}},I=(e,t)=>{try{if(typeof window>`u`)return;window.localStorage.setItem(e,JSON.stringify(t))}catch(t){console.error(`Error writing to localStorage (key: ${e}):`,t)}},ft=e=>{try{if(typeof window>`u`)return;window.localStorage.removeItem(e)}catch(t){console.error(`Error removing from localStorage (key: ${e}):`,t)}},L={THE_PALAISTRA:`THE_PALAISTRA`,VOLCANIC_HEART:`VOLCANIC_HEART`,CLOUD_NINE:`CLOUD_NINE`,TOUHOU_KARAKURI_GOTEN:`TOUHOU_KARAKURI_GOTEN`,RED_SANDS:`RED_SANDS`,BAYSIDE_BATTLEGROUND:`BAYSIDE_BATTLEGROUND`},R={ARENA:`arena`,SKY:`sky`,VOLCANIC:`volcanic`,WATER:`water`,CASTLE:`castle`,URBAN:`urban`,DESERT:`desert`},z={SMALL:`small`,MEDIUM:`medium`,LARGE:`large`},B={CENTRAL_CRYSTAL:`central_crystal`,MULTI_LEVEL:`multi_level`,NARROW_PATHS:`narrow_paths`,OPEN_AREA:`open_area`,ENVIRONMENTAL_HAZARDS:`environmental_hazards`,VERTICAL_MOVEMENT:`vertical_movement`};L.THE_PALAISTRA,L.THE_PALAISTRA,R.ARENA,z.MEDIUM,B.CENTRAL_CRYSTAL,B.OPEN_AREA,L.VOLCANIC_HEART,L.VOLCANIC_HEART,R.VOLCANIC,z.MEDIUM,B.ENVIRONMENTAL_HAZARDS,B.CENTRAL_CRYSTAL,L.CLOUD_NINE,L.CLOUD_NINE,R.SKY,z.LARGE,B.MULTI_LEVEL,B.VERTICAL_MOVEMENT,L.TOUHOU_KARAKURI_GOTEN,L.TOUHOU_KARAKURI_GOTEN,R.CASTLE,z.MEDIUM,B.MULTI_LEVEL,B.NARROW_PATHS,B.ENVIRONMENTAL_HAZARDS,L.RED_SANDS,L.RED_SANDS,R.DESERT,z.LARGE,B.OPEN_AREA,B.ENVIRONMENTAL_HAZARDS,L.BAYSIDE_BATTLEGROUND,L.BAYSIDE_BATTLEGROUND,R.WATER,z.LARGE,B.OPEN_AREA,B.CENTRAL_CRYSTAL,B.ENVIRONMENTAL_HAZARDS;const pt=(e,t)=>t(`maps.${e}`);var V=[L.THE_PALAISTRA,L.VOLCANIC_HEART,L.TOUHOU_KARAKURI_GOTEN,L.BAYSIDE_BATTLEGROUND,L.CLOUD_NINE,L.RED_SANDS],H=new Date(`2022-01-01T00:00:00+09:00`),U=5400*1e3;const W=(e=new Date)=>{let t=e.getTime()-H.getTime(),n=Math.floor(t/U)%V.length;return V[n]},G=(e=new Date)=>{let t=e.getTime()-H.getTime(),n=(Math.floor(t/U)%V.length+1)%V.length;return V[n]},mt=(e=new Date)=>{let t=(e.getTime()-H.getTime())%U,n=U-t;return new Date(e.getTime()+n)},ht=(e,t=new Date)=>{if(W(t)===e)return mt(t);let n=t.getTime()-H.getTime(),r=Math.floor(n/U)%V.length,i=V.indexOf(e)-r;i<=0&&(i+=V.length);let a=n%U,o=U-a,s=t.getTime()+o+(i-1)*U;return new Date(s)},gt=(e,t=new Date)=>{if(W(t)===e){let e=(t.getTime()-H.getTime())%U,n=new Date(t.getTime()-e),r=new Date(n.getTime()+U);return{startTime:n,endTime:r}}let n=ht(e,t),r=new Date(n.getTime()+U);return{startTime:n,endTime:r}},_t=()=>`xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx`.replace(/[xy]/g,e=>{let t=Math.random()*16|0;return(e===`x`?t:t&3|8).toString(16)}),vt=()=>{if(typeof window>`u`)return 0;let e=document.createElement(`div`);e.style.visibility=`hidden`,e.style.overflow=`scroll`,e.style.width=`100px`,e.style.position=`absolute`,e.style.top=`-9999px`,document.body.appendChild(e);let t=document.createElement(`div`);t.style.width=`100%`,e.appendChild(t);let n=e.offsetWidth-t.offsetWidth;return document.body.removeChild(e),n};var yt=e(ae()),bt=[P.CHARACTERS,P.MATCH_RECORDS,P.HISTORIES,P.RADAR_CHART_JOBS];const xt=async()=>{let e=new yt.default;bt.forEach(t=>{let n=localStorage.getItem(t);if(n){let r=`${t.replace(/^cc-war-record[-:]?/,``)}.json`;e.file(r,n)}});let t=[];for(let e=0;e<localStorage.length;e++){let n=localStorage.key(e);n?.startsWith(`histories-`)&&t.push(n)}t.forEach(t=>{let n=localStorage.getItem(t);n&&e.file(`${t}.json`,n)});let n=await e.generateAsync({type:`blob`}),r=`cc-war-record-backup-${new Date().toISOString().replace(/[-:]/g,``).replace(/\.\d{3}Z$/,``).replace(`T`,`-`)}.zip`,i=URL.createObjectURL(n),a=document.createElement(`a`);a.href=i,a.download=r,document.body.appendChild(a),a.click(),document.body.removeChild(a),URL.revokeObjectURL(i)},St=async e=>{let t=await new yt.default().loadAsync(e),n=new Set,r=[`characters`,`match-records`,`histories`,`radar-chart-jobs`],i=new Map,a=[];t.forEach((e,t)=>{if(t.dir)return;let o=e.replace(/\.json$/,``);if(!(o.startsWith(`histories-`)||r.some(e=>o===e)))throw Error(`BACKUP_FILE_CORRUPTED`);n.add(o),a.push((async()=>{let e=await t.async(`text`);try{JSON.parse(e)}catch{throw Error(`BACKUP_FILE_CORRUPTED`)}let n;n=o.startsWith(`histories-`)?o:o.includes(`:`)?`cc-war-record:${o}`:`cc-war-record-${o}`,i.set(n,localStorage.getItem(n)),localStorage.setItem(n,e)})())});try{await Promise.all(a)}catch(e){throw i.forEach((e,t)=>{e===null?localStorage.removeItem(t):localStorage.setItem(t,e)}),e}};var Ct=y.img`
   width: ${({size:e})=>e}px;
   height: ${({size:e})=>e}px;
   object-fit: contain;
   display: inline-block;
   filter: brightness(1.25);
-`,Ct=y.div`
+`,wt=y.div`
   width: ${({size:e})=>e}px;
   height: ${({size:e})=>e}px;
   background-color: ${({bgColor:e})=>e};
@@ -447,7 +447,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   color: white;
   font-weight: bold;
   font-size: ${({size:e})=>Math.max(e*.3,10)}px;
-`;const wt=(0,x.memo)(({job:e,size:t=32,alt:n,className:r})=>{let i=ct(e),a=e,o=e=>{let t=st(e);return t?t.color:`#6B7280`};return i?(0,b.jsx)(St,{src:i,alt:n||e,size:t,className:r,onError:i=>{let s=i.target;s.style.display=`none`;let c=document.createElement(`div`);c.className=r||``,c.style.cssText=`
+`;const Tt=(0,x.memo)(({job:e,size:t=32,alt:n,className:r})=>{let i=lt(e),a=e,o=e=>{let t=ct(e);return t?t.color:`#6B7280`};return i?(0,b.jsx)(Ct,{src:i,alt:n||e,size:t,className:r,onError:i=>{let s=i.target;s.style.display=`none`;let c=document.createElement(`div`);c.className=r||``,c.style.cssText=`
           width: ${t}px;
           height: ${t}px;
           background-color: ${o(e)};
@@ -458,12 +458,12 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
           color: white;
           font-weight: bold;
           font-size: ${Math.max(t*.3,10)}px;
-        `,c.textContent=a,c.title=n||e,s.parentNode&&s.parentNode.insertBefore(c,s)}}):(0,b.jsx)(Ct,{size:t,bgColor:o(e),className:r,title:n||e,children:a})});wt.displayName=`JobIcon`;var Tt=y.img`
+        `,c.textContent=a,c.title=n||e,s.parentNode&&s.parentNode.insertBefore(c,s)}}):(0,b.jsx)(wt,{size:t,bgColor:o(e),className:r,title:n||e,children:a})});Tt.displayName=`JobIcon`;var Et=y.img`
   width: ${({size:e})=>e}px;
   height: ${({size:e})=>e}px;
   object-fit: contain;
   display: inline-block;
-`,Et=y.div`
+`,Dt=y.div`
   width: ${({size:e})=>e}px;
   height: ${({size:e})=>e}px;
   background-color: ${({bgColor:e})=>e};
@@ -474,7 +474,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   color: white;
   font-weight: bold;
   font-size: ${({size:e})=>Math.max(e*.3,10)}px;
-`;const Dt=(0,x.memo)(({role:e,size:t=32,alt:n,className:r})=>{let i=lt(e),a=N[e]?.name||e,o=e=>{let t=N[e];return t?t.color:`#6B7280`};return i?(0,b.jsx)(Tt,{src:i,alt:n||a,size:t,className:r,onError:i=>{let s=i.target;s.style.display=`none`;let c=document.createElement(`div`);c.className=r||``,c.style.cssText=`
+`;const Ot=(0,x.memo)(({role:e,size:t=32,alt:n,className:r})=>{let i=ut(e),a=M[e]?.name||e,o=e=>{let t=M[e];return t?t.color:`#6B7280`};return i?(0,b.jsx)(Et,{src:i,alt:n||a,size:t,className:r,onError:i=>{let s=i.target;s.style.display=`none`;let c=document.createElement(`div`);c.className=r||``,c.style.cssText=`
           width: ${t}px;
           height: ${t}px;
           background-color: ${o(e)};
@@ -485,7 +485,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
           color: white;
           font-weight: bold;
           font-size: ${Math.max(t*.3,10)}px;
-        `,c.textContent=a,c.title=n||a,s.parentNode&&s.parentNode.insertBefore(c,s)}}):(0,b.jsx)(Et,{size:t,bgColor:o(e),className:r,title:n||a,children:a})});Dt.displayName=`RoleIcon`;const Ot=()=>{let[e,t]=(0,x.useState)(()=>G()),[n,r]=(0,x.useState)(()=>K());return(0,x.useEffect)(()=>{t(G()),r(K());let e=()=>{let n=new Date,i=pt(n).getTime()-n.getTime();return setTimeout(()=>{t(G()),r(K()),e()},i)},n=e();return()=>{clearTimeout(n)}},[]),{currentMap:e,nextMap:n}},q=()=>{let{t:e,i18n:t}=f();return{t:e,i18n:t,currentLanguage:t.language,changeLanguage:e=>t.changeLanguage(e),isLanguage:e=>t.language===e}},kt=e=>{let{t}=q();(0,x.useEffect)(()=>{let n=t(`common.appName`);return document.title=e?`${n} - ${e}`:n,()=>{document.title=n}},[e,t])},At=e=>{(0,x.useEffect)(()=>{if(e){let e=window.innerWidth-document.documentElement.clientWidth,t=window.scrollY;return document.body.style.overflow=`hidden`,document.body.style.paddingRight=`${e}px`,document.body.style.position=`fixed`,document.body.style.top=`-${t}px`,document.body.style.width=`100%`,()=>{document.body.style.overflow=``,document.body.style.paddingRight=``,document.body.style.position=``,document.body.style.top=``,document.body.style.width=``,window.scrollTo(0,t)}}},[e])};var jt={isLight:!1,isDark:!1,breakpoints:{sm:`640px`,md:`768px`,lg:`1024px`,xl:`1280px`,"2xl":`1536px`},spacing:{0:`0`,1:`0.25rem`,2:`0.5rem`,3:`0.75rem`,4:`1rem`,5:`1.25rem`,6:`1.5rem`,8:`2rem`,10:`2.5rem`,12:`3rem`,16:`4rem`,20:`5rem`,24:`6rem`},borderRadius:{none:`0`,sm:`0.125rem`,default:`0.25rem`,md:`0.375rem`,lg:`0.5rem`,xl:`0.75rem`,"2xl":`1rem`,"3xl":`1.5rem`,full:`9999px`},transitions:{fast:`150ms cubic-bezier(0.4, 0, 0.2, 1)`,base:`200ms cubic-bezier(0.4, 0, 0.2, 1)`,slow:`300ms cubic-bezier(0.4, 0, 0.2, 1)`,bounce:`400ms cubic-bezier(0.68, -0.55, 0.265, 1.55)`},blur:{sm:`blur(4px)`,md:`blur(8px)`,lg:`blur(12px)`,xl:`blur(16px)`}};const Mt={...jt,isLight:!0,colors:{primary:{50:`#f0f9ff`,100:`#e0f2fe`,200:`#bae6fd`,300:`#7dd3fc`,400:`#38bdf8`,500:`#26A1DF`,600:`#0284c7`,700:`#0369a1`,800:`#075985`,900:`#0c4a6e`},win:{50:`#f0fdf4`,100:`#dcfce7`,200:`#bbf7d0`,300:`#86efac`,400:`#4ade80`,500:`#10b981`,600:`#059669`,700:`#047857`,800:`#065f46`,900:`#064e3b`},defeat:{50:`#fef2f2`,100:`#fee2e2`,200:`#fecaca`,300:`#fca5a5`,400:`#f87171`,500:`#ef4444`,600:`#dc2626`,700:`#b91c1c`,800:`#991b1b`,900:`#7f1d1d`},error:{50:`#fef2f2`,100:`#fee2e2`,200:`#fecaca`,300:`#fca5a5`,400:`#f87171`,500:`#ef4444`,600:`#dc2626`,700:`#b91c1c`,800:`#991b1b`,900:`#7f1d1d`},success:{50:`#f0fdf4`,100:`#dcfce7`,200:`#bbf7d0`,300:`#86efac`,400:`#4ade80`,500:`#10b981`,600:`#059669`,700:`#047857`,800:`#065f46`,900:`#064e3b`},warning:{50:`#fffbeb`,100:`#fef3c7`,200:`#fde68a`,300:`#fcd34d`,400:`#fbbf24`,500:`#f59e0b`,600:`#d97706`,700:`#b45309`,800:`#92400e`,900:`#78350f`},gray:{50:`#f9fafb`,100:`#f3f4f6`,200:`#e5e7eb`,300:`#d1d5db`,400:`#9ca3af`,500:`#6b7280`,600:`#4b5563`,700:`#374151`,800:`#1f2937`,900:`#111827`},white:`#ffffff`,black:`#000000`,background:`#ffffff`,backgroundSecondary:`#f9fafb`,surface:`rgba(255, 255, 255, 0.95)`,surfaceHover:`rgba(255, 255, 255, 0.98)`,border:`rgba(38, 161, 223, 0.2)`,borderLight:`rgba(38, 161, 223, 0.15)`,text:`#111827`,textSecondary:`#6b7280`,textTertiary:`#9ca3af`,info:`#3b82f6`,transparent:`transparent`},gradients:{primary:`linear-gradient(135deg, #26A1DF 0%, #F36346 100%)`,success:`linear-gradient(135deg, #10b981 0%, #059669 100%)`,danger:`linear-gradient(135deg, #ef4444 0%, #dc2626 100%)`,warning:`linear-gradient(135deg, #f59e0b 0%, #d97706 100%)`,glass:`linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)`,shimmer:`linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent)`},shadows:{xs:`0 1px 2px 0 rgba(0, 0, 0, 0.05)`,sm:`0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)`,md:`0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)`,lg:`0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)`,xl:`0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)`,"2xl":`0 25px 50px -12px rgba(0, 0, 0, 0.25)`,inner:`inset 0 2px 4px 0 rgba(0, 0, 0, 0.05)`,none:`none`,glow:`0 0 20px rgba(38, 161, 223, 0.4)`,glowLg:`0 0 40px rgba(38, 161, 223, 0.6)`}},Nt={...jt,isDark:!0,colors:{primary:{50:`#f0f9ff`,100:`#e0f2fe`,200:`#bae6fd`,300:`#7dd3fc`,400:`#38bdf8`,500:`#26A1DF`,600:`#0284c7`,700:`#0369a1`,800:`#075985`,900:`#0c4a6e`},win:{50:`#f0fdf4`,100:`#dcfce7`,200:`#bbf7d0`,300:`#86efac`,400:`#4ade80`,500:`#10b981`,600:`#059669`,700:`#047857`,800:`#065f46`,900:`#064e3b`},defeat:{50:`#fef2f2`,100:`#fee2e2`,200:`#fecaca`,300:`#fca5a5`,400:`#f87171`,500:`#ef4444`,600:`#dc2626`,700:`#b91c1c`,800:`#991b1b`,900:`#7f1d1d`},error:{50:`#fef2f2`,100:`#fee2e2`,200:`#fecaca`,300:`#fca5a5`,400:`#f87171`,500:`#ef4444`,600:`#dc2626`,700:`#b91c1c`,800:`#991b1b`,900:`#7f1d1d`},success:{50:`#f0fdf4`,100:`#dcfce7`,200:`#bbf7d0`,300:`#86efac`,400:`#4ade80`,500:`#10b981`,600:`#059669`,700:`#047857`,800:`#065f46`,900:`#064e3b`},warning:{50:`#fffbeb`,100:`#fef3c7`,200:`#fde68a`,300:`#fcd34d`,400:`#fbbf24`,500:`#f59e0b`,600:`#d97706`,700:`#b45309`,800:`#92400e`,900:`#78350f`},gray:{50:`#18181b`,100:`#27272a`,200:`#3f3f46`,300:`#52525b`,400:`#71717a`,500:`#a1a1aa`,600:`#d4d4d8`,700:`#e4e4e7`,800:`#f4f4f5`,900:`#fafafa`},white:`#000000`,black:`#ffffff`,background:`#0a0a0b`,backgroundSecondary:`#18181b`,surface:`rgba(24, 24, 27, 0.95)`,surfaceHover:`rgba(39, 39, 42, 0.98)`,border:`rgba(38, 161, 223, 0.3)`,borderLight:`rgba(38, 161, 223, 0.2)`,text:`#fafafa`,textSecondary:`#a1a1aa`,textTertiary:`#71717a`,info:`#60a5fa`},gradients:{primary:`linear-gradient(135deg, #26A1DF 0%, #F36346 100%)`,success:`linear-gradient(135deg, #10b981 0%, #059669 100%)`,danger:`linear-gradient(135deg, #ef4444 0%, #dc2626 100%)`,warning:`linear-gradient(135deg, #f59e0b 0%, #d97706 100%)`,glass:`linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%)`,shimmer:`linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent)`},shadows:{xs:`0 1px 2px 0 rgba(0, 0, 0, 0.3)`,sm:`0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px -1px rgba(0, 0, 0, 0.4)`,md:`0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.4)`,lg:`0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.4)`,xl:`0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.4)`,"2xl":`0 25px 50px -12px rgba(0, 0, 0, 0.6)`,inner:`inset 0 2px 4px 0 rgba(0, 0, 0, 0.3)`,none:`none`,glow:`0 0 20px rgba(38, 161, 223, 0.5)`,glowLg:`0 0 40px rgba(38, 161, 223, 0.7)`}};var Pt=(0,x.createContext)(void 0);const Ft=()=>{let e=(0,x.useContext)(Pt);if(!e)throw Error(`useTheme must be used within a ThemeProvider`);return e},It=({children:e})=>{let[t,n]=(0,x.useState)(()=>I(F.THEME,`light`));(0,x.useEffect)(()=>{L(F.THEME,t)},[t]),(0,x.useEffect)(()=>{let e=`rgba(255, 255, 255, 0.7)`,t=`rgba(10, 10, 11, 0.7)`,n=document.querySelector(`meta[name="theme-color"][media="(prefers-color-scheme: light)"]`),r=document.querySelector(`meta[name="theme-color"][media="(prefers-color-scheme: dark)"]`);if(n&&r)n.setAttribute(`content`,e),r.setAttribute(`content`,t);else{let n=document.querySelector(`meta[name="theme-color"]:not([media])`);n&&n.remove();let r=document.createElement(`meta`);r.name=`theme-color`,r.content=e,r.media=`(prefers-color-scheme: light)`,document.head.appendChild(r);let i=document.createElement(`meta`);i.name=`theme-color`,i.content=t,i.media=`(prefers-color-scheme: dark)`,document.head.appendChild(i)}let i=document.querySelector(`meta[name="color-scheme"]`);i||(i=document.createElement(`meta`),i.setAttribute(`name`,`color-scheme`),document.head.appendChild(i)),i.setAttribute(`content`,`light dark`)},[t]);let r=(0,x.useMemo)(()=>({mode:t,toggleMode:()=>n(e=>e===`light`?`dark`:`light`),setMode:e=>n(e),theme:t===`dark`?Nt:Mt}),[t]);return(0,b.jsx)(Pt.Provider,{value:r,children:e})},Lt=e=>{let[t,n]=(0,x.useState)(!1);return(0,x.useEffect)(()=>{let t=window.matchMedia(e);n(t.matches);let r=e=>{n(e.matches)};return t.addEventListener(`change`,r),()=>{t.removeEventListener(`change`,r)}},[e]),t},Rt=()=>Lt(`(max-width: 768px)`),J=_`
+        `,c.textContent=a,c.title=n||a,s.parentNode&&s.parentNode.insertBefore(c,s)}}):(0,b.jsx)(Dt,{size:t,bgColor:o(e),className:r,title:n||a,children:a})});Ot.displayName=`RoleIcon`;const kt=()=>{let[e,t]=(0,x.useState)(()=>W()),[n,r]=(0,x.useState)(()=>G());return(0,x.useEffect)(()=>{t(W()),r(G());let e=()=>{let n=new Date,i=mt(n).getTime()-n.getTime();return setTimeout(()=>{t(W()),r(G()),e()},i)},n=e();return()=>{clearTimeout(n)}},[]),{currentMap:e,nextMap:n}},K=()=>{let{t:e,i18n:t}=f();return{t:e,i18n:t,currentLanguage:t.language,changeLanguage:e=>t.changeLanguage(e),isLanguage:e=>t.language===e}},At=e=>{let{t}=K();(0,x.useEffect)(()=>{let n=t(`common.appName`);return document.title=e?`${n} - ${e}`:n,()=>{document.title=n}},[e,t])},jt=e=>{(0,x.useEffect)(()=>{if(e){let e=window.innerWidth-document.documentElement.clientWidth,t=window.scrollY;return document.body.style.overflow=`hidden`,document.body.style.paddingRight=`${e}px`,document.body.style.position=`fixed`,document.body.style.top=`-${t}px`,document.body.style.width=`100%`,()=>{document.body.style.overflow=``,document.body.style.paddingRight=``,document.body.style.position=``,document.body.style.top=``,document.body.style.width=``,window.scrollTo(0,t)}}},[e])};var Mt={isLight:!1,isDark:!1,breakpoints:{sm:`640px`,md:`768px`,lg:`1024px`,xl:`1280px`,"2xl":`1536px`},spacing:{0:`0`,1:`0.25rem`,2:`0.5rem`,3:`0.75rem`,4:`1rem`,5:`1.25rem`,6:`1.5rem`,8:`2rem`,10:`2.5rem`,12:`3rem`,16:`4rem`,20:`5rem`,24:`6rem`},borderRadius:{none:`0`,sm:`0.125rem`,default:`0.25rem`,md:`0.375rem`,lg:`0.5rem`,xl:`0.75rem`,"2xl":`1rem`,"3xl":`1.5rem`,full:`9999px`},transitions:{fast:`150ms cubic-bezier(0.4, 0, 0.2, 1)`,base:`200ms cubic-bezier(0.4, 0, 0.2, 1)`,slow:`300ms cubic-bezier(0.4, 0, 0.2, 1)`,bounce:`400ms cubic-bezier(0.68, -0.55, 0.265, 1.55)`},blur:{sm:`blur(4px)`,md:`blur(8px)`,lg:`blur(12px)`,xl:`blur(16px)`}};const Nt={...Mt,isLight:!0,colors:{primary:{50:`#f0f9ff`,100:`#e0f2fe`,200:`#bae6fd`,300:`#7dd3fc`,400:`#38bdf8`,500:`#26A1DF`,600:`#0284c7`,700:`#0369a1`,800:`#075985`,900:`#0c4a6e`},win:{50:`#f0fdf4`,100:`#dcfce7`,200:`#bbf7d0`,300:`#86efac`,400:`#4ade80`,500:`#10b981`,600:`#059669`,700:`#047857`,800:`#065f46`,900:`#064e3b`},defeat:{50:`#fef2f2`,100:`#fee2e2`,200:`#fecaca`,300:`#fca5a5`,400:`#f87171`,500:`#ef4444`,600:`#dc2626`,700:`#b91c1c`,800:`#991b1b`,900:`#7f1d1d`},error:{50:`#fef2f2`,100:`#fee2e2`,200:`#fecaca`,300:`#fca5a5`,400:`#f87171`,500:`#ef4444`,600:`#dc2626`,700:`#b91c1c`,800:`#991b1b`,900:`#7f1d1d`},success:{50:`#f0fdf4`,100:`#dcfce7`,200:`#bbf7d0`,300:`#86efac`,400:`#4ade80`,500:`#10b981`,600:`#059669`,700:`#047857`,800:`#065f46`,900:`#064e3b`},warning:{50:`#fffbeb`,100:`#fef3c7`,200:`#fde68a`,300:`#fcd34d`,400:`#fbbf24`,500:`#f59e0b`,600:`#d97706`,700:`#b45309`,800:`#92400e`,900:`#78350f`},gray:{50:`#f9fafb`,100:`#f3f4f6`,200:`#e5e7eb`,300:`#d1d5db`,400:`#9ca3af`,500:`#6b7280`,600:`#4b5563`,700:`#374151`,800:`#1f2937`,900:`#111827`},white:`#ffffff`,black:`#000000`,background:`#ffffff`,backgroundSecondary:`#f9fafb`,surface:`rgba(255, 255, 255, 0.95)`,surfaceHover:`rgba(255, 255, 255, 0.98)`,border:`rgba(38, 161, 223, 0.2)`,borderLight:`rgba(38, 161, 223, 0.15)`,text:`#111827`,textSecondary:`#6b7280`,textTertiary:`#9ca3af`,info:`#3b82f6`,transparent:`transparent`},gradients:{primary:`linear-gradient(135deg, #26A1DF 0%, #F36346 100%)`,success:`linear-gradient(135deg, #10b981 0%, #059669 100%)`,danger:`linear-gradient(135deg, #ef4444 0%, #dc2626 100%)`,warning:`linear-gradient(135deg, #f59e0b 0%, #d97706 100%)`,glass:`linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)`,shimmer:`linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent)`},shadows:{xs:`0 1px 2px 0 rgba(0, 0, 0, 0.05)`,sm:`0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)`,md:`0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)`,lg:`0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)`,xl:`0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)`,"2xl":`0 25px 50px -12px rgba(0, 0, 0, 0.25)`,inner:`inset 0 2px 4px 0 rgba(0, 0, 0, 0.05)`,none:`none`,glow:`0 0 20px rgba(38, 161, 223, 0.4)`,glowLg:`0 0 40px rgba(38, 161, 223, 0.6)`}},Pt={...Mt,isDark:!0,colors:{primary:{50:`#f0f9ff`,100:`#e0f2fe`,200:`#bae6fd`,300:`#7dd3fc`,400:`#38bdf8`,500:`#26A1DF`,600:`#0284c7`,700:`#0369a1`,800:`#075985`,900:`#0c4a6e`},win:{50:`#f0fdf4`,100:`#dcfce7`,200:`#bbf7d0`,300:`#86efac`,400:`#4ade80`,500:`#10b981`,600:`#059669`,700:`#047857`,800:`#065f46`,900:`#064e3b`},defeat:{50:`#fef2f2`,100:`#fee2e2`,200:`#fecaca`,300:`#fca5a5`,400:`#f87171`,500:`#ef4444`,600:`#dc2626`,700:`#b91c1c`,800:`#991b1b`,900:`#7f1d1d`},error:{50:`#fef2f2`,100:`#fee2e2`,200:`#fecaca`,300:`#fca5a5`,400:`#f87171`,500:`#ef4444`,600:`#dc2626`,700:`#b91c1c`,800:`#991b1b`,900:`#7f1d1d`},success:{50:`#f0fdf4`,100:`#dcfce7`,200:`#bbf7d0`,300:`#86efac`,400:`#4ade80`,500:`#10b981`,600:`#059669`,700:`#047857`,800:`#065f46`,900:`#064e3b`},warning:{50:`#fffbeb`,100:`#fef3c7`,200:`#fde68a`,300:`#fcd34d`,400:`#fbbf24`,500:`#f59e0b`,600:`#d97706`,700:`#b45309`,800:`#92400e`,900:`#78350f`},gray:{50:`#18181b`,100:`#27272a`,200:`#3f3f46`,300:`#52525b`,400:`#71717a`,500:`#a1a1aa`,600:`#d4d4d8`,700:`#e4e4e7`,800:`#f4f4f5`,900:`#fafafa`},white:`#000000`,black:`#ffffff`,background:`#0a0a0b`,backgroundSecondary:`#18181b`,surface:`rgba(24, 24, 27, 0.95)`,surfaceHover:`rgba(39, 39, 42, 0.98)`,border:`rgba(38, 161, 223, 0.3)`,borderLight:`rgba(38, 161, 223, 0.2)`,text:`#fafafa`,textSecondary:`#a1a1aa`,textTertiary:`#71717a`,info:`#60a5fa`},gradients:{primary:`linear-gradient(135deg, #26A1DF 0%, #F36346 100%)`,success:`linear-gradient(135deg, #10b981 0%, #059669 100%)`,danger:`linear-gradient(135deg, #ef4444 0%, #dc2626 100%)`,warning:`linear-gradient(135deg, #f59e0b 0%, #d97706 100%)`,glass:`linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%)`,shimmer:`linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent)`},shadows:{xs:`0 1px 2px 0 rgba(0, 0, 0, 0.3)`,sm:`0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px -1px rgba(0, 0, 0, 0.4)`,md:`0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.4)`,lg:`0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.4)`,xl:`0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.4)`,"2xl":`0 25px 50px -12px rgba(0, 0, 0, 0.6)`,inner:`inset 0 2px 4px 0 rgba(0, 0, 0, 0.3)`,none:`none`,glow:`0 0 20px rgba(38, 161, 223, 0.5)`,glowLg:`0 0 40px rgba(38, 161, 223, 0.7)`}};var Ft=(0,x.createContext)(void 0);const It=()=>{let e=(0,x.useContext)(Ft);if(!e)throw Error(`useTheme must be used within a ThemeProvider`);return e},Lt=({children:e})=>{let[t,n]=(0,x.useState)(()=>F(P.THEME,`light`));(0,x.useEffect)(()=>{I(P.THEME,t)},[t]),(0,x.useEffect)(()=>{let e=`rgba(255, 255, 255, 0.7)`,t=`rgba(10, 10, 11, 0.7)`,n=document.querySelector(`meta[name="theme-color"][media="(prefers-color-scheme: light)"]`),r=document.querySelector(`meta[name="theme-color"][media="(prefers-color-scheme: dark)"]`);if(n&&r)n.setAttribute(`content`,e),r.setAttribute(`content`,t);else{let n=document.querySelector(`meta[name="theme-color"]:not([media])`);n&&n.remove();let r=document.createElement(`meta`);r.name=`theme-color`,r.content=e,r.media=`(prefers-color-scheme: light)`,document.head.appendChild(r);let i=document.createElement(`meta`);i.name=`theme-color`,i.content=t,i.media=`(prefers-color-scheme: dark)`,document.head.appendChild(i)}let i=document.querySelector(`meta[name="color-scheme"]`);i||(i=document.createElement(`meta`),i.setAttribute(`name`,`color-scheme`),document.head.appendChild(i)),i.setAttribute(`content`,`light dark`)},[t]);let r=(0,x.useMemo)(()=>({mode:t,toggleMode:()=>n(e=>e===`light`?`dark`:`light`),setMode:e=>n(e),theme:t===`dark`?Pt:Nt}),[t]);return(0,b.jsx)(Ft.Provider,{value:r,children:e})},Rt=e=>{let[t,n]=(0,x.useState)(!1);return(0,x.useEffect)(()=>{let t=window.matchMedia(e);n(t.matches);let r=e=>{n(e.matches)};return t.addEventListener(`change`,r),()=>{t.removeEventListener(`change`,r)}},[e]),t},zt=()=>Rt(`(max-width: 768px)`),q=_`
   from {
     opacity: 0;
     transform: translateY(10px);
@@ -503,7 +503,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
     opacity: 1;
     transform: translateY(0);
   }
-`;const zt=_`
+`;const Bt=_`
     0%,
     100% {
       opacity: 1;
@@ -513,7 +513,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
       opacity: 0.5;
       transform: scale(0.8);
     }
-`,Bt=_`
+`,Vt=_`
     0% {
       opacity: 0.5;
     }
@@ -523,14 +523,14 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
     100% {
       opacity: 0.5;
     }
-`,Vt=_`
+`,Ht=_`
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
   }
-`,Ht=_`
+`,Ut=_`
   from {
     opacity: 0;
     transform: scale(0.9) translateY(-20px);
@@ -539,7 +539,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
     opacity: 1;
     transform: scale(1) translateY(0);
   }
-`;var Ut=y.div`
+`;var Wt=y.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -552,8 +552,8 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   justify-content: center;
   z-index: 1000;
   padding: ${({theme:e})=>e.spacing[4]};
-  animation: ${J} ${({theme:e})=>e.transitions.base};
-`,Wt=y.div`
+  animation: ${q} ${({theme:e})=>e.transitions.base};
+`,Gt=y.div`
   background: ${({theme:e})=>e.colors.surface};
   backdrop-filter: ${({theme:e})=>e.blur.lg};
   border-radius: ${({theme:e})=>e.borderRadius[`2xl`]};
@@ -564,8 +564,8 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   max-height: 90vh;
   display: flex;
   flex-direction: column;
-  animation: ${Ht} ${({theme:e})=>e.transitions.bounce};
-`,Gt=y.div`
+  animation: ${Ut} ${({theme:e})=>e.transitions.bounce};
+`,Kt=y.div`
   padding: ${({theme:e})=>e.spacing[6]} ${({theme:e})=>e.spacing[6]} ${({theme:e})=>e.spacing[4]};
   border-bottom: 1px solid ${({theme:e})=>e.colors.borderLight};
   background: ${({theme:e})=>e.gradients.glass};
@@ -574,7 +574,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   justify-content: space-between;
   align-items: flex-start;
   flex-shrink: 0;
-`,Kt=y.h2`
+`,qt=y.h2`
   font-size: 1.25rem;
   font-weight: 700;
   background: ${({theme:e})=>e.gradients.primary};
@@ -584,7 +584,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   margin: 0;
   flex: 1;
   margin-right: ${({theme:e})=>e.spacing[4]};
-`,qt=y.button`
+`,Jt=y.button`
   background: none;
   border: none;
   padding: ${({theme:e})=>e.spacing[1]};
@@ -599,27 +599,27 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
     background-color: ${({theme:e})=>e.isDark?`rgba(255, 255, 255, 0.1)`:e.colors.gray[100]};
     color: ${({theme:e})=>e.colors.text};
   }
-`,Jt=y.div`
+`,Yt=y.div`
   padding: ${({theme:e})=>e.spacing[4]} ${({theme:e})=>e.spacing[6]};
   color: ${({theme:e})=>e.colors.textSecondary};
   line-height: 1.6;
   overflow-y: auto;
   flex: 1;
   min-height: 0;
-`,Yt=y.div`
+`,Xt=y.div`
   padding: ${({theme:e})=>e.spacing[4]} ${({theme:e})=>e.spacing[6]} ${({theme:e})=>e.spacing[6]};
   display: flex;
   gap: ${({theme:e})=>e.spacing[3]};
   justify-content: flex-end;
   border-top: 1px solid ${({theme:e})=>e.colors.gray[200]};
   flex-shrink: 0;
-`,Xt=y(C)`
+`,Zt=y(C)`
   background-color: ${({confirmType:e,theme:t})=>e===`danger`?t.colors.error[600]:t.colors.primary[600]};
 
   &:hover:not(:disabled) {
     background-color: ${({confirmType:e,theme:t})=>e===`danger`?t.colors.error[700]:t.colors.primary[700]};
   }
-`;const Zt=(0,x.memo)(({isOpen:e,onClose:t,title:n,children:r,confirmText:i,cancelText:a,onConfirm:o,confirmType:s=`primary`,isLoading:c=!1})=>{let{t:l}=q(),u=i??l(`common.confirm`),d=a??l(`common.cancel`);return At(e),e?(0,b.jsx)(Ut,{isOpen:e,onClick:e=>{e.target===e.currentTarget&&t()},onKeyDown:e=>{e.key===`Escape`&&t()},children:(0,b.jsxs)(Wt,{role:`dialog`,"aria-modal":`true`,"aria-labelledby":`dialog-title`,children:[(0,b.jsxs)(Gt,{children:[(0,b.jsx)(Kt,{id:`dialog-title`,children:n}),(0,b.jsx)(qt,{onClick:t,"aria-label":l(`common.closeDialog`),children:(0,b.jsx)(k,{name:`close`,size:20})})]}),(0,b.jsx)(Jt,{children:r}),o&&(0,b.jsxs)(Yt,{children:[(0,b.jsx)(C,{variant:`secondary`,onClick:t,disabled:c,children:d}),(0,b.jsx)(Xt,{confirmType:s,onClick:o,disabled:c,children:c?l(`common.processing`):u})]})]})}):null});Zt.displayName=`Dialog`;var Qt=y.input`
+`;const Qt=(0,x.memo)(({isOpen:e,onClose:t,title:n,children:r,confirmText:i,cancelText:a,onConfirm:o,confirmType:s=`primary`,isLoading:c=!1})=>{let{t:l}=K(),u=i??l(`common.confirm`),d=a??l(`common.cancel`);return jt(e),e?(0,b.jsx)(Wt,{isOpen:e,onClick:e=>{e.target===e.currentTarget&&t()},onKeyDown:e=>{e.key===`Escape`&&t()},children:(0,b.jsxs)(Gt,{role:`dialog`,"aria-modal":`true`,"aria-labelledby":`dialog-title`,children:[(0,b.jsxs)(Kt,{children:[(0,b.jsx)(qt,{id:`dialog-title`,children:n}),(0,b.jsx)(Jt,{onClick:t,"aria-label":l(`common.closeDialog`),children:(0,b.jsx)(O,{name:`close`,size:20})})]}),(0,b.jsx)(Yt,{children:r}),o&&(0,b.jsxs)(Xt,{children:[(0,b.jsx)(C,{variant:`secondary`,onClick:t,disabled:c,children:d}),(0,b.jsx)(Zt,{confirmType:s,onClick:o,disabled:c,children:c?l(`common.processing`):u})]})]})}):null});Qt.displayName=`Dialog`;var $t=y.input`
   appearance: none;
   width: 1rem;
   height: 1rem;
@@ -650,7 +650,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
     opacity: 0.5;
     cursor: not-allowed;
   }
-`;const $t=(0,x.memo)(({checked:e,onChange:t,disabled:n=!1})=>(0,b.jsx)(Qt,{type:`checkbox`,checked:e,onChange:t,disabled:n}));$t.displayName=`Checkbox`;var en=_`
+`;const en=(0,x.memo)(({checked:e,onChange:t,disabled:n=!1})=>(0,b.jsx)($t,{type:`checkbox`,checked:e,onChange:t,disabled:n}));en.displayName=`Checkbox`;var tn=_`
   from {
     opacity: 0;
     transform: translateY(-8px);
@@ -659,18 +659,18 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
     opacity: 1;
     transform: translateY(0);
   }
-`,tn=y.div`
+`,nn=y.div`
   display: flex;
   flex-direction: column;
   gap: ${({theme:e})=>e.spacing[2]};
   position: relative;
   ${({fullWidth:e})=>e&&`width: 100%;`}
   ${({width:e})=>e&&`width: ${e};`}
-`,nn=y.label`
+`,rn=y.label`
   font-size: 0.75rem;
   font-weight: 500;
   color: ${({theme:e})=>e.colors.textSecondary};
-`,rn=y.button`
+`,an=y.button`
   padding: 0.5rem 2.5rem 0.5rem 1rem;
   border: 1px solid ${({isOpen:e,theme:t})=>e?t.colors.border:t.colors.borderLight};
   border-radius: ${({theme:e})=>e.borderRadius.lg};
@@ -699,7 +699,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
     border-color: ${({theme:e})=>e.colors.border};
     box-shadow: ${({theme:e})=>`${e.shadows.md}, 0 0 0 1px rgba(38, 161, 223, 0.1)`};
   }
-`,an=y.div`
+`,on=y.div`
   position: absolute;
   right: 0.75rem;
   top: 50%;
@@ -710,7 +710,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   align-items: center;
   justify-content: center;
   color: #26a1df;
-`,on=y.div`
+`,sn=y.div`
   position: absolute;
   top: calc(100% + 0.5rem);
   left: 0;
@@ -724,7 +724,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   overflow-y: auto;
   z-index: 50;
   display: ${({isOpen:e})=>e?`block`:`none`};
-  animation: ${en} 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: ${tn} 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
   &::before {
     content: "";
@@ -736,7 +736,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
     background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
     border-radius: ${({theme:e})=>e.borderRadius.lg} ${({theme:e})=>e.borderRadius.lg} 0 0;
   }
-`,sn=y.label`
+`,cn=y.label`
   display: flex;
   align-items: center;
   gap: ${({theme:e})=>e.spacing[3]};
@@ -773,70 +773,70 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   &:last-child {
     padding-bottom: ${({theme:e})=>e.spacing[4]};
   }
-`,cn=y.span`
+`,ln=y.span`
   font-size: 0.875rem;
   color: ${({theme:e})=>e.colors.text};
   flex: 1;
   font-weight: 500;
-`,ln=y.span`
+`,un=y.span`
   color: ${({theme:e})=>e.colors.textSecondary};
   font-size: 0.75rem;
   font-weight: 600;
-`;const un=(0,x.memo)(({label:e,value:t,onChange:n,options:r,placeholder:i=`選択してください`,maxSelections:a,width:o,fullWidth:s})=>{let[c,l]=(0,x.useState)(!1),u=(0,x.useRef)(null);(0,x.useEffect)(()=>{let e=e=>{u.current&&!u.current.contains(e.target)&&l(!1)};return document.addEventListener(`mousedown`,e),()=>document.removeEventListener(`mousedown`,e)},[]);let d=e=>{if(t.includes(e))n(t.filter(t=>t!==e));else{if(a&&t.length>=a)return;n([...t,e])}};return(0,b.jsxs)(tn,{ref:u,width:o,fullWidth:s,children:[e&&(0,b.jsx)(nn,{children:e}),(0,b.jsxs)(rn,{type:`button`,onClick:()=>l(!c),isOpen:c,children:[(()=>t.length===0?i:t.map(e=>r.find(t=>t.value===e)?.label||e).join(`, `))(),t.length>0&&(0,b.jsxs)(ln,{children:[` (`,t.length,`)`]}),(0,b.jsx)(an,{isOpen:c,children:(0,b.jsx)(k,{name:`add`,size:16})})]}),(0,b.jsx)(on,{isOpen:c,children:r.map(e=>{let n=a?t.length>=a&&!t.includes(e.value):!1;return(0,b.jsxs)(sn,{disabled:n,children:[(0,b.jsx)($t,{checked:t.includes(e.value),onChange:()=>d(e.value),disabled:n}),(0,b.jsx)(cn,{children:e.label})]},e.value)})})]})});un.displayName=`MultiSelect`;const Y={mobile:768,tablet:1024,desktop:1280},X={mobile:`@media (max-width: ${Y.mobile}px)`,tablet:`@media (max-width: ${Y.tablet}px)`,desktop:`@media (min-width: ${Y.desktop}px)`,maxWidth:e=>`@media (max-width: ${e}px)`,minWidth:e=>`@media (min-width: ${e}px)`};var dn=y.div`
+`;const dn=(0,x.memo)(({label:e,value:t,onChange:n,options:r,placeholder:i=`選択してください`,maxSelections:a,width:o,fullWidth:s})=>{let[c,l]=(0,x.useState)(!1),u=(0,x.useRef)(null);(0,x.useEffect)(()=>{let e=e=>{u.current&&!u.current.contains(e.target)&&l(!1)};return document.addEventListener(`mousedown`,e),()=>document.removeEventListener(`mousedown`,e)},[]);let d=e=>{if(t.includes(e))n(t.filter(t=>t!==e));else{if(a&&t.length>=a)return;n([...t,e])}};return(0,b.jsxs)(nn,{ref:u,width:o,fullWidth:s,children:[e&&(0,b.jsx)(rn,{children:e}),(0,b.jsxs)(an,{type:`button`,onClick:()=>l(!c),isOpen:c,children:[(()=>t.length===0?i:t.map(e=>r.find(t=>t.value===e)?.label||e).join(`, `))(),t.length>0&&(0,b.jsxs)(un,{children:[` (`,t.length,`)`]}),(0,b.jsx)(on,{isOpen:c,children:(0,b.jsx)(O,{name:`add`,size:16})})]}),(0,b.jsx)(sn,{isOpen:c,children:r.map(e=>{let n=a?t.length>=a&&!t.includes(e.value):!1;return(0,b.jsxs)(cn,{disabled:n,children:[(0,b.jsx)(en,{checked:t.includes(e.value),onChange:()=>d(e.value),disabled:n}),(0,b.jsx)(ln,{children:e.label})]},e.value)})})]})});dn.displayName=`MultiSelect`;const J={mobile:768,tablet:1024,desktop:1280},Y={mobile:`@media (max-width: ${J.mobile}px)`,tablet:`@media (max-width: ${J.tablet}px)`,desktop:`@media (min-width: ${J.desktop}px)`,maxWidth:e=>`@media (max-width: ${e}px)`,minWidth:e=>`@media (min-width: ${e}px)`};var fn=y.div`
   padding: ${({theme:e})=>e.spacing[6]};
   max-width: 1200px;
   min-width: 800px;
   margin: 0 auto;
   width: 100%;
 
-  ${X.mobile} {
+  ${Y.mobile} {
     padding: ${({theme:e})=>e.spacing[4]};
     min-width: unset;
     max-width: 100%;
   }
-`,fn=y.div`
+`,pn=y.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: ${({theme:e})=>e.spacing[3]};
   gap: ${({theme:e})=>e.spacing[4]};
 
-  ${X.mobile} {
+  ${Y.mobile} {
     gap: ${({theme:e})=>e.spacing[2]};
   }
-`,pn=y.h1`
+`,mn=y.h1`
   font-size: 2rem;
   font-weight: bold;
   margin: 0;
-  animation: ${J} 0.5s ease-out;
+  animation: ${q} 0.5s ease-out;
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: ${({theme:e})=>e.spacing[3]};
-`,mn=y.span`
+`,hn=y.span`
   background: ${({theme:e})=>e.gradients.primary};
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-`,hn=y.p`
+`,gn=y.p`
   font-size: 1rem;
   color: ${({theme:e})=>e.colors.textSecondary};
   margin-bottom: ${({theme:e})=>e.spacing[6]};
-`,gn=y.div`
+`,_n=y.div`
   display: flex;
   gap: ${({theme:e})=>e.spacing[2]};
   align-items: center;
 
-  ${X.mobile} {
+  ${Y.mobile} {
     width: 100%;
     flex-direction: column;
   }
-`,_n=y.div`
+`,vn=y.div`
   display: grid;
   gap: ${({gap:e})=>e};
-  animation: ${J} 0.5s ease-out;
-`;const Z=(0,x.memo)(({children:e})=>(0,b.jsx)(dn,{children:e}));Z.displayName=`Page`;const vn=(0,x.memo)(({children:e})=>(0,b.jsx)(fn,{children:e}));vn.displayName=`PageTitleContainer`;const yn=(0,x.memo)(({children:e,action:t})=>(0,b.jsxs)(pn,{children:[(0,b.jsx)(mn,{children:e}),t]}));yn.displayName=`PageTitle`;const bn=(0,x.memo)(({children:e})=>(0,b.jsx)(hn,{children:e}));bn.displayName=`PageDescription`;const xn=(0,x.memo)(({children:e})=>(0,b.jsx)(gn,{children:e}));xn.displayName=`PageTitleActions`;const Sn=(0,x.memo)(({children:e,gap:t=`1.5rem`})=>(0,b.jsx)(_n,{gap:t,children:e}));Sn.displayName=`PageContainer`;var Cn=_`
+  animation: ${q} 0.5s ease-out;
+`;const X=(0,x.memo)(({children:e})=>(0,b.jsx)(fn,{children:e}));X.displayName=`Page`;const yn=(0,x.memo)(({children:e})=>(0,b.jsx)(pn,{children:e}));yn.displayName=`PageTitleContainer`;const bn=(0,x.memo)(({children:e,action:t})=>(0,b.jsxs)(mn,{children:[(0,b.jsx)(hn,{children:e}),t]}));bn.displayName=`PageTitle`;const xn=(0,x.memo)(({children:e})=>(0,b.jsx)(gn,{children:e}));xn.displayName=`PageDescription`;const Sn=(0,x.memo)(({children:e})=>(0,b.jsx)(_n,{children:e}));Sn.displayName=`PageTitleActions`;const Cn=(0,x.memo)(({children:e,gap:t=`1.5rem`})=>(0,b.jsx)(vn,{gap:t,children:e}));Cn.displayName=`PageContainer`;var wn=_`
   from {
     opacity: 0;
     transform: translateY(8px);
@@ -845,7 +845,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
     opacity: 1;
     transform: translateY(0);
   }
-`,wn=_`
+`,Tn=_`
   from {
     opacity: 0;
     transform: translateY(-8px);
@@ -854,11 +854,11 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
     opacity: 1;
     transform: translateY(0);
   }
-`,Tn=y.div`
+`,En=y.div`
   position: relative;
   display: ${({$fullWidth:e})=>e?`block`:`inline-block`};
   width: ${({$fullWidth:e})=>e?`100%`:`auto`};
-`,En=y.button`
+`,Dn=y.button`
   padding: 0.625rem 1rem;
   background: ${({theme:e})=>e.gradients.glass};
   backdrop-filter: ${({theme:e})=>e.blur.md};
@@ -914,7 +914,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   &:active {
     transform: translateY(0);
   }
-`,Dn=y.div`
+`,On=y.div`
   display: flex;
   align-items: center;
   gap: ${({theme:e})=>e.spacing[2]};
@@ -924,7 +924,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   span {
     color: ${({theme:e})=>e.colors.text};
   }
-`,On=y.div`
+`,kn=y.div`
   position: absolute;
   ${({direction:e})=>e===`up`?`bottom: calc(100% + 8px);`:`top: calc(100% + 8px);`}
   left: 0;
@@ -939,7 +939,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   overflow: hidden;
   z-index: 50;
   display: ${({isOpen:e})=>e?`block`:`none`};
-  animation: ${({direction:e})=>e===`up`?Cn:wn} 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: ${({direction:e})=>e===`up`?wn:Tn} 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
   &::before {
     content: "";
@@ -951,7 +951,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
     background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
     border-radius: ${({theme:e})=>e.borderRadius.lg} ${({theme:e})=>e.borderRadius.lg} 0 0;
   }
-`,kn=y.button`
+`,An=y.button`
   width: 100%;
   padding: ${({theme:e})=>e.spacing[3]} ${({theme:e})=>e.spacing[4]};
   background-color: ${({isActive:e})=>e?`rgba(38, 161, 223, 0.08)`:`transparent`};
@@ -995,7 +995,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   &:last-child {
     padding-bottom: ${({theme:e})=>e.spacing[4]};
   }
-`,An=y.span`
+`,jn=y.span`
   font-size: 1.25rem;
   line-height: 1;
   display: flex;
@@ -1006,13 +1006,13 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   border-radius: ${({theme:e})=>e.borderRadius.sm};
   overflow: hidden;
   background: rgba(0, 0, 0, 0.02);
-`,jn=y.span`
+`,Mn=y.span`
   display: flex;
   align-items: center;
   color: #26a1df;
   transform: ${({isOpen:e})=>e?`rotate(180deg)`:`rotate(0deg)`};
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-`,Mn=[{code:`ja`,name:`日本語`,flag:`🇯🇵`},{code:`en`,name:`English`,flag:`🇺🇸`},{code:`ko`,name:`한국어`,flag:`🇰🇷`}];const Nn=(0,x.memo)(({direction:e=`down`,fullWidth:t=!1})=>{let[n,r]=(0,x.useState)(!1),{currentLanguage:i,changeLanguage:a}=q(),o=(0,x.useRef)(null);(0,x.useEffect)(()=>{let e=e=>{o.current&&!o.current.contains(e.target)&&r(!1)};return n&&document.addEventListener(`mousedown`,e),()=>{document.removeEventListener(`mousedown`,e)}},[n]);let s=e=>{a(e),r(!1)},c=Mn.find(e=>e.code===i)?.name||`日本語`;return(0,b.jsxs)(Tn,{ref:o,$fullWidth:t,children:[(0,b.jsxs)(En,{onClick:()=>r(!n),$fullWidth:t,children:[(0,b.jsxs)(Dn,{children:[(0,b.jsx)(k,{name:`language`,size:18}),(0,b.jsx)(`span`,{children:c})]}),(0,b.jsx)(jn,{isOpen:n,children:(0,b.jsx)(k,{name:`arrowDropDown`,size:24})})]}),(0,b.jsx)(On,{isOpen:n,direction:e,children:Mn.map(e=>(0,b.jsxs)(kn,{isActive:i===e.code,onClick:()=>s(e.code),children:[(0,b.jsx)(An,{children:e.flag}),(0,b.jsx)(`span`,{children:e.name})]},e.code))})]})});Nn.displayName=`LanguageSelector`;var Pn=y.div`
+`,Nn=[{code:`ja`,name:`日本語`,flag:`🇯🇵`},{code:`en`,name:`English`,flag:`🇺🇸`},{code:`ko`,name:`한국어`,flag:`🇰🇷`}];const Pn=(0,x.memo)(({direction:e=`down`,fullWidth:t=!1})=>{let[n,r]=(0,x.useState)(!1),{currentLanguage:i,changeLanguage:a}=K(),o=(0,x.useRef)(null);(0,x.useEffect)(()=>{let e=e=>{o.current&&!o.current.contains(e.target)&&r(!1)};return n&&document.addEventListener(`mousedown`,e),()=>{document.removeEventListener(`mousedown`,e)}},[n]);let s=e=>{a(e),r(!1)},c=Nn.find(e=>e.code===i)?.name||`日本語`;return(0,b.jsxs)(En,{ref:o,$fullWidth:t,children:[(0,b.jsxs)(Dn,{onClick:()=>r(!n),$fullWidth:t,children:[(0,b.jsxs)(On,{children:[(0,b.jsx)(O,{name:`language`,size:18}),(0,b.jsx)(`span`,{children:c})]}),(0,b.jsx)(Mn,{isOpen:n,children:(0,b.jsx)(O,{name:`arrowDropDown`,size:24})})]}),(0,b.jsx)(kn,{isOpen:n,direction:e,children:Nn.map(e=>(0,b.jsxs)(An,{isActive:i===e.code,onClick:()=>s(e.code),children:[(0,b.jsx)(jn,{children:e.flag}),(0,b.jsx)(`span`,{children:e.name})]},e.code))})]})});Pn.displayName=`LanguageSelector`;var Fn=y.div`
   position: fixed;
   bottom: ${({theme:e})=>e.spacing[6]};
   right: ${({theme:e})=>e.spacing[6]};
@@ -1022,7 +1022,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
     bottom: ${({theme:e})=>e.spacing[4]};
     right: ${({theme:e})=>e.spacing[4]};
   }
-`,Fn=y.button`
+`,In=y.button`
   width: 56px;
   height: 56px;
   border-radius: ${({theme:e})=>e.borderRadius.full};
@@ -1069,7 +1069,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
     }
 
     svg {
-      animation: ${Vt} 0.6s ease-in-out;
+      animation: ${Ht} 0.6s ease-in-out;
     }
   }
 
@@ -1093,7 +1093,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
       height: 20px;
     }
   }
-`;const In=(0,x.memo)(()=>{let{mode:e,toggleMode:t}=Ft(),{t:n}=q(),r=(0,b.jsx)(Pn,{children:(0,b.jsx)(Fn,{onClick:t,"aria-label":n(`common.toggleTheme`),title:n(e===`light`?`common.switchToDarkMode`:`common.switchToLightMode`),children:e===`light`?(0,b.jsx)(`svg`,{xmlns:`http://www.w3.org/2000/svg`,fill:`none`,viewBox:`0 0 24 24`,strokeWidth:2,stroke:`currentColor`,children:(0,b.jsx)(`path`,{strokeLinecap:`round`,strokeLinejoin:`round`,d:`M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z`})}):(0,b.jsx)(`svg`,{xmlns:`http://www.w3.org/2000/svg`,fill:`none`,viewBox:`0 0 24 24`,strokeWidth:2,stroke:`currentColor`,children:(0,b.jsx)(`path`,{strokeLinecap:`round`,strokeLinejoin:`round`,d:`M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z`})})})});return(0,ue.createPortal)(r,document.body)});var Ln=y.div`
+`;const Ln=(0,x.memo)(()=>{let{mode:e,toggleMode:t}=It(),{t:n}=K(),r=(0,b.jsx)(Fn,{children:(0,b.jsx)(In,{onClick:t,"aria-label":n(`common.toggleTheme`),title:n(e===`light`?`common.switchToDarkMode`:`common.switchToLightMode`),children:e===`light`?(0,b.jsx)(`svg`,{xmlns:`http://www.w3.org/2000/svg`,fill:`none`,viewBox:`0 0 24 24`,strokeWidth:2,stroke:`currentColor`,children:(0,b.jsx)(`path`,{strokeLinecap:`round`,strokeLinejoin:`round`,d:`M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z`})}):(0,b.jsx)(`svg`,{xmlns:`http://www.w3.org/2000/svg`,fill:`none`,viewBox:`0 0 24 24`,strokeWidth:2,stroke:`currentColor`,children:(0,b.jsx)(`path`,{strokeLinecap:`round`,strokeLinejoin:`round`,d:`M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z`})})})});return(0,ue.createPortal)(r,document.body)});var Rn=y.div`
   border-radius: ${({theme:e})=>e.borderRadius.xl};
   background: ${({theme:e})=>e.gradients.glass};
   backdrop-filter: ${({theme:e})=>e.blur.md};
@@ -1104,7 +1104,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   position: relative;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  animation: ${J} 0.6s ease-out 0.1s backwards;
+  animation: ${q} 0.6s ease-out 0.1s backwards;
 
   &::before {
     content: "";
@@ -1124,7 +1124,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
       0 0 0 1px rgba(38, 161, 223, 0.1);
     border-color: ${({theme:e})=>e.colors.border};
   }
-`,Rn=y.div`
+`,zn=y.div`
   width: 100%;
   background-color: transparent;
   display: flex;
@@ -1132,10 +1132,10 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   flex: 1;
   min-height: 0;
 
-  ${X.mobile} {
+  ${Y.mobile} {
     min-width: 380px;
   }
-`,zn=y.div`
+`,Bn=y.div`
   overflow-x: auto;
   overflow-y: hidden;
   width: 100%;
@@ -1145,7 +1145,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   &::-webkit-scrollbar {
     display: none;
   }
-`,Bn=y.div`
+`,Vn=y.div`
   display: flex;
   background: ${({theme:e})=>e.isDark?`rgba(39, 39, 42, 0.6)`:`rgba(255, 255, 255, 0.1)`};
   backdrop-filter: blur(8px);
@@ -1156,10 +1156,10 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   min-width: 100%;
   width: ${({$width:e})=>e?`calc(${e} + 4px)`:`100%`};
 
-  ${X.mobile} {
+  ${Y.mobile} {
     min-width: 380px;
   }
-`;const Vn=y.div`
+`;const Hn=y.div`
   padding: ${({theme:e})=>e.spacing[4]} ${({theme:e})=>e.spacing[6]};
   font-weight: 700;
   font-size: 0.75rem;
@@ -1170,7 +1170,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   flex: ${({width:e})=>e?`0 0 `+e:`1`};
   text-align: left;
 
-  ${X.mobile} {
+  ${Y.mobile} {
     padding: ${({theme:e})=>e.spacing[3]} ${({theme:e})=>e.spacing[4]};
     font-size: 0.6875rem;
   }
@@ -1178,13 +1178,13 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   &:last-child {
     text-align: center;
   }
-`;var Hn=y.div`
+`;var Un=y.div`
   position: relative;
   width: 100%;
   flex: 1;
   overflow: auto;
   min-height: 0;
-`;const Un=y.div`
+`;const Wn=y.div`
   display: flex;
   border-bottom: 1px solid ${({theme:e})=>e.colors.borderLight};
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1195,7 +1195,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   min-width: 100%;
   background: transparent;
 
-  ${X.mobile} {
+  ${Y.mobile} {
     min-width: 380px;
   }
 
@@ -1217,7 +1217,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
       width: 4px;
     }
   }
-`,Wn=y.div`
+`,Gn=y.div`
   padding: ${({theme:e})=>e.spacing[4]} ${({theme:e})=>e.spacing[6]};
   font-size: 0.875rem;
   color: ${({theme:e})=>e.colors.text};
@@ -1226,7 +1226,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   align-items: center;
   height: 66px;
 
-  ${X.mobile} {
+  ${Y.mobile} {
     padding: ${({theme:e})=>e.spacing[4]} ${({theme:e})=>e.spacing[4]};
     font-size: 0.8125rem;
   }
@@ -1234,7 +1234,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   &:last-child {
     justify-content: center;
   }
-`;var Gn=y.div`
+`;var Kn=y.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1243,11 +1243,11 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   color: ${({theme:e})=>e.colors.textSecondary};
   font-size: 0.875rem;
   gap: ${({theme:e})=>e.spacing[4]};
-`,Kn=y.div`
+`,qn=y.div`
   font-size: 1rem;
   font-weight: 500;
   color: ${({theme:e})=>e.colors.gray[500]};
-`,qn=y.div`
+`,Jn=y.div`
   text-align: center;
   color: ${({theme:e})=>e.colors.textSecondary};
   font-style: italic;
@@ -1257,18 +1257,18 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   justify-content: center;
   height: 100%;
 
-  animation: ${Bt} 1.5s ease-in-out infinite;
-`;function Jn({data:e,columns:t,renderRow:n,rowHeight:i=56,overscan:a=5,height:o,width:s=`100%`,isLoading:c=!1,loadingText:l=`Loading...`,emptyText:u=`No data`,getRowKey:d}){let f=(0,x.useRef)(null),p=(0,x.useRef)(null),m=r({count:e.length,getScrollElement:()=>f.current,estimateSize:()=>i,overscan:a});return(0,x.useEffect)(()=>{let e=f.current,t=p.current;if(!e||!t)return;let n=()=>{t.scrollLeft=e.scrollLeft};return e.addEventListener(`scroll`,n),()=>{e.removeEventListener(`scroll`,n)}},[]),(0,b.jsx)(Ln,{$height:o,children:(0,b.jsxs)(Rn,{children:[(0,b.jsx)(zn,{ref:p,children:(0,b.jsx)(Bn,{$width:s,children:t.map(e=>(0,b.jsx)(Vn,{width:e.width,children:e.label},e.key))})}),c?(0,b.jsx)(Hn,{children:(0,b.jsx)(qn,{children:l})}):e.length>0?(0,b.jsx)(Hn,{ref:f,children:(0,b.jsx)(`div`,{style:{height:`${m.getTotalSize()}px`,position:`relative`,width:s},children:m.getVirtualItems().map(t=>{let r=e[t.index];return(0,b.jsx)(`div`,{style:{position:`absolute`,top:0,left:0,width:`100%`,transform:`translateY(${t.start}px)`,height:`${t.size}px`},children:n(r,t)},d(r))})})}):(0,b.jsx)(Gn,{children:(0,b.jsx)(Kn,{children:u})})]})})}const Yn=y.div`
+  animation: ${Vt} 1.5s ease-in-out infinite;
+`;function Yn({data:e,columns:t,renderRow:n,rowHeight:i=56,overscan:a=5,height:o,width:s=`100%`,isLoading:c=!1,loadingText:l=`Loading...`,emptyText:u=`No data`,getRowKey:d}){let f=(0,x.useRef)(null),p=(0,x.useRef)(null),m=r({count:e.length,getScrollElement:()=>f.current,estimateSize:()=>i,overscan:a});return(0,x.useEffect)(()=>{let e=f.current,t=p.current;if(!e||!t)return;let n=()=>{t.scrollLeft=e.scrollLeft};return e.addEventListener(`scroll`,n),()=>{e.removeEventListener(`scroll`,n)}},[]),(0,b.jsx)(Rn,{$height:o,children:(0,b.jsxs)(zn,{children:[(0,b.jsx)(Bn,{ref:p,children:(0,b.jsx)(Vn,{$width:s,children:t.map(e=>(0,b.jsx)(Hn,{width:e.width,children:e.label},e.key))})}),c?(0,b.jsx)(Un,{children:(0,b.jsx)(Jn,{children:l})}):e.length>0?(0,b.jsx)(Un,{ref:f,children:(0,b.jsx)(`div`,{style:{height:`${m.getTotalSize()}px`,position:`relative`,width:s},children:m.getVirtualItems().map(t=>{let r=e[t.index];return(0,b.jsx)(`div`,{style:{position:`absolute`,top:0,left:0,width:`100%`,transform:`translateY(${t.start}px)`,height:`${t.size}px`},children:n(r,t)},d(r))})})}):(0,b.jsx)(Kn,{children:(0,b.jsx)(qn,{children:u})})]})})}const Xn=y.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: ${({theme:e})=>e.spacing[4]};
-  animation: ${J} 0.6s ease-out;
+  animation: ${q} 0.6s ease-out;
 
-  ${X.mobile} {
+  ${Y.mobile} {
     grid-template-columns: repeat(2, 1fr);
     gap: ${({theme:e})=>e.spacing[3]};
   }
-`,Xn=y.div`
+`,Zn=y.div`
   background: ${({theme:e})=>e.gradients.glass};
   backdrop-filter: ${({theme:e})=>e.blur.md};
   border-radius: ${({theme:e})=>e.borderRadius.lg};
@@ -1278,7 +1278,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-  ${X.mobile} {
+  ${Y.mobile} {
     padding: ${({theme:e})=>e.spacing[4]};
   }
 
@@ -1299,28 +1299,28 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
       0 0 0 1px rgba(38, 161, 223, 0.1);
     border-color: ${({theme:e})=>e.colors.border};
   }
-`,Zn=y.div`
+`,Qn=y.div`
   font-size: 0.75rem;
   font-weight: 600;
   color: ${({theme:e})=>e.colors.textSecondary};
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: ${({theme:e})=>e.spacing[2]};
-`,Qn=y.div`
+`,$n=y.div`
   font-size: 1.875rem;
   font-weight: 700;
   margin-bottom: ${({theme:e})=>e.spacing[1]};
 
-  ${({theme:e,$type:t,$winRate:n})=>t===`win`?`color: ${e.colors.win[400]};`:t===`defeat`?`color: ${e.colors.defeat[400]};`:t===`winRate`&&n!==void 0?`color: ${j(n,e,400)};`:`
+  ${({theme:e,$type:t,$winRate:n})=>t===`win`?`color: ${e.colors.win[400]};`:t===`defeat`?`color: ${e.colors.defeat[400]};`:t===`winRate`&&n!==void 0?`color: ${A(n,e,400)};`:`
       background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     `}
-`,$n=y.div`
+`,er=y.div`
   font-size: 0.875rem;
   color: ${({theme:e})=>e.colors.textSecondary};
-`;var er={danger:v`
+`;var tr={danger:v`
     border: 1px solid rgba(239, 68, 68, 0.3);
     color: ${({theme:e})=>e.colors.error[500]};
 
@@ -1345,7 +1345,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
       color: ${({theme:e})=>e.colors.text};
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
-  `},tr=y(C)`
+  `},nr=y(C)`
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1367,9 +1367,9 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
     cursor: not-allowed;
   }
 
-  ${({$type:e=`default`})=>er[e]}
+  ${({$type:e=`default`})=>tr[e]}
   ${({$borderless:e})=>e&&`border: none;`}
-`;const Q=(0,x.memo)(({icon:e,children:t,...n})=>(0,b.jsx)(tr,{variant:`outline`,...n,children:e||t}));Q.displayName=`IconicButton`;var nr=y.div`
+`;const Z=(0,x.memo)(({icon:e,children:t,...n})=>(0,b.jsx)(nr,{variant:`outline`,...n,children:e||t}));Z.displayName=`IconicButton`;var rr=y.div`
   padding: ${({theme:e})=>e.spacing[3]} ${({theme:e})=>e.spacing[4]};
   border-radius: ${({theme:e})=>e.borderRadius.md};
   font-size: 0.875rem;
@@ -1396,9 +1396,9 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
           border: 1px solid rgba(38, 161, 223, 0.3);
           color: ${n?`#7dd3fc`:`#0369a1`};
         `;default:return``}}}
-`,rr=y.div`
+`,ir=y.div`
   flex: 1;
-`,ir=y.button`
+`,ar=y.button`
   background: none;
   border: none;
   padding: 0;
@@ -1430,7 +1430,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   &:active {
     transform: scale(0.95);
   }
-`;const ar=(0,x.memo)(({type:e=`info`,children:t,onClose:n})=>(0,b.jsxs)(nr,{$type:e,children:[(0,b.jsx)(rr,{children:t}),n&&(0,b.jsx)(ir,{onClick:n,type:`button`,"aria-label":`Close`,children:(0,b.jsx)(k,{name:`close`,size:16})})]}));ar.displayName=`Flush`;var or=e(g()),sr=_`
+`;const or=(0,x.memo)(({type:e=`info`,children:t,onClose:n})=>(0,b.jsxs)(rr,{$type:e,children:[(0,b.jsx)(ir,{children:t}),n&&(0,b.jsx)(ar,{onClick:n,type:`button`,"aria-label":`Close`,children:(0,b.jsx)(O,{name:`close`,size:16})})]}));or.displayName=`Flush`;var sr=e(g()),cr=_`
   from {
     transform: translateY(-100%);
     opacity: 0;
@@ -1439,7 +1439,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
     transform: translateY(0);
     opacity: 1;
   }
-`,cr=_`
+`,lr=_`
   from {
     transform: translateY(0);
     opacity: 1;
@@ -1448,7 +1448,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
     transform: translateY(-100%);
     opacity: 0;
   }
-`,lr=y.div`
+`,ur=y.div`
   position: fixed;
   top: ${({theme:e})=>e.spacing[6]};
   left: 50%;
@@ -1456,7 +1456,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   transform: translate(-50%, -100%);
   opacity: 0;
   visibility: ${({$isVisible:e})=>e?`visible`:`hidden`};
-  animation: ${({$isVisible:e})=>e?sr:cr} 0.3s ease-out forwards;
+  animation: ${({$isVisible:e})=>e?cr:lr} 0.3s ease-out forwards;
 
   @media (max-width: ${({theme:e})=>e.breakpoints.sm}) {
     top: ${({theme:e})=>e.spacing[4]};
@@ -1464,7 +1464,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
     right: ${({theme:e})=>e.spacing[4]};
     transform: translateY(-100%);
   }
-`,ur=y.div`
+`,dr=y.div`
   background: ${({theme:e})=>e.gradients.glass};
   backdrop-filter: ${({theme:e})=>e.blur.md};
   border: 1px solid ${({theme:e})=>e.colors.borderLight};
@@ -1481,13 +1481,13 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
     min-width: auto;
     padding: ${({theme:e})=>`${e.spacing[3]} ${e.spacing[4]}`};
   }
-`,dr=y.div`
+`,fr=y.div`
   flex: 1;
   color: ${({theme:e})=>e.colors.text};
   font-size: 0.875rem;
   line-height: 1.5;
   margin-right: 1rem;
-`,fr=y.button`
+`,pr=y.button`
   background: transparent;
   border: none;
   color: ${({theme:e})=>e.colors.textSecondary};
@@ -1506,22 +1506,22 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
     width: 20px;
     height: 20px;
   }
-`;const pr=(0,x.memo)(({open:e,message:t,actionLabel:n,onAction:r,onClose:i,autoHideDuration:a})=>{let{t:o}=q(),[s,c]=(0,x.useState)(!1);(0,x.useEffect)(()=>{if(e){let e=setTimeout(()=>{c(!0)},10);if(a){let t=setTimeout(()=>{c(!1),setTimeout(()=>{i?.()},300)},a);return()=>{clearTimeout(e),clearTimeout(t)}}return()=>clearTimeout(e)}else c(!1)},[e,a,i]);let l=()=>{c(!1),setTimeout(()=>{i?.()},300)};if(!e)return null;let u=(0,b.jsx)(lr,{$isVisible:s,children:(0,b.jsxs)(ur,{children:[(0,b.jsx)(dr,{children:t}),n&&r&&(0,b.jsx)(C,{variant:`outline`,size:`sm`,onClick:r,children:n}),(0,b.jsx)(fr,{onClick:l,"aria-label":o(`common.close`),children:(0,b.jsx)(T,{})})]})});return(0,or.createPortal)(u,document.body)});pr.displayName=`Snackbar`;var mr=e(g()),hr=_`
+`;const mr=(0,x.memo)(({open:e,message:t,actionLabel:n,onAction:r,onClose:i,autoHideDuration:a})=>{let{t:o}=K(),[s,c]=(0,x.useState)(!1);(0,x.useEffect)(()=>{if(e){let e=setTimeout(()=>{c(!0)},10);if(a){let t=setTimeout(()=>{c(!1),setTimeout(()=>{i?.()},300)},a);return()=>{clearTimeout(e),clearTimeout(t)}}return()=>clearTimeout(e)}else c(!1)},[e,a,i]);let l=()=>{c(!1),setTimeout(()=>{i?.()},300)};if(!e)return null;let u=(0,b.jsx)(ur,{$isVisible:s,children:(0,b.jsxs)(dr,{children:[(0,b.jsx)(fr,{children:t}),n&&r&&(0,b.jsx)(C,{variant:`outline`,size:`sm`,onClick:r,children:n}),(0,b.jsx)(pr,{onClick:l,"aria-label":o(`common.close`),children:(0,b.jsx)(w,{})})]})});return(0,sr.createPortal)(u,document.body)});mr.displayName=`Snackbar`;var hr=e(g()),gr=_`
   from {
     opacity: 0;
   }
   to {
     opacity: 1;
-  }
-`,gr=_`
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
   }
 `,_r=_`
   from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+`,vr=_`
+  from {
     opacity: 0;
     transform: translateY(-8px);
   }
@@ -1529,7 +1529,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
     opacity: 1;
     transform: translateY(0);
   }
-`,vr=_`
+`,yr=_`
   from {
     opacity: 1;
     transform: translateY(0);
@@ -1538,14 +1538,14 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
     opacity: 0;
     transform: translateY(-8px);
   }
-`,yr=y.div`
+`,br=y.div`
   display: none;
   position: relative;
 
-  ${X.mobile} {
+  ${Y.mobile} {
     display: block;
   }
-`,br=y.div`
+`,xr=y.div`
   display: ${({$isOpen:e,$isClosing:t})=>e||t?`block`:`none`};
   position: fixed;
   top: 0;
@@ -1556,8 +1556,8 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   background: ${({theme:e})=>e.isDark?`rgba(0, 0, 0, 0.3)`:`rgba(255, 255, 255, 0.3)`};
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  animation: ${({$isClosing:e})=>e?gr:hr} 0.2s ease-out;
-`,xr=y.div`
+  animation: ${({$isClosing:e})=>e?_r:gr} 0.2s ease-out;
+`,Sr=y.div`
   position: fixed;
   top: ${({$position:e})=>e.top}px;
   right: ${({$position:e})=>e.right}px;
@@ -1571,9 +1571,9 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   min-width: 160px;
   overflow: hidden;
   display: ${({$isOpen:e,$isClosing:t})=>e||t?`block`:`none`};
-  animation: ${({$isClosing:e})=>e?vr:_r} 0.2s ease-out;
+  animation: ${({$isClosing:e})=>e?yr:vr} 0.2s ease-out;
   transform-origin: top right;
-`,Sr=y.button`
+`,Cr=y.button`
   width: 100%;
   padding: ${({theme:e})=>e.spacing[3]} ${({theme:e})=>e.spacing[4]};
   background: none;
@@ -1594,7 +1594,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   &:active {
     background: ${({theme:e})=>e.colors.border};
   }
-`;const Cr=({items:e,triggerTitle:t,stopPropagation:n=!0})=>{let[r,i]=(0,x.useState)(!1),[a,o]=(0,x.useState)(!1),[s,c]=(0,x.useState)({top:0,right:0}),l=(0,x.useRef)(null),u=(0,x.useRef)(null),d=(0,x.useRef)(null);At(r);let f=(0,x.useCallback)(()=>{o(!0),setTimeout(()=>{i(!1),o(!1)},200)},[]),p=(0,x.useCallback)(()=>{if(u.current){let e=u.current.getBoundingClientRect();c({top:e.bottom+8,right:window.innerWidth-e.right})}},[]),m=(0,x.useCallback)(()=>{p(),i(!0)},[p]);(0,x.useEffect)(()=>{let e=e=>{let t=e.target;l.current&&!l.current.contains(t)&&d.current&&!d.current.contains(t)&&f()},t=e=>{e.key===`Escape`&&f()};if(r)return document.addEventListener(`click`,e),document.addEventListener(`keydown`,t),()=>{document.removeEventListener(`click`,e),document.removeEventListener(`keydown`,t)}},[r,f]);let ee=e=>{e.preventDefault(),n&&e.stopPropagation(),r?f():m()},h=(e,t)=>{e.preventDefault(),n&&e.stopPropagation(),f(),t()};return(0,b.jsxs)(b.Fragment,{children:[(0,b.jsx)(yr,{ref:d,children:(0,b.jsx)(`div`,{ref:u,children:(0,b.jsx)(Q,{icon:(0,b.jsx)(k,{name:`hamburger`,size:16}),onClick:ee,title:t})})}),(r||a)&&(0,mr.createPortal)((0,b.jsxs)(b.Fragment,{children:[(0,b.jsx)(br,{$isOpen:r,$isClosing:a,onClick:f}),(0,b.jsx)(xr,{ref:l,$isOpen:r,$isClosing:a,$position:s,children:e.map((e,t)=>(0,b.jsxs)(Sr,{onClick:t=>h(t,e.onClick),children:[(0,b.jsx)(k,{name:e.icon,size:16}),e.label]},t))})]}),document.body)]})};var wr=y.header`
+`;const wr=({items:e,triggerTitle:t,stopPropagation:n=!0})=>{let[r,i]=(0,x.useState)(!1),[a,o]=(0,x.useState)(!1),[s,c]=(0,x.useState)({top:0,right:0}),l=(0,x.useRef)(null),u=(0,x.useRef)(null),d=(0,x.useRef)(null);jt(r);let f=(0,x.useCallback)(()=>{o(!0),setTimeout(()=>{i(!1),o(!1)},200)},[]),p=(0,x.useCallback)(()=>{if(u.current){let e=u.current.getBoundingClientRect();c({top:e.bottom+8,right:window.innerWidth-e.right})}},[]),m=(0,x.useCallback)(()=>{p(),i(!0)},[p]);(0,x.useEffect)(()=>{let e=e=>{let t=e.target;l.current&&!l.current.contains(t)&&d.current&&!d.current.contains(t)&&f()},t=e=>{e.key===`Escape`&&f()};if(r)return document.addEventListener(`click`,e),document.addEventListener(`keydown`,t),()=>{document.removeEventListener(`click`,e),document.removeEventListener(`keydown`,t)}},[r,f]);let ee=e=>{e.preventDefault(),n&&e.stopPropagation(),r?f():m()},h=(e,t)=>{e.preventDefault(),n&&e.stopPropagation(),f(),t()};return(0,b.jsxs)(b.Fragment,{children:[(0,b.jsx)(br,{ref:d,children:(0,b.jsx)(`div`,{ref:u,children:(0,b.jsx)(Z,{icon:(0,b.jsx)(O,{name:`hamburger`,size:16}),onClick:ee,title:t})})}),(r||a)&&(0,hr.createPortal)((0,b.jsxs)(b.Fragment,{children:[(0,b.jsx)(xr,{$isOpen:r,$isClosing:a,onClick:f}),(0,b.jsx)(Sr,{ref:l,$isOpen:r,$isClosing:a,$position:s,children:e.map((e,t)=>(0,b.jsxs)(Cr,{onClick:t=>h(t,e.onClick),children:[(0,b.jsx)(O,{name:e.icon,size:16}),e.label]},t))})]}),document.body)]})};var Tr=y.header`
   position: sticky;
   top: 0;
   z-index: 20;
@@ -1610,28 +1610,28 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   @media (min-width: ${({theme:e})=>e.breakpoints.lg}) {
     display: none;
   }
-`,Tr=y.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: ${({theme:e})=>e.spacing[2]};
 `,Er=y.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: ${({theme:e})=>e.spacing[2]};
 `,Dr=y.div`
   display: flex;
   align-items: center;
   gap: ${({theme:e})=>e.spacing[2]};
-`,Or=y.img`
+`,Or=y.div`
+  display: flex;
+  align-items: center;
+  gap: ${({theme:e})=>e.spacing[2]};
+`,kr=y.img`
   width: 3rem;
   height: 2rem;
   object-fit: contain;
-`,kr=y.h1`
+`,Ar=y.h1`
   font-size: 1.125rem;
   font-weight: bold;
   color: ${({theme:e})=>e.colors.text};
-`;const Ar=({onMenuClick:e})=>{let{t}=q();return(0,b.jsx)(wr,{children:(0,b.jsxs)(Tr,{children:[(0,b.jsxs)(Dr,{children:[(0,b.jsx)(Or,{src:`/cc-war-record/img/cc.webp`,alt:`CC`}),(0,b.jsx)(kr,{children:t(`common.appName`)})]}),(0,b.jsxs)(Er,{children:[(0,b.jsx)(In,{}),(0,b.jsx)(Q,{$type:`secondary`,$borderless:!0,icon:(0,b.jsx)(k,{name:`hamburger`,size:24}),onClick:e,title:t(`common.menu`)})]})]})})},jr=[{labelKey:`navigation.home`,path:`/`,icon:`home`},{labelKey:`navigation.graphs`,path:`/graphs`,icon:`chart`},{labelKey:`navigation.histories`,path:`/histories`,icon:`history`},{labelKey:`navigation.faq`,path:`/faq`,icon:`detail`}];var Mr=y.aside`
+`;const jr=({onMenuClick:e})=>{let{t}=K();return(0,b.jsx)(Tr,{children:(0,b.jsxs)(Er,{children:[(0,b.jsxs)(Or,{children:[(0,b.jsx)(kr,{src:`/cc-war-record/img/cc.webp`,alt:`CC`}),(0,b.jsx)(Ar,{children:t(`common.appName`)})]}),(0,b.jsxs)(Dr,{children:[(0,b.jsx)(Ln,{}),(0,b.jsx)(Z,{$type:`secondary`,$borderless:!0,icon:(0,b.jsx)(O,{name:`hamburger`,size:24}),onClick:e,title:t(`common.menu`)})]})]})})},Mr=[{labelKey:`navigation.home`,path:`/`,icon:`home`},{labelKey:`navigation.graphs`,path:`/graphs`,icon:`chart`},{labelKey:`navigation.histories`,path:`/histories`,icon:`history`},{labelKey:`navigation.faq`,path:`/faq`,icon:`detail`}];var Nr=y.aside`
   position: fixed;
   left: 0;
   top: 0;
@@ -1655,32 +1655,32 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
     position: fixed;
     flex-shrink: 0;
   }
-`,Nr=y.div`
+`,Pr=y.div`
   display: flex;
   align-items: center;
   gap: ${({theme:e})=>e.spacing[2]};
   margin-bottom: ${({theme:e})=>e.spacing[8]};
 
-  ${X.mobile} {
+  ${Y.mobile} {
     display: none;
   }
-`,Pr=y.img`
+`,Fr=y.img`
   width: 3rem;
   height: 3rem;
   object-fit: contain;
-`,Fr=y.h1`
+`,Ir=y.h1`
   font-size: 1.25rem;
   font-weight: bold;
   color: ${({theme:e})=>e.colors.text};
-`,Ir=y.nav`
+`,Lr=y.nav`
   display: flex;
   flex-direction: column;
   gap: ${({theme:e})=>e.spacing[2]};
 
-  ${X.mobile} {
+  ${Y.mobile} {
     margin-top: ${({theme:e})=>e.spacing[16]};
   }
-`,Lr=y(c)`
+`,Rr=y(c)`
   display: flex;
   align-items: center;
   gap: ${({theme:e})=>e.spacing[3]};
@@ -1713,14 +1713,14 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
       opacity: 1;
     }
   }
-`,Rr=y.div`
+`,zr=y.div`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 20px;
   height: 20px;
   color: inherit;
-`;const zr=({isOpen:e,isActivePath:t,onClose:n})=>{let{t:r}=q();return(0,b.jsxs)(Mr,{$isOpen:e,children:[(0,b.jsxs)(Nr,{children:[(0,b.jsx)(Pr,{src:`/cc-war-record/img/cc.webp`,alt:`CC`}),(0,b.jsx)(Fr,{children:r(`common.appName`)})]}),(0,b.jsx)(Ir,{children:jr.map(e=>(0,b.jsxs)(Lr,{to:e.path,$isActive:t(e.path),onClick:n,children:[(0,b.jsx)(Rr,{$isActive:t(e.path),children:(0,b.jsx)(k,{name:e.icon,size:20})}),r(e.labelKey)]},e.path))}),(0,b.jsx)(`div`,{style:{marginTop:`auto`,paddingTop:`24px`},children:(0,b.jsx)(Nn,{direction:`up`,fullWidth:!0})})]})};var Br=y.div`
+`;const Br=({isOpen:e,isActivePath:t,onClose:n})=>{let{t:r}=K();return(0,b.jsxs)(Nr,{$isOpen:e,children:[(0,b.jsxs)(Pr,{children:[(0,b.jsx)(Fr,{src:`/cc-war-record/img/cc.webp`,alt:`CC`}),(0,b.jsx)(Ir,{children:r(`common.appName`)})]}),(0,b.jsx)(Lr,{children:Mr.map(e=>(0,b.jsxs)(Rr,{to:e.path,$isActive:t(e.path),onClick:n,children:[(0,b.jsx)(zr,{$isActive:t(e.path),children:(0,b.jsx)(O,{name:e.icon,size:20})}),r(e.labelKey)]},e.path))}),(0,b.jsx)(`div`,{style:{marginTop:`auto`,paddingTop:`24px`},children:(0,b.jsx)(Pn,{direction:`up`,fullWidth:!0})})]})};var Vr=y.div`
   position: fixed;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.5);
@@ -1732,7 +1732,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   @media (min-width: ${({theme:e})=>e.breakpoints.lg}) {
     display: none;
   }
-`,Vr=y.main`
+`,Hr=y.main`
   display: flex;
   flex: 1;
   min-height: calc(100dvh - 70px);
@@ -1742,14 +1742,14 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
     margin-left: 260px;
     min-height: 100dvh;
   }
-`,Hr=y.div`
+`,Ur=y.div`
   display: flex;
   min-height: 100dvh;
 
   @media (max-width: ${({theme:e})=>e.breakpoints.lg}) {
     flex-direction: column;
   }
-`;const Ur=({children:e})=>{let[t,n]=(0,x.useState)(!1),r=i(),a=()=>{n(!t)},o=()=>{n(!1)};return(0,b.jsxs)(Hr,{children:[(0,b.jsx)(Ar,{onMenuClick:a}),(0,b.jsx)(zr,{isOpen:t,isActivePath:e=>e===`/`?r.pathname===`/`:r.pathname.startsWith(e),onClose:o}),(0,b.jsx)(Br,{$isOpen:t,onClick:o}),(0,b.jsx)(Vr,{children:e})]})};var Wr=y.div`
+`;const Wr=({children:e})=>{let[t,n]=(0,x.useState)(!1),r=i(),a=()=>{n(!t)},o=()=>{n(!1)};return(0,b.jsxs)(Ur,{children:[(0,b.jsx)(jr,{onMenuClick:a}),(0,b.jsx)(Br,{isOpen:t,isActivePath:e=>e===`/`?r.pathname===`/`:r.pathname.startsWith(e),onClose:o}),(0,b.jsx)(Vr,{$isOpen:t,onClick:o}),(0,b.jsx)(Hr,{children:e})]})};var Gr=y.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1757,14 +1757,14 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   gap: 1.5rem;
   min-height: 400px;
   text-align: center;
-`,Gr=y.div`
+`,Kr=y.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-`,Kr=y.div`
+`,qr=y.div`
   display: flex;
   gap: 1rem;
-`,qr=y.h1`
+`,Jr=y.h1`
   font-size: 4rem;
   font-weight: bold;
   color: ${({theme:e})=>e.colors.textSecondary};
@@ -1773,7 +1773,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   @media (min-width: 768px) {
     font-size: 6rem;
   }
-`,Jr=y.h2`
+`,Yr=y.h2`
   font-size: 1.5rem;
   font-weight: 600;
   color: ${({theme:e})=>e.colors.text};
@@ -1782,26 +1782,26 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   @media (min-width: 768px) {
     font-size: 2rem;
   }
-`,Yr=y.p`
+`,Xr=y.p`
   color: ${({theme:e})=>e.colors.textSecondary};
   max-width: 28rem;
   margin: 0.5rem auto;
   line-height: 1.6;
-`;const Xr=()=>(0,b.jsx)(Z,{children:(0,b.jsxs)(Wr,{children:[(0,b.jsxs)(Gr,{children:[(0,b.jsx)(qr,{children:`404`}),(0,b.jsx)(Jr,{children:`ページが見つかりません`}),(0,b.jsx)(Yr,{children:`お探しのページは削除されたか、URLが間違っている可能性があります。`})]}),(0,b.jsx)(Kr,{children:(0,b.jsx)(c,{to:`/`,children:(0,b.jsx)(C,{children:`ホームに戻る`})})})]})});var Zr=_`
+`;const Zr=()=>(0,b.jsx)(X,{children:(0,b.jsxs)(Gr,{children:[(0,b.jsxs)(Kr,{children:[(0,b.jsx)(Jr,{children:`404`}),(0,b.jsx)(Yr,{children:`ページが見つかりません`}),(0,b.jsx)(Xr,{children:`お探しのページは削除されたか、URLが間違っている可能性があります。`})]}),(0,b.jsx)(qr,{children:(0,b.jsx)(c,{to:`/`,children:(0,b.jsx)(C,{children:`ホームに戻る`})})})]})});var Qr=_`
   0%, 100% {
     transform: translateY(0);
   }
   50% {
     transform: translateY(-10px);
   }
-`,Qr=_`
+`,$r=_`
   0%, 100% {
     opacity: 1;
   }
   50% {
     opacity: 0.5;
   }
-`,$r=y.div`
+`,ei=y.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1815,7 +1815,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   box-shadow: ${({theme:e})=>e.shadows[`2xl`]};
   position: relative;
   overflow: hidden;
-  animation: ${J} 0.8s ease-out;
+  animation: ${q} 0.8s ease-out;
   transition: all ${({theme:e})=>e.transitions.base};
 
   &::before {
@@ -1837,13 +1837,13 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
     width: 200%;
     height: 200%;
     background: radial-gradient(circle, rgba(38, 161, 223, 0.03) 0%, transparent 70%);
-    animation: ${Qr} 3s ease-in-out infinite;
+    animation: ${$r} 3s ease-in-out infinite;
   }
 
   &:hover {
     border-color: ${({theme:e})=>e.colors.border};
   }
-`,ei=y.div`
+`,ti=y.div`
   width: 100px;
   height: 100px;
   background: linear-gradient(135deg, rgba(38, 161, 223, 0.1) 0%, rgba(243, 99, 70, 0.1) 100%);
@@ -1854,7 +1854,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   margin-bottom: ${({theme:e})=>e.spacing[6]};
   position: relative;
   z-index: 1;
-  animation: ${Zr} 3s ease-in-out infinite;
+  animation: ${Qr} 3s ease-in-out infinite;
   box-shadow: 0 8px 24px rgba(38, 161, 223, 0.15);
   border: 2px solid rgba(38, 161, 223, 0.2);
 
@@ -1872,7 +1872,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   &:hover::before {
     opacity: 0.2;
   }
-`,ti=y.h2`
+`,ni=y.h2`
   font-size: 1.75rem;
   font-weight: 700;
   background: linear-gradient(135deg, #26a1df 0%, #f36346 100%);
@@ -1882,8 +1882,8 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   margin-bottom: ${({theme:e})=>e.spacing[4]};
   position: relative;
   z-index: 1;
-  animation: ${J} 0.8s ease-out 0.2s backwards;
-`,ni=y.p`
+  animation: ${q} 0.8s ease-out 0.2s backwards;
+`,ri=y.p`
   font-size: 1rem;
   color: ${({theme:e})=>e.colors.textSecondary};
   margin-bottom: ${({theme:e})=>e.spacing[8]};
@@ -1892,8 +1892,8 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   font-weight: 500;
   position: relative;
   z-index: 1;
-  animation: ${J} 0.8s ease-out 0.4s backwards;
-`,ri=y(C)`
+  animation: ${q} 0.8s ease-out 0.4s backwards;
+`,ii=y(C)`
   display: inline-flex;
   align-items: center;
   gap: ${({theme:e})=>e.spacing[2]};
@@ -1901,7 +1901,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   padding: ${({theme:e})=>e.spacing[4]} ${({theme:e})=>e.spacing[8]};
   position: relative;
   z-index: 1;
-  animation: ${J} 0.8s ease-out 0.6s backwards;
+  animation: ${q} 0.8s ease-out 0.6s backwards;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 4px 12px rgba(38, 161, 223, 0.3);
 
@@ -1913,13 +1913,13 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   &:active {
     transform: translateY(-1px) scale(1);
   }
-`;const ii=(0,x.memo)(({icon:e=`home`})=>{let{t}=q(),n=s();return(0,b.jsxs)($r,{children:[(0,b.jsx)(ei,{children:(0,b.jsx)(k,{name:e,size:32})}),(0,b.jsx)(ti,{children:t(`pages.home.noSeason`)}),(0,b.jsx)(ni,{children:t(`pages.home.createFirstSeason`)}),(0,b.jsxs)(ri,{onClick:()=>{n({to:`/new`})},children:[(0,b.jsx)(k,{name:`add`,size:20,color:`white`}),t(`pages.home.createSeason`)]})]})});ii.displayName=`EmptyState`;var ai=y.div`
+`;const ai=(0,x.memo)(({icon:e=`home`})=>{let{t}=K(),n=s();return(0,b.jsxs)(ei,{children:[(0,b.jsx)(ti,{children:(0,b.jsx)(O,{name:e,size:32})}),(0,b.jsx)(ni,{children:t(`pages.home.noSeason`)}),(0,b.jsx)(ri,{children:t(`pages.home.createFirstSeason`)}),(0,b.jsxs)(ii,{onClick:()=>{n({to:`/new`})},children:[(0,b.jsx)(O,{name:`add`,size:20,color:`white`}),t(`pages.home.createSeason`)]})]})});ai.displayName=`EmptyState`;var oi=y.div`
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 60vh;
   padding: ${({theme:e})=>e.spacing[8]};
-`,oi=y.div`
+`,si=y.div`
   width: 48px;
   height: 48px;
   border: 4px solid ${({theme:e})=>e.colors.gray[200]};
@@ -1932,11 +1932,11 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
       transform: rotate(360deg);
     }
   }
-`,si=y.p`
+`,ci=y.p`
   margin-top: ${({theme:e})=>e.spacing[4]};
   color: ${({theme:e})=>e.colors.textSecondary};
   font-size: 0.875rem;
-`;const ci=()=>(0,b.jsx)(ai,{children:(0,b.jsxs)(`div`,{children:[(0,b.jsx)(oi,{}),(0,b.jsx)(si,{children:`Loading...`})]})}),li=y.form`
+`;const li=()=>(0,b.jsx)(oi,{children:(0,b.jsxs)(`div`,{children:[(0,b.jsx)(si,{}),(0,b.jsx)(ci,{children:`Loading...`})]})}),ui=y.form`
   background: ${({theme:e})=>e.gradients.glass};
   backdrop-filter: ${({theme:e})=>e.blur.md};
   padding: ${({theme:e})=>e.spacing[8]};
@@ -1949,9 +1949,9 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
     box-shadow: ${({theme:e})=>e.shadows[`2xl`]};
     border-color: ${({theme:e})=>e.colors.border};
   }
-`,ui=y.div`
-  margin-bottom: ${({theme:e})=>e.spacing[6]};
 `,di=y.div`
+  margin-bottom: ${({theme:e})=>e.spacing[6]};
+`,fi=y.div`
   display: flex;
   gap: ${({theme:e})=>e.spacing[4]};
   justify-content: flex-end;
@@ -1959,7 +1959,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   @media (max-width: ${({theme:e})=>e.breakpoints.sm}) {
     flex-direction: column-reverse;
   }
-`;l();const fi=(e,t,n,r)=>{},pi=async()=>{try{let e=await fetch(`/cc-war-record/build-info.json`,{cache:`no-cache`});return e.ok?await e.json():(console.warn(`Failed to fetch build-info.json:`,e.status),null)}catch(e){return console.error(`Error fetching build-info.json:`,e),null}},mi=async()=>{let e=await pi();if(!e)return console.warn(`Failed to fetch build info`),!1;let{timestamp:t}=e,n=I(F.BUILD_TIMESTAMP,``);if(!n)return L(F.BUILD_TIMESTAMP,t.toString()),console.info(`First access: build timestamp saved`),!1;if(Number(n)!==t&&(console.info(`Build updated detected:`,{old:new Date(Number(n)).toISOString(),new:e.buildTime}),L(F.BUILD_TIMESTAMP,t.toString()),`serviceWorker`in navigator&&navigator.serviceWorker.controller))try{if(await(await navigator.serviceWorker.ready).unregister(),console.info(`ServiceWorker unregistered`),`caches`in window){let e=await caches.keys();await Promise.all(e.map(e=>caches.delete(e))),console.info(`Cache storage cleared`)}return!0}catch(e){console.error(`Error clearing ServiceWorker cache:`,e)}return!1},$=d({component:hi,notFoundComponent:gi});function hi(){let e=h(),{t}=q(),n=(0,x.useRef)(!1),[r,i]=(0,x.useState)(!1);return(0,x.useEffect)(()=>{window.scrollTo(0,0),e.location.pathname},[e.location.pathname]),(0,x.useEffect)(()=>{!r&&!n.current&&setTimeout(()=>{mi().then(e=>{e&&i(!0)})},1e3)},[e.location.pathname]),(0,b.jsxs)(Ur,{children:[(0,b.jsx)(x.Suspense,{fallback:(0,b.jsx)(ci,{}),children:(0,b.jsx)(a,{})}),(0,b.jsx)(pr,{open:r,message:t(`common.buildUpdate.message`),actionLabel:t(`common.buildUpdate.reload`),onAction:()=>{window.location.reload()},onClose:()=>{i(!1),n.current=!0}})]})}function gi(){return(0,b.jsx)(Xr,{})}const _i=p(`/new`)({component:o(()=>S(()=>import(`./new-C7UZjEhb.js`),__vite__mapDeps([0,1,2])),`component`)}),vi=p(`/graphs`)({component:o(()=>S(()=>import(`./graphs-B11Kq-ge.js`),__vite__mapDeps([3,1,2])),`component`),staleTime:1e3*60*5,gcTime:1e3*60*10}),yi=p(`/faq`)({component:o(()=>S(()=>import(`./faq-Ga4WusEJ.js`),__vite__mapDeps([4,1,2])),`component`)}),bi=p(`/`)({component:o(()=>S(()=>import(`./routes-0ePrkrFF.js`),__vite__mapDeps([5,1,2])),`component`)}),xi=p(`/histories/`)({component:o(()=>S(()=>import(`./histories-D5yKW1rU.js`),__vite__mapDeps([6,1,2])),`component`)}),Si=p(`/histories/$id`)({component:o(()=>S(()=>import(`./_id-CYvM4wHE.js`),__vite__mapDeps([7,1,2])),`component`)});var Ci=_i.update({id:`/new`,path:`/new`,getParentRoute:()=>$}),wi=vi.update({id:`/graphs`,path:`/graphs`,getParentRoute:()=>$}),Ti=yi.update({id:`/faq`,path:`/faq`,getParentRoute:()=>$}),Ei=bi.update({id:`/`,path:`/`,getParentRoute:()=>$}),Di=xi.update({id:`/histories/`,path:`/histories/`,getParentRoute:()=>$}),Oi=Si.update({id:`/histories/$id`,path:`/histories/$id`,getParentRoute:()=>$}),ki={IndexRoute:Ei,FaqRoute:Ti,GraphsRoute:wi,NewRoute:Ci,HistoriesIdRoute:Oi,HistoriesIndexRoute:Di};const Ai=$._addFileChildren(ki)._addFileTypes();var ji=ee({routeTree:Ai,basepath:`/cc-war-record`,defaultViewTransition:!0});const Mi=()=>(0,b.jsxs)(b.Fragment,{children:[(0,b.jsx)(u,{router:ji}),!1]}),Ni=ne`
+`;var Q=e(l()),pi=`G-8MW9KTB7Q5`;const mi=()=>{Q.default.initialize(pi,{gaOptions:{siteSpeedSampleRate:100}})},hi=(e,t)=>{Q.default.send({hitType:`pageview`,page:e,title:t})},gi=(e,t,n,r)=>{Q.default.event({category:e,action:t,label:n,value:r})},_i=async()=>{try{let e=await fetch(`/cc-war-record/build-info.json`,{cache:`no-cache`});return e.ok?await e.json():(console.warn(`Failed to fetch build-info.json:`,e.status),null)}catch(e){return console.error(`Error fetching build-info.json:`,e),null}},vi=async()=>{let e=await _i();if(!e)return console.warn(`Failed to fetch build info`),!1;let{timestamp:t}=e,n=F(P.BUILD_TIMESTAMP,``);if(!n)return I(P.BUILD_TIMESTAMP,t.toString()),console.info(`First access: build timestamp saved`),!1;if(Number(n)!==t&&(console.info(`Build updated detected:`,{old:new Date(Number(n)).toISOString(),new:e.buildTime}),I(P.BUILD_TIMESTAMP,t.toString()),`serviceWorker`in navigator&&navigator.serviceWorker.controller))try{if(await(await navigator.serviceWorker.ready).unregister(),console.info(`ServiceWorker unregistered`),`caches`in window){let e=await caches.keys();await Promise.all(e.map(e=>caches.delete(e))),console.info(`Cache storage cleared`)}return!0}catch(e){console.error(`Error clearing ServiceWorker cache:`,e)}return!1},$=d({component:yi,notFoundComponent:bi});function yi(){let e=h(),{t}=K(),n=(0,x.useRef)(!1),[r,i]=(0,x.useState)(!1);return(0,x.useEffect)(()=>{window.scrollTo(0,0),hi(e.location.pathname)},[e.location.pathname]),(0,x.useEffect)(()=>{!r&&!n.current&&setTimeout(()=>{vi().then(e=>{e&&i(!0)})},1e3)},[e.location.pathname]),(0,b.jsxs)(Wr,{children:[(0,b.jsx)(x.Suspense,{fallback:(0,b.jsx)(li,{}),children:(0,b.jsx)(a,{})}),(0,b.jsx)(mr,{open:r,message:t(`common.buildUpdate.message`),actionLabel:t(`common.buildUpdate.reload`),onAction:()=>{window.location.reload()},onClose:()=>{i(!1),n.current=!0}})]})}function bi(){return(0,b.jsx)(Zr,{})}const xi=p(`/new`)({component:o(()=>S(()=>import(`./new-CXMTId5Y.js`),__vite__mapDeps([0,1,2])),`component`)}),Si=p(`/graphs`)({component:o(()=>S(()=>import(`./graphs-COqo9SdO.js`),__vite__mapDeps([3,1,2])),`component`),staleTime:1e3*60*5,gcTime:1e3*60*10}),Ci=p(`/faq`)({component:o(()=>S(()=>import(`./faq-u_PR-tni.js`),__vite__mapDeps([4,1,2])),`component`)}),wi=p(`/`)({component:o(()=>S(()=>import(`./routes-B99kkAH2.js`),__vite__mapDeps([5,1,2])),`component`)}),Ti=p(`/histories/`)({component:o(()=>S(()=>import(`./histories-_RmMvS8b.js`),__vite__mapDeps([6,1,2])),`component`)}),Ei=p(`/histories/$id`)({component:o(()=>S(()=>import(`./_id-DVMwLT1C.js`),__vite__mapDeps([7,1,2])),`component`)});var Di=xi.update({id:`/new`,path:`/new`,getParentRoute:()=>$}),Oi=Si.update({id:`/graphs`,path:`/graphs`,getParentRoute:()=>$}),ki=Ci.update({id:`/faq`,path:`/faq`,getParentRoute:()=>$}),Ai=wi.update({id:`/`,path:`/`,getParentRoute:()=>$}),ji=Ti.update({id:`/histories/`,path:`/histories/`,getParentRoute:()=>$}),Mi=Ei.update({id:`/histories/$id`,path:`/histories/$id`,getParentRoute:()=>$}),Ni={IndexRoute:Ai,FaqRoute:ki,GraphsRoute:Oi,NewRoute:Di,HistoriesIdRoute:Mi,HistoriesIndexRoute:ji};const Pi=$._addFileChildren(Ni)._addFileTypes();var Fi=ee({routeTree:Pi,basepath:`/cc-war-record`,defaultViewTransition:!0});const Ii=()=>(0,b.jsxs)(b.Fragment,{children:[(0,b.jsx)(u,{router:Fi}),!1]}),Li=ne`
   * {
     margin: 0;
     padding: 0;
@@ -2046,7 +2046,7 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
     width: 10px;
     height: 10px;
 
-    ${X.mobile} {
+    ${Y.mobile} {
       width: 4px;
       height: 4px;
     }
@@ -2104,10 +2104,10 @@ import{i as e}from"./rolldown-runtime-CIDIeb-o.js";import{C as t,T as n,a as r,c
   input, textarea, select {
     font: inherit;
   }
-`;var Pi=(e,t)=>typeof t==`string`?ce(e):!0,Fi=({children:e})=>{let{theme:t}=Ft();return(0,b.jsx)(ie,{shouldForwardProp:Pi,children:(0,b.jsxs)(re,{theme:t,children:[(0,b.jsx)(Ni,{}),e]})})};oe.use(se).use(m).init({resources:{ja:{translation:{common:{appName:`クリコン戦績記録`,confirm:`確認`,upload:`アップロード`,cancel:`キャンセル`,delete:`削除`,edit:`編集`,save:`保存`,close:`閉じる`,add:`追加`,back:`戻る`,loading:`読み込み中...`,processing:`処理中...`,closeDialog:`ダイアログを閉じる`,error:`エラーが発生しました`,noData:`データがありません`,success:`成功しました`,warning:`警告`,info:`情報`,menu:`メニュー`,toggleTheme:`テーマを切り替え`,switchToDarkMode:`ダークモードに切り替え`,switchToLightMode:`ライトモードに切り替え`,win:`勝`,defeat:`敗`,buildUpdate:{message:`新しいバージョンが利用可能です`,reload:`更新`}},navigation:{home:`ホーム`,graphs:`グラフ`,histories:`履歴`,faq:`FAQ`},pages:{home:{title:`{{seasonName}} の戦績`,description:`戦績と統計情報を入力します。`,createSeason:`新しいシーズンを作成`,noSeason:`シーズンが作成されていません`,createFirstSeason:`最初のシーズンを作成してください`,errorOccurred:`エラーが発生しました`},graphs:{title:`戦績グラフ`,description:`現シーズンの戦績をグラフ形式で可視化します。`,descriptionWithSeason:`{{seasonName}} の戦績をグラフ形式で可視化します。`,daily:`日別勝敗数`,hourly:`時間別勝率`,weekly:`曜日別勝率`,jobWinRate:`ジョブ別勝率`,jobUsage:`ジョブ使用率`,filters:{character:`キャラクター`,job:`ジョブ`,map:`マップ`,all:`すべて`}},histories:{title:`履歴一覧`,description:`過去のシーズンの一覧を表示・管理します。各シーズンの詳細は詳細ボタンから確認できます。`,totalSeasons:`総シーズン数: {{count}}件`,totalMatches:`総試合数: {{count}}`,latestCreated:`最新作成`,detail:`詳細`,delete:`削除`,confirmDelete:`シーズンの削除`,deleteDescription:`「{{seasonName}}」を削除してもよろしいですか？
+`;var Ri=(e,t)=>typeof t==`string`?ce(e):!0,zi=({children:e})=>{let{theme:t}=It();return(0,b.jsx)(ie,{shouldForwardProp:Ri,children:(0,b.jsxs)(re,{theme:t,children:[(0,b.jsx)(Li,{}),e]})})};oe.use(se).use(m).init({resources:{ja:{translation:{common:{appName:`クリコン戦績記録`,confirm:`確認`,upload:`アップロード`,cancel:`キャンセル`,delete:`削除`,edit:`編集`,save:`保存`,close:`閉じる`,add:`追加`,back:`戻る`,loading:`読み込み中...`,processing:`処理中...`,closeDialog:`ダイアログを閉じる`,error:`エラーが発生しました`,noData:`データがありません`,success:`成功しました`,warning:`警告`,info:`情報`,menu:`メニュー`,toggleTheme:`テーマを切り替え`,switchToDarkMode:`ダークモードに切り替え`,switchToLightMode:`ライトモードに切り替え`,win:`勝`,defeat:`敗`,buildUpdate:{message:`新しいバージョンが利用可能です`,reload:`更新`}},navigation:{home:`ホーム`,graphs:`グラフ`,histories:`履歴`,faq:`FAQ`},pages:{home:{title:`{{seasonName}} の戦績`,description:`戦績と統計情報を入力します。`,createSeason:`新しいシーズンを作成`,noSeason:`シーズンが作成されていません`,createFirstSeason:`最初のシーズンを作成してください`,errorOccurred:`エラーが発生しました`},graphs:{title:`戦績グラフ`,description:`現シーズンの戦績をグラフ形式で可視化します。`,descriptionWithSeason:`{{seasonName}} の戦績をグラフ形式で可視化します。`,daily:`日別勝敗数`,hourly:`時間別勝率`,weekly:`曜日別勝率`,jobWinRate:`ジョブ別勝率`,jobUsage:`ジョブ使用率`,filters:{character:`キャラクター`,job:`ジョブ`,map:`マップ`,all:`すべて`}},histories:{title:`履歴一覧`,description:`過去のシーズンの一覧を表示・管理します。各シーズンの詳細は詳細ボタンから確認できます。`,totalSeasons:`総シーズン数: {{count}}件`,totalMatches:`総試合数: {{count}}`,latestCreated:`最新作成`,detail:`詳細`,delete:`削除`,confirmDelete:`シーズンの削除`,deleteDescription:`「{{seasonName}}」を削除してもよろしいですか？
 この操作は取り消すことができません。`,emptyState:`履歴がありません`,stats:`シーズン数`,createBackup:`バックアップを作成`,importBackup:`バックアップ取り込み`,importBackupWarningTitle:`バックアップの取り込み`,importBackupWarningMessage:`現在のデータはバックアップのデータで上書きされます。この操作は取り消せません。続行しますか？`,backupCreated:`バックアップを作成しました`,backupRestored:`バックアップを復元しました`,errors:{loadFailed:`履歴の読み込みに失敗しました`,alreadyExists:`シーズン「{{seasonName}}」は既に存在します`,notFound:`指定された履歴が見つかりません`,characterNotFound:`指定されたキャラクターが見つかりません`,deleteMatchRecordsFailed:`シーズン {{uuid}} のマッチレコード削除中にエラーが発生しました`,loadMatchRecordsFailed:`シーズン {{seasonUuid}} のマッチレコード読み込み中にエラーが発生しました`,backupCreateFailed:`バックアップの作成に失敗しました`,backupRestoreFailed:`バックアップの復元に失敗しました`,backupFileCorrupted:`バックアップファイルが破損しています`}},historyDetail:{title:`{{seasonName}} の詳細`,description:`シーズンの全戦績を表示しています。`,backToList:`履歴一覧に戻る`,totalMatches:`{{count}}試合の戦績`,matchesCount:`試合数`,winRate:`勝率`,overall:`全体`,createdDate:`作成日`,searchPlaceholder:`キャラクター名、ジョブ、日時で検索...`,columns:{season:`シーズン名`,character:`キャラクター名`,job:`使用ジョブ`,map:`マップ`,result:`勝敗`,date:`作成日時`},results:{win:`Win`,defeat:`Defeat`},emptyState:`戦績が記録されていません`},newSeason:{title:`新しいシーズンを作成`,description:`新しいシーズンを作成します。シーズン名を入力してください。`,seasonName:`シーズン名`,seasonNamePlaceholder:`例: シーズン1`,create:`作成する`,creating:`作成中...`,cancel:`キャンセル`,confirmTitle:`シーズン作成の確認`,confirmDescription:`新しいシーズンを作成すると「{{seasonName}}」の戦績データは過去のシーズンとしてアーカイブされ、新しい戦績の入力が開始されます。よろしいでしょうか?`,validationRequired:`シーズン名を入力してください`,validationMaxLength:`シーズン名は{{length}}文字以内で入力してください`,successMessage:`シーズン「{{seasonName}}」を作成しました`},faq:{title:`よくある質問 (FAQ)`,description:`CC戦績記録について、よくお寄せいただく質問とその回答をまとめました。`,privacy:{title:`プライバシー・データについて`,dataStorage:{question:`戦績データはどこに保存されますか？`,answer:{intro:`戦績データはすべてお使いのブラウザのローカルストレージに保存されます。`,description:`当アプリケーションでは、以下の方針でデータを扱っています：`,points:[`戦績データや個人情報は一切サーバーに送信されません`,`すべてのデータはブラウザ内のみで管理されます`,`アプリケーション開発者がユーザーの戦績データにアクセスすることはありません`,`データの削除はブラウザの設定から行えます`]}},analytics:{question:`Google Analyticsで何が収集されますか？`,answer:{intro:`当サイトでは、サービス改善のためにGoogle Analyticsを使用しています。`,collected:`収集される情報：`,collectedPoints:[`アクセス統計：ページビュー数、セッション数、平均滞在時間など`,`技術情報：ブラウザの種類、OS、画面サイズなど`,`地域情報：国や地域レベルの大まかな位置情報（詳細な住所等は含まれません）`],notCollected:`収集されない情報：`,notCollectedPoints:[`戦績データや個人の成績情報`,`キャラクター名やその他の個人情報`,`詳細な位置情報や住所`],anonymous:`これらの統計情報は匿名化されており、個人を特定することはできません。`}},dataDeletion:{question:`データの削除方法を教えてください`,answer:{intro:`保存されているデータを削除したい場合は、以下の方法で行えます：`,methods:[`個別削除：各ページで「削除」ボタンを使用`,`完全削除：ブラウザの設定からサイトデータを削除`],browserMethods:`ブラウザからのデータ削除方法：`,browserSteps:[`Chrome: 設定 → プライバシーとセキュリティ → サイトデータ`,`Firefox: 設定 → プライバシーとセキュリティ → Cookieとサイトデータ`,`Safari: 環境設定 → プライバシー → Webサイトデータを管理`]}}},usage:{title:`アプリケーションの使い方`,backup:{question:`データのバックアップ方法を教えてください`,answer:{intro:`履歴ページからデータのバックアップと復元ができます：`,backup:`バックアップの作成：`,backupSteps:[`履歴ページの右上にある「バックアップを作成」ボタンをクリック`,`自動的にZIPファイルがダウンロードされます`,`ファイル名は「cc-war-record-backup-日時.zip」形式で保存されます`],restore:`バックアップの復元：`,restoreSteps:[`履歴ページの右上にある「バックアップから復元」ボタンをクリック`,`保存したZIPファイルを選択`,`データが復元され、ページが自動的にリロードされます`],includes:`バックアップに含まれるデータ：`,includesItems:[`キャラクター情報`,`試合記録（全シーズン）`,`シーズン履歴`,`レーダーチャート設定`],note:`※ バックアップファイルは安全な場所に保管してください`}},dataDefeat:{question:`データが消えてしまうことはありますか？`,answer:{intro:`ローカルストレージに保存されたデータは、以下の場合に削除される可能性があります：`,causes:[`ブラウザのキャッシュクリア時`,`ブラウザの設定でサイトデータを削除した場合`,`プライベートブラウジングモード使用時`,`デバイスの容量不足時（ブラウザが自動削除する場合）`],recommendation:`重要なデータは定期的にバックアップを取ることをお勧めします。`}},dataSyncing:{question:`複数のブラウザでデータを共有できますか？`,answer:{limitation:`申し訳ございませんが、現在のところブラウザ間でのデータ同期機能は提供していません。`,explanation:`各ブラウザのローカルストレージは独立しているため、データは使用したブラウザでのみ利用可能です。`,workaround:`ただし、バックアップ機能を使えば、別のブラウザやデバイスにデータを移行することができます。`}}},copyright:{disclaimer:`このアプリケーションはファンメイドの非公式ツールであり、株式会社スクウェア・エニックスとは一切関係がありません。`}},notFound:{title:`ページが見つかりません`,description:`お探しのページは存在しないか、削除された可能性があります。`,backToHome:`ホームに戻る`}},character:{name:`キャラクター名`,create:`キャラクターを作成`,createSuccess:`キャラクター「{{name}}」を作成しました`,edit:`キャラクター名を編集`,delete:`キャラクターを削除`,confirmDelete:`削除する`,moveUp:`1つ上に`,moveDown:`1つ下に`,deleteDescription:`キャラクター「{{name}}」を削除しますか？<br/><span style='color: #dc2626; margin-top: 12px; font-size: 0.875rem; display: block;'>⚠️ 関連する戦績記録もすべて削除されます。この操作は取り消せません。</span>`,namePlaceholder:`キャラクター名を入力`,validationRequired:`キャラクター名を入力してください`,emptyState:`キャラクターがありません`,createFirst:`最初のキャラクターを作成してください`,errors:{alreadyExists:`キャラクター「{{name}}」は既に存在します`,notFound:`キャラクターが見つかりません`,loadFailed:`データの読み込みに失敗しました`,matchRecordNotFound:`戦績記録が見つかりません`},stats:{matches:`{{count}}試合`,totalMatches:`{{count}}試合`,winRate:`勝率{{rate}}%`,noWinRate:`勝率--%`,wins:`{{count}}勝`,defeats:`{{count}}敗`},actions:{addJob:`ジョブの追加`,editName:`名前を編集`,deleteName:`キャラクターの削除`,more:`その他`}},match:{record:`戦績を記録`,job:`ジョブ`,map:`マップ`,result:`結果`,win:`勝利数`,defeat:`敗北数`,memo:`メモ`,memoPlaceholder:`メモを入力（任意）`,selectJob:`ジョブを選択してください`,selectMap:`マップを選択してください`,recorded:`戦績を記録しました`,totalMatches:`試合数`,winRate:`勝率`,allStagesTotal:`全ステージ合計`,actions:`操作`,pleaseRegisterJob:`ジョブを登録してください`,recentMatches:`最近の戦績`,deleteMatch:`戦績を削除`,confirmDelete:`戦績の削除`,confirmDeleteButton:`削除する`,deleteConfirmation:`{{characterName}} の {{date}} の戦績を削除してもよろしいですか？
 この操作は取り消すことができません。`,addWin:`勝利を記録`,addDefeat:`敗北を記録`,rollback:`直前の記録を取り消し`},job:{select:`ジョブ選択`,selectJob:`使用ジョブを選択`,selectJobDescription:`ジョブを選択してください`,tank:`タンク`,healer:`ヒーラー`,meleeDps:`近接DPS`,melee_dps:`近接DPS`,physicalRangedDps:`物理遠隔DPS`,physical_ranged_dps:`物理遠隔DPS`,magicalRangedDps:`魔法遠隔DPS`,magical_ranged_dps:`魔法遠隔DPS`,PLD:`ナイト`,WAR:`戦士`,DRK:`暗黒騎士`,GNB:`ガンブレイカー`,WHM:`白魔道士`,SCH:`学者`,AST:`占星術師`,SGE:`賢者`,MNK:`モンク`,DRG:`竜騎士`,NIN:`忍者`,SAM:`侍`,RPR:`リーパー`,VPR:`ヴァイパー`,BRD:`吟遊詩人`,MCH:`機工士`,DNC:`踊り子`,BLM:`黒魔道士`,SMN:`召喚士`,RDM:`赤魔道士`,PCT:`ピクトマンサー`},maps:{THE_PALAISTRA:`パライストラ`,VOLCANIC_HEART:`ヴォルカニックハート`,CLOUD_NINE:`クラウドナイン`,TOUHOU_KARAKURI_GOTEN:`東方絡繰御殿`,RED_SANDS:`レッドサンズ`,BAYSIDE_BATTLEGROUND:`ベイサイドバトルグラウンド`},chart:{winRate:`勝率`,winCount:`勝利数`,defeatCount:`敗北数`,usageRate:`使用率`,matches:`試合`,noData:`データがありません`,noMatchData:`試合データがありません`,selectJobs:`ジョブを選択（最大5個）`,hour:`{{hour}}時`,day:{sunday:`日`,monday:`月`,tuesday:`火`,wednesday:`水`,thursday:`木`,friday:`金`,saturday:`土`},labels:{character:`キャラクター`,job:`ジョブ`,map:`マップ`,date:`日付`,allCharacters:`すべてのキャラクター`,allJobs:`すべてのジョブ`,allMaps:`すべてのマップ`,jobSelection:`ジョブ選択（最大5つ）`,selectJob:`ジョブを選択`},titles:{dailyWinDefeat:`日別勝敗数と勝率推移`,weeklyWinRate:`曜日別勝率比較`,hourlyWinDefeat:`時間帯別勝率分析`,jobUsageRate:`ジョブ使用率`,jobWinRateByMap:`マップ別ジョブ勝率比較`,todayWinDefeatTrend:`その日の勝敗推移`},axes:{matchCount:`対戦回数`,winRatePercent:`勝率 (%)`,date:`日付`,weekday:`曜日`,hour:`時間帯`},legend:{win:`Win`,lose:`Defeat`,winRate:`WinRate`,defeatRate:`DefeatRate`},tooltip:{usageCount:`使用回数`,usageRatePercent:`使用率`,win:`Win`,lose:`Defeat`,total:`合計`,matches:`試合`,noMatchData:`試合データなし`},weekdays:{sunday:`日曜日`,monday:`月曜日`,tuesday:`火曜日`,wednesday:`水曜日`,thursday:`木曜日`,friday:`金曜日`,saturday:`土曜日`},todayTrend:{match:`第{{number}}試合`,winRate:`勝率`,winCount:`勝数`,winDifference:`勝ち越し数`,record:`戦績`,matches:`試合`,matchNumber:`試合数`,noData:`今日の試合データがありません`}},language:{current:`日本語`,japanese:`日本語`,english:`English`,korean:`한국어`,switch:`言語を切り替え`}}},en:{translation:{common:{appName:`CC War Record`,confirm:`Confirm`,upload:`Upload`,cancel:`Cancel`,delete:`Delete`,edit:`Edit`,save:`Save`,close:`Close`,add:`Add`,back:`Back`,loading:`Loading...`,processing:`Processing...`,closeDialog:`Close dialog`,error:`An error occurred`,noData:`No data available`,success:`Success`,warning:`Warning`,info:`Information`,menu:`Menu`,toggleTheme:`Toggle theme`,switchToDarkMode:`Switch to dark mode`,switchToLightMode:`Switch to light mode`,win:`Win`,defeat:`Defeat`,buildUpdate:{message:`A new version is available`,reload:`Reload`}},navigation:{home:`Home`,graphs:`Graphs`,histories:`Histories`,faq:`FAQ`},pages:{home:{title:`{{seasonName}} Records`,description:`Enter your match records and view statistics.`,createSeason:`Create New Season`,noSeason:`No season has been created`,createFirstSeason:`Please create your first season`,errorOccurred:`An error occurred`},graphs:{title:`Match Statistics`,description:`Visualize current season match statistics in graph format.`,descriptionWithSeason:`Visualize {{seasonName}} match statistics in graph format.`,daily:`Daily Win/Defeat`,hourly:`Hourly Win Rate`,weekly:`Weekly Win Rate`,jobWinRate:`Job Win Rate`,jobUsage:`Job Usage Rate`,filters:{character:`Character`,job:`Job`,map:`Map`,all:`All`}},histories:{title:`History`,description:`View and manage past seasons. Click the detail button to see more information about each season.`,totalSeasons:`Total Seasons: {{count}}`,totalMatches:`Total Matches: {{count}}`,latestCreated:`Latest`,detail:`Details`,delete:`Delete`,confirmDelete:`Delete Season`,deleteDescription:`Are you sure you want to delete "{{seasonName}}"?
 This action cannot be undone.`,emptyState:`No history available`,stats:`Seasons`,createBackup:`Create Backup`,importBackup:`Import Backup`,importBackupWarningTitle:`Import Backup`,importBackupWarningMessage:`Current data will be overwritten with the backup data. This action cannot be undone. Do you want to continue?`,backupCreated:`Backup created successfully`,backupRestored:`Backup restored successfully`,errors:{loadFailed:`Failed to load history`,alreadyExists:`Season "{{seasonName}}" already exists`,notFound:`The specified history was not found`,characterNotFound:`The specified character was not found`,deleteMatchRecordsFailed:`Error deleting match records for season {{uuid}}`,loadMatchRecordsFailed:`Error loading match records for season {{seasonUuid}}`,backupCreateFailed:`Failed to create backup`,backupRestoreFailed:`Failed to restore backup`,backupFileCorrupted:`Backup file is corrupted`}},historyDetail:{title:`{{seasonName}} Details`,description:`Displaying all matches for this season.`,backToList:`Back to History`,totalMatches:`{{count}} matches`,matchesCount:`Matches`,winRate:`Win Rate`,overall:`Overall`,createdDate:`Created`,searchPlaceholder:`Search by character, job, date...`,columns:{season:`Season Name`,character:`Character Name`,job:`Job Used`,map:`Map`,result:`Result`,date:`Date`},results:{win:`Win`,defeat:`Defeat`},emptyState:`No matches recorded`},newSeason:{title:`Create New Season`,description:`Create a new season. Please enter a season name.`,seasonName:`Season Name`,seasonNamePlaceholder:`e.g. Season 1`,create:`Create`,creating:`Creating...`,cancel:`Cancel`,confirmTitle:`Confirm Season Creation`,confirmDescription:`Creating a new season will archive the match data for "{{seasonName}}" and start recording new matches. Continue?`,validationRequired:`Please enter a season name`,validationMaxLength:`Season name must be {{length}} characters or less`,successMessage:`Season "{{seasonName}}" created successfully`},faq:{title:`Frequently Asked Questions (FAQ)`,description:`Common questions and answers about CC War Record.`,privacy:{title:`Privacy & Data`,dataStorage:{question:`Where is my match data stored?`,answer:{intro:`All match data is stored in your browser's local storage only.`,description:`Our application handles data with the following policy:`,points:[`Match data and personal information are never sent to servers`,`All data is managed within your browser only`,`Application developers cannot access your match data`,`Data can be deleted through browser settings`]}},analytics:{question:`What does Google Analytics collect?`,answer:{intro:`We use Google Analytics to improve our service.`,collected:`Information collected:`,collectedPoints:[`Access statistics: page views, sessions, average session duration, etc.`,`Technical information: browser type, OS, screen size, etc.`,`Regional information: general location at country/region level (no detailed addresses)`],notCollected:`Information NOT collected:`,notCollectedPoints:[`Match data or personal performance information`,`Character names or other personal information`,`Detailed location information or addresses`],anonymous:`All statistical information is anonymized and cannot identify individuals.`}},dataDeletion:{question:`How can I delete my data?`,answer:{intro:`To delete stored data, you can use the following methods:`,methods:[`Individual deletion: Use the "Delete" button on each page`,`Complete deletion: Delete site data through browser settings`],browserMethods:`Browser data deletion methods:`,browserSteps:[`Chrome: Settings → Privacy and security → Site data`,`Firefox: Settings → Privacy & Security → Cookies and Site Data`,`Safari: Preferences → Privacy → Manage Website Data`]}}},usage:{title:`Application Usage`,backup:{question:`How do I backup my data?`,answer:{intro:`You can backup and restore your data from the History page:`,backup:`Creating a backup:`,backupSteps:[`Click the "Create Backup" button in the top right of the History page`,`A ZIP file will be automatically downloaded`,`The file is saved as "cc-war-record-backup-timestamp.zip"`],restore:`Restoring from backup:`,restoreSteps:[`Click the "Restore from Backup" button in the top right of the History page`,`Select your saved ZIP file`,`Data will be restored and the page will automatically reload`],includes:`Data included in backup:`,includesItems:[`Character information`,`Match records (all seasons)`,`Season history`,`Radar chart settings`],note:`※ Please keep your backup file in a safe place`}},dataDefeat:{question:`Can my data be lost?`,answer:{intro:`Data stored in local storage may be deleted in the following cases:`,causes:[`When browser cache is cleared`,`When site data is deleted through browser settings`,`When using private browsing mode`,`When device storage is low (browser may auto-delete)`],recommendation:`We recommend regularly backing up important data.`}},dataSyncing:{question:`Can I share data between multiple browsers?`,answer:{limitation:`Unfortunately, we do not currently provide data synchronization between browsers.`,explanation:`Each browser's local storage is independent, so data is only available in the browser where it was created.`,workaround:`However, you can use the backup feature to transfer data to another browser or device.`}}},copyright:{disclaimer:`This application is a fan-made unofficial tool and is not affiliated with Square Enix Co., Ltd. in any way.`}},notFound:{title:`Page Not Found`,description:`The page you're looking for doesn't exist or may have been deleted.`,backToHome:`Back to Home`}},character:{name:`Character Name`,create:`Create Character`,createSuccess:`Character "{{name}}" created successfully`,edit:`Edit Character Name`,delete:`Delete Character`,confirmDelete:`Delete`,moveUp:`Move up`,moveDown:`Move down`,deleteDescription:`Are you sure you want to delete character "{{name}}"?<br/><span style='color: #dc2626; margin-top: 12px; font-size: 0.875rem; display: block;'>⚠️ All associated match records will also be deleted. This action cannot be undone.</span>`,namePlaceholder:`Enter character name`,validationRequired:`Please enter a character name`,emptyState:`No characters`,createFirst:`Create your first character`,errors:{alreadyExists:`Character "{{name}}" already exists`,notFound:`Character not found`,loadFailed:`Failed to load data`,matchRecordNotFound:`Match record not found`},stats:{matches:`{{count}} matches`,totalMatches:`{{count}} matches`,winRate:`{{rate}}% win rate`,noWinRate:`-- % win rate`,wins:`{{count}} wins`,defeats:`{{count}} defeats`},actions:{addJob:`Add Job`,editName:`Edit Name`,deleteName:`Delete Character`,more:`More`}},match:{record:`Record Match`,job:`Job`,map:`Map`,result:`Result`,win:`Wins`,defeat:`Defeats`,memo:`Memo`,memoPlaceholder:`Enter memo (optional)`,selectJob:`Please select a job`,selectMap:`Please select a map`,recorded:`Match recorded successfully`,totalMatches:`Matches`,winRate:`Win Rate`,allStagesTotal:`All Stages Total`,actions:`Actions`,pleaseRegisterJob:`Please register a job`,recentMatches:`Recent Matches`,deleteMatch:`Delete Match`,confirmDelete:`Delete Match Record`,confirmDeleteButton:`Delete`,deleteConfirmation:`Are you sure you want to delete the match record for {{characterName}} on {{date}}?
 This action cannot be undone.`,addWin:`Record Win`,addDefeat:`Record Defeat`,rollback:`Undo Last Record`},job:{select:`Select Job`,selectJob:`Select Job to Use`,selectJobDescription:`Please select a job`,tank:`Tank`,healer:`Healer`,meleeDps:`Melee DPS`,melee_dps:`Melee DPS`,physicalRangedDps:`Physical Ranged DPS`,physical_ranged_dps:`Physical Ranged DPS`,magicalRangedDps:`Magical Ranged DPS`,magical_ranged_dps:`Magical Ranged DPS`,PLD:`Paladin`,WAR:`Warrior`,DRK:`Dark Knight`,GNB:`Gunbreaker`,WHM:`White Mage`,SCH:`Scholar`,AST:`Astrologian`,SGE:`Sage`,MNK:`Monk`,DRG:`Dragoon`,NIN:`Ninja`,SAM:`Samurai`,RPR:`Reaper`,VPR:`Viper`,BRD:`Bard`,MCH:`Machinist`,DNC:`Dancer`,BLM:`Black Mage`,SMN:`Summoner`,RDM:`Red Mage`,PCT:`Pictomancer`},maps:{THE_PALAISTRA:`The Palaistra`,VOLCANIC_HEART:`The Volcanic Heart`,CLOUD_NINE:`Cloud Nine`,TOUHOU_KARAKURI_GOTEN:`The Clockwork Castletown`,RED_SANDS:`The Red Sands`,BAYSIDE_BATTLEGROUND:`The Bayside Battleground`},chart:{winRate:`Win Rate`,winCount:`Wins`,defeatCount:`Defeats`,usageRate:`Usage Rate`,matches:`Matches`,noData:`No data available`,noMatchData:`No match data available`,selectJobs:`Select jobs (max 5)`,hour:`{{hour}}:00`,day:{sunday:`Sun`,monday:`Mon`,tuesday:`Tue`,wednesday:`Wed`,thursday:`Thu`,friday:`Fri`,saturday:`Sat`},labels:{character:`Character`,job:`Job`,map:`Map`,date:`Date`,allCharacters:`All Characters`,allJobs:`All Jobs`,allMaps:`All Maps`,jobSelection:`Job Selection (Max 5)`,selectJob:`Select Job`},titles:{dailyWinDefeat:`Daily Win/Defeat and Win Rate Trend`,weeklyWinRate:`Win Rate Comparison by Day of Week`,hourlyWinDefeat:`Win Rate Analysis by Time of Day`,jobUsageRate:`Job Usage Rate`,jobWinRateByMap:`Job Win Rate Comparison by Map`,todayWinDefeatTrend:`Today's Win/Defeat Trend`},axes:{matchCount:`Match Count`,winRatePercent:`Win Rate (%)`,date:`Date`,weekday:`Day of Week`,hour:`Time of Day`},legend:{win:`Win`,lose:`Defeat`,winRate:`WinRate`,defeatRate:`DefeatRate`},tooltip:{usageCount:`Usage Count`,usageRatePercent:`Usage Rate`,win:`Win`,lose:`Defeat`,total:`Total`,matches:`Matches`,noMatchData:`No match data`},weekdays:{sunday:`Sunday`,monday:`Monday`,tuesday:`Tuesday`,wednesday:`Wednesday`,thursday:`Thursday`,friday:`Friday`,saturday:`Saturday`},todayTrend:{match:`Match #{{number}}`,winRate:`Win Rate`,winCount:`Wins`,winDifference:`Win Difference`,record:`Record`,matches:`matches`,matchNumber:`Matches`,noData:`No match data available for today`}},language:{current:`English`,japanese:`日本語`,english:`English`,korean:`한국어`,switch:`Switch Language`}}},ko:{translation:{common:{appName:`크리스탈 컨플릭트 전적 기록`,confirm:`확인`,upload:`업로드`,cancel:`취소`,delete:`삭제`,edit:`편집`,save:`저장`,close:`닫기`,add:`추가`,back:`뒤로`,loading:`로딩 중...`,processing:`처리 중...`,closeDialog:`대화상자 닫기`,error:`오류가 발생했습니다`,noData:`데이터가 없습니다`,success:`성공`,warning:`경고`,info:`정보`,menu:`메뉴`,toggleTheme:`테마 전환`,switchToDarkMode:`다크 모드로 전환`,switchToLightMode:`라이트 모드로 전환`,buildUpdate:{message:`새 버전을 사용할 수 있습니다`,reload:`새로고침`}},navigation:{home:`홈`,graphs:`그래프`,histories:`기록`,faq:`FAQ`},pages:{home:{title:`{{seasonName}} 전적`,description:`전적과 통계 정보를 입력합니다.`,createSeason:`새 시즌 만들기`,noSeason:`시즌이 생성되지 않았습니다`,createFirstSeason:`첫 번째 시즌을 만들어주세요`,errorOccurred:`오류가 발생했습니다`},graphs:{title:`전적 그래프`,description:`현재 시즌 전적을 그래프 형식으로 시각화합니다.`,descriptionWithSeason:`{{seasonName}} 전적을 그래프 형식으로 시각화합니다.`,daily:`일별 승부`,hourly:`시간별 승률`,weekly:`요일별 승률`,jobWinRate:`잡별 승률`,jobUsage:`잡 사용률`,filters:{character:`캐릭터`,job:`잡`,map:`맵`,all:`전체`}},histories:{title:`히스토리 목록`,description:`과거 시즌 목록을 표시하고 관리합니다. 각 시즌의 세부정보는 상세 버튼에서 확인할 수 있습니다.`,totalSeasons:`총 시즌 수: {{count}}개`,totalMatches:`총 경기 수: {{count}}`,latestCreated:`최근 생성`,detail:`상세`,delete:`삭제`,confirmDelete:`시즌 삭제`,deleteDescription:`"{{seasonName}}"을(를) 삭제하시겠습니까?
 이 작업은 취소할 수 없습니다.`,emptyState:`히스토리가 없습니다`,stats:`시즌`,createBackup:`백업 생성`,importBackup:`백업 가져오기`,importBackupWarningTitle:`백업 가져오기`,importBackupWarningMessage:`현재 데이터가 백업 데이터로 덮어씌워집니다. 이 작업은 취소할 수 없습니다. 계속하시겠습니까?`,backupCreated:`백업이 생성되었습니다`,backupRestored:`백업이 복원되었습니다`,errors:{loadFailed:`히스토리 로드에 실패했습니다`,alreadyExists:`시즌 "{{seasonName}}"은(는) 이미 존재합니다`,notFound:`지정된 히스토리를 찾을 수 없습니다`,characterNotFound:`지정된 캐릭터를 찾을 수 없습니다`,deleteMatchRecordsFailed:`시즌 {{uuid}}의 매치 기록 삭제 중 오류가 발생했습니다`,loadMatchRecordsFailed:`시즌 {{seasonUuid}}의 매치 기록 로드 중 오류가 발생했습니다`,backupCreateFailed:`백업 생성에 실패했습니다`,backupRestoreFailed:`백업 복원에 실패했습니다`,backupFileCorrupted:`백업 파일이 손상되었습니다`}},historyDetail:{title:`{{seasonName}} 상세`,description:`시즌의 모든 전적을 표시하고 있습니다.`,backToList:`기록 목록으로 돌아가기`,totalMatches:`{{count}}경기 전적`,matchesCount:`경기 수`,winRate:`승률`,overall:`전체`,createdDate:`생성일`,searchPlaceholder:`캐릭터명, 잡, 날짜로 검색...`,columns:{season:`시즌명`,character:`캐릭터명`,job:`사용 잡`,map:`맵`,result:`결과`,date:`생성일시`},results:{win:`Win`,defeat:`Defeat`},emptyState:`전적이 기록되지 않았습니다`},newSeason:{title:`새 시즌 만들기`,description:`새 시즌을 만듭니다. 시즌명을 입력해주세요.`,seasonName:`시즌명`,seasonNamePlaceholder:`예: 시즌 1`,create:`만들기`,creating:`만드는 중...`,cancel:`취소`,confirmTitle:`시즌 생성 확인`,confirmDescription:`새 시즌을 만들면 "{{seasonName}}"의 전적 데이터가 과거 시즌으로 아카이브되고 새로운 전적 입력이 시작됩니다. 계속하시겠습니까?`,validationRequired:`시즌명을 입력해주세요`,validationMaxLength:`시즌명은 {{length}}자 이내로 입력해주세요`,successMessage:`시즌 "{{seasonName}}"을 만들었습니다`},faq:{title:`자주 묻는 질문 (FAQ)`,description:`크리스탈 컨플릭트 전적 기록에 대한 자주 묻는 질문과 답변입니다.`,privacy:{title:`개인정보 및 데이터`,dataStorage:{question:`전적 데이터는 어디에 저장되나요?`,answer:{intro:`모든 전적 데이터는 사용자의 브라우저 로컬 스토리지에만 저장됩니다.`,description:`본 애플리케이션은 다음 방침으로 데이터를 다룹니다:`,points:[`전적 데이터나 개인정보는 일체 서버로 전송되지 않습니다`,`모든 데이터는 브라우저 내에서만 관리됩니다`,`애플리케이션 개발자가 사용자의 전적 데이터에 접근할 수 없습니다`,`데이터 삭제는 브라우저 설정에서 할 수 있습니다`]}},analytics:{question:`Google Analytics에서 무엇을 수집하나요?`,answer:{intro:`본 사이트는 서비스 개선을 위해 Google Analytics를 사용합니다.`,collected:`수집되는 정보:`,collectedPoints:[`접속 통계: 페이지뷰 수, 세션 수, 평균 체류시간 등`,`기술 정보: 브라우저 종류, OS, 화면 크기 등`,`지역 정보: 국가나 지역 수준의 대략적인 위치 정보 (상세 주소 등은 포함되지 않음)`],notCollected:`수집되지 않는 정보:`,notCollectedPoints:[`전적 데이터나 개인 성적 정보`,`캐릭터명이나 기타 개인정보`,`상세한 위치 정보나 주소`],anonymous:`이러한 통계 정보는 익명화되어 있으며, 개인을 특정할 수 없습니다.`}},dataDeletion:{question:`데이터 삭제 방법을 알려주세요`,answer:{intro:`저장된 데이터를 삭제하고 싶은 경우 다음 방법으로 할 수 있습니다:`,methods:[`개별 삭제: 각 페이지에서 "삭제" 버튼 사용`,`완전 삭제: 브라우저 설정에서 사이트 데이터 삭제`],browserMethods:`브라우저에서 데이터 삭제 방법:`,browserSteps:[`Chrome: 설정 → 개인정보 및 보안 → 사이트 데이터`,`Firefox: 설정 → 개인정보 및 보안 → 쿠키 및 사이트 데이터`,`Safari: 환경설정 → 개인정보 보호 → 웹사이트 데이터 관리`]}}},usage:{title:`애플리케이션 사용법`,backup:{question:`데이터 백업 방법을 알려주세요`,answer:{intro:`히스토리 페이지에서 데이터 백업 및 복원을 할 수 있습니다:`,backup:`백업 생성:`,backupSteps:[`히스토리 페이지 우측 상단의 "백업 생성" 버튼 클릭`,`자동으로 ZIP 파일이 다운로드됩니다`,`파일명은 "cc-war-record-backup-날짜시간.zip" 형식으로 저장됩니다`],restore:`백업 복원:`,restoreSteps:[`히스토리 페이지 우측 상단의 "백업에서 복원" 버튼 클릭`,`저장된 ZIP 파일 선택`,`데이터가 복원되고 페이지가 자동으로 새로고침됩니다`],includes:`백업에 포함되는 데이터:`,includesItems:[`캐릭터 정보`,`경기 기록 (전체 시즌)`,`시즌 히스토리`,`레이더 차트 설정`],note:`※ 백업 파일은 안전한 장소에 보관하세요`}},dataDefeat:{question:`데이터가 사라질 수 있나요?`,answer:{intro:`로컬 스토리지에 저장된 데이터는 다음의 경우 삭제될 수 있습니다:`,causes:[`브라우저 캐시 삭제 시`,`브라우저 설정에서 사이트 데이터를 삭제한 경우`,`프라이빗 브라우징 모드 사용 시`,`디바이스 용량 부족 시 (브라우저가 자동 삭제하는 경우)`],recommendation:`중요한 데이터는 정기적으로 백업을 받는 것을 권장합니다.`}},dataSyncing:{question:`여러 브라우저에서 데이터를 공유할 수 있나요?`,answer:{limitation:`죄송하지만 현재로서는 브라우저 간 데이터 동기화 기능을 제공하지 않습니다.`,explanation:`각 브라우저의 로컬 스토리지는 독립적이므로, 데이터는 사용한 브라우저에서만 이용 가능합니다.`,workaround:`다만, 백업 기능을 사용하면 다른 브라우저나 디바이스로 데이터를 이전할 수 있습니다.`}}},copyright:{disclaimer:`이 애플리케이션은 팬이 만든 비공식 도구이며, 주식회사 스퀘어 에닉스와는 일체 관계가 없습니다.`}},notFound:{title:`페이지를 찾을 수 없음`,description:`찾으시는 페이지가 존재하지 않거나 삭제되었을 수 있습니다.`,backToHome:`홈으로 돌아가기`}},character:{name:`캐릭터 이름`,create:`캐릭터 생성`,createSuccess:`캐릭터 "{{name}}"을(를) 생성했습니다`,edit:`캐릭터 이름 편집`,delete:`캐릭터 삭제`,confirmDelete:`삭제`,moveUp:`위로 이동`,moveDown:`아래로 이동`,deleteDescription:`캐릭터 "{{name}}"을(를) 삭제하시겠습니까?<br/><span style='color: #dc2626; margin-top: 12px; font-size: 0.875rem; display: block;'>⚠️ 관련된 모든 전적 기록도 삭제됩니다. 이 작업은 취소할 수 없습니다.</span>`,namePlaceholder:`캐릭터 이름 입력`,validationRequired:`캐릭터 이름을 입력해주세요`,emptyState:`캐릭터가 없습니다`,createFirst:`첫 번째 캐릭터를 생성하세요`,errors:{alreadyExists:`캐릭터 "{{name}}"은(는) 이미 존재합니다`,notFound:`캐릭터를 찾을 수 없습니다`,loadFailed:`데이터 로드에 실패했습니다`,matchRecordNotFound:`전적 기록을 찾을 수 없습니다`},stats:{matches:`{{count}}경기`,totalMatches:`{{count}}경기`,winRate:`승률{{rate}}%`,noWinRate:`승률--%`,wins:`{{count}}승`,defeats:`{{count}}패`},actions:{addJob:`잡 추가`,editName:`이름 편집`,deleteName:`캐릭터 삭제`,more:`더보기`}},match:{record:`전적 기록`,job:`잡`,map:`맵`,result:`결과`,win:`승리 수`,defeat:`패배 수`,memo:`메모`,memoPlaceholder:`메모를 입력하세요 (선택사항)`,selectJob:`잡을 선택해주세요`,selectMap:`맵을 선택해주세요`,recorded:`전적이 기록되었습니다`,totalMatches:`경기 수`,winRate:`승률`,allStagesTotal:`전체 스테이지 합계`,actions:`작업`,pleaseRegisterJob:`잡을 등록해주세요`,recentMatches:`최근 전적`,deleteMatch:`전적 삭제`,confirmDelete:`전적 삭제`,confirmDeleteButton:`삭제`,deleteConfirmation:`{{characterName}}의 {{date}} 전적을 삭제하시겠습니까?
-이 작업은 취소할 수 없습니다.`,addWin:`승리 기록`,addDefeat:`패배 기록`,rollback:`마지막 기록 취소`},job:{select:`잡 선택`,selectJob:`사용할 잡 선택`,selectJobDescription:`잡을 선택해주세요`,tank:`탱커`,healer:`힐러`,meleeDps:`근접 DPS`,melee_dps:`근접 DPS`,physicalRangedDps:`물리 원거리 DPS`,physical_ranged_dps:`물리 원거리 DPS`,magicalRangedDps:`마법 원거리 DPS`,magical_ranged_dps:`마법 원거리 DPS`,PLD:`나이트`,WAR:`전사`,DRK:`암흑기사`,GNB:`건브레이커`,WHM:`백마도사`,SCH:`학자`,AST:`점성술사`,SGE:`현자`,MNK:`몽크`,DRG:`용기사`,NIN:`닌자`,SAM:`사무라이`,RPR:`리퍼`,VPR:`바이퍼`,BRD:`음유시인`,MCH:`기공사`,DNC:`무도가`,BLM:`흑마도사`,SMN:`소환사`,RDM:`적마도사`,PCT:`픽토맨서`},maps:{THE_PALAISTRA:`팔라이스트라`,VOLCANIC_HEART:`화산의 심장부`,CLOUD_NINE:`클라우드 나인`,TOUHOU_KARAKURI_GOTEN:`동방 기믹 저택`,RED_SANDS:`붉은 사막 지대`,BAYSIDE_BATTLEGROUND:`베이사이드 배틀그라운드`},chart:{winRate:`승률`,winCount:`승리 수`,defeatCount:`패배 수`,usageRate:`사용률`,matches:`경기 수`,noData:`데이터가 없습니다`,noMatchData:`경기 데이터가 없습니다`,selectJobs:`잡 선택 (최대 5개)`,hour:`{{hour}}시`,day:{sunday:`일`,monday:`월`,tuesday:`화`,wednesday:`수`,thursday:`목`,friday:`금`,saturday:`토`},labels:{character:`캐릭터`,job:`잡`,map:`맵`,date:`날짜`,allCharacters:`모든 캐릭터`,allJobs:`모든 잡`,allMaps:`모든 맵`,jobSelection:`잡 선택 (최대 5개)`,selectJob:`잡 선택`},titles:{dailyWinDefeat:`일별 승패 및 승률 추이`,weeklyWinRate:`요일별 승률 비교`,hourlyWinDefeat:`시간대별 승률 분석`,jobUsageRate:`잡 사용률`,jobWinRateByMap:`맵별 잡 승률 비교`,todayWinDefeatTrend:`그날의 승패 추이`},axes:{matchCount:`대전 횟수`,winRatePercent:`승률 (%)`,date:`날짜`,weekday:`요일`,hour:`시간대`},legend:{win:`Win`,lose:`Defeat`,winRate:`WinRate`,defeatRate:`DefeatRate`},tooltip:{usageCount:`사용 횟수`,usageRatePercent:`사용률`,win:`Win`,lose:`Defeat`,total:`합계`,matches:`경기`,noMatchData:`경기 데이터 없음`},weekdays:{sunday:`일요일`,monday:`월요일`,tuesday:`화요일`,wednesday:`수요일`,thursday:`목요일`,friday:`금요일`,saturday:`토요일`},todayTrend:{match:`제{{number}}경기`,winRate:`승률`,winCount:`승수`,winDifference:`승차`,record:`전적`,matches:`경기`,matchNumber:`경기 수`,noData:`오늘의 경기 데이터가 없습니다`}},language:{current:`한국어`,japanese:`日本語`,english:`English`,korean:`한국어`,switch:`언어 변경`}}}},fallbackLng:`en`,debug:!1,detection:{order:[`localStorage`,`navigator`,`htmlTag`],caches:[`localStorage`]},interpolation:{escapeValue:!1},defaultNS:`translation`,ns:[`translation`]}),oe.on(`languageChanged`,e=>{document.documentElement.lang=e}),(()=>{if(`serviceWorker`in navigator){let e=`/cc-war-record`,t=e.endsWith(`/`)?e:`${e}/`,n=`${t}sw.js`;window.addEventListener(`load`,()=>{navigator.serviceWorker.register(n,{scope:t}).then(e=>{console.log(`ServiceWorker registered:`,e.scope)}).catch(e=>{console.error(`ServiceWorker registration failed:`,e)})})}})(),(0,le.createRoot)(document.getElementById(`root`)).render((0,b.jsx)(x.StrictMode,{children:(0,b.jsx)(({children:e})=>(0,b.jsx)(It,{children:(0,b.jsx)(Fi,{children:e})}),{children:(0,b.jsx)(Mi,{})})}));export{rt as $,q as A,R as B,X as C,zt as D,J as E,xt as F,ut as G,I as H,_t as I,M as J,P as K,gt as L,Dt as M,wt as N,Rt as O,bt as P,at as Q,ft as R,vn as S,Zt as T,dt as U,F as V,L as W,it as X,N as Y,nt as Z,Z as _,ii as a,j as at,yn as b,Q as c,w as ct,Zn as d,S as dt,Qe as et,Qn as f,Jn as g,Un as h,ui as i,Ze as it,Ot as j,kt as k,Xn as l,C as lt,Wn as m,li as n,$e as nt,Cr as o,A as ot,Yn as p,ot as q,di as r,tt as rt,ar as s,k as st,fi as t,et as tt,$n as u,_e as ut,Sn as v,un as w,xn as x,bn as y,ht as z};
+이 작업은 취소할 수 없습니다.`,addWin:`승리 기록`,addDefeat:`패배 기록`,rollback:`마지막 기록 취소`},job:{select:`잡 선택`,selectJob:`사용할 잡 선택`,selectJobDescription:`잡을 선택해주세요`,tank:`탱커`,healer:`힐러`,meleeDps:`근접 DPS`,melee_dps:`근접 DPS`,physicalRangedDps:`물리 원거리 DPS`,physical_ranged_dps:`물리 원거리 DPS`,magicalRangedDps:`마법 원거리 DPS`,magical_ranged_dps:`마법 원거리 DPS`,PLD:`나이트`,WAR:`전사`,DRK:`암흑기사`,GNB:`건브레이커`,WHM:`백마도사`,SCH:`학자`,AST:`점성술사`,SGE:`현자`,MNK:`몽크`,DRG:`용기사`,NIN:`닌자`,SAM:`사무라이`,RPR:`리퍼`,VPR:`바이퍼`,BRD:`음유시인`,MCH:`기공사`,DNC:`무도가`,BLM:`흑마도사`,SMN:`소환사`,RDM:`적마도사`,PCT:`픽토맨서`},maps:{THE_PALAISTRA:`팔라이스트라`,VOLCANIC_HEART:`화산의 심장부`,CLOUD_NINE:`클라우드 나인`,TOUHOU_KARAKURI_GOTEN:`동방 기믹 저택`,RED_SANDS:`붉은 사막 지대`,BAYSIDE_BATTLEGROUND:`베이사이드 배틀그라운드`},chart:{winRate:`승률`,winCount:`승리 수`,defeatCount:`패배 수`,usageRate:`사용률`,matches:`경기 수`,noData:`데이터가 없습니다`,noMatchData:`경기 데이터가 없습니다`,selectJobs:`잡 선택 (최대 5개)`,hour:`{{hour}}시`,day:{sunday:`일`,monday:`월`,tuesday:`화`,wednesday:`수`,thursday:`목`,friday:`금`,saturday:`토`},labels:{character:`캐릭터`,job:`잡`,map:`맵`,date:`날짜`,allCharacters:`모든 캐릭터`,allJobs:`모든 잡`,allMaps:`모든 맵`,jobSelection:`잡 선택 (최대 5개)`,selectJob:`잡 선택`},titles:{dailyWinDefeat:`일별 승패 및 승률 추이`,weeklyWinRate:`요일별 승률 비교`,hourlyWinDefeat:`시간대별 승률 분석`,jobUsageRate:`잡 사용률`,jobWinRateByMap:`맵별 잡 승률 비교`,todayWinDefeatTrend:`그날의 승패 추이`},axes:{matchCount:`대전 횟수`,winRatePercent:`승률 (%)`,date:`날짜`,weekday:`요일`,hour:`시간대`},legend:{win:`Win`,lose:`Defeat`,winRate:`WinRate`,defeatRate:`DefeatRate`},tooltip:{usageCount:`사용 횟수`,usageRatePercent:`사용률`,win:`Win`,lose:`Defeat`,total:`합계`,matches:`경기`,noMatchData:`경기 데이터 없음`},weekdays:{sunday:`일요일`,monday:`월요일`,tuesday:`화요일`,wednesday:`수요일`,thursday:`목요일`,friday:`금요일`,saturday:`토요일`},todayTrend:{match:`제{{number}}경기`,winRate:`승률`,winCount:`승수`,winDifference:`승차`,record:`전적`,matches:`경기`,matchNumber:`경기 수`,noData:`오늘의 경기 데이터가 없습니다`}},language:{current:`한국어`,japanese:`日本語`,english:`English`,korean:`한국어`,switch:`언어 변경`}}}},fallbackLng:`en`,debug:!1,detection:{order:[`localStorage`,`navigator`,`htmlTag`],caches:[`localStorage`]},interpolation:{escapeValue:!1},defaultNS:`translation`,ns:[`translation`]}),oe.on(`languageChanged`,e=>{document.documentElement.lang=e}),mi(),(()=>{if(`serviceWorker`in navigator){let e=`/cc-war-record`,t=e.endsWith(`/`)?e:`${e}/`,n=`${t}sw.js`;window.addEventListener(`load`,()=>{navigator.serviceWorker.register(n,{scope:t}).then(e=>{console.log(`ServiceWorker registered:`,e.scope)}).catch(e=>{console.error(`ServiceWorker registration failed:`,e)})})}})(),(0,le.createRoot)(document.getElementById(`root`)).render((0,b.jsx)(x.StrictMode,{children:(0,b.jsx)(({children:e})=>(0,b.jsx)(Lt,{children:(0,b.jsx)(zi,{children:e})}),{children:(0,b.jsx)(Ii,{})})}));export{it as $,K as A,L as B,Y as C,Bt as D,q as E,St as F,dt as G,F as H,vt as I,j as J,N as K,_t as L,Ot as M,Tt as N,zt as O,xt as P,ot as Q,pt as R,yn as S,Qt as T,ft as U,P as V,I as W,at as X,M as Y,rt as Z,X as _,ai as a,A as at,bn as b,Z as c,Te as ct,Qn as d,S as dt,$e as et,$n as f,Yn as g,Wn as h,di as i,Qe as it,kt as j,At as k,Zn as l,C as lt,Gn as m,ui as n,et as nt,wr as o,k as ot,Xn as p,st as q,fi as r,nt as rt,or as s,O as st,gi as t,tt,er as u,_e as ut,Cn as v,dn as w,Sn as x,xn as y,gt as z};
