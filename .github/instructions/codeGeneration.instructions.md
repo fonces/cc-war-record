@@ -17,6 +17,7 @@ applyTo: "src/**"
 - styled-components v6.1.19（スタイリング）
 - recharts v2.x（チャート描画）
 - i18next v25.6.0（多言語化）
+- @dnd-kit/core v6.3.1（ドラッグ&ドロップ）
 - ESLint（Flat Config形式、eslint-plugin-import使用）
 
 ### アーキテクチャ原則（Bulletproof React）

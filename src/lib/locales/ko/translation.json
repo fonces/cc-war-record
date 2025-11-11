@@ -31,7 +31,21 @@
     "home": "홈",
     "graphs": "그래프",
     "histories": "기록",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "obs": "OBS"
+  },
+  "obs": {
+    "winCount": "승리 수",
+    "loseCount": "패배 수",
+    "winRate": "승률",
+    "totalMatches": "총 경기 수",
+    "matches": "경기",
+    "editMode": {
+      "enable": "편집 모드",
+      "disable": "편집 모드 종료",
+      "instruction": "요소를 드래그하여 레이아웃 조정"
+    },
+    "resetLayout": "레이아웃 재설정"
   },
   "pages": {
     "home": {

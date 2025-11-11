@@ -33,7 +33,21 @@
     "home": "Home",
     "graphs": "Graphs",
     "histories": "Histories",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "obs": "OBS"
+  },
+  "obs": {
+    "winCount": "Win Count",
+    "loseCount": "Loss Count",
+    "winRate": "Win Rate",
+    "totalMatches": "Total Matches",
+    "matches": "Matches",
+    "editMode": {
+      "enable": "Edit Mode",
+      "disable": "Exit Edit Mode",
+      "instruction": "Drag elements to adjust layout"
+    },
+    "resetLayout": "Reset Layout"
   },
   "pages": {
     "home": {

@@ -18,7 +18,8 @@ export type IconName =
   | "arrowDown"
   | "download"
   | "upload"
-  | "search";
+  | "search"
+  | "video";
 
 export type IconProps = {
   /** アイコンの種類 */

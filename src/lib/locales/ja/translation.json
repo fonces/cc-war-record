@@ -33,7 +33,21 @@
     "home": "ホーム",
     "graphs": "グラフ",
     "histories": "履歴",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "obs": "OBS"
+  },
+  "obs": {
+    "winCount": "勝利数",
+    "loseCount": "敗北数",
+    "winRate": "勝率",
+    "totalMatches": "総試合数",
+    "matches": "試合",
+    "editMode": {
+      "enable": "編集モード",
+      "disable": "編集モード終了",
+      "instruction": "要素をドラッグして配置を調整できます"
+    },
+    "resetLayout": "レイアウトをリセット"
   },
   "pages": {
     "home": {
