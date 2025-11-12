@@ -65,7 +65,7 @@ const StyledNavList = styled.nav`
   }
 `;
 
-const StyledNavLink = styled(Link)<{ $isActive: boolean }>`
+const StyledNavLink = styled(Link)<{ $isActive: boolean; $desktopOnly?: boolean }>`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing[3]};
@@ -79,6 +79,14 @@ const StyledNavLink = styled(Link)<{ $isActive: boolean }>`
   box-shadow: ${({ theme, $isActive }) => ($isActive ? theme.shadows.md : theme.shadows.none)};
   position: relative;
   overflow: hidden;
+
+  ${({ $desktopOnly }) =>
+    $desktopOnly &&
+    `
+    @media (max-width: 1023px) {
+      display: none;
+    }
+  `}
 
   &::before {
     content: "";
@@ -98,6 +106,27 @@ const StyledNavLink = styled(Link)<{ $isActive: boolean }>`
       opacity: 1;
     }
   }
+`;
+
+const StyledNavContent = styled.span`
+  display: flex;
+  align-items: center;
+  flex: 1;
+  position: relative;
+`;
+
+const StyledBetaBadge = styled.span`
+  margin-left: auto;
+  font-size: 0.625rem;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: ${({ theme }) => (theme.isDark ? theme.colors.primary[500] : theme.colors.primary[600])};
+  color: ${({ theme }) => theme.colors.white};
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+  z-index: 1;
 `;
 
 const StyledNavIcon = styled.div<{ $isActive: boolean }>`
@@ -134,11 +163,14 @@ export const Sidebar = ({ isOpen, isActivePath, onClose }: SidebarProps) => {
 
       <StyledNavList>
         {navigationItems.map((item: NavigationItem) => (
-          <StyledNavLink key={item.path} to={item.path} $isActive={isActivePath(item.path)} onClick={onClose}>
+          <StyledNavLink key={item.path} to={item.path} $isActive={isActivePath(item.path)} $desktopOnly={item.desktopOnly} onClick={onClose}>
             <StyledNavIcon $isActive={isActivePath(item.path)}>
               <Icon name={item.icon} size={20} />
             </StyledNavIcon>
-            {t(item.labelKey)}
+            <StyledNavContent>
+              {t(item.labelKey)}
+              {item.labelKey === "navigation.obs" && <StyledBetaBadge>Beta</StyledBetaBadge>}
+            </StyledNavContent>
           </StyledNavLink>
         ))}
       </StyledNavList>

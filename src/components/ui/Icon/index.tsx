@@ -21,6 +21,17 @@ import {
   DownloadIcon,
   UploadIcon,
   SearchIcon,
+  VideoIcon,
+  TrophyIcon,
+  PercentIcon,
+  TextIcon,
+  GridIcon,
+  HashIcon,
+  XCircleIcon,
+  FunctionIcon,
+  WindowIcon,
+  SquareIcon,
+  InfoIcon,
 } from "./icons";
 import type { IconProps } from "./types";
 
@@ -92,6 +103,28 @@ export const Icon = memo(({ name, size = 24, color, onClick, className }: IconPr
         return <UploadIcon />;
       case "search":
         return <SearchIcon />;
+      case "video":
+        return <VideoIcon />;
+      case "trophy":
+        return <TrophyIcon />;
+      case "percent":
+        return <PercentIcon />;
+      case "text":
+        return <TextIcon />;
+      case "grid":
+        return <GridIcon />;
+      case "hash":
+        return <HashIcon />;
+      case "xCircle":
+        return <XCircleIcon />;
+      case "function":
+        return <FunctionIcon />;
+      case "window":
+        return <WindowIcon />;
+      case "square":
+        return <SquareIcon />;
+      case "info":
+        return <InfoIcon />;
       default:
         return null;
     }

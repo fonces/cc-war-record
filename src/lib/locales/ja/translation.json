@@ -24,6 +24,10 @@
     "switchToLightMode": "ライトモードに切り替え",
     "win": "勝",
     "defeat": "敗",
+    "show": "表示",
+    "hide": "非表示",
+    "moveUp": "上へ移動",
+    "moveDown": "下へ移動",
     "buildUpdate": {
       "message": "新しいバージョンが利用可能です",
       "reload": "更新"
@@ -33,7 +37,194 @@
     "home": "ホーム",
     "graphs": "グラフ",
     "histories": "履歴",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "obs": "OBS"
+  },
+  "obs": {
+    "winCount": "勝利数",
+    "loseCount": "敗北数",
+    "winRate": "勝率",
+    "totalMatches": "総試合数",
+    "matches": "試合",
+    "recording": {
+      "start": "OBS記録開始",
+      "stop": "OBS記録停止",
+      "active": "OBS記録中",
+      "description": "記録開始後のデータのみがOBSに表示されます"
+    },
+    "plainText": {
+      "placeholder": "テキストを入力してください"
+    },
+    "elementType": {
+      "plainText": "プレーンテキスト",
+      "variableText": "変数テキスト",
+      "statsCombo": "統計コンボ",
+      "line": "線",
+      "rectangle": "矩形",
+      "todayTrendChart": "今日の勝敗推移"
+    },
+    "editMode": {
+      "enable": "編集モード",
+      "disable": "編集完了",
+      "instruction": "要素をドラッグして配置を調整できます"
+    },
+    "resetLayout": "レイアウトをリセット",
+    "browserSource": {
+      "open": "ウィンドウキャプチャを開く"
+    },
+    "layerPanel": {
+      "addElement": "要素",
+      "layers": "レイヤー",
+      "noLayers": "要素がありません",
+      "confirmDelete": "この要素を削除しますか?"
+    },
+    "editPanel": {
+      "title": "要素を編集",
+      "layerName": "レイヤー名",
+      "elementType": "要素タイプ",
+      "text": "テキスト",
+      "textColor": "文字色",
+      "backgroundColor": "背景色",
+      "opacity": "不透明度",
+      "fontSize": "フォントサイズ",
+      "position": "位置",
+      "visibility": "表示設定",
+      "visible": "表示設定",
+      "comboItems": "表示する項目",
+      "selectElement": "要素をクリックして編集してください",
+      "delete": "削除",
+      "confirmDelete": "この要素を削除しますか?",
+      "lineOrientation": "線の向き",
+      "horizontal": "横",
+      "vertical": "縦",
+      "lineThickness": "線の太さ",
+      "lineColor": "線の色",
+      "rectangleFillColor": "塗りつぶし色",
+      "rectangleBorderColor": "枠線の色",
+      "rectangleBorderWidth": "枠線の太さ",
+      "rectangleBorderRadius": "角の丸み",
+      "scale": "拡大率",
+      "positionX": "X座標",
+      "positionY": "Y座標",
+      "textAlign": "テキスト配置",
+      "alignLeft": "左揃え",
+      "alignCenter": "中央揃え",
+      "alignRight": "右揃え",
+      "padding": "パディング",
+      "boxShadow": "影 (box-shadow)"
+    },
+    "todayTrendChart": {
+      "noData": "データがありません"
+    },
+    "help": {
+      "buttonTitle": "使い方を見る",
+      "title": "OBS HUD 使い方ガイド",
+      "overview": {
+        "title": "概要",
+        "item1": "OBS Studioなどの配信ソフトに表示するカスタマイズ可能なHUD（ヘッドアップディスプレイ）を作成できます",
+        "item2": "戦績統計、グラフ、テキスト、図形など様々な要素を自由に配置可能",
+        "item3": "作成したレイアウトはウィンドウキャプチャとしてOBSに追加できます"
+      },
+      "basicUsage": {
+        "title": "基本的な使い方",
+        "step1": {
+          "title": "1. 編集モードを有効化",
+          "description": "右下の「編集モード」ボタンをクリックして編集を開始します"
+        },
+        "step2": {
+          "title": "2. 要素を追加",
+          "description": "左側のパネルから要素アイコンをドラッグ&ドロップでキャンバスに配置します"
+        },
+        "step3": {
+          "title": "3. 要素をカスタマイズ",
+          "description": "配置した要素をクリックして選択し、右側のパネルで色やサイズ、テキストなどを調整します"
+        },
+        "step4": {
+          "title": "4. OBSに追加",
+          "description": "「ウィンドウキャプチャを開く」ボタンで別ウィンドウを開き、そのウィンドウをOBSのウィンドウキャプチャソースに設定します"
+        }
+      },
+      "tips": {
+        "title": "便利な機能",
+        "item1": "テンプレート機能：プリセットレイアウトから選択して素早くセットアップ",
+        "item2": "スナップガイド：要素をドラッグ中に自動的に整列をサポート",
+        "item3": "リサイズハンドル：要素の四隅をドラッグしてサイズを調整",
+        "item4": "OBS記録開始/停止：配信開始時点からのデータのみを表示するように切り替え可能"
+      },
+      "important": {
+        "title": "重要な注意事項",
+        "item1": "OBSのブラウザソース機能ではlocalStorageにアクセスできないため、データが読み込めません。必ずウィンドウキャプチャを使用してください",
+        "item2": "ウィンドウキャプチャではブラウザのURLバーが必ず表示されます。OBSのクロップ機能やオーバーレイなどを使用してURLバーを隠してください"
+      }
+    },
+    "templates": {
+      "title": "テンプレートから選択",
+      "button": "テンプレート",
+      "noTemplates": "テンプレートがありません",
+      "categories": {
+        "all": "すべて",
+        "minimal": "ミニマル",
+        "detailed": "詳細表示",
+        "streaming": "配信向け",
+        "competitive": "競技向け"
+      },
+      "minimalCorner": {
+        "name": "コーナー統計",
+        "description": "必要最小限の情報を画面隅に配置"
+      },
+      "minimalTopBar": {
+        "name": "トップバー",
+        "description": "重要な指標を上部中央に配置"
+      },
+      "minimalSidePanel": {
+        "name": "サイドパネル",
+        "description": "縦型のサイドパネルレイアウト"
+      },
+      "detailedDashboard": {
+        "name": "フルダッシュボード",
+        "description": "包括的な統計情報ダッシュボード"
+      },
+      "detailedSplitView": {
+        "name": "分割ビュー",
+        "description": "統計とグラフを横並びで表示"
+      },
+      "streamingBottomTicker": {
+        "name": "ボトムティッカー",
+        "description": "画面下部にティッカー表示"
+      },
+      "streamingCornerOverlay": {
+        "name": "コーナーオーバーレイ",
+        "description": "控えめなコーナーオーバーレイ"
+      },
+      "streamingTitleSafe": {
+        "name": "タイトルセーフエリア",
+        "description": "サムネイル対応の安全エリア配置"
+      },
+      "competitiveEsports": {
+        "name": "E-Sports HUD",
+        "description": "プロトーナメントスタイル"
+      },
+      "competitiveScoreboard": {
+        "name": "スコアボード",
+        "description": "見やすいスコアボードレイアウト"
+      },
+      "competitiveAnalyst": {
+        "name": "アナリストビュー",
+        "description": "解説向けの詳細分析表示"
+      },
+      "premiumNeonGlow": {
+        "name": "ネオングロー",
+        "description": "サイバーパンク風ネオン美学"
+      },
+      "premiumGradientFlow": {
+        "name": "グラデーションフロー",
+        "description": "滑らかなグラデーションアニメーション"
+      },
+      "premiumUltraClean": {
+        "name": "ウルトラクリーン",
+        "description": "ミニマリストの完璧"
+      }
+    }
   },
   "pages": {
     "home": {
@@ -43,6 +234,16 @@
       "noSeason": "シーズンが作成されていません",
       "createFirstSeason": "最初のシーズンを作成してください",
       "errorOccurred": "エラーが発生しました"
+    },
+    "obs": {
+      "title": "OBS配信用HUD",
+      "description": "ドラッグ&ドロップで配置を調整し、OBSのブラウザソースとして使用できます。",
+      "screenSize": {
+        "title": "画面サイズ設定",
+        "width": "幅",
+        "height": "高さ",
+        "info": "OBSウィンドウで開く際の画面サイズを設定します。プリセットから選択するか、カスタムサイズを入力できます。"
+      }
     },
     "graphs": {
       "title": "戦績グラフ",

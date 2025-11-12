@@ -22,6 +22,10 @@
     "toggleTheme": "테마 전환",
     "switchToDarkMode": "다크 모드로 전환",
     "switchToLightMode": "라이트 모드로 전환",
+    "show": "표시",
+    "hide": "숨기기",
+    "moveUp": "위로 이동",
+    "moveDown": "아래로 이동",
     "buildUpdate": {
       "message": "새 버전을 사용할 수 있습니다",
       "reload": "새로고침"
@@ -31,7 +35,188 @@
     "home": "홈",
     "graphs": "그래프",
     "histories": "기록",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "obs": "OBS"
+  },
+  "obs": {
+    "winCount": "승리",
+    "loseCount": "패배",
+    "winRate": "승률",
+    "totalMatches": "총 경기 수",
+    "matches": "경기",
+    "plainText": {
+      "placeholder": "텍스트를 입력하세요"
+    },
+    "elementType": {
+      "plainText": "일반 텍스트",
+      "variableText": "변수 텍스트",
+      "statsCombo": "통계 콤보",
+      "line": "선",
+      "rectangle": "사각형",
+      "todayTrendChart": "오늘의 승패 추이"
+    },
+    "editMode": {
+      "enable": "편집 모드",
+      "disable": "편집 완료",
+      "instruction": "요소를 드래그하여 위치를 조정할 수 있습니다"
+    },
+    "resetLayout": "레이아웃 재설정",
+    "browserSource": {
+      "open": "윈도우 캡처 열기"
+    },
+    "layerPanel": {
+      "addElement": "요소",
+      "layers": "레이어",
+      "noLayers": "요소가 없습니다",
+      "confirmDelete": "이 요소를 삭제하시겠습니까?"
+    },
+    "editPanel": {
+      "title": "요소 편집",
+      "layerName": "레이어 이름",
+      "elementType": "요소 유형",
+      "text": "텍스트",
+      "textColor": "텍스트 색상",
+      "backgroundColor": "배경 색상",
+      "opacity": "불투명도",
+      "fontSize": "글꼴 크기",
+      "position": "위치",
+      "visibility": "표시 설정",
+      "visible": "표시 설정",
+      "comboItems": "표시할 항목",
+      "selectElement": "요소를 클릭하여 편집하세요",
+      "delete": "삭제",
+      "confirmDelete": "이 요소를 삭제하시겠습니까?",
+      "lineOrientation": "선 방향",
+      "horizontal": "가로",
+      "vertical": "세로",
+      "lineThickness": "선 두께",
+      "lineColor": "선 색상",
+      "rectangleFillColor": "채우기 색상",
+      "rectangleBorderColor": "테두리 색상",
+      "rectangleBorderWidth": "테두리 두께",
+      "rectangleBorderRadius": "모서리 둥글기",
+      "scale": "확대율",
+      "positionX": "X 위치",
+      "positionY": "Y 위치",
+      "textAlign": "텍스트 정렬",
+      "alignLeft": "왼쪽",
+      "alignCenter": "가운데",
+      "alignRight": "오른쪽",
+      "padding": "패딩",
+      "boxShadow": "그림자 (box-shadow)"
+    },
+    "todayTrendChart": {
+      "noData": "데이터가 없습니다"
+    },
+    "help": {
+      "buttonTitle": "사용법 보기",
+      "title": "OBS HUD 사용 가이드",
+      "overview": {
+        "title": "개요",
+        "item1": "OBS Studio와 같은 스트리밍 소프트웨어에 표시할 수 있는 사용자 정의 HUD(헤드업 디스플레이)를 만들 수 있습니다",
+        "item2": "전적 통계, 그래프, 텍스트, 도형 등 다양한 요소를 자유롭게 배치할 수 있습니다",
+        "item3": "생성한 레이아웃을 윈도우 캡처로 OBS에 추가할 수 있습니다"
+      },
+      "basicUsage": {
+        "title": "기본 사용법",
+        "step1": {
+          "title": "1. 편집 모드 활성화",
+          "description": "오른쪽 하단의 \"편집 모드\" 버튼을 클릭하여 편집을 시작합니다"
+        },
+        "step2": {
+          "title": "2. 요소 추가",
+          "description": "왼쪽 패널에서 요소 아이콘을 드래그 앤 드롭하여 캔버스에 배치합니다"
+        },
+        "step3": {
+          "title": "3. 요소 사용자 정의",
+          "description": "배치된 요소를 클릭하여 선택한 후 오른쪽 패널에서 색상, 크기, 텍스트 등을 조정합니다"
+        },
+        "step4": {
+          "title": "4. OBS에 추가",
+          "description": "\"윈도우 캡처 열기\" 버튼으로 별도 창을 열고, 해당 창을 OBS의 윈도우 캡처 소스로 설정합니다"
+        }
+      },
+      "tips": {
+        "title": "유용한 기능",
+        "item1": "템플릿 기능: 프리셋 레이아웃에서 선택하여 빠른 설정",
+        "item2": "스냅 가이드: 요소를 드래그하는 동안 자동 정렬 지원",
+        "item3": "크기 조절 핸들: 요소의 모서리를 드래그하여 크기 조정",
+        "item4": "OBS 녹화 시작/중지: 스트리밍 시작 시점부터의 데이터만 표시하도록 전환 가능"
+      },
+      "important": {
+        "title": "중요 주의사항",
+        "item1": "OBS 브라우저 소스 기능은 localStorage에 접근할 수 없어 데이터를 불러올 수 없습니다. 반드시 윈도우 캡처를 사용하세요",
+        "item2": "윈도우 캡처를 사용하면 브라우저의 URL 바가 항상 표시됩니다. OBS의 크롭 필터나 오버레이 등을 사용하여 URL 바를 숨겨주세요"
+      }
+    },
+    "templates": {
+      "title": "템플릿 선택",
+      "button": "템플릿",
+      "noTemplates": "템플릿이 없습니다",
+      "categories": {
+        "all": "전체",
+        "minimal": "미니멀",
+        "detailed": "상세 표시",
+        "streaming": "스트리밍",
+        "competitive": "경쟁"
+      },
+      "minimalCorner": {
+        "name": "코너 통계",
+        "description": "필수 정보를 화면 모서리에 배치"
+      },
+      "minimalTopBar": {
+        "name": "상단 바",
+        "description": "주요 지표를 상단 중앙에 배치"
+      },
+      "minimalSidePanel": {
+        "name": "사이드 패널",
+        "description": "세로형 사이드 패널 레이아웃"
+      },
+      "detailedDashboard": {
+        "name": "전체 대시보드",
+        "description": "종합 통계 대시보드"
+      },
+      "detailedSplitView": {
+        "name": "분할 뷰",
+        "description": "통계와 차트를 나란히 표시"
+      },
+      "streamingBottomTicker": {
+        "name": "하단 티커",
+        "description": "화면 하단에 티커 표시"
+      },
+      "streamingCornerOverlay": {
+        "name": "코너 오버레이",
+        "description": "은은한 코너 오버레이"
+      },
+      "streamingTitleSafe": {
+        "name": "타이틀 안전 영역",
+        "description": "썸네일 대응 안전 영역 배치"
+      },
+      "competitiveEsports": {
+        "name": "E-Sports HUD",
+        "description": "프로 토너먼트 스타일"
+      },
+      "competitiveScoreboard": {
+        "name": "스코어보드",
+        "description": "보기 쉬운 스코어보드 레이아웃"
+      },
+      "competitiveAnalyst": {
+        "name": "분석가 뷰",
+        "description": "해설용 상세 분석 표시"
+      },
+      "premiumNeonGlow": {
+        "name": "네온 글로우",
+        "description": "사이버펑크 네온 미학"
+      },
+      "premiumGradientFlow": {
+        "name": "그라데이션 플로우",
+        "description": "부드러운 그라데이션 애니메이션"
+      },
+      "premiumUltraClean": {
+        "name": "울트라 클린",
+        "description": "미니멀리스트의 완벽함"
+      }
+    }
   },
   "pages": {
     "home": {
@@ -39,8 +224,18 @@
       "description": "전적과 통계 정보를 입력합니다.",
       "createSeason": "새 시즌 만들기",
       "noSeason": "시즌이 생성되지 않았습니다",
-      "createFirstSeason": "첫 번째 시즌을 만들어주세요",
+      "createFirstSeason": "첫 번째 시즌을 만드세요",
       "errorOccurred": "오류가 발생했습니다"
+    },
+    "obs": {
+      "title": "OBS 스트리밍 HUD",
+      "description": "드래그 앤 드롭으로 레이아웃을 조정한 후 OBS의 브라우저 소스로 사용할 수 있습니다.",
+      "screenSize": {
+        "title": "화면 크기 설정",
+        "width": "너비",
+        "height": "높이",
+        "info": "OBS 창에서 열 때의 화면 크기를 설정합니다. 프리셋에서 선택하거나 사용자 지정 크기를 입력할 수 있습니다."
+      }
     },
     "graphs": {
       "title": "전적 그래프",
@@ -366,6 +561,7 @@
       "character": "캐릭터",
       "job": "잡",
       "map": "맵",
+      "date": "날짜",
       "allCharacters": "모든 캐릭터",
       "allJobs": "모든 잡",
       "allMaps": "모든 맵",
@@ -377,7 +573,8 @@
       "weeklyWinRate": "요일별 승률 비교",
       "hourlyWinDefeat": "시간대별 승률 분석",
       "jobUsageRate": "잡 사용률",
-      "jobWinRateByMap": "맵별 잡 승률 비교"
+      "jobWinRateByMap": "맵별 잡 승률 비교",
+      "todayWinDefeatTrend": "그날의 승패 추이"
     },
     "axes": {
       "matchCount": "대전 횟수",
@@ -409,6 +606,16 @@
       "thursday": "목요일",
       "friday": "금요일",
       "saturday": "토요일"
+    },
+    "todayTrend": {
+      "match": "제{{number}}경기",
+      "winRate": "승률",
+      "winCount": "승수",
+      "winDifference": "승차",
+      "record": "전적",
+      "matches": "경기",
+      "matchNumber": "경기 수",
+      "noData": "오늘의 경기 데이터가 없습니다"
     }
   },
   "language": {

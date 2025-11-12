@@ -31,10 +31,11 @@ const StyledTableContainer = styled.div`
 `;
 
 const StyledTable = styled.table`
-  width: 100%;
   border-collapse: collapse;
+  border-top: 1px solid rgba(38, 161, 223, 0.3);
   font-size: 0.875rem;
   table-layout: fixed;
+  width: 100%;
 
   ${media.mobile} {
     min-width: 600px;

@@ -45,18 +45,49 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
     saveToLocalStorage(STORAGE_KEYS.THEME, mode);
   }, [mode]);
 
-  // モード変更時にtheme-colorメタタグを更新
+  // モード変更時にtheme-colorメタタグを更新（iOS 26対応 - グラスモフィー）
   useEffect(() => {
-    const themeColor = mode === "dark" ? "#0a0a0b" : "#ffffff";
-    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
-    if (metaThemeColor) {
-      metaThemeColor.setAttribute("content", themeColor);
+    const lightColor = "rgba(255, 255, 255, 0.7)";
+    const darkColor = "rgba(10, 10, 11, 0.7)";
+
+    // メディアクエリ対応のtheme-colorを更新
+    const metaThemeColorLight = document.querySelector('meta[name="theme-color"][media="(prefers-color-scheme: light)"]');
+    const metaThemeColorDark = document.querySelector('meta[name="theme-color"][media="(prefers-color-scheme: dark)"]');
+
+    if (metaThemeColorLight && metaThemeColorDark) {
+      // 既存のメディアクエリ対応メタタグを更新
+      metaThemeColorLight.setAttribute("content", lightColor);
+      metaThemeColorDark.setAttribute("content", darkColor);
     } else {
-      const meta = document.createElement("meta");
-      meta.name = "theme-color";
-      meta.content = themeColor;
-      document.head.appendChild(meta);
+      // 古い単一のtheme-colorメタタグを削除して新しいものを追加
+      const oldMetaThemeColor = document.querySelector('meta[name="theme-color"]:not([media])');
+      if (oldMetaThemeColor) {
+        oldMetaThemeColor.remove();
+      }
+
+      // ライトモード用
+      const metaLight = document.createElement("meta");
+      metaLight.name = "theme-color";
+      metaLight.content = lightColor;
+      metaLight.media = "(prefers-color-scheme: light)";
+      document.head.appendChild(metaLight);
+
+      // ダークモード用
+      const metaDark = document.createElement("meta");
+      metaDark.name = "theme-color";
+      metaDark.content = darkColor;
+      metaDark.media = "(prefers-color-scheme: dark)";
+      document.head.appendChild(metaDark);
     }
+
+    // color-schemeメタタグを追加/更新
+    let metaColorScheme = document.querySelector('meta[name="color-scheme"]');
+    if (!metaColorScheme) {
+      metaColorScheme = document.createElement("meta");
+      metaColorScheme.setAttribute("name", "color-scheme");
+      document.head.appendChild(metaColorScheme);
+    }
+    metaColorScheme.setAttribute("content", "light dark");
   }, [mode]);
 
   const contextValue = useMemo(

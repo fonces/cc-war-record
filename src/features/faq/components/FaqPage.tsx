@@ -139,7 +139,7 @@ const ExpandIcon = styled.div<{ $isOpen: boolean }>`
 `;
 
 const Answer = styled.div<{ $isOpen: boolean }>`
-  padding: ${({ $isOpen, theme }) => ($isOpen ? `${theme.spacing[2]} 0 ${theme.spacing[6]} ${theme.spacing[5]}` : "0")};
+  padding: ${({ $isOpen, theme }) => ($isOpen ? `${theme.spacing[2]} ${theme.spacing[4]} ${theme.spacing[4]} ${theme.spacing[5]}` : "0")};
   color: ${({ theme }) => theme.colors.textSecondary};
   line-height: 1.7;
   max-height: ${({ $isOpen }) => ($isOpen ? "1000px" : "0")};

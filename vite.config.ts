@@ -99,30 +99,47 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: (id) => {
-          // recharts関連を別チャンクに
-          if (id.includes("recharts")) {
-            return "recharts";
-          }
-          // React関連のコアライブラリ
-          if (id.includes("react") || id.includes("react-dom")) {
-            return "react-vendor";
-          }
-          // styled-components
-          if (id.includes("styled-components")) {
-            return "styled";
-          }
-          // i18next関連
-          if (id.includes("i18next")) {
-            return "i18n";
-          }
-          // jszip（バックアップ機能）
-          if (id.includes("jszip")) {
-            return "jszip";
-          }
-          // その他のnode_modules
+          // node_modules内のパッケージをvendorチャンクに分離
           if (id.includes("node_modules")) {
+            // 大きなライブラリは個別にチャンク分割
+            if (id.includes("recharts")) {
+              return "vendor-recharts";
+            }
+            if (id.includes("react") || id.includes("react-dom") || id.includes("scheduler")) {
+              return "vendor-react";
+            }
+            if (id.includes("styled-components")) {
+              return "vendor-styled";
+            }
+            if (id.includes("i18next") || id.includes("react-i18next")) {
+              return "vendor-i18n";
+            }
+            if (id.includes("jszip")) {
+              return "vendor-jszip";
+            }
+            if (id.includes("@tanstack")) {
+              return "vendor-tanstack";
+            }
+            // その他のnode_modulesは共通のvendorチャンクに
             return "vendor";
           }
+        },
+        // チャンクファイル名の最適化
+        chunkFileNames: "assets/js/[name]-[hash].js",
+        entryFileNames: "assets/js/[name]-[hash].js",
+        assetFileNames: (assetInfo) => {
+          const info = assetInfo.name?.split(".");
+          const extType = info?.[info.length - 1];
+          if (/\.(png|jpe?g|svg|gif|tiff|bmp|ico|webp)$/i.test(assetInfo.name ?? "")) {
+            return `assets/images/[name]-[hash][extname]`;
+          }
+          if (/\.(woff2?|eot|ttf|otf)$/i.test(assetInfo.name ?? "")) {
+            return `assets/fonts/[name]-[hash][extname]`;
+          }
+          if (extType === "css") {
+            return `assets/css/[name]-[hash][extname]`;
+          }
+          return `assets/[name]-[hash][extname]`;
         },
       },
     },
