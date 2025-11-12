@@ -41,6 +41,7 @@ const ObsContainer = styled.div<{ $width: number; $height: number }>`
   width: ${({ $width }) => $width}px;
   height: ${({ $height }) => $height}px;
   background: ${({ theme }) => theme.colors.surface};
+  border: 1px solid ${({ theme }) => theme.colors.border};
   flex-shrink: 0;
 `;
 

@@ -32,7 +32,7 @@ const LayerList = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing[2]};
-  max-height: 400px;
+  max-height: 410px;
   overflow-y: auto;
   overflow-x: hidden;
 `;
