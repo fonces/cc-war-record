@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Icon, Page, PageContainer, PageDescription, PageTitle, PageTitleContainer } from "@/components/ui";
 import { usePageTitle, useTranslation } from "@/hooks";
-import { useCharacterStore } from "@/stores";
 import { generateUUID } from "@/utils";
 import { AddElementPanel } from "./components/AddElementPanel";
 import { ControlPanel } from "./components/ControlPanel";
@@ -74,9 +73,6 @@ const SNAP_THRESHOLD = 10;
 export function ObsPage() {
   const { t } = useTranslation();
   usePageTitle(t("pages.obs.title"));
-
-  // URLパラメータをチェックしてOBSモードかどうかを判定
-  const isObsMode = new URLSearchParams(window.location.search).get("obs") === "true";
 
   const {
     elements,
@@ -164,33 +160,6 @@ export function ObsPage() {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [undo, redo, canUndo, canRedo, clearSelection, editMode, selectedElementIds, removeElement]);
-
-  /**
-   * OBSモード時: localStorageの変更を監視して自動リロード
-   * 戦績データが更新されたら画面を再描画
-   */
-  useEffect(() => {
-    if (!isObsMode) return;
-
-    // ブラウザソースが開いていることを通知
-    localStorage.setItem("obs-browser-source-status", "open");
-
-    const handleStorageChange = (e: StorageEvent) => {
-      // キャラクターまたは戦績データが変更された場合はストアをリロード
-      if (e.key === "cc-war-record-characters" || e.key === "cc-war-record-match-records") {
-        // Zustandストアのデータを再読み込み
-        useCharacterStore.getState().loadData();
-      }
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-
-    // クリーンアップ: ページを離れたらステータスをクリア
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-      localStorage.removeItem("obs-browser-source-status");
-    };
-  }, [isObsMode]);
 
   const handleDragStart = (event: DragStartEvent) => {
     const elementId = event.active.id as string;
@@ -315,48 +284,6 @@ export function ObsPage() {
       clearSelection();
     }
   };
-
-  // OBSモードの場合はクリーンなビューを表示
-  if (isObsMode) {
-    return (
-      <div
-        style={{
-          width: "100vw",
-          height: "100vh",
-          overflow: "hidden",
-          background: "transparent",
-          // スクロールバーを完全に非表示
-          scrollbarWidth: "none",
-          msOverflowStyle: "none",
-        }}
-      >
-        <style>
-          {`
-            body {
-              overflow: hidden;
-              scrollbar-width: none;
-              -ms-overflow-style: none;
-            }
-            body::-webkit-scrollbar {
-              display: none;
-            }
-          `}
-        </style>
-        <div
-          style={{
-            width: `${screenSize.width}px`,
-            height: `${screenSize.height}px`,
-            position: "relative",
-            background: "transparent",
-          }}
-        >
-          {elements.map((element) => (
-            <DraggableHudElement key={element.id} element={element} editMode={false} isDraggingGroup={false} activeId={null} groupDragDelta={null} />
-          ))}
-        </div>
-      </div>
-    );
-  }
 
   return (
     <Page fullWidth>

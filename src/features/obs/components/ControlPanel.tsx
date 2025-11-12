@@ -50,10 +50,10 @@ export function ControlPanel({ editMode, onToggleEditMode, onResetLayout, onOpen
   const { screenSize } = useObsLayoutStore();
 
   const handleOpenBrowserSource = () => {
-    // 現在のURLからクエリパラメータを除いた基本URLを取得
-    const baseUrl = window.location.origin + window.location.pathname;
-    // OBS用の子ウィンドウを開く（編集UIを非表示にするパラメータを追加）
-    const obsUrl = `${baseUrl}?obs=true`;
+    // 現在のURLから基本URLを取得
+    const baseUrl = window.location.origin;
+    // OBS用のウィンドウページを開く
+    const obsUrl = `${baseUrl}/obs/window`;
 
     // ウィンドウ機能: location=no でURLバー非表示を試みる（ブラウザによっては無効）
     // menubar, toolbar, status なども非表示に設定

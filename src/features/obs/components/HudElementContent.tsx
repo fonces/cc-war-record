@@ -94,9 +94,7 @@ export function HudElementContent({ element }: HudElementContentProps) {
   const allMatchRecords = useCharacterStore((state) => state.matchRecords);
 
   // OBS記録開始日時以降のデータのみにフィルタリング
-  const matchRecords = obsRecordingStartTime
-    ? allMatchRecords.filter((record) => new Date(record.createdAt) >= new Date(obsRecordingStartTime))
-    : allMatchRecords;
+  const matchRecords = obsRecordingStartTime ? allMatchRecords.filter((record) => new Date(record.createdAt) >= new Date(obsRecordingStartTime)) : allMatchRecords;
 
   const getElementContent = () => {
     switch (element.type) {

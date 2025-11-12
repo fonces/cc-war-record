@@ -39,7 +39,8 @@ const ObsRecordingDot = styled.div<{ $isRecording: boolean }>`
   animation: ${({ $isRecording }) => ($isRecording ? "pulse 2s ease-in-out infinite" : "none")};
 
   @keyframes pulse {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 1;
     }
     50% {
@@ -372,9 +373,7 @@ export const HomePage = () => {
         <ObsRecordingPanel>
           <ObsRecordingStatus>
             <ObsRecordingDot $isRecording={!!obsRecordingStartTime} />
-            <ObsRecordingText>
-              {obsRecordingStartTime ? t("obs.recording.active") : t("obs.recording.description")}
-            </ObsRecordingText>
+            <ObsRecordingText>{obsRecordingStartTime ? t("obs.recording.active") : t("obs.recording.description")}</ObsRecordingText>
           </ObsRecordingStatus>
           {obsRecordingStartTime ? (
             <Button variant="secondary" size="sm" onClick={stopObsRecording}>
