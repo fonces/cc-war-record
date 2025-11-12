@@ -42,16 +42,30 @@ const LayerItem = styled.div<{ $isSelected: boolean; $isVisible: boolean }>`
   align-items: center;
   gap: ${({ theme }) => theme.spacing[2]};
   padding: ${({ theme }) => theme.spacing[2]} ${({ theme }) => theme.spacing[3]};
-  background: ${({ theme, $isSelected }) => ($isSelected ? theme.colors.primary[100] : theme.colors.surface)};
-  border: 1px solid ${({ theme, $isSelected }) => ($isSelected ? theme.colors.primary[300] : theme.colors.border)};
+  background: ${({ theme, $isSelected }) => ($isSelected ? theme.colors.surface : theme.colors.surface)};
+  border: 1px solid ${({ theme, $isSelected }) => ($isSelected ? theme.colors.primary[400] : theme.colors.border)};
+  border-left: ${({ theme, $isSelected }) => ($isSelected ? `3px solid ${theme.colors.primary[500]}` : `3px solid transparent`)};
   border-radius: ${({ theme }) => theme.borderRadius.md};
   cursor: pointer;
   transition: all ${({ theme }) => theme.transitions.base};
   opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0.5)};
+  position: relative;
+
+  ${({ theme, $isSelected }) =>
+    $isSelected &&
+    `
+    box-shadow: 0 0 0 1px ${theme.colors.primary[200]};
+  `}
 
   &:hover {
-    background: ${({ theme, $isSelected }) => ($isSelected ? theme.colors.primary[100] : theme.colors.surfaceHover)};
-    border-color: ${({ theme }) => theme.colors.primary[200]};
+    background: ${({ theme }) => theme.colors.surfaceHover};
+    border-color: ${({ theme, $isSelected }) => ($isSelected ? theme.colors.primary[400] : theme.colors.primary[200])};
+
+    ${({ theme, $isSelected }) =>
+      !$isSelected &&
+      `
+      border-left-color: ${theme.colors.primary[300]};
+    `}
   }
 `;
 
@@ -63,10 +77,10 @@ const LayerInfo = styled.div`
   min-width: 0;
 `;
 
-const LayerName = styled.div`
+const LayerName = styled.div<{ $isSelected?: boolean }>`
   font-size: 0.875rem;
-  font-weight: 500;
-  color: ${({ theme }) => theme.colors.text};
+  font-weight: ${({ $isSelected }) => ($isSelected ? 600 : 500)};
+  color: ${({ theme, $isSelected }) => ($isSelected ? theme.colors.primary[700] : theme.colors.text)};
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -160,7 +174,7 @@ function SortableLayerItem({ element, isSelected, onSelect, onDelete, getElement
     <LayerItem ref={setNodeRef} style={style} $isSelected={isSelected} $isVisible={element.visible} onClick={onSelect}>
       <DragHandle {...attributes} {...listeners} onClick={(e) => e.stopPropagation()} />
       <LayerInfo>
-        <LayerName>{getElementName(element)}</LayerName>
+        <LayerName $isSelected={isSelected}>{getElementName(element)}</LayerName>
         <LayerPosition>
           X: {Math.round(element.position.x)}, Y: {Math.round(element.position.y)}
         </LayerPosition>
@@ -209,6 +223,12 @@ export function LayerPanel() {
   };
 
   const getElementName = (element: HudElement): string => {
+    // カスタム名が設定されている場合はそれを使用
+    if (element.name) {
+      return element.name;
+    }
+
+    // デフォルト名
     switch (element.type) {
       case "winCount":
         return t("obs.winCount");

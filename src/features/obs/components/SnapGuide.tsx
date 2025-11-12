@@ -140,7 +140,7 @@ export const SnapGuide = memo(({ x, y, xDistance, yDistance }: SnapGuideProps) =
               top: `${xDistance.y - 20}px`,
             }}
           >
-            {Math.abs(xDistance.to - xDistance.from)}px
+            {Math.abs(xDistance.to - xDistance.from).toFixed(1)}px
           </DistanceLabel>
         </>
       )}
@@ -161,7 +161,7 @@ export const SnapGuide = memo(({ x, y, xDistance, yDistance }: SnapGuideProps) =
               top: `${yDistance.from + Math.abs(yDistance.to - yDistance.from) / 2 - 10}px`,
             }}
           >
-            {Math.abs(yDistance.to - yDistance.from)}px
+            {Math.abs(yDistance.to - yDistance.from).toFixed(1)}px
           </DistanceLabel>
         </>
       )}

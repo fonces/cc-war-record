@@ -25,6 +25,8 @@ const ElementContainer = styled.div<{
   $fontSize?: number;
   $backgroundColor?: string;
   $isSpecial?: boolean;
+  $scale?: number;
+  $boxShadow?: string;
 }>`
   position: absolute;
   left: ${({ $x }) => $x}px;
@@ -39,12 +41,66 @@ const ElementContainer = styled.div<{
   cursor: ${({ $editMode }) => ($editMode ? "move" : "default")};
   user-select: none;
   opacity: ${({ $isDragging }) => ($isDragging ? 0.5 : 1)};
-  box-shadow: ${({ $isSpecial }) => ($isSpecial ? "none" : "0 2px 8px rgba(0, 0, 0, 0.2)")};
+  box-shadow: ${({ $isSpecial, $boxShadow }) => ($isSpecial ? "none" : $boxShadow || "0 2px 8px rgba(0, 0, 0, 0.2)")};
   font-size: ${({ $fontSize }) => ($fontSize ? `${$fontSize}px` : "inherit")};
+  transform-origin: top left;
 
   /* GPU アクセラレーションを有効化 */
   will-change: width, height, transform;
-  transform: translateZ(0);
+  backface-visibility: hidden;
+
+  /* 選択された要素のみoutlineを表示 */
+  ${({ theme, $isSelected }) =>
+    $isSelected &&
+    `
+    outline: 2px solid ${theme.colors.primary[300]};
+  `}
+
+  &:hover {
+    ${({ theme, $editMode, $isSelected }) =>
+      $editMode &&
+      !$isSelected &&
+      `
+      outline: 2px solid ${theme.colors.primary[200]};
+    `}
+  }
+
+  &:focus,
+  &:active {
+    outline: 2px solid ${({ theme }) => theme.colors.primary[500]};
+  }
+
+  &:focus:not(:focus-visible) {
+    outline: ${({ $isSelected, theme }) => ($isSelected ? `2px solid ${theme.colors.primary[300]}` : "none")};
+  }
+`;
+
+const LineContainer = styled.div<{
+  $x: number;
+  $y: number;
+  $width?: number;
+  $height?: number;
+  $isDragging: boolean;
+  $editMode: boolean;
+  $isSelected: boolean;
+  $scale?: number;
+  $orientation?: "horizontal" | "vertical";
+}>`
+  position: absolute;
+  left: ${({ $x }) => $x}px;
+  top: ${({ $y }) => $y}px;
+  width: ${({ $width }) => ($width ? `${$width}px` : "auto")};
+  height: ${({ $height }) => ($height ? `${$height}px` : "auto")};
+  cursor: ${({ $editMode }) => ($editMode ? "move" : "default")};
+  user-select: none;
+  opacity: ${({ $isDragging }) => ($isDragging ? 0.5 : 1)};
+  transform-origin: top left;
+
+  /* Line要素を選択しやすくするためのpadding */
+  padding: ${({ $orientation }) => ($orientation === "horizontal" ? "8px 0" : "0 8px")};
+
+  /* GPU アクセラレーションを有効化 */
+  will-change: width, height, transform;
   backface-visibility: hidden;
 
   /* 選択された要素のみoutlineを表示 */
@@ -88,11 +144,16 @@ export function DraggableHudElement({ element, editMode }: DraggableHudElementPr
 
   const isSelected = selectedElementId === element.id;
 
-  const style = transform
-    ? {
-        transform: CSS.Translate.toString(transform),
-      }
-    : undefined;
+  // ドラッグ時のtransformとscaleを組み合わせる
+  const scaleTransform = element.scale && element.scale !== 1 ? `scale(${element.scale})` : "";
+  const dragTransform = transform ? CSS.Translate.toString(transform) : "";
+
+  const style =
+    dragTransform || scaleTransform
+      ? {
+          transform: `${dragTransform}${dragTransform && scaleTransform ? " " : ""}${scaleTransform}`.trim(),
+        }
+      : undefined;
 
   const handleContextMenu = (e: React.MouseEvent) => {
     if (editMode) {
@@ -122,30 +183,58 @@ export function DraggableHudElement({ element, editMode }: DraggableHudElementPr
     setContextMenu(null);
   };
 
+  const isLine = element.type === "line";
+
   return (
     <>
-      <ElementContainer
-        ref={setNodeRef}
-        style={style}
-        $x={element.position.x}
-        $y={element.position.y}
-        $width={element.size?.width}
-        $height={element.size?.height}
-        $isDragging={isDragging}
-        $editMode={editMode}
-        $isSelected={isSelected}
-        $fontSize={element.fontSize}
-        $backgroundColor={element.backgroundColor}
-        $isSpecial={element.type === "line" || element.type === "todayTrendChart"}
-        onClick={handleClick}
-        onContextMenu={handleContextMenu}
-        data-element-id={element.id}
-        {...listeners}
-        {...attributes}
-      >
-        <HudElementContent element={element} />
-        <ResizeHandles onResizeStart={handleResizeStart} />
-      </ElementContainer>
+      {isLine ? (
+        <LineContainer
+          ref={setNodeRef}
+          style={style}
+          $x={element.position.x}
+          $y={element.position.y}
+          $width={element.size?.width}
+          $height={element.size?.height}
+          $isDragging={isDragging}
+          $editMode={editMode}
+          $isSelected={isSelected}
+          $scale={element.scale}
+          $orientation={element.lineOrientation}
+          onClick={handleClick}
+          onContextMenu={handleContextMenu}
+          data-element-id={element.id}
+          {...listeners}
+          {...attributes}
+        >
+          <HudElementContent element={element} />
+          <ResizeHandles onResizeStart={handleResizeStart} lineOrientation={element.lineOrientation} />
+        </LineContainer>
+      ) : (
+        <ElementContainer
+          ref={setNodeRef}
+          style={style}
+          $x={element.position.x}
+          $y={element.position.y}
+          $width={element.size?.width}
+          $height={element.size?.height}
+          $isDragging={isDragging}
+          $editMode={editMode}
+          $isSelected={isSelected}
+          $fontSize={element.fontSize}
+          $backgroundColor={element.backgroundColor}
+          $isSpecial={element.type === "todayTrendChart"}
+          $scale={element.scale}
+          $boxShadow={element.boxShadow}
+          onClick={handleClick}
+          onContextMenu={handleContextMenu}
+          data-element-id={element.id}
+          {...listeners}
+          {...attributes}
+        >
+          <HudElementContent element={element} />
+          <ResizeHandles onResizeStart={handleResizeStart} />
+        </ElementContainer>
+      )}
       {contextMenu && <ContextMenu x={contextMenu.x} y={contextMenu.y} onEdit={handleEdit} onDelete={handleDelete} onClose={handleCloseContextMenu} />}
     </>
   );

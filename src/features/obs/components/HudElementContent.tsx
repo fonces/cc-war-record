@@ -26,10 +26,11 @@ const Unit = styled.span`
   color: ${({ theme }) => theme.colors.textSecondary};
 `;
 
-const PlainTextContainer = styled.div<{ $color?: string }>`
+const PlainTextContainer = styled.div<{ $color?: string; $textAlign?: string }>`
   font-size: 1rem;
   color: ${({ $color, theme }) => $color || theme.colors.text};
   white-space: pre-wrap;
+  text-align: ${({ $textAlign }) => $textAlign || "left"};
 `;
 
 const StatsComboContainer = styled.div`
@@ -134,7 +135,11 @@ export function HudElementContent({ element }: HudElementContentProps) {
   };
 
   if (element.type === "plainText") {
-    return <PlainTextContainer $color={element.textColor}>{element.text || t("obs.plainText.placeholder")}</PlainTextContainer>;
+    return (
+      <PlainTextContainer $color={element.textColor} $textAlign={element.textAlign}>
+        {element.text || t("obs.plainText.placeholder")}
+      </PlainTextContainer>
+    );
   }
 
   if (element.type === "line") {

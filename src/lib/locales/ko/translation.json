@@ -67,6 +67,7 @@
     },
     "editPanel": {
       "title": "요소 편집",
+      "layerName": "레이어 이름",
       "elementType": "요소 유형",
       "text": "텍스트",
       "textColor": "텍스트 색상",
@@ -84,7 +85,15 @@
       "horizontal": "가로",
       "vertical": "세로",
       "lineThickness": "선 두께",
-      "lineColor": "선 색상"
+      "lineColor": "선 색상",
+      "scale": "확대율",
+      "positionX": "X 위치",
+      "positionY": "Y 위치",
+      "textAlign": "텍스트 정렬",
+      "alignLeft": "왼쪽",
+      "alignCenter": "가운데",
+      "alignRight": "오른쪽",
+      "boxShadow": "그림자 (box-shadow)"
     },
     "todayTrendChart": {
       "noData": "데이터가 없습니다"

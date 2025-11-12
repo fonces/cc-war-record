@@ -4,6 +4,7 @@ export type ResizeDirection = "n" | "s" | "e" | "w" | "ne" | "nw" | "se" | "sw";
 
 type ResizeHandlesProps = {
   onResizeStart: (e: React.MouseEvent, direction: ResizeDirection) => void;
+  lineOrientation?: "horizontal" | "vertical";
 };
 
 const ResizeHandle = styled.div<{ $direction: ResizeDirection }>`
@@ -12,9 +13,9 @@ const ResizeHandle = styled.div<{ $direction: ResizeDirection }>`
   transition: all 0.2s ease;
 
   ${({ $direction }) => {
-    const edgeSize = 6;
+    const edgeSize = 8; // より大きくして見やすく/クリックしやすく
     const cornerSize = 4;
-    const offset = -6;
+    const offset = -4; // offsetを調整
     const cornerOffset = -2; // 角のハンドル用のオフセット（より内側に配置）
 
     // 角のハンドル（丸い円形）
@@ -55,8 +56,8 @@ const ResizeHandle = styled.div<{ $direction: ResizeDirection }>`
     if (isVertical) {
       return `
         ${isTop ? `top: ${offset}px;` : `bottom: ${offset}px;`}
-        left: ${cornerSize + 4}px;
-        right: ${cornerSize + 4}px;
+        left: 0;
+        right: 0;
         height: ${edgeSize}px;
         background: transparent;
         border-radius: 2px;
@@ -65,8 +66,8 @@ const ResizeHandle = styled.div<{ $direction: ResizeDirection }>`
     } else {
       return `
         ${isLeft ? `left: ${offset}px;` : `right: ${offset}px;`}
-        top: ${cornerSize + 4}px;
-        bottom: ${cornerSize + 4}px;
+        top: 0;
+        bottom: 0;
         width: ${edgeSize}px;
         background: transparent;
         border-radius: 2px;
@@ -79,7 +80,27 @@ const ResizeHandle = styled.div<{ $direction: ResizeDirection }>`
 /**
  * リサイズハンドルコンポーネント
  */
-export function ResizeHandles({ onResizeStart }: ResizeHandlesProps) {
+export function ResizeHandles({ onResizeStart, lineOrientation }: ResizeHandlesProps) {
+  // Line要素の場合は方向に応じたハンドルのみ表示
+  if (lineOrientation === "horizontal") {
+    return (
+      <>
+        <ResizeHandle $direction="e" onMouseDown={(e) => onResizeStart(e, "e")} />
+        <ResizeHandle $direction="w" onMouseDown={(e) => onResizeStart(e, "w")} />
+      </>
+    );
+  }
+
+  if (lineOrientation === "vertical") {
+    return (
+      <>
+        <ResizeHandle $direction="n" onMouseDown={(e) => onResizeStart(e, "n")} />
+        <ResizeHandle $direction="s" onMouseDown={(e) => onResizeStart(e, "s")} />
+      </>
+    );
+  }
+
+  // 通常の要素は全方向のハンドルを表示
   return (
     <>
       <ResizeHandle $direction="n" onMouseDown={(e) => onResizeStart(e, "n")} />

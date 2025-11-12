@@ -38,6 +38,8 @@ export type HudElement = {
   position: Position;
   size?: Size;
   visible: boolean;
+  /** レイヤー名（カスタム名称） */
+  name?: string;
   /** プレーンテキストの内容 */
   text?: string;
   /** 統計コンボで表示する項目 */
@@ -56,6 +58,12 @@ export type HudElement = {
   lineThickness?: number;
   /** 線の色 */
   lineColor?: string;
+  /** 拡大率（1.0が100%） */
+  scale?: number;
+  /** テキスト配置（left, center, right） */
+  textAlign?: "left" | "center" | "right";
+  /** ボックスシャドウ（CSS box-shadow形式） */
+  boxShadow?: string;
 };
 
 /**

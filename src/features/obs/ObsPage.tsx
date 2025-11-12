@@ -21,7 +21,7 @@ const ObsContainer = styled.div`
   background: ${({ theme }) => theme.colors.surface};
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 8px;
-  overflow: visible;
+  overflow: hidden;
 `;
 
 const ContentLayout = styled.div`

@@ -69,6 +69,7 @@
     },
     "editPanel": {
       "title": "要素を編集",
+      "layerName": "レイヤー名",
       "elementType": "要素タイプ",
       "text": "テキスト",
       "textColor": "文字色",
@@ -86,7 +87,15 @@
       "horizontal": "横",
       "vertical": "縦",
       "lineThickness": "線の太さ",
-      "lineColor": "線の色"
+      "lineColor": "線の色",
+      "scale": "拡大率",
+      "positionX": "X座標",
+      "positionY": "Y座標",
+      "textAlign": "テキスト配置",
+      "alignLeft": "左揃え",
+      "alignCenter": "中央揃え",
+      "alignRight": "右揃え",
+      "boxShadow": "影 (box-shadow)"
     },
     "todayTrendChart": {
       "noData": "データがありません"

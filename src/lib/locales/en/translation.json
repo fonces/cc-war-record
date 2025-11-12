@@ -69,6 +69,7 @@
     },
     "editPanel": {
       "title": "Edit Element",
+      "layerName": "Layer Name",
       "elementType": "Element Type",
       "text": "Text",
       "textColor": "Text Color",
@@ -86,7 +87,15 @@
       "horizontal": "Horizontal",
       "vertical": "Vertical",
       "lineThickness": "Line Thickness",
-      "lineColor": "Line Color"
+      "lineColor": "Line Color",
+      "scale": "Scale",
+      "positionX": "X Position",
+      "positionY": "Y Position",
+      "textAlign": "Text Alignment",
+      "alignLeft": "Left",
+      "alignCenter": "Center",
+      "alignRight": "Right",
+      "boxShadow": "Shadow (box-shadow)"
     },
     "todayTrendChart": {
       "noData": "No data available"
