@@ -4,37 +4,26 @@ import styled from "styled-components";
 const ObsContainerWrapper = styled.div`
   position: relative;
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  overflow: hidden;
-`;
-
-const ObsContainer = styled.div<{ $width: number; $height: number }>`
-  position: relative;
-  width: 100%;
-  max-width: ${({ $width }) => $width}px;
-  aspect-ratio: ${({ $width, $height }) => $width / $height};
-  background: ${({ theme }) => theme.colors.surface};
+  height: calc(100dvh - 200px);
+  overflow: auto;
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 8px;
   box-shadow: ${({ theme }) => theme.shadows.lg};
-  overflow: auto;
 
   /* スクロールバーのカスタマイズ */
   &::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 8px;
+    height: 8px;
   }
 
   &::-webkit-scrollbar-track {
     background: ${({ theme }) => theme.colors.surface};
-    border-radius: 3px;
+    border-radius: 4px;
   }
 
   &::-webkit-scrollbar-thumb {
     background: ${({ theme }) => theme.colors.border};
-    border-radius: 3px;
+    border-radius: 4px;
 
     &:hover {
       background: ${({ theme }) => theme.colors.textSecondary};
@@ -44,6 +33,14 @@ const ObsContainer = styled.div<{ $width: number; $height: number }>`
   /* Firefox用 */
   scrollbar-width: thin;
   scrollbar-color: ${({ theme }) => theme.colors.border} ${({ theme }) => theme.colors.surface};
+`;
+
+const ObsContainer = styled.div<{ $width: number; $height: number }>`
+  position: relative;
+  width: ${({ $width }) => $width}px;
+  height: ${({ $height }) => $height}px;
+  background: ${({ theme }) => theme.colors.surface};
+  flex-shrink: 0;
 `;
 
 type DroppableObsContainerProps = {
