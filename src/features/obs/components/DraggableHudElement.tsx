@@ -12,6 +12,9 @@ import type { HudElement as HudElementType } from "../types";
 type DraggableHudElementProps = {
   element: HudElementType;
   editMode: boolean;
+  isDraggingGroup?: boolean;
+  activeId?: string | null;
+  groupDragDelta?: { x: number; y: number } | null;
 };
 
 const ElementContainer = styled.div<{
@@ -133,8 +136,8 @@ const LineContainer = styled.div<{
 /**
  * ドラッグ可能なHUD要素コンポーネント
  */
-export function DraggableHudElement({ element, editMode }: DraggableHudElementProps) {
-  const { selectElement, selectedElementId, setEditingElement, removeElement } = useObsLayoutStore();
+export function DraggableHudElement({ element, editMode, isDraggingGroup, activeId, groupDragDelta }: DraggableHudElementProps) {
+  const { selectElement, selectedElementId, selectedElementIds, toggleSelectElement, setEditingElement, removeElement } = useObsLayoutStore();
   const { isResizing, handleResizeStart } = useElementResize(element);
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number } | null>(null);
 
@@ -143,11 +146,21 @@ export function DraggableHudElement({ element, editMode }: DraggableHudElementPr
     disabled: !editMode || isResizing,
   });
 
-  const isSelected = selectedElementId === element.id;
+  const isSelected = selectedElementId === element.id || selectedElementIds.includes(element.id);
+
+  // グループドラッグ中で、この要素が選択されていて、かつ別の要素がドラッグされている場合
+  const isInDraggingGroup = isDraggingGroup && isSelected && activeId !== element.id && groupDragDelta;
 
   // ドラッグ時のtransformとscaleを組み合わせる
   const scaleTransform = element.scale && element.scale !== 1 ? `scale(${element.scale})` : "";
-  const dragTransform = transform ? CSS.Translate.toString(transform) : "";
+
+  // 自分がドラッグされている場合は通常のtransform、グループの一員としてドラッグされている場合はgroupDragDelta
+  let dragTransform = "";
+  if (transform) {
+    dragTransform = CSS.Translate.toString(transform) || "";
+  } else if (isInDraggingGroup && groupDragDelta) {
+    dragTransform = `translate3d(${groupDragDelta.x}px, ${groupDragDelta.y}px, 0)`;
+  }
 
   const style =
     dragTransform || scaleTransform
@@ -167,7 +180,13 @@ export function DraggableHudElement({ element, editMode }: DraggableHudElementPr
   const handleClick = (e: React.MouseEvent) => {
     if (editMode) {
       e.stopPropagation();
-      selectElement(element.id);
+
+      // Ctrl/Cmd キーで複数選択
+      if (e.ctrlKey || e.metaKey) {
+        toggleSelectElement(element.id);
+      } else {
+        selectElement(element.id);
+      }
     }
   };
 

@@ -618,9 +618,4 @@ export const competitiveTemplates: HudTemplate[] = [
 /**
  * 全テンプレート
  */
-export const allTemplates: HudTemplate[] = [
-  ...minimalTemplates,
-  ...detailedTemplates,
-  ...streamingTemplates,
-  ...competitiveTemplates,
-];
+export const allTemplates: HudTemplate[] = [...minimalTemplates, ...detailedTemplates, ...streamingTemplates, ...competitiveTemplates];

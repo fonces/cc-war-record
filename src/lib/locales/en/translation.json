@@ -169,7 +169,13 @@
     },
     "obs": {
       "title": "OBS Streaming HUD",
-      "description": "Drag and drop to adjust layout, then use as a browser source in OBS."
+      "description": "Drag and drop to adjust layout, then use as a browser source in OBS.",
+      "screenSize": {
+        "title": "Screen Size Settings",
+        "width": "Width",
+        "height": "Height",
+        "info": "Set the screen size for the OBS window. Choose from presets or enter a custom size."
+      }
     },
     "graphs": {
       "title": "Match Statistics",
