@@ -62,7 +62,7 @@
     },
     "resetLayout": "Reset Layout",
     "layerPanel": {
-      "addElement": "Add Element",
+      "addElement": "Elements",
       "layers": "Layers",
       "noLayers": "No elements",
       "confirmDelete": "Delete this element?"
@@ -78,7 +78,7 @@
       "fontSize": "Font Size",
       "position": "Position",
       "visibility": "Visibility",
-      "visible": "Show",
+      "visible": "Visibility",
       "comboItems": "Items to display",
       "selectElement": "Click an element to edit",
       "delete": "Delete",
@@ -95,6 +95,7 @@
       "alignLeft": "Left",
       "alignCenter": "Center",
       "alignRight": "Right",
+      "padding": "Padding",
       "boxShadow": "Shadow (box-shadow)"
     },
     "todayTrendChart": {

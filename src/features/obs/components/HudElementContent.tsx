@@ -9,25 +9,24 @@ type HudElementContentProps = {
 };
 
 const Label = styled.div`
-  font-size: 0.875rem;
+  font-size: 0.5em;
   color: ${({ theme }) => theme.colors.textSecondary};
   margin-bottom: 4px;
 `;
 
 const Value = styled.div`
-  font-size: 2rem;
+  font-size: 1.25em;
   font-weight: bold;
   color: ${({ theme }) => theme.colors.text};
 `;
 
 const Unit = styled.span`
-  font-size: 1rem;
+  font-size: 0.625em;
   margin-left: 4px;
   color: ${({ theme }) => theme.colors.textSecondary};
 `;
 
 const PlainTextContainer = styled.div<{ $color?: string; $textAlign?: string }>`
-  font-size: 1rem;
   color: ${({ $color, theme }) => $color || theme.colors.text};
   white-space: pre-wrap;
   text-align: ${({ $textAlign }) => $textAlign || "left"};
@@ -47,12 +46,12 @@ const StatsComboItem = styled.div`
 `;
 
 const StatsComboLabel = styled.div`
-  font-size: 0.75rem;
+  font-size: 0.75em;
   color: ${({ theme }) => theme.colors.textSecondary};
 `;
 
 const StatsComboValue = styled.div`
-  font-size: 1.25rem;
+  font-size: 1em;
   font-weight: bold;
   color: ${({ theme }) => theme.colors.text};
 `;

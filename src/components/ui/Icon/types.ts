@@ -19,7 +19,13 @@ export type IconName =
   | "download"
   | "upload"
   | "search"
-  | "video";
+  | "video"
+  | "trophy"
+  | "percent"
+  | "text"
+  | "grid"
+  | "hash"
+  | "xCircle";
 
 export type IconProps = {
   /** アイコンの種類 */

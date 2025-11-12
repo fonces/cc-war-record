@@ -62,7 +62,7 @@
     },
     "resetLayout": "レイアウトをリセット",
     "layerPanel": {
-      "addElement": "要素を追加",
+      "addElement": "要素",
       "layers": "レイヤー",
       "noLayers": "要素がありません",
       "confirmDelete": "この要素を削除しますか?"
@@ -78,7 +78,7 @@
       "fontSize": "フォントサイズ",
       "position": "位置",
       "visibility": "表示設定",
-      "visible": "表示する",
+      "visible": "表示設定",
       "comboItems": "表示する項目",
       "selectElement": "要素をクリックして編集してください",
       "delete": "削除",
@@ -95,6 +95,7 @@
       "alignLeft": "左揃え",
       "alignCenter": "中央揃え",
       "alignRight": "右揃え",
+      "padding": "パディング",
       "boxShadow": "影 (box-shadow)"
     },
     "todayTrendChart": {

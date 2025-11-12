@@ -24,9 +24,10 @@ const ElementContainer = styled.div<{
   $isSelected: boolean;
   $fontSize?: number;
   $backgroundColor?: string;
-  $isSpecial?: boolean;
   $scale?: number;
   $boxShadow?: string;
+  $visible?: boolean;
+  $padding?: number;
 }>`
   position: absolute;
   left: ${({ $x }) => $x}px;
@@ -34,15 +35,14 @@ const ElementContainer = styled.div<{
   width: ${({ $width }) => ($width ? `${$width}px` : "auto")};
   height: ${({ $height }) => ($height ? `${$height}px` : "auto")};
   min-width: ${({ $width }) => ($width ? "unset" : "200px")};
-  background: ${({ $backgroundColor, $isSpecial, theme, $editMode }) =>
-    $isSpecial ? "transparent" : $backgroundColor || ($editMode ? `${theme.colors.background}ee` : `${theme.colors.background}cc`)};
-  border-radius: ${({ $isSpecial }) => ($isSpecial ? "0" : "8px")};
-  padding: ${({ $isSpecial }) => ($isSpecial ? "0" : "16px 24px")};
+  background: ${({ $backgroundColor, theme, $editMode }) => $backgroundColor || ($editMode ? `${theme.colors.background}ee` : `${theme.colors.background}cc`)};
+  border-radius: 8px;
+  padding: ${({ $padding }) => ($padding !== undefined ? `${$padding}px` : "16px 24px")};
   cursor: ${({ $editMode }) => ($editMode ? "move" : "default")};
   user-select: none;
-  opacity: ${({ $isDragging }) => ($isDragging ? 0.5 : 1)};
-  box-shadow: ${({ $isSpecial, $boxShadow }) => ($isSpecial ? "none" : $boxShadow || "0 2px 8px rgba(0, 0, 0, 0.2)")};
-  font-size: ${({ $fontSize }) => ($fontSize ? `${$fontSize}px` : "inherit")};
+  opacity: ${({ $isDragging, $visible }) => ($isDragging ? 0.5 : $visible === false ? 0.1 : 1)};
+  box-shadow: ${({ $boxShadow }) => $boxShadow || "0 2px 8px rgba(0, 0, 0, 0.2)"};
+  font-size: ${({ $fontSize }) => ($fontSize ? `${$fontSize}px` : "16px")};
   transform-origin: top left;
 
   /* GPU アクセラレーションを有効化 */
@@ -85,6 +85,7 @@ const LineContainer = styled.div<{
   $isSelected: boolean;
   $scale?: number;
   $orientation?: "horizontal" | "vertical";
+  $visible?: boolean;
 }>`
   position: absolute;
   left: ${({ $x }) => $x}px;
@@ -93,7 +94,7 @@ const LineContainer = styled.div<{
   height: ${({ $height }) => ($height ? `${$height}px` : "auto")};
   cursor: ${({ $editMode }) => ($editMode ? "move" : "default")};
   user-select: none;
-  opacity: ${({ $isDragging }) => ($isDragging ? 0.5 : 1)};
+  opacity: ${({ $isDragging, $visible }) => ($isDragging ? 0.5 : $visible === false ? 0.1 : 1)};
   transform-origin: top left;
 
   /* Line要素を選択しやすくするためのpadding */
@@ -170,6 +171,13 @@ export function DraggableHudElement({ element, editMode }: DraggableHudElementPr
     }
   };
 
+  const handleDoubleClick = (e: React.MouseEvent) => {
+    if (editMode) {
+      e.stopPropagation();
+      handleEdit();
+    }
+  };
+
   const handleEdit = () => {
     selectElement(element.id);
     setEditingElement(element.id);
@@ -200,7 +208,9 @@ export function DraggableHudElement({ element, editMode }: DraggableHudElementPr
           $isSelected={isSelected}
           $scale={element.scale}
           $orientation={element.lineOrientation}
+          $visible={element.visible}
           onClick={handleClick}
+          onDoubleClick={handleDoubleClick}
           onContextMenu={handleContextMenu}
           data-element-id={element.id}
           {...listeners}
@@ -222,10 +232,12 @@ export function DraggableHudElement({ element, editMode }: DraggableHudElementPr
           $isSelected={isSelected}
           $fontSize={element.fontSize}
           $backgroundColor={element.backgroundColor}
-          $isSpecial={element.type === "todayTrendChart"}
           $scale={element.scale}
           $boxShadow={element.boxShadow}
+          $visible={element.visible}
+          $padding={element.padding}
           onClick={handleClick}
+          onDoubleClick={handleDoubleClick}
           onContextMenu={handleContextMenu}
           data-element-id={element.id}
           {...listeners}

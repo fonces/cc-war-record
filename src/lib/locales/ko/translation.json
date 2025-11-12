@@ -60,7 +60,7 @@
     },
     "resetLayout": "레이아웃 재설정",
     "layerPanel": {
-      "addElement": "요소 추가",
+      "addElement": "요소",
       "layers": "레이어",
       "noLayers": "요소가 없습니다",
       "confirmDelete": "이 요소를 삭제하시겠습니까?"
@@ -76,7 +76,7 @@
       "fontSize": "글꼴 크기",
       "position": "위치",
       "visibility": "표시 설정",
-      "visible": "표시",
+      "visible": "표시 설정",
       "comboItems": "표시할 항목",
       "selectElement": "요소를 클릭하여 편집하세요",
       "delete": "삭제",
@@ -93,6 +93,7 @@
       "alignLeft": "왼쪽",
       "alignCenter": "가운데",
       "alignRight": "오른쪽",
+      "padding": "패딩",
       "boxShadow": "그림자 (box-shadow)"
     },
     "todayTrendChart": {

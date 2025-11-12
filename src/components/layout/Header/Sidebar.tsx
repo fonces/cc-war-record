@@ -108,6 +108,27 @@ const StyledNavLink = styled(Link)<{ $isActive: boolean; $desktopOnly?: boolean 
   }
 `;
 
+const StyledNavContent = styled.span`
+  display: flex;
+  align-items: center;
+  flex: 1;
+  position: relative;
+`;
+
+const StyledBetaBadge = styled.span`
+  margin-left: auto;
+  font-size: 0.625rem;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: ${({ theme }) => (theme.isDark ? theme.colors.primary[500] : theme.colors.primary[600])};
+  color: ${({ theme }) => theme.colors.white};
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+  z-index: 1;
+`;
+
 const StyledNavIcon = styled.div<{ $isActive: boolean }>`
   display: flex;
   align-items: center;
@@ -146,7 +167,10 @@ export const Sidebar = ({ isOpen, isActivePath, onClose }: SidebarProps) => {
             <StyledNavIcon $isActive={isActivePath(item.path)}>
               <Icon name={item.icon} size={20} />
             </StyledNavIcon>
-            {t(item.labelKey)}
+            <StyledNavContent>
+              {t(item.labelKey)}
+              {item.labelKey === "navigation.obs" && <StyledBetaBadge>Beta</StyledBetaBadge>}
+            </StyledNavContent>
           </StyledNavLink>
         ))}
       </StyledNavList>

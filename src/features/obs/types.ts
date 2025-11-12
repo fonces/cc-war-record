@@ -64,6 +64,8 @@ export type HudElement = {
   textAlign?: "left" | "center" | "right";
   /** ボックスシャドウ（CSS box-shadow形式） */
   boxShadow?: string;
+  /** パディング（px） */
+  padding?: number;
 };
 
 /**

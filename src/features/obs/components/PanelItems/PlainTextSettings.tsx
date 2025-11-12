@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Checkbox, Input } from "@/components/ui";
+import { Checkbox, Input, Textarea } from "@/components/ui";
 import { useTranslation } from "@/hooks";
 import type { HudElement } from "../../types";
 
@@ -122,7 +122,7 @@ export function PlainTextSettings({ element, onUpdate, getBackgroundColorParts, 
     <>
       <FormGroup>
         <Label>{t("obs.editPanel.text")}</Label>
-        <Input type="text" value={element.text || ""} onChange={(e) => onUpdate({ text: e.target.value })} placeholder={t("obs.plainText.placeholder")} />
+        <Textarea value={element.text || ""} onChange={(e) => onUpdate({ text: e.target.value })} placeholder={t("obs.plainText.placeholder")} rows={3} />
       </FormGroup>
       <FormRow>
         <FormGroup>

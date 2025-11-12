@@ -1,10 +1,9 @@
-import { useState } from "react";
+import { useDraggable } from "@dnd-kit/core";
+import { CSS } from "@dnd-kit/utilities";
 import styled from "styled-components";
 import { Icon } from "@/components/ui";
 import { useTranslation } from "@/hooks";
-import { generateUUID } from "@/utils";
-import { useObsLayoutStore } from "../store/obsLayoutStore";
-import type { HudElement, HudElementType } from "../types";
+import type { HudElementType } from "../types";
 
 const Panel = styled.div`
   display: flex;
@@ -64,132 +63,90 @@ const AddElementGrid = styled.div`
   gap: ${({ theme }) => theme.spacing[3]};
 `;
 
-const AddButton = styled.button<{ $color?: string }>`
-  position: relative;
+const DraggableButton = styled.button<{ $isDragging?: boolean }>`
   background: ${({ theme }) => theme.colors.surface};
   border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   padding: ${({ theme }) => theme.spacing[3]};
-  cursor: pointer;
+  cursor: grab;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: ${({ theme }) => theme.spacing[2]};
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  color: ${({ theme }) => theme.colors.text};
-  font-size: 0.75rem;
-  font-weight: 500;
+  transition: all 0.15s ease;
+  color: ${({ theme }) => theme.colors.textSecondary};
   aspect-ratio: 1;
-  overflow: hidden;
+  opacity: ${({ $isDragging }) => ($isDragging ? 0.5 : 1)};
 
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: ${({ $color }) => $color || "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"};
-    opacity: 0;
-    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 0;
+  &:active {
+    cursor: grabbing;
   }
 
   &:hover {
-    transform: translateY(-2px);
-    border-color: ${({ $color, theme }) => $color || theme.colors.primary[400]};
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-
-    &::before {
-      opacity: 0.1;
-    }
-  }
-
-  &:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-
-  > * {
-    position: relative;
-    z-index: 1;
+    background: ${({ theme }) => theme.colors.surfaceHover};
+    border-color: ${({ theme }) => theme.colors.primary[300]};
+    color: ${({ theme }) => theme.colors.text};
   }
 `;
 
-const IconWrapper = styled.div<{ $color?: string }>`
+const IconWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  background: ${({ $color }) => $color || "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"};
-  color: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  width: 32px;
+  height: 32px;
+
+  svg {
+    cursor: grab;
+  }
 `;
 
-const ElementLabel = styled.span`
-  font-size: 0.6875rem;
-  text-align: center;
-  line-height: 1.2;
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-`;
+type DraggableElementProps = {
+  type: HudElementType;
+  icon: "edit" | "chart" | "add" | "minus" | "detail" | "close" | "history" | "trophy" | "percent" | "text" | "grid" | "hash" | "xCircle";
+  labelKey: string;
+};
+
+function DraggableElement({ type, icon, labelKey }: DraggableElementProps) {
+  const { t } = useTranslation();
+  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
+    id: `new-${type}`,
+    data: { type, isNew: true },
+  });
+
+  const style = transform
+    ? {
+        transform: CSS.Translate.toString(transform),
+      }
+    : undefined;
+
+  return (
+    <DraggableButton ref={setNodeRef} style={style} $isDragging={isDragging} title={t(labelKey)} {...listeners} {...attributes}>
+      <IconWrapper>
+        <Icon name={icon} size={20} />
+      </IconWrapper>
+    </DraggableButton>
+  );
+}
 
 /**
  * 要素追加パネルコンポーネント
  */
 export function AddElementPanel() {
   const { t } = useTranslation();
-  const { addElement, selectElement, setEditingElement } = useObsLayoutStore();
-  const [nextPosition, setNextPosition] = useState({ x: 100, y: 100 });
-
-  const handleAddElement = (type: HudElementType) => {
-    const newElement: HudElement = {
-      id: generateUUID(),
-      type,
-      position: { ...nextPosition },
-      visible: true,
-    };
-
-    // 線要素の場合はデフォルトサイズとプロパティを設定
-    if (type === "line") {
-      newElement.lineOrientation = "horizontal";
-      newElement.lineThickness = 2;
-      newElement.lineColor = "#ffffff";
-      newElement.size = { width: 200, height: 2 };
-    }
-
-    // グラフ要素の場合はデフォルトサイズを設定
-    if (type === "todayTrendChart") {
-      newElement.size = { width: 600, height: 450 };
-    }
-
-    // 次の要素は少しずらして配置
-    setNextPosition({
-      x: nextPosition.x + 20,
-      y: nextPosition.y + 20,
-    });
-
-    addElement(newElement);
-    selectElement(newElement.id);
-    setEditingElement(newElement.id);
-  };
 
   const elementTypes: Array<{
     type: HudElementType;
-    icon: "edit" | "chart" | "add" | "minus" | "detail" | "close" | "history";
+    icon: "edit" | "chart" | "add" | "minus" | "detail" | "close" | "history" | "trophy" | "percent" | "text" | "grid" | "hash" | "xCircle";
     labelKey: string;
-    gradient: string;
   }> = [
-    { type: "winCount", icon: "add", labelKey: "obs.winCount", gradient: "linear-gradient(135deg, #10b981 0%, #059669 100%)" },
-    { type: "loseCount", icon: "close", labelKey: "obs.loseCount", gradient: "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)" },
-    { type: "winRate", icon: "chart", labelKey: "obs.winRate", gradient: "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)" },
-    { type: "totalMatches", icon: "history", labelKey: "obs.totalMatches", gradient: "linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)" },
-    { type: "plainText", icon: "edit", labelKey: "obs.elementType.plainText", gradient: "linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)" },
-    { type: "statsCombo", icon: "detail", labelKey: "obs.elementType.statsCombo", gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)" },
-    { type: "line", icon: "minus", labelKey: "obs.elementType.line", gradient: "linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)" },
-    { type: "todayTrendChart", icon: "chart", labelKey: "obs.elementType.todayTrendChart", gradient: "linear-gradient(135deg, #ec4899 0%, #be185d 100%)" },
+    { type: "winCount", icon: "trophy", labelKey: "obs.winCount" },
+    { type: "loseCount", icon: "xCircle", labelKey: "obs.loseCount" },
+    { type: "winRate", icon: "percent", labelKey: "obs.winRate" },
+    { type: "totalMatches", icon: "hash", labelKey: "obs.totalMatches" },
+    { type: "plainText", icon: "text", labelKey: "obs.elementType.plainText" },
+    { type: "statsCombo", icon: "grid", labelKey: "obs.elementType.statsCombo" },
+    { type: "line", icon: "minus", labelKey: "obs.elementType.line" },
+    { type: "todayTrendChart", icon: "chart", labelKey: "obs.elementType.todayTrendChart" },
   ];
 
   return (
@@ -199,13 +156,8 @@ export function AddElementPanel() {
       </PanelHeader>
       <ScrollableContent>
         <AddElementGrid>
-          {elementTypes.map(({ type, icon, labelKey, gradient }) => (
-            <AddButton key={type} onClick={() => handleAddElement(type)} $color={gradient} title={t(labelKey)}>
-              <IconWrapper $color={gradient}>
-                <Icon name={icon} size={24} />
-              </IconWrapper>
-              <ElementLabel>{t(labelKey)}</ElementLabel>
-            </AddButton>
+          {elementTypes.map((elementType) => (
+            <DraggableElement key={elementType.type} {...elementType} />
           ))}
         </AddElementGrid>
       </ScrollableContent>

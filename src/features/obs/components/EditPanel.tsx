@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import styled from "styled-components";
-import { Button, Checkbox, Icon, Input } from "@/components/ui";
+import { Button, Icon, Input, Toggle } from "@/components/ui";
 import { useTranslation } from "@/hooks";
 import { useObsLayoutStore } from "../store/obsLayoutStore";
 import { PlainTextSettings, StatsComboSettings, LineSettings, DefaultStatsSettings } from "./PanelItems";
@@ -103,15 +103,6 @@ const InfoText = styled.div`
   background: ${({ theme }) => theme.colors.surface};
   border-radius: ${({ theme }) => theme.borderRadius.md};
   border: 1px solid ${({ theme }) => theme.colors.border};
-`;
-
-const CheckboxLabel = styled.label`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing[2]};
-  font-size: 0.875rem;
-  color: ${({ theme }) => theme.colors.text};
-  cursor: pointer;
 `;
 
 /**
@@ -384,23 +375,38 @@ export function EditPanel() {
                 />
               </FormGroup>
               <FormGroup>
-                <Label>&nbsp;</Label>
-                <CheckboxLabel>
-                  <Checkbox checked={selectedElement.visible} onChange={handleVisibilityChange} />
-                  {t("obs.editPanel.visible")}
-                </CheckboxLabel>
+                <Label>{t("obs.editPanel.visible")}</Label>
+                <Toggle checked={selectedElement.visible} onChange={handleVisibilityChange} label={t("obs.editPanel.visible")} />
               </FormGroup>
             </FormRow>
             {selectedElement.type !== "line" && (
-              <FormGroup>
-                <Label>{t("obs.editPanel.boxShadow")}</Label>
-                <Input
-                  type="text"
-                  value={selectedElement.boxShadow || ""}
-                  onChange={(e) => updateElement(editingElementId!, { boxShadow: e.target.value })}
-                  placeholder="0 2px 8px rgba(0, 0, 0, 0.2)"
-                />
-              </FormGroup>
+              <FormRow>
+                <FormGroup>
+                  <Label>{t("obs.editPanel.padding")}</Label>
+                  <Input
+                    type="number"
+                    value={selectedElement.padding !== undefined ? selectedElement.padding : 16}
+                    onChange={(e) => {
+                      const value = parseInt(e.target.value, 10);
+                      if (!isNaN(value)) {
+                        updateElement(editingElementId!, { padding: value });
+                      }
+                    }}
+                    min="0"
+                    max="100"
+                    step="1"
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label>{t("obs.editPanel.boxShadow")}</Label>
+                  <Input
+                    type="text"
+                    value={selectedElement.boxShadow || ""}
+                    onChange={(e) => updateElement(editingElementId!, { boxShadow: e.target.value })}
+                    placeholder="0 2px 8px rgba(0, 0, 0, 0.2)"
+                  />
+                </FormGroup>
+              </FormRow>
             )}
           </>
         ) : (
