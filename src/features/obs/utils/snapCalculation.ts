@@ -49,13 +49,7 @@ const hasOverlap = (start1: number, end1: number, start2: number, end2: number):
  * @param snapThreshold - スナップ閾値（px）
  * @returns スナップ補正された位置とガイド情報
  */
-export function calculateSnap(
-  currentId: string,
-  targetX: number,
-  targetY: number,
-  elements: HudElement[],
-  snapThreshold: number = 10,
-): SnapResult {
+export function calculateSnap(currentId: string, targetX: number, targetY: number, elements: HudElement[], snapThreshold: number = 10): SnapResult {
   const currentElement = elements.find((el) => el.id === currentId);
   if (!currentElement) {
     return { position: { x: targetX, y: targetY }, guides: {} };

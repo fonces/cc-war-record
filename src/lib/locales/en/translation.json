@@ -24,6 +24,10 @@
     "switchToLightMode": "Switch to light mode",
     "win": "Win",
     "defeat": "Defeat",
+    "show": "Show",
+    "hide": "Hide",
+    "moveUp": "Move Up",
+    "moveDown": "Move Down",
     "buildUpdate": {
       "message": "A new version is available",
       "reload": "Reload"
@@ -55,11 +59,19 @@
       "instruction": "Drag elements to adjust their position"
     },
     "resetLayout": "Reset Layout",
+    "layerPanel": {
+      "addElement": "Add Element",
+      "layers": "Layers",
+      "noLayers": "No elements",
+      "confirmDelete": "Delete this element?"
+    },
     "editPanel": {
       "title": "Edit Element",
       "elementType": "Element Type",
       "text": "Text",
       "textColor": "Text Color",
+      "backgroundColor": "Background Color",
+      "opacity": "Opacity",
       "fontSize": "Font Size",
       "position": "Position",
       "visibility": "Visibility",

@@ -4,8 +4,10 @@ import { createPortal } from "react-dom";
 import styled from "styled-components";
 import { Button, ButtonGroup, Page, PageContainer, PageDescription, PageTitle, PageTitleContainer } from "@/components/ui";
 import { usePageTitle, useTranslation } from "@/hooks";
+import { AddElementPanel } from "./components/AddElementPanel";
 import { DraggableHudElement } from "./components/DraggableHudElement";
 import { EditPanel } from "./components/EditPanel";
+import { LayerPanel } from "./components/LayerPanel";
 import { SnapGuide } from "./components/SnapGuide";
 import { useObsLayoutStore } from "./store/obsLayoutStore";
 import { calculateSnap } from "./utils/snapCalculation";
@@ -20,6 +22,45 @@ const ObsContainer = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 8px;
   overflow: visible;
+`;
+
+const ContentLayout = styled.div`
+  display: grid;
+  grid-template-columns: 120px 1fr 320px;
+  gap: ${({ theme }) => theme.spacing[4]};
+  align-items: start;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: 1fr 320px;
+  }
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const LeftPanel = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing[4]};
+  position: sticky;
+  top: 16px;
+
+  @media (max-width: 1200px) {
+    display: none;
+  }
+`;
+
+const RightPanel = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing[4]};
+  position: sticky;
+  top: 16px;
+
+  @media (max-width: 1024px) {
+    position: static;
+  }
 `;
 
 const ControlPanel = styled.div<{ $visible: boolean }>`
@@ -106,21 +147,37 @@ export function ObsPage() {
   };
 
   return (
-    <Page>
+    <Page fullWidth>
       <PageTitleContainer>
         <PageTitle>{t("pages.obs.title")}</PageTitle>
       </PageTitleContainer>
       <PageDescription>{t("pages.obs.description")}</PageDescription>
 
       <PageContainer>
-        <ObsContainer className="obs-container">
-          <DndContext sensors={sensors} onDragMove={handleDragMove} onDragEnd={handleDragEnd}>
-            {elements.map((element) => (
-              <DraggableHudElement key={element.id} element={element} editMode={editMode} />
-            ))}
-          </DndContext>
-          {editMode && <SnapGuide x={snapGuides.x} y={snapGuides.y} xDistance={snapGuides.xDistance} yDistance={snapGuides.yDistance} />}
-        </ObsContainer>
+        <ContentLayout>
+          {editMode && (
+            <LeftPanel>
+              <AddElementPanel />
+            </LeftPanel>
+          )}
+
+          <ObsContainer className="obs-container">
+            <DndContext sensors={sensors} onDragMove={handleDragMove} onDragEnd={handleDragEnd}>
+              {elements.map((element) => (
+                <DraggableHudElement key={element.id} element={element} editMode={editMode} />
+              ))}
+            </DndContext>
+            {editMode && <SnapGuide x={snapGuides.x} y={snapGuides.y} xDistance={snapGuides.xDistance} yDistance={snapGuides.yDistance} />}
+          </ObsContainer>
+
+          {editMode && (
+            <RightPanel>
+              <LayerPanel />
+            </RightPanel>
+          )}
+        </ContentLayout>
+
+        <EditPanel />
 
         {createPortal(
           <ControlPanel $visible={editMode}>
@@ -136,8 +193,6 @@ export function ObsPage() {
           </ControlPanel>,
           document.body,
         )}
-
-        <EditPanel />
       </PageContainer>
     </Page>
   );

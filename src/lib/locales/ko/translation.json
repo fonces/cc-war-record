@@ -22,6 +22,10 @@
     "toggleTheme": "테마 전환",
     "switchToDarkMode": "다크 모드로 전환",
     "switchToLightMode": "라이트 모드로 전환",
+    "show": "표시",
+    "hide": "숨기기",
+    "moveUp": "위로 이동",
+    "moveDown": "아래로 이동",
     "buildUpdate": {
       "message": "새 버전을 사용할 수 있습니다",
       "reload": "새로고침"
@@ -53,11 +57,19 @@
       "instruction": "요소를 드래그하여 위치를 조정할 수 있습니다"
     },
     "resetLayout": "레이아웃 재설정",
+    "layerPanel": {
+      "addElement": "요소 추가",
+      "layers": "레이어",
+      "noLayers": "요소가 없습니다",
+      "confirmDelete": "이 요소를 삭제하시겠습니까?"
+    },
     "editPanel": {
       "title": "요소 편집",
       "elementType": "요소 유형",
       "text": "텍스트",
       "textColor": "텍스트 색상",
+      "backgroundColor": "배경 색상",
+      "opacity": "불투명도",
       "fontSize": "글꼴 크기",
       "position": "위치",
       "visibility": "표시 설정",

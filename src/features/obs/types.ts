@@ -48,6 +48,8 @@ export type HudElement = {
   fontSize?: number;
   /** 文字色（カスタム） */
   textColor?: string;
+  /** 背景色（カスタム） */
+  backgroundColor?: string;
 };
 
 /**

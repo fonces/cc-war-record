@@ -14,6 +14,7 @@ type ObsLayoutState = {
   selectElement: (id: string | null) => void;
   addElement: (element: HudElement) => void;
   removeElement: (id: string) => void;
+  moveElement: (id: string, newIndex: number) => void;
 };
 
 /**
@@ -56,6 +57,17 @@ export const useObsLayoutStore = create<ObsLayoutState>()(
           elements: state.elements.filter((el) => el.id !== id),
           selectedElementId: state.selectedElementId === id ? null : state.selectedElementId,
         })),
+      moveElement: (id, newIndex) =>
+        set((state) => {
+          const currentIndex = state.elements.findIndex((el) => el.id === id);
+          if (currentIndex === -1 || currentIndex === newIndex) return state;
+
+          const newElements = [...state.elements];
+          const [element] = newElements.splice(currentIndex, 1);
+          newElements.splice(newIndex, 0, element);
+
+          return { elements: newElements };
+        }),
     }),
     {
       name: "obs-layout-storage",

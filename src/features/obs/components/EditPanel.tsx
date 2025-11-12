@@ -1,19 +1,18 @@
+import { useCallback, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import styled from "styled-components";
-import { Button, Checkbox, Icon, Input, Select } from "@/components/ui";
+import { Button, Checkbox, Icon, Input } from "@/components/ui";
 import { useTranslation } from "@/hooks";
 import { useObsLayoutStore } from "../store/obsLayoutStore";
-import type { HudElementType, StatsComboItem } from "../types";
+import type { StatsComboItem } from "../types";
 
 const Panel = styled.div<{ $isOpen: boolean }>`
   position: fixed;
   bottom: 0;
   left: 50%;
   transform: translate(-50%, ${({ $isOpen }) => ($isOpen ? "0" : "100%")});
-  width: 90%;
-  max-width: 600px;
-  min-height: 400px;
-  max-height: 80vh;
+  width: 100%;
+  max-height: 400px;
   background: ${({ theme }) => theme.colors.background};
   border: 2px solid ${({ theme }) => theme.colors.border};
   border-bottom: none;
@@ -119,37 +118,113 @@ const ColorInput = styled.input`
   }
 `;
 
-const ActionButtons = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+const ColorPickerGroup = styled.div`
+  display: flex;
+  flex-direction: column;
   gap: ${({ theme }) => theme.spacing[2]};
-  margin-top: ${({ theme }) => theme.spacing[4]};
-  padding-top: ${({ theme }) => theme.spacing[4]};
-  border-top: 1px solid ${({ theme }) => theme.colors.border};
+`;
 
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
+const OpacitySlider = styled.input`
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  background: linear-gradient(to right, transparent 0%, currentColor 100%);
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: ${({ theme }) => theme.colors.primary[500]};
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  &::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: ${({ theme }) => theme.colors.primary[500]};
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
 `;
+
+const OpacityLabel = styled.div`
+  font-size: 0.75rem;
+  color: ${({ theme }) => theme.colors.textSecondary};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+/**
+ * 16進数カラーとアルファ値をRGBA文字列に変換
+ */
+const hexToRgba = (hex: string, alpha: number): string => {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+};
+
+/**
+ * RGBA文字列から16進数カラーとアルファ値を抽出
+ */
+const rgbaToHexAndAlpha = (rgba: string): { hex: string; alpha: number } => {
+  const match = rgba.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
+  if (!match) return { hex: "#1f2937", alpha: 1 };
+
+  const r = parseInt(match[1]).toString(16).padStart(2, "0");
+  const g = parseInt(match[2]).toString(16).padStart(2, "0");
+  const b = parseInt(match[3]).toString(16).padStart(2, "0");
+  const alpha = match[4] ? parseFloat(match[4]) : 1;
+
+  return { hex: `#${r}${g}${b}`, alpha };
+};
 
 /**
  * HUD要素編集パネルコンポーネント
  */
 export function EditPanel() {
   const { t } = useTranslation();
-  const { selectedElementId, elements, selectElement, updateElement, removeElement } = useObsLayoutStore();
+  const { selectedElementId, elements, selectElement, updateElement } = useObsLayoutStore();
+  const panelRef = useRef<HTMLDivElement>(null);
 
   const selectedElement = elements.find((el) => el.id === selectedElementId);
   const isOpen = selectedElementId !== null;
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     selectElement(null);
-  };
+  }, [selectElement]);
 
-  const handleTypeChange = (type: HudElementType) => {
-    if (!selectedElementId) return;
-    updateElement(selectedElementId, { type });
-  };
+  // 外部クリックで閉じる
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (!isOpen) return;
+
+      const target = event.target as HTMLElement;
+
+      // パネル外部をクリックした場合に閉じる
+      if (panelRef.current && !panelRef.current.contains(target)) {
+        handleClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen, handleClose]);
 
   const handleTextChange = (text: string) => {
     if (!selectedElementId) return;
@@ -169,6 +244,26 @@ export function EditPanel() {
     updateElement(selectedElementId, { textColor });
   };
 
+  const handleBackgroundColorChange = (backgroundColor: string) => {
+    if (!selectedElementId) return;
+    updateElement(selectedElementId, { backgroundColor });
+  };
+
+  const handleBackgroundOpacityChange = (opacity: number) => {
+    if (!selectedElementId || !selectedElement) return;
+    const currentBg = selectedElement.backgroundColor || "#1f2937";
+    const { hex } = rgbaToHexAndAlpha(currentBg);
+    const newBg = hexToRgba(hex, opacity);
+    updateElement(selectedElementId, { backgroundColor: newBg });
+  };
+
+  const getBackgroundColorParts = () => {
+    if (!selectedElement?.backgroundColor) {
+      return { hex: "#1f2937", alpha: 1 };
+    }
+    return rgbaToHexAndAlpha(selectedElement.backgroundColor);
+  };
+
   const handleVisibilityChange = () => {
     if (!selectedElementId || !selectedElement) return;
     updateElement(selectedElementId, { visible: !selectedElement.visible });
@@ -179,13 +274,6 @@ export function EditPanel() {
     const currentItems = selectedElement.comboItems || [];
     const newItems = currentItems.includes(item) ? currentItems.filter((i) => i !== item) : [...currentItems, item];
     updateElement(selectedElementId, { comboItems: newItems });
-  };
-
-  const handleDelete = () => {
-    if (!selectedElementId) return;
-    if (confirm(t("obs.editPanel.confirmDelete"))) {
-      removeElement(selectedElementId);
-    }
   };
 
   const getElementName = (type: string) => {
@@ -207,19 +295,10 @@ export function EditPanel() {
     }
   };
 
-  const elementTypeOptions = [
-    { value: "winCount", label: t("obs.winCount") },
-    { value: "loseCount", label: t("obs.loseCount") },
-    { value: "winRate", label: t("obs.winRate") },
-    { value: "totalMatches", label: t("obs.totalMatches") },
-    { value: "plainText", label: t("obs.elementType.plainText") },
-    { value: "statsCombo", label: t("obs.elementType.statsCombo") },
-  ];
-
   const statsComboOptions: StatsComboItem[] = ["winCount", "loseCount", "winRate", "totalMatches"];
 
   const content = (
-    <Panel $isOpen={isOpen}>
+    <Panel ref={panelRef} $isOpen={isOpen}>
       <PanelHeader>
         <PanelTitle>{selectedElement ? getElementName(selectedElement.type) : t("obs.editPanel.title")}</PanelTitle>
         <CloseButton variant="ghost" size="sm" onClick={handleClose}>
@@ -229,11 +308,6 @@ export function EditPanel() {
       <PanelContent>
         {selectedElement ? (
           <>
-            <FormGroup>
-              <Label>{t("obs.editPanel.elementType")}</Label>
-              <Select value={selectedElement.type} onChange={(e) => handleTypeChange(e.target.value as HudElementType)} options={elementTypeOptions} />
-            </FormGroup>
-
             {selectedElement.type === "plainText" && (
               <>
                 <FormGroup>
@@ -250,6 +324,31 @@ export function EditPanel() {
                     <Input type="number" value={selectedElement.fontSize || 16} onChange={(e) => handleFontSizeChange(e.target.value)} min="8" max="200" />
                   </FormGroup>
                 </FormRow>
+                <FormGroup>
+                  <Label>{t("obs.editPanel.backgroundColor")}</Label>
+                  <ColorPickerGroup>
+                    <ColorInput
+                      type="color"
+                      value={getBackgroundColorParts().hex}
+                      onChange={(e) => {
+                        const opacity = getBackgroundColorParts().alpha;
+                        handleBackgroundColorChange(hexToRgba(e.target.value, opacity));
+                      }}
+                    />
+                    <OpacityLabel>
+                      <span>{t("obs.editPanel.opacity")}</span>
+                      <span>{Math.round(getBackgroundColorParts().alpha * 100)}%</span>
+                    </OpacityLabel>
+                    <OpacitySlider
+                      type="range"
+                      min="0"
+                      max="1"
+                      step="0.01"
+                      value={getBackgroundColorParts().alpha}
+                      onChange={(e) => handleBackgroundOpacityChange(parseFloat(e.target.value))}
+                    />
+                  </ColorPickerGroup>
+                </FormGroup>
               </>
             )}
 
@@ -266,18 +365,72 @@ export function EditPanel() {
                     ))}
                   </CheckboxGroup>
                 </FormGroup>
-                <FormGroup>
-                  <Label>{t("obs.editPanel.fontSize")}</Label>
-                  <Input type="number" value={selectedElement.fontSize || 16} onChange={(e) => handleFontSizeChange(e.target.value)} min="8" max="200" />
-                </FormGroup>
+                <FormRow>
+                  <FormGroup>
+                    <Label>{t("obs.editPanel.fontSize")}</Label>
+                    <Input type="number" value={selectedElement.fontSize || 16} onChange={(e) => handleFontSizeChange(e.target.value)} min="8" max="200" />
+                  </FormGroup>
+                  <FormGroup>
+                    <Label>{t("obs.editPanel.backgroundColor")}</Label>
+                    <ColorPickerGroup>
+                      <ColorInput
+                        type="color"
+                        value={getBackgroundColorParts().hex}
+                        onChange={(e) => {
+                          const opacity = getBackgroundColorParts().alpha;
+                          handleBackgroundColorChange(hexToRgba(e.target.value, opacity));
+                        }}
+                      />
+                      <OpacityLabel>
+                        <span>{t("obs.editPanel.opacity")}</span>
+                        <span>{Math.round(getBackgroundColorParts().alpha * 100)}%</span>
+                      </OpacityLabel>
+                      <OpacitySlider
+                        type="range"
+                        min="0"
+                        max="1"
+                        step="0.01"
+                        value={getBackgroundColorParts().alpha}
+                        onChange={(e) => handleBackgroundOpacityChange(parseFloat(e.target.value))}
+                      />
+                    </ColorPickerGroup>
+                  </FormGroup>
+                </FormRow>
               </>
             )}
 
             {selectedElement.type !== "plainText" && selectedElement.type !== "statsCombo" && (
-              <FormGroup>
-                <Label>{t("obs.editPanel.fontSize")}</Label>
-                <Input type="number" value={selectedElement.fontSize || 16} onChange={(e) => handleFontSizeChange(e.target.value)} min="8" max="200" />
-              </FormGroup>
+              <FormRow>
+                <FormGroup>
+                  <Label>{t("obs.editPanel.fontSize")}</Label>
+                  <Input type="number" value={selectedElement.fontSize || 16} onChange={(e) => handleFontSizeChange(e.target.value)} min="8" max="200" />
+                </FormGroup>
+                <FormGroup>
+                  <Label>{t("obs.editPanel.backgroundColor")}</Label>
+                  <ColorPickerGroup>
+                    <ColorInput
+                      type="color"
+                      value={getBackgroundColorParts().hex}
+                      onChange={(e) => {
+                        const opacity = getBackgroundColorParts().alpha;
+                        handleBackgroundColorChange(hexToRgba(e.target.value, opacity));
+                      }}
+                    />
+                    <OpacityLabel>
+                      <span>{t("obs.editPanel.opacity")}</span>
+                      <span>{Math.round(getBackgroundColorParts().alpha * 100)}%</span>
+                    </OpacityLabel>
+                    <OpacitySlider
+                      type="range"
+                      min="0"
+                      max="1"
+                      step="0.01"
+                      value={getBackgroundColorParts().alpha}
+                      onChange={(e) => handleBackgroundOpacityChange(parseFloat(e.target.value))}
+                    />
+                  </ColorPickerGroup>
+                </FormGroup>
+              </FormRow>
             )}
 
             <FormRow>
@@ -295,15 +448,6 @@ export function EditPanel() {
                 </CheckboxLabel>
               </FormGroup>
             </FormRow>
-
-            <ActionButtons>
-              <Button variant="secondary" size="sm" onClick={handleClose}>
-                {t("common.close")}
-              </Button>
-              <Button variant="outline" size="sm" onClick={handleDelete}>
-                {t("obs.editPanel.delete")}
-              </Button>
-            </ActionButtons>
           </>
         ) : (
           <InfoText>{t("obs.editPanel.selectElement")}</InfoText>

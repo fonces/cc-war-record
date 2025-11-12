@@ -3,10 +3,10 @@ import styled from "styled-components";
 import { fadeIn } from "@/styles/animation";
 import { media } from "@/styles/breakpoints";
 
-const StyledPage = styled.div`
+const StyledPage = styled.div<{ $fullWidth?: boolean }>`
   padding: ${({ theme }) => theme.spacing[6]};
-  max-width: 1200px;
-  min-width: 800px;
+  max-width: ${({ $fullWidth }) => ($fullWidth ? "100%" : "1200px")};
+  min-width: ${({ $fullWidth }) => ($fullWidth ? "unset" : "800px")};
   margin: 0 auto;
   width: 100%;
 
@@ -73,6 +73,8 @@ const StyledPageContainer = styled.div<{ gap: string }>`
 
 type PageProps = {
   children: React.ReactNode;
+  /** 最大幅制限を解除してフル幅表示 */
+  fullWidth?: boolean;
 };
 
 type PageTitleContainerProps = {
@@ -101,8 +103,8 @@ type PageContainerProps = {
 /**
  * ページコンポーネント
  */
-export const Page = memo(({ children }: PageProps) => {
-  return <StyledPage>{children}</StyledPage>;
+export const Page = memo(({ children, fullWidth = false }: PageProps) => {
+  return <StyledPage $fullWidth={fullWidth}>{children}</StyledPage>;
 });
 
 Page.displayName = "Page";

@@ -1,8 +1,11 @@
 import { useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
+import { useState } from "react";
 import styled from "styled-components";
+import { useTranslation } from "@/hooks";
 import { useElementResize } from "../hooks/useElementResize";
 import { useObsLayoutStore } from "../store/obsLayoutStore";
+import { ContextMenu } from "./ContextMenu";
 import { HudElementContent } from "./HudElementContent";
 import { ResizeHandles } from "./ResizeHandles";
 import type { HudElement as HudElementType } from "../types";
@@ -21,6 +24,7 @@ const ElementContainer = styled.div<{
   $editMode: boolean;
   $isSelected: boolean;
   $fontSize?: number;
+  $backgroundColor?: string;
 }>`
   position: absolute;
   left: ${({ $x }) => $x}px;
@@ -28,7 +32,7 @@ const ElementContainer = styled.div<{
   width: ${({ $width }) => ($width ? `${$width}px` : "auto")};
   height: ${({ $height }) => ($height ? `${$height}px` : "auto")};
   min-width: ${({ $width }) => ($width ? "unset" : "200px")};
-  background: ${({ theme, $editMode }) => ($editMode ? `${theme.colors.background}ee` : `${theme.colors.background}cc`)};
+  background: ${({ $backgroundColor, theme, $editMode }) => $backgroundColor || ($editMode ? `${theme.colors.background}ee` : `${theme.colors.background}cc`)};
   border-radius: 8px;
   padding: 16px 24px;
   cursor: ${({ $editMode }) => ($editMode ? "move" : "default")};
@@ -72,8 +76,10 @@ const ElementContainer = styled.div<{
  * ドラッグ可能なHUD要素コンポーネント
  */
 export function DraggableHudElement({ element, editMode }: DraggableHudElementProps) {
-  const { selectElement, selectedElementId } = useObsLayoutStore();
+  const { t } = useTranslation();
+  const { selectElement, selectedElementId, removeElement } = useObsLayoutStore();
   const { isResizing, handleResizeStart } = useElementResize(element);
+  const [contextMenu, setContextMenu] = useState<{ x: number; y: number } | null>(null);
 
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: element.id,
@@ -88,32 +94,51 @@ export function DraggableHudElement({ element, editMode }: DraggableHudElementPr
       }
     : undefined;
 
-  const handleClick = (e: React.MouseEvent) => {
-    if (editMode && !isDragging) {
+  const handleContextMenu = (e: React.MouseEvent) => {
+    if (editMode) {
+      e.preventDefault();
       e.stopPropagation();
-      selectElement(element.id);
+      setContextMenu({ x: e.clientX, y: e.clientY });
     }
   };
 
+  const handleEdit = () => {
+    selectElement(element.id);
+  };
+
+  const handleDelete = () => {
+    if (confirm(t("obs.editPanel.confirmDelete"))) {
+      removeElement(element.id);
+    }
+  };
+
+  const handleCloseContextMenu = () => {
+    setContextMenu(null);
+  };
+
   return (
-    <ElementContainer
-      ref={setNodeRef}
-      style={style}
-      $x={element.position.x}
-      $y={element.position.y}
-      $width={element.size?.width}
-      $height={element.size?.height}
-      $isDragging={isDragging}
-      $editMode={editMode}
-      $isSelected={isSelected}
-      $fontSize={element.fontSize}
-      onClick={handleClick}
-      data-element-id={element.id}
-      {...listeners}
-      {...attributes}
-    >
-      <HudElementContent element={element} />
-      {editMode && isSelected && <ResizeHandles onResizeStart={handleResizeStart} />}
-    </ElementContainer>
+    <>
+      <ElementContainer
+        ref={setNodeRef}
+        style={style}
+        $x={element.position.x}
+        $y={element.position.y}
+        $width={element.size?.width}
+        $height={element.size?.height}
+        $isDragging={isDragging}
+        $editMode={editMode}
+        $isSelected={isSelected}
+        $fontSize={element.fontSize}
+        $backgroundColor={element.backgroundColor}
+        onContextMenu={handleContextMenu}
+        data-element-id={element.id}
+        {...listeners}
+        {...attributes}
+      >
+        <HudElementContent element={element} />
+        <ResizeHandles onResizeStart={handleResizeStart} />
+      </ElementContainer>
+      {contextMenu && <ContextMenu x={contextMenu.x} y={contextMenu.y} onEdit={handleEdit} onDelete={handleDelete} onClose={handleCloseContextMenu} />}
+    </>
   );
 }
