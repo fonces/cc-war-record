@@ -26,11 +26,18 @@ export function ObsWindowPage() {
       }
     };
 
+    const handleBeforeUnload = () => {
+      // ページが閉じられる前にステータスをクリア
+      localStorage.removeItem("obs-browser-source-status");
+    };
+
     window.addEventListener("storage", handleStorageChange);
+    window.addEventListener("beforeunload", handleBeforeUnload);
 
     // クリーンアップ: ページを離れたらステータスをクリア
     return () => {
       window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
       localStorage.removeItem("obs-browser-source-status");
     };
   }, []);

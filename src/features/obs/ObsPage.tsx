@@ -1,7 +1,7 @@
 import { DndContext, DragOverlay, MouseSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { Icon, Page, PageContainer, PageDescription, PageTitle, PageTitleContainer } from "@/components/ui";
+import { Dialog, Icon, Page, PageContainer, PageDescription, PageTitle, PageTitleContainer } from "@/components/ui";
 import { usePageTitle, useTranslation } from "@/hooks";
 import { generateUUID } from "@/utils";
 import { AddElementPanel } from "./components/AddElementPanel";
@@ -63,6 +63,94 @@ const RightPanel = styled.div`
   }
 `;
 
+const TitleWithIcon = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing[2]};
+`;
+
+const InfoButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: ${({ theme }) => theme.colors.textSecondary};
+  transition: color 0.2s ease;
+  padding: 4px;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.primary[400]};
+  }
+`;
+
+const HelpModalContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing[6]};
+`;
+
+const HelpSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing[3]};
+`;
+
+const HelpSectionTitle = styled.h3`
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.text};
+  margin: 0;
+`;
+
+const HelpList = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing[2]};
+`;
+
+const HelpListItem = styled.li`
+  font-size: 0.9375rem;
+  color: ${({ theme }) => theme.colors.textSecondary};
+  line-height: 1.6;
+  padding-left: ${({ theme }) => theme.spacing[4]};
+  position: relative;
+
+  &::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: ${({ theme }) => theme.colors.primary[400]};
+    font-weight: bold;
+  }
+`;
+
+const HelpStep = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing[2]};
+  padding: ${({ theme }) => theme.spacing[3]};
+  background: ${({ theme }) => theme.colors.surface};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
+  border-left: 3px solid ${({ theme }) => theme.colors.primary[400]};
+`;
+
+const HelpStepTitle = styled.div`
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.text};
+  font-size: 0.9375rem;
+`;
+
+const HelpStepDescription = styled.div`
+  font-size: 0.875rem;
+  color: ${({ theme }) => theme.colors.textSecondary};
+  line-height: 1.6;
+`;
+
 // スナップ距離（px）
 const SNAP_THRESHOLD = 10;
 
@@ -96,6 +184,7 @@ export function ObsPage() {
   const [snapGuides, setSnapGuides] = useState<SnapGuides>({});
   const [activeId, setActiveId] = useState<string | null>(null);
   const [isTemplatePickerOpen, setIsTemplatePickerOpen] = useState(false);
+  const [isHelpModalOpen, setIsHelpModalOpen] = useState(false);
   const [isDraggingGroup, setIsDraggingGroup] = useState(false);
   const [groupDragDelta, setGroupDragDelta] = useState<{ x: number; y: number } | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -297,7 +386,12 @@ export function ObsPage() {
   return (
     <Page fullWidth>
       <PageTitleContainer>
-        <PageTitle>{t("pages.obs.title")}</PageTitle>
+        <TitleWithIcon>
+          <PageTitle>{t("pages.obs.title")}</PageTitle>
+          <InfoButton onClick={() => setIsHelpModalOpen(true)} title={t("obs.help.buttonTitle")}>
+            <Icon name="info" size={20} />
+          </InfoButton>
+        </TitleWithIcon>
       </PageTitleContainer>
       <PageDescription>{t("pages.obs.description")}</PageDescription>
 
@@ -357,6 +451,49 @@ export function ObsPage() {
         <ControlPanel editMode={editMode} onToggleEditMode={toggleEditMode} onResetLayout={resetLayout} onOpenTemplates={() => setIsTemplatePickerOpen(true)} />
 
         <TemplatePicker isOpen={isTemplatePickerOpen} onClose={() => setIsTemplatePickerOpen(false)} />
+
+        <Dialog isOpen={isHelpModalOpen} onClose={() => setIsHelpModalOpen(false)} title={t("obs.help.title")}>
+          <HelpModalContent>
+            <HelpSection>
+              <HelpSectionTitle>{t("obs.help.overview.title")}</HelpSectionTitle>
+              <HelpList>
+                <HelpListItem>{t("obs.help.overview.item1")}</HelpListItem>
+                <HelpListItem>{t("obs.help.overview.item2")}</HelpListItem>
+                <HelpListItem>{t("obs.help.overview.item3")}</HelpListItem>
+              </HelpList>
+            </HelpSection>
+
+            <HelpSection>
+              <HelpSectionTitle>{t("obs.help.basicUsage.title")}</HelpSectionTitle>
+              <HelpStep>
+                <HelpStepTitle>{t("obs.help.basicUsage.step1.title")}</HelpStepTitle>
+                <HelpStepDescription>{t("obs.help.basicUsage.step1.description")}</HelpStepDescription>
+              </HelpStep>
+              <HelpStep>
+                <HelpStepTitle>{t("obs.help.basicUsage.step2.title")}</HelpStepTitle>
+                <HelpStepDescription>{t("obs.help.basicUsage.step2.description")}</HelpStepDescription>
+              </HelpStep>
+              <HelpStep>
+                <HelpStepTitle>{t("obs.help.basicUsage.step3.title")}</HelpStepTitle>
+                <HelpStepDescription>{t("obs.help.basicUsage.step3.description")}</HelpStepDescription>
+              </HelpStep>
+              <HelpStep>
+                <HelpStepTitle>{t("obs.help.basicUsage.step4.title")}</HelpStepTitle>
+                <HelpStepDescription>{t("obs.help.basicUsage.step4.description")}</HelpStepDescription>
+              </HelpStep>
+            </HelpSection>
+
+            <HelpSection>
+              <HelpSectionTitle>{t("obs.help.tips.title")}</HelpSectionTitle>
+              <HelpList>
+                <HelpListItem>{t("obs.help.tips.item1")}</HelpListItem>
+                <HelpListItem>{t("obs.help.tips.item2")}</HelpListItem>
+                <HelpListItem>{t("obs.help.tips.item3")}</HelpListItem>
+                <HelpListItem>{t("obs.help.tips.item4")}</HelpListItem>
+              </HelpList>
+            </HelpSection>
+          </HelpModalContent>
+        </Dialog>
       </PageContainer>
     </Page>
   );

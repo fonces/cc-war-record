@@ -31,6 +31,7 @@ import {
   FunctionIcon,
   WindowIcon,
   SquareIcon,
+  InfoIcon,
 } from "./icons";
 import type { IconProps } from "./types";
 
@@ -122,6 +123,8 @@ export const Icon = memo(({ name, size = 24, color, onClick, className }: IconPr
         return <WindowIcon />;
       case "square":
         return <SquareIcon />;
+      case "info":
+        return <InfoIcon />;
       default:
         return null;
     }

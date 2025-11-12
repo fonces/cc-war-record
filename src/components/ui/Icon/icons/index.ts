@@ -28,3 +28,4 @@ export { XCircleIcon } from "./XCircleIcon";
 export { FunctionIcon } from "./FunctionIcon";
 export { WindowIcon } from "./WindowIcon";
 export { SquareIcon } from "./SquareIcon";
+export { InfoIcon } from "./InfoIcon";
