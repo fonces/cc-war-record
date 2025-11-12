@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Button, Icon, Input, Toggle } from "@/components/ui";
 import { useTranslation } from "@/hooks";
 import { useObsLayoutStore } from "../store/obsLayoutStore";
-import { PlainTextSettings, VariableTextSettings, StatsComboSettings, LineSettings, DefaultStatsSettings } from "./PanelItems";
+import { PlainTextSettings, VariableTextSettings, StatsComboSettings, LineSettings, RectangleSettings, DefaultStatsSettings } from "./PanelItems";
 
 const Panel = styled.div<{ $isOpen: boolean }>`
   position: fixed;
@@ -349,14 +349,20 @@ export function EditPanel() {
 
             {selectedElement.type === "line" && <LineSettings element={selectedElement} onUpdate={(updates) => updateElement(editingElementId!, updates)} />}
 
-            {selectedElement.type !== "plainText" && selectedElement.type !== "variableText" && selectedElement.type !== "statsCombo" && selectedElement.type !== "line" && (
-              <DefaultStatsSettings
-                element={selectedElement}
-                onUpdate={(updates) => updateElement(editingElementId!, updates)}
-                getBackgroundColorParts={getBackgroundColorParts}
-                hexToRgba={hexToRgba}
-              />
-            )}
+            {selectedElement.type === "rectangle" && <RectangleSettings element={selectedElement} onUpdate={(updates) => updateElement(editingElementId!, updates)} />}
+
+            {selectedElement.type !== "plainText" &&
+              selectedElement.type !== "variableText" &&
+              selectedElement.type !== "statsCombo" &&
+              selectedElement.type !== "line" &&
+              selectedElement.type !== "rectangle" && (
+                <DefaultStatsSettings
+                  element={selectedElement}
+                  onUpdate={(updates) => updateElement(editingElementId!, updates)}
+                  getBackgroundColorParts={getBackgroundColorParts}
+                  hexToRgba={hexToRgba}
+                />
+              )}
 
             <FormRow>
               <FormGroup>

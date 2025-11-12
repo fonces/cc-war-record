@@ -27,3 +27,4 @@ export { HashIcon } from "./HashIcon";
 export { XCircleIcon } from "./XCircleIcon";
 export { FunctionIcon } from "./FunctionIcon";
 export { WindowIcon } from "./WindowIcon";
+export { SquareIcon } from "./SquareIcon";

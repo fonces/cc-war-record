@@ -132,6 +132,7 @@ export function AddElementPanel() {
     { type: "variableText", icon: "function", labelKey: "obs.elementType.variableText" },
     { type: "statsCombo", icon: "grid", labelKey: "obs.elementType.statsCombo" },
     { type: "line", icon: "minus", labelKey: "obs.elementType.line" },
+    { type: "rectangle", icon: "square", labelKey: "obs.elementType.rectangle" },
     { type: "todayTrendChart", icon: "chart", labelKey: "obs.elementType.todayTrendChart" },
   ];
 

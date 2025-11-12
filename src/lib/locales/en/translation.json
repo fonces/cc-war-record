@@ -54,6 +54,7 @@
       "variableText": "Variable Text",
       "statsCombo": "Stats Combo",
       "line": "Line",
+      "rectangle": "Rectangle",
       "todayTrendChart": "Today's Win/Defeat Trend"
     },
     "editMode": {
@@ -92,6 +93,10 @@
       "vertical": "Vertical",
       "lineThickness": "Line Thickness",
       "lineColor": "Line Color",
+      "rectangleFillColor": "Fill Color",
+      "rectangleBorderColor": "Border Color",
+      "rectangleBorderWidth": "Border Width",
+      "rectangleBorderRadius": "Border Radius",
       "scale": "Scale",
       "positionX": "X Position",
       "positionY": "Y Position",

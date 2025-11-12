@@ -27,7 +27,8 @@ export type IconName =
   | "hash"
   | "xCircle"
   | "function"
-  | "window";
+  | "window"
+  | "square";
 
 export type IconProps = {
   /** アイコンの種類 */

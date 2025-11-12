@@ -72,6 +72,14 @@ const Line = styled.div<{ $orientation: "horizontal" | "vertical"; $thickness: n
   `}
 `;
 
+const Rectangle = styled.div<{ $fillColor?: string; $borderColor?: string; $borderWidth?: number; $borderRadius?: number }>`
+  width: 100%;
+  height: 100%;
+  background-color: ${({ $fillColor }) => $fillColor || "transparent"};
+  border: ${({ $borderWidth, $borderColor }) => ($borderWidth && $borderColor ? `${$borderWidth}px solid ${$borderColor}` : "none")};
+  border-radius: ${({ $borderRadius }) => $borderRadius || 0}px;
+`;
+
 const ChartWrapper = styled.div`
   width: 100%;
   height: 100%;
@@ -178,6 +186,17 @@ export function HudElementContent({ element }: HudElementContentProps) {
 
   if (element.type === "line") {
     return <Line $orientation={element.lineOrientation || "horizontal"} $thickness={element.lineThickness || 2} $color={element.lineColor || "#ffffff"} />;
+  }
+
+  if (element.type === "rectangle") {
+    return (
+      <Rectangle
+        $fillColor={element.rectangleFillColor}
+        $borderColor={element.rectangleBorderColor}
+        $borderWidth={element.rectangleBorderWidth}
+        $borderRadius={element.rectangleBorderRadius}
+      />
+    );
   }
 
   if (element.type === "todayTrendChart") {

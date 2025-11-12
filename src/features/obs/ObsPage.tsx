@@ -247,6 +247,15 @@ export function ObsPage() {
         newElement.size = { width: 200, height: 2 };
       }
 
+      // 矩形要素の場合はデフォルトサイズとプロパティを設定
+      if (type === "rectangle") {
+        newElement.rectangleFillColor = "transparent";
+        newElement.rectangleBorderColor = "#ffffff";
+        newElement.rectangleBorderWidth = 2;
+        newElement.rectangleBorderRadius = 0;
+        newElement.size = { width: 200, height: 200 };
+      }
+
       // グラフ要素の場合はデフォルトサイズを設定
       if (type === "todayTrendChart") {
         newElement.size = { width: 600, height: 450 };

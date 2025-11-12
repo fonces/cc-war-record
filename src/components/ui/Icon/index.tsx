@@ -30,6 +30,7 @@ import {
   XCircleIcon,
   FunctionIcon,
   WindowIcon,
+  SquareIcon,
 } from "./icons";
 import type { IconProps } from "./types";
 
@@ -119,6 +120,8 @@ export const Icon = memo(({ name, size = 24, color, onClick, className }: IconPr
         return <FunctionIcon />;
       case "window":
         return <WindowIcon />;
+      case "square":
+        return <SquareIcon />;
       default:
         return null;
     }

@@ -52,6 +52,7 @@
       "variableText": "변수 텍스트",
       "statsCombo": "통계 콤보",
       "line": "선",
+      "rectangle": "사각형",
       "todayTrendChart": "오늘의 승패 추이"
     },
     "editMode": {
@@ -90,6 +91,10 @@
       "vertical": "세로",
       "lineThickness": "선 두께",
       "lineColor": "선 색상",
+      "rectangleFillColor": "채우기 색상",
+      "rectangleBorderColor": "테두리 색상",
+      "rectangleBorderWidth": "테두리 두께",
+      "rectangleBorderRadius": "모서리 둥글기",
       "scale": "확대율",
       "positionX": "X 위치",
       "positionY": "Y 위치",

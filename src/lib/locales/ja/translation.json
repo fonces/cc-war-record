@@ -60,6 +60,7 @@
       "variableText": "変数テキスト",
       "statsCombo": "統計コンボ",
       "line": "線",
+      "rectangle": "矩形",
       "todayTrendChart": "今日の勝敗推移"
     },
     "editMode": {
@@ -98,6 +99,10 @@
       "vertical": "縦",
       "lineThickness": "線の太さ",
       "lineColor": "線の色",
+      "rectangleFillColor": "塗りつぶし色",
+      "rectangleBorderColor": "枠線の色",
+      "rectangleBorderWidth": "枠線の太さ",
+      "rectangleBorderRadius": "角の丸み",
       "scale": "拡大率",
       "positionX": "X座標",
       "positionY": "Y座標",
