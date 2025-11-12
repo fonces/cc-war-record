@@ -23,18 +23,44 @@ const ObsContainerWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: flex-start;
+  overflow: hidden;
 `;
 
-const ObsContainer = styled.div<{ $width: number; $height: number; $scale: number }>`
+const ObsContainer = styled.div<{ $width: number; $height: number }>`
   position: relative;
-  width: ${({ $width }) => $width}px;
-  height: ${({ $height }) => $height}px;
+  width: 100%;
+  max-width: ${({ $width }) => $width}px;
+  aspect-ratio: ${({ $width, $height }) => $width / $height};
   background: ${({ theme }) => theme.colors.surface};
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 8px;
   box-shadow: ${({ theme }) => theme.shadows.lg};
-  transform: scale(${({ $scale }) => $scale});
-  transform-origin: top center;
+  overflow: auto;
+
+  /* スクロールバーのカスタマイズ */
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: ${({ theme }) => theme.colors.surface};
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.colors.border};
+    border-radius: 3px;
+
+    &:hover {
+      background: ${({ theme }) => theme.colors.textSecondary};
+    }
+  }
+
+  /* Firefox用 */
+  scrollbar-width: thin;
+  scrollbar-color: ${({ theme }) => theme.colors.border} ${({ theme }) => theme.colors.surface};
 `;
 
 const ContentLayout = styled.div`
@@ -104,30 +130,8 @@ function DroppableObsContainer({
     id: "obs-container",
   });
 
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(1);
-
-  useEffect(() => {
-    const updateScale = () => {
-      if (!wrapperRef.current) return;
-
-      const wrapperWidth = wrapperRef.current.clientWidth;
-      const newScale = Math.min(1, wrapperWidth / width);
-      setScale(newScale);
-    };
-
-    updateScale();
-
-    const resizeObserver = new ResizeObserver(updateScale);
-    if (wrapperRef.current) {
-      resizeObserver.observe(wrapperRef.current);
-    }
-
-    return () => resizeObserver.disconnect();
-  }, [width]);
-
   return (
-    <ObsContainerWrapper ref={wrapperRef}>
+    <ObsContainerWrapper>
       <ObsContainer
         ref={(node) => {
           setNodeRef(node);
@@ -137,7 +141,6 @@ function DroppableObsContainer({
         onClick={onClick}
         $width={width}
         $height={height}
-        $scale={scale}
       >
         {children}
       </ObsContainer>
@@ -365,12 +368,7 @@ export function ObsPage() {
             <LeftPanel>{editMode && <AddElementPanel />}</LeftPanel>
 
             <MainContent>
-              <DroppableObsContainer
-                containerRef={containerRef}
-                onClick={handleContainerClick}
-                width={screenSize.width}
-                height={screenSize.height}
-              >
+              <DroppableObsContainer containerRef={containerRef} onClick={handleContainerClick} width={screenSize.width} height={screenSize.height}>
                 {elements.map((element) => (
                   <DraggableHudElement
                     key={element.id}

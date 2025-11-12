@@ -1,4 +1,13 @@
 import type { HudTemplate } from "./types";
+/**
+ * デフォルト画面サイズ（フルHD）
+ */
+const DEFAULT_SCREEN_SIZE = {
+  width: 1920,
+  height: 1080,
+  preset: "1920x1080" as const,
+};
+
 
 /**
  * ミニマルテンプレート集
@@ -15,7 +24,7 @@ export const minimalTemplates: HudTemplate[] = [
       category: "minimal",
       tags: ["simple", "clean", "corner"],
     },
-    elements: [
+    screenSize: DEFAULT_SCREEN_SIZE,    elements: [
       {
         type: "statsCombo",
         position: { x: 1720, y: 20 },
@@ -38,7 +47,7 @@ export const minimalTemplates: HudTemplate[] = [
       category: "minimal",
       tags: ["simple", "top", "centered"],
     },
-    elements: [
+    screenSize: DEFAULT_SCREEN_SIZE,    elements: [
       {
         type: "line",
         position: { x: 760, y: 20 },
@@ -87,7 +96,7 @@ export const minimalTemplates: HudTemplate[] = [
       category: "minimal",
       tags: ["vertical", "side", "compact"],
     },
-    elements: [
+    screenSize: DEFAULT_SCREEN_SIZE,    elements: [
       {
         type: "line",
         position: { x: 20, y: 300 },
@@ -143,7 +152,7 @@ export const detailedTemplates: HudTemplate[] = [
       category: "detailed",
       tags: ["complete", "dashboard", "analytics"],
     },
-    elements: [
+    screenSize: DEFAULT_SCREEN_SIZE,    elements: [
       {
         type: "line",
         position: { x: 50, y: 50 },
@@ -196,7 +205,7 @@ export const detailedTemplates: HudTemplate[] = [
       category: "detailed",
       tags: ["split", "chart", "balanced"],
     },
-    elements: [
+    screenSize: DEFAULT_SCREEN_SIZE,    elements: [
       {
         type: "statsCombo",
         position: { x: 50, y: 50 },
@@ -245,7 +254,7 @@ export const streamingTemplates: HudTemplate[] = [
       category: "streaming",
       tags: ["bottom", "ticker", "viewer-friendly"],
     },
-    elements: [
+    screenSize: DEFAULT_SCREEN_SIZE,    elements: [
       {
         type: "line",
         position: { x: 0, y: 1030 },
@@ -330,7 +339,7 @@ export const streamingTemplates: HudTemplate[] = [
       category: "streaming",
       tags: ["corner", "overlay", "minimal"],
     },
-    elements: [
+    screenSize: DEFAULT_SCREEN_SIZE,    elements: [
       {
         type: "line",
         position: { x: 1720, y: 20 },
@@ -379,7 +388,7 @@ export const streamingTemplates: HudTemplate[] = [
       category: "streaming",
       tags: ["safe-area", "thumbnail", "centered"],
     },
-    elements: [
+    screenSize: DEFAULT_SCREEN_SIZE,    elements: [
       {
         type: "winCount",
         position: { x: 140, y: 180 },
@@ -429,7 +438,7 @@ export const competitiveTemplates: HudTemplate[] = [
       category: "competitive",
       tags: ["esports", "tournament", "professional"],
     },
-    elements: [
+    screenSize: DEFAULT_SCREEN_SIZE,    elements: [
       {
         type: "line",
         position: { x: 0, y: 0 },
@@ -499,7 +508,7 @@ export const competitiveTemplates: HudTemplate[] = [
       category: "competitive",
       tags: ["scoreboard", "clear", "readable"],
     },
-    elements: [
+    screenSize: DEFAULT_SCREEN_SIZE,    elements: [
       {
         type: "line",
         position: { x: 760, y: 20 },
@@ -579,7 +588,7 @@ export const competitiveTemplates: HudTemplate[] = [
       category: "competitive",
       tags: ["analyst", "detailed", "commentary"],
     },
-    elements: [
+    screenSize: DEFAULT_SCREEN_SIZE,    elements: [
       {
         type: "plainText",
         position: { x: 50, y: 850 },

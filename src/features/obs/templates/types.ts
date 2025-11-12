@@ -1,3 +1,4 @@
+import type { ScreenSize } from "../store/obsLayoutStore";
 import type { HudElement } from "../types";
 
 /**
@@ -25,4 +26,5 @@ export type TemplateMetadata = {
 export type HudTemplate = {
   metadata: TemplateMetadata;
   elements: Omit<HudElement, "id">[];
+  screenSize?: ScreenSize;
 };

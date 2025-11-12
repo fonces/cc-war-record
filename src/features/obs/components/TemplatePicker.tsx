@@ -239,7 +239,7 @@ interface TemplatePickerProps {
  */
 export function TemplatePicker({ isOpen, onClose }: TemplatePickerProps) {
   const { t } = useTranslation();
-  const { setElements, selectElement } = useObsLayoutStore();
+  const { setElements, selectElement, setScreenSize } = useObsLayoutStore();
   const [activeCategory, setActiveCategory] = useState<TemplateCategory | "all">("all");
 
   const categories: Array<{ id: TemplateCategory | "all"; labelKey: string }> = [
@@ -277,6 +277,11 @@ export function TemplatePicker({ isOpen, onClose }: TemplatePickerProps) {
     // 要素を設定
     setElements(elementsWithIds);
     selectElement(null);
+
+    // 画面サイズが設定されている場合は適用
+    if (template.screenSize) {
+      setScreenSize(template.screenSize);
+    }
 
     // モーダルを閉じる
     onClose();
