@@ -156,6 +156,18 @@
       "competitiveAnalyst": {
         "name": "アナリストビュー",
         "description": "解説向けの詳細分析表示"
+      },
+      "premiumNeonGlow": {
+        "name": "ネオングロー",
+        "description": "サイバーパンク風ネオン美学"
+      },
+      "premiumGradientFlow": {
+        "name": "グラデーションフロー",
+        "description": "滑らかなグラデーションアニメーション"
+      },
+      "premiumUltraClean": {
+        "name": "ウルトラクリーン",
+        "description": "ミニマリストの完璧"
       }
     }
   },

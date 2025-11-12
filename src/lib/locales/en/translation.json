@@ -156,6 +156,18 @@
       "competitiveAnalyst": {
         "name": "Analyst View",
         "description": "Detailed analytics for commentary"
+      },
+      "premiumNeonGlow": {
+        "name": "Neon Glow",
+        "description": "Cyberpunk neon aesthetic"
+      },
+      "premiumGradientFlow": {
+        "name": "Gradient Flow",
+        "description": "Smooth gradient animations"
+      },
+      "premiumUltraClean": {
+        "name": "Ultra Clean",
+        "description": "Minimalist perfection"
       }
     }
   },

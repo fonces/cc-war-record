@@ -4,7 +4,7 @@ import type { HudElement } from "../types";
 /**
  * テンプレートカテゴリ
  */
-export type TemplateCategory = "minimal" | "detailed" | "streaming" | "competitive";
+export type TemplateCategory = "minimal" | "detailed" | "streaming" | "competitive" | "premium";
 
 /**
  * テンプレートメタデータ

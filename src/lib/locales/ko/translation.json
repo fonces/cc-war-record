@@ -154,6 +154,18 @@
       "competitiveAnalyst": {
         "name": "분석가 뷰",
         "description": "해설용 상세 분석 표시"
+      },
+      "premiumNeonGlow": {
+        "name": "네온 글로우",
+        "description": "사이버펑크 네온 미학"
+      },
+      "premiumGradientFlow": {
+        "name": "그라데이션 플로우",
+        "description": "부드러운 그라데이션 애니메이션"
+      },
+      "premiumUltraClean": {
+        "name": "울트라 클린",
+        "description": "미니멀리스트의 완벽함"
       }
     }
   },
