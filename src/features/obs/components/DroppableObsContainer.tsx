@@ -1,4 +1,5 @@
 import { useDroppable } from "@dnd-kit/core";
+import { useEffect, useRef } from "react";
 import styled from "styled-components";
 
 const ObsContainerWrapper = styled.div`
@@ -59,8 +60,76 @@ export function DroppableObsContainer({ children, onClick, containerRef, width, 
     id: "obs-container",
   });
 
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const wrapper = wrapperRef.current;
+    if (!wrapper) return;
+
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+    let scrollLeft = 0;
+    let scrollTop = 0;
+
+    const handleMouseDown = (e: MouseEvent) => {
+      // 要素上でのクリックの場合はドラッグスクロールを無効化
+      if ((e.target as HTMLElement).closest(".obs-container > *")) {
+        return;
+      }
+
+      isDragging = true;
+      startX = e.pageX - wrapper.offsetLeft;
+      startY = e.pageY - wrapper.offsetTop;
+      scrollLeft = wrapper.scrollLeft;
+      scrollTop = wrapper.scrollTop;
+      wrapper.style.cursor = "grabbing";
+      wrapper.style.userSelect = "none";
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isDragging) return;
+      e.preventDefault();
+
+      const x = e.pageX - wrapper.offsetLeft;
+      const y = e.pageY - wrapper.offsetTop;
+      const walkX = (x - startX) * 1.5; // スクロール速度
+      const walkY = (y - startY) * 1.5;
+
+      wrapper.scrollLeft = scrollLeft - walkX;
+      wrapper.scrollTop = scrollTop - walkY;
+    };
+
+    const handleMouseUp = () => {
+      isDragging = false;
+      wrapper.style.cursor = "grab";
+      wrapper.style.userSelect = "";
+    };
+
+    const handleMouseLeave = () => {
+      isDragging = false;
+      wrapper.style.cursor = "grab";
+      wrapper.style.userSelect = "";
+    };
+
+    wrapper.addEventListener("mousedown", handleMouseDown);
+    wrapper.addEventListener("mousemove", handleMouseMove);
+    wrapper.addEventListener("mouseup", handleMouseUp);
+    wrapper.addEventListener("mouseleave", handleMouseLeave);
+
+    // 初期カーソル設定
+    wrapper.style.cursor = "grab";
+
+    return () => {
+      wrapper.removeEventListener("mousedown", handleMouseDown);
+      wrapper.removeEventListener("mousemove", handleMouseMove);
+      wrapper.removeEventListener("mouseup", handleMouseUp);
+      wrapper.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, []);
+
   return (
-    <ObsContainerWrapper>
+    <ObsContainerWrapper ref={wrapperRef}>
       <ObsContainer
         ref={(node) => {
           setNodeRef(node);
