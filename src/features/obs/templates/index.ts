@@ -8,7 +8,6 @@ const DEFAULT_SCREEN_SIZE = {
   preset: "1920x1080" as const,
 };
 
-
 /**
  * ミニマルテンプレート集
  * シンプルで洗練されたデザイン
@@ -795,10 +794,4 @@ export const premiumTemplates: HudTemplate[] = [
 /**
  * 全テンプレート
  */
-export const allTemplates: HudTemplate[] = [
-  ...minimalTemplates,
-  ...detailedTemplates,
-  ...streamingTemplates,
-  ...competitiveTemplates,
-  ...premiumTemplates,
-];
+export const allTemplates: HudTemplate[] = [...minimalTemplates, ...detailedTemplates, ...streamingTemplates, ...competitiveTemplates, ...premiumTemplates];
