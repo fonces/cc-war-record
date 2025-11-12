@@ -91,7 +91,7 @@ export function ControlPanel({ editMode, onToggleEditMode, onResetLayout, onOpen
           title={t("obs.browserSource.open")}
           disabled={editMode}
         />
-        <IconicButton icon={<Icon name="revert" />} size="sm" onClick={onResetLayout} aria-label={t("obs.resetLayout")} title={t("obs.resetLayout")} />
+        <IconicButton icon={<Icon name="revert" />} size="sm" onClick={onResetLayout} aria-label={t("obs.resetLayout")} title={t("obs.resetLayout")} disabled={!editMode} />
       </ButtonGroup>
       {editMode && <InfoText>{t("obs.editMode.instruction")}</InfoText>}
     </ControlPanelContainer>,

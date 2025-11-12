@@ -1,6 +1,7 @@
 import { LineChart, Line as RechartLine, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import styled, { useTheme } from "styled-components";
 import { useTranslation } from "@/hooks";
+import { useCharacterStore } from "@/stores";
 import { useCurrentSeasonStats } from "../hooks/useCurrentSeasonStats";
 import type { HudElement } from "../types";
 
@@ -87,6 +88,9 @@ export function HudElementContent({ element }: HudElementContentProps) {
   const theme = useTheme();
   const currentSeasonStats = useCurrentSeasonStats();
 
+  // チャート用の戦績データを取得（Hooksは条件分岐の外で呼び出す）
+  const matchRecords = useCharacterStore((state) => state.matchRecords);
+
   const getElementContent = () => {
     switch (element.type) {
       case "winCount":
@@ -172,36 +176,48 @@ export function HudElementContent({ element }: HudElementContentProps) {
   }
 
   if (element.type === "todayTrendChart") {
-    // 固定の仮データ
-    const todayData = [
-      { matchNumber: 1, wins: 1, isWin: true },
-      { matchNumber: 2, wins: 2, isWin: true },
-      { matchNumber: 3, wins: 1, isWin: false },
-      { matchNumber: 4, wins: 2, isWin: true },
-      { matchNumber: 5, wins: 1, isWin: false },
-      { matchNumber: 6, wins: 0, isWin: false },
-      { matchNumber: 7, wins: 1, isWin: true },
-      { matchNumber: 8, wins: 2, isWin: true },
-      { matchNumber: 9, wins: 3, isWin: true },
-      { matchNumber: 10, wins: 2, isWin: false },
-      { matchNumber: 11, wins: 3, isWin: true },
-      { matchNumber: 12, wins: 4, isWin: true },
-      { matchNumber: 13, wins: 3, isWin: false },
-      { matchNumber: 14, wins: 4, isWin: true },
-      { matchNumber: 15, wins: 5, isWin: true },
-    ];
+    // 今日の日付を取得（YYYY-MM-DD形式）
+    const today = new Date().toISOString().split("T")[0];
+
+    // 今日の戦績のみをフィルタリング
+    const todayMatches = matchRecords.filter((record) => {
+      const recordDate = new Date(record.createdAt).toISOString().split("T")[0];
+      return recordDate === today;
+    });
+
+    // 日時でソート（古い順）
+    const sortedMatches = [...todayMatches].sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+
+    // チャートデータを作成
+    let cumulativeWins = 0;
+    const todayData = sortedMatches.map((match, index) => {
+      if (match.isWin) {
+        cumulativeWins++;
+      } else {
+        cumulativeWins--;
+      }
+
+      return {
+        matchNumber: index + 1,
+        wins: cumulativeWins,
+        isWin: match.isWin,
+      };
+    });
+
+    // データが0件の場合は空のチャートを表示
+    const chartData = todayData.length > 0 ? todayData : [{ matchNumber: 0, wins: 0, isWin: false }];
 
     // カスタムドットコンポーネント
-    const CustomDot = (props: { cx?: number; cy?: number; payload?: { isWin: boolean } }) => {
+    const CustomDot = (props: { cx?: number; cy?: number; payload?: { isWin: boolean; matchNumber: number } }) => {
       const { cx, cy, payload } = props;
-      if (cx === undefined || cy === undefined || !payload) return null;
+      if (cx === undefined || cy === undefined || !payload || payload.matchNumber === 0) return null;
       return <circle cx={cx} cy={cy} r={6} fill={payload.isWin ? theme.colors.win[400] : theme.colors.defeat[400]} stroke="#fff" strokeWidth={2} />;
     };
 
     return (
       <ChartWrapper>
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={todayData} margin={{ top: 20, right: 20, left: 20, bottom: 20 }}>
+          <LineChart data={chartData} margin={{ top: 20, right: 20, left: 20, bottom: 20 }}>
             <defs>
               <linearGradient id="colorTodayWins" x1="0" y1="0" x2="1" y2="0">
                 <stop offset="0%" stopColor="#26A1DF" />
