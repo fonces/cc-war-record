@@ -8,6 +8,8 @@ import { DraggableHudElement } from "./components/DraggableHudElement";
 import { EditPanel } from "./components/EditPanel";
 import { SnapGuide } from "./components/SnapGuide";
 import { useObsLayoutStore } from "./store/obsLayoutStore";
+import { calculateSnap } from "./utils/snapCalculation";
+import type { SnapGuides } from "./utils/snapCalculation";
 import type { DragEndEvent, DragMoveEvent } from "@dnd-kit/core";
 
 const ObsContainer = styled.div`
@@ -46,6 +48,9 @@ const InfoText = styled.div`
   border-top: 1px solid ${({ theme }) => theme.colors.border};
 `;
 
+// スナップ距離（px）
+const SNAP_THRESHOLD = 10;
+
 /**
  * OBS表示用ページ
  * ストリーミング配信用のオーバーレイ表示を提供
@@ -55,12 +60,7 @@ export function ObsPage() {
   usePageTitle(t("pages.obs.title"));
 
   const { elements, editMode, updateElementPosition, toggleEditMode, resetLayout } = useObsLayoutStore();
-  const [snapGuides, setSnapGuides] = useState<{
-    x?: number;
-    y?: number;
-    xDistance?: { from: number; to: number; y: number };
-    yDistance?: { from: number; to: number; x: number };
-  }>({});
+  const [snapGuides, setSnapGuides] = useState<SnapGuides>({});
 
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
@@ -77,160 +77,6 @@ export function ObsPage() {
 
   const sensors = useSensors(mouseSensor, touchSensor);
 
-  // スナップ距離（px）
-  const SNAP_THRESHOLD = 10;
-
-  /**
-   * 他の要素との位置を比較してスナップ補正を計算
-   */
-  const calculateSnap = (currentId: string, targetX: number, targetY: number) => {
-    const currentElement = elements.find((el) => el.id === currentId);
-    if (!currentElement) return { position: { x: targetX, y: targetY }, guides: {} };
-
-    const otherElements = elements.filter((el) => el.id !== currentId);
-    let snappedX = targetX;
-    let snappedY = targetY;
-    const guides: {
-      x?: number;
-      y?: number;
-      xDistance?: { from: number; to: number; y: number };
-      yDistance?: { from: number; to: number; x: number };
-    } = {};
-
-    // 実際のDOM要素からサイズのみを取得（位置はtargetX/Yを使用）
-    const currentDom = document.querySelector(`[data-element-id="${currentId}"]`);
-    const currentRect = currentDom?.getBoundingClientRect();
-
-    // DOMが取得できない場合はデフォルト値を使用
-    const currentWidth = currentRect?.width || 200;
-    const currentHeight = currentRect?.height || 50;
-
-    let closestXElement: (typeof otherElements)[0] | null = null;
-    let closestYElement: (typeof otherElements)[0] | null = null;
-    let closestXElementWidth = 0;
-    let closestYElementHeight = 0;
-    let minXGap = Infinity;
-    let minYGap = Infinity;
-
-    // 他の要素との距離を計算してスナップと最近接要素を探す
-    for (const other of otherElements) {
-      // 他の要素の実際のサイズを取得
-      const otherDom = document.querySelector(`[data-element-id="${other.id}"]`);
-      const otherRect = otherDom?.getBoundingClientRect();
-
-      // サイズが取得できない場合はデフォルト値
-      const otherWidth = otherRect?.width || 200;
-      const otherHeight = otherRect?.height || 50;
-
-      const xDist = Math.abs(targetX - other.position.x);
-      const yDist = Math.abs(targetY - other.position.y);
-
-      // X軸のスナップ（左端揃え）
-      if (xDist < SNAP_THRESHOLD) {
-        snappedX = other.position.x;
-        guides.x = other.position.x;
-      }
-
-      // Y軸のスナップ（上端揃え）
-      if (yDist < SNAP_THRESHOLD) {
-        snappedY = other.position.y;
-        guides.y = other.position.y;
-      }
-
-      // Y軸が重なっている範囲をチェック（横方向のgap計算用）
-      const yOverlapStart = Math.max(targetY, other.position.y);
-      const yOverlapEnd = Math.min(targetY + currentHeight, other.position.y + otherHeight);
-      const hasYOverlap = yOverlapEnd > yOverlapStart;
-
-      // X軸が重なっている範囲をチェック（縦方向のgap計算用）
-      const xOverlapStart = Math.max(targetX, other.position.x);
-      const xOverlapEnd = Math.min(targetX + currentWidth, other.position.x + otherWidth);
-      const hasXOverlap = xOverlapEnd > xOverlapStart;
-
-      // 横方向のgap（X方向）: Y軸が重なっている要素間の距離
-      if (hasYOverlap) {
-        let gap: number;
-        if (targetX < other.position.x) {
-          // 現在の要素が左側
-          gap = other.position.x - (targetX + currentWidth);
-        } else {
-          // 現在の要素が右側
-          gap = targetX - (other.position.x + otherWidth);
-        }
-
-        if (gap >= 0 && gap < minXGap) {
-          minXGap = gap;
-          closestXElement = other;
-          closestXElementWidth = otherWidth;
-        }
-      }
-
-      // 縦方向のgap（Y方向）: X軸が重なっている要素間の距離
-      if (hasXOverlap) {
-        let gap: number;
-        if (targetY < other.position.y) {
-          // 現在の要素が上側
-          gap = other.position.y - (targetY + currentHeight);
-        } else {
-          // 現在の要素が下側
-          gap = targetY - (other.position.y + otherHeight);
-        }
-
-        if (gap >= 0 && gap < minYGap) {
-          minYGap = gap;
-          closestYElement = other;
-          closestYElementHeight = otherHeight;
-        }
-      }
-    }
-
-    // X方向の距離表示（横方向のgap）- コンテナの外側の端から端まで
-    if (closestXElement && minXGap < 200) {
-      let lineFrom: number, lineTo: number;
-      const yPos = Math.max(targetY, closestXElement.position.y) + 10;
-
-      if (targetX < closestXElement.position.x) {
-        // 現在の要素が左側: 現在の右端 から 相手の左端
-        lineFrom = targetX + currentWidth;
-        lineTo = closestXElement.position.x;
-      } else {
-        // 現在の要素が右側: 相手の右端 から 現在の左端
-        lineFrom = closestXElement.position.x + closestXElementWidth;
-        lineTo = targetX;
-      }
-
-      guides.xDistance = {
-        from: lineFrom,
-        to: lineTo,
-        y: yPos,
-      };
-    }
-
-    // Y方向の距離表示（縦方向のgap）- コンテナの外側の端から端まで
-    if (closestYElement && minYGap < 200) {
-      let lineFrom: number, lineTo: number;
-      const xPos = Math.max(targetX, closestYElement.position.x) + 10;
-
-      if (targetY < closestYElement.position.y) {
-        // 現在の要素が上側: 現在の下端 から 相手の上端
-        lineFrom = targetY + currentHeight;
-        lineTo = closestYElement.position.y;
-      } else {
-        // 現在の要素が下側: 相手の下端 から 現在の上端
-        lineFrom = closestYElement.position.y + closestYElementHeight;
-        lineTo = targetY;
-      }
-
-      guides.yDistance = {
-        from: lineFrom,
-        to: lineTo,
-        x: xPos,
-      };
-    }
-
-    return { position: { x: snappedX, y: snappedY }, guides };
-  };
-
   const handleDragMove = (event: DragMoveEvent) => {
     const { active, delta } = event;
     const element = elements.find((el) => el.id === active.id);
@@ -240,7 +86,7 @@ export function ObsPage() {
     const targetX = element.position.x + delta.x;
     const targetY = element.position.y + delta.y;
 
-    const { guides } = calculateSnap(active.id as string, targetX, targetY);
+    const { guides } = calculateSnap(active.id as string, targetX, targetY, elements, SNAP_THRESHOLD);
     setSnapGuides(guides);
   };
 
@@ -253,7 +99,7 @@ export function ObsPage() {
     const targetX = element.position.x + delta.x;
     const targetY = element.position.y + delta.y;
 
-    const { position } = calculateSnap(active.id as string, targetX, targetY);
+    const { position } = calculateSnap(active.id as string, targetX, targetY, elements, SNAP_THRESHOLD);
 
     updateElementPosition(active.id as string, position);
     setSnapGuides({});
