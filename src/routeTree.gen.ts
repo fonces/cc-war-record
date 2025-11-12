@@ -49,9 +49,9 @@ const HistoriesIndexRoute = HistoriesIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const ObsWindowRoute = ObsWindowRouteImport.update({
-  id: '/window',
-  path: '/window',
-  getParentRoute: () => ObsRoute,
+  id: '/obs/window',
+  path: '/obs/window',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const HistoriesIdRoute = HistoriesIdRouteImport.update({
   id: '/histories/$id',
@@ -129,6 +129,7 @@ export interface RootRouteChildren {
   GraphsRoute: typeof GraphsRoute
   NewRoute: typeof NewRoute
   HistoriesIdRoute: typeof HistoriesIdRoute
+  ObsWindowRoute: typeof ObsWindowRoute
   HistoriesIndexRoute: typeof HistoriesIndexRoute
   ObsIndexRoute: typeof ObsIndexRoute
 }
@@ -179,10 +180,10 @@ declare module '@tanstack/react-router' {
     }
     '/obs/window': {
       id: '/obs/window'
-      path: '/window'
+      path: '/obs/window'
       fullPath: '/obs/window'
       preLoaderRoute: typeof ObsWindowRouteImport
-      parentRoute: typeof ObsRoute
+      parentRoute: typeof rootRouteImport
     }
     '/histories/$id': {
       id: '/histories/$id'
@@ -200,6 +201,7 @@ const rootRouteChildren: RootRouteChildren = {
   GraphsRoute: GraphsRoute,
   NewRoute: NewRoute,
   HistoriesIdRoute: HistoriesIdRoute,
+  ObsWindowRoute: ObsWindowRoute,
   HistoriesIndexRoute: HistoriesIndexRoute,
   ObsIndexRoute: ObsIndexRoute,
 }

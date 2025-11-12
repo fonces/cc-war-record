@@ -21,8 +21,8 @@ function RootComponent() {
   const shouldCheckUpdateRef = useRef(false);
   const [showUpdateSnackbar, setShowUpdateSnackbar] = useState(false);
 
-  // OBSモードかどうかを判定
-  const isObsMode = new URLSearchParams(window.location.search).get("obs") === "true";
+  // OBSウィンドウページかどうかを判定
+  const isObsMode = router.location.pathname.includes("/obs/window");
 
   // ページ遷移時にスクロールを一番上に戻す & GA4にページビュー送信
   useEffect(() => {
