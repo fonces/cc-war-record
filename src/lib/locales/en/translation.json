@@ -62,6 +62,9 @@
       "instruction": "Drag elements to adjust their position"
     },
     "resetLayout": "Reset Layout",
+    "browserSource": {
+      "open": "Open Browser Source"
+    },
     "layerPanel": {
       "addElement": "Elements",
       "layers": "Layers",

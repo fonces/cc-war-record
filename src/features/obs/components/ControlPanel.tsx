@@ -43,6 +43,14 @@ interface ControlPanelProps {
 export function ControlPanel({ editMode, onToggleEditMode, onResetLayout, onOpenTemplates }: ControlPanelProps) {
   const { t } = useTranslation();
 
+  const handleOpenBrowserSource = () => {
+    // 現在のURLからクエリパラメータを除いた基本URLを取得
+    const baseUrl = window.location.origin + window.location.pathname;
+    // OBS用の子ウィンドウを開く（編集UIを非表示にするパラメータを追加）
+    const obsUrl = `${baseUrl}?obs=true`;
+    window.open(obsUrl, "OBS Browser Source", "width=1920,height=1080");
+  };
+
   return createPortal(
     <ControlPanelContainer $visible={editMode}>
       <ButtonGroup direction="horizontal">
@@ -51,6 +59,9 @@ export function ControlPanel({ editMode, onToggleEditMode, onResetLayout, onOpen
         </Button>
         <Button variant="outline" size="sm" onClick={onOpenTemplates}>
           {t("obs.templates.button")}
+        </Button>
+        <Button variant="outline" size="sm" onClick={handleOpenBrowserSource}>
+          {t("obs.browserSource.open")}
         </Button>
         <Button variant="outline" size="sm" onClick={onResetLayout}>
           {t("obs.resetLayout")}

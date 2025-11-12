@@ -74,6 +74,9 @@ export function ObsPage() {
   const { t } = useTranslation();
   usePageTitle(t("pages.obs.title"));
 
+  // URLパラメータをチェックしてOBSモードかどうかを判定
+  const isObsMode = new URLSearchParams(window.location.search).get("obs") === "true";
+
   const {
     elements,
     editMode,
@@ -284,6 +287,33 @@ export function ObsPage() {
       clearSelection();
     }
   };
+
+  // OBSモードの場合はクリーンなビューを表示
+  if (isObsMode) {
+    return (
+      <div
+        style={{
+          width: "100vw",
+          height: "100vh",
+          overflow: "hidden",
+          background: "transparent",
+        }}
+      >
+        <div
+          style={{
+            width: `${screenSize.width}px`,
+            height: `${screenSize.height}px`,
+            position: "relative",
+            background: "transparent",
+          }}
+        >
+          {elements.map((element) => (
+            <DraggableHudElement key={element.id} element={element} editMode={false} isDraggingGroup={false} activeId={null} groupDragDelta={null} />
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <Page fullWidth>

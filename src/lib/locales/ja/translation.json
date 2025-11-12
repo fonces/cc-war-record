@@ -62,6 +62,9 @@
       "instruction": "要素をドラッグして配置を調整できます"
     },
     "resetLayout": "レイアウトをリセット",
+    "browserSource": {
+      "open": "ブラウザソースを開く"
+    },
     "layerPanel": {
       "addElement": "要素",
       "layers": "レイヤー",
