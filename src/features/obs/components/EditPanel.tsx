@@ -194,15 +194,15 @@ const rgbaToHexAndAlpha = (rgba: string): { hex: string; alpha: number } => {
  */
 export function EditPanel() {
   const { t } = useTranslation();
-  const { selectedElementId, elements, selectElement, updateElement } = useObsLayoutStore();
+  const { editingElementId, elements, setEditingElement, updateElement } = useObsLayoutStore();
   const panelRef = useRef<HTMLDivElement>(null);
 
-  const selectedElement = elements.find((el) => el.id === selectedElementId);
-  const isOpen = selectedElementId !== null;
+  const selectedElement = elements.find((el) => el.id === editingElementId);
+  const isOpen = editingElementId !== null;
 
   const handleClose = useCallback(() => {
-    selectElement(null);
-  }, [selectElement]);
+    setEditingElement(null);
+  }, [setEditingElement]);
 
   // 外部クリックで閉じる
   useEffect(() => {
@@ -227,34 +227,34 @@ export function EditPanel() {
   }, [isOpen, handleClose]);
 
   const handleTextChange = (text: string) => {
-    if (!selectedElementId) return;
-    updateElement(selectedElementId, { text });
+    if (!editingElementId) return;
+    updateElement(editingElementId, { text });
   };
 
   const handleFontSizeChange = (fontSize: string) => {
-    if (!selectedElementId) return;
+    if (!editingElementId) return;
     const size = parseInt(fontSize, 10);
     if (!isNaN(size)) {
-      updateElement(selectedElementId, { fontSize: size });
+      updateElement(editingElementId, { fontSize: size });
     }
   };
 
   const handleColorChange = (textColor: string) => {
-    if (!selectedElementId) return;
-    updateElement(selectedElementId, { textColor });
+    if (!editingElementId) return;
+    updateElement(editingElementId, { textColor });
   };
 
   const handleBackgroundColorChange = (backgroundColor: string) => {
-    if (!selectedElementId) return;
-    updateElement(selectedElementId, { backgroundColor });
+    if (!editingElementId) return;
+    updateElement(editingElementId, { backgroundColor });
   };
 
   const handleBackgroundOpacityChange = (opacity: number) => {
-    if (!selectedElementId || !selectedElement) return;
+    if (!editingElementId || !selectedElement) return;
     const currentBg = selectedElement.backgroundColor || "#1f2937";
     const { hex } = rgbaToHexAndAlpha(currentBg);
     const newBg = hexToRgba(hex, opacity);
-    updateElement(selectedElementId, { backgroundColor: newBg });
+    updateElement(editingElementId, { backgroundColor: newBg });
   };
 
   const getBackgroundColorParts = () => {
@@ -265,15 +265,32 @@ export function EditPanel() {
   };
 
   const handleVisibilityChange = () => {
-    if (!selectedElementId || !selectedElement) return;
-    updateElement(selectedElementId, { visible: !selectedElement.visible });
+    if (!editingElementId || !selectedElement) return;
+    updateElement(editingElementId, { visible: !selectedElement.visible });
   };
 
   const handleComboItemToggle = (item: StatsComboItem) => {
-    if (!selectedElementId || !selectedElement) return;
+    if (!editingElementId || !selectedElement) return;
     const currentItems = selectedElement.comboItems || [];
     const newItems = currentItems.includes(item) ? currentItems.filter((i) => i !== item) : [...currentItems, item];
-    updateElement(selectedElementId, { comboItems: newItems });
+    updateElement(editingElementId, { comboItems: newItems });
+  };
+
+  const handleLineOrientationChange = (orientation: "horizontal" | "vertical") => {
+    if (!editingElementId || !selectedElement) return;
+
+    // 現在のサイズを取得
+    const currentWidth = selectedElement.size?.width || 200;
+    const currentHeight = selectedElement.size?.height || 2;
+
+    // 向きを変更し、幅と高さを入れ替える
+    updateElement(editingElementId, {
+      lineOrientation: orientation,
+      size: {
+        width: currentHeight,
+        height: currentWidth,
+      },
+    });
   };
 
   const getElementName = (type: string) => {
@@ -290,6 +307,10 @@ export function EditPanel() {
         return t("obs.elementType.plainText");
       case "statsCombo":
         return t("obs.elementType.statsCombo");
+      case "line":
+        return t("obs.elementType.line");
+      case "todayTrendChart":
+        return t("obs.elementType.todayTrendChart");
       default:
         return "";
     }
@@ -399,7 +420,41 @@ export function EditPanel() {
               </>
             )}
 
-            {selectedElement.type !== "plainText" && selectedElement.type !== "statsCombo" && (
+            {selectedElement.type === "line" && (
+              <>
+                <FormRow>
+                  <FormGroup>
+                    <Label>{t("obs.editPanel.lineOrientation")}</Label>
+                    <CheckboxGroup>
+                      <CheckboxLabel>
+                        <Checkbox checked={selectedElement.lineOrientation === "horizontal"} onChange={() => handleLineOrientationChange("horizontal")} />
+                        {t("obs.editPanel.horizontal")}
+                      </CheckboxLabel>
+                      <CheckboxLabel>
+                        <Checkbox checked={selectedElement.lineOrientation === "vertical"} onChange={() => handleLineOrientationChange("vertical")} />
+                        {t("obs.editPanel.vertical")}
+                      </CheckboxLabel>
+                    </CheckboxGroup>
+                  </FormGroup>
+                  <FormGroup>
+                    <Label>{t("obs.editPanel.lineThickness")}</Label>
+                    <Input
+                      type="number"
+                      value={selectedElement.lineThickness || 2}
+                      onChange={(e) => updateElement(editingElementId!, { lineThickness: parseInt(e.target.value, 10) })}
+                      min="1"
+                      max="50"
+                    />
+                  </FormGroup>
+                </FormRow>
+                <FormGroup>
+                  <Label>{t("obs.editPanel.lineColor")}</Label>
+                  <ColorInput type="color" value={selectedElement.lineColor || "#ffffff"} onChange={(e) => updateElement(editingElementId!, { lineColor: e.target.value })} />
+                </FormGroup>
+              </>
+            )}
+
+            {selectedElement.type !== "plainText" && selectedElement.type !== "statsCombo" && selectedElement.type !== "line" && (
               <FormRow>
                 <FormGroup>
                   <Label>{t("obs.editPanel.fontSize")}</Label>

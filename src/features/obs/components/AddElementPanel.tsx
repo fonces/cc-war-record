@@ -10,11 +10,43 @@ const Panel = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing[4]};
-  padding: ${({ theme }) => theme.spacing[4]};
   background: ${({ theme }) => theme.colors.background};
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   height: fit-content;
+  max-height: 600px;
+  overflow: hidden;
+`;
+
+const PanelHeader = styled.div`
+  padding: ${({ theme }) => theme.spacing[4]} ${({ theme }) => theme.spacing[4]} 0;
+  flex-shrink: 0;
+`;
+
+const ScrollableContent = styled.div`
+  padding: 0 ${({ theme }) => theme.spacing[4]} ${({ theme }) => theme.spacing[4]};
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex: 1;
+
+  /* カスタムスクロールバー */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: ${({ theme }) => theme.colors.surface};
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.colors.border};
+    border-radius: 3px;
+
+    &:hover {
+      background: ${({ theme }) => theme.colors.gray[400]};
+    }
+  }
 `;
 
 const SectionTitle = styled.h3`
@@ -109,7 +141,7 @@ const ElementLabel = styled.span`
  */
 export function AddElementPanel() {
   const { t } = useTranslation();
-  const { addElement, selectElement } = useObsLayoutStore();
+  const { addElement, selectElement, setEditingElement } = useObsLayoutStore();
   const [nextPosition, setNextPosition] = useState({ x: 100, y: 100 });
 
   const handleAddElement = (type: HudElementType) => {
@@ -120,6 +152,19 @@ export function AddElementPanel() {
       visible: true,
     };
 
+    // 線要素の場合はデフォルトサイズとプロパティを設定
+    if (type === "line") {
+      newElement.lineOrientation = "horizontal";
+      newElement.lineThickness = 2;
+      newElement.lineColor = "#ffffff";
+      newElement.size = { width: 200, height: 2 };
+    }
+
+    // グラフ要素の場合はデフォルトサイズを設定
+    if (type === "todayTrendChart") {
+      newElement.size = { width: 600, height: 450 };
+    }
+
     // 次の要素は少しずらして配置
     setNextPosition({
       x: nextPosition.x + 20,
@@ -128,6 +173,7 @@ export function AddElementPanel() {
 
     addElement(newElement);
     selectElement(newElement.id);
+    setEditingElement(newElement.id);
   };
 
   const elementTypes: Array<{
@@ -142,21 +188,27 @@ export function AddElementPanel() {
     { type: "totalMatches", icon: "history", labelKey: "obs.totalMatches", gradient: "linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)" },
     { type: "plainText", icon: "edit", labelKey: "obs.elementType.plainText", gradient: "linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)" },
     { type: "statsCombo", icon: "detail", labelKey: "obs.elementType.statsCombo", gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)" },
+    { type: "line", icon: "minus", labelKey: "obs.elementType.line", gradient: "linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)" },
+    { type: "todayTrendChart", icon: "chart", labelKey: "obs.elementType.todayTrendChart", gradient: "linear-gradient(135deg, #ec4899 0%, #be185d 100%)" },
   ];
 
   return (
     <Panel>
-      <SectionTitle>{t("obs.layerPanel.addElement")}</SectionTitle>
-      <AddElementGrid>
-        {elementTypes.map(({ type, icon, labelKey, gradient }) => (
-          <AddButton key={type} onClick={() => handleAddElement(type)} $color={gradient} title={t(labelKey)}>
-            <IconWrapper $color={gradient}>
-              <Icon name={icon} size={24} />
-            </IconWrapper>
-            <ElementLabel>{t(labelKey)}</ElementLabel>
-          </AddButton>
-        ))}
-      </AddElementGrid>
+      <PanelHeader>
+        <SectionTitle>{t("obs.layerPanel.addElement")}</SectionTitle>
+      </PanelHeader>
+      <ScrollableContent>
+        <AddElementGrid>
+          {elementTypes.map(({ type, icon, labelKey, gradient }) => (
+            <AddButton key={type} onClick={() => handleAddElement(type)} $color={gradient} title={t(labelKey)}>
+              <IconWrapper $color={gradient}>
+                <Icon name={icon} size={24} />
+              </IconWrapper>
+              <ElementLabel>{t(labelKey)}</ElementLabel>
+            </AddButton>
+          ))}
+        </AddElementGrid>
+      </ScrollableContent>
     </Panel>
   );
 }

@@ -6,12 +6,14 @@ type ObsLayoutState = {
   elements: HudElement[];
   editMode: boolean;
   selectedElementId: string | null;
+  editingElementId: string | null;
   updateElementPosition: (id: string, position: Position) => void;
   updateElementSize: (id: string, size: Size) => void;
   updateElement: (id: string, updates: Partial<HudElement>) => void;
   toggleEditMode: () => void;
   resetLayout: () => void;
   selectElement: (id: string | null) => void;
+  setEditingElement: (id: string | null) => void;
   addElement: (element: HudElement) => void;
   removeElement: (id: string) => void;
   moveElement: (id: string, newIndex: number) => void;
@@ -33,6 +35,7 @@ export const useObsLayoutStore = create<ObsLayoutState>()(
       elements: DEFAULT_ELEMENTS,
       editMode: true, // デフォルトで編集モード有効
       selectedElementId: null,
+      editingElementId: null,
       updateElementPosition: (id, position) =>
         set((state) => ({
           elements: state.elements.map((el) => (el.id === id ? { ...el, position } : el)),
@@ -48,6 +51,7 @@ export const useObsLayoutStore = create<ObsLayoutState>()(
       toggleEditMode: () => set((state) => ({ editMode: !state.editMode })),
       resetLayout: () => set({ elements: DEFAULT_ELEMENTS }),
       selectElement: (id) => set({ selectedElementId: id }),
+      setEditingElement: (id) => set({ editingElementId: id }),
       addElement: (element) =>
         set((state) => ({
           elements: [...state.elements, element],
@@ -56,6 +60,7 @@ export const useObsLayoutStore = create<ObsLayoutState>()(
         set((state) => ({
           elements: state.elements.filter((el) => el.id !== id),
           selectedElementId: state.selectedElementId === id ? null : state.selectedElementId,
+          editingElementId: state.editingElementId === id ? null : state.editingElementId,
         })),
       moveElement: (id, newIndex) =>
         set((state) => {

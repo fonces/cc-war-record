@@ -51,7 +51,9 @@
     },
     "elementType": {
       "plainText": "Plain Text",
-      "statsCombo": "Stats Combo"
+      "statsCombo": "Stats Combo",
+      "line": "Line",
+      "todayTrendChart": "Today's Win/Defeat Trend"
     },
     "editMode": {
       "enable": "Edit Mode",
@@ -75,11 +77,19 @@
       "fontSize": "Font Size",
       "position": "Position",
       "visibility": "Visibility",
-      "visible": "Visible",
-      "comboItems": "Items to Display",
+      "visible": "Show",
+      "comboItems": "Items to display",
       "selectElement": "Click an element to edit",
       "delete": "Delete",
-      "confirmDelete": "Delete this element?"
+      "confirmDelete": "Delete this element?",
+      "lineOrientation": "Line Orientation",
+      "horizontal": "Horizontal",
+      "vertical": "Vertical",
+      "lineThickness": "Line Thickness",
+      "lineColor": "Line Color"
+    },
+    "todayTrendChart": {
+      "noData": "No data available"
     }
   },
   "pages": {

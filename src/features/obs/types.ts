@@ -1,7 +1,7 @@
 /**
  * HUD要素の種類
  */
-export type HudElementType = "winCount" | "loseCount" | "winRate" | "totalMatches" | "plainText" | "statsCombo";
+export type HudElementType = "winCount" | "loseCount" | "winRate" | "totalMatches" | "plainText" | "statsCombo" | "line" | "todayTrendChart";
 
 /**
  * HUD要素の表示スタイル
@@ -50,6 +50,12 @@ export type HudElement = {
   textColor?: string;
   /** 背景色（カスタム） */
   backgroundColor?: string;
+  /** 線の向き（horizontal: 横, vertical: 縦） */
+  lineOrientation?: "horizontal" | "vertical";
+  /** 線の太さ（px） */
+  lineThickness?: number;
+  /** 線の色 */
+  lineColor?: string;
 };
 
 /**

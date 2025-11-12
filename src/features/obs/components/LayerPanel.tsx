@@ -180,7 +180,7 @@ function SortableLayerItem({ element, isSelected, onSelect, onDelete, getElement
  */
 export function LayerPanel() {
   const { t } = useTranslation();
-  const { elements, removeElement, selectElement, selectedElementId, moveElement } = useObsLayoutStore();
+  const { elements, removeElement, selectElement, selectedElementId, setEditingElement, moveElement } = useObsLayoutStore();
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -192,9 +192,7 @@ export function LayerPanel() {
 
   const handleDelete = (e: React.MouseEvent, id: string) => {
     e.stopPropagation();
-    if (confirm(t("obs.layerPanel.confirmDelete"))) {
-      removeElement(id);
-    }
+    removeElement(id);
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
@@ -224,6 +222,10 @@ export function LayerPanel() {
         return element.text || t("obs.elementType.plainText");
       case "statsCombo":
         return t("obs.elementType.statsCombo");
+      case "line":
+        return t("obs.elementType.line");
+      case "todayTrendChart":
+        return t("obs.elementType.todayTrendChart");
       default:
         return "Unknown";
     }
@@ -244,7 +246,10 @@ export function LayerPanel() {
                   element={element}
                   index={index}
                   isSelected={selectedElementId === element.id}
-                  onSelect={() => selectElement(element.id)}
+                  onSelect={() => {
+                    selectElement(element.id);
+                    setEditingElement(element.id);
+                  }}
                   onDelete={(e) => handleDelete(e, element.id)}
                   getElementName={getElementName}
                   t={t}

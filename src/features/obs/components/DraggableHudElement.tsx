@@ -2,7 +2,6 @@ import { useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 import { useState } from "react";
 import styled from "styled-components";
-import { useTranslation } from "@/hooks";
 import { useElementResize } from "../hooks/useElementResize";
 import { useObsLayoutStore } from "../store/obsLayoutStore";
 import { ContextMenu } from "./ContextMenu";
@@ -25,6 +24,7 @@ const ElementContainer = styled.div<{
   $isSelected: boolean;
   $fontSize?: number;
   $backgroundColor?: string;
+  $isSpecial?: boolean;
 }>`
   position: absolute;
   left: ${({ $x }) => $x}px;
@@ -32,13 +32,14 @@ const ElementContainer = styled.div<{
   width: ${({ $width }) => ($width ? `${$width}px` : "auto")};
   height: ${({ $height }) => ($height ? `${$height}px` : "auto")};
   min-width: ${({ $width }) => ($width ? "unset" : "200px")};
-  background: ${({ $backgroundColor, theme, $editMode }) => $backgroundColor || ($editMode ? `${theme.colors.background}ee` : `${theme.colors.background}cc`)};
-  border-radius: 8px;
-  padding: 16px 24px;
+  background: ${({ $backgroundColor, $isSpecial, theme, $editMode }) =>
+    $isSpecial ? "transparent" : $backgroundColor || ($editMode ? `${theme.colors.background}ee` : `${theme.colors.background}cc`)};
+  border-radius: ${({ $isSpecial }) => ($isSpecial ? "0" : "8px")};
+  padding: ${({ $isSpecial }) => ($isSpecial ? "0" : "16px 24px")};
   cursor: ${({ $editMode }) => ($editMode ? "move" : "default")};
   user-select: none;
   opacity: ${({ $isDragging }) => ($isDragging ? 0.5 : 1)};
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: ${({ $isSpecial }) => ($isSpecial ? "none" : "0 2px 8px rgba(0, 0, 0, 0.2)")};
   font-size: ${({ $fontSize }) => ($fontSize ? `${$fontSize}px` : "inherit")};
 
   /* GPU アクセラレーションを有効化 */
@@ -76,8 +77,7 @@ const ElementContainer = styled.div<{
  * ドラッグ可能なHUD要素コンポーネント
  */
 export function DraggableHudElement({ element, editMode }: DraggableHudElementProps) {
-  const { t } = useTranslation();
-  const { selectElement, selectedElementId, removeElement } = useObsLayoutStore();
+  const { selectElement, selectedElementId, setEditingElement, removeElement } = useObsLayoutStore();
   const { isResizing, handleResizeStart } = useElementResize(element);
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number } | null>(null);
 
@@ -102,14 +102,20 @@ export function DraggableHudElement({ element, editMode }: DraggableHudElementPr
     }
   };
 
+  const handleClick = (e: React.MouseEvent) => {
+    if (editMode) {
+      e.stopPropagation();
+      selectElement(element.id);
+    }
+  };
+
   const handleEdit = () => {
     selectElement(element.id);
+    setEditingElement(element.id);
   };
 
   const handleDelete = () => {
-    if (confirm(t("obs.editPanel.confirmDelete"))) {
-      removeElement(element.id);
-    }
+    removeElement(element.id);
   };
 
   const handleCloseContextMenu = () => {
@@ -130,6 +136,8 @@ export function DraggableHudElement({ element, editMode }: DraggableHudElementPr
         $isSelected={isSelected}
         $fontSize={element.fontSize}
         $backgroundColor={element.backgroundColor}
+        $isSpecial={element.type === "line" || element.type === "todayTrendChart"}
+        onClick={handleClick}
         onContextMenu={handleContextMenu}
         data-element-id={element.id}
         {...listeners}
