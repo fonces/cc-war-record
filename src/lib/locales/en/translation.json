@@ -144,6 +144,11 @@
         "item2": "Snap Guides: Automatic alignment support while dragging elements",
         "item3": "Resize Handles: Drag element corners to adjust size",
         "item4": "OBS Recording Start/Stop: Toggle to display only data from stream start time"
+      },
+      "important": {
+        "title": "Important Notes",
+        "item1": "OBS Browser Source cannot access localStorage and will not load data. You must use Window Capture instead",
+        "item2": "Window Capture will always show the browser's URL bar. Use OBS crop filter or overlays to hide the URL bar"
       }
     },
     "templates": {

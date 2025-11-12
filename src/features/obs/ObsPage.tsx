@@ -492,6 +492,14 @@ export function ObsPage() {
                 <HelpListItem>{t("obs.help.tips.item4")}</HelpListItem>
               </HelpList>
             </HelpSection>
+
+            <HelpSection>
+              <HelpSectionTitle>{t("obs.help.important.title")}</HelpSectionTitle>
+              <HelpList>
+                <HelpListItem>{t("obs.help.important.item1")}</HelpListItem>
+                <HelpListItem>{t("obs.help.important.item2")}</HelpListItem>
+              </HelpList>
+            </HelpSection>
           </HelpModalContent>
         </Dialog>
       </PageContainer>

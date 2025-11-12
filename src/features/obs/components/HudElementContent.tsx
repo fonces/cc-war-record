@@ -2,7 +2,6 @@ import { LineChart, Line as RechartLine, XAxis, YAxis, CartesianGrid, Tooltip, R
 import styled, { useTheme } from "styled-components";
 import { useTranslation } from "@/hooks";
 import { useCharacterStore } from "@/stores";
-import { useCurrentSeasonStats } from "../hooks/useCurrentSeasonStats";
 import { useObsLayoutStore } from "../store/obsLayoutStore";
 import type { HudElement } from "../types";
 
@@ -95,7 +94,6 @@ const ChartWrapper = styled.div`
 export function HudElementContent({ element }: HudElementContentProps) {
   const { t } = useTranslation();
   const theme = useTheme();
-  const currentSeasonStats = useCurrentSeasonStats();
   const obsRecordingStartTime = useObsLayoutStore((state) => state.obsRecordingStartTime);
 
   // チャート用の戦績データを取得（Hooksは条件分岐の外で呼び出す）
@@ -104,30 +102,36 @@ export function HudElementContent({ element }: HudElementContentProps) {
   // OBS記録開始日時以降のデータのみにフィルタリング
   const matchRecords = obsRecordingStartTime ? allMatchRecords.filter((record) => new Date(record.createdAt) >= new Date(obsRecordingStartTime)) : allMatchRecords;
 
+  // フィルタリングされたmatchRecordsから統計を計算
+  const wins = matchRecords.filter((record) => record.isWin).length;
+  const losses = matchRecords.filter((record) => !record.isWin).length;
+  const total = wins + losses;
+  const winRate = total > 0 ? (wins / total) * 100 : 0;
+
   const getElementContent = () => {
     switch (element.type) {
       case "winCount":
         return {
           label: t("obs.winCount"),
-          value: currentSeasonStats.wins.toString(),
+          value: wins.toString(),
           unit: t("obs.matches"),
         };
       case "loseCount":
         return {
           label: t("obs.loseCount"),
-          value: currentSeasonStats.losses.toString(),
+          value: losses.toString(),
           unit: t("obs.matches"),
         };
       case "winRate":
         return {
           label: t("obs.winRate"),
-          value: currentSeasonStats.winRate.toFixed(1),
+          value: winRate.toFixed(1),
           unit: "%",
         };
       case "totalMatches":
         return {
           label: t("obs.totalMatches"),
-          value: currentSeasonStats.total.toString(),
+          value: total.toString(),
           unit: t("obs.matches"),
         };
       default:
@@ -138,13 +142,13 @@ export function HudElementContent({ element }: HudElementContentProps) {
   const getStatsValue = (item: string) => {
     switch (item) {
       case "winCount":
-        return { label: t("obs.winCount"), value: currentSeasonStats.wins.toString(), unit: t("obs.matches") };
+        return { label: t("obs.winCount"), value: wins.toString(), unit: t("obs.matches") };
       case "loseCount":
-        return { label: t("obs.loseCount"), value: currentSeasonStats.losses.toString(), unit: t("obs.matches") };
+        return { label: t("obs.loseCount"), value: losses.toString(), unit: t("obs.matches") };
       case "winRate":
-        return { label: t("obs.winRate"), value: currentSeasonStats.winRate.toFixed(1), unit: "%" };
+        return { label: t("obs.winRate"), value: winRate.toFixed(1), unit: "%" };
       case "totalMatches":
-        return { label: t("obs.totalMatches"), value: currentSeasonStats.total.toString(), unit: t("obs.matches") };
+        return { label: t("obs.totalMatches"), value: total.toString(), unit: t("obs.matches") };
       default:
         return { label: "", value: "-", unit: "" };
     }
@@ -164,10 +168,10 @@ export function HudElementContent({ element }: HudElementContentProps) {
 
     // 変数マッピング
     const variables: Record<string, string> = {
-      "{winCount}": currentSeasonStats.wins.toString(),
-      "{loseCount}": currentSeasonStats.losses.toString(),
-      "{winRate}": currentSeasonStats.winRate.toFixed(1),
-      "{totalMatches}": currentSeasonStats.total.toString(),
+      "{winCount}": wins.toString(),
+      "{loseCount}": losses.toString(),
+      "{winRate}": winRate.toFixed(1),
+      "{totalMatches}": total.toString(),
       "{winStreak}": "0", // TODO: 連勝数の実装
       "{loseStreak}": "0", // TODO: 連敗数の実装
     };
