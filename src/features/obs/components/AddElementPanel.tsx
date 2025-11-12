@@ -14,17 +14,12 @@ const Panel = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   height: fit-content;
-  max-height: 600px;
+  max-height: calc(100dvh - 200px);
   overflow: hidden;
 `;
 
-const PanelHeader = styled.div`
-  padding: ${({ theme }) => theme.spacing[4]} ${({ theme }) => theme.spacing[4]} 0;
-  flex-shrink: 0;
-`;
-
 const ScrollableContent = styled.div`
-  padding: 0 ${({ theme }) => theme.spacing[4]} ${({ theme }) => theme.spacing[4]};
+  padding: ${({ theme }) => theme.spacing[4]};
   overflow-y: auto;
   overflow-x: hidden;
   flex: 1;
@@ -47,15 +42,6 @@ const ScrollableContent = styled.div`
       background: ${({ theme }) => theme.colors.gray[400]};
     }
   }
-`;
-
-const SectionTitle = styled.h3`
-  margin: 0;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: ${({ theme }) => theme.colors.text};
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
 `;
 
 const AddElementGrid = styled.div`
@@ -133,8 +119,6 @@ function DraggableElement({ type, icon, labelKey }: DraggableElementProps) {
  * 要素追加パネルコンポーネント
  */
 export function AddElementPanel() {
-  const { t } = useTranslation();
-
   const elementTypes: Array<{
     type: HudElementType;
     icon: IconName;
@@ -153,9 +137,6 @@ export function AddElementPanel() {
 
   return (
     <Panel>
-      <PanelHeader>
-        <SectionTitle>{t("obs.layerPanel.addElement")}</SectionTitle>
-      </PanelHeader>
       <ScrollableContent>
         <AddElementGrid>
           {elementTypes.map((elementType) => (

@@ -87,6 +87,7 @@ export function ObsPage() {
     clearSelection,
     addElement,
     setEditingElement,
+    removeElement,
     undo,
     redo,
     canUndo,
@@ -116,11 +117,22 @@ export function ObsPage() {
 
   /**
    * Ctrl+Z / Ctrl+Shift+Z でUndo/Redo
+   * Delete / Backspace で選択要素を削除
    */
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       // 入力フィールドにフォーカスがある場合はスキップ
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+        return;
+      }
+
+      // Delete / Backspace: 選択要素を削除
+      if ((e.key === "Delete" || e.key === "Backspace") && editMode) {
+        if (selectedElementIds.length > 0) {
+          e.preventDefault();
+          selectedElementIds.forEach((id) => removeElement(id));
+          clearSelection();
+        }
         return;
       }
 
@@ -147,7 +159,7 @@ export function ObsPage() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [undo, redo, canUndo, canRedo, clearSelection]);
+  }, [undo, redo, canUndo, canRedo, clearSelection, editMode, selectedElementIds, removeElement]);
 
   const handleDragStart = (event: DragStartEvent) => {
     const elementId = event.active.id as string;
