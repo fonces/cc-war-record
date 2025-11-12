@@ -240,6 +240,8 @@ export function LayerPanel() {
         return t("obs.totalMatches");
       case "plainText":
         return element.text || t("obs.elementType.plainText");
+      case "variableText":
+        return element.text || t("obs.elementType.variableText");
       case "statsCombo":
         return t("obs.elementType.statsCombo");
       case "line":

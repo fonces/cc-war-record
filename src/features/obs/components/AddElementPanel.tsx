@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { Icon } from "@/components/ui";
 import { useTranslation } from "@/hooks";
 import type { HudElementType } from "../types";
+import type { IconName } from "@/components/ui/Icon/types";
 
 const Panel = styled.div`
   display: flex;
@@ -102,7 +103,7 @@ const IconWrapper = styled.div`
 
 type DraggableElementProps = {
   type: HudElementType;
-  icon: "edit" | "chart" | "add" | "minus" | "detail" | "close" | "history" | "trophy" | "percent" | "text" | "grid" | "hash" | "xCircle";
+  icon: IconName;
   labelKey: string;
 };
 
@@ -136,7 +137,7 @@ export function AddElementPanel() {
 
   const elementTypes: Array<{
     type: HudElementType;
-    icon: "edit" | "chart" | "add" | "minus" | "detail" | "close" | "history" | "trophy" | "percent" | "text" | "grid" | "hash" | "xCircle";
+    icon: IconName;
     labelKey: string;
   }> = [
     { type: "winCount", icon: "trophy", labelKey: "obs.winCount" },
@@ -144,6 +145,7 @@ export function AddElementPanel() {
     { type: "winRate", icon: "percent", labelKey: "obs.winRate" },
     { type: "totalMatches", icon: "hash", labelKey: "obs.totalMatches" },
     { type: "plainText", icon: "text", labelKey: "obs.elementType.plainText" },
+    { type: "variableText", icon: "function", labelKey: "obs.elementType.variableText" },
     { type: "statsCombo", icon: "grid", labelKey: "obs.elementType.statsCombo" },
     { type: "line", icon: "minus", labelKey: "obs.elementType.line" },
     { type: "todayTrendChart", icon: "chart", labelKey: "obs.elementType.todayTrendChart" },

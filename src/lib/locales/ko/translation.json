@@ -49,6 +49,7 @@
     },
     "elementType": {
       "plainText": "일반 텍스트",
+      "variableText": "변수 텍스트",
       "statsCombo": "통계 콤보",
       "line": "선",
       "todayTrendChart": "오늘의 승패 추이"

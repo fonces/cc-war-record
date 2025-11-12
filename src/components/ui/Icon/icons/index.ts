@@ -25,3 +25,4 @@ export { TextIcon } from "./TextIcon";
 export { GridIcon } from "./GridIcon";
 export { HashIcon } from "./HashIcon";
 export { XCircleIcon } from "./XCircleIcon";
+export { FunctionIcon } from "./FunctionIcon";

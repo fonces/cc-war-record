@@ -1,7 +1,7 @@
 /**
  * HUD要素の種類
  */
-export type HudElementType = "winCount" | "loseCount" | "winRate" | "totalMatches" | "plainText" | "statsCombo" | "line" | "todayTrendChart";
+export type HudElementType = "winCount" | "loseCount" | "winRate" | "totalMatches" | "plainText" | "variableText" | "statsCombo" | "line" | "todayTrendChart";
 
 /**
  * HUD要素の表示スタイル

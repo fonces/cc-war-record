@@ -51,6 +51,7 @@
     },
     "elementType": {
       "plainText": "プレーンテキスト",
+      "variableText": "変数テキスト",
       "statsCombo": "統計コンボ",
       "line": "線",
       "todayTrendChart": "今日の勝敗推移"

@@ -141,6 +141,32 @@ export function HudElementContent({ element }: HudElementContentProps) {
     );
   }
 
+  if (element.type === "variableText") {
+    // 変数を実際の値に置き換える
+    let displayText = element.text || "";
+
+    // 変数マッピング
+    const variables: Record<string, string> = {
+      "{winCount}": currentSeasonStats.wins.toString(),
+      "{loseCount}": currentSeasonStats.losses.toString(),
+      "{winRate}": currentSeasonStats.winRate.toFixed(1),
+      "{totalMatches}": currentSeasonStats.total.toString(),
+      "{winStreak}": "0", // TODO: 連勝数の実装
+      "{loseStreak}": "0", // TODO: 連敗数の実装
+    };
+
+    // すべての変数を置換
+    Object.entries(variables).forEach(([variable, value]) => {
+      displayText = displayText.replace(new RegExp(variable.replace(/[{}]/g, "\\$&"), "g"), value);
+    });
+
+    return (
+      <PlainTextContainer $color={element.textColor} $textAlign={element.textAlign}>
+        {displayText}
+      </PlainTextContainer>
+    );
+  }
+
   if (element.type === "line") {
     return <Line $orientation={element.lineOrientation || "horizontal"} $thickness={element.lineThickness || 2} $color={element.lineColor || "#ffffff"} />;
   }

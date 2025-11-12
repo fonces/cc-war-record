@@ -51,6 +51,7 @@
     },
     "elementType": {
       "plainText": "Plain Text",
+      "variableText": "Variable Text",
       "statsCombo": "Stats Combo",
       "line": "Line",
       "todayTrendChart": "Today's Win/Defeat Trend"

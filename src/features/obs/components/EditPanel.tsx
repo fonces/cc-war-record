@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Button, Icon, Input, Toggle } from "@/components/ui";
 import { useTranslation } from "@/hooks";
 import { useObsLayoutStore } from "../store/obsLayoutStore";
-import { PlainTextSettings, StatsComboSettings, LineSettings, DefaultStatsSettings } from "./PanelItems";
+import { PlainTextSettings, VariableTextSettings, StatsComboSettings, LineSettings, DefaultStatsSettings } from "./PanelItems";
 
 const Panel = styled.div<{ $isOpen: boolean }>`
   position: fixed;
@@ -278,6 +278,8 @@ export function EditPanel() {
         return t("obs.totalMatches");
       case "plainText":
         return t("obs.elementType.plainText");
+      case "variableText":
+        return t("obs.elementType.variableText");
       case "statsCombo":
         return t("obs.elementType.statsCombo");
       case "line":
@@ -326,6 +328,15 @@ export function EditPanel() {
               />
             )}
 
+            {selectedElement.type === "variableText" && (
+              <VariableTextSettings
+                element={selectedElement}
+                onUpdate={(updates) => updateElement(editingElementId!, updates)}
+                getBackgroundColorParts={getBackgroundColorParts}
+                hexToRgba={hexToRgba}
+              />
+            )}
+
             {selectedElement.type === "statsCombo" && (
               <StatsComboSettings
                 element={selectedElement}
@@ -338,7 +349,7 @@ export function EditPanel() {
 
             {selectedElement.type === "line" && <LineSettings element={selectedElement} onUpdate={(updates) => updateElement(editingElementId!, updates)} />}
 
-            {selectedElement.type !== "plainText" && selectedElement.type !== "statsCombo" && selectedElement.type !== "line" && (
+            {selectedElement.type !== "plainText" && selectedElement.type !== "variableText" && selectedElement.type !== "statsCombo" && selectedElement.type !== "line" && (
               <DefaultStatsSettings
                 element={selectedElement}
                 onUpdate={(updates) => updateElement(editingElementId!, updates)}

@@ -28,6 +28,7 @@ import {
   GridIcon,
   HashIcon,
   XCircleIcon,
+  FunctionIcon,
 } from "./icons";
 import type { IconProps } from "./types";
 
@@ -113,6 +114,8 @@ export const Icon = memo(({ name, size = 24, color, onClick, className }: IconPr
         return <HashIcon />;
       case "xCircle":
         return <XCircleIcon />;
+      case "function":
+        return <FunctionIcon />;
       default:
         return null;
     }
