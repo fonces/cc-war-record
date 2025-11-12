@@ -119,7 +119,6 @@ const DistanceLabel = styled.div`
  * ドラッグ中に他の要素との位置合わせを視覚的に表示
  */
 export const SnapGuide = memo(({ x, y, xDistance, yDistance }: SnapGuideProps) => {
-  console.log("SnapGuide render:", { x, y, xDistance, yDistance }); // デバッグ用
   return (
     <>
       {x !== undefined && <VerticalGuide $x={x} />}

@@ -15,9 +15,11 @@ const Overlay = styled.div<{ $isOpen: boolean }>`
   backdrop-filter: blur(4px);
   z-index: 2000;
   display: ${({ $isOpen }) => ($isOpen ? "flex" : "none")};
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   padding: ${({ theme }) => theme.spacing[4]};
+  padding-top: ${({ theme }) => theme.spacing[8]};
+  overflow-y: auto;
   opacity: ${({ $isOpen }) => ($isOpen ? 1 : 0)};
   transition: opacity ${({ theme }) => theme.transitions.base};
 `;
@@ -66,6 +68,7 @@ const CategoryTabs = styled.div`
   margin-bottom: ${({ theme }) => theme.spacing[6]};
   border-bottom: 2px solid ${({ theme }) => theme.colors.border};
   overflow-x: auto;
+  overflow-y: hidden;
 `;
 
 const CategoryTab = styled.button<{ $active: boolean }>`
@@ -148,6 +151,24 @@ const PreviewMiniature = styled.div`
   border-radius: 4px;
   position: relative;
   box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+`;
+
+const PreviewElement = styled.div<{ $x: number; $y: number; $width?: number; $height?: number }>`
+  position: absolute;
+  left: ${({ $x }) => $x * 0.1}px;
+  top: ${({ $y }) => $y * 0.08}px;
+  width: ${({ $width }) => ($width ? `${$width * 0.1}px` : "20px")};
+  height: ${({ $height }) => ($height ? `${$height * 0.08}px` : "8px")};
+  background: ${({ theme }) => theme.colors.primary[400]}40;
+  border: 1px solid ${({ theme }) => theme.colors.primary[400]};
+  border-radius: 2px;
+  font-size: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: ${({ theme }) => theme.colors.primary[600]};
+  overflow: hidden;
 `;
 
 const TemplateName = styled.h3`
@@ -289,7 +310,11 @@ export function TemplatePicker({ isOpen, onClose }: TemplatePickerProps) {
               {templates.map((template) => (
                 <TemplateCard key={template.metadata.id} onClick={() => handleSelectTemplate(template)}>
                   <TemplatePreview>
-                    <PreviewMiniature />
+                    <PreviewMiniature>
+                      {template.elements.map((element, index) => (
+                        <PreviewElement key={index} $x={element.position.x} $y={element.position.y} $width={element.size?.width} $height={element.size?.height} />
+                      ))}
+                    </PreviewMiniature>
                     <ElementCount>
                       <Icon name="grid" size={12} />
                       {template.elements.length}

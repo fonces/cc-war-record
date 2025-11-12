@@ -1,5 +1,5 @@
 import { DndContext, DragOverlay, MouseSensor, TouchSensor, useSensor, useSensors, useDroppable } from "@dnd-kit/core";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Icon, Page, PageContainer, PageDescription, PageTitle, PageTitleContainer } from "@/components/ui";
 import { usePageTitle, useTranslation } from "@/hooks";
@@ -26,7 +26,6 @@ const ObsContainer = styled.div<{ $width: number; $height: number }>`
   background: ${({ theme }) => theme.colors.surface};
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 8px;
-  overflow: hidden;
   margin: 0 auto;
   box-shadow: ${({ theme }) => theme.shadows.lg};
 `;
@@ -157,6 +156,10 @@ export function ObsPage() {
     clearSelection,
     addElement,
     setEditingElement,
+    undo,
+    redo,
+    canUndo,
+    canRedo,
   } = useObsLayoutStore();
   const [snapGuides, setSnapGuides] = useState<SnapGuides>({});
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -182,6 +185,41 @@ export function ObsPage() {
   });
 
   const sensors = useSensors(mouseSensor, touchSensor);
+
+  /**
+   * Ctrl+Z / Ctrl+Shift+Z でUndo/Redo
+   */
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // 入力フィールドにフォーカスがある場合はスキップ
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+        return;
+      }
+
+      if ((e.ctrlKey || e.metaKey) && e.key === "z") {
+        e.preventDefault();
+
+        if (e.shiftKey) {
+          // Ctrl+Shift+Z: Redo
+          if (canRedo()) {
+            redo();
+            setSnapGuides({});
+            clearSelection();
+          }
+        } else {
+          // Ctrl+Z: Undo
+          if (canUndo()) {
+            undo();
+            setSnapGuides({});
+            clearSelection();
+          }
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [undo, redo, canUndo, canRedo, clearSelection]);
 
   const handleDragStart = (event: DragStartEvent) => {
     const elementId = event.active.id as string;

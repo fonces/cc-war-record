@@ -16,6 +16,14 @@ export type ScreenSize = {
   preset: ScreenSizePreset;
 };
 
+/**
+ * 履歴管理用の状態スナップショット
+ */
+type HistorySnapshot = {
+  elements: HudElement[];
+  screenSize: ScreenSize;
+};
+
 type ObsLayoutState = {
   elements: HudElement[];
   editMode: boolean;
@@ -23,6 +31,8 @@ type ObsLayoutState = {
   selectedElementIds: string[]; // 複数選択用
   editingElementId: string | null;
   screenSize: ScreenSize;
+  history: HistorySnapshot[];
+  historyIndex: number;
   updateElementPosition: (id: string, position: Position) => void;
   updateElementSize: (id: string, size: Size) => void;
   updateElement: (id: string, updates: Partial<HudElement>) => void;
@@ -38,6 +48,10 @@ type ObsLayoutState = {
   moveElement: (id: string, newIndex: number) => void;
   setElements: (elements: HudElement[]) => void;
   setScreenSize: (size: ScreenSize) => void;
+  undo: () => void;
+  redo: () => void;
+  canUndo: () => boolean;
+  canRedo: () => boolean;
 };
 
 /**
@@ -59,29 +73,70 @@ const DEFAULT_SCREEN_SIZE: ScreenSize = {
   preset: "1920x1080",
 };
 
+/**
+ * 履歴の最大数
+ */
+const MAX_HISTORY = 50;
+
+/**
+ * 履歴にスナップショットを追加するヘルパー関数
+ */
+const saveToHistory = (state: ObsLayoutState): Partial<ObsLayoutState> => {
+  const snapshot: HistorySnapshot = {
+    elements: state.elements,
+    screenSize: state.screenSize,
+  };
+
+  // 現在の位置より後の履歴を削除し、新しいスナップショットを追加
+  const newHistory = [...state.history.slice(0, state.historyIndex + 1), snapshot];
+
+  // 履歴が最大数を超えた場合、古いものを削除
+  const trimmedHistory = newHistory.slice(-MAX_HISTORY);
+
+  return {
+    history: trimmedHistory,
+    historyIndex: trimmedHistory.length - 1,
+  };
+};
+
 export const useObsLayoutStore = create<ObsLayoutState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       elements: DEFAULT_ELEMENTS,
       editMode: true, // デフォルトで編集モード有効
       selectedElementId: null,
       selectedElementIds: [],
       editingElementId: null,
       screenSize: DEFAULT_SCREEN_SIZE,
+      history: [{ elements: DEFAULT_ELEMENTS, screenSize: DEFAULT_SCREEN_SIZE }],
+      historyIndex: 0,
       updateElementPosition: (id, position) =>
-        set((state) => ({
-          elements: state.elements.map((el) => (el.id === id ? { ...el, position } : el)),
-        })),
+        set((state) => {
+          const newState = {
+            elements: state.elements.map((el) => (el.id === id ? { ...el, position } : el)),
+          };
+          return { ...newState, ...saveToHistory({ ...state, ...newState }) };
+        }),
       updateElementSize: (id, size) =>
-        set((state) => ({
-          elements: state.elements.map((el) => (el.id === id ? { ...el, size } : el)),
-        })),
+        set((state) => {
+          const newState = {
+            elements: state.elements.map((el) => (el.id === id ? { ...el, size } : el)),
+          };
+          return { ...newState, ...saveToHistory({ ...state, ...newState }) };
+        }),
       updateElement: (id, updates) =>
-        set((state) => ({
-          elements: state.elements.map((el) => (el.id === id ? { ...el, ...updates } : el)),
-        })),
+        set((state) => {
+          const newState = {
+            elements: state.elements.map((el) => (el.id === id ? { ...el, ...updates } : el)),
+          };
+          return { ...newState, ...saveToHistory({ ...state, ...newState }) };
+        }),
       toggleEditMode: () => set((state) => ({ editMode: !state.editMode })),
-      resetLayout: () => set({ elements: DEFAULT_ELEMENTS }),
+      resetLayout: () =>
+        set((state) => {
+          const newState = { elements: DEFAULT_ELEMENTS };
+          return { ...newState, ...saveToHistory({ ...state, ...newState }) };
+        }),
       selectElement: (id) => set({ selectedElementId: id, selectedElementIds: id ? [id] : [] }),
       toggleSelectElement: (id) =>
         set((state) => {
@@ -102,21 +157,30 @@ export const useObsLayoutStore = create<ObsLayoutState>()(
         }),
       clearSelection: () => set({ selectedElementId: null, selectedElementIds: [] }),
       updateSelectedElementsPosition: (deltaX, deltaY) =>
-        set((state) => ({
-          elements: state.elements.map((el) => (state.selectedElementIds.includes(el.id) ? { ...el, position: { x: el.position.x + deltaX, y: el.position.y + deltaY } } : el)),
-        })),
+        set((state) => {
+          const newState = {
+            elements: state.elements.map((el) => (state.selectedElementIds.includes(el.id) ? { ...el, position: { x: el.position.x + deltaX, y: el.position.y + deltaY } } : el)),
+          };
+          return { ...newState, ...saveToHistory({ ...state, ...newState }) };
+        }),
       setEditingElement: (id) => set({ editingElementId: id }),
       addElement: (element) =>
-        set((state) => ({
-          elements: [...state.elements, element],
-        })),
+        set((state) => {
+          const newState = {
+            elements: [...state.elements, element],
+          };
+          return { ...newState, ...saveToHistory({ ...state, ...newState }) };
+        }),
       removeElement: (id) =>
-        set((state) => ({
-          elements: state.elements.filter((el) => el.id !== id),
-          selectedElementId: state.selectedElementId === id ? null : state.selectedElementId,
-          selectedElementIds: state.selectedElementIds.filter((eid) => eid !== id),
-          editingElementId: state.editingElementId === id ? null : state.editingElementId,
-        })),
+        set((state) => {
+          const newState = {
+            elements: state.elements.filter((el) => el.id !== id),
+            selectedElementId: state.selectedElementId === id ? null : state.selectedElementId,
+            selectedElementIds: state.selectedElementIds.filter((eid) => eid !== id),
+            editingElementId: state.editingElementId === id ? null : state.editingElementId,
+          };
+          return { ...newState, ...saveToHistory({ ...state, ...newState }) };
+        }),
       moveElement: (id, newIndex) =>
         set((state) => {
           const currentIndex = state.elements.findIndex((el) => el.id === id);
@@ -126,10 +190,54 @@ export const useObsLayoutStore = create<ObsLayoutState>()(
           const [element] = newElements.splice(currentIndex, 1);
           newElements.splice(newIndex, 0, element);
 
-          return { elements: newElements };
+          const newState = { elements: newElements };
+          return { ...newState, ...saveToHistory({ ...state, ...newState }) };
         }),
-      setElements: (elements) => set({ elements, selectedElementId: null, selectedElementIds: [], editingElementId: null }),
+      setElements: (elements) =>
+        set((state) => {
+          const newState = {
+            elements,
+            selectedElementId: null,
+            selectedElementIds: [],
+            editingElementId: null,
+          };
+          return { ...newState, ...saveToHistory({ ...state, ...newState }) };
+        }),
       setScreenSize: (size) => set({ screenSize: size }),
+      undo: () =>
+        set((state) => {
+          if (state.historyIndex <= 0) return state;
+
+          const newIndex = state.historyIndex - 1;
+          const snapshot = state.history[newIndex];
+
+          return {
+            elements: snapshot.elements,
+            screenSize: snapshot.screenSize,
+            historyIndex: newIndex,
+          };
+        }),
+      redo: () =>
+        set((state) => {
+          if (state.historyIndex >= state.history.length - 1) return state;
+
+          const newIndex = state.historyIndex + 1;
+          const snapshot = state.history[newIndex];
+
+          return {
+            elements: snapshot.elements,
+            screenSize: snapshot.screenSize,
+            historyIndex: newIndex,
+          };
+        }),
+      canUndo: () => {
+        const state = get();
+        return state.historyIndex > 0;
+      },
+      canRedo: () => {
+        const state = get();
+        return state.historyIndex < state.history.length - 1;
+      },
     }),
     {
       name: "obs-layout-storage",
