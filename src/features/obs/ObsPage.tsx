@@ -297,8 +297,23 @@ export function ObsPage() {
           height: "100vh",
           overflow: "hidden",
           background: "transparent",
+          // スクロールバーを完全に非表示
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
         }}
       >
+        <style>
+          {`
+            body {
+              overflow: hidden;
+              scrollbar-width: none;
+              -ms-overflow-style: none;
+            }
+            body::-webkit-scrollbar {
+              display: none;
+            }
+          `}
+        </style>
         <div
           style={{
             width: `${screenSize.width}px`,

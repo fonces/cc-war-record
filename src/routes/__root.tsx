@@ -21,6 +21,9 @@ function RootComponent() {
   const shouldCheckUpdateRef = useRef(false);
   const [showUpdateSnackbar, setShowUpdateSnackbar] = useState(false);
 
+  // OBSモードかどうかを判定
+  const isObsMode = new URLSearchParams(window.location.search).get("obs") === "true";
+
   // ページ遷移時にスクロールを一番上に戻す & GA4にページビュー送信
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -49,6 +52,15 @@ function RootComponent() {
     setShowUpdateSnackbar(false);
     shouldCheckUpdateRef.current = true;
   };
+
+  // OBSモードの場合はヘッダーとサイドメニューを非表示
+  if (isObsMode) {
+    return (
+      <Suspense fallback={<LoadingFallback />}>
+        <Outlet />
+      </Suspense>
+    );
+  }
 
   return (
     <Header>

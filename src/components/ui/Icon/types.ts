@@ -26,7 +26,8 @@ export type IconName =
   | "grid"
   | "hash"
   | "xCircle"
-  | "function";
+  | "function"
+  | "window";
 
 export type IconProps = {
   /** アイコンの種類 */
