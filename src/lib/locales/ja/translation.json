@@ -100,6 +100,62 @@
     },
     "todayTrendChart": {
       "noData": "データがありません"
+    },
+    "templates": {
+      "title": "テンプレートから選択",
+      "button": "テンプレート",
+      "noTemplates": "テンプレートがありません",
+      "categories": {
+        "all": "すべて",
+        "minimal": "ミニマル",
+        "detailed": "詳細表示",
+        "streaming": "配信向け",
+        "competitive": "競技向け"
+      },
+      "minimalCorner": {
+        "name": "コーナー統計",
+        "description": "必要最小限の情報を画面隅に配置"
+      },
+      "minimalTopBar": {
+        "name": "トップバー",
+        "description": "重要な指標を上部中央に配置"
+      },
+      "minimalSidePanel": {
+        "name": "サイドパネル",
+        "description": "縦型のサイドパネルレイアウト"
+      },
+      "detailedDashboard": {
+        "name": "フルダッシュボード",
+        "description": "包括的な統計情報ダッシュボード"
+      },
+      "detailedSplitView": {
+        "name": "分割ビュー",
+        "description": "統計とグラフを横並びで表示"
+      },
+      "streamingBottomTicker": {
+        "name": "ボトムティッカー",
+        "description": "画面下部にティッカー表示"
+      },
+      "streamingCornerOverlay": {
+        "name": "コーナーオーバーレイ",
+        "description": "控えめなコーナーオーバーレイ"
+      },
+      "streamingTitleSafe": {
+        "name": "タイトルセーフエリア",
+        "description": "サムネイル対応の安全エリア配置"
+      },
+      "competitiveEsports": {
+        "name": "E-Sports HUD",
+        "description": "プロトーナメントスタイル"
+      },
+      "competitiveScoreboard": {
+        "name": "スコアボード",
+        "description": "見やすいスコアボードレイアウト"
+      },
+      "competitiveAnalyst": {
+        "name": "アナリストビュー",
+        "description": "解説向けの詳細分析表示"
+      }
     }
   },
   "pages": {

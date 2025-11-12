@@ -10,6 +10,7 @@ import { DraggableHudElement } from "./components/DraggableHudElement";
 import { EditPanel } from "./components/EditPanel";
 import { LayerPanel } from "./components/LayerPanel";
 import { SnapGuide } from "./components/SnapGuide";
+import { TemplatePicker } from "./components/TemplatePicker";
 import { useObsLayoutStore } from "./store/obsLayoutStore";
 import { calculateSnap } from "./utils/snapCalculation";
 import type { HudElement, HudElementType } from "./types";
@@ -114,6 +115,7 @@ export function ObsPage() {
   const { elements, editMode, updateElementPosition, toggleEditMode, resetLayout, selectElement, addElement, setEditingElement } = useObsLayoutStore();
   const [snapGuides, setSnapGuides] = useState<SnapGuides>({});
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [isTemplatePickerOpen, setIsTemplatePickerOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const mouseSensor = useSensor(MouseSensor, {
@@ -277,7 +279,9 @@ export function ObsPage() {
 
         <EditPanel />
 
-        <ControlPanel editMode={editMode} onToggleEditMode={toggleEditMode} onResetLayout={resetLayout} />
+        <ControlPanel editMode={editMode} onToggleEditMode={toggleEditMode} onResetLayout={resetLayout} onOpenTemplates={() => setIsTemplatePickerOpen(true)} />
+
+        <TemplatePicker isOpen={isTemplatePickerOpen} onClose={() => setIsTemplatePickerOpen(false)} />
       </PageContainer>
     </Page>
   );

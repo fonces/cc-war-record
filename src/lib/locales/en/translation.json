@@ -100,6 +100,62 @@
     },
     "todayTrendChart": {
       "noData": "No data available"
+    },
+    "templates": {
+      "title": "Choose from Templates",
+      "button": "Templates",
+      "noTemplates": "No templates available",
+      "categories": {
+        "all": "All",
+        "minimal": "Minimal",
+        "detailed": "Detailed",
+        "streaming": "Streaming",
+        "competitive": "Competitive"
+      },
+      "minimalCorner": {
+        "name": "Corner Stats",
+        "description": "Essential stats in screen corner"
+      },
+      "minimalTopBar": {
+        "name": "Top Bar",
+        "description": "Key metrics centered at top"
+      },
+      "minimalSidePanel": {
+        "name": "Side Panel",
+        "description": "Vertical side panel layout"
+      },
+      "detailedDashboard": {
+        "name": "Full Dashboard",
+        "description": "Comprehensive stats dashboard"
+      },
+      "detailedSplitView": {
+        "name": "Split View",
+        "description": "Stats and chart side by side"
+      },
+      "streamingBottomTicker": {
+        "name": "Bottom Ticker",
+        "description": "Ticker display at bottom"
+      },
+      "streamingCornerOverlay": {
+        "name": "Corner Overlay",
+        "description": "Subtle corner overlay"
+      },
+      "streamingTitleSafe": {
+        "name": "Title Safe Area",
+        "description": "Thumbnail-safe placement"
+      },
+      "competitiveEsports": {
+        "name": "E-Sports HUD",
+        "description": "Professional tournament style"
+      },
+      "competitiveScoreboard": {
+        "name": "Scoreboard",
+        "description": "Clear scoreboard layout"
+      },
+      "competitiveAnalyst": {
+        "name": "Analyst View",
+        "description": "Detailed analytics for commentary"
+      }
     }
   },
   "pages": {

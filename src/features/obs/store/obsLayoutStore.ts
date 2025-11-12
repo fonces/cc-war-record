@@ -17,6 +17,7 @@ type ObsLayoutState = {
   addElement: (element: HudElement) => void;
   removeElement: (id: string) => void;
   moveElement: (id: string, newIndex: number) => void;
+  setElements: (elements: HudElement[]) => void;
 };
 
 /**
@@ -73,6 +74,7 @@ export const useObsLayoutStore = create<ObsLayoutState>()(
 
           return { elements: newElements };
         }),
+      setElements: (elements) => set({ elements, selectedElementId: null, editingElementId: null }),
     }),
     {
       name: "obs-layout-storage",

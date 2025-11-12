@@ -98,6 +98,62 @@
     },
     "todayTrendChart": {
       "noData": "데이터가 없습니다"
+    },
+    "templates": {
+      "title": "템플릿 선택",
+      "button": "템플릿",
+      "noTemplates": "템플릿이 없습니다",
+      "categories": {
+        "all": "전체",
+        "minimal": "미니멀",
+        "detailed": "상세 표시",
+        "streaming": "스트리밍",
+        "competitive": "경쟁"
+      },
+      "minimalCorner": {
+        "name": "코너 통계",
+        "description": "필수 정보를 화면 모서리에 배치"
+      },
+      "minimalTopBar": {
+        "name": "상단 바",
+        "description": "주요 지표를 상단 중앙에 배치"
+      },
+      "minimalSidePanel": {
+        "name": "사이드 패널",
+        "description": "세로형 사이드 패널 레이아웃"
+      },
+      "detailedDashboard": {
+        "name": "전체 대시보드",
+        "description": "종합 통계 대시보드"
+      },
+      "detailedSplitView": {
+        "name": "분할 뷰",
+        "description": "통계와 차트를 나란히 표시"
+      },
+      "streamingBottomTicker": {
+        "name": "하단 티커",
+        "description": "화면 하단에 티커 표시"
+      },
+      "streamingCornerOverlay": {
+        "name": "코너 오버레이",
+        "description": "은은한 코너 오버레이"
+      },
+      "streamingTitleSafe": {
+        "name": "타이틀 안전 영역",
+        "description": "썸네일 대응 안전 영역 배치"
+      },
+      "competitiveEsports": {
+        "name": "E-Sports HUD",
+        "description": "프로 토너먼트 스타일"
+      },
+      "competitiveScoreboard": {
+        "name": "스코어보드",
+        "description": "보기 쉬운 스코어보드 레이아웃"
+      },
+      "competitiveAnalyst": {
+        "name": "분석가 뷰",
+        "description": "해설용 상세 분석 표시"
+      }
     }
   },
   "pages": {

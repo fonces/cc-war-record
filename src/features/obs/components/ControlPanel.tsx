@@ -33,13 +33,14 @@ interface ControlPanelProps {
   editMode: boolean;
   onToggleEditMode: () => void;
   onResetLayout: () => void;
+  onOpenTemplates: () => void;
 }
 
 /**
  * OBSレイアウト編集のコントロールパネル
  * 編集モード切り替えとレイアウトリセット機能を提供
  */
-export function ControlPanel({ editMode, onToggleEditMode, onResetLayout }: ControlPanelProps) {
+export function ControlPanel({ editMode, onToggleEditMode, onResetLayout, onOpenTemplates }: ControlPanelProps) {
   const { t } = useTranslation();
 
   return createPortal(
@@ -47,6 +48,9 @@ export function ControlPanel({ editMode, onToggleEditMode, onResetLayout }: Cont
       <ButtonGroup direction="horizontal">
         <Button variant={editMode ? "primary" : "secondary"} size="sm" onClick={onToggleEditMode}>
           {editMode ? t("obs.editMode.disable") : t("obs.editMode.enable")}
+        </Button>
+        <Button variant="outline" size="sm" onClick={onOpenTemplates}>
+          {t("obs.templates.button")}
         </Button>
         <Button variant="outline" size="sm" onClick={onResetLayout}>
           {t("obs.resetLayout")}
