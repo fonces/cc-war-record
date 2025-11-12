@@ -3,6 +3,7 @@ import styled, { useTheme } from "styled-components";
 import { useTranslation } from "@/hooks";
 import { useCharacterStore } from "@/stores";
 import { useCurrentSeasonStats } from "../hooks/useCurrentSeasonStats";
+import { useObsLayoutStore } from "../store/obsLayoutStore";
 import type { HudElement } from "../types";
 
 type HudElementContentProps = {
@@ -87,9 +88,15 @@ export function HudElementContent({ element }: HudElementContentProps) {
   const { t } = useTranslation();
   const theme = useTheme();
   const currentSeasonStats = useCurrentSeasonStats();
+  const obsRecordingStartTime = useObsLayoutStore((state) => state.obsRecordingStartTime);
 
   // チャート用の戦績データを取得（Hooksは条件分岐の外で呼び出す）
-  const matchRecords = useCharacterStore((state) => state.matchRecords);
+  const allMatchRecords = useCharacterStore((state) => state.matchRecords);
+
+  // OBS記録開始日時以降のデータのみにフィルタリング
+  const matchRecords = obsRecordingStartTime
+    ? allMatchRecords.filter((record) => new Date(record.createdAt) >= new Date(obsRecordingStartTime))
+    : allMatchRecords;
 
   const getElementContent = () => {
     switch (element.type) {

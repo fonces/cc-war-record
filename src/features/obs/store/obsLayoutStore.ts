@@ -33,6 +33,7 @@ type ObsLayoutState = {
   screenSize: ScreenSize;
   history: HistorySnapshot[];
   historyIndex: number;
+  obsRecordingStartTime: string | null; // OBS配信用の記録開始日時
   updateElementPosition: (id: string, position: Position) => void;
   updateElementSize: (id: string, size: Size) => void;
   updateElement: (id: string, updates: Partial<HudElement>) => void;
@@ -48,6 +49,8 @@ type ObsLayoutState = {
   moveElement: (id: string, newIndex: number) => void;
   setElements: (elements: HudElement[]) => void;
   setScreenSize: (size: ScreenSize) => void;
+  startObsRecording: () => void; // OBS記録を開始
+  stopObsRecording: () => void; // OBS記録を停止
   undo: () => void;
   redo: () => void;
   canUndo: () => boolean;
@@ -110,6 +113,7 @@ export const useObsLayoutStore = create<ObsLayoutState>()(
       screenSize: DEFAULT_SCREEN_SIZE,
       history: [{ elements: DEFAULT_ELEMENTS, screenSize: DEFAULT_SCREEN_SIZE }],
       historyIndex: 0,
+      obsRecordingStartTime: null,
       updateElementPosition: (id, position) =>
         set((state) => {
           const newState = {
@@ -204,6 +208,8 @@ export const useObsLayoutStore = create<ObsLayoutState>()(
           return { ...newState, ...saveToHistory({ ...state, ...newState }) };
         }),
       setScreenSize: (size) => set({ screenSize: size }),
+      startObsRecording: () => set({ obsRecordingStartTime: new Date().toISOString() }),
+      stopObsRecording: () => set({ obsRecordingStartTime: null }),
       undo: () =>
         set((state) => {
           if (state.historyIndex <= 0) return state;

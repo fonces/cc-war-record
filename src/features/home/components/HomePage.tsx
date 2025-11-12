@@ -1,7 +1,9 @@
 import { useRouter } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import styled from "styled-components";
 import { EmptyState } from "@/components/layout";
 import { Button, Page, PageTitleContainer, PageTitle, PageDescription, Icon, PageContainer, IconicButton } from "@/components/ui";
+import { useObsLayoutStore } from "@/features/obs/store/obsLayoutStore";
 import { usePageTitle, useTranslation, useIsMobile } from "@/hooks";
 import { sendEvent } from "@/lib/analytics";
 import { useHistoryStore, useCharacterStore } from "@/stores";
@@ -10,6 +12,46 @@ import { CharacterForm } from "./CharacterForm";
 import { DeleteCharacterDialog } from "./DeleteCharacterDialog";
 import { JobRegistrationDialog } from "./JobRegistrationDialog";
 import type { Job, CrystalConflictMap, UUIDv4 } from "@/types";
+
+const ObsRecordingPanel = styled.div`
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  background: ${({ theme }) => theme.colors.backgroundSecondary};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: 8px;
+  margin-bottom: 16px;
+`;
+
+const ObsRecordingStatus = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+`;
+
+const ObsRecordingDot = styled.div<{ $isRecording: boolean }>`
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: ${({ $isRecording, theme }) => ($isRecording ? theme.colors.error[500] : theme.colors.textSecondary)};
+  animation: ${({ $isRecording }) => ($isRecording ? "pulse 2s ease-in-out infinite" : "none")};
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+`;
+
+const ObsRecordingText = styled.div`
+  font-size: 0.875rem;
+  color: ${({ theme }) => theme.colors.text};
+`;
 
 /**
  * ホーム画面コンポーネント
@@ -33,6 +75,37 @@ export const HomePage = () => {
     error: characterError,
     clearError,
   } = useCharacterStore();
+
+  const { obsRecordingStartTime, startObsRecording, stopObsRecording } = useObsLayoutStore();
+
+  // OBSブラウザソースが開いているかを検知
+  const [isObsBrowserSourceOpen, setIsObsBrowserSourceOpen] = useState(false);
+
+  useEffect(() => {
+    // localStorageの変更を監視
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === "obs-browser-source-status") {
+        setIsObsBrowserSourceOpen(e.newValue === "open");
+      }
+    };
+
+    // 初期状態をチェック
+    const checkObsStatus = () => {
+      const status = localStorage.getItem("obs-browser-source-status");
+      setIsObsBrowserSourceOpen(status === "open");
+    };
+
+    checkObsStatus();
+    window.addEventListener("storage", handleStorageChange);
+
+    // 定期的にチェック（同一ウィンドウ内での変更検知）
+    const interval = setInterval(checkObsStatus, 1000);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      clearInterval(interval);
+    };
+  }, []);
 
   // 最新のシーズンを取得
   const latestSeason = getSortedHistories()[0];
@@ -294,6 +367,28 @@ export const HomePage = () => {
         )}
       </PageTitleContainer>
       <PageDescription>{t("pages.home.description")}</PageDescription>
+
+      {isObsBrowserSourceOpen && (
+        <ObsRecordingPanel>
+          <ObsRecordingStatus>
+            <ObsRecordingDot $isRecording={!!obsRecordingStartTime} />
+            <ObsRecordingText>
+              {obsRecordingStartTime ? t("obs.recording.active") : t("obs.recording.description")}
+            </ObsRecordingText>
+          </ObsRecordingStatus>
+          {obsRecordingStartTime ? (
+            <Button variant="secondary" size="sm" onClick={stopObsRecording}>
+              <Icon name="xCircle" size={16} />
+              {t("obs.recording.stop")}
+            </Button>
+          ) : (
+            <Button variant="primary" size="sm" onClick={startObsRecording}>
+              <Icon name="video" size={16} />
+              {t("obs.recording.start")}
+            </Button>
+          )}
+        </ObsRecordingPanel>
+      )}
 
       <PageContainer>
         {characterStats.map((stats) => (

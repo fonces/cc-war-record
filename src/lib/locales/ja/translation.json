@@ -46,6 +46,12 @@
     "winRate": "勝率",
     "totalMatches": "総試合数",
     "matches": "試合",
+    "recording": {
+      "start": "OBS記録開始",
+      "stop": "OBS記録停止",
+      "active": "OBS記録中",
+      "description": "記録開始後のデータのみがOBSに表示されます"
+    },
     "plainText": {
       "placeholder": "テキストを入力してください"
     },

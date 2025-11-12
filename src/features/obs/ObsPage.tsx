@@ -172,6 +172,9 @@ export function ObsPage() {
   useEffect(() => {
     if (!isObsMode) return;
 
+    // ブラウザソースが開いていることを通知
+    localStorage.setItem("obs-browser-source-status", "open");
+
     const handleStorageChange = (e: StorageEvent) => {
       // キャラクターまたは戦績データが変更された場合はストアをリロード
       if (e.key === "cc-war-record-characters" || e.key === "cc-war-record-match-records") {
@@ -181,7 +184,12 @@ export function ObsPage() {
     };
 
     window.addEventListener("storage", handleStorageChange);
-    return () => window.removeEventListener("storage", handleStorageChange);
+
+    // クリーンアップ: ページを離れたらステータスをクリア
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      localStorage.removeItem("obs-browser-source-status");
+    };
   }, [isObsMode]);
 
   const handleDragStart = (event: DragStartEvent) => {
