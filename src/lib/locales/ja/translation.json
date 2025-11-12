@@ -42,12 +42,33 @@
     "winRate": "勝率",
     "totalMatches": "総試合数",
     "matches": "試合",
+    "plainText": {
+      "placeholder": "テキストを入力してください"
+    },
+    "elementType": {
+      "plainText": "プレーンテキスト",
+      "statsCombo": "統計コンボ"
+    },
     "editMode": {
       "enable": "編集モード",
-      "disable": "編集モード終了",
+      "disable": "編集完了",
       "instruction": "要素をドラッグして配置を調整できます"
     },
-    "resetLayout": "レイアウトをリセット"
+    "resetLayout": "レイアウトをリセット",
+    "editPanel": {
+      "title": "要素を編集",
+      "elementType": "要素タイプ",
+      "text": "テキスト",
+      "textColor": "文字色",
+      "fontSize": "フォントサイズ",
+      "position": "位置",
+      "visibility": "表示設定",
+      "visible": "表示する",
+      "comboItems": "表示する項目",
+      "selectElement": "要素をクリックして編集してください",
+      "delete": "削除",
+      "confirmDelete": "この要素を削除しますか?"
+    }
   },
   "pages": {
     "home": {
@@ -57,6 +78,10 @@
       "noSeason": "シーズンが作成されていません",
       "createFirstSeason": "最初のシーズンを作成してください",
       "errorOccurred": "エラーが発生しました"
+    },
+    "obs": {
+      "title": "OBS配信用HUD",
+      "description": "ドラッグ&ドロップで配置を調整し、OBSのブラウザソースとして使用できます。"
     },
     "graphs": {
       "title": "戦績グラフ",

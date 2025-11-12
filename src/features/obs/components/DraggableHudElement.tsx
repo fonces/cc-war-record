@@ -1,8 +1,10 @@
 import { useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 import styled from "styled-components";
-import { useTranslation } from "@/hooks";
-import { useCurrentSeasonStats } from "../hooks/useCurrentSeasonStats";
+import { useElementResize } from "../hooks/useElementResize";
+import { useObsLayoutStore } from "../store/obsLayoutStore";
+import { HudElementContent } from "./HudElementContent";
+import { ResizeHandles } from "./ResizeHandles";
 import type { HudElement as HudElementType } from "../types";
 
 type DraggableHudElementProps = {
@@ -10,57 +12,75 @@ type DraggableHudElementProps = {
   editMode: boolean;
 };
 
-const ElementContainer = styled.div<{ $x: number; $y: number; $isDragging: boolean; $editMode: boolean }>`
+const ElementContainer = styled.div<{
+  $x: number;
+  $y: number;
+  $width?: number;
+  $height?: number;
+  $isDragging: boolean;
+  $editMode: boolean;
+  $isSelected: boolean;
+  $fontSize?: number;
+}>`
   position: absolute;
   left: ${({ $x }) => $x}px;
   top: ${({ $y }) => $y}px;
+  width: ${({ $width }) => ($width ? `${$width}px` : "auto")};
+  height: ${({ $height }) => ($height ? `${$height}px` : "auto")};
+  min-width: ${({ $width }) => ($width ? "unset" : "200px")};
   background: ${({ theme, $editMode }) => ($editMode ? `${theme.colors.background}ee` : `${theme.colors.background}cc`)};
-  border: ${({ theme, $editMode }) => ($editMode ? `2px dashed ${theme.colors.primary}` : "none")};
   border-radius: 8px;
   padding: 16px 24px;
   cursor: ${({ $editMode }) => ($editMode ? "move" : "default")};
   user-select: none;
   opacity: ${({ $isDragging }) => ($isDragging ? 0.5 : 1)};
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  min-width: 200px;
-  transition:
-    background 0.2s,
-    border 0.2s;
+  font-size: ${({ $fontSize }) => ($fontSize ? `${$fontSize}px` : "inherit")};
+
+  /* GPU アクセラレーションを有効化 */
+  will-change: width, height, transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+
+  /* 選択された要素のみoutlineを表示 */
+  ${({ theme, $isSelected }) =>
+    $isSelected &&
+    `
+    outline: 2px solid ${theme.colors.primary[300]};
+  `}
 
   &:hover {
-    background: ${({ theme, $editMode }) => ($editMode ? `${theme.colors.background}ff` : `${theme.colors.background}cc`)};
+    ${({ theme, $editMode, $isSelected }) =>
+      $editMode &&
+      !$isSelected &&
+      `
+      outline: 2px solid ${theme.colors.primary[200]};
+    `}
   }
-`;
 
-const Label = styled.div`
-  font-size: 0.875rem;
-  color: ${({ theme }) => theme.colors.textSecondary};
-  margin-bottom: 4px;
-`;
+  &:focus,
+  &:active {
+    outline: 2px solid ${({ theme }) => theme.colors.primary[500]};
+  }
 
-const Value = styled.div`
-  font-size: 2rem;
-  font-weight: bold;
-  color: ${({ theme }) => theme.colors.text};
-`;
-
-const Unit = styled.span`
-  font-size: 1rem;
-  margin-left: 4px;
-  color: ${({ theme }) => theme.colors.textSecondary};
+  &:focus:not(:focus-visible) {
+    outline: ${({ $isSelected, theme }) => ($isSelected ? `2px solid ${theme.colors.primary[300]}` : "none")};
+  }
 `;
 
 /**
  * ドラッグ可能なHUD要素コンポーネント
  */
 export function DraggableHudElement({ element, editMode }: DraggableHudElementProps) {
-  const { t } = useTranslation();
-  const currentSeasonStats = useCurrentSeasonStats();
+  const { selectElement, selectedElementId } = useObsLayoutStore();
+  const { isResizing, handleResizeStart } = useElementResize(element);
 
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: element.id,
-    disabled: !editMode,
+    disabled: !editMode || isResizing,
   });
+
+  const isSelected = selectedElementId === element.id;
 
   const style = transform
     ? {
@@ -68,46 +88,32 @@ export function DraggableHudElement({ element, editMode }: DraggableHudElementPr
       }
     : undefined;
 
-  const getElementContent = () => {
-    switch (element.type) {
-      case "winCount":
-        return {
-          label: t("obs.winCount"),
-          value: currentSeasonStats.wins.toString(),
-          unit: t("obs.matches"),
-        };
-      case "loseCount":
-        return {
-          label: t("obs.loseCount"),
-          value: currentSeasonStats.losses.toString(),
-          unit: t("obs.matches"),
-        };
-      case "winRate":
-        return {
-          label: t("obs.winRate"),
-          value: currentSeasonStats.winRate.toFixed(1),
-          unit: "%",
-        };
-      case "totalMatches":
-        return {
-          label: t("obs.totalMatches"),
-          value: currentSeasonStats.total.toString(),
-          unit: t("obs.matches"),
-        };
-      default:
-        return { label: "", value: "-", unit: "" };
+  const handleClick = (e: React.MouseEvent) => {
+    if (editMode && !isDragging) {
+      e.stopPropagation();
+      selectElement(element.id);
     }
   };
 
-  const { label, value, unit } = getElementContent();
-
   return (
-    <ElementContainer ref={setNodeRef} style={style} $x={element.position.x} $y={element.position.y} $isDragging={isDragging} $editMode={editMode} {...listeners} {...attributes}>
-      <Label>{label}</Label>
-      <Value>
-        {value}
-        <Unit>{unit}</Unit>
-      </Value>
+    <ElementContainer
+      ref={setNodeRef}
+      style={style}
+      $x={element.position.x}
+      $y={element.position.y}
+      $width={element.size?.width}
+      $height={element.size?.height}
+      $isDragging={isDragging}
+      $editMode={editMode}
+      $isSelected={isSelected}
+      $fontSize={element.fontSize}
+      onClick={handleClick}
+      data-element-id={element.id}
+      {...listeners}
+      {...attributes}
+    >
+      <HudElementContent element={element} />
+      {editMode && isSelected && <ResizeHandles onResizeStart={handleResizeStart} />}
     </ElementContainer>
   );
 }

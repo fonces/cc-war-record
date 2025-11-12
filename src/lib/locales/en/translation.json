@@ -37,26 +37,51 @@
     "obs": "OBS"
   },
   "obs": {
-    "winCount": "Win Count",
-    "loseCount": "Loss Count",
+    "winCount": "Wins",
+    "loseCount": "Losses",
     "winRate": "Win Rate",
     "totalMatches": "Total Matches",
     "matches": "Matches",
+    "plainText": {
+      "placeholder": "Enter text here"
+    },
+    "elementType": {
+      "plainText": "Plain Text",
+      "statsCombo": "Stats Combo"
+    },
     "editMode": {
       "enable": "Edit Mode",
-      "disable": "Exit Edit Mode",
-      "instruction": "Drag elements to adjust layout"
+      "disable": "Done Editing",
+      "instruction": "Drag elements to adjust their position"
     },
-    "resetLayout": "Reset Layout"
+    "resetLayout": "Reset Layout",
+    "editPanel": {
+      "title": "Edit Element",
+      "elementType": "Element Type",
+      "text": "Text",
+      "textColor": "Text Color",
+      "fontSize": "Font Size",
+      "position": "Position",
+      "visibility": "Visibility",
+      "visible": "Visible",
+      "comboItems": "Items to Display",
+      "selectElement": "Click an element to edit",
+      "delete": "Delete",
+      "confirmDelete": "Delete this element?"
+    }
   },
   "pages": {
     "home": {
       "title": "{{seasonName}} Records",
       "description": "Enter your match records and view statistics.",
       "createSeason": "Create New Season",
-      "noSeason": "No season has been created",
+      "noSeason": "No season created",
       "createFirstSeason": "Please create your first season",
       "errorOccurred": "An error occurred"
+    },
+    "obs": {
+      "title": "OBS Streaming HUD",
+      "description": "Drag and drop to adjust layout, then use as a browser source in OBS."
     },
     "graphs": {
       "title": "Match Statistics",

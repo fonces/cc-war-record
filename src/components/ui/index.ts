@@ -1,5 +1,6 @@
 export { AnimatedNumber } from "./AnimatedNumber";
 export { Button } from "./Button";
+export { ButtonGroup } from "./ButtonGroup";
 export { Input } from "./Input";
 export { Select } from "./Select";
 export { Icon } from "./Icon";

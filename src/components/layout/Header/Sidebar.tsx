@@ -65,7 +65,7 @@ const StyledNavList = styled.nav`
   }
 `;
 
-const StyledNavLink = styled(Link)<{ $isActive: boolean }>`
+const StyledNavLink = styled(Link)<{ $isActive: boolean; $desktopOnly?: boolean }>`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing[3]};
@@ -79,6 +79,14 @@ const StyledNavLink = styled(Link)<{ $isActive: boolean }>`
   box-shadow: ${({ theme, $isActive }) => ($isActive ? theme.shadows.md : theme.shadows.none)};
   position: relative;
   overflow: hidden;
+
+  ${({ $desktopOnly }) =>
+    $desktopOnly &&
+    `
+    @media (max-width: 1023px) {
+      display: none;
+    }
+  `}
 
   &::before {
     content: "";
@@ -134,7 +142,7 @@ export const Sidebar = ({ isOpen, isActivePath, onClose }: SidebarProps) => {
 
       <StyledNavList>
         {navigationItems.map((item: NavigationItem) => (
-          <StyledNavLink key={item.path} to={item.path} $isActive={isActivePath(item.path)} onClick={onClose}>
+          <StyledNavLink key={item.path} to={item.path} $isActive={isActivePath(item.path)} $desktopOnly={item.desktopOnly} onClick={onClose}>
             <StyledNavIcon $isActive={isActivePath(item.path)}>
               <Icon name={item.icon} size={20} />
             </StyledNavIcon>
