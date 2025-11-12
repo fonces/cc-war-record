@@ -57,18 +57,6 @@ const MainContent = styled.div`
   min-width: 0;
 `;
 
-const SelectionBox = styled.div<{ $x: number; $y: number; $width: number; $height: number }>`
-  position: absolute;
-  left: ${({ $x }) => $x}px;
-  top: ${({ $y }) => $y}px;
-  width: ${({ $width }) => $width}px;
-  height: ${({ $height }) => $height}px;
-  border: 2px dashed ${({ theme }) => theme.colors.primary[400]};
-  background: ${({ theme }) => theme.colors.primary[500]}22;
-  pointer-events: none;
-  z-index: 1000;
-`;
-
 const LeftPanel = styled.div`
   display: flex;
   flex-direction: column;
@@ -105,18 +93,12 @@ function DroppableObsContainer({
   containerRef,
   width,
   height,
-  onMouseDown,
-  onMouseMove,
-  onMouseUp,
 }: {
   children: React.ReactNode;
   onClick: (e: React.MouseEvent<HTMLDivElement>) => void;
   containerRef: React.MutableRefObject<HTMLDivElement | null>;
   width: number;
   height: number;
-  onMouseDown: (e: React.MouseEvent<HTMLDivElement>) => void;
-  onMouseMove: (e: React.MouseEvent<HTMLDivElement>) => void;
-  onMouseUp: (e: React.MouseEvent<HTMLDivElement>) => void;
 }) {
   const { setNodeRef } = useDroppable({
     id: "obs-container",
@@ -128,7 +110,7 @@ function DroppableObsContainer({
   useEffect(() => {
     const updateScale = () => {
       if (!wrapperRef.current) return;
-      
+
       const wrapperWidth = wrapperRef.current.clientWidth;
       const newScale = Math.min(1, wrapperWidth / width);
       setScale(newScale);
@@ -153,10 +135,6 @@ function DroppableObsContainer({
         }}
         className="obs-container"
         onClick={onClick}
-        onMouseDown={onMouseDown}
-        onMouseMove={onMouseMove}
-        onMouseUp={onMouseUp}
-        onMouseLeave={onMouseUp}
         $width={width}
         $height={height}
         $scale={scale}
@@ -198,9 +176,6 @@ export function ObsPage() {
   const [isTemplatePickerOpen, setIsTemplatePickerOpen] = useState(false);
   const [isDraggingGroup, setIsDraggingGroup] = useState(false);
   const [groupDragDelta, setGroupDragDelta] = useState<{ x: number; y: number } | null>(null);
-  const [isSelecting, setIsSelecting] = useState(false);
-  const [selectionStart, setSelectionStart] = useState<{ x: number; y: number } | null>(null);
-  const [selectionEnd, setSelectionEnd] = useState<{ x: number; y: number } | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const mouseSensor = useSensor(MouseSensor, {
@@ -377,86 +352,6 @@ export function ObsPage() {
     }
   };
 
-  /**
-   * マウスドラッグによる範囲選択の開始
-   */
-  const handleSelectionMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-    // 要素をクリックした場合は範囲選択しない
-    if (e.target !== e.currentTarget) return;
-
-    // 範囲選択モード中は無効
-    if (isSelecting) return;
-
-    const containerRect = containerRef.current?.getBoundingClientRect();
-    if (!containerRect) return;
-
-    const x = e.clientX - containerRect.left;
-    const y = e.clientY - containerRect.top;
-
-    setIsSelecting(true);
-    setSelectionStart({ x, y });
-    setSelectionEnd({ x, y });
-  };
-
-  /**
-   * マウスドラッグによる範囲選択の更新
-   */
-  const handleSelectionMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!isSelecting || !selectionStart) return;
-
-    const containerRect = containerRef.current?.getBoundingClientRect();
-    if (!containerRect) return;
-
-    const x = e.clientX - containerRect.left;
-    const y = e.clientY - containerRect.top;
-
-    setSelectionEnd({ x, y });
-  };
-
-  /**
-   * マウスドラッグによる範囲選択の終了
-   */
-  const handleSelectionMouseUp = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!isSelecting || !selectionStart || !selectionEnd) {
-      setIsSelecting(false);
-      setSelectionStart(null);
-      setSelectionEnd(null);
-      return;
-    }
-
-    // 選択範囲を計算
-    const minX = Math.min(selectionStart.x, selectionEnd.x);
-    const maxX = Math.max(selectionStart.x, selectionEnd.x);
-    const minY = Math.min(selectionStart.y, selectionEnd.y);
-    const maxY = Math.max(selectionStart.y, selectionEnd.y);
-
-    // 範囲内の要素を検出
-    const selectedIds = elements
-      .filter((element) => {
-        const elementCenterX = element.position.x + (element.size?.width || 0) / 2;
-        const elementCenterY = element.position.y + (element.size?.height || 0) / 2;
-
-        return elementCenterX >= minX && elementCenterX <= maxX && elementCenterY >= minY && elementCenterY <= maxY;
-      })
-      .map((el) => el.id);
-
-    // Ctrlキーが押されている場合は既存の選択に追加、そうでない場合は置き換え
-    if (e.ctrlKey || e.metaKey) {
-      // 既存の選択に追加
-      const newSelectedIds = [...new Set([...selectedElementIds, ...selectedIds])];
-      // Storeを直接更新（複数選択のため）
-      useObsLayoutStore.setState({ selectedElementIds: newSelectedIds });
-    } else {
-      // 選択を置き換え
-      useObsLayoutStore.setState({ selectedElementIds: selectedIds });
-    }
-
-    // 選択範囲をクリア
-    setIsSelecting(false);
-    setSelectionStart(null);
-    setSelectionEnd(null);
-  };
-
   return (
     <Page fullWidth>
       <PageTitleContainer>
@@ -473,9 +368,6 @@ export function ObsPage() {
               <DroppableObsContainer
                 containerRef={containerRef}
                 onClick={handleContainerClick}
-                onMouseDown={handleSelectionMouseDown}
-                onMouseMove={handleSelectionMouseMove}
-                onMouseUp={handleSelectionMouseUp}
                 width={screenSize.width}
                 height={screenSize.height}
               >
@@ -490,14 +382,6 @@ export function ObsPage() {
                   />
                 ))}
                 {editMode && <SnapGuide x={snapGuides.x} y={snapGuides.y} xDistance={snapGuides.xDistance} yDistance={snapGuides.yDistance} />}
-                {isSelecting && selectionStart && selectionEnd && (
-                  <SelectionBox
-                    $x={Math.min(selectionStart.x, selectionEnd.x)}
-                    $y={Math.min(selectionStart.y, selectionEnd.y)}
-                    $width={Math.abs(selectionEnd.x - selectionStart.x)}
-                    $height={Math.abs(selectionEnd.y - selectionStart.y)}
-                  />
-                )}
               </DroppableObsContainer>
             </MainContent>
 
