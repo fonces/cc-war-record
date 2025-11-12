@@ -18,16 +18,23 @@ import type { HudElement, HudElementType } from "./types";
 import type { SnapGuides } from "./utils/snapCalculation";
 import type { DragEndEvent, DragMoveEvent, DragStartEvent } from "@dnd-kit/core";
 
-const ObsContainer = styled.div<{ $width: number; $height: number }>`
+const ObsContainerWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+
+const ObsContainer = styled.div<{ $width: number; $height: number; $scale: number }>`
   position: relative;
   width: ${({ $width }) => $width}px;
   height: ${({ $height }) => $height}px;
-  max-width: 100%;
   background: ${({ theme }) => theme.colors.surface};
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 8px;
-  margin: 0 auto;
   box-shadow: ${({ theme }) => theme.shadows.lg};
+  transform: scale(${({ $scale }) => $scale});
+  transform-origin: top center;
 `;
 
 const ContentLayout = styled.div`
@@ -115,23 +122,48 @@ function DroppableObsContainer({
     id: "obs-container",
   });
 
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+
+  useEffect(() => {
+    const updateScale = () => {
+      if (!wrapperRef.current) return;
+      
+      const wrapperWidth = wrapperRef.current.clientWidth;
+      const newScale = Math.min(1, wrapperWidth / width);
+      setScale(newScale);
+    };
+
+    updateScale();
+
+    const resizeObserver = new ResizeObserver(updateScale);
+    if (wrapperRef.current) {
+      resizeObserver.observe(wrapperRef.current);
+    }
+
+    return () => resizeObserver.disconnect();
+  }, [width]);
+
   return (
-    <ObsContainer
-      ref={(node) => {
-        setNodeRef(node);
-        containerRef.current = node;
-      }}
-      className="obs-container"
-      onClick={onClick}
-      onMouseDown={onMouseDown}
-      onMouseMove={onMouseMove}
-      onMouseUp={onMouseUp}
-      onMouseLeave={onMouseUp}
-      $width={width}
-      $height={height}
-    >
-      {children}
-    </ObsContainer>
+    <ObsContainerWrapper ref={wrapperRef}>
+      <ObsContainer
+        ref={(node) => {
+          setNodeRef(node);
+          containerRef.current = node;
+        }}
+        className="obs-container"
+        onClick={onClick}
+        onMouseDown={onMouseDown}
+        onMouseMove={onMouseMove}
+        onMouseUp={onMouseUp}
+        onMouseLeave={onMouseUp}
+        $width={width}
+        $height={height}
+        $scale={scale}
+      >
+        {children}
+      </ObsContainer>
+    </ObsContainerWrapper>
   );
 }
 
