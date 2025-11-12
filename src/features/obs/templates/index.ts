@@ -1,12 +1,4 @@
 import type { HudTemplate } from "./types";
-/**
- * デフォルト画面サイズ（フルHD）
- */
-const DEFAULT_SCREEN_SIZE = {
-  width: 1920,
-  height: 1080,
-  preset: "1920x1080" as const,
-};
 
 /**
  * ミニマルテンプレート集
@@ -23,7 +15,11 @@ export const minimalTemplates: HudTemplate[] = [
       category: "minimal",
       tags: ["simple", "clean", "corner"],
     },
-    screenSize: DEFAULT_SCREEN_SIZE,
+    screenSize: {
+      width: 250,
+      height: 100,
+      preset: "custom" as const,
+    },
     elements: [
       {
         type: "line",
@@ -58,7 +54,11 @@ export const minimalTemplates: HudTemplate[] = [
       category: "minimal",
       tags: ["simple", "horizontal", "top"],
     },
-    screenSize: DEFAULT_SCREEN_SIZE,
+    screenSize: {
+      width: 700,
+      height: 80,
+      preset: "custom" as const,
+    },
     elements: [
       {
         type: "line",
@@ -93,7 +93,11 @@ export const minimalTemplates: HudTemplate[] = [
       category: "minimal",
       tags: ["simple", "vertical", "side"],
     },
-    screenSize: DEFAULT_SCREEN_SIZE,
+    screenSize: {
+      width: 180,
+      height: 250,
+      preset: "custom" as const,
+    },
     elements: [
       {
         type: "line",
@@ -135,7 +139,11 @@ export const detailedTemplates: HudTemplate[] = [
       category: "detailed",
       tags: ["complete", "dashboard", "stats"],
     },
-    screenSize: DEFAULT_SCREEN_SIZE,
+    screenSize: {
+      width: 480,
+      height: 540,
+      preset: "custom" as const,
+    },
     elements: [
       {
         type: "variableText",
@@ -179,7 +187,11 @@ export const detailedTemplates: HudTemplate[] = [
       category: "detailed",
       tags: ["split", "chart", "detailed"],
     },
-    screenSize: DEFAULT_SCREEN_SIZE,
+    screenSize: {
+      width: 580,
+      height: 540,
+      preset: "custom" as const,
+    },
     elements: [
       {
         type: "variableText",
@@ -230,7 +242,11 @@ export const streamingTemplates: HudTemplate[] = [
       category: "streaming",
       tags: ["ticker", "bottom", "streaming"],
     },
-    screenSize: DEFAULT_SCREEN_SIZE,
+    screenSize: {
+      width: 1920,
+      height: 80,
+      preset: "custom" as const,
+    },
     elements: [
       {
         type: "line",
@@ -265,7 +281,11 @@ export const streamingTemplates: HudTemplate[] = [
       category: "streaming",
       tags: ["corner", "overlay", "minimal"],
     },
-    screenSize: DEFAULT_SCREEN_SIZE,
+    screenSize: {
+      width: 250,
+      height: 180,
+      preset: "custom" as const,
+    },
     elements: [
       {
         type: "line",
@@ -309,7 +329,11 @@ export const streamingTemplates: HudTemplate[] = [
       category: "streaming",
       tags: ["centered", "title-safe", "broadcast"],
     },
-    screenSize: DEFAULT_SCREEN_SIZE,
+    screenSize: {
+      width: 450,
+      height: 260,
+      preset: "custom" as const,
+    },
     elements: [
       {
         type: "variableText",
@@ -375,7 +399,11 @@ export const competitiveTemplates: HudTemplate[] = [
       category: "competitive",
       tags: ["esports", "tournament", "professional"],
     },
-    screenSize: DEFAULT_SCREEN_SIZE,
+    screenSize: {
+      width: 550,
+      height: 80,
+      preset: "custom" as const,
+    },
     elements: [
       {
         type: "line",
@@ -431,7 +459,11 @@ export const competitiveTemplates: HudTemplate[] = [
       category: "competitive",
       tags: ["scoreboard", "clear", "readable"],
     },
-    screenSize: DEFAULT_SCREEN_SIZE,
+    screenSize: {
+      width: 320,
+      height: 210,
+      preset: "custom" as const,
+    },
     elements: [
       {
         type: "line",
@@ -496,7 +528,11 @@ export const competitiveTemplates: HudTemplate[] = [
       category: "competitive",
       tags: ["analyst", "detailed", "commentary"],
     },
-    screenSize: DEFAULT_SCREEN_SIZE,
+    screenSize: {
+      width: 450,
+      height: 150,
+      preset: "custom" as const,
+    },
     elements: [
       {
         type: "line",
@@ -556,7 +592,11 @@ export const premiumTemplates: HudTemplate[] = [
       category: "premium",
       tags: ["cyberpunk", "neon", "futuristic"],
     },
-    screenSize: DEFAULT_SCREEN_SIZE,
+    screenSize: {
+      width: 220,
+      height: 300,
+      preset: "custom" as const,
+    },
     elements: [
       {
         type: "line",
@@ -624,7 +664,11 @@ export const premiumTemplates: HudTemplate[] = [
       category: "premium",
       tags: ["gradient", "smooth", "elegant"],
     },
-    screenSize: DEFAULT_SCREEN_SIZE,
+    screenSize: {
+      width: 590,
+      height: 250,
+      preset: "custom" as const,
+    },
     elements: [
       {
         type: "line",
@@ -691,7 +735,11 @@ export const premiumTemplates: HudTemplate[] = [
       category: "premium",
       tags: ["minimal", "clean", "perfection"],
     },
-    screenSize: DEFAULT_SCREEN_SIZE,
+    screenSize: {
+      width: 250,
+      height: 170,
+      preset: "custom" as const,
+    },
     elements: [
       {
         type: "variableText",
