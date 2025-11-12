@@ -127,6 +127,50 @@ export const minimalTemplates: HudTemplate[] = [
 export const detailedTemplates: HudTemplate[] = [
   {
     metadata: {
+      id: "detailed-dashboard",
+      name: "Dashboard",
+      nameKey: "obs.templates.detailedDashboard.name",
+      description: "Complete stats dashboard",
+      descriptionKey: "obs.templates.detailedDashboard.description",
+      category: "detailed",
+      tags: ["complete", "dashboard", "stats"],
+    },
+    screenSize: DEFAULT_SCREEN_SIZE,
+    elements: [
+      {
+        type: "variableText",
+        position: { x: 10, y: 10 },
+        visible: true,
+        fontSize: 22,
+        text: "📊 今日の戦績ダッシュボード",
+        textColor: "#3b82f6",
+        textAlign: "left",
+        backgroundColor: "rgba(0, 0, 0, 0.9)",
+        padding: 18,
+        boxShadow: "0 6px 20px rgba(0, 0, 0, 0.8)",
+      },
+      {
+        type: "variableText",
+        position: { x: 10, y: 80 },
+        visible: true,
+        fontSize: 16,
+        text: "🏆 勝利数: {winCount}  |  💀 敗北数: {loseCount}\n📈 勝率: {winRate}%  |  🎮 総試合: {totalMatches}",
+        textColor: "#ffffff",
+        textAlign: "left",
+        backgroundColor: "rgba(0, 0, 0, 0.85)",
+        padding: 18,
+        boxShadow: "0 4px 16px rgba(0, 0, 0, 0.7)",
+      },
+      {
+        type: "todayTrendChart",
+        position: { x: 10, y: 170 },
+        visible: true,
+        size: { width: 450, height: 350 },
+      },
+    ],
+  },
+  {
+    metadata: {
       id: "detailed-split",
       name: "Split View",
       nameKey: "obs.templates.detailedSplit.name",
@@ -150,10 +194,9 @@ export const detailedTemplates: HudTemplate[] = [
         boxShadow: "0 6px 20px rgba(0, 0, 0, 0.8)",
       },
       {
-        type: "chart",
+        type: "todayTrendChart",
         position: { x: 10, y: 85 },
         visible: true,
-        chartType: "line",
         size: { width: 550, height: 350 },
       },
       {
