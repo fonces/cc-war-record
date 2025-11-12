@@ -52,8 +52,9 @@ export function ControlPanel({ editMode, onToggleEditMode, onResetLayout, onOpen
   const handleOpenBrowserSource = () => {
     // 現在のURLから基本URLを取得
     const baseUrl = window.location.origin;
+    const basePath = import.meta.env.VITE_BASEPATH || "";
     // OBS用のウィンドウページを開く
-    const obsUrl = `${baseUrl}/obs/window`;
+    const obsUrl = `${baseUrl}${basePath}/obs/window`;
 
     // ウィンドウ機能: location=no でURLバー非表示を試みる（ブラウザによっては無効）
     // menubar, toolbar, status なども非表示に設定

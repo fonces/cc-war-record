@@ -9,20 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ObsRouteImport } from './routes/obs'
 import { Route as NewRouteImport } from './routes/new'
 import { Route as GraphsRouteImport } from './routes/graphs'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ObsIndexRouteImport } from './routes/obs/index'
 import { Route as HistoriesIndexRouteImport } from './routes/histories/index'
 import { Route as ObsWindowRouteImport } from './routes/obs/window'
 import { Route as HistoriesIdRouteImport } from './routes/histories/$id'
 
-const ObsRoute = ObsRouteImport.update({
-  id: '/obs',
-  path: '/obs',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const NewRoute = NewRouteImport.update({
   id: '/new',
   path: '/new',
@@ -41,6 +36,11 @@ const FaqRoute = FaqRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ObsIndexRoute = ObsIndexRouteImport.update({
+  id: '/obs/',
+  path: '/obs/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HistoriesIndexRoute = HistoriesIndexRouteImport.update({
@@ -64,20 +64,20 @@ export interface FileRoutesByFullPath {
   '/faq': typeof FaqRoute
   '/graphs': typeof GraphsRoute
   '/new': typeof NewRoute
-  '/obs': typeof ObsRouteWithChildren
   '/histories/$id': typeof HistoriesIdRoute
   '/obs/window': typeof ObsWindowRoute
   '/histories': typeof HistoriesIndexRoute
+  '/obs': typeof ObsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/faq': typeof FaqRoute
   '/graphs': typeof GraphsRoute
   '/new': typeof NewRoute
-  '/obs': typeof ObsRouteWithChildren
   '/histories/$id': typeof HistoriesIdRoute
   '/obs/window': typeof ObsWindowRoute
   '/histories': typeof HistoriesIndexRoute
+  '/obs': typeof ObsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -85,10 +85,10 @@ export interface FileRoutesById {
   '/faq': typeof FaqRoute
   '/graphs': typeof GraphsRoute
   '/new': typeof NewRoute
-  '/obs': typeof ObsRouteWithChildren
   '/histories/$id': typeof HistoriesIdRoute
   '/obs/window': typeof ObsWindowRoute
   '/histories/': typeof HistoriesIndexRoute
+  '/obs/': typeof ObsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -97,30 +97,30 @@ export interface FileRouteTypes {
     | '/faq'
     | '/graphs'
     | '/new'
-    | '/obs'
     | '/histories/$id'
     | '/obs/window'
     | '/histories'
+    | '/obs'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/faq'
     | '/graphs'
     | '/new'
-    | '/obs'
     | '/histories/$id'
     | '/obs/window'
     | '/histories'
+    | '/obs'
   id:
     | '__root__'
     | '/'
     | '/faq'
     | '/graphs'
     | '/new'
-    | '/obs'
     | '/histories/$id'
     | '/obs/window'
     | '/histories/'
+    | '/obs/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -128,20 +128,13 @@ export interface RootRouteChildren {
   FaqRoute: typeof FaqRoute
   GraphsRoute: typeof GraphsRoute
   NewRoute: typeof NewRoute
-  ObsRoute: typeof ObsRouteWithChildren
   HistoriesIdRoute: typeof HistoriesIdRoute
   HistoriesIndexRoute: typeof HistoriesIndexRoute
+  ObsIndexRoute: typeof ObsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/obs': {
-      id: '/obs'
-      path: '/obs'
-      fullPath: '/obs'
-      preLoaderRoute: typeof ObsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/new': {
       id: '/new'
       path: '/new'
@@ -170,6 +163,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/obs/': {
+      id: '/obs/'
+      path: '/obs'
+      fullPath: '/obs'
+      preLoaderRoute: typeof ObsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/histories/': {
       id: '/histories/'
       path: '/histories'
@@ -194,24 +194,14 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface ObsRouteChildren {
-  ObsWindowRoute: typeof ObsWindowRoute
-}
-
-const ObsRouteChildren: ObsRouteChildren = {
-  ObsWindowRoute: ObsWindowRoute,
-}
-
-const ObsRouteWithChildren = ObsRoute._addFileChildren(ObsRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   FaqRoute: FaqRoute,
   GraphsRoute: GraphsRoute,
   NewRoute: NewRoute,
-  ObsRoute: ObsRouteWithChildren,
   HistoriesIdRoute: HistoriesIdRoute,
   HistoriesIndexRoute: HistoriesIndexRoute,
+  ObsIndexRoute: ObsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

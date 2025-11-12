@@ -5,7 +5,7 @@ import { routeTree } from "@/routeTree.gen";
 // ルーターインスタンスを作成
 const router = createRouter({
   routeTree,
-  basepath: "/cc-war-record",
+  basepath: import.meta.env.VITE_BASEPATH || "/",
   // View Transition APIを有効化
   defaultViewTransition: true,
 });
