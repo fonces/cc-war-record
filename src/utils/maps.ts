@@ -14,15 +14,16 @@ export const getMapName = (map: CrystalConflictMap, t: TFunction): string => {
 
 /**
  * マップのローテーション順序
- * 1時間30分ごとにこの順序で切り替わる
+ * 1時間ごとにこの順序で切り替わる
  */
 const MAP_ROTATION: CrystalConflictMap[] = [
   MAPS.THE_PALAISTRA, // 1. パライストラ
   MAPS.VOLCANIC_HEART, // 2. ヴォルカニックハート
-  MAPS.TOUHOU_KARAKURI_GOTEN, // 3. 東方絡繰御殿
-  MAPS.BAYSIDE_BATTLEGROUND, // 4. ベイサイドバトルグラウンド
-  MAPS.CLOUD_NINE, // 5. クラウドナイン
-  MAPS.RED_SANDS, // 6. レッド・サンズ
+  MAPS.BAYSIDE_BATTLEGROUND, // 3. ベイサイドバトルグラウンド
+  MAPS.CLOUD_NINE, // 4. クラウドナイン
+  MAPS.TOUHOU_KARAKURI_GOTEN, // 5. 東方絡繰御殿
+  MAPS.THE_HARMONIA_WAR_LIBRARY, // 6. ハルモニア戦争図書館
+  MAPS.RED_SANDS, // 7. レッド・サンズ
 ];
 
 /**
@@ -36,9 +37,9 @@ const BASE_DATE = new Date("2022-01-01T00:00:00+09:00");
 
 /**
  * 1つのマップの表示時間（ミリ秒）
- * 1時間30分 = 90分 = 5400秒 = 5400000ミリ秒
+ * 1時間 = 60分 = 3600秒 = 3600000ミリ秒
  */
-const MAP_DURATION_MS = 90 * 60 * 1000;
+const MAP_DURATION_MS = 60 * 60 * 1000;
 
 /**
  * 現在のマップを取得する

@@ -3,16 +3,17 @@
 ## 概要
 
 クリスタルコンフリクトのマップローテーションを管理する機能です。
-1時間30分ごとにマップが切り替わり、6つのマップが順番に表示されます。
+1時間ごとにマップが切り替わり、7つのマップが順番に表示されます。
 
 ## マップローテーション順序
 
 1. パライストラ (THE_PALAISTRA)
 2. ヴォルカニックハート (VOLCANIC_HEART)
-3. 東方絡繰御殿 (TOUHOU_KARAKURI_GOTEN)
-4. ベイサイドバトルグラウンド (BAYSIDE_BATTLEGROUND)
-5. クラウドナイン (CLOUD_NINE)
-6. レッド・サンズ (RED_SANDS)
+3. ベイサイドバトルグラウンド (BAYSIDE_BATTLEGROUND)
+4. クラウドナイン (CLOUD_NINE)
+5. 東方絡繰御殿 (TOUHOU_KARAKURI_GOTEN)
+6. ハルモニア戦争図書館（THE_HARMONIA_WAR_LIBRARY）
+7. レッド・サンズ (RED_SANDS)
 
 ## 使用方法
 
@@ -53,8 +54,8 @@ console.log(map); // その時刻のマップ
 
 ### ローテーション周期
 
-- 1マップあたりの表示時間: 1時間30分（90分）
-- 全6マップの1周期: 9時間（540分）
+- 1マップあたりの表示時間: 1時間（60分）
+- 全7マップの1周期: 7時間（420分）
 
 ### 計算ロジック
 
@@ -62,7 +63,7 @@ console.log(map); // その時刻のマップ
 // 基準日時からの経過時間（ミリ秒）
 const elapsedMs = currentDate.getTime() - BASE_DATE.getTime();
 
-// 現在のローテーション位置（0-5）
+// 現在のローテーション位置（0-6）
 const rotationIndex = Math.floor(elapsedMs / MAP_DURATION_MS) % MAP_ROTATION.length;
 
 // マップを返す
@@ -75,23 +76,26 @@ return MAP_ROTATION[rotationIndex];
 // 2025年1月1日 00:00:00 UTC → パライストラ
 getCurrentMap(new Date("2025-01-01T00:00:00Z")); // THE_PALAISTRA
 
-// 2025年1月1日 01:30:00 UTC → ヴォルカニックハート
-getCurrentMap(new Date("2025-01-01T01:30:00Z")); // VOLCANIC_HEART
+// 2025年1月1日 01:00:00 UTC → ヴォルカニックハート
+getCurrentMap(new Date("2025-01-01T01:00:00Z")); // VOLCANIC_HEART
 
-// 2025年1月1日 03:00:00 UTC → 東方絡繰御殿
-getCurrentMap(new Date("2025-01-01T03:00:00Z")); // TOUHOU_KARAKURI_GOTEN
+// 2025年1月1日 02:00:00 UTC → ベイサイドバトルグラウンド
+getCurrentMap(new Date("2025-01-01T02:00:00Z")); // BAYSIDE_BATTLEGROUND
 
-// 2025年1月1日 04:30:00 UTC → ベイサイドバトルグラウンド
-getCurrentMap(new Date("2025-01-01T04:30:00Z")); // BAYSIDE_BATTLEGROUND
+// 2025年1月1日 03:00:00 UTC → クラウドナイン
+getCurrentMap(new Date("2025-01-01T03:00:00Z")); // CLOUD_NINE
 
-// 2025年1月1日 06:00:00 UTC → クラウドナイン
-getCurrentMap(new Date("2025-01-01T06:00:00Z")); // CLOUD_NINE
+// 2025年1月1日 04:00:00 UTC → 東方絡繰御殿
+getCurrentMap(new Date("2025-01-01T04:00:00Z")); // TOUHOU_KARAKURI_GOTEN
 
-// 2025年1月1日 07:30:00 UTC → レッド・サンズ
-getCurrentMap(new Date("2025-01-01T07:30:00Z")); // RED_SANDS
+// 2025年1月1日 05:00:00 UTC → ハルモニア戦争図書館
+getCurrentMap(new Date("2025-01-01T05:00:00Z")); // THE_HARMONIA_WAR_LIBRARY
 
-// 2025年1月1日 09:00:00 UTC → パライストラ（2周目）
-getCurrentMap(new Date("2025-01-01T09:00:00Z")); // THE_PALAISTRA
+// 2025年1月1日 06:00:00 UTC → レッド・サンズ
+getCurrentMap(new Date("2025-01-01T06:00:00Z")); // RED_SANDS
+
+// 2025年1月1日 07:00:00 UTC → パライストラ（2周目）
+getCurrentMap(new Date("2025-01-01T07:00:00Z")); // THE_PALAISTRA
 ```
 
 ## 注意事項

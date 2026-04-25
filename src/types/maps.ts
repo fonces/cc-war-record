@@ -11,6 +11,7 @@ export const MAPS = {
   TOUHOU_KARAKURI_GOTEN: "TOUHOU_KARAKURI_GOTEN",
   RED_SANDS: "RED_SANDS",
   BAYSIDE_BATTLEGROUND: "BAYSIDE_BATTLEGROUND",
+  THE_HARMONIA_WAR_LIBRARY: "THE_HARMONIA_WAR_LIBRARY",
 } as const;
 
 export type CrystalConflictMap = (typeof MAPS)[keyof typeof MAPS];
@@ -151,5 +152,18 @@ export const MAP_INFO: Record<CrystalConflictMap, MapInfo> = {
     description: "海沿いの港湾施設を舞台とした開放的な水辺マップ",
     tacticalNotes: ["海風による視界とスキル効果への影響", "港湾クレーンや建物を利用した遮蔽戦術", "中央の桟橋エリアでの激戦", "潮の満ち引きによる地形変化"],
     color: "#20B2AA",
+  },
+
+  [MAPS.THE_HARMONIA_WAR_LIBRARY]: {
+    code: MAPS.THE_HARMONIA_WAR_LIBRARY,
+    name: "ハルモニア戦争図書館",
+    nameEn: "The Harmonia War Library",
+    theme: MAP_THEMES.CASTLE,
+    size: MAP_SIZES.MEDIUM,
+    features: [MAP_FEATURES.MULTI_LEVEL, MAP_FEATURES.NARROW_PATHS, MAP_FEATURES.CENTRAL_CRYSTAL],
+    implementedSeason: "7.2",
+    description: "ハルモニアの戦争図書館を舞台とした書架が立ち並ぶ静謐なマップ",
+    tacticalNotes: ["書架を遮蔽物として活用した戦術", "複数階層を活かした立体的な戦闘", "狭い通路での近距離戦闘"],
+    color: "#6B5B95",
   },
 };
