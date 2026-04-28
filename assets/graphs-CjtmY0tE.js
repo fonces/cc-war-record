@@ -1,0 +1,2 @@
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/graphs-BSakqmtF.js","assets/index-CdAWhbDe.js","assets/styled-BVM0xVww.js","assets/react-vendor-D1pS86Oe.js","assets/rolldown-runtime-CIDIeb-o.js","assets/i18n-THkEc1_o.js","assets/jszip-DU7jsDXX.js","assets/recharts-FCckOiSZ.js","assets/stores-cXkxsmcO.js"])))=>i.map(i=>d[i]);
+import{f as e}from"./react-vendor-D1pS86Oe.js";import{dt as t}from"./index-CdAWhbDe.js";var n=e(()=>t(()=>import(`./graphs-BSakqmtF.js`),__vite__mapDeps([0,1,2,3,4,5,6,7,8])).then(e=>({default:e.GraphsPage})));export{n as component};
