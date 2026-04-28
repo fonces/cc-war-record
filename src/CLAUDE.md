@@ -1,8 +1,6 @@
----
-applyTo: "src/**"
----
+# コード生成指示
 
-# GitHub Copilot コード生成指示
+`src/`配下のコードを生成・編集するときに従うルール。
 
 ## プロジェクト基本情報
 
@@ -640,9 +638,6 @@ export const useStore = create((set: any) => ({
 
 #### styled-componentsの悪い使い方
 
-````tsx
-#### styled-componentsの悪い使い方
-
 ```tsx
 // ❌ 悪い例: スタイルコンポーネント名にプレフィックスがない、テーマを使わない
 const Container = styled.div`
@@ -654,7 +649,7 @@ const Button = styled.button`
   color: ${(props: any) => props.color}; // any型は使用禁止
   font-size: ${(props) => props.size || "16px"}; // デフォルト値が不明確
 `;
-````
+```
 
 ### ✅ ディレクトリ分割パターン（大きなコンポーネント）
 
@@ -761,7 +756,3 @@ CheckIcon.displayName = "CheckIcon";
 - **1つのfeatureでのみ使う** → `src/features/[feature-name]/components/`に配置
 - **状態を持たない純粋なUIパーツ** → `src/components/ui/`
 - **レイアウトやコンテナ的な役割** → `src/components/layout/`
-
-````
-```
-````
