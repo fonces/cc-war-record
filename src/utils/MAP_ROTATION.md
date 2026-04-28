@@ -49,7 +49,7 @@ console.log(map); // その時刻のマップ
 
 ### 基準日時
 
-- 基準日時: 2025年1月1日 00:00:00 UTC
+- 基準日時: 2022年1月1日 03:00:00 JST（2021年12月31日 18:00:00 UTC）
 - この日時から最初のマップ（パライストラ）が開始されると仮定
 
 ### ローテーション周期
@@ -73,29 +73,29 @@ return MAP_ROTATION[rotationIndex];
 ## テストケース例
 
 ```typescript
-// 2025年1月1日 00:00:00 UTC → パライストラ
-getCurrentMap(new Date("2025-01-01T00:00:00Z")); // THE_PALAISTRA
+// 2022年1月1日 03:00:00 JST → パライストラ
+getCurrentMap(new Date("2022-01-01T03:00:00+09:00")); // THE_PALAISTRA
 
-// 2025年1月1日 01:00:00 UTC → ヴォルカニックハート
-getCurrentMap(new Date("2025-01-01T01:00:00Z")); // VOLCANIC_HEART
+// 2022年1月1日 04:00:00 JST → ヴォルカニックハート
+getCurrentMap(new Date("2022-01-01T04:00:00+09:00")); // VOLCANIC_HEART
 
-// 2025年1月1日 02:00:00 UTC → ベイサイドバトルグラウンド
-getCurrentMap(new Date("2025-01-01T02:00:00Z")); // BAYSIDE_BATTLEGROUND
+// 2022年1月1日 05:00:00 JST → ベイサイドバトルグラウンド
+getCurrentMap(new Date("2022-01-01T05:00:00+09:00")); // BAYSIDE_BATTLEGROUND
 
-// 2025年1月1日 03:00:00 UTC → クラウドナイン
-getCurrentMap(new Date("2025-01-01T03:00:00Z")); // CLOUD_NINE
+// 2022年1月1日 06:00:00 JST → クラウドナイン
+getCurrentMap(new Date("2022-01-01T06:00:00+09:00")); // CLOUD_NINE
 
-// 2025年1月1日 04:00:00 UTC → 東方絡繰御殿
-getCurrentMap(new Date("2025-01-01T04:00:00Z")); // TOUHOU_KARAKURI_GOTEN
+// 2022年1月1日 07:00:00 JST → 東方絡繰御殿
+getCurrentMap(new Date("2022-01-01T07:00:00+09:00")); // TOUHOU_KARAKURI_GOTEN
 
-// 2025年1月1日 05:00:00 UTC → ハルモニア戦争図書館
-getCurrentMap(new Date("2025-01-01T05:00:00Z")); // THE_HARMONIA_WAR_LIBRARY
+// 2022年1月1日 08:00:00 JST → ハルモニア戦争図書館
+getCurrentMap(new Date("2022-01-01T08:00:00+09:00")); // THE_HARMONIA_WAR_LIBRARY
 
-// 2025年1月1日 06:00:00 UTC → レッド・サンズ
-getCurrentMap(new Date("2025-01-01T06:00:00Z")); // RED_SANDS
+// 2022年1月1日 09:00:00 JST → レッド・サンズ
+getCurrentMap(new Date("2022-01-01T09:00:00+09:00")); // RED_SANDS
 
-// 2025年1月1日 07:00:00 UTC → パライストラ（2周目）
-getCurrentMap(new Date("2025-01-01T07:00:00Z")); // THE_PALAISTRA
+// 2022年1月1日 10:00:00 JST → パライストラ（2周目）
+getCurrentMap(new Date("2022-01-01T10:00:00+09:00")); // THE_PALAISTRA
 ```
 
 ## 注意事項
