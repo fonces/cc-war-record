@@ -201,74 +201,68 @@ type JobSummaryRowProps = {
 /**
  * ジョブサマリー行コンポーネント（メモ化）
  */
-export const JobSummaryRow = memo(
-  ({ summary, map, onAddWin, onAddDefeat, onRevertLast }: JobSummaryRowProps) => {
-    const isMobile = useIsMobile();
-    const { t } = useTranslation();
+export const JobSummaryRow = memo(({ summary, map, onAddWin, onAddDefeat, onRevertLast }: JobSummaryRowProps) => {
+  const isMobile = useIsMobile();
+  const { t } = useTranslation();
 
-    return (
-      <StyledTableRow>
-        {isMobile ? (
-          <>
-            <StyledJobIconCell>
-              <JobIcon job={summary.job} size={32} />
-            </StyledJobIconCell>
-            <StyledJobNameCell>{summary.job}</StyledJobNameCell>
-          </>
+  return (
+    <StyledTableRow>
+      {isMobile ? (
+        <>
+          <StyledJobIconCell>
+            <JobIcon job={summary.job} size={32} />
+          </StyledJobIconCell>
+          <StyledJobNameCell>{summary.job}</StyledJobNameCell>
+        </>
+      ) : (
+        <StyledJobCell>
+          <div>
+            <JobIcon job={summary.job} size={32} />
+            {summary.job}
+          </div>
+        </StyledJobCell>
+      )}
+      <StyledTableCell>
+        <AnimatedNumber>{summary.totalMatches}</AnimatedNumber>
+      </StyledTableCell>
+      <StyledTableCell>
+        <AnimatedNumber>{summary.wins}</AnimatedNumber>
+      </StyledTableCell>
+      <StyledTableCell>
+        <AnimatedNumber>{summary.defeats}</AnimatedNumber>
+      </StyledTableCell>
+      <StyledTableCell>
+        {0 < summary.totalMatches ? (
+          <StyledWinRateText winRate={summary.winRate}>
+            <AnimatedNumber suffix="%">{summary.winRate}</AnimatedNumber>
+          </StyledWinRateText>
         ) : (
-          <StyledJobCell>
-            <div>
-              <JobIcon job={summary.job} size={32} />
-              {summary.job}
-            </div>
-          </StyledJobCell>
+          <span>--%</span>
         )}
-        <StyledTableCell>
-          <AnimatedNumber>{summary.totalMatches}</AnimatedNumber>
-        </StyledTableCell>
-        <StyledTableCell>
-          <AnimatedNumber>{summary.wins}</AnimatedNumber>
-        </StyledTableCell>
-        <StyledTableCell>
-          <AnimatedNumber>{summary.defeats}</AnimatedNumber>
-        </StyledTableCell>
-        <StyledTableCell>
-          {0 < summary.totalMatches ? (
-            <StyledWinRateText winRate={summary.winRate}>
-              <AnimatedNumber suffix="%">{summary.winRate}</AnimatedNumber>
-            </StyledWinRateText>
-          ) : (
-            <span>--%</span>
-          )}
-        </StyledTableCell>
-        <StyledTableCell>
-          {map ? (
-            <StyledActionButtons>
-              {onAddWin && (
-                <StyledActionButton variant="win" onClick={() => onAddWin(summary.job, map)} title={t("match.addWin")}>
-                  W
-                </StyledActionButton>
-              )}
-              {onAddDefeat && (
-                <StyledActionButton variant="defeat" onClick={() => onAddDefeat(summary.job, map)} title={t("match.addDefeat")}>
-                  D
-                </StyledActionButton>
-              )}
-              {summary.totalMatches > 0 && onRevertLast ? (
-                <StyledActionButton variant="ghost" icon={<Icon name="revert" size={16} />} onClick={() => onRevertLast(summary.job, map)} title={t("match.rollback")} />
-              ) : (
-                (onAddWin || onAddDefeat) && <div style={{ width: "32px" }} />
-              )}
-            </StyledActionButtons>
-          ) : null}
-        </StyledTableCell>
-      </StyledTableRow>
-    );
-  },
-  (prevProps, nextProps) => {
-    // summary.totalMatchesが変更されていない場合は再レンダリングしない
-    return prevProps.summary.totalMatches === nextProps.summary.totalMatches;
-  },
-);
+      </StyledTableCell>
+      <StyledTableCell>
+        {map ? (
+          <StyledActionButtons>
+            {onAddWin && (
+              <StyledActionButton variant="win" onClick={() => onAddWin(summary.job, map)} title={t("match.addWin")}>
+                W
+              </StyledActionButton>
+            )}
+            {onAddDefeat && (
+              <StyledActionButton variant="defeat" onClick={() => onAddDefeat(summary.job, map)} title={t("match.addDefeat")}>
+                D
+              </StyledActionButton>
+            )}
+            {summary.totalMatches > 0 && onRevertLast ? (
+              <StyledActionButton variant="ghost" icon={<Icon name="revert" size={16} />} onClick={() => onRevertLast(summary.job, map)} title={t("match.rollback")} />
+            ) : (
+              (onAddWin || onAddDefeat) && <div style={{ width: "32px" }} />
+            )}
+          </StyledActionButtons>
+        ) : null}
+      </StyledTableCell>
+    </StyledTableRow>
+  );
+});
 
 JobSummaryRow.displayName = "JobSummaryRow";

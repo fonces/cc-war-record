@@ -234,18 +234,6 @@ export const MapSection = memo(
       </StyledMapSection>
     );
   },
-  (prevProps, nextProps) => {
-    // totalMatchesが変更されていない場合は再レンダリングしない
-    return (
-      prevProps.title === nextProps.title &&
-      prevProps.totalMatches === nextProps.totalMatches &&
-      prevProps.usedJobs.length === nextProps.usedJobs.length &&
-      prevProps.isCurrentMap === nextProps.isCurrentMap &&
-      prevProps.isNextMap === nextProps.isNextMap &&
-      prevProps.isOpen === nextProps.isOpen &&
-      prevProps.onToggle === nextProps.onToggle
-    );
-  },
 );
 
 MapSection.displayName = "MapSection";
