@@ -1,3 +1,4 @@
+import { memo, useCallback, useMemo } from "react";
 import styled from "styled-components";
 import { Button, Icon, IconicButton, Input, MobileMenu, type MobileMenuItem } from "@/components/ui";
 import { useTranslation } from "@/hooks";
@@ -178,7 +179,7 @@ type CharacterCardProps = {
   /** 開閉状態 */
   isOpen: boolean;
   /** アコーディオントグル */
-  onToggle: () => void;
+  onToggle: (characterUuid: UUIDv4) => void;
   /** 編集開始 */
   onStartEdit: (uuid: UUIDv4, name: string) => void;
   /** 削除 */
@@ -208,164 +209,200 @@ type CharacterCardProps = {
 /**
  * キャラクター表示カードコンポーネント
  */
-export const CharacterCard = ({
-  stats,
-  isOpen,
-  onToggle,
-  onStartEdit,
-  onDelete,
-  onOpenJobRegistration,
-  onAddWin,
-  onAddDefeat,
-  onRevertLast,
-  isEditing,
-  editingName,
-  onEditingNameChange,
-  onSortChange,
-  onSaveEdit,
-  onCancelEdit,
-}: CharacterCardProps) => {
-  const { t } = useTranslation();
+export const CharacterCard = memo(
+  ({
+    stats,
+    isOpen,
+    onToggle,
+    onStartEdit,
+    onDelete,
+    onOpenJobRegistration,
+    onAddWin,
+    onAddDefeat,
+    onRevertLast,
+    isEditing,
+    editingName,
+    onEditingNameChange,
+    onSortChange,
+    onSaveEdit,
+    onCancelEdit,
+  }: CharacterCardProps) => {
+    const { t } = useTranslation();
 
-  // 戦績統計を計算
-  const totalMatches = getTotalMatches(stats.recentMatches);
-  const wins = getWins(stats.recentMatches);
-  const defeats = getDefeats(stats.recentMatches);
-  const winRate = getWinRate(stats.recentMatches);
+    const characterUuid = stats.character.uuid;
+    const characterName = stats.character.name;
+    const recentMatches = stats.recentMatches;
 
-  // モバイルメニュー項目
-  const mobileMenuItems: MobileMenuItem[] = [
-    {
-      label: t("character.actions.addJob"),
-      icon: "add",
-      onClick: () => onOpenJobRegistration(stats.character.uuid),
-    },
-    {
-      label: t("character.actions.editName"),
-      icon: "edit",
-      onClick: () => onStartEdit(stats.character.uuid, stats.character.name),
-    },
-    {
-      label: t("character.actions.deleteName"),
-      icon: "delete",
-      onClick: () => onDelete(stats.character.uuid, stats.character.name),
-    },
-  ];
+    // 戦績統計を計算（recentMatches変更時のみ再計算）
+    const { totalMatches, wins, defeats, winRate } = useMemo(
+      () => ({
+        totalMatches: getTotalMatches(recentMatches),
+        wins: getWins(recentMatches),
+        defeats: getDefeats(recentMatches),
+        winRate: getWinRate(recentMatches),
+      }),
+      [recentMatches],
+    );
 
-  return (
-    <StyledCharacterCard>
-      <StyledCharacterHeader onClick={isEditing ? undefined : onToggle} style={{ cursor: isEditing ? "default" : "pointer" }}>
-        {isEditing ? (
-          <StyledEditForm>
-            <StyledEditInput
-              value={editingName}
-              inputSize="sm"
-              onChange={(e) => onEditingNameChange(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") onSaveEdit();
-                if (e.key === "Escape") onCancelEdit();
-              }}
-              onClick={(e) => e.stopPropagation()}
-              autoFocus
-            />
-            <StyledCharacterActions>
-              <IconicButton
-                icon={<Icon name="arrowUp" size={16} />}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onSortChange("up");
+    // 子コンポーネントに渡すハンドラを安定化
+    const handleToggle = useCallback(() => onToggle(characterUuid), [onToggle, characterUuid]);
+    const handleOpenJob = useCallback(() => onOpenJobRegistration(characterUuid), [onOpenJobRegistration, characterUuid]);
+    const handleStartEditClick = useCallback(() => onStartEdit(characterUuid, characterName), [onStartEdit, characterUuid, characterName]);
+    const handleDeleteClick = useCallback(() => onDelete(characterUuid, characterName), [onDelete, characterUuid, characterName]);
+
+    // 子テーブル用のラッパーをcharacter.uuidに紐付けて安定化
+    const handleAddWinForChar = useMemo(
+      () => (onAddWin ? (job: Job, map: CrystalConflictMap) => onAddWin(characterUuid, job, map) : undefined),
+      [onAddWin, characterUuid],
+    );
+    const handleAddDefeatForChar = useMemo(
+      () => (onAddDefeat ? (job: Job, map: CrystalConflictMap) => onAddDefeat(characterUuid, job, map) : undefined),
+      [onAddDefeat, characterUuid],
+    );
+    const handleRevertLastForChar = useMemo(
+      () => (onRevertLast ? (job: Job, map: CrystalConflictMap) => onRevertLast(characterUuid, job, map) : undefined),
+      [onRevertLast, characterUuid],
+    );
+
+    // モバイルメニュー項目
+    const mobileMenuItems = useMemo<MobileMenuItem[]>(
+      () => [
+        {
+          label: t("character.actions.addJob"),
+          icon: "add",
+          onClick: handleOpenJob,
+        },
+        {
+          label: t("character.actions.editName"),
+          icon: "edit",
+          onClick: handleStartEditClick,
+        },
+        {
+          label: t("character.actions.deleteName"),
+          icon: "delete",
+          onClick: handleDeleteClick,
+        },
+      ],
+      [t, handleOpenJob, handleStartEditClick, handleDeleteClick],
+    );
+
+    return (
+      <StyledCharacterCard>
+        <StyledCharacterHeader onClick={isEditing ? undefined : handleToggle} style={{ cursor: isEditing ? "default" : "pointer" }}>
+          {isEditing ? (
+            <StyledEditForm>
+              <StyledEditInput
+                value={editingName}
+                inputSize="sm"
+                onChange={(e) => onEditingNameChange(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") onSaveEdit();
+                  if (e.key === "Escape") onCancelEdit();
                 }}
-                title={t("character.moveUp")}
+                onClick={(e) => e.stopPropagation()}
+                autoFocus
               />
-              <IconicButton
-                icon={<Icon name="arrowDown" size={16} />}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onSortChange("down");
-                }}
-                title={t("character.moveDown")}
-              />
-              <IconicButton
-                icon={<Icon name="accept" size={16} />}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onSaveEdit();
-                }}
-                title={t("common.save")}
-              />
-              <IconicButton
-                icon={<Icon name="close" size={16} />}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onCancelEdit();
-                }}
-                title={t("common.cancel")}
-              />
-            </StyledCharacterActions>
-          </StyledEditForm>
-        ) : (
-          <>
-            <StyledCharacterName>{stats.character.name}</StyledCharacterName>
-            <StyledCharacterStatsContainer onClick={(e) => e.stopPropagation()}>
-              <span>{t("character.stats.matches", { count: totalMatches })}</span>
-              <span>
-                {t("character.stats.wins", { count: wins })} / {t("character.stats.defeats", { count: defeats })}
-              </span>
-              {0 < totalMatches ? (
-                <StyledWinRate winRate={winRate}>{t("character.stats.winRate", { rate: winRate })}</StyledWinRate>
-              ) : (
-                <span>{t("character.stats.noWinRate")}</span>
-              )}
               <StyledCharacterActions>
-                <StyledDesktopActions>
-                  <IconicButton
-                    icon={<Icon name="add" size={16} />}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onOpenJobRegistration(stats.character.uuid);
-                    }}
-                    title={t("character.actions.addJob")}
-                  />
-                  <IconicButton
-                    icon={<Icon name="edit" size={16} />}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onStartEdit(stats.character.uuid, stats.character.name);
-                    }}
-                    title={t("character.actions.editName")}
-                  />
-                  <IconicButton
-                    icon={<Icon name="delete" size={16} />}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onDelete(stats.character.uuid, stats.character.name);
-                    }}
-                    title={t("character.actions.deleteName")}
-                  />
-                </StyledDesktopActions>
-                <MobileMenu items={mobileMenuItems} triggerTitle={t("character.actions.more")} />
+                <IconicButton
+                  icon={<Icon name="arrowUp" size={16} />}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onSortChange("up");
+                  }}
+                  title={t("character.moveUp")}
+                />
+                <IconicButton
+                  icon={<Icon name="arrowDown" size={16} />}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onSortChange("down");
+                  }}
+                  title={t("character.moveDown")}
+                />
+                <IconicButton
+                  icon={<Icon name="accept" size={16} />}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onSaveEdit();
+                  }}
+                  title={t("common.save")}
+                />
+                <IconicButton
+                  icon={<Icon name="close" size={16} />}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onCancelEdit();
+                  }}
+                  title={t("common.cancel")}
+                />
               </StyledCharacterActions>
-            </StyledCharacterStatsContainer>
-          </>
-        )}
-      </StyledCharacterHeader>
-      <StyledCharacterContent isOpen={isOpen}>
-        <StyledCharacterBody>
-          {stats.usedJobs.length === 0 ? (
-            <StyledEmptyStats>
-              <StyledAddJobButton onClick={() => onOpenJobRegistration(stats.character.uuid)}>{t("match.pleaseRegisterJob")}</StyledAddJobButton>
-            </StyledEmptyStats>
+            </StyledEditForm>
           ) : (
-            <MatchRecordTable
-              usedJobs={stats.usedJobs}
-              matchRecords={stats.recentMatches}
-              onAddWin={onAddWin ? (job, map) => onAddWin(stats.character.uuid, job, map) : undefined}
-              onAddDefeat={onAddDefeat ? (job, map) => onAddDefeat(stats.character.uuid, job, map) : undefined}
-              onRevertLast={onRevertLast ? (job, map) => onRevertLast(stats.character.uuid, job, map) : undefined}
-            />
+            <>
+              <StyledCharacterName>{characterName}</StyledCharacterName>
+              <StyledCharacterStatsContainer onClick={(e) => e.stopPropagation()}>
+                <span>{t("character.stats.matches", { count: totalMatches })}</span>
+                <span>
+                  {t("character.stats.wins", { count: wins })} / {t("character.stats.defeats", { count: defeats })}
+                </span>
+                {0 < totalMatches ? (
+                  <StyledWinRate winRate={winRate}>{t("character.stats.winRate", { rate: winRate })}</StyledWinRate>
+                ) : (
+                  <span>{t("character.stats.noWinRate")}</span>
+                )}
+                <StyledCharacterActions>
+                  <StyledDesktopActions>
+                    <IconicButton
+                      icon={<Icon name="add" size={16} />}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleOpenJob();
+                      }}
+                      title={t("character.actions.addJob")}
+                    />
+                    <IconicButton
+                      icon={<Icon name="edit" size={16} />}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleStartEditClick();
+                      }}
+                      title={t("character.actions.editName")}
+                    />
+                    <IconicButton
+                      icon={<Icon name="delete" size={16} />}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDeleteClick();
+                      }}
+                      title={t("character.actions.deleteName")}
+                    />
+                  </StyledDesktopActions>
+                  <MobileMenu items={mobileMenuItems} triggerTitle={t("character.actions.more")} />
+                </StyledCharacterActions>
+              </StyledCharacterStatsContainer>
+            </>
           )}
-        </StyledCharacterBody>
-      </StyledCharacterContent>
-    </StyledCharacterCard>
-  );
-};
+        </StyledCharacterHeader>
+        <StyledCharacterContent isOpen={isOpen}>
+          <StyledCharacterBody>
+            {stats.usedJobs.length === 0 ? (
+              <StyledEmptyStats>
+                <StyledAddJobButton onClick={handleOpenJob}>{t("match.pleaseRegisterJob")}</StyledAddJobButton>
+              </StyledEmptyStats>
+            ) : (
+              <MatchRecordTable
+                usedJobs={stats.usedJobs}
+                matchRecords={recentMatches}
+                onAddWin={handleAddWinForChar}
+                onAddDefeat={handleAddDefeatForChar}
+                onRevertLast={handleRevertLastForChar}
+              />
+            )}
+          </StyledCharacterBody>
+        </StyledCharacterContent>
+      </StyledCharacterCard>
+    );
+  },
+);
+
+CharacterCard.displayName = "CharacterCard";
