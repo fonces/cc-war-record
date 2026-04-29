@@ -193,59 +193,49 @@ type JobSummaryTableProps = {
 /**
  * ジョブサマリーテーブルコンポーネント
  */
-export const JobSummaryTable = memo(
-  ({ usedJobs, jobSummaries, onAddWin, onAddDefeat, onRevertLast, map }: JobSummaryTableProps) => {
-    const { t } = useTranslation();
-    const isMobile = useIsMobile();
-    const showActions = !!(onAddWin || onAddDefeat || onRevertLast);
+export const JobSummaryTable = memo(({ usedJobs, jobSummaries, onAddWin, onAddDefeat, onRevertLast, map }: JobSummaryTableProps) => {
+  const { t } = useTranslation();
+  const isMobile = useIsMobile();
+  const showActions = !!(onAddWin || onAddDefeat || onRevertLast);
 
-    const sortedJobs = useMemo(() => sortJobs(usedJobs), [usedJobs]);
+  const sortedJobs = useMemo(() => sortJobs(usedJobs), [usedJobs]);
 
-    return (
-      <StyledTableContainer>
-        <StyledTable>
-          <StyledTableHead>
-            <tr>
-              <StyledTableHeader colSpan={isMobile ? 2 : 1}>{t("match.job")}</StyledTableHeader>
-              <StyledTableHeader>{t("match.totalMatches")}</StyledTableHeader>
-              <StyledTableHeader>{t("match.win")}</StyledTableHeader>
-              <StyledTableHeader>{t("match.defeat")}</StyledTableHeader>
-              <StyledTableHeader>{t("match.winRate")}</StyledTableHeader>
-              {<StyledTableHeader>{showActions && map ? t("match.actions") : ""}</StyledTableHeader>}
-            </tr>
-          </StyledTableHead>
-          <StyledTableBody>
-            {usedJobs.length === 0 ? (
-              <StyledTableRow>
-                <StyledTableCell colSpan={showActions ? 6 : 5}>
-                  <StyledEmptyMapState>{t("match.pleaseRegisterJob")}</StyledEmptyMapState>
-                </StyledTableCell>
-              </StyledTableRow>
-            ) : (
-              sortedJobs.map((job) => {
-                const summary = jobSummaries.find((s) => s.job === job) || {
-                  job,
-                  totalMatches: 0,
-                  wins: 0,
-                  defeats: 0,
-                  winRate: 0,
-                };
-                return <JobSummaryRow key={job} summary={summary} map={map} onAddWin={onAddWin} onAddDefeat={onAddDefeat} onRevertLast={onRevertLast} />;
-              })
-            )}
-          </StyledTableBody>
-        </StyledTable>
-      </StyledTableContainer>
-    );
-  },
-  (prevProps, nextProps) => {
-    // usedJobs、jobSummaries、mapの浅い比較
-    return (
-      prevProps.usedJobs.length === nextProps.usedJobs.length &&
-      prevProps.jobSummaries.reduce((acc, s) => acc + (s.totalMatches || 0), 0) === nextProps.jobSummaries.reduce((acc, s) => acc + (s.totalMatches || 0), 0) &&
-      prevProps.map === nextProps.map
-    );
-  },
-);
+  return (
+    <StyledTableContainer>
+      <StyledTable>
+        <StyledTableHead>
+          <tr>
+            <StyledTableHeader colSpan={isMobile ? 2 : 1}>{t("match.job")}</StyledTableHeader>
+            <StyledTableHeader>{t("match.totalMatches")}</StyledTableHeader>
+            <StyledTableHeader>{t("match.win")}</StyledTableHeader>
+            <StyledTableHeader>{t("match.defeat")}</StyledTableHeader>
+            <StyledTableHeader>{t("match.winRate")}</StyledTableHeader>
+            {<StyledTableHeader>{showActions && map ? t("match.actions") : ""}</StyledTableHeader>}
+          </tr>
+        </StyledTableHead>
+        <StyledTableBody>
+          {usedJobs.length === 0 ? (
+            <StyledTableRow>
+              <StyledTableCell colSpan={showActions ? 6 : 5}>
+                <StyledEmptyMapState>{t("match.pleaseRegisterJob")}</StyledEmptyMapState>
+              </StyledTableCell>
+            </StyledTableRow>
+          ) : (
+            sortedJobs.map((job) => {
+              const summary = jobSummaries.find((s) => s.job === job) || {
+                job,
+                totalMatches: 0,
+                wins: 0,
+                defeats: 0,
+                winRate: 0,
+              };
+              return <JobSummaryRow key={job} summary={summary} map={map} onAddWin={onAddWin} onAddDefeat={onAddDefeat} onRevertLast={onRevertLast} />;
+            })
+          )}
+        </StyledTableBody>
+      </StyledTable>
+    </StyledTableContainer>
+  );
+});
 
 JobSummaryTable.displayName = "JobSummaryTable";

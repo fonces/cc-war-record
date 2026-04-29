@@ -87,5 +87,5 @@ export const ROLE_ORDER: Role[] = [ROLES.TANK, ROLES.HEALER, ROLES.MELEE_DPS, RO
  */
 export const sortJobs = (jobs: Job[]): Job[] => {
   const order = Object.values(JOBS);
-  return jobs.sort((a, b) => order.indexOf(a) - order.indexOf(b));
+  return [...jobs].sort((a, b) => order.indexOf(a) - order.indexOf(b));
 };

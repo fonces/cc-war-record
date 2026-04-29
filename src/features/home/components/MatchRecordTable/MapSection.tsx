@@ -160,7 +160,7 @@ type MapSectionProps = {
   isCurrentMap?: boolean;
   isNextMap?: boolean;
   isOpen: boolean;
-  onToggle: (map: CrystalConflictMap) => void | (() => void);
+  onToggle: (map?: CrystalConflictMap) => void;
   usedJobs: Job[];
   jobSummaries: JobSummary[];
   onAddWin?: (job: Job, map: CrystalConflictMap) => void;
@@ -197,7 +197,7 @@ export const MapSection = memo(
 
     return (
       <StyledMapSection>
-        <StyledMapTitleWrapper onClick={() => onToggle(map!)} isCurrentMap={isCurrentMap}>
+        <StyledMapTitleWrapper onClick={() => onToggle(map)} isCurrentMap={isCurrentMap}>
           <StyledMapTitleLeft>
             <StyledArrowWrapper isOpen={isOpen}>
               <Icon name="arrowDropDown" size={20} />
@@ -232,18 +232,6 @@ export const MapSection = memo(
           <JobSummaryTable usedJobs={usedJobs} jobSummaries={jobSummaries} onAddWin={onAddWin} onAddDefeat={onAddDefeat} onRevertLast={onRevertLast} map={map} />
         </StyledMapContent>
       </StyledMapSection>
-    );
-  },
-  (prevProps, nextProps) => {
-    // totalMatchesが変更されていない場合は再レンダリングしない
-    return (
-      prevProps.title === nextProps.title &&
-      prevProps.totalMatches === nextProps.totalMatches &&
-      prevProps.usedJobs.length === nextProps.usedJobs.length &&
-      prevProps.isCurrentMap === nextProps.isCurrentMap &&
-      prevProps.isNextMap === nextProps.isNextMap &&
-      prevProps.isOpen === nextProps.isOpen &&
-      prevProps.onToggle === nextProps.onToggle
     );
   },
 );

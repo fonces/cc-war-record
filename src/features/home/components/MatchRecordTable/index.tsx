@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { memo, useCallback, useMemo, useState } from "react";
 import styled from "styled-components";
 import { calculateMapJobSummaries, calculateTotalSummary } from "@/features/home/utils/calculate";
 import { useTranslation, useMapRotation } from "@/hooks";
@@ -33,21 +33,26 @@ type MatchRecordTableProps = {
 /**
  * 戦績記録テーブルコンポーネント（マップごとのジョブサマリー表示）
  */
-export const MatchRecordTable = ({ usedJobs, matchRecords, onAddWin, onAddDefeat, onRevertLast }: MatchRecordTableProps) => {
+export const MatchRecordTable = memo(({ usedJobs, matchRecords, onAddWin, onAddDefeat, onRevertLast }: MatchRecordTableProps) => {
   const { t } = useTranslation();
 
   // 現在開催中のマップと次に開催されるマップをリアルタイムで取得
   const { currentMap, nextMap } = useMapRotation();
 
-  // マップごとのジョブサマリーを計算
-  const mapJobSummaries = calculateMapJobSummaries(matchRecords);
+  // マップごとのジョブサマリーを計算（matchRecords変更時のみ）
+  const mapJobSummaries = useMemo(() => calculateMapJobSummaries(matchRecords), [matchRecords]);
 
-  // 全ステージの合計を計算
-  const totalSummaries = calculateTotalSummary(matchRecords, usedJobs);
-  const totalMatches = matchRecords.length;
-  const totalWins = matchRecords.filter((r) => r.isWin).length;
-  const totalDefeats = totalMatches - totalWins;
-  const totalWinRate = totalMatches > 0 ? Math.round((totalWins / totalMatches) * 100) : 0;
+  // 全ステージの合計を計算（matchRecords/usedJobs変更時のみ）
+  const totalSummaries = useMemo(() => calculateTotalSummary(matchRecords, usedJobs), [matchRecords, usedJobs]);
+
+  // 全ステージ合計の集計
+  const { totalMatches, totalWins, totalDefeats, totalWinRate } = useMemo(() => {
+    const total = matchRecords.length;
+    const wins = matchRecords.filter((r) => r.isWin).length;
+    const defeats = total - wins;
+    const winRate = total > 0 ? Math.round((wins / total) * 100) : 0;
+    return { totalMatches: total, totalWins: wins, totalDefeats: defeats, totalWinRate: winRate };
+  }, [matchRecords]);
 
   // 開閉状態を管理（デフォルトは現在のマップのみ開く）
   const [openMaps, setOpenMaps] = useState<Set<CrystalConflictMap>>(() => new Set([currentMap]));
@@ -56,18 +61,23 @@ export const MatchRecordTable = ({ usedJobs, matchRecords, onAddWin, onAddDefeat
   const [isTotalOpen, setIsTotalOpen] = useState(false);
 
   // マップの開閉をトグル
-  const toggleMap = useCallback(
-    (map: CrystalConflictMap) => {
-      const newOpenMaps = new Set(openMaps);
-      if (newOpenMaps.has(map)) {
-        newOpenMaps.delete(map);
+  const toggleMap = useCallback((map?: CrystalConflictMap) => {
+    if (!map) return;
+    setOpenMaps((prev) => {
+      const next = new Set(prev);
+      if (next.has(map)) {
+        next.delete(map);
       } else {
-        newOpenMaps.add(map);
+        next.add(map);
       }
-      setOpenMaps(newOpenMaps);
-    },
-    [openMaps],
-  );
+      return next;
+    });
+  }, []);
+
+  // 全ステージ合計の開閉トグル
+  const toggleTotal = useCallback(() => {
+    setIsTotalOpen((prev) => !prev);
+  }, []);
 
   return (
     <StyledMapTablesContainer>
@@ -104,10 +114,12 @@ export const MatchRecordTable = ({ usedJobs, matchRecords, onAddWin, onAddDefeat
         totalDefeats={totalDefeats}
         winRate={totalWinRate}
         isOpen={isTotalOpen}
-        onToggle={() => setIsTotalOpen(!isTotalOpen)}
+        onToggle={toggleTotal}
         usedJobs={usedJobs}
         jobSummaries={totalSummaries}
       />
     </StyledMapTablesContainer>
   );
-};
+});
+
+MatchRecordTable.displayName = "MatchRecordTable";
